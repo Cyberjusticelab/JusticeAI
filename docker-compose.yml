@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  ml_service:
+    build: ./src/ml_service
+    ports:
+      - 3001:3001
+  nlp_service:
+    build: ./src/nlp_service
+    ports:
+      - 3002:3002
+  web_app:
+    build: ./src/web_app
+    ports:
+      - 3000:3000
