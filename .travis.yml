@@ -1,0 +1,11 @@
+language: python
+python:
+- 3.6
+- nightly
+install: true
+script:
+- BRANCH=$(echo $TRAVIS_BRANCH | egrep  "^([0-9]+/|master)"); if [ ! $BRANCH ]; then exit 1; fi;
+- COMMIT=$(echo $TRAVIS_COMMIT_MESSAGE | egrep "^(\[#[0-9]+\]|Merge)"); if [ ! $COMMIT ]; then exit 1; fi;
+notifications:
+  slack:
+    secure: b+KgT/jROJyUBWVmXx97seP57NqK30uiqp/ZzxxsR9CvgDJFvKQtXVAtLxx3ivqUW+1/0nEyLhj3g+BEy3UOEwqnfj7X3f2LH68AdlQGPqJEUVEtieLmbJ69YSf3+UagXKRTInSmTvx+o67R+pgfrva9PvaJDIohhC2qrqfm21w15NkK5PTzwkdtPKyJBy8lCsh6Zka1iED73dtfdWidOB0tmkPmqCywz+ng/m7j9FhvCcDG9d27FbXkPno0yYL8CdhOXB6CiLzWkH6/WpX/Ay8UqEkX1HD9W2N4RWvbTbd8ZP6sBoguZ7YMDQ2GGKDox7zWxkzwXCU02e3+rvwRzLsOzrtWtdBhlGgWghT7Qgsf2VRAA+1yYuQycDISDF1K6R+N7r2BJ/2qFM0ViBiSVHzETv+Dt+3zsvUnD3Bs+dAg4DHFk8OhmKSRopOZC5W1DQ0/dCo6cP724sgeRrl4etUrdhXQObwvfotrva6tXHU78AsjltzEg1Q00dV9B6eWLH6QTfWGUmrlM46PycoFfUyx1U6wEzRNlXKUr7sUPr7HQkThp9hqIhNLj+y5aOLqpyeFGX+uM9mDYBKt1Mu0FCautF24Joo1UlFEqxtQZIqpiVwSGontSN2Ye8Ebl+effJjlgs+pUaf/IxCso+fBverf1E9qO5RKhn5D6o+erxM=
