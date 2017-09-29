@@ -23,9 +23,9 @@ export default {
   name: 'welcome',
   data () {
     return {
-      msg: 'Welcome to JusticeAI! To get started, please tell us what you’d like to do.',
+      msg: 'Welcome to proceZeus! To get started, please tell us what you’d like to do.',
       startChat: false,
-      aiMsg: 'Hello, I am JusticeAI. Please let me take a look at your case.'
+      aiMsg: 'Hello, I am proceZeus. Please let me take a look at your case.'
     }
   },
   methods: {
