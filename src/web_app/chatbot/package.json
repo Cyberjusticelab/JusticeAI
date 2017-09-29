@@ -1,9 +1,8 @@
 {
-  "name": "justiceai",
+  "name": "proceZeus",
   "version": "1.0.0",
   "description": "Cyberjustice Laboratory Legal Chatbot",
   "author": "CYberjustice Laboratory",
-  "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
