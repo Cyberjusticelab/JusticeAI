@@ -1,27 +1,49 @@
-# justiceai
+# ProceZeus
 
-> Cyberjustice Laboratory Legal Chatbot
+## Building the Web Client Docker Image
 
-## Build Setup
+Before running any command, the Docker image for the web client must first be built.
 
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run all tests
-npm test
+```bash
+docker build -t web_app .
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## Running and Testing
+
+### Run the Web Client
+
+```bash
+docker run -t --rm -p 127.0.0.1:3039:3039 web_app
+```
+
+### Run Unit Tests
+```bash
+docker run -t --rm -p 127.0.0.1:3039:3039 web_app bash -c "npm run test"
+```
+
+### Run Linting
+```bash
+docker run -t --rm -p 127.0.0.1:3039:3039 web_app bash -c "npm run lint"
+```
+
+## Technologies
+
+The following technologies are in use in this service:
+
+### Bootstrap
+
+[Bootstrap](https://getbootstrap.com) is an open source front end framework developed by Twitter. It contains styling for various common web components, such as forms and inputs, as well as providing a convenient grid system that greatly facilitates web page styling and layout.
+- Alternatives: Foundation Framework, pure.css, skeleton
+- Reason Chosen:
+  - Team member’s past experiences
+  - Industry standard
+
+### Vue.js
+
+(Vue.js)[https://vuejs.org/] is an open source front end framework for building single page applications. It leverages component based architecture that allows for the creation of an interactive website. Its primary purpose will be to power the visible portion of the chatbot, displaying messages, sending messages to the server, and prompting the user for various interactions such as answering questions or providing files to use as evidence.
+- Alternatives: AngularJS, Angular 4, ReactJs
+- Reason Chosen:
+  - Low learning curve
+  - High performance
+  - Small footprint and minimal API
+
