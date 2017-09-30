@@ -2,7 +2,10 @@ FROM node:latest
 
 WORKDIR /usr/src/app
 
-COPY . .
+RUN apt-get install git -y
+
+COPY .codecov.yml .
+COPY src/web_app .
 
 RUN npm install
 

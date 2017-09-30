@@ -1,0 +1,38 @@
+codecov:
+  branch: master
+  notify:
+    require_ci_to_pass: yes
+    slack:
+      default:
+        url: "https://hooks.slack.com/services/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"
+        threshold: 1%
+        only_pulls: false
+        branches: null
+        flags: null
+        paths: null
+
+coverage:
+  precision: 2
+  round: down
+  range: "50...80"
+
+  status:
+    project: yes
+    patch: yes
+    changes: no
+
+parsers:
+  gcov:
+    branch_detection:
+      conditional: yes
+      loop: yes
+      method: no
+      macro: no
+  javascript:
+    enable_partials: yes
+
+comment:
+  layout: "reach, diff, flags, files, footer"
+  behavior: default
+  require_changes: no
+

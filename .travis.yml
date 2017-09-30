@@ -5,14 +5,15 @@ python:
   - nightly
 services:
   - docker
-
+env:
+  - CI_ENV=`bash <(curl -s https://codecov.io/env)`
 install:
-  - cd src/web_app && docker build -t web_app .
+  - docker build -f src/web_app/Dockerfile -t web_app .
 script:
   - BRANCH=$(echo $TRAVIS_BRANCH | egrep  "^([0-9]+/|master)"); if [ ! $BRANCH ]; then exit 1; fi;
   - COMMIT=$(echo $TRAVIS_COMMIT_MESSAGE | egrep "^(\[#[0-9]+\]|Merge)"); if [ ! $COMMIT ]; then exit 1; fi;
   - docker run -t --rm web_app bash -c "npm run lint"
-  - docker run -t --rm web_app bash -c "npm run test"
+  - docker run $CI_ENV -t --rm web_app bash -c "npm run test && bash <(curl -s https://codecov.io/bash)"
 
 notifications:
   slack:
