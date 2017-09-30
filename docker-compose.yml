@@ -12,4 +12,4 @@ services:
   web_app:
     build: ./src/web_app
     ports:
-      - 3000:3000
+      - 3039:3039
