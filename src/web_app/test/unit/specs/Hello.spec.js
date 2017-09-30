@@ -95,8 +95,4 @@ describe('Hello.vue', () => {
     expect(vm.botMessageLog.length).to.equal(0)
     expect(vm.userMessageLog.length).to.equal(0)
   })
-
-
 })
-
-
