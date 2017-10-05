@@ -1,0 +1,108 @@
+#!/usr/bin/env bash
+
+SRC_DIR=src/
+
+case "$1" in
+
+  "web_client")
+
+    SERVICE=web_client
+    function docker_build {
+      cd  $SRC_DIR$SERVICE && \
+      docker build -t $SERVICE . && \
+      cd ../..
+    }
+    function docker_kill_service {
+      CONTAINER_ID=`docker ps | grep $SERVICE | cut -d " " -f1`
+      if [[ ! -z $CONTAINER_ID ]]; then
+         docker kill $CONTAINER_ID > /dev/null 2>&1
+      fi;
+    }
+
+    case "$2" in
+      "dev")
+        echo "  >>> Running $SERVICE development server <<<"
+        echo ""
+        docker_kill_service
+        docker_build && \
+        docker run -t --rm -p 127.0.0.1:3039:3039 $SERVICE
+        ;;
+
+      "test")
+        echo "  >>> Running all $SERVICE tests <<<"
+        echo ""
+        docker_kill_service
+        docker_build && \
+        docker run -t --rm -p 127.0.0.1:3039:3039 $SERVICE bash -c "npm run test"
+        ;;
+
+      "test_ci")
+        echo "  >>> Running all $SERVICE tests in CI <<<"
+        echo ""
+        docker_kill_service
+        docker_build && \
+        docker run $CI_ENV -t --rm -p 127.0.0.1:3039:3039 $SERVICE bash -c "npm run test && bash <(curl -s https://codecov.io/bash)"
+        ;;
+
+      "lint")
+        echo "  >>> Running all $SERVICE lints <<<"
+        echo ""
+        docker_kill_service
+        docker_build && \
+        docker run -t --rm -p 127.0.0.1:3039:3039 $SERVICE bash -c "npm run lint"
+        ;;
+
+      *)
+        echo "Usage:"
+        echo "    cjl $SERVICE dev        Runs development HTTP server with hot reloading."
+        echo "    cjl $SERVICE test       Runs all unit tests."
+        echo "    cjl $SERVICE test_ci    Runs all unit tests and upload coverage to CodeCov."
+        echo "    cjl $SERVICE lint       Runs all lints."
+        echo "    cjl $SERVICE help       Shows this help message for all web client commands."
+
+    esac
+    ;; # web_client
+
+  "clean")
+
+    echo "WARNING: This command is destructive. It removes all containers, images and volumes installed on your local machine."
+    read -r -p "Are you SURE you want to continue? [y/N]" clean_confirmation
+    if [[ $clean_confirmation =~ ^(y|Y)$ ]]; then
+
+      echo "  >>> Killing all docker containers <<<"
+      echo ""
+      docker ps -qa | xargs docker kill
+      echo ""
+
+      echo "  >>> Removing all stopped containers <<<"
+      echo ""
+      docker ps -qa | xargs docker rm -v
+      echo ""
+
+      echo "  >>> Removing all images <<<"
+      echo ""
+      docker images -qa | xargs docker rmi
+      echo ""
+
+      echo "  >>> Removing all volumes <<<"
+      echo ""
+      docker volume ls -qf dangling=true | xargs docker volume rm
+      echo ""
+
+    else
+      echo "Clean aborted."
+    fi;
+
+    ;; # clean
+
+  *)
+    echo "cjl - a master script"
+    echo ""
+    echo "Usage:"
+    echo ""
+    echo "    cjl web_client [COMMAND]        Shows help message for all web client commands."
+    echo "    cjl clean                       Deep clean of all Docker containers and images. Warning: destructive."
+    echo "    cjl help                        Shows this help message."
+
+esac
+
