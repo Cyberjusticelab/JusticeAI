@@ -11,12 +11,12 @@ app = Flask(__name__)
 
 @app.route("/introduction", methods=['POST'])
 def introduction():
-    introduction_json = request.get_json()
-    introduction = IntroductionInput(introduction_json['conversation_id'],
-                                     introduction_json['name'],
-                                     introduction_json['person'])
-    output = IntroductionParser.classify(introduction)
-    return jsonify(output.__dict__)
+  introduction_json = request.get_json()
+  introduction = IntroductionInput(introduction_json['conversation_id'],
+                                   introduction_json['name'],
+                                   introduction_json['person'])
+  output = IntroductionParser.classify(introduction)
+  return jsonify(output.__dict__)
 
 
 @app.route("/yesno", methods=['POST'])
