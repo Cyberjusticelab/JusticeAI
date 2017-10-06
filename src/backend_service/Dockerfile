@@ -7,6 +7,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-ENV FLASK_APP=app.py
+ENV FLASK_APP=api
 EXPOSE 3003
 CMD [ "python", "-m", "flask", "run", "--host=0.0.0.0", "-p 3003" ]
