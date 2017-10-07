@@ -13,7 +13,7 @@ services:
     build: ./src/backend_service
     ports:
       - 3003:3003
-  web_app:
-    build: ./src/web_app
+  web_client:
+    build: ./src/web_client
     ports:
       - 3039:3039
