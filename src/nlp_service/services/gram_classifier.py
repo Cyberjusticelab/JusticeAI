@@ -1,57 +1,53 @@
 # -*- coding: utf-8 -*-
 from textblob import TextBlob
+from nltk.corpus import stopwords
 import nltk
 import random
+import time
 
-class TenantLandlordClassifier(object):
-    trainingData = [
-        ('I am a tenant', 'tenant'),
-        ('I am a payer', 'tenant'),
-        ('I am a lodger', 'tenant'),
-        ('I am a leaseholder', 'tenant'),
-        ('tenant', 'tenant'),
-        ('payer', 'tenant'),
-        ('lodger', 'tenant'),
-        ('leaseholder', 'tenant'),
-        ('I am the tenant', 'tenant'),
-        ('I am the payer', 'tenant'),
-        ('I am the lodger', 'tenant'),
-        ('I am the leaseholder', 'tenant'),
-        ('I am a landlord', 'landlord'),
-        ('I am a landlady', 'landlord'),
-        ('landlord', 'landlord'),
-        ('landlady', 'landlord'),
-        ('I am a landowner', 'landlord'),
-        ('I am a landlord', 'landlord'),
-    ]
-    random.shuffle(trainingData)
-    vocab = set()
+class GramClassifier(object):
+    stopWords = set(stopwords.words('english'))
+    stopWords.remove('not')
+    stopWords.add('<START>')
+    stopWords.add('<END>')
 
-    """docstring for TenantLandlordClassifier"""
-    def __init__(self):
+    """docstring for GramClassifier"""
+    def __init__(self, inputFiles):
+        print('==== Creating ' + self.__class__.__name__ + ' ====')
+        startTime = time.time()
+        self.loadData(inputFiles)
+        random.shuffle(self.trainingData)
+        self.vocab = set()
         self.train()
+        elapsed = int(time.time() - startTime)
+        print('==== Completed ' + self.__class__.__name__ + ' creation. Took ' + str(elapsed) + ' seconds ====')
+        print(str())
+
+    def loadData(self, inputFiles):
+        self.trainingData = []
+        for inp in inputFiles:
+            f = open('data/' + inp + '.extended.txt')
+            inputSet = set([l.strip('\n') for l in f.readlines()])
+            inputTuples = []
+            for inputString in inputSet:
+                inputTuples.append((inputString, inp))
+            self.trainingData.extend(inputTuples)
 
     # Turns an N-gram or list of N-grams
     # into its vector representation
     def vectorize(self, elems):
-        trainingElem = dict.fromkeys(TenantLandlordClassifier.vocab, False)
-        print('-----------')
-        print(elems)
-        self.print_vector(trainingElem)
+        trainingElem = dict.fromkeys(self.vocab, False)
         if isinstance(elems, tuple):
-            if elems in TenantLandlordClassifier.vocab:
+            if elems in self.vocab:
                 trainingElem[elems] = True
             else:
                 trainingElem['UNKOWN'] = True
         else:
             for elem in elems:
-                print(elem)
-                if elem in TenantLandlordClassifier.vocab:
+                if elem in self.vocab:
                     trainingElem[elem] = True
                 else:
                     trainingElem['UNKOWN'] = True
-        self.print_vector(trainingElem)
-        print('===========')
         return trainingElem
 
     # Prints a vector. Useful for debugging.
@@ -72,8 +68,7 @@ class TenantLandlordClassifier(object):
     def createVocabulary(self):
         for elem in self.trainingData:
             for grams in self.stemAndTrigramify(elem[0]):
-                print(grams)
-                TenantLandlordClassifier.vocab.add(grams)
+                self.vocab.add(grams)
 
     # An intermediat preprocessing step. Stemms each word
     # And splits them into trigrams
@@ -84,12 +79,15 @@ class TenantLandlordClassifier(object):
         newWordList.append('<START>')
         newWordList.extend(words.stem())
         newWordList.append('<END>')
-        return nltk.trigrams(newWordList)
+        grams = [gram for gram in nltk.trigrams(newWordList) if len(set(gram) - self.stopWords) > 0]
+        grams.extend([gram for gram in nltk.bigrams(newWordList) if len(set(gram) - self.stopWords) > 0 ])
+        grams.extend([word for word in words.stem() if word not in self.stopWords])
+        return grams
 
     # Preprocesses the input training data
     def preprocessTrainingData(self):
         trainingList = []
-        for elem in TenantLandlordClassifier.trainingData:
+        for elem in self.trainingData:
             for gram in self.stemAndTrigramify(elem[0]):
                 data = (self.vectorize(gram), elem[1])
                 trainingList.append(data)
@@ -102,16 +100,3 @@ class TenantLandlordClassifier(object):
         inputList = list(self.stemAndTrigramify(textString))
         vector = self.vectorize(inputList)
         return self.cl.prob_classify(vector)
-
-a = TenantLandlordClassifier()
-testData = [
-    ('I am presently a landlord', 'landlord'),
-    ('I am a tenant', 'tenant'),
-    ('landlord', 'landlord'),
-    ('I am presently a tenant', 'tenant')
-]
-
-for i in testData:
-    result = a.classify(i[0])
-    print(result.__dict__)
-    print(i[0] + ": " + result.max() + " - " + i[1])

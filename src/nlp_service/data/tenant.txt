@@ -1,0 +1,14 @@
+I am a tenant
+I am a payer
+I am a lodger
+I am a leaseholder
+I live in the apartment
+I live in the building
+tenant
+payer
+lodger
+leaseholder
+am the tenant
+am the payer
+am the lodger
+am the leaseholder
