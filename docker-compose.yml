@@ -9,6 +9,10 @@ services:
     build: ./src/nlp_service
     ports:
       - 3002:3002
+  backend_service:
+    build: ./src/backend_service
+    ports:
+      - 3003:3003
   web_client:
     build: ./src/web_client
     ports:
