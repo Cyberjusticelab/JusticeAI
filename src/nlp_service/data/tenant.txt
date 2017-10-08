@@ -1,9 +1,9 @@
-I am a tenant
-I am a payer
-I am a lodger
-I am a leaseholder
-I live in the apartment
-I live in the building
+am a tenant
+am a payer
+am a lodger
+am a leaseholder
+live in the apartment
+live in the building
 tenant
 payer
 lodger

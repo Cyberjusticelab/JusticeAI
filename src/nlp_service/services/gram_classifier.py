@@ -11,7 +11,10 @@ class GramClassifier(object):
     stopWords.add('<START>')
     stopWords.add('<END>')
 
-    """docstring for GramClassifier"""
+    """GramClassifier is a Naive Bayes Classifier
+    which uses a combination of 3-gram, 2-gram and
+    non stopwords in a vector to determine the class
+    of the given input"""
     def __init__(self, inputFiles):
         print('==== Creating ' + self.__class__.__name__ + ' ====')
         startTime = time.time()
@@ -23,6 +26,13 @@ class GramClassifier(object):
         print('==== Completed ' + self.__class__.__name__ + ' creation. Took ' + str(elapsed) + ' seconds ====')
         print(str())
 
+    # Loads data from from the given array
+    # of input class names. e.g.:
+    #
+    # Input: ['class']
+    #
+    # Will load data from data/class.extended.txt and
+    # treate them as examples of the 'class' category
     def loadData(self, inputFiles):
         self.trainingData = []
         for inp in inputFiles:
@@ -59,6 +69,8 @@ class GramClassifier(object):
         output += "}"
         print(output)
 
+    # Creates the vocabulary based on the input files
+    # and trains the classifier.
     def train(self):
         self.createVocabulary()
         cleanData = self.preprocessTrainingData()
@@ -93,10 +105,10 @@ class GramClassifier(object):
                 trainingList.append(data)
         return trainingList
 
-    def preprocessEvaluationString(self, evalString):
-        self.stemAndTrigramify(evalString)
-
+    # Classifies the given text string into
+    # one of the trained catigories. Returns the
+    # highest classification category.
     def classify(self, textString):
         inputList = list(self.stemAndTrigramify(textString))
         vector = self.vectorize(inputList)
-        return self.cl.prob_classify(vector)
+        return self.cl.classify(vector)

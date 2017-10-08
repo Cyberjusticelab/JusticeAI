@@ -1,5 +1,5 @@
 ##
-# Utility used to augment the input set with synonyms.
+# Utility script used to augment the input set with synonyms.
 ##
 
 from nltk.corpus import stopwords
@@ -26,7 +26,6 @@ for inp in inputs:
           if len(commons) > 0:
             for hyponym in commons:
               newSample = sample.replace(i, hyponym.replace("_", " "))
-              # print(newSample)
               expanded.add(newSample)
     samples = expanded.copy()
 
