@@ -1,6 +1,4 @@
 class QuestionInput(object):
-    """docstring for Question"""
-
     def __init__(self, questionID, conversationID, answerString):
         self.questionID = questionID
         self.conversationID = conversationID
@@ -9,8 +7,6 @@ class QuestionInput(object):
 
 
 class QuestionOutput(object):
-    """docstring for Question"""
-
     def __init__(self, questionID, conversationID, facts):
         self.questionID = questionID
         self.conversationID = conversationID
