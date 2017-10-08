@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  ml_service:
+    ports:
+      - 3001:3001
+  nlp_service:
+    ports:
+      - 3002:3002
+  backend_service:
+    ports:
+      - 3003:3003
+  web_client:
+    command: npm start
+    depends_on:
+      - backend_service
+    ports:
+      - 3039:3039
+
