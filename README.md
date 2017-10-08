@@ -32,7 +32,7 @@ In order to shut down all containers:
 ## Running or Testing Specific Services
 
 The following services can run individually or tested against:
-- [Web Client](src/web_app/README.md)
+- [Web Client](src/web_client/README.md)
 
 ## Deployment
 
