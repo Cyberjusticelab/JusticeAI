@@ -1,0 +1,6 @@
+# Testing dependencies
+
+-r requirements.txt
+
+pytest
+pytest-cov
