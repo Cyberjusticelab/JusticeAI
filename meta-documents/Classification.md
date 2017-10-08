@@ -115,7 +115,7 @@ It is absolutely **IMPERATIVE** that every category is covered by (optional in p
 what_is_damaged:list 
 value_of_damages:number in list of list (current value)
 is_fixable: boolean in list of list (scratch on a wall is fixable, microwave is replaceable)
-when_each_damage:dateformat in list of list  
+when_each_damage:datetime in list of list  
 has_picture_before:bool in list of list (if the tenant or landlord has pictures of before the) -- Evidence prompt
 how_was_damaged:string in list of list
 
@@ -152,17 +152,18 @@ is_replacing_me_after_lease:bool
 
 <code><is_landlord_visiting:bool></code>
 is_repairs:bool
+when_visit:datetime
 is_visit_new_tenant:bool
 
 #####Habitability (events related to the habitability of an apartment including repairs)
 
 <code>need_repairs:bool</code>  
-is_repair_scheduled:bool (goes back to state of dwelling )  
+is_repair_scheduled:bool (goes back to state of dwelling) 
 
 <code>is_noisy:bool</code>  
 
 <code>heating:bool</code>  
-since_when_no_heat:dateformat  
+since_when_no_heat:datetime
 
 <code>has_smoking:bool</code>
 which_type:[cannabis, cigarette, other]
@@ -171,19 +172,28 @@ is_in_lease:bool (OCR)
 <code>is_clean:bool</code>  
 
 <code>has_hot_water:bool</code>  
+when_no_hot_water:datetime
 
 <code>has_usable_internet:bool</code> (VERY iffy and hard to classify as this is a new thing to include in a lease)
+when_no_internet:datetime
 
 <code>lock_change:bool</code>
-advise:string  
+advise:boolean
+when_advise:datetime
 
 #####lease_termination (events related to the premature termination of a lease)
 
-lease_term_type:[indeterminate, fixed]  
-has_lease_expired:bool  
-is_tenant_dead:bool  
-is_student:bool  
-is_habitable:bool  
+<code>is_lease_gone:bool</code>
+lease_term_type:[indeterminate, fixed]
+is_lease_expired:bool
+    
+is_tenant_dead:bool
+  
+is_student:bool
+is_still_in_studies:bool
+when_finish:datetime
+
+is_habitable:bool (if false, habitability)    
 
 #####Rent_pay (this will include how to pay and deposits)
 
@@ -196,18 +206,17 @@ rent_in_lease_amount:number
 
 #####Rent_nopay (events related to the lack of payment)
 
-in_default:bool (over one day late paying)
+</code>in_default:bool (over one day late paying) </code>
 over_three_weeks:bool  
-has_abandoned:bool  
+has_abandoned_apartment:bool
 interest_allowed:bool  
 interest_term:number  
 interest_max:number  
-is_rent_advance:bool  
-first_month_rent_paid:bool  
 
 #####Pets (events related to the acquisition or the bringing of non-human companions)
-has_pet:bool  
+<code>has_pet:bool</code>  
 which_pet:[dog, cat, other]
+is_annoying:bool (if yes, go back to habitability and assume anything the dog does is the tenant doing it for assessment)
 
 ##Questions per category with follow-up structure:
 
