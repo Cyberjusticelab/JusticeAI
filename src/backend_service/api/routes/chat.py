@@ -7,7 +7,7 @@ def hello():
     return "Hello World! From the Web Backend Microservice!"
 
 
-@app.route("/newchat", methods=['GET','POST'])
+@app.route("/newchat", methods=['GET', 'POST'])
 def init_session():
     if request.method == 'GET':
         data = {'id': 12345}
