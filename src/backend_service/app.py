@@ -1,5 +1,6 @@
-from api import app
-from flask import request, jsonify
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
 
 
 @app.route("/")
