@@ -89,47 +89,125 @@ Articles outside of 1849-2000 whom are also important: (Updated as we make conta
 
 ##JSON rough draft format of categories:
 
-This does not necessarily reflect the first categorization
+This does not necessarily reflect the first categorization articles but will be the same in principle.
+The parameter of every category needs to be true for the corresponding text to be relevant to this category.
+These categories may become tags as the iteration passes and the full extent of the law regarding La Regie du Logement is understood. 
+The facts under every category will be changed according to the programmers' needs.  
+
+It is absolutely **IMPERATIVE** that every category is covered by (optional in parenthesis):
+
+* Who
+* What
+* When
+* Where
+* How
+* (by who)
+* (how much)
 
 ###Format (fact_key:fact_type - (optional description))
 
-state_of_dwelling (events relating to the damages incurred to a property)
+#####state_of_dwelling (events relating to the damages incurred to a property)
 
-Create_renew_lease (events created to the renewal or the creation of a lease)
 
-Landlord_visit (events including any access of the landlord to the premise (repairs and visitation))
+<code>is_damaged:bool (this starts the making of what is below and the categorization itself)</code>
 
-Habitability (events related to the habitability of an apartment including repairs)
 
-lease_termination (events related to the premature termination of a lease)
+what_is_damaged:list 
+value_of_damages:number in list of list (current value)
+is_fixable: boolean in list of list (scratch on a wall is fixable, microwave is replaceable)
+when_each_damage:dateformat in list of list  
+has_picture_before:bool in list of list (if the tenant or landlord has pictures of before the) -- Evidence prompt
+how_was_damaged:string in list of list
 
-* lease_term_type:[indeterminate, fixed]
-* has_lease_expired:bool
-* is_tenant_dead:bool
-* is_student:bool
-* is_habitable:bool
+i.e. 
 
-Rent_pay (this will include how to pay and deposits)
+| What | Fridge | Microwave |
+| ------:| -----------:| -----------:|
+| Value   | 230  | 90 |
+| Fixable | False | False |
+| When | 2/13/2017 | 2/15/2017  |
+| Proof   | True | False |
+| How | Old | Aluminium in Microwave |
 
-Rent_change (Events related to the change in payment of rent)
 
-* lease_term_type:[indeterminate, fixed]
-* is_rent_in_lease:bool
-* rent_in_lease_amount:number
 
-Rent_nopay (events related to the lack of payment)
+#####Create_renew_lease (events created to the renewal or the creation of a lease)
 
-* in_default:bool (over one day late paying)
-* over_three_weeks:bool
-* has_abandoned:bool
-* interest_allowed:bool
-* interest_term:number
-* interest_max:number
-deposits
-* is_rent_advance:bool
-* first_month_rent_paid:bool
+<code>is_new_lease:bool</code>
+pay_for_what:[mobile home, home, appartment]
 
-Pets (events related to the acquisition or the bringing of non-human companions)
+<code>is_exist_deposit:bool</code>  
+which_deposit:[payInAdvance, safety, key]
+
+<code>is_asking_proof_if_I_can_pay:bool</code>  
+is_ask_for_info:bool (info like SIN, Driver's license, etc.)  
+is_ask_if_i_pay:bool (co-signer questions, etc.)
+
+<code>is_asking_roommates:bool</code>
+max_number_occupants:number
+is_replacing_me_after_lease:bool
+
+
+#####Landlord_visit (events including any access of the landlord to the premise (repairs and visitation))
+
+<code><is_landlord_visiting:bool></code>
+is_repairs:bool
+is_visit_new_tenant:bool
+
+#####Habitability (events related to the habitability of an apartment including repairs)
+
+<code>need_repairs:bool</code>  
+is_repair_scheduled:bool (goes back to state of dwelling )  
+
+<code>is_noisy:bool</code>  
+
+<code>heating:bool</code>  
+since_when_no_heat:dateformat  
+
+<code>has_smoking:bool</code>
+which_type:[cannabis, cigarette, other]
+is_in_lease:bool (OCR)
+
+<code>is_clean:bool</code>  
+
+<code>has_hot_water:bool</code>  
+
+<code>has_usable_internet:bool</code> (VERY iffy and hard to classify as this is a new thing to include in a lease)
+
+<code>lock_change:bool</code>
+advise:string  
+
+#####lease_termination (events related to the premature termination of a lease)
+
+lease_term_type:[indeterminate, fixed]  
+has_lease_expired:bool  
+is_tenant_dead:bool  
+is_student:bool  
+is_habitable:bool  
+
+#####Rent_pay (this will include how to pay and deposits)
+
+
+#####Rent_change (Events related to the change in payment of rent)
+
+lease_term_type:[indeterminate, fixed]  
+is_rent_in_lease:bool  
+rent_in_lease_amount:number  
+
+#####Rent_nopay (events related to the lack of payment)
+
+in_default:bool (over one day late paying)
+over_three_weeks:bool  
+has_abandoned:bool  
+interest_allowed:bool  
+interest_term:number  
+interest_max:number  
+is_rent_advance:bool  
+first_month_rent_paid:bool  
+
+#####Pets (events related to the acquisition or the bringing of non-human companions)
+has_pet:bool  
+which_pet:[dog, cat, other]
 
 ##Questions per category with follow-up structure:
 
