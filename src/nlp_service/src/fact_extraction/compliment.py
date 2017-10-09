@@ -8,7 +8,7 @@ class compliment:
         if self.__word is None:
             self.__word = word
         else:
-            self.__word += " " + word
+            self.__word += ", " + word
 
     def set_quantifier(self, quantifier):
         self.__quantifier = quantifier
@@ -18,5 +18,5 @@ class compliment:
 
     def __str__(self):
         return "COMPLIMENT: " + str(self.__word) + \
-               ", Qualifier: " + str(self.__qualifier) + \
-               ", Quantifier: " + str(self.__quantifier)
+               " | Qualifier: " + str(self.__qualifier) + \
+               " | Quantifier: " + str(self.__quantifier)

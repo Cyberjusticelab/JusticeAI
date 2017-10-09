@@ -7,11 +7,14 @@ class Predicate:
         if self.__word is None:
             self.__word = word
         else:
-            self.__word += " " + word
+            self.__word += ", " + word
+
+    def get_word(self):
+        return self.__word
 
     def add_qualifier(self, qualifier):
         self.__qualifier.append(qualifier)
 
     def __str__(self):
         return "PREDICATE: " + str(self.__word) + \
-               ", Qualifier: " + str(self.__qualifier)
+               " | Qualifier: " + str(self.__qualifier)

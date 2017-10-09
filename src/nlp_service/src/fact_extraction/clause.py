@@ -8,7 +8,7 @@ class Clause:
         if self.__word is None:
             self.__word = word
         else:
-            self.__word += " " + word
+            self.__word += ", " + word
 
     def set_quantifier(self, quantifier):
         self.__quantifier = quantifier
@@ -18,6 +18,6 @@ class Clause:
 
     def __str__(self):
         return "CLAUSE: " + str(self.__word) + \
-               ", Qualifier: " + str(self.__qualifier) + \
-               ", Quantifier: " + str(self.__quantifier)
+               " | Qualifier: " + str(self.__qualifier) + \
+               " | Quantifier: " + str(self.__quantifier)
 
