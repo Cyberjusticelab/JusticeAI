@@ -104,13 +104,13 @@ It is absolutely **IMPERATIVE** that every category is covered by (optional in p
 * (by who)
 * (how much)
 
+
 ### Format (fact_key:fact_type - (optional description))
 
 ##### state_of_dwelling (events relating to the damages incurred to a property)
 
 
 <code>is_damaged:bool (this starts the making of what is below and the categorization itself)</code>
-
 
 what_is_damaged:list 
 value_of_damages:number in list of list (current value)
@@ -153,7 +153,9 @@ is_replacing_me_after_lease:bool
 <code><is_landlord_visiting:bool></code>
 is_repairs:bool
 when_visit:datetime
+
 is_visit_new_tenant:bool
+when_lease_expire:datetime (for indeterminate, visits from the date of notice, for fixed, 3 months in advance, 1 if lease is less than a year)
 
 ##### Habitability (events related to the habitability of an apartment including repairs)
 
@@ -167,7 +169,7 @@ since_when_no_heat:datetime
 
 <code>has_smoking:bool</code>
 which_type:[cannabis, cigarette, other]
-is_in_lease:bool (OCR)
+is_in_lease:bool
 
 <code>is_clean:bool</code>  
 
@@ -184,16 +186,26 @@ when_advise:datetime
 ##### lease_termination (events related to the premature termination of a lease)
 
 <code>is_lease_gone:bool</code>
+
 lease_term_type:[indeterminate, fixed]
-is_lease_expired:bool
-    
-is_tenant_dead:bool
+
+has_notice_equal_rent_pay:bool (for indeterminate, the notice to rupture the lease must be given at the same time interval as rent, except for mobiles, 10 days)
+is_one_party_out:bool (indeterminate leases end when one party exits)
+
+is_lease_expired:bool (fixed leases end when the date on the lease is reached)
+ten_days_since_lease_over:bool (fixed lease is done and 10 days pass without any word, lease is auto-renewed)
+
+is_tenant_dead:bool (lease continues even when one of the parties that signed is dead)
   
 is_student:bool
 is_still_in_studies:bool
-when_finish:datetime
+when_finish_school:datetime (lease can be terminated if the lessee is an individual pursuing studies and ends studies)
 
-is_habitable:bool (if false, habitability)    
+is_habitable:bool (if false, habitability, leasing can be terminated if measures of habitability are broken)
+
+is_expropriating:bool
+
+has_plantations_constructions:bool (either lessor pays, lessee restores or keep it without paying)
 
 ##### Rent_pay (this will include how to pay and deposits)
 
@@ -207,11 +219,13 @@ rent_in_lease_amount:number
 ##### Rent_nopay (events related to the lack of payment)
 
 </code>in_default:bool (over one day late paying) </code>
-over_three_weeks:bool  
+over_three_weeks:bool
 has_abandoned_apartment:bool
 interest_allowed:bool  
 interest_term:number  
-interest_max:number  
+interest_max:number
+
+when_judgment:datetime (lessee can avoid eviction if he pays before final judgment, including interest rates)
 
 ##### Pets (events related to the acquisition or the bringing of non-human companions)
 <code>has_pet:bool</code>  
@@ -219,4 +233,8 @@ which_pet:[dog, cat, other]
 is_annoying:bool (if yes, go back to habitability and assume anything the dog does is the tenant doing it for assessment)
 
 ## Questions per category with follow-up structure:
-
+4 categories explored for iteration 2:
+lease_termination
+rent_change
+nonpayment
+condition_of_dwelling
