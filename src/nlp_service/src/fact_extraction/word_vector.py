@@ -5,7 +5,7 @@ import pickle
 
 class Word_Vectors:
     def __init__(self):
-        self.word_set = r'/home/charmander/glove.42B.300d.txt'
+        pass
 
     def load_glove_model_file(self, file):
         f = open(self.word_set, 'r')

@@ -1,0 +1,33 @@
+{
+  "sentence": "This new laptop computer has already crashed twice.",
+    "answer":
+      [{
+        "clause": [{
+          "word": [
+            {"value": 3}
+          ],
+          "qualifier": [
+            {"value": 1},
+            {"value": 2}
+          ],
+          "quantifier": 0
+        }],
+        "predicate": [{
+          "word": [
+            {"value": 4}
+          ],
+          "qualifier": [
+            {"value": 5}
+          ]
+        }],
+        "compliment": [{
+            "word": [
+              {"value": 6}
+            ],
+          "qualifier": [
+            {"value": 7}
+          ],
+          "quantifier": null
+      }]
+    }]
+  }
