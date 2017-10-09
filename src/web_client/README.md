@@ -2,29 +2,11 @@
 
 ## Building the Web Client Docker Image
 
-Before running any command, the Docker image for the web client must first be built.
-
-```bash
-docker build -t web_app .
-```
+TBD
 
 ## Running and Testing
 
-### Run the Web Client
-
-```bash
-docker run -t --rm -p 127.0.0.1:3039:3039 web_app
-```
-
-### Run Unit Tests
-```bash
-docker run -t --rm -p 127.0.0.1:3039:3039 web_app bash -c "npm run test"
-```
-
-### Run Linting
-```bash
-docker run -t --rm -p 127.0.0.1:3039:3039 web_app bash -c "npm run lint"
-```
+TBD
 
 ## Technologies
 
