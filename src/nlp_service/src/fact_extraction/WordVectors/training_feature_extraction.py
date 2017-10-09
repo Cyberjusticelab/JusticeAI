@@ -1,7 +1,7 @@
 import json
-from pprint import pprint
-from src.fact_extraction import sentence_pipeline
-from src.fact_extraction import clause, predicate, compliment
+
+from src.fact_extraction.FactTree import sentence_pipeline
+from src.fact_extraction.Models import clause, compliment, predicate
 
 pipe = sentence_pipeline.Pipeline()
 

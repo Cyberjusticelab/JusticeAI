@@ -1,9 +1,12 @@
-from scipy import spatial
-from src.fact_extraction import word_vector, sentence_pipeline
-import numpy
 import nltk.tokenize
-from numpy.linalg import norm
+import numpy
 from numpy import dot
+from numpy.linalg import norm
+
+from src.fact_extraction import word_vector
+from src.fact_extraction.FactTree import sentence_pipeline
+from src.fact_extraction.WordVectors import word_vector
+
 
 class PhraseVector:
     def __init__(self):

@@ -1,7 +1,14 @@
-from src.fact_extraction import clause, predicate, compliment
+from src.fact_extraction.Models import clause, compliment, predicate
 
 
-class Logic_Model:
+'''
+LOGIC MODEL
+---------------------------------------------
+Contains clauses, predicates and compliments
+'''
+
+
+class LogicModel:
     def __init__(self):
         self.clause = clause.Clause()
         self.predicate = predicate.Predicate()

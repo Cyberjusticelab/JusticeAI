@@ -1,20 +1,20 @@
-class compliment:
-    def __init__(self):
-        self.__word = None
-        self.__qualifier = []
-        self.__quantifier = None
+from src.fact_extraction.Models import Abstract_Model
 
-    def set_word(self, word):
-        if self.__word is None:
-            self.__word = word
-        else:
-            self.__word += ", " + word
+
+'''
+COMPLIMENT
+---------------------------------------------
+Noun with adjectives
+'''
+
+
+class compliment(Abstract_Model.AbstractModel):
+    def __init__(self):
+        Abstract_Model.AbstractModel.__init__(self)
+        self.__quantifier = None
 
     def set_quantifier(self, quantifier):
         self.__quantifier = quantifier
-
-    def add_qualifier(self, qualifier):
-        self.__qualifier.append(qualifier)
 
     def __str__(self):
         return "COMPLIMENT: " + str(self.__word) + \
