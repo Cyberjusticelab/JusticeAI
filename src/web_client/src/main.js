@@ -1,12 +1,12 @@
 import Vue from 'vue'
-import App from './App'
+import ProceZeus from './ProceZeus'
 import router from './router'
 
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
+  el: '#proceZeus',
   router,
-  render: h => h(App)
+  render: h => h(ProceZeus)
 })

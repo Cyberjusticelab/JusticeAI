@@ -1,12 +1,12 @@
 <template>
-  <div id="app">
+  <div id="proceZeus">
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app'
+  name: 'proceZeus'
 }
 </script>
 
@@ -21,7 +21,7 @@ html, body {
   padding: 0;
 }
 
-#app {
+#proceZeus {
   position: relative;
   min-width: 100%;
   min-height: 100%;
