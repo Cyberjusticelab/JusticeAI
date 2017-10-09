@@ -17,22 +17,22 @@ To install Docker and Docker Compose, you can follow the instructions [here](htt
 
 ## Running the Entire Application Stack
 
-In order to run the entire application with all of it's components, only one command is required:
+We've developed a script to help with running the entire application with all its components. All you need is:
 
 ```
-docker-compose up -d
+./cjl up -d
 ```
 
 In order to shut down all containers:
 
 ```
-docker-compose down
+./cjl down
 ```
 
 ## Running or Testing Specific Services
 
 The following services can run individually or tested against:
-- [Web Client](src/web_app/README.md)
+- [Web Client](src/web_client/README.md)
 
 ## Deployment
 

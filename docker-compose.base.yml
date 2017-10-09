@@ -3,17 +3,13 @@ version: '3'
 services:
   ml_service:
     build: ./src/ml_service
-    ports:
-      - 3001:3001
+    image: procezeus/ml_service
   nlp_service:
     build: ./src/nlp_service
-    ports:
-      - 3002:3002
+    image: procezeus/nlp_service
   backend_service:
     build: ./src/backend_service
-    ports:
-      - 3003:3003
+    image: procezeus/backend_service
   web_client:
     build: ./src/web_client
-    ports:
-      - 3039:3039
+    image: procezeus/web_client
