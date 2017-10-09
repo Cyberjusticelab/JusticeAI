@@ -1,4 +1,4 @@
-#Classification worksheet
+# Classification worksheet
 
 This markdown is used as aid for the classification of the various components regarding the different subjects.
 Main articles explored Chapter 4: **1849-2000**
@@ -19,32 +19,32 @@ Articles outside of 1849-2000 whom are also important: (Updated as we make conta
 2. 
 3. 
 
-##Classification
+## Classification
 
-###State of dwelling:
+### State of dwelling:
 * Regular Damages to the infrastructure (fire, denting, scratching)
 * Damages to the leased furniture
 * Electric, Plumbing damages (to be repaired by the landlord if can’t prove it’s the tenants’ fault)
 
 
-###Deposits (All Illegal yet still exploited - Landlords are pushing for the law to change)
+### Deposits (All Illegal yet still exploited - Landlords are pushing for the law to change)
 * Key or security deposit
 * “Month rent in advance” (Landlord is allowed to rent for a portion of the 1st month rent - Article 1904)
 
-###Lack of payment:
+### Lack of payment:
 * Being in default after day 1
 * Charging interest rates on the delayed payment
 * Being at risk of expulsion after 3 weeks
 * Finding an old tenant 2 years after the lease was not paid after he left (3 year rule)
 * Payment after 3 weeks or after the decision is upheld of eviction (tenant can stay if he pays)
 
-###Breaking the lease
+### Breaking the lease
 * Leaving before termination of the lease
 * Replacing the lessee with other lessee (as tenant or landlord)
 * Who pays rent if one lesse leaves in a collocation (do tenants endorse the rest?)
 * Individuals breaking the lease when the individual itself is done pursuing studies (special permission for students)
 
-###Renewal and creation of lease
+### Renewal and creation of lease
 * Limitation on the number of occupants (very vague)
 * Information landlord can request (No SIN, Driver’s license, passport, health card, allowed credit check) - Not a lease law but a privacy issue
 * Regulation around co-signer for students that cannot prove good paying habits
@@ -54,15 +54,15 @@ Articles outside of 1849-2000 whom are also important: (Updated as we make conta
 * Regulations with landlord living with the tenant in the same dwelling
 * Regulations of lease of a terrain in respects to a mobile home
 
-###Regulation of landlord visiting
+### Regulation of landlord visiting
 * Regulations of placing visits for the appartment for new tenants
 * Agreements of landlord’s access to the apartment
 
-###Repairs
+### Repairs
 * Regulations on repairs by tenant (if he wants to do it himself, if landlord is not doing it and how to bill the landlord back later)
 * Hours of repairs and protocols of interactions with tenants for landlord to be doing the repairs of the apartment
 
-###Habitability
+### Habitability
 * Regulations of heating of the apartment
 * Regulations regarding noise pollution
 * Regulations on cleanliness of the apartment
@@ -71,12 +71,12 @@ Articles outside of 1849-2000 whom are also important: (Updated as we make conta
 * Regulations around hot water
 * Regulations around internet providers as a service (measures)
 
-###Pets
+### Pets
 * Dogs and Cats
 * Others (different for birds, fishes, etc.)
 
 
-##Sources:
+## Sources:
 [Outils de calcul de fixation de loyer](https://www.rdl.gouv.qc.ca/).  
 [Code Civil du Quebec](http://legisquebec.gouv.qc.ca/fr/ShowDoc/cs/CCQ-1991). 
 [Civil Code of Quebec](http://legisquebec.gouv.qc.ca/en/showdoc/cs/CCQ-1991).  
@@ -87,7 +87,7 @@ Articles outside of 1849-2000 whom are also important: (Updated as we make conta
 [Quick facts from CSU](https://csu.qc.ca/hojo/basic-facts-about-renting-quebec-english-and-mandarin-pdf).  
 [Privacy issue SIN/Driver's license, etc.](https://www.rdl.gouv.qc.ca/en/signing-a-lease/the-lease-and-protection-of-personal-information).  
 
-##JSON rough draft format of categories:
+## JSON rough draft format of categories:
 
 This does not necessarily reflect the first categorization articles but will be the same in principle.
 The parameter of every category needs to be true for the corresponding text to be relevant to this category.
@@ -104,9 +104,9 @@ It is absolutely **IMPERATIVE** that every category is covered by (optional in p
 * (by who)
 * (how much)
 
-###Format (fact_key:fact_type - (optional description))
+### Format (fact_key:fact_type - (optional description))
 
-#####state_of_dwelling (events relating to the damages incurred to a property)
+##### state_of_dwelling (events relating to the damages incurred to a property)
 
 
 <code>is_damaged:bool (this starts the making of what is below and the categorization itself)</code>
@@ -131,10 +131,10 @@ i.e.
 
 
 
-#####Create_renew_lease (events created to the renewal or the creation of a lease)
+##### Create_renew_lease (events created to the renewal or the creation of a lease)
 
 <code>is_new_lease:bool</code>
-pay_for_what:[mobile home, home, appartment]
+pay_for_what:[mobile home, home, apartment]
 
 <code>is_exist_deposit:bool</code>  
 which_deposit:[payInAdvance, safety, key]
@@ -148,14 +148,14 @@ max_number_occupants:number
 is_replacing_me_after_lease:bool
 
 
-#####Landlord_visit (events including any access of the landlord to the premise (repairs and visitation))
+##### Landlord_visit (events including any access of the landlord to the premise (repairs and visitation))
 
 <code><is_landlord_visiting:bool></code>
 is_repairs:bool
 when_visit:datetime
 is_visit_new_tenant:bool
 
-#####Habitability (events related to the habitability of an apartment including repairs)
+##### Habitability (events related to the habitability of an apartment including repairs)
 
 <code>need_repairs:bool</code>  
 is_repair_scheduled:bool (goes back to state of dwelling) 
@@ -181,7 +181,7 @@ when_no_internet:datetime
 advise:boolean
 when_advise:datetime
 
-#####lease_termination (events related to the premature termination of a lease)
+##### lease_termination (events related to the premature termination of a lease)
 
 <code>is_lease_gone:bool</code>
 lease_term_type:[indeterminate, fixed]
@@ -195,16 +195,16 @@ when_finish:datetime
 
 is_habitable:bool (if false, habitability)    
 
-#####Rent_pay (this will include how to pay and deposits)
+##### Rent_pay (this will include how to pay and deposits)
 
 
-#####Rent_change (Events related to the change in payment of rent)
+##### Rent_change (Events related to the change in payment of rent)
 
 lease_term_type:[indeterminate, fixed]  
 is_rent_in_lease:bool  
 rent_in_lease_amount:number  
 
-#####Rent_nopay (events related to the lack of payment)
+##### Rent_nopay (events related to the lack of payment)
 
 </code>in_default:bool (over one day late paying) </code>
 over_three_weeks:bool  
@@ -213,10 +213,10 @@ interest_allowed:bool
 interest_term:number  
 interest_max:number  
 
-#####Pets (events related to the acquisition or the bringing of non-human companions)
+##### Pets (events related to the acquisition or the bringing of non-human companions)
 <code>has_pet:bool</code>  
 which_pet:[dog, cat, other]
 is_annoying:bool (if yes, go back to habitability and assume anything the dog does is the tenant doing it for assessment)
 
-##Questions per category with follow-up structure:
+## Questions per category with follow-up structure:
 
