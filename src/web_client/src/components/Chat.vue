@@ -32,6 +32,7 @@ export default {
   },
   methods: {
     sendUserMessage: function() {
+      // TODO: request to APIs to send the message first, then do callback to push the object
       this.chatLog.push({
         type: 'user',
         text: this.currentUserInput
@@ -42,27 +43,30 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 #chat-widow {
   height: 800px;
-  border: 1px solid black;
+  border: 1px solid #000000;
   overflow-y: scroll;
 }
-.chat-message-user {
+.chat-message {
   height: 20px;
-  text-align: right;
   margin: 0px 20px 0px 20px;
+}
+.chat-message-user {
+  @extend .chat-message;
+  text-align: right;
+
 }
 .chat-message-zeus {
-  height: 20px;
+  @extend .chat-message;
   text-align: left;
-  margin: 0px 20px 0px 20px;
-}
-.chat-message-zeus img {
-  width: 20px;
-  display: inline-block;
-}
-.chat-message-zeus p {
-  display: inline-block;
+  img {
+    width: 20px;
+    display: inline-block;
+  }
+  p {
+    display: inline-block;
+  }
 }
 </style>
