@@ -21,14 +21,16 @@
 export default {
   data () {
     return {
-      chatLog: [
-        {
-          type: 'zeus',
-          text: 'HI!'
-        }
-      ],
-      currentUserInput: ''
+      chatLog: new Array,
+      currentUserInput: new String
     }
+  },
+  created: function() {
+    //TODO: init session
+    this.chatLog.push({
+      type: 'zeus',
+      text: 'HI!'
+    });
   },
   methods: {
     sendUserMessage: function() {
@@ -37,7 +39,7 @@ export default {
         type: 'user',
         text: this.currentUserInput
       });
-      this.currentUserInput = '';
+      this.currentUserInput = new String;
     }
   }
 }
