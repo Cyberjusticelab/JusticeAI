@@ -25,13 +25,6 @@ html, body {
   position: relative;
   min-width: 100%;
   min-height: 100%;
-  background: #516395;
-  background: -webkit-linear-gradient(to top, #614385, #516395);
-  background: linear-gradient(to top, #614385, #516395);
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #efefef;
 }
 </style>
