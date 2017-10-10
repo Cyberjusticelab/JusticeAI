@@ -6,18 +6,18 @@ ABSTRACT MODEL
 
 class AbstractModel:
     def __init__(self):
-        self.__word = None
-        self.__qualifier = []
+        self._word = None
+        self._qualifier = []
 
     def set_word(self, word):
-        if self.__word is None:
-            self.__word = word
+        if self._word is None:
+            self._word = word
         else:
-            self.__word += ", " + word
+            self._word += ", " + word
 
-    def set_quantifier(self, quantifier):
-        self.__quantifier = quantifier
+    def get_word(self):
+        return self._word
 
     def add_qualifier(self, qualifier):
-        self.__qualifier.append(qualifier)
+        self._qualifier.append(qualifier)
 

@@ -13,5 +13,5 @@ class Predicate(Abstract_Model.AbstractModel):
         Abstract_Model.AbstractModel.__init__(self)
 
     def __str__(self):
-        return "PREDICATE: " + str(self.__word) + \
-               " | Qualifier: " + str(self.__qualifier)
+        return "PREDICATE: " + str(self._word) + \
+               " | Qualifier: " + str(self._qualifier)

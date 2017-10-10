@@ -1,10 +1,10 @@
 import json
-
-from src.fact_extraction.FactTree import sentence_pipeline
 from src.fact_extraction.Models import clause, compliment, predicate
 
-pipe = sentence_pipeline.Pipeline()
-
+'''
+CODE MEANT TO EXTRACT FEATURES FROM TRAINING DATA
+NOT USED YET
+'''
 with open('clause_finder.json') as data_file:
     data = json.load(data_file)
 

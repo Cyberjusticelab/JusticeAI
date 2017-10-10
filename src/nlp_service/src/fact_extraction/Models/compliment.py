@@ -17,6 +17,6 @@ class compliment(Abstract_Model.AbstractModel):
         self.__quantifier = quantifier
 
     def __str__(self):
-        return "COMPLIMENT: " + str(self.__word) + \
-               " | Qualifier: " + str(self.__qualifier) + \
+        return "COMPLIMENT: " + str(self._word) + \
+               " | Qualifier: " + str(self._qualifier) + \
                " | Quantifier: " + str(self.__quantifier)

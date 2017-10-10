@@ -17,7 +17,7 @@ class Clause(Abstract_Model.AbstractModel):
         self.__quantifier = quantifier
 
     def __str__(self):
-        return "CLAUSE: " + str(self.__word) + \
-               " | Qualifier: " + str(self.__qualifier) + \
+        return "CLAUSE: " + str(self._word) + \
+               " | Qualifier: " + str(self._qualifier) + \
                " | Quantifier: " + str(self.__quantifier)
 
