@@ -6,14 +6,14 @@ class Proposition():
     #####################################
     # CONSTRUCTOR
     def __init__(self):
-        self.proposition_lst = []
-        self.stack = WordStack.Stack()
+        self.__proposition_lst = []
+        self.__stack = WordStack.Stack()
 
     #####################################
     # RESET
     def __reset(self):
-        self.proposition_lst = []
-        self.stack.clear()
+        self.__proposition_lst = []
+        self.__stack.clear()
 
     #############################################
     # BUILD
@@ -30,7 +30,7 @@ class Proposition():
         predicates = LogicParser.Tree()
         predicates.build(sentence, draw)
         predicate_lst = predicates.get_logic_model()
-        self.create_logic(predicate_lst)
+        self.__create_logic(predicate_lst)
 
     #############################################
     # CREATE LOGIC
@@ -40,16 +40,16 @@ class Proposition():
     # clause, predicate, or compliment
     #
     # logic_lst: list
-    def create_logic(self, logic_lst):
+    def __create_logic(self, logic_lst):
         for i in range(len(logic_lst)):
             if logic_lst[i].get_word() is None:
                 continue
             elif type(logic_lst[i]) == clause.Clause:
-                self.clause_operation(logic_lst[i], logic_lst, i)
+                self.__clause_operation(logic_lst[i], logic_lst, i)
             elif type(logic_lst[i]) == predicate.Predicate:
-                self.predicate_operation(logic_lst[i], logic_lst, i)
+                self.__predicate_operation(logic_lst[i], logic_lst, i)
             elif type(logic_lst[i]) == compliment.compliment:
-                self.compliment_operation(logic_lst[i], logic_lst, i)
+                self.__compliment_operation(logic_lst[i], logic_lst, i)
 
     #############################################
     # CLAUSE OPERATION
@@ -63,22 +63,22 @@ class Proposition():
     # logic: Model.AbstractModel
     # logic_lst: list[Model.AbstractMode]
     # index: integer
-    def clause_operation(self, logic, logic_lst, index):
-        if self.stack.peek_predicate() is None:
-            self.stack.clause_stack.append(logic)
+    def __clause_operation(self, logic, logic_lst, index):
+        if self.__stack.peek_predicate() is None:
+            self.__stack.clause_stack.append(logic)
 
-        elif type(self.stack.next(logic_lst, index)) == predicate.Predicate:
-            if type(self.stack.previous(logic_lst, index)) == predicate.Predicate:
-                self.stack.compliment_stack.append(logic)
-            self.extract_relations()
-            self.stack.clause_stack.append(logic)
+        elif type(self.__stack.next(logic_lst, index)) == predicate.Predicate:
+            if type(self.__stack.previous(logic_lst, index)) == predicate.Predicate:
+                self.__stack.compliment_stack.append(logic)
+            self.__extract_relations()
+            self.__stack.clause_stack.append(logic)
             return
 
         else:
-            self.stack.compliment_stack.append(logic)
+            self.__stack.compliment_stack.append(logic)
 
-        if self.stack.next(logic_lst, index) is None:
-            self.extract_relations()
+        if self.__stack.next(logic_lst, index) is None:
+            self.__extract_relations()
 
     #############################################
     # PREDICATE OPERATION
@@ -91,17 +91,17 @@ class Proposition():
     # logic: Model.AbstractModel
     # logic_lst: list[Model.AbstractMode]
     # index: integer
-    def predicate_operation(self, logic_model, logic_lst, index):
-        if self.stack.peek_predicate() is None:
-            self.stack.predicate_stack.append(logic_model)
+    def __predicate_operation(self, logic_model, logic_lst, index):
+        if self.__stack.peek_predicate() is None:
+            self.__stack.predicate_stack.append(logic_model)
 
         else:
-            model = self.stack.predicate_stack.pop()
+            model = self.__stack.predicate_stack.pop()
             model.set_word(logic_model.get_word())
-            self.stack.predicate_stack.append(model)
+            self.__stack.predicate_stack.append(model)
 
-        if self.stack.next(logic_lst, index) is None:
-            self.extract_relations()
+        if self.__stack.next(logic_lst, index) is None:
+            self.__extract_relations()
 
     #############################################
     # COMPLIMENT OPERATION
@@ -114,19 +114,19 @@ class Proposition():
     # logic: Model.AbstractModel
     # logic_lst: list[Model.AbstractMode]
     # index: integer
-    def compliment_operation(self, logic, logic_lst, index):
-        if self.stack.next(logic_lst, index) is None:
-            self.stack.compliment_stack.append(logic)
-            self.extract_relations()
+    def __compliment_operation(self, logic, logic_lst, index):
+        if self.__stack.next(logic_lst, index) is None:
+            self.__stack.compliment_stack.append(logic)
+            self.__extract_relations()
 
-        elif type(self.stack.next(logic_lst, index)) == predicate.Predicate:
-            if type(self.stack.previous(logic_lst, index)) == predicate.Predicate:
-                self.stack.compliment_stack.append(logic)
-            self.extract_relations()
-            self.stack.clause_stack.append(logic)
+        elif type(self.__stack.next(logic_lst, index)) == predicate.Predicate:
+            if type(self.__stack.previous(logic_lst, index)) == predicate.Predicate:
+                self.__stack.compliment_stack.append(logic)
+            self.__extract_relations()
+            self.__stack.clause_stack.append(logic)
 
         else:
-            self.stack.compliment_stack.append(logic)
+            self.__stack.compliment_stack.append(logic)
 
     #############################################
     # EXTRACT RELATIONS
@@ -134,19 +134,19 @@ class Proposition():
     # 1- Pop predicate
     # 2- For ever clause map them to their compliments
     # 3- clear stack
-    def extract_relations(self):
-        predicate = self.stack.predicate_stack.pop()
-        for clause in self.stack.clause_stack:
-            for compliment in self.stack.compliment_stack:
+    def __extract_relations(self):
+        predicate = self.__stack.predicate_stack.pop()
+        for clause in self.__stack.clause_stack:
+            for compliment in self.__stack.compliment_stack:
                 model = logic.LogicModel()
                 model.clause = clause
                 model.predicate = predicate
                 model.compliment = compliment
-                self.proposition_lst.append(model)
-        self.stack.clear()
+                self.__proposition_lst.append(model)
+        self.__stack.clear()
 
     def get_proposition_lst(self):
-        return self.proposition_lst.copy()
+        return self.__proposition_lst.copy()
 
 
 if __name__ == "__main__":
