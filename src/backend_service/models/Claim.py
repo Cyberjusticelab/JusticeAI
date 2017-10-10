@@ -9,7 +9,7 @@ import uuid
         return self.answers
 
     def add_answer(self, answer):
-        self.answers.append(answer)'''
+        self.answers.extend(answer)'''
 
 
 class Claim(object):
@@ -23,26 +23,16 @@ class Claim(object):
         self.counter = 0
 
     def delete_last_set(self):
-        self.counter = (self.counter-1)
+        self.counter -= 1
+        del self.questions[-1]
+        del self.answers[-1]
+        del self.facts[-1]
+
+    def get_set(self, row):
+        return "Question: "+self.questions[row]+"/n Answer: "+self.answers[row]+"/n Fact: "+self.facts[row]+". /n END."
 
     def get_counter(self):
         return self.counter
-
-    def set_person(self, person):
-        self.person = person
-
-    def set_name__(self, name):
-        self.name = name
-
-    def add_fact(self, fact):
-        self.facts.append(fact)
-        self.counter = (self.counter+1)
-
-    def add_question(self, question):
-        self.questions.append(question)
-
-    def add_answer(self, answer):
-        self.answers.append(answer)
 
     def get_name(self):
         return self.name
@@ -70,3 +60,20 @@ class Claim(object):
 
     def get_answers(self):
         return self.answers
+
+    def set_person(self, person):
+        self.person = person
+
+    def set_name__(self, name):
+        self.name = name
+
+    def add_fact(self, fact):
+        self.facts.extend(fact)
+        self.counter += 1
+
+    def add_question(self, question):
+        self.questions.extend(question)
+
+    def add_answer(self, answer):
+        self.answers.extend(answer)
+
