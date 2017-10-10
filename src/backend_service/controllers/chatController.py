@@ -1,33 +1,28 @@
+from app import db
 from flask import jsonify
-from models.Claim import Claim
-
-tempDB = {}
+from models.models import Conversation
 
 
-def init_claim(name):
-    claim = Claim(name)
-    # DB stuff here
-    tempDB[claim.id] = claim
+def init_conversation(name):
+    conversation = Conversation(name=name)
+
+    db.session.add(conversation)
+    db.session.commit()
+
     return jsonify(
         {
-            'name': claim.name,
-            'claim_id': claim.id
+            'name': conversation.name,
+            'conversation_id': conversation.id
         }
     )
 
 
-def chat_message(claim_id, answer):
-    claim = tempDB[claim_id]
-    claim.add_answer(answer)
-
-    question = "Hello there %s, this is question #%s" % (claim.name, str(len(claim.questions)))
-    claim.add_question(question)
+def chat_message(conversation_id, answer):
+    conversation = Conversation.query.get(conversation_id)
 
     return jsonify(
         {
-            'claim_id': claim_id,
-            'questions': claim.questions,
-            'answers': claim.answers,
-            'message': question,
+            'conversation_id': conversation.id,
+            'message': "Hello there, %s. Your message was %s" % (conversation.name, answer),
         }
     )

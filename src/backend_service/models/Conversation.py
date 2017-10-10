@@ -12,7 +12,7 @@ import uuid
         self.answers.extend(answer)'''
 
 
-class Claim(object):
+class Conversation(object):
     def __init__(self, name):
         self.id = str(uuid.uuid4())
         self.name = name
