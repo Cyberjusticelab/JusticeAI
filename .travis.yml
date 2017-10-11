@@ -10,14 +10,15 @@ env:
 script:
   - BRANCH=$(echo $TRAVIS_BRANCH | egrep  "^([0-9]+/|master)"); if [ ! $BRANCH ]; then exit 1; fi;
   - COMMIT=$(echo $TRAVIS_COMMIT_MESSAGE | egrep "^(\[#[0-9]+\]|Merge)"); if [ ! $COMMIT ]; then exit 1; fi;
-  - cd src/web_client && docker build -t web_client . && docker run $CI_ENV -t --rm web_client bash -c "npm run test" && cd ../..
-  - cd src/web_client && docker build -t web_client . && docker run $CI_ENV -t --rm web_client bash -c "npm run lint" && cd ../..
-  - cd src/backend_service && docker build -t backend_service . && docker run $CI_ENV -t --rm backend_service bash -c "pytest" && cd ../..
-  - cd src/backend_service && docker build -t backend_service . && docker run $CI_ENV -t --rm backend_service bash -c "flake8" && cd ../..
-  - cd src/nlp_service && docker build -t nlp_service . && docker run $CI_ENV -t --rm nlp_service bash -c "pytest" && cd ../..
-  - cd src/nlp_service && docker build -t nlp_service . && docker run $CI_ENV -t --rm nlp_service bash -c "flake8" && cd ../..
-  - cd src/ml_service && docker build -t ml_service . && docker run $CI_ENV -t --rm ml_service bash -c "pytest" && cd ../..
-  - cd src/ml_service && docker build -t ml_service . && docker run $CI_ENV -t --rm ml_service bash -c "flake8" && cd ../..
+  - ./cjl up -d
+  - ./cjl run --rm web_client bash -c "npm run test"
+  - ./cjl run --rm web_client bash -c "npm run lint"
+  - ./cjl run --rm backend_service bash -c "pytest"
+  - ./cjl run --rm backend_service bash -c "flake8"
+  - ./cjl run --rm ml_service bash -c "pytest"
+  - ./cjl run --rm ml_service bash -c "flake8"
+  - ./cjl run --rm nlp_service bash -c "pytest"
+  - ./cjl run --rm nlp_service bash -c "flake8"
 
 notifications:
   slack:
