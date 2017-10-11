@@ -14,7 +14,8 @@ class compliment(Abstract_Model.AbstractModel):
         self.__quantifier = None
 
     def set_quantifier(self, quantifier):
-        self.__quantifier = quantifier
+        if quantifier is not None:
+            self.__quantifier = quantifier
 
     def get_quantifier(self):
         return self.__quantifier
@@ -27,10 +28,14 @@ class compliment(Abstract_Model.AbstractModel):
     def __eq__(self, other):
         if type(other) != type(self):
             return False
-        elif set(self.get_qualifier()) != set(other.get_qualifier):
+        elif not (self.equal_lists(self.get_qualifier(), other.get_qualifier())):
             return False
         elif self.get_word() != other.get_word():
             return False
-        elif self.get_quantifier() != other.get_quantifier:
+        elif self.get_quantifier() != other.get_quantifier():
             return False
         return True
+
+    def __ne__(self, other):
+        return not (self.__eq__(other))
+        return False

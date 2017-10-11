@@ -29,3 +29,17 @@ class LogicModel:
         elif self.compliment != other.compliment:
             return False
         return True
+
+    def __ne__(self, other):
+        return not(self.__eq__(other))
+
+if __name__ == '__main__':
+    l1 = LogicModel()
+    c1 = clause.Clause()
+    c1.set_word("dwdw")
+    l1.clause = c1
+    l2 = LogicModel()
+    c2 = clause.Clause()
+    c2.set_word("dwdw")
+    l2.clause = c2
+    print(l1 == l2)

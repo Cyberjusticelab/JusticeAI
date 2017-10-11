@@ -8,6 +8,7 @@ class Proposition():
     def __init__(self):
         self.__proposition_lst = []
         self.__stack = WordStack.Stack()
+        self.__predicates = LogicParser.Tree()
 
     #####################################
     # RESET
@@ -27,9 +28,8 @@ class Proposition():
     # draw: boolean
     def build(self, sentence, draw = False):
         self.__reset()
-        predicates = LogicParser.Tree()
-        predicates.build(sentence, draw)
-        predicate_lst = predicates.get_logic_model()
+        self.__predicates.build(sentence, draw)
+        predicate_lst = self.__predicates.get_logic_model()
         self.__create_logic(predicate_lst)
 
     #############################################
@@ -42,9 +42,7 @@ class Proposition():
     # logic_lst: list
     def __create_logic(self, logic_lst):
         for i in range(len(logic_lst)):
-            if logic_lst[i].get_word() is None:
-                continue
-            elif type(logic_lst[i]) == clause.Clause:
+            if type(logic_lst[i]) == clause.Clause:
                 self.__clause_operation(logic_lst[i], logic_lst, i)
             elif type(logic_lst[i]) == predicate.Predicate:
                 self.__predicate_operation(logic_lst[i], logic_lst, i)
@@ -97,7 +95,7 @@ class Proposition():
 
         else:
             model = self.__stack.predicate_stack.pop()
-            model.set_word(logic_model.get_word())
+            model.merge(logic_model)
             self.__stack.predicate_stack.append(model)
 
         if self.__stack.next(logic_lst, index) is None:
@@ -151,7 +149,7 @@ class Proposition():
 
 if __name__ == "__main__":
     p = Proposition()
-    p.build("Because my coffee was too cold, I heated it in the microwave.")
+    p.build("Though he was very rich, he was still very unhappy.")
     lst = p.get_proposition_lst()
     for e in lst:
         print(e)

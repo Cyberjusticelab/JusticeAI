@@ -80,11 +80,7 @@ class Tree:
     #####################################
     # GET LOGIC MODEL
     def get_logic_model(self):
-        new_lst = []
-        for element in self.__logic_model:
-            if element.get_word() is not None:
-                new_lst.append(element)
-        return new_lst
+        return self.__logic_model.copy()
 
     #####################################
     # GET TAG LIST
@@ -155,12 +151,12 @@ class Tree:
         elif Regex.prepositoinal_phrase_match.match(tag):
             self.__logic_model.append(predicate.Predicate())
         elif Regex.adverb_phrase_match.match(tag):
-            self.__logic_model.append(compliment.compliment())
+            self.__logic_model.append(predicate.Predicate())
 
 
 if __name__ == "__main__":
     t = Tree()
-    t.build("My lease expires on the 31st of October.", draw= False)
+    t.build("Though he was very rich, he was still very unhappy.", draw= False)
     lst = t.get_logic_model()
     for e in lst:
         print(e)

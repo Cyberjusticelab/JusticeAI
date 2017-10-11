@@ -22,5 +22,16 @@ class AbstractModel:
         return self._qualifier.copy()
 
     def add_qualifier(self, qualifier):
-        self._qualifier.append(qualifier)
+        if qualifier is not None:
+            self._qualifier.append(qualifier)
+
+    @staticmethod
+    def equal_lists(list1, list2):
+        if len(list1) != len(list2):
+            return False
+
+        for i in range(len(list1)):
+            if list1[i] != list2[i]:
+                return False
+        return True
 
