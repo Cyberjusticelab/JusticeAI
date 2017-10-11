@@ -34,7 +34,7 @@ def receive_message(conversation_id, message):
         conversation.messages.append(user_message)
 
         # Generate a response message
-        response_text = "Hello there, %s. Your message was '%s'" % (conversation.name, user_message.text)
+        response_text = "Hello there, {}. Your message was '{}'".format(conversation.name, user_message.text)
         response = Message(sender_type=SenderType.BOT, text=response_text)
         conversation.messages.append(response)
 

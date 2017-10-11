@@ -9,7 +9,7 @@ def introduction(conversation_id, name, person):
         "name": name,
         "person": person
     }
-    res = requests.post("%s/%s" % (NLP_URL, "introduction"), json=req_dict)
+    res = requests.post("{}/{}".format(NLP_URL, "introduction"), json=req_dict)
     return res.json()
 
 
@@ -17,7 +17,7 @@ def tenant_landlord(answer):
     req_dict = {
         "answer": answer
     }
-    res = requests.post("%s/%s" % (NLP_URL, "tenant_landlord"), json=req_dict)
+    res = requests.post("{}/{}".format(NLP_URL, "tenant_landlord"), json=req_dict)
     return res.json()
 
 
@@ -25,7 +25,7 @@ def problem_category(answer):
     req_dict = {
         "answer": answer
     }
-    res = requests.post("%s/%s" % (NLP_URL, "problem_category"), json=req_dict)
+    res = requests.post("{}/{}".format(NLP_URL, "problem_category"), json=req_dict)
     return res.json()
 
 
@@ -35,5 +35,5 @@ def yesno(question_id, conversation_id, answer):
         "conversation_id": conversation_id,
         "answer": answer
     }
-    res = requests.post("%s/%s" % (NLP_URL, "yesno"), json=req_dict)
+    res = requests.post("{}/{}".format(NLP_URL, "yesno"), json=req_dict)
     return res.json()
