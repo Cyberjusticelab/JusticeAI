@@ -18,6 +18,9 @@ class AbstractModel:
     def get_word(self):
         return self._word
 
+    def get_qualifier(self):
+        return self._qualifier.copy()
+
     def add_qualifier(self, qualifier):
         self._qualifier.append(qualifier)
 

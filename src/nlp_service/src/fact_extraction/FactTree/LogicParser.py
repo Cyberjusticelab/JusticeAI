@@ -35,10 +35,9 @@ class Tree:
         nbest_list = nbest_list.fuse()
         self.tree = nbest_list.subtrees()
         tree = nbest_list.as_nltk_tree()
-        self.__traverse_tree(tree, self.__tag_lst, self.__token_lst)
-
         if draw:
             tree.draw()
+        self.__traverse_tree(tree, self.__tag_lst, self.__token_lst)
 
     ###################################################
     # TRAVERSE
@@ -59,14 +58,14 @@ class Tree:
                     tag_lst.append(new_tag_lst)
                     new_token_lst = [subtree.label()]
                     token_lst.append(new_token_lst)
-                    self.append_logic_object(subtree.label())
+                    self.__append_logic_object(subtree.label())
                     self.__traverse_tree(subtree, new_tag_lst, new_token_lst, depth + 1)
                 else:
                     word = subtree.leaves()[0]
                     label = subtree.label()
                     tag_lst.append(label)
                     token_lst.append(word)
-                    self.define_logic_object(label, word)
+                    self.__define_logic_object(label, word)
                     self.__traverse_tree(subtree, tag_lst, token_lst)
 
     #####################################
@@ -81,7 +80,11 @@ class Tree:
     #####################################
     # GET LOGIC MODEL
     def get_logic_model(self):
-        return self.__logic_model.copy()
+        new_lst = []
+        for element in self.__logic_model:
+            if element.get_word() is not None:
+                new_lst.append(element)
+        return new_lst
 
     #####################################
     # GET TAG LIST
@@ -108,8 +111,11 @@ class Tree:
     #
     # tag: string
     # word: string
-    def define_logic_object(self, tag, word):
-        model = self.__logic_model[len(self.__logic_model) - 1]
+    def __define_logic_object(self, tag, word):
+        try:
+            model = self.__logic_model[len(self.__logic_model) - 1]
+        except IndexError:
+            return
         if Regex.noun_match.match(tag):
             model.set_word(word)
         elif Regex.verb_match.match(tag):
@@ -120,7 +126,10 @@ class Tree:
             else:
                 model.add_qualifier(word)
         elif Regex.adverb_match.match(tag):
-            model.set_word(word)
+            if type(model) == predicate.Predicate:
+                model.add_qualifier(word)
+            else:
+                model.set_word(word)
         elif Regex.conjunction_match.match(tag):
             pass
         elif Regex.w_word_match.match(tag):
@@ -136,7 +145,7 @@ class Tree:
     # to filter the words we care about
     #
     # tag: string
-    def append_logic_object(self, tag):
+    def __append_logic_object(self, tag):
         if Regex.noun_phrase_match.match(tag):
             self.__logic_model.append(clause.Clause())
         elif Regex.verb_phrase_match.match(tag):
@@ -151,7 +160,7 @@ class Tree:
 
 if __name__ == "__main__":
     t = Tree()
-    t.build("Faster than a speeding bullet, Superman saved the day", draw= True)
+    t.build("My lease expires on the 31st of October.", draw= False)
     lst = t.get_logic_model()
     for e in lst:
         print(e)

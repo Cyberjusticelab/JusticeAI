@@ -108,7 +108,7 @@ class Proposition():
     # -------------------------------------------
     # 1- if last word in list then extract features
     # 2- if word in between 2 predicates then extract
-    #    features and append word to clause --> not sure about this one
+    #    features and append word to clause
     # 3- else append to compliment stack
     #
     # logic: Model.AbstractModel
@@ -151,7 +151,7 @@ class Proposition():
 
 if __name__ == "__main__":
     p = Proposition()
-    p.build("The cat was happy and the dog was sad", True)
+    p.build("Because my coffee was too cold, I heated it in the microwave.")
     lst = p.get_proposition_lst()
     for e in lst:
         print(e)

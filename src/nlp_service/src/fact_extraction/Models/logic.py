@@ -18,3 +18,14 @@ class LogicModel:
 
     def __str__(self):
         return str(self.clause) + "\n" + str(self.predicate) + "\n" + str(self.compliment)
+
+    def __eq__(self, other):
+        if type(other) != type(self):
+            return False
+        elif self.clause != other.clause:
+            return False
+        elif self.predicate != other.predicate:
+            return False
+        elif self.compliment != other.compliment:
+            return False
+        return True
