@@ -1,4 +1,5 @@
 from flask import jsonify, abort, make_response
+from models.staticStrings import *
 from models.models import *
 
 
@@ -29,12 +30,17 @@ def receive_message(conversation_id, message):
     conversation = Conversation.query.get(conversation_id)
 
     if conversation:
-        # Add user's message
-        user_message = Message(sender_type=SenderType.USER, text=message)
-        conversation.messages.append(user_message)
 
-        # Generate a response message
-        response_text = "Hello there, {}. Your message was '{}'".format(conversation.name, user_message.text)
+        # First message in the conversation
+        if len(conversation.messages) == 0:
+            response_text = WelcomeStrings().pick().format(name=conversation.name)
+        else:
+            # Add user's message
+            user_message = Message(sender_type=SenderType.USER, text=message)
+            conversation.messages.append(user_message)
+            response_text = _generate_response(conversation, user_message.text)
+
+        # Persist response message
         response = Message(sender_type=SenderType.BOT, text=response_text)
         conversation.messages.append(response)
 
@@ -49,3 +55,7 @@ def receive_message(conversation_id, message):
         )
     else:
         abort(make_response(jsonify(message="Conversation does not exist"), 404))
+
+
+def _generate_response(conversation, message):
+    return "Hello there, {}. Your message was '{}'".format(conversation.name, message)

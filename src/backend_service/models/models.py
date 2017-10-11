@@ -28,7 +28,7 @@ SQLAlchemy Models
 
 class Conversation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), nullable=False)
+    name = db.Column(db.String(40), nullable=False)
     person_type = db.Column(db.Enum(PersonType))
     messages = db.relationship('Message')
 
