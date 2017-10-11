@@ -5,6 +5,7 @@ import nltk
 import random
 import time
 
+
 class GramClassifier(object):
     stopWords = set(stopwords.words('english'))
     stopWords.remove('not')
@@ -15,6 +16,7 @@ class GramClassifier(object):
     which uses a combination of 3-gram, 2-gram and
     non stopwords in a vector to determine the class
     of the given input"""
+
     def __init__(self, inputFiles):
         print('==== Creating ' + self.__class__.__name__ + ' ====')
         startTime = time.time()
@@ -23,7 +25,8 @@ class GramClassifier(object):
         self.vocab = set()
         self.train()
         elapsed = int(time.time() - startTime)
-        print('==== Completed ' + self.__class__.__name__ + ' creation. Took ' + str(elapsed) + ' seconds ====')
+        print('==== Completed ' + self.__class__.__name__ +
+              ' creation. Took ' + str(elapsed) + ' seconds ====')
         print(str())
 
     # Loads data from from the given array
@@ -91,9 +94,12 @@ class GramClassifier(object):
         newWordList.append('<START>')
         newWordList.extend(words.stem())
         newWordList.append('<END>')
-        grams = [gram for gram in nltk.trigrams(newWordList) if len(set(gram) - self.stopWords) > 0]
-        grams.extend([gram for gram in nltk.bigrams(newWordList) if len(set(gram) - self.stopWords) > 0 ])
-        grams.extend([word for word in words.stem() if word not in self.stopWords])
+        grams = [gram for gram in nltk.trigrams(
+            newWordList) if len(set(gram) - self.stopWords) > 0]
+        grams.extend([gram for gram in nltk.bigrams(newWordList)
+                      if len(set(gram) - self.stopWords) > 0])
+        grams.extend([word for word in words.stem()
+                      if word not in self.stopWords])
         return grams
 
     # Preprocesses the input training data

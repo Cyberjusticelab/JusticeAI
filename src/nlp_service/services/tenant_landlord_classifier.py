@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
-from textblob import TextBlob
 from models.question import QuestionOutput
 from services.gram_classifier import GramClassifier
-import nltk
-import random
 
 class TenantLandlordClassifier(GramClassifier):
     inputFiles = ['tenant', 'landlord']
