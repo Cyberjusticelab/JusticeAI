@@ -17,10 +17,10 @@ class GramClassifier(object):
     non stopwords in a vector to determine the class
     of the given input"""
 
-    def __init__(self, inputFiles):
+    def __init__(self, baseName, inputFiles):
         print('==== Creating ' + self.__class__.__name__ + ' ====')
         startTime = time.time()
-        self.loadData(inputFiles)
+        self.loadData(baseName, inputFiles)
         random.shuffle(self.trainingData)
         self.vocab = set()
         self.train()
@@ -36,10 +36,10 @@ class GramClassifier(object):
     #
     # Will load data from data/class.extended.txt and
     # treate them as examples of the 'class' category
-    def loadData(self, inputFiles):
+    def loadData(self, baseName, inputFiles):
         self.trainingData = []
         for inp in inputFiles:
-            f = open('data/' + inp + '.extended.txt')
+            f = open('data/' + baseName + '/' + inp + '.extended.txt')
             inputSet = set([l.strip('\n') for l in f.readlines()])
             inputTuples = []
             for inputString in inputSet:

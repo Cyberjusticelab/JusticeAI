@@ -1,6 +1,6 @@
 __pycache__
 venv
-data/*.extended.txt
+data/**/*.extended.txt
 .cache
 .coverage
 .idea/
