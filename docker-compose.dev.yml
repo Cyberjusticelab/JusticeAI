@@ -24,4 +24,6 @@ services:
       - 3039:3039
     volumes:
       - ./src/web_client:/usr/src/app
-
+  postgresql_db:
+    environment:
+      POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
