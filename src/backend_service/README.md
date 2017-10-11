@@ -84,7 +84,7 @@ Gets the message history for a conversation
 {
     "id": 1,
     "name": "Tim Timmens",
-    "person_type": "TENANT"
+    "person_type": "TENANT",
     "messages": [
         {
             "id": 1,
