@@ -14,3 +14,5 @@ class Regex:
     conjunction_match = re.compile('CC')
     adverb_match = re.compile('RB')
     adverb_phrase_match = re.compile('ADVP')
+    rp_match = re.compile('RP')
+    temp_match = re.compile('RP|NN|PRP|PRP$|JJ')

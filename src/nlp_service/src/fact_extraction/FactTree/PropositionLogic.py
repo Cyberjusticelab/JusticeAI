@@ -134,6 +134,20 @@ class Proposition():
     # 3- clear stack
     def __extract_relations(self):
         predicate = self.__stack.predicate_stack.pop()
+        if len(self.__stack.compliment_stack) == 0:
+            self.__extract_double(predicate)
+        else:
+            self.__extract_triplet(predicate)
+
+    def __extract_double(self, predicate):
+        for clause in self.__stack.clause_stack:
+            model = logic.LogicModel()
+            model.clause = clause
+            model.predicate = predicate
+            self.__proposition_lst.append(model)
+        self.__stack.clear()
+
+    def __extract_triplet(self, predicate):
         for clause in self.__stack.clause_stack:
             for compliment in self.__stack.compliment_stack:
                 model = logic.LogicModel()
@@ -149,7 +163,7 @@ class Proposition():
 
 if __name__ == "__main__":
     p = Proposition()
-    p.build("Though he was very rich, he was still very unhappy.")
+    p.build("The movie, though very long, was still very enjoyable.", True)
     lst = p.get_proposition_lst()
     for e in lst:
         print(e)

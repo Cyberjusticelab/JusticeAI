@@ -1,4 +1,5 @@
 from src.fact_extraction.Models import Abstract_Model
+from src.fact_extraction.GlobalVariables import regex
 
 
 '''
@@ -24,6 +25,15 @@ class Clause(Abstract_Model.AbstractModel):
         return "CLAUSE: " + str(self._word) + \
                " | Qualifier: " + str(self._qualifier) + \
                " | Quantifier: " + str(self.__quantifier)
+
+    def set_word(self, word, tag = None):
+        if tag is not None:
+            if not(regex.Regex.temp_match.match(tag)):
+                return
+        if self._word is None:
+            self._word = word
+        else:
+            self._word += ", " + word
 
     def __eq__(self, other):
         if type(other) != type(self):

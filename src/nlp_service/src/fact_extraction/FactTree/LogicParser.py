@@ -113,25 +113,27 @@ class Tree:
         except IndexError:
             return
         if Regex.noun_match.match(tag):
-            model.set_word(word)
+            model.set_word(word, tag)
         elif Regex.verb_match.match(tag):
-            model.set_word(word)
+            model.set_word(word, tag)
         elif Regex.adjective_match.match(tag):
             if type(model) == compliment.compliment:
-                model.set_word(word)
+                model.set_word(word, tag)
             else:
                 model.add_qualifier(word)
         elif Regex.adverb_match.match(tag):
-            if type(model) == predicate.Predicate:
-                model.add_qualifier(word)
-            else:
-                model.set_word(word)
+            model.add_qualifier(word)
         elif Regex.conjunction_match.match(tag):
             pass
         elif Regex.w_word_match.match(tag):
             pass
         elif Regex.determiner_match.match(tag):
             model.set_quantifier(word)
+        #special case
+        elif Regex.rp_match.match(tag):
+            self.__logic_model.append(compliment.compliment())
+            model = self.__logic_model[len(self.__logic_model) - 1]
+            model.set_word(word, tag)
 
     #############################################
     # APPEND LOGIC OBJECT
@@ -156,7 +158,7 @@ class Tree:
 
 if __name__ == "__main__":
     t = Tree()
-    t.build("Though he was very rich, he was still very unhappy.", draw= False)
+    t.build("She returned the computer after she noticed it was damaged.", draw= False)
     lst = t.get_logic_model()
     for e in lst:
         print(e)

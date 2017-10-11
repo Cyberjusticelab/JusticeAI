@@ -1,4 +1,5 @@
 from src.fact_extraction.Models import Abstract_Model
+from src.fact_extraction.GlobalVariables import regex
 
 
 '''
@@ -28,11 +29,22 @@ class Predicate(Abstract_Model.AbstractModel):
     def __ne__(self, other):
         return not(self.__eq__(other))
 
+    def set_word(self, word, tag = None):
+        if tag is not None:
+            if not(regex.Regex.verb_match.match(tag)):
+                return
+        if self._word is None:
+            self._word = word
+        else:
+            self._word += ", " + word
+
     def merge(self, other):
         if self.get_word() is None:
             self.set_word(other.get_word())
         elif other.get_word() is None:
             pass
+        else:
+            self.set_word(other.get_word())
         self._qualifier.extend(other.get_qualifier())
 
 if __name__ == '__main__':
