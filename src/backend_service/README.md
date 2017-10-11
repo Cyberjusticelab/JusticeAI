@@ -1,14 +1,8 @@
 # Backend Service
 
-## Run Tests
+## Run Tests and Lints
 
 ```
-./cjl up -d && ./cjl run --rm backend_service bash -c "pytest"
+export COMPOSE_FILE=ci
+./cjl up -d && ./cjl run backend_service
 ```
-
-## Run Lints
-
-```
-./cjl up -d && ./cjl run --rm backend_service bash -c "flake8"
-```
-

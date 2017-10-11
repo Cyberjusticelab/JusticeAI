@@ -1,14 +1,8 @@
 # Machine Learning Service
 
-## Run Tests
+## Run Tests and Lints
 
 ```
-./cjl up -d && ./cjl run --rm ml_service bash -c "pytest"
+export COMPOSE_FILE=ci
+./cjl up -d && ./cjl run ml_service
 ```
-
-## Run Lints
-
-```
-./cjl up -d && ./cjl run --rm ml_service bash -c "flake8"
-```
-

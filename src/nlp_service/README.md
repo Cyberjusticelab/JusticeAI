@@ -1,14 +1,8 @@
 # Natural Language Processing Service
 
-## Run Tests
+## Run Tests and Lints
 
 ```
-./cjl up -d && ./cjl run --rm nlp_service bash -c "pytest"
+export COMPOSE_FILE=ci
+./cjl up -d && ./cjl run nlp_service
 ```
-
-## Run Lints
-
-```
-./cjl up -d && ./cjl run --rm nlp_service bash -c "flake8"
-```
-
