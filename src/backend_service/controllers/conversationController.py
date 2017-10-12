@@ -1,9 +1,9 @@
+import os
+import sys
 from flask import jsonify, abort, make_response
 from models.staticStrings import *
 from models.models import *
 from services import nlpService
-import os
-import sys
 
 
 def get_conversation(conversation_id):
@@ -161,30 +161,33 @@ is_rent_advance = ['Has the rent been asked to be paid in advance?', False, None
 first_month_rent_paid = ['Is it only for the first month?', False, None]
 
 # 1st part of the program
-category = None  # Instantiate with the value of the category key
+category = "lease_termination"  # Instantiate with the value of the category key
 questionstoask = []
 
 
 def initializeQuestions(category):
     if "lease_termination" in category:
-        questionstoask.extend((lease_term_type, has_lease_expired, is_tenant_dead, is_student, is_habitable))
+        questionstoask.append(lease_term_type)
+        questionstoask.append(has_lease_expired)
+        questionstoask.append(is_tenant_dead)
+        questionstoask.append(is_habitable)
     if "rent_change" in category:
-        questionstoask.extend((is_rent_in_lease, rent_in_lease_amount))
+        questionstoask.append(is_rent_in_lease, rent_in_lease_amount)
     if "nonpayment" in category:
-        questionstoask.extend((over_three_weeks, has_abandoned))
+        questionstoask.append(over_three_weeks, has_abandoned)
     if "deposits" in category:
-        questionstoask.extend((is_rent_advance, first_month_rent_paid))
-
+        questionstoask.append(is_rent_advance, first_month_rent_paid)
 
 # Run this everytime we get back an input from the user
 def askQuestion():
     for facts in questionstoask:
+        for x in facts:
         # if list is false (unchecked) or if the value wasn't instantiated, ask the question
-        if facts[1] is False:
-            # Dependency checker
-            if canIAsk(facts) is True:
+            if x[1] is False:
+            #  Dependency checker
+                if canIAsk(x) is True:
                 # This will be replaced with the proper message
-                sys.stdout.write(facts[0])
+                    print(x[0])
 
 
 # This will regulate what can be asked and what cannot be asked by dependency but will NOT regulate fact values changing
@@ -192,9 +195,10 @@ def askQuestion():
 
 def canIAsk(facts):
     # Write dependencies here for lease termination
+    print(questionstoask[0][0][2])
     if "lease_termination" in category and facts in questionstoask:
         # Rule #1 cannot ask when it ends if it's indeterminate or the question about the type is not asked yet
-        if "indeterminate" in (questionstoask[0])[2]:
+        if "indeterminate" in (questionstoask[0][0][2]):
             return False
         else:
             return True
@@ -213,6 +217,13 @@ def canIAsk(facts):
         return True
     else:
         return True
+
+
+initializeQuestions(category)
+print(questionstoask)
+askQuestion()
+
+
 
 
 # Vynny Test Stuff
