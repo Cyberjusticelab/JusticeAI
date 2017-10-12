@@ -146,7 +146,7 @@ is_habitable = ['How would you describe your dwelling? Is it habitable?', False,
 
 # Questions for rent change (excluding lease_term_type)
 is_rent_in_lease = ['Is the rent specified in the lease?', False, None]
-rent_in_lease_amount = ['What is the amount of the rent', None, None]
+rent_in_lease_amount = ['What is the amount of the rent', False, None]
 
 # Question for nonpayment - obviously not both in_default and over_three_weeks will be asked
 in_default = ""  # If you entered this category, you are automatically in default
@@ -163,6 +163,7 @@ first_month_rent_paid = ['Is it only for the first month?', False, None]
 # 1st part of the program
 category = None  # Instantiate with the value of the category key
 questionstoask = []
+
 
 def initializeQuestions(category):
     if "lease_termination" in category:
@@ -197,14 +198,14 @@ def canIAsk(facts):
             return False
         else:
             return True
-        # Write dependencies here for rent change
+            # Write dependencies here for rent change
     elif "rent_change" in category and facts in questionstoask:
         # Rule #1 cannot ask what the rent in lease amount is if the rent is not in the lease
         if (questionstoask[1])[1] is False and facts in questionstoask:
             return False
         else:
             return True
-        # Write dependencies here for nonpayment
+            # Write dependencies here for nonpayment
     elif "nonpayment" in category and facts in questionstoask:
         return True
     # Write dependencies here for deposits
