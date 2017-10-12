@@ -231,10 +231,3 @@ when_judgment:datetime (lessee can avoid eviction if he pays before final judgme
 <code>has_pet:bool</code>  
 which_pet:[dog, cat, other]
 is_annoying:bool (if yes, go back to habitability and assume anything the dog does is the tenant doing it for assessment)
-
-## Questions per category with follow-up structure:
-4 categories explored for iteration 2:
-lease_termination
-rent_change
-nonpayment
-condition_of_dwelling

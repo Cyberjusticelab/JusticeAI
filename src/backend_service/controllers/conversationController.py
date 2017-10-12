@@ -110,3 +110,66 @@ def _determine_claim_category(conversation, message):
             claim_category=conversation.claim_category.value.lower().replace("_", " "))
     else:
         return ClarifyStrings().pick()
+
+
+# Dictionary to list converter
+
+def dicttolist(dictionnaire):
+    liste = []
+    tempo = []
+    newElementCheck = 0
+    for key, value in dictionnaire.iteritems():
+        newElementKey = key
+        newElementValue = value
+        tempo.extend(newElementKey)
+        tempo.extend(newElementValue)
+        tempo.extend(newElementCheck)
+        liste.append(tempo)
+        newElementKey = None
+        newElementValue = None
+        tempo[:] = []
+
+
+# Questions for lease termination
+lease_term_type = 'Is there a specified end date to your lease?'
+has_lease_expired = 'Has the lease expired already?'
+is_tenant_dead = 'Is the tenant dead?'
+is_student = 'Are you a student?'
+is_habitable = 'How would you describe your dwelling? Is it habitable?'
+
+# Questions for rent change (excluding lease_term_type)
+is_rent_in_lease = 'Is the rent specified in the lease?'
+rent_in_lease_amount = 'What is the amount of the rent'
+
+# Question for nonpayment - obviously not both in_default and over_three_weeks will be asked
+in_default = "How long has it been since you haven't paid?"
+over_three_weeks = "How long has it been since you haven't paid?"
+has_abandoned = 'Have you seen your tenant?'
+interest_allowed = ''
+interest_term = ''
+interest_max = ''
+
+# Question for deposits
+is_rent_advance = 'Has the rent been asked to be paid in advance?'
+first_month_rent_paid = 'Is it only for the first month?'
+
+# List the facts inside of lists with the name of the categories
+lease_termination = ['lease_term_type',
+                     'has_lease_expired',
+                     'is_tenant_dead',
+                     'is_student',
+                     'is_habitable']
+
+rent_change = ['lease_term_type',
+               'is_rent_in_lease',
+               'rent_in_lease_amount']
+
+nonpayment = ['in_default',
+              'over_three_weeks',
+              'has_abandoned',
+              'interest_allowed',
+              'interest_term',
+              'interest_max']
+
+deposits = ['is_rent_advance',
+            'first_month_rent_paid']
