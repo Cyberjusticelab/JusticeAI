@@ -40,58 +40,30 @@ export default {
   methods: {
     sendUserMessage: function() {
       // TODO: request to APIs to send the message first, then do callback to push the object
-      this.chatLog.push({
-        type: 'user',
-        text: this.currentUserInput
+      this.$http.get('http://www.whatever.com').then(response => {
+        this.zeusResponse = response.body;
+        this.showMessage(this.currentUserInput, 'user');
+        // TODO: push zeus message to chatlog
+        // TODO: play around with the data
+        console.log(this.zeusResponse);
+      }, response => {
+        this.showMessage(this.currentUserInput, 'user');
+        // error callback
       });
-      this.currentUserInput = undefined;
+    },
+    showMessage: function(text, type) {
+      this.chatLog.push({
+        text: text,
+        type: type
+      });
+      if (type === 'user') {
+        this.currentUserInput = undefined;
+      }
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-#chat-widow {
-  margin-top: 20px;
-  height: 800px;
-  border: 1px solid #000000;
-  overflow-y: scroll;
-  .chat-message {
-    height: 20px;
-    margin: 20px 20px 0px 20px;
-    font-size:35px;
-  }
-  .chat-message-user {
-    @extend .chat-message;
-    margin-top: 36px;
-    text-align: right;
-  }
-  .chat-message-zeus {
-    @extend .chat-message;
-    text-align: left;
-    img {
-      width: 60px;
-      margin-right: 20px;
-      display: inline-block;
-    }
-    p {
-      display: inline-block;
-    }
-  }
-}
-#chat-input {
-  margin-top: 20px;
-  #chat-input-text {
-    width: 500px;
-    height: 50px;
-    padding: 2px 20px 2px 20px;
-  }
-  #chat-input-submit {
-    height: 58px;
-    width: 110px;
-  }
-  #chat-input-voice {
-    margin: 0px 0px -18px 20px;
-  }
-}
+@import "../theme/Chat"
 </style>
