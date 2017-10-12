@@ -10,14 +10,21 @@ Enums
 '''
 
 
+class SenderType(Enum):
+    USER = "USER"
+    BOT = "BOT"
+
+
 class PersonType(Enum):
     LANDLORD = "LANDLORD"
     TENANT = "TENANT"
 
 
-class SenderType(Enum):
-    USER = "USER"
-    BOT = "BOT"
+class ClaimCategory(Enum):
+    LEASE_TERMINATION = "LEASE_TERMINATION"
+    RENT_CHANGE = "RENT_CHANGE"
+    NONPAYMENT = "NONPAYMENT"
+    DEPOSITS = "DEPOSITS"
 
 
 '''
@@ -31,6 +38,7 @@ class Conversation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(40), nullable=False)
     person_type = db.Column(db.Enum(PersonType))
+    claim_category = db.Column(db.Enum(ClaimCategory))
     messages = db.relationship('Message')
 
 
@@ -50,6 +58,7 @@ Marshmallow Schemas
 
 
 class MessageSchema(ma.ModelSchema):
+    # Enum
     sender_type = EnumField(SenderType, by_value=True)
 
     class Meta:
@@ -57,7 +66,11 @@ class MessageSchema(ma.ModelSchema):
 
 
 class ConversationSchema(ma.ModelSchema):
+    # Enum
     person_type = EnumField(PersonType, by_value=True)
+    claim_category = EnumField(ClaimCategory, by_value=True)
+
+    # Lists
     messages = ma.Nested(MessageSchema, many=True)
 
     class Meta:
