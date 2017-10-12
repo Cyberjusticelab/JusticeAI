@@ -1,6 +1,7 @@
 __pycache__
 venv
 data/**/*.extended.txt
+data/**/*.pickle
 .cache
 .coverage
 .idea/
