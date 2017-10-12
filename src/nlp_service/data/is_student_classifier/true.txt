@@ -1,9 +1,87 @@
 yes, i am a student
 in university
+i am in school
 pursuing my studies
 an exchange student
 studying at university
 at a cegep
+at mcgill university
+at universite de montreal
+at udem
+at udm
+at concordia university
+at hec montreal
+at hec
+at polytechnique
+at ecole polytechnique de monltreal
+at ecole de technologie superieure
+at ets
+at uqam
+i am a student at university
+i am a student at high school
+i am a student at cegep
+at universite du quebec a montreal
+at national theatre school of canada
+at cdi college cégep andré-laurendeau
+at cégep de saint-laurent
+at cégep du vieux montréal
+at cégep marie-victorin
+at collège ahuntsic
+at collège andré-grasset
+at collège de bois-de-boulogne
+at collège de maisonneuve
+at collège de rosemont
+at collège gérald-godin
+at grand séminaire de montréal
+at institut national de l'image et du son
+at john abbott college
+at john abott
+at lasalle college
+at marianopolis college
+at marianopolis
+at o’sullivan college
+at o’sullivan
+at tav college
+at trebas institute
+at vanier college
+at vanier
+mcgill university
+universite de montreal
+udem
+udm
+concordia university
+hec montreal
+hec
+polytechnique
+ecole polytechnique de monltreal
+ecole de technologie superieure
+ets
+uqam
+universite du quebec a montreal
+national theatre school of canada
+cdi college cégep andré-laurendeau
+cégep de saint-laurent
+cégep du vieux montréal
+cégep marie-victorin
+collège ahuntsic
+collège andré-grasset
+collège de bois-de-boulogne
+collège de maisonneuve
+collège de rosemont
+collège gérald-godin
+grand séminaire de montréal
+institut national de l'image et du son
+john abbott college
+john abott
+lasalle college
+marianopolis college
+marianopolis
+o’sullivan college
+o’sullivan
+tav college
+trebas institute
+vanier college
+vanier
 at mcgill university
 at universite de montreal
 at udem
@@ -41,79 +119,43 @@ at tav college
 at trebas institute
 at vanier college
 at vanier
-mcgill university student
-universite de montreal student
-udem student
-udm student
-concordia university student
-hec montreal student
-hec student
-polytechnique student
-ecole polytechnique de monltreal student
-ecole de technologie superieure student
-ets student
-uqam student
-universite du quebec a montreal student
-national theatre school of canada student
-cdi college cégep andré-laurendeau student
-cégep de saint-laurent student
-cégep du vieux montréal student
-cégep marie-victorin student
-collège ahuntsic student
-collège andré-grasset student
-collège de bois-de-boulogne student
-collège de maisonneuve student
-collège de rosemont student
-collège gérald-godin student
-grand séminaire de montréal student
-institut national de l'image et du son student
-john abbott college student
-john abott student
-lasalle college student
-marianopolis college student
-marianopolis student
-o’sullivan college student
-o’sullivan student
-tav college student
-trebas institute student
-vanier college student
-vanier student
-student at mcgill university
-student at universite de montreal
-student at udem
-student at udm
-student at concordia university
-student at hec montreal
-student at hec
-student at polytechnique
-student at ecole polytechnique de monltreal
-student at ecole de technologie superieure
-student at ets
-student at uqam
-student at universite du quebec a montreal
-student at national theatre school of canada
-student at cdi college cégep andré-laurendeau
-student at cégep de saint-laurent
-student at cégep du vieux montréal
-student at cégep marie-victorin
-student at collège ahuntsic
-student at collège andré-grasset
-student at collège de bois-de-boulogne
-student at collège de maisonneuve
-student at collège de rosemont
-student at collège gérald-godin
-student at grand séminaire de montréal
-student at institut national de l'image et du son
-student at john abbott college
-student at john abott
-student at lasalle college
-student at marianopolis college
-student at marianopolis
-student at o’sullivan college
-student at o’sullivan
-student at tav college
-student at trebas institute
-student at vanier college
-student at vanier
+i study at mcgill university
+i study at universite de montreal
+i study at udem
+i study at udm
+i study at concordia university
+i study at hec montreal
+i study at hec
+i study at polytechnique
+i study at ecole polytechnique de monltreal
+i study at ecole de technologie superieure
+i study at ets
+i study at uqam
+i study at universite du quebec a montreal
+i study at national theatre school of canada
+i study at cdi college cégep andré-laurendeau
+i study at cégep de saint-laurent
+i study at cégep du vieux montréal
+i study at cégep marie-victorin
+i study at collège ahuntsic
+i study at collège andré-grasset
+i study at collège de bois-de-boulogne
+i study at collège de maisonneuve
+i study at collège de rosemont
+i study at collège gérald-godin
+i study at grand séminaire de montréal
+i study at institut national de l'image et du son
+i study at john abbott college
+i study at john abott
+i study at lasalle college
+i study at marianopolis college
+i study at marianopolis
+i study at o’sullivan college
+i study at o’sullivan
+i study at tav college
+i study at trebas institute
+i study at vanier college
+i study at vanier
 learning a trade
 doing a trade school
+am a student

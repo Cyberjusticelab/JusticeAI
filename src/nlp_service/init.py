@@ -67,7 +67,7 @@ def trainClassifiers():
 
 for directory in os.listdir('data'):
     for file in os.listdir('data/' + directory):
-        if '.txt' in file:
+        if '.txt' in file and '.extended.txt' not in file:
             inputFile = 'data/' + directory + '/' + file
             outputFile = 'data/' + directory + '/' + \
                 file.split('.')[0] + '.extended.txt'
