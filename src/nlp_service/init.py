@@ -1,9 +1,73 @@
+# -*- coding: utf-8 -*-
+# flake8: noqa
 ##
 # Utility script used to install required NLTK modules
+# and augment the input set with synonyms.
 ##
 
 import nltk
+import os
 
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('wordnet')
+
+
+from nltk.corpus import stopwords
+from nltk.corpus import wordnet as wn
+from services.tenant_landlord_classifier import TenantLandlordClassifier
+from services.problem_category_classifier import ProblemCategoryClassifier
+from services.has_lease_expired_classifier import HasLeaseExpiredClassifier
+from services.is_habitable_classifier import IsHabitableClassifier
+from services.is_student_classifier import IsStudentClassifier
+from services.is_tenant_dead_classifier import IsTenantDeadClassifier
+from services.lease_term_type_classifier import LeaseTermTypeClassifier
+
+
+def expandInputFile(inputFile, outputFile):
+    f = open(inputFile)
+    samples = set([l.strip('\n') for l in f.readlines()])
+
+    expanded = set()
+    stoppers = set(stopwords.words('english'))
+    print(inputFile.strip('data/') + ' old size: ' + str(len(samples)))
+    while len(expanded) != len(samples):
+        for sample in samples:
+            sample = sample.lower()
+            words = nltk.word_tokenize(sample)
+            for i in words:
+                if i not in stoppers:
+                    synsets = wn.synsets(i)
+                    commons = set([synset.name().split(".")[0]
+                                   for synset in synsets])
+                    if len(commons) > 0:
+                        for hyponym in commons:
+                            newSample = sample.replace(
+                                i, hyponym.replace("_", " "))
+                            expanded.add(newSample)
+        samples = expanded.copy()
+
+    print(outputFile.strip('data/') + ' new size: ' + str(len(expanded)))
+
+    out = open(outputFile, 'w')
+    for item in expanded:
+        out.write(item + '\n')
+
+
+def trainClassifiers():
+    TenantLandlordClassifier(True)
+    ProblemCategoryClassifier(True)
+    HasLeaseExpiredClassifier(True)
+    IsHabitableClassifier(True)
+    IsStudentClassifier(True)
+    IsTenantDeadClassifier(True)
+    LeaseTermTypeClassifier(True)
+
+for directory in os.listdir('data'):
+    for file in os.listdir('data/' + directory):
+        if '.txt' in file:
+            inputFile = 'data/' + directory + '/' + file
+            outputFile = 'data/' + directory + '/' + \
+                file.split('.')[0] + '.extended.txt'
+            expandInputFile(inputFile, outputFile)
+trainClassifiers()

@@ -3,17 +3,17 @@ from services.gram_classifier import GramClassifier
 import os
 
 
-class ProblemCategoryClassifier(GramClassifier):
-    inputFiles = ['deposits', 'lease_termination', 'nonpayment', 'rent_change']
+class HasLeaseExpiredClassifier(GramClassifier):
+    inputFiles = ['true', 'false']
 
-    """docstring for ProblemCategoryClassifier"""
+    """docstring for HasLeaseExpiredClassifier"""
 
     def __init__(self, forceTrain=False):
         baseName = os.path.basename(__file__).split(".")[0]
         super().__init__(baseName,
-                         ProblemCategoryClassifier.inputFiles,
+                         HasLeaseExpiredClassifier.inputFiles,
                          forceTrain)
 
     def classify(self, questionInput):
         output = super().classify(questionInput)
-        return {'category': output}
+        return {'has_lease_expired': output}

@@ -2,54 +2,45 @@ from flask import Flask
 from flask import jsonify
 from flask import request
 from models.question import QuestionInput
-from models.introduction import IntroductionInput
-from services.yes_no_classifier import YesNoClassifier
-from services.introduction_parser import IntroductionParser
+from models.question import QuestionOutput
 from services.tenant_landlord_classifier import TenantLandlordClassifier
 from services.problem_category_classifier import ProblemCategoryClassifier
+from services.has_lease_expired_classifier import HasLeaseExpiredClassifier
+from services.is_habitable_classifier import IsHabitableClassifier
+from services.is_student_classifier import IsStudentClassifier
+from services.is_tenant_dead_classifier import IsTenantDeadClassifier
+from services.lease_term_type_classifier import LeaseTermTypeClassifier
 
 app = Flask(__name__)
 
-tenantLandlordClassifier = TenantLandlordClassifier()
-problemCategoryClassifier = ProblemCategoryClassifier()
-
-
-@app.route("/introduction", methods=['POST'])
-def introduction():
-    introduction_json = request.get_json()
-    introduction = IntroductionInput(introduction_json['conversation_id'],
-                                     introduction_json['name'],
-                                     introduction_json['person'])
-    output = IntroductionParser.classify(introduction)
-    return jsonify(output.__dict__)
-
-
-@app.route("/tenant_landlord", methods=['POST'])
-def tenantLandlord():
-    question_json = request.get_json()
-    question = QuestionInput(None, None, question_json['answer'])
-    output = tenantLandlordClassifier.classify(question)
-    return jsonify(output.__dict__)
+classifiers = {
+    'tenant_landlord': TenantLandlordClassifier(),
+    'problem_category': ProblemCategoryClassifier(),
+    'has_lease_expired': HasLeaseExpiredClassifier(),
+    'is_habitable': IsHabitableClassifier(),
+    'is_student': IsStudentClassifier(),
+    'is_tenant_dead': IsTenantDeadClassifier(),
+    'lease_term_type': LeaseTermTypeClassifier()
+}
 
 
 @app.route("/problem_category", methods=['POST'])
 def problemCategory():
     question_json = request.get_json()
     question = QuestionInput(None, None, question_json['answer'])
-    output = problemCategoryClassifier.classify(question)
+    output = classifiers['problem_category'].classify(question)
     return jsonify(output.__dict__)
 
 
-@app.route("/yesno", methods=['POST'])
-def yesno():
+@app.route("/fact_extract", methods=['POST'])
+def fact_extract():
     question_json = request.get_json()
-    question = QuestionInput(question_json['question_id'],
-                             question_json['conversation_id'],
-                             question_json['answer'])
-    output = YesNoClassifier.classify(question)
-    return jsonify(output.__dict__)
+    facts = question_json['facts']
+    outputFacts = []
+    for fact in facts:
+        if fact in classifiers.keys():
+            outputFacts.append(
+                classifiers[fact].classify(question_json['answer']))
 
-
-@app.route("/openended")
-def openended():
-    return jsonify(implemented="NOT REALLY")
+    question = QuestionOutput(None, None, outputFacts)
+    return jsonify(question.__dict__)
