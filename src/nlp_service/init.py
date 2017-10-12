@@ -27,6 +27,7 @@ from services.lease_term_type_classifier import LeaseTermTypeClassifier
 def expandInputFile(inputFile, outputFile):
     f = open(inputFile)
     samples = set([l.strip('\n') for l in f.readlines()])
+    f.close()
 
     expanded = set()
     stoppers = set(stopwords.words('english'))
@@ -52,6 +53,7 @@ def expandInputFile(inputFile, outputFile):
     out = open(outputFile, 'w')
     for item in expanded:
         out.write(item + '\n')
+    out.close()
 
 
 def trainClassifiers():
