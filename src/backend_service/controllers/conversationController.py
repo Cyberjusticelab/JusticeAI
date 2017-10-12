@@ -2,6 +2,8 @@ from flask import jsonify, abort, make_response
 from models.staticStrings import *
 from models.models import *
 from services import nlpService
+import os
+import sys
 
 
 def get_conversation(conversation_id):
@@ -115,6 +117,7 @@ def _probe_facts(conversation, message):
     pass
 
 
+# Mihai test stuff
 # Dictionary to list converter
 
 def dicttolist(dictionnaire):
@@ -132,29 +135,6 @@ def dicttolist(dictionnaire):
         newElementValue = None
         tempo[:] = []
 
-
-# Questions for lease termination
-lease_term_type = 'Is there a specified end date to your lease?'
-has_lease_expired = 'Has the lease expired already?'
-is_tenant_dead = 'Is the tenant dead?'
-is_student = 'Are you a student?'
-is_habitable = 'How would you describe your dwelling? Is it habitable?'
-
-# Questions for rent change (excluding lease_term_type)
-is_rent_in_lease = 'Is the rent specified in the lease?'
-rent_in_lease_amount = 'What is the amount of the rent'
-
-# Question for nonpayment - obviously not both in_default and over_three_weeks will be asked
-in_default = "How long has it been since you haven't paid?"
-over_three_weeks = "How long has it been since you haven't paid?"
-has_abandoned = 'Have you seen your tenant?'
-interest_allowed = ''
-interest_term = ''
-interest_max = ''
-
-# Question for deposits
-is_rent_advance = 'Has the rent been asked to be paid in advance?'
-first_month_rent_paid = 'Is it only for the first month?'
 
 # List the facts inside of lists with the name of the categories
 lease_termination = ['lease_term_type',
@@ -177,7 +157,71 @@ nonpayment = ['in_default',
 deposits = ['is_rent_advance',
             'first_month_rent_paid']
 
+# Model of every list of category: category = [fact, fact, fact, etc.] fact = [fact question, checked, value]
+# Questions for lease termination
+lease_term_type = ['Is there a specified end date to your lease?', False, None],
+has_lease_expired = ['Has the lease expired already?', False, None],
+is_tenant_dead = ['Is the tenant dead?', False, None],
+is_student = ['Are you a student?', False, None],
+is_habitable = ['How would you describe your dwelling? Is it habitable?', False, None]
+
+# Questions for rent change (excluding lease_term_type)
+is_rent_in_lease = ['Is the rent specified in the lease?', False, None]
+rent_in_lease_amount = ['What is the amount of the rent', False, None]
+
+# Question for nonpayment - obviously not both in_default and over_three_weeks will be asked
+in_default = ""  # If you entered this category, you are automatically in default
+over_three_weeks = ["How long has it been since you haven't paid?", False, None]
+has_abandoned = ['Have you seen your tenant?', False, None]
+interest_allowed = ''  # Not relevant for questioning
+interest_term = ''  # Not relevant for questioning
+interest_max = ''  # Not relevant for questioning
+
+# Question for deposits
+is_rent_advance = ['Has the rent been asked to be paid in advance?', False, None]
+first_month_rent_paid = ['Is it only for the first month?', False, None]
+
+# 1st part of the program
+category = None  # Instantiate with the value of the category key
+questionstoask = []
+
+if "lease_termination" in category:
+    questionstoask.extend((lease_term_type, has_lease_expired, is_tenant_dead, is_student, is_habitable))
+
+if "rent_change" in category:
+    questionstoask.extend((is_rent_in_lease, rent_in_lease_amount))
+
+if "nonpayment" in category:
+    questionstoask.extend((over_three_weeks, has_abandoned))
+
+if "deposits" in category:
+    questionstoask.extend((is_rent_in_lease, first_month_rent_paid))
+
+
+# Run this everytime we get back an input from the user
+def askQuestion():
+    for facts in questionstoask:
+        if facts[1] == False:
+            if canIAsk() == True:
+                sys.stdout.write(facts[0])
+
+
+# This will regulate what can be asked and what cannot be asked by dependency but will NOT regulate fact values changing
+# Facts will uniquely be changed as a whole by the nlp_service without regulation or discrimination
+
+def canIAsk():
+    return False
+
+
+# Write dependencies here for lease termination
+# Write dependencies here for rent change
+# Write dependencies here for nonpayment
+# Write dependencies here for deposits
+
+
+
 # Vynny Test Stuff
+
 fact_dict = {
     "lease_termination": {
         "lease_term_type": ["Is there a specified end date to your lease?"],
