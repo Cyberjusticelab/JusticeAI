@@ -32,58 +32,63 @@ export default {
     return {
       chatLog: new Array,
       currentUserInput: null,
-      username: null,
+      username: 'Hammer of Justice', // TODO: prompt user's name
       connectionError: false
     }
   },
   created: function() {
     if (!this.$localStorage.get('zeusId')) {
-      const zeusId = this.$localStorage.get('zeusId');
-      this.getChatHistory(zeusId, this.initChat);
+      let zeusId = this.$localStorage.get('zeusId');
+      this.getChatHistory(zeusId);
     } else {
-      this.initChat();
+      this.initChatSession();
     }
   },
   methods: {
-    initChat: function() {
-      this.chatLog.push({
-        type: 'BOT',
-        text: 'Hello there, I am ProceZeus, your personal legal assisstant. To get started, can you kindly tell me what is your name?'
-      });
-    },
-    initChatSession: function() {
+    initChatSession() {
       this.$http.post('http://localhost:3003/new',{
         name: this.username
-      }).then(response => {
-        this.$localStorage.set('zeusId', response.body.conversation_id);
-      }, response => {
-        this.connectionError = true;
-      });
+      }).then(
+        response => {
+          this.$localStorage.set('zeusId', response.body.conversation_id);
+          sendUserMessage('');
+        },
+        response => {
+          this.connectionError = true;
+        }
+      );
     },
-    sendUserMessage: function() {
+    sendUserMessage(message) {
+      let userMessage = message || this.currentUserInput;
       this.$http.post('http://localhost:3003/conversation', {
         conversation_id: this.$localStorage.get('zeusId'),
-        message: this.currentUserInput
-      }).then(response => {
-        this.showMessage(this.currentUserInput, 'USER');
-        this.showMessage(response.body.message, 'BOT');
-      }, response => {
-        this.connectionError = true;
-      });
-    },
-    getChatHistory: function(zeusId, callback) {
-      this.$http.get('http://localhost:3003/conversation/' + zeusId).then(response => {
-        var chatHistory = response.body.message;
-        for (var i = 0; i < chatHistory.length; i++) {
-          this.showMessage(chatHistory[i].text, chatHistory[i].sender_type);
+        message: userMessage
+      }).then(
+        response => {
+          this.shwoMessage(this.currentUserInput, 'USER');
+          this.showMessage(response.body.message, 'BOT');
+        },
+        response => {
+          this.connectionError = true;
         }
-        this.username = response.body.name;
-      }, response => {
-        callback();
-      });
+      );
+    },
+    getChatHistory(zeusId) {
+      this.$http.get('http://localhost:3003/conversation/' + zeusId).then(
+        response => {
+          let chatHistory = response.body.message;
+          for (let i = 0; i < chatHistory.length; i++) {
+            this.showMessage(chatHistory[i].text, chatHistory[i].sender_type);
+          }
+          this.username = response.body.name;
+        },
+        response => {
+          this.connectionError = true;
+        }
+      );
     },
     // push message to chatlog
-    showMessage: function(text, type) {
+    showMessage(text, type) {
       this.chatLog.push({
         text: text,
         type: type
