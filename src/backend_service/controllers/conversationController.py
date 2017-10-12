@@ -34,7 +34,7 @@ def receive_message(conversation_id, message):
 
         # First message in the conversation
         if len(conversation.messages) == 0:
-            response_text = WelcomeStrings().pick().format(name=conversation.name)
+            response_text = StaticStrings.chooseFrom(StaticStrings.welcome).format(name=conversation.name)
         else:
             # Add user's message
             user_message = Message(sender_type=SenderType.USER, text=message)
@@ -82,10 +82,10 @@ def _determine_person_type(conversation, message):
 
         db.session.commit()
 
-        return ProblemInquiryStrings().pick().format(name=conversation.name,
-                                                     person_type=conversation.person_type.value.lower())
+        return StaticStrings.chooseFrom(StaticStrings.problem_inquiry).format(name=conversation.name,
+                                                                              person_type=conversation.person_type.value.lower())
     else:
-        return ClarifyStrings().pick()
+        return StaticStrings.chooseFrom(StaticStrings.clarify)
 
 
 def _determine_claim_category(conversation, message):
@@ -96,7 +96,6 @@ def _determine_claim_category(conversation, message):
         claim_category = fact['category']
 
     if claim_category is not None:
-
         conversation.claim_category = {
             'lease_termination': ClaimCategory.LEASE_TERMINATION,
             'rent_change': ClaimCategory.RENT_CHANGE,
@@ -106,10 +105,14 @@ def _determine_claim_category(conversation, message):
 
         db.session.commit()
 
-        return CategoryInquiryStrings().pick().format(
+        return StaticStrings.chooseFrom(StaticStrings.category_acknowledge).format(
             claim_category=conversation.claim_category.value.lower().replace("_", " "))
     else:
-        return ClarifyStrings().pick()
+        return StaticStrings.chooseFrom(StaticStrings.clarify)
+
+
+def _probe_facts(conversation, message):
+    pass
 
 
 # Dictionary to list converter
@@ -173,3 +176,28 @@ nonpayment = ['in_default',
 
 deposits = ['is_rent_advance',
             'first_month_rent_paid']
+
+# Vynny Test Stuff
+fact_dict = {
+    "lease_termination": {
+        "lease_term_type": ["Is there a specified end date to your lease?"],
+        "has_lease_expired": ["Has the lease expired already?"],
+        "is_tenant_dead": ["Is the tenant dead?"],
+        "is_student": ["Are you a student?"],
+        "is_habitable": ["How would you describe your dwelling? Is it habitable?"]
+    },
+    "rent_change": {
+        "lease_term_type": ["Is there a specified end date to your lease?"],
+        "is_rent_in_lease": ["Is the rent specified in the lease?"],
+        "rent_in_lease_amount": ["What is the amount of the rent"]
+    },
+    "nonpayment": {
+        "in_default": ["How long has it been since you haven't paid?"],
+        "over_three_weeks": ["Has payment not been made in over three weeks?"],
+        "has_abandoned": ["Have you seen your tenant?"],
+    },
+    "deposits": {
+        "is_rent_advance": ["Has the rent been asked to be paid in advance?"],
+        "first_month_rent_paid": ["Is it only for the first month?"]
+    }
+}

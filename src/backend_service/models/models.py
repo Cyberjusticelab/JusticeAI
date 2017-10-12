@@ -40,6 +40,7 @@ class Conversation(db.Model):
     person_type = db.Column(db.Enum(PersonType))
     claim_category = db.Column(db.Enum(ClaimCategory))
     messages = db.relationship('Message')
+    facts = db.relationship('Fact')
 
 
 class Message(db.Model):
@@ -48,6 +49,13 @@ class Message(db.Model):
     sender_type = db.Column(db.Enum(SenderType), nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     text = db.Column(db.Text, nullable=False)
+
+
+class Fact(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    conversation_id = db.Column(db.Integer, db.ForeignKey('conversation.id'))
+    name = db.Column(db.String(50), nullable=False)
+    value = db.Column(db.String(50), nullable=False)
 
 
 '''
@@ -65,6 +73,11 @@ class MessageSchema(ma.ModelSchema):
         model = Message
 
 
+class FactSchema(ma.ModelSchema):
+    class Meta:
+        model = Fact
+
+
 class ConversationSchema(ma.ModelSchema):
     # Enum
     person_type = EnumField(PersonType, by_value=True)
@@ -72,6 +85,7 @@ class ConversationSchema(ma.ModelSchema):
 
     # Lists
     messages = ma.Nested(MessageSchema, many=True)
+    facts = ma.Nested(FactSchema, many=True)
 
     class Meta:
         model = Conversation
