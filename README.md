@@ -20,7 +20,19 @@ To install Docker and Docker Compose, you can follow the instructions [here](htt
 We've developed a script to help with running the entire application with all its components. All you need is:
 
 ```
+./cjl up
+```
+
+If you want to suppress output push the job to the background:
+
+```
 ./cjl up -d
+```
+
+Docker isn't always the best at determining diffs between images. You can manually rebuild all images with
+
+```
+./cjl build
 ```
 
 In order to shut down all containers:
@@ -29,10 +41,16 @@ In order to shut down all containers:
 ./cjl down
 ```
 
+The `cjl` script also takes any other command that `docker-compose` can take.
+
 ## Running or Testing Specific Services
 
 The following services can run individually or tested against:
 - [Web Client](src/web_client/README.md)
+- [Backend Service](src/backend_service/README.md)
+- [Machine Learning Service](src/ml_service/README.md)
+- [Natural Language Processing Service](src/nlp_service/README.md)
+- [PostgreSQL Database](src/postgresql_db/README.md)
 
 ## Deployment
 
