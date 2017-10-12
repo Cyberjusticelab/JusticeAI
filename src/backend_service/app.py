@@ -1,6 +1,7 @@
 from flask import Flask, request, abort, make_response, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+import database
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://justiceai:justiceai@localhost/justiceai'
@@ -12,7 +13,8 @@ from controllers import conversationController
 
 @app.route("/")
 def hello():
-    return "Hello World! From the Web Backend Microservice!"
+    con, meta = database.connect('postgres', 'DEV_PASS_NOT_SECRET', 'postgres')
+    return None
 
 
 @app.route("/new", methods=['POST'])

@@ -126,3 +126,14 @@ Gets the message history for a conversation
 **Code** : `400 Bad Request`
 
 **Code** : `404 Not Found`
+
+---
+
+# Backend Service
+
+## Run Tests and Lints
+
+```
+export COMPOSE_FILE=ci
+./cjl up -d && ./cjl run backend_service
+```

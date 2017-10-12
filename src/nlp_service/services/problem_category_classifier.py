@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from models.question import QuestionOutput
 from services.gram_classifier import GramClassifier
 import os
 
@@ -9,10 +8,12 @@ class ProblemCategoryClassifier(GramClassifier):
 
     """docstring for ProblemCategoryClassifier"""
 
-    def __init__(self):
+    def __init__(self, forceTrain=False):
         baseName = os.path.basename(__file__).split(".")[0]
-        super().__init__(baseName, ProblemCategoryClassifier.inputFiles)
+        super().__init__(baseName,
+                         ProblemCategoryClassifier.inputFiles,
+                         forceTrain)
 
     def classify(self, questionInput):
-        output = super().classify(questionInput.answerString)
-        return QuestionOutput(None, None, [{'category': output}])
+        output = super().classify(questionInput)
+        return {'category': output}

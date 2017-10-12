@@ -1,0 +1,7 @@
+tenant is alive
+tenant is not dead
+tenant still breathes
+tenant is still around
+tenant is in a coma
+tenant is still breathing
+tenant’s vitals are still up
