@@ -1,12 +1,11 @@
-# ProceZeus
+# Web Client Service
 
-## Building the Web Client Docker Image
+## Run Tests and Lints
 
-TBD
-
-## Running and Testing
-
-TBD
+```
+export COMPOSE_FILE=ci
+./cjl up -d && ./cjl run web_client
+```
 
 ## Technologies
 
