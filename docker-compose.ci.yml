@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  ml_service:
+    command: bash -c "pytest && flake8"
+  nlp_service:
+    command: bash -c "pytest && flake8"
+  backend_service:
+    command: bash -c "pytest && flake8"
+  web_client:
+    command: bash -c "npm run test && npm run lint"
+  postgresql_db:
+    environment:
+      POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
