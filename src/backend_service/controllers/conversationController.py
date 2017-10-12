@@ -136,27 +136,6 @@ def dicttolist(dictionnaire):
         tempo[:] = []
 
 
-# List the facts inside of lists with the name of the categories
-lease_termination = ['lease_term_type',
-                     'has_lease_expired',
-                     'is_tenant_dead',
-                     'is_student',
-                     'is_habitable']
-
-rent_change = ['lease_term_type',
-               'is_rent_in_lease',
-               'rent_in_lease_amount']
-
-nonpayment = ['in_default',
-              'over_three_weeks',
-              'has_abandoned',
-              'interest_allowed',
-              'interest_term',
-              'interest_max']
-
-deposits = ['is_rent_advance',
-            'first_month_rent_paid']
-
 # Model of every list of category: category = [fact, fact, fact, etc.] fact = [fact question, checked, value]
 # Questions for lease termination
 lease_term_type = ['Is there a specified end date to your lease?', False, None],
@@ -167,7 +146,7 @@ is_habitable = ['How would you describe your dwelling? Is it habitable?', False,
 
 # Questions for rent change (excluding lease_term_type)
 is_rent_in_lease = ['Is the rent specified in the lease?', False, None]
-rent_in_lease_amount = ['What is the amount of the rent', False, None]
+rent_in_lease_amount = ['What is the amount of the rent', None, None]
 
 # Question for nonpayment - obviously not both in_default and over_three_weeks will be asked
 in_default = ""  # If you entered this category, you are automatically in default
@@ -185,39 +164,54 @@ first_month_rent_paid = ['Is it only for the first month?', False, None]
 category = None  # Instantiate with the value of the category key
 questionstoask = []
 
-if "lease_termination" in category:
-    questionstoask.extend((lease_term_type, has_lease_expired, is_tenant_dead, is_student, is_habitable))
-
-if "rent_change" in category:
-    questionstoask.extend((is_rent_in_lease, rent_in_lease_amount))
-
-if "nonpayment" in category:
-    questionstoask.extend((over_three_weeks, has_abandoned))
-
-if "deposits" in category:
-    questionstoask.extend((is_rent_in_lease, first_month_rent_paid))
+def initializeQuestions(category):
+    if "lease_termination" in category:
+        questionstoask.extend((lease_term_type, has_lease_expired, is_tenant_dead, is_student, is_habitable))
+    if "rent_change" in category:
+        questionstoask.extend((is_rent_in_lease, rent_in_lease_amount))
+    if "nonpayment" in category:
+        questionstoask.extend((over_three_weeks, has_abandoned))
+    if "deposits" in category:
+        questionstoask.extend((is_rent_advance, first_month_rent_paid))
 
 
 # Run this everytime we get back an input from the user
 def askQuestion():
     for facts in questionstoask:
-        if facts[1] == False:
-            if canIAsk() == True:
+        # if list is false (unchecked) or if the value wasn't instantiated, ask the question
+        if facts[1] is False:
+            # Dependency checker
+            if canIAsk(facts) is True:
+                # This will be replaced with the proper message
                 sys.stdout.write(facts[0])
 
 
 # This will regulate what can be asked and what cannot be asked by dependency but will NOT regulate fact values changing
 # Facts will uniquely be changed as a whole by the nlp_service without regulation or discrimination
 
-def canIAsk():
-    return False
-
-
-# Write dependencies here for lease termination
-# Write dependencies here for rent change
-# Write dependencies here for nonpayment
-# Write dependencies here for deposits
-
+def canIAsk(facts):
+    # Write dependencies here for lease termination
+    if "lease_termination" in category and facts in questionstoask:
+        # Rule #1 cannot ask when it ends if it's indeterminate or the question about the type is not asked yet
+        if "indeterminate" in (questionstoask[0])[2]:
+            return False
+        else:
+            return True
+        # Write dependencies here for rent change
+    elif "rent_change" in category and facts in questionstoask:
+        # Rule #1 cannot ask what the rent in lease amount is if the rent is not in the lease
+        if (questionstoask[1])[1] is False and facts in questionstoask:
+            return False
+        else:
+            return True
+        # Write dependencies here for nonpayment
+    elif "nonpayment" in category and facts in questionstoask:
+        return True
+    # Write dependencies here for deposits
+    elif "deposits" in category and facts in questionstoask:
+        return True
+    else:
+        return True
 
 
 # Vynny Test Stuff
