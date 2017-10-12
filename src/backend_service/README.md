@@ -89,27 +89,32 @@ Gets the message history for a conversation
         {
             "id": 1,
             "sender_type": "BOT",
-            "text": "Nice to meet you Tim Timmens, are you a landlord or a tenant?"
+            "text": "Nice to meet you Tim Timmens, are you a landlord or a tenant?",
+            "timestamp": "2017-10-12T00:00:36+00:00"
         },
         {
             "id": 2,
             "sender_type": "USER",
-            "text": "I'm a tenant."
+            "text": "I'm a tenant.",
+            "timestamp": "2017-10-12T00:00:42+00:00"
         },
         {
             "id": 3,
             "sender_type": "BOT",
-            "text": "What's your issue as a tenant?"
+            "text": "What's your issue as a tenant?",
+            "timestamp": "2017-10-12T00:00:42+00:00"
         },
         {
             "id": 4,
             "sender_type": "USER",
-            "text": "My landlord is trying to raise my rent, but my lease ends in 4 months."
+            "text": "My landlord is trying to raise my rent, but my lease ends in 4 months.",
+            "timestamp": "2017-10-12T00:00:50+00:00"
         },
         {
             "id": 5,
             "sender_type": "BOT",
-            "text": "Did your landlord give you any warning of the rent increase in advance?"
+            "text": "Did your landlord give you any warning of the rent increase in advance?",
+            "timestamp": "2017-10-12T00:00:50+00:00"
         }
     ],
 

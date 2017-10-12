@@ -1,3 +1,4 @@
+import datetime
 from enum import Enum
 from marshmallow_enum import EnumField
 from app import db, ma
@@ -37,6 +38,7 @@ class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     conversation_id = db.Column(db.Integer, db.ForeignKey('conversation.id'))
     sender_type = db.Column(db.Enum(SenderType), nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     text = db.Column(db.Text, nullable=False)
 
 
