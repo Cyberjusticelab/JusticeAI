@@ -16,4 +16,4 @@ class TenantLandlordClassifier(GramClassifier):
 
     def classify(self, questionInput):
         output = super().classify(questionInput)
-        return {'person_class': output}
+        return {'tenant_landlord': output}
