@@ -37,6 +37,7 @@ def expandInputFile(inputFile, outputFile):
     for item in expanded:
         out.write(item + '\n')
 
+
 for directory in os.listdir('data'):
     for file in os.listdir('data/' + directory):
         inputFile = 'data/' + directory + '/' + file

@@ -1,4 +1,3 @@
-import app
 
 
 def test_hello():
