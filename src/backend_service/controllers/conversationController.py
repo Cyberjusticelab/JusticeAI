@@ -66,16 +66,27 @@ def _generate_response(conversation, message):
         return _determine_person_type(conversation, message)
     elif conversation.claim_category is None:
         return _determine_claim_category(conversation, message)
-    else:
-        return _probe_facts(conversation, message)
+    elif conversation.current_fact is not None:
+        # Assume it is an answer to the current fact
+        nlp_request = nlpService.fact_extract([conversation.current_fact], message=message)
+
+        for resolved_fact in nlp_request['facts']:
+            for fact_name, fact_value in resolved_fact.items():
+                new_fact = Fact(name=fact_name, value=fact_value)
+                conversation.facts.append(new_fact)
+
+        db.session.commit()
+        question = _probe_facts(conversation)
+        return question
 
 
 def _determine_person_type(conversation, message):
     person_type = None
+    # nlp_request = nlpService.fact_extract(['person_class'], message) #TODO: CHANGE TO THIS AFTER PR
     nlp_request = nlpService.tenant_landlord(message)
 
     for fact in nlp_request['facts']:
-        person_type = fact['person_class']
+        person_type = fact['tenant_landlord']
 
     if person_type is not None:
         conversation.person_type = {
@@ -108,13 +119,16 @@ def _determine_claim_category(conversation, message):
 
         db.session.commit()
 
+        # Generate the first question
+        first_question = _probe_facts(conversation)
+
         return StaticStrings.chooseFrom(StaticStrings.category_acknowledge).format(
-            claim_category=conversation.claim_category.value.lower().replace("_", " "))
+            claim_category=conversation.claim_category.value.lower().replace("_", " "), first_question=first_question)
     else:
         return StaticStrings.chooseFrom(StaticStrings.clarify)
 
 
-def _probe_facts(conversation, message):
+def _probe_facts(conversation):
     resolved_facts = [fact.name for fact in conversation.facts]
     fact, question = FactService.get_question(conversation.claim_category.lower(), resolved_facts)
 

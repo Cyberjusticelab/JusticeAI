@@ -22,9 +22,9 @@ class StaticStrings:
 
     # Acknowledge claim category resolution
     category_acknowledge = [
-        "I see, you're having issues with {claim_category}.",
-        "As I understand it, your problems have to do with {claim_category}.",
-        "Oh yes, I know all about problems with {claim_category}."
+        "I see, you're having issues with {claim_category}. {first_question}",
+        "As I understand it, your problems have to do with {claim_category}. {first_question}",
+        "Oh yes, I know all about problems with {claim_category}. {first_question}"
     ]
 
     # Asking for clarification
