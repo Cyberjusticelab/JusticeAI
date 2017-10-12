@@ -29,27 +29,33 @@ class Predicate(Abstract_Model.AbstractModel):
     def __ne__(self, other):
         return not(self.__eq__(other))
 
-    def set_word(self, word, tag = None):
-        if tag is not None:
-            if not(regex.Regex.verb_match.match(tag)):
-                return
-        if self._word is None:
-            self._word = word
-        else:
-            self._word += ", " + word
+    def set_word(self, word, tag):
+        if not(regex.Regex.verb_match.match(tag)):
+            return
+        self._word.append((word, tag))
+        self.add_tag_index(tag)
 
     def merge(self, other):
-        if self.get_word() is None:
-            self.set_word(other.get_word())
-        elif other.get_word() is None:
+        if len(self.get_word()) == 0:
+            for word in other.get_word():
+                self.set_word(word[0], word[1])
+        elif len(other.get_word()) == 0:
             pass
         else:
-            self.set_word(other.get_word())
+            for word in other.get_word():
+                self.set_word(word[0], word[1])
         self._qualifier.extend(other.get_qualifier())
+
+    def empty_model(self):
+        if len(self.get_word()) > 0:
+            return False
+        elif len(self.get_qualifier()) > 0:
+            return False
+        return True
 
 if __name__ == '__main__':
     p1 = Predicate()
-    p1.add_qualifier("word")
+    p1.add_qualifier("word", 'VBN')
     p2 = Predicate()
-    p2.add_qualifier("word")
+    p2.add_qualifier("word", 'VBN')
     print(p1 == p2)

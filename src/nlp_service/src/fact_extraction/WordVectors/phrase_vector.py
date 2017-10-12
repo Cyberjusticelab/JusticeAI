@@ -6,8 +6,11 @@ from src.fact_extraction.WordVectors import word_vector
 
 
 class PhraseVector:
+    v = word_vector.WordVectors()
+    __model = v.load_glove_model_pickle()
+
     def __init__(self):
-        self.__model = word_vector.WordVectors().load_glove_model_pickle()
+        pass
 
     ###############################################
     # COMPARE PHRASES
@@ -18,10 +21,8 @@ class PhraseVector:
     #
     # statement: list[word tokens]
     # phrase_set: list[list[word tokens]]
-    def compare_phrases(self, statement, phrase_set):
-        probability_matrix = numpy.empty(len(phrase_set))
-        for i in range(len(phrase_set)):
-            probability_matrix[i] = self.__similarities(statement, phrase_set[i])
+    def compare_phrases(self, statement, phrase):
+        probability_matrix = self.__similarities(statement, phrase)
         return probability_matrix
 
     ###############################################
@@ -60,4 +61,9 @@ def remove_punctuation(sentence):
 
 
 if __name__ == '__main__':
-    question = nltk.word_tokenize(remove_punctuation("color car"))
+    question = nltk.word_tokenize(remove_punctuation("lease"))
+    phrase_set = nltk.word_tokenize("month")
+    v = PhraseVector()
+    result = v.compare_phrases(question, phrase_set)
+    result = v.compare_phrases(question, phrase_set)
+    print(result)

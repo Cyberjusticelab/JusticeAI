@@ -1,10 +1,12 @@
 import numpy
 import pickle
+import os
 
 
 class WordVectors:
     def __init__(self):
-        pass
+        path = os.path.dirname(os.path.realpath(__file__))
+        self.pickle_path = os.path.join(path, 'ser.pickle')
 
     #####################################
     # LOAD MODEL FROM FILE
@@ -22,9 +24,8 @@ class WordVectors:
 
     #####################################
     # LOAD MODEL FROM PICKLE
-    @staticmethod
-    def load_glove_model_pickle():
-        with open('ser.pickle', 'rb') as pickle_file:
+    def load_glove_model_pickle(self):
+        with open(self.pickle_path, 'rb') as pickle_file:
             model = pickle.load(pickle_file)
         return model
 

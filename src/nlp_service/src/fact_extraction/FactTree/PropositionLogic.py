@@ -133,7 +133,10 @@ class Proposition():
     # 2- For ever clause map them to their compliments
     # 3- clear stack
     def __extract_relations(self):
-        predicate = self.__stack.predicate_stack.pop()
+        try:
+            predicate = self.__stack.predicate_stack.pop()
+        except:
+            return
         if len(self.__stack.compliment_stack) == 0:
             self.__extract_double(predicate)
         else:
@@ -163,7 +166,7 @@ class Proposition():
 
 if __name__ == "__main__":
     p = Proposition()
-    p.build("The movie, though very long, was still very enjoyable.", True)
+    p.build("2 years is the time on my lease.", False)
     lst = p.get_proposition_lst()
     for e in lst:
         print(e)

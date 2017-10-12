@@ -1,4 +1,5 @@
 from src.fact_extraction.Models import clause, compliment, predicate
+import re
 
 
 '''
@@ -29,6 +30,30 @@ class LogicModel:
         elif self.compliment != other.compliment:
             return False
         return True
+
+    def category_match(self, category):
+        if self.compliment.category_match(category):
+            return True
+        elif self.predicate.category_match(category):
+            return True
+        elif self.clause.category_match(category):
+            return True
+        return False
+
+    def get_element_from_tag(self, tag):
+        tag_lst = []
+        a = self.clause.get_element_from_tag(tag)
+        if a is not None:
+            tag_lst += a
+
+        a = self.predicate.get_element_from_tag(tag)
+        if a is not None:
+            tag_lst += a
+
+        a = self.compliment.get_element_from_tag(tag)
+        if a is not None:
+            tag_lst += a
+        return tag_lst
 
     def __ne__(self, other):
         return not(self.__eq__(other))

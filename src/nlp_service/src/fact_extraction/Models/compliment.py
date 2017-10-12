@@ -14,9 +14,10 @@ class compliment(Abstract_Model.AbstractModel):
         Abstract_Model.AbstractModel.__init__(self)
         self.__quantifier = None
 
-    def set_quantifier(self, quantifier):
+    def set_quantifier(self, quantifier, tag):
         if quantifier is not None:
-            self.__quantifier = quantifier
+            self.__quantifier = (quantifier, tag)
+            self.add_tag_index(tag)
 
     def get_quantifier(self):
         return self.__quantifier
@@ -26,14 +27,11 @@ class compliment(Abstract_Model.AbstractModel):
                " | Qualifier: " + str(self._qualifier) + \
                " | Quantifier: " + str(self.__quantifier)
 
-    def set_word(self, word, tag = None):
-        if tag is not None:
-            if not(regex.Regex.temp_match.match(tag)):
-                return
-        if self._word is None:
-            self._word = word
-        else:
-            self._word += ", " + word
+    def set_word(self, word, tag):
+        if not(regex.Regex.temp_match.match(tag)):
+            return
+        self._word.append((word, tag))
+        self.add_tag_index(tag)
 
     def __eq__(self, other):
         if type(other) != type(self):
@@ -46,6 +44,14 @@ class compliment(Abstract_Model.AbstractModel):
             return False
         return True
 
+    def empty_model(self):
+        if len(self.get_word()) > 0:
+            return False
+        elif len(self.get_qualifier()) > 0:
+            return False
+        elif self.get_quantifier() is not None:
+            return False
+        return True
+
     def __ne__(self, other):
         return not (self.__eq__(other))
-        return False

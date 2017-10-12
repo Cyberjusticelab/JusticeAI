@@ -80,7 +80,13 @@ class Tree:
     #####################################
     # GET LOGIC MODEL
     def get_logic_model(self):
-        return self.__logic_model.copy()
+        new_list = []
+        for elements in self.__logic_model:
+            if elements.empty_model():
+                pass
+            else:
+                new_list.append(elements)
+        return new_list
 
     #####################################
     # GET TAG LIST
@@ -120,15 +126,15 @@ class Tree:
             if type(model) == compliment.compliment:
                 model.set_word(word, tag)
             else:
-                model.add_qualifier(word)
+                model.add_qualifier(word, tag)
         elif Regex.adverb_match.match(tag):
-            model.add_qualifier(word)
+            model.add_qualifier(word, tag)
         elif Regex.conjunction_match.match(tag):
             pass
         elif Regex.w_word_match.match(tag):
             pass
         elif Regex.determiner_match.match(tag):
-            model.set_quantifier(word)
+            model.set_quantifier(word, tag)
         #special case
         elif Regex.rp_match.match(tag):
             self.__logic_model.append(compliment.compliment())
@@ -158,7 +164,7 @@ class Tree:
 
 if __name__ == "__main__":
     t = Tree()
-    t.build("She returned the computer after she noticed it was damaged.", draw= False)
+    t.build("My rent is eight hundred dollars a month", draw= True)
     lst = t.get_logic_model()
     for e in lst:
         print(e)
