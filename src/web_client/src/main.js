@@ -11,7 +11,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.config.productionTip = false
-Vue.use(VueResource);
+Vue.use(VueResource)
 Vue.use(VueLocalStorage)
 Vue.use(VueChatScroll)
 Vue.use(BootstrapVue)
