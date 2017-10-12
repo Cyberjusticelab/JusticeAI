@@ -1,6 +1,7 @@
 from flask import jsonify, abort, make_response
 from models.staticStrings import *
 from models.models import *
+from models.factService import FactService
 from services import nlpService
 import os
 import sys
@@ -66,7 +67,7 @@ def _generate_response(conversation, message):
     elif conversation.claim_category is None:
         return _determine_claim_category(conversation, message)
     else:
-        return "Hello there, {}. Your message was '{}'".format(conversation.name, message)
+        return _probe_facts(conversation, message)
 
 
 def _determine_person_type(conversation, message):
@@ -114,7 +115,14 @@ def _determine_claim_category(conversation, message):
 
 
 def _probe_facts(conversation, message):
-    pass
+    resolved_facts = [fact.name for fact in conversation.facts]
+    fact, question = FactService.get_question(conversation.claim_category.lower(), resolved_facts)
+
+    # Update fact being asked
+    conversation.current_fact = fact
+    db.session.commit()
+
+    return question
 
 
 # Mihai test stuff
@@ -213,30 +221,3 @@ def canIAsk(facts):
         return True
     else:
         return True
-
-
-# Vynny Test Stuff
-
-fact_dict = {
-    "lease_termination": {
-        "lease_term_type": ["Is there a specified end date to your lease?"],
-        "has_lease_expired": ["Has the lease expired already?"],
-        "is_tenant_dead": ["Is the tenant dead?"],
-        "is_student": ["Are you a student?"],
-        "is_habitable": ["How would you describe your dwelling? Is it habitable?"]
-    },
-    "rent_change": {
-        "lease_term_type": ["Is there a specified end date to your lease?"],
-        "is_rent_in_lease": ["Is the rent specified in the lease?"],
-        "rent_in_lease_amount": ["What is the amount of the rent"]
-    },
-    "nonpayment": {
-        "in_default": ["How long has it been since you haven't paid?"],
-        "over_three_weeks": ["Has payment not been made in over three weeks?"],
-        "has_abandoned": ["Have you seen your tenant?"],
-    },
-    "deposits": {
-        "is_rent_advance": ["Has the rent been asked to be paid in advance?"],
-        "first_month_rent_paid": ["Is it only for the first month?"]
-    }
-}

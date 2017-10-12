@@ -39,6 +39,7 @@ class Conversation(db.Model):
     name = db.Column(db.String(40), nullable=False)
     person_type = db.Column(db.Enum(PersonType))
     claim_category = db.Column(db.Enum(ClaimCategory))
+    current_fact = db.Column(db.String(50))
     messages = db.relationship('Message')
     facts = db.relationship('Fact')
 
