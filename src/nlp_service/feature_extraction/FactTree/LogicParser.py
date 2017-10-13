@@ -8,7 +8,7 @@ from feature_extraction.Models import compliment, predicate, clause
 class Tree:
     model_dir = download_and_install_model('WSJ', '/tmp/models')
     __rpp = RerankingParser.from_unified_model_dir(model_dir)
-    
+
     ###################################################
     # CONSTRUCTOR
     # -------------------------------------------------
