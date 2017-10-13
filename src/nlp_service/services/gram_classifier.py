@@ -26,7 +26,8 @@ class GramClassifier(object):
     of the given input"""
 
     def __init__(self, baseName, inputFiles, forceTrain):
-        if os.path.exists('data/' + baseName + '/' + baseName + '.pickle') \
+        if os.path.exists(os.getcwd() + '/data/' +
+                          baseName + '/' + baseName + '.pickle') \
                 and not forceTrain:
             self.createFromPickle(baseName, inputFiles)
         else:
@@ -42,14 +43,16 @@ class GramClassifier(object):
         elapsed = int(time.time() - startTime)
         print('==== Completed ' + self.__class__.__name__ +
               ' creation. Took ' + str(elapsed) + ' seconds ====')
-        f = open('data/' + baseName + '/' + baseName + '.pickle', 'wb')
+        f = open(os.getcwd() + '/data/' + baseName +
+                 '/' + baseName + '.pickle', 'wb')
         pickle.dump(self.cl, f)
         f.close()
 
     def createFromPickle(self, baseName, inputFiles):
         print('=== Using Pickle version of ' +
               self.__class__.__name__ + ' ===')
-        f = open('data/' + baseName + '/' + baseName + '.pickle', 'rb')
+        f = open(os.getcwd() + '/data/' + baseName +
+                 '/' + baseName + '.pickle', 'rb')
         self.cl = pickle.load(f)
         f.close()
         self.loadData(baseName, inputFiles)
@@ -68,7 +71,8 @@ class GramClassifier(object):
     def loadData(self, baseName, inputFiles):
         self.trainingData = []
         for inp in inputFiles:
-            f = open('data/' + baseName + '/' + inp + '.extended.txt')
+            f = open(os.getcwd() + '/data/' + baseName +
+                     '/' + inp + '.extended.txt')
             inputSet = set([l.strip('\n') for l in f.readlines()])
             inputTuples = []
             for inputString in inputSet:
