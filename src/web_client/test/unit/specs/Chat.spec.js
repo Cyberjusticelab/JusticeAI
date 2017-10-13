@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Chat from '@/components/Chat'
 
-describe('Chat.vue', () => {
+xdescribe('Chat.vue', () => {
 
   it('should render the landing page title', () => {
     const Constructor = Vue.extend(Chat)
