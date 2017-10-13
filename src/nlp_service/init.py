@@ -31,7 +31,8 @@ def expandInputFile(inputFile, outputFile):
 
     expanded = set()
     stoppers = set(stopwords.words('english'))
-    print(inputFile.strip(os.getcwd() + '/data/') + ' old size: ' + str(len(samples)))
+    print(inputFile.strip(os.getcwd() + '/data/') +
+          ' old size: ' + str(len(samples)))
     while len(expanded) != len(samples):
         for sample in samples:
             sample = sample.lower()
@@ -48,7 +49,8 @@ def expandInputFile(inputFile, outputFile):
                             expanded.add(newSample)
         samples = expanded.copy()
 
-    print(outputFile.strip(os.getcwd() + '/data/') + ' new size: ' + str(len(expanded)))
+    print(outputFile.strip(os.getcwd() + '/data/') +
+          ' new size: ' + str(len(expanded)))
 
     out = open(outputFile, 'w')
     for item in expanded:
