@@ -67,11 +67,14 @@ def trainClassifiers():
     IsTenantDeadClassifier(True)
     LeaseTermTypeClassifier(True)
 
-for directory in os.listdir(os.getcwd() + '/data'):
-    for file in os.listdir(os.getcwd() + '/data/' + directory):
+path = os.path.dirname(os.path.realpath(__file__))
+dataPath = os.path.join(path, 'data')
+normalizedDataPath = os.path.normpath(dataPath)
+for directory in os.listdir(normalizedDataPath):
+    for file in os.listdir(normalizedDataPath + '/' + directory):
         if '.txt' in file and '.extended.txt' not in file:
-            inputFile = os.getcwd() + '/data/' + directory + '/' + file
-            outputFile = os.getcwd() + '/data/' + directory + '/' + \
+            inputFile = normalizedDataPath + '/' + directory + '/' + file
+            outputFile = normalizedDataPath + '/' + directory + '/' + \
                 file.split('.')[0] + '.extended.txt'
             expandInputFile(inputFile, outputFile)
 trainClassifiers()
