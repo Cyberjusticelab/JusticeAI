@@ -3,7 +3,7 @@ from services.has_lease_expired_classifier import HasLeaseExpiredClassifier
 
 def test_classify_false():
     assert HasLeaseExpiredClassifier().classify(
-      'My lease ends in a few months')[
+        'My lease ends in a few months')[
         'has_lease_expired'] == 'false'
 
 
