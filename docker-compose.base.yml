@@ -4,12 +4,32 @@ services:
   ml_service:
     build: ./src/ml_service
     image: procezeus/ml_service
+    networks:
+      - procezeus_net
   nlp_service:
     build: ./src/nlp_service
     image: procezeus/nlp_service
+    networks:
+      - procezeus_net
   backend_service:
     build: ./src/backend_service
     image: procezeus/backend_service
+    networks:
+      - procezeus_net
   web_client:
     build: ./src/web_client
     image: procezeus/web_client
+    networks:
+      - procezeus_net
+  postgresql_db:
+    image: postgres
+    volumes:
+      - procezeus_db:/var/lib/postgresql/data
+    networks:
+      - procezeus_net
+volumes:
+  procezeus_db:
+    driver: "local"
+networks:
+  procezeus_net:
+    driver: "bridge"
