@@ -1,7 +1,6 @@
 from flask import Flask
 from flask import jsonify
 from flask import request
-from models.question import QuestionInput
 from models.question import QuestionOutput
 from services.tenant_landlord_classifier import TenantLandlordClassifier
 from services.problem_category_classifier import ProblemCategoryClassifier
@@ -27,9 +26,9 @@ classifiers = {
 @app.route("/problem_category", methods=['POST'])
 def problemCategory():
     question_json = request.get_json()
-    question = QuestionInput(None, None, question_json['answer'])
-    output = classifiers['problem_category'].classify(question)
-    return jsonify(output.__dict__)
+    output = classifiers['problem_category'].classify(question_json['answer'])
+    question = QuestionOutput(None, None, [output])
+    return jsonify(question.__dict__)
 
 
 @app.route("/fact_extract", methods=['POST'])
