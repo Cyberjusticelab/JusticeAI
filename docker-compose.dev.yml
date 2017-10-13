@@ -4,26 +4,18 @@ services:
   ml_service:
     ports:
       - 3001:3001
-    volumes:
-      - ./src/ml_service:/usr/src/app
   nlp_service:
     ports:
       - 3002:3002
-    volumes:
-      - ./src/nlp_service:/usr/src/app
   backend_service:
     ports:
       - 3003:3003
-    volumes:
-      - ./src/backend_service:/usr/src/app
   web_client:
     command: npm start
     depends_on:
       - backend_service
     ports:
       - 3039:3039
-    volumes:
-      - ./src/web_client:/usr/src/app
   postgresql_db:
     environment:
       POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
