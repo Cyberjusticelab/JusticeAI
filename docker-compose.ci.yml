@@ -2,11 +2,11 @@ version: '3'
 
 services:
   ml_service:
-    command: bash -c "pytest && flake8 --ignore F403,F405,E501"
+    command: bash -c "pytest && flake8 --ignore F403,F405,E501,E121,E126"
   nlp_service:
-    command: bash -c "pytest && flake8 --ignore F403,F405,E501"
+    command: bash -c "pytest && flake8 --ignore F403,F405,E501,E121,E126"
   backend_service:
-    command: bash -c "pytest && flake8 --ignore F403,F405,E501"
+    command: bash -c "pytest && flake8 --ignore F403,F405,E501,E121,E126"
   web_client:
     command: bash -c "npm run test && npm run lint"
   postgresql_db:
