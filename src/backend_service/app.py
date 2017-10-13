@@ -1,12 +1,18 @@
 from flask import Flask, request, abort, make_response, jsonify
+from flask_cors import CORS
 from flask_marshmallow import Marshmallow
 
 import database
 
 app = Flask(__name__)
+
+# DB Setup
 # db = database.connect(app, 'postgres', 'postgres', 'postgres', host="localhost")
 db = database.connect(app, 'postgres', 'DEV_PASS_NOT_SECRET', 'postgres')
 ma = Marshmallow(app)
+
+# Cors Setup
+CORS(app)
 
 from controllers import conversationController
 
