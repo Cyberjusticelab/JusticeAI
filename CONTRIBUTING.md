@@ -66,7 +66,7 @@ An example might be:
 [#12] Added user login feature
 
     - Created user model
-    - Added Oauth library to our dependencies for authentication
+    - Added Oauth library to our dependencies for authyaoentication
     - Created a login page
 ```
 
