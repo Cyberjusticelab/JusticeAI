@@ -67,8 +67,6 @@ def _generate_response(conversation, message):
         return _determine_claim_category(conversation, message)
     elif conversation.current_fact is not None:
         # Assume it is an answer to the current fact
-        print("current fact: " + conversation.current_fact)
-        print("message: " + message)
         nlp_request = nlpService.fact_extract([conversation.current_fact], message=message)
 
         for resolved_fact in nlp_request['facts']:
@@ -130,10 +128,14 @@ def _determine_claim_category(conversation, message):
 
 def _probe_facts(conversation):
     resolved_facts = [fact.name for fact in conversation.facts]
-    fact, question = FactService.get_question(conversation.claim_category.lower(), resolved_facts)
+    fact, question = FactService.get_question(conversation.claim_category.value.lower(), resolved_facts)
 
-    # Update fact being asked
-    conversation.current_fact = fact
-    db.session.commit()
+    if fact is not None:
+        # Update fact being asked
+        conversation.current_fact = fact
+        db.session.commit()
+    else:
+        fact_dump = ''.join(repr(conversation.facts))
+        question = "FACT DUMP: {}".format(fact_dump)
 
     return question

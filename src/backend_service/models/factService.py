@@ -31,7 +31,10 @@ class FactService:
         all_category_facts = list(FactService.fact_dict[claim_category])
         facts_unresolved = [x for x in all_category_facts if x not in facts_resolved]
 
-        # Pick the first unresolved fact
+        # Pick the first unresolved fact, return None if none remain
+        if len(facts_unresolved) == 0:
+            return None, None
+
         fact = facts_unresolved[0]
 
         choice = random.choice  # For random question choice

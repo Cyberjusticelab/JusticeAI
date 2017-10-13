@@ -8,16 +8,14 @@ class StaticStrings:
         "Hello {name}! To start off, are you a landlord or a tenant?",
         "Hey {name}, I'm here to help you with your rental disputes! Are you a landlord or a tenant?",
         "Nice to meet you {name}, are you a landlord or a tenant?",
-        "You've got questions, I've got answers! Are you a landlord or a tenant, {name}?",
-        "BEGIN QUESTIONING PROCEDURE P-001.....I mean, hi {name}! Tell me, are you a landlord or a tenant?"
+        "You've got questions, I've got answers! Are you a landlord or a tenant, {name}?"
     ]
 
     # Asking for initial problem description
     problem_inquiry = [
         "So {name}, I see you're a {person_type}. What issue can I help you with today?",
         "What kind of issue are you having as a {person_type}, {name}?",
-        "I can help you with all sorts of {person_type} issues, {name}! Describe your problem to me, let's see what we can do.",
-        "You're a {person_type}?! Me too! Us {person_type}s need to stick together. Describe your problem to me {name}, I'm all ears.",
+        "I can help you with all sorts of {person_type} issues, {name}! Describe your problem to me, let's see what we can do."
     ]
 
     # Acknowledge claim category resolution

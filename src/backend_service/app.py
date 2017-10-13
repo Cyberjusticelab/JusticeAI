@@ -4,8 +4,8 @@ from flask_marshmallow import Marshmallow
 import database
 
 app = Flask(__name__)
-# DEV_PASS_NOT_SECRET
-db = database.connect(app, 'postgres', 'postgres', 'postgres', host="localhost")
+# db = database.connect(app, 'postgres', 'postgres', 'postgres', host="localhost")
+db = database.connect(app, 'postgres', 'DEV_PASS_NOT_SECRET', 'postgres')
 ma = Marshmallow(app)
 
 from controllers import conversationController

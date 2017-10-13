@@ -1,6 +1,6 @@
 import requests
 
-NLP_URL = "http://127.0.0.1:3002"
+NLP_URL = "http://0.0.0.0:3002"
 
 
 def problem_category(message):
