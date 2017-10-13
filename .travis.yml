@@ -17,7 +17,7 @@ script:
   - COMPOSE_FILE=ci ./cjl run ml_service
   - COMPOSE_FILE=ci ./cjl run nlp_service
 after_success:
-  - if [ $TRAVIS_BRANCH == "4/docker-cd" ]; then sudo apt-get update -y && sudo apt-get install software-properties-common -y && sudo apt-add-repository ppa:ansible/ansible -y && sudo apt-get update -y && sudo apt-get install sshpass ansible -y && sudo bash -c "echo 'capstone.cyberjustice.ca ansible_user=test ansible_ssh_pass=test' >> /etc/ansible/hosts" && ansible all -m ping; fi;
+  - if [ $TRAVIS_BRANCH == "4/docker-cd" ]; then sudo apt-get update -y && sudo apt-get install software-properties-common -y && sudo apt-add-repository ppa:ansible/ansible -y && sudo apt-get update -y && sudo apt-get install sshpass ansible -y && sudo bash -c "echo \"capstone.cyberjustice.ca ansible_user=$CAPSTONE_SSH_USER ansible_ssh_pass=$CAPSTONE_SSH_PASS\" >> /etc/ansible/hosts" && ansible all -m ping; fi;
 
 
 notifications:
