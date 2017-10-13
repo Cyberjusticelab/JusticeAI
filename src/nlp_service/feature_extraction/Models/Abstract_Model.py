@@ -45,10 +45,9 @@ class AbstractModel:
     #
     # tag: string
     def add_tag_index(self, tag):
-        try:
-            model = self._tags[tag]
+        if tag in self._tags:
             self._tags[tag].append(self)
-        except KeyError:
+        else:
             self._tags[tag] = [self]
 
     #####################################

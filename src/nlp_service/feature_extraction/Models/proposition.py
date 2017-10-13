@@ -1,5 +1,4 @@
-from feature_extraction.Models import clause, compliment, predicate
-
+from feature_extraction.Models import clause as c, compliment as cmp, predicate as p
 '''
 LOGIC MODEL
 ---------------------------------------------
@@ -9,9 +8,9 @@ Contains clauses, predicates and compliments
 
 class PropositionModel:
     def __init__(self):
-        self.clause = clause.Clause()
-        self.predicate = predicate.Predicate()
-        self.compliment = compliment.Compliment()
+        self.clause = c.Clause()
+        self.predicate = p.Predicate()
+        self.compliment = cmp.Compliment()
         self.category = []
         self.previous = None
         self.next = None

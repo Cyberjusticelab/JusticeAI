@@ -6,7 +6,6 @@ from feature_extraction.Models import clause, predicate, compliment
 
 
 class TestLogicParser(unittest.TestCase):
-
     def test_build_word_order(self):
         parser = LogicParser.Tree()
         parser.build("My lease expires on the 31st of October.", False)

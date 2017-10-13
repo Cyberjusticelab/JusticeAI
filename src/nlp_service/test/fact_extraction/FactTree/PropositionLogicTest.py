@@ -6,7 +6,6 @@ from feature_extraction.FactTree import PropositionLogic
 
 
 class TestPropositionLogic(unittest.TestCase):
-
     @staticmethod
     def create_logic_model(c, p, cmp):
         model = logic.LogicModel()

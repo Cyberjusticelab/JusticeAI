@@ -24,9 +24,12 @@ class WordToInt():
     # INIT DICTIONARY
     def __init_dictionary(self):
         self.__num_words["and"] = (1, 0)
-        for idx, word in enumerate(self.units):    self.__num_words[word] = (1, idx)
-        for idx, word in enumerate(self.tens):     self.__num_words[word] = (1, idx * 10)
-        for idx, word in enumerate(self.scales):   self.__num_words[word] = (10 ** (idx * 3 or 2), 0)
+        for idx, word in enumerate(self.units):
+            self.__num_words[word] = (1, idx)
+        for idx, word in enumerate(self.tens):
+            self.__num_words[word] = (1, idx * 10)
+        for idx, word in enumerate(self.scales):
+            self.__num_words[word] = (10 ** (idx * 3 or 2), 0)
 
     #####################################################
     # TEXT TO INT
