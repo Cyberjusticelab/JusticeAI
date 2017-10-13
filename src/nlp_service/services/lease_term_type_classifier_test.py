@@ -3,7 +3,7 @@ from services.lease_term_type_classifier import LeaseTermTypeClassifier
 
 def test_classify_indeterminate():
     assert LeaseTermTypeClassifier().classify(
-      'My lease does not have an end date')[
+        'My lease does not have an end date')[
         'lease_term_type'] == 'indeterminate'
 
 

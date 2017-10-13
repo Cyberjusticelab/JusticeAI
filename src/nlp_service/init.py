@@ -31,7 +31,8 @@ def expandInputFile(inputFile, outputFile):
 
     expanded = set()
     stoppers = set(stopwords.words('english'))
-    print(inputFile.strip('data/') + ' old size: ' + str(len(samples)))
+    print(inputFile.strip(os.getcwd() + '/data/') +
+          ' old size: ' + str(len(samples)))
     while len(expanded) != len(samples):
         for sample in samples:
             sample = sample.lower()
@@ -48,7 +49,8 @@ def expandInputFile(inputFile, outputFile):
                             expanded.add(newSample)
         samples = expanded.copy()
 
-    print(outputFile.strip('data/') + ' new size: ' + str(len(expanded)))
+    print(outputFile.strip(os.getcwd() + '/data/') +
+          ' new size: ' + str(len(expanded)))
 
     out = open(outputFile, 'w')
     for item in expanded:
@@ -65,11 +67,11 @@ def trainClassifiers():
     IsTenantDeadClassifier(True)
     LeaseTermTypeClassifier(True)
 
-for directory in os.listdir('data'):
-    for file in os.listdir('data/' + directory):
+for directory in os.listdir(os.getcwd() + '/data'):
+    for file in os.listdir(os.getcwd() + '/data/' + directory):
         if '.txt' in file and '.extended.txt' not in file:
-            inputFile = 'data/' + directory + '/' + file
-            outputFile = 'data/' + directory + '/' + \
+            inputFile = os.getcwd() + '/data/' + directory + '/' + file
+            outputFile = os.getcwd() + '/data/' + directory + '/' + \
                 file.split('.')[0] + '.extended.txt'
             expandInputFile(inputFile, outputFile)
 trainClassifiers()
