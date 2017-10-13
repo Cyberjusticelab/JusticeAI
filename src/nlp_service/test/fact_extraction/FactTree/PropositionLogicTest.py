@@ -180,7 +180,7 @@ class TestPropositionLogic(unittest.TestCase):
 
         sentence = "The movie, though very long, was still very enjoyable."
         self.assertTrue(self.proposition_match(p, sentence, model_lst))
-        '''        
+        '''
         p.build("Evergreen trees are a symbol of fertility because they do not die in the winter.")
         p.build("The actor was happy he got a part in a movie, although the part was a small one.")
         p.build("The museum was very interesting, as I expected.")

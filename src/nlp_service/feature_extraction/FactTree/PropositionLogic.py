@@ -135,13 +135,13 @@ class Proposition():
     # 3- clear stack
     def __extract_relations(self):
         try:
-            predicate = self.__stack.predicate_stack.pop()
-        except:
+            p = self.__stack.predicate_stack.pop()
+        except IndexError:
             return
         if len(self.__stack.compliment_stack) == 0:
             self.__extract_double(predicate)
         else:
-            self.__extract_triplet(predicate)
+            self.__extract_triplet(p)
 
     #############################################
     # EXTRACT DOUBLE
@@ -150,11 +150,11 @@ class Proposition():
     # compliment
     #
     # predicate: tuple(word, tag)
-    def __extract_double(self, predicate):
-        for clause in self.__stack.clause_stack:
+    def __extract_double(self, p):
+        for c in self.__stack.clause_stack:
             model = proposition.PropositionModel()
-            model.clause = clause
-            model.predicate = predicate
+            model.clause = c
+            model.predicate = p
             self.__proposition_lst.append(model)
         self.__stack.clear()
 
@@ -164,13 +164,13 @@ class Proposition():
     # If a clause has a predicate with a compliment
     #
     # predicate: tuple(word, tag)
-    def __extract_triplet(self, predicate):
-        for clause in self.__stack.clause_stack:
-            for compliment in self.__stack.compliment_stack:
+    def __extract_triplet(self, p):
+        for c in self.__stack.clause_stack:
+            for cmp in self.__stack.compliment_stack:
                 model = proposition.PropositionModel()
-                model.clause = clause
-                model.predicate = predicate
-                model.compliment = compliment
+                model.clause = c
+                model.predicate = p
+                model.compliment = cmp
                 self.__proposition_lst.append(model)
         self.__stack.clear()
 
