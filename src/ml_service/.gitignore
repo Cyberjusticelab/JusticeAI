@@ -5,5 +5,5 @@ venv
 coverage.xml
 .idea/
 ./**/*.iml
-
-
+.idea/
+.idea/misc.xml
