@@ -1,14 +1,12 @@
 import unittest
-
-from src.fact_extraction.Models import logic, clause, predicate, compliment
-
+from feature_extraction.Models import proposition, clause, predicate, compliment
 from feature_extraction.FactTree import PropositionLogic
 
 
 class TestPropositionLogic(unittest.TestCase):
     @staticmethod
     def create_logic_model(c, p, cmp):
-        model = logic.LogicModel()
+        model = proposition.PropositionModel()
         model.clause = c
         model.predicate = p
         model.compliment = cmp
@@ -38,7 +36,7 @@ class TestPropositionLogic(unittest.TestCase):
 
     @staticmethod
     def create_compliment_model(word, qualifier, quantifier):
-        model = compliment.compliment()
+        model = compliment.Compliment()
         for words in word:
             model.add_word(words[0], words[1])
         if qualifier is not None:

@@ -1,4 +1,5 @@
 from feature_extraction.Models import clause as c, compliment as cmp, predicate as p
+
 '''
 LOGIC MODEL
 ---------------------------------------------

@@ -5,9 +5,8 @@ data/**/*.pickle
 feature_extraction/WordVectors/*.pickle
 .cache
 .coverage
-.idea/
+.idea/*
 ./**/*.iml
-.idea/misc.xml
 feature_extraction/Documentation/clause_finder.json
 feature_extraction/Documentation/example.txt
 
