@@ -1,9 +1,8 @@
 import nltk
 from src.fact_extraction.GlobalVariables.regex import Regex
 from src.fact_extraction.Models import compliment, predicate, clause, logic
-import pickle
-import os
-
+from bllipparser import RerankingParser
+from bllipparser.ModelFetcher import download_and_install_model
 
 class Tree:
     ###################################################
@@ -17,22 +16,8 @@ class Tree:
         self.__word_lst = []
         self.__logic_model = []
 
-        path = os.path.dirname(os.path.realpath(__file__))
-        self.model_fetcher_path = os.path.join(path, 'model_fetcher.pickle')
-        self.parser_path = os.path.join(path, 'RerankingParser.pickle')
-
-        download_and_install_model = self.load_glove_model_pickle(self.model_fetcher_path)
-        RerankingParser = self.load_glove_model_pickle(self.parser_path)
-
         model_dir = download_and_install_model('WSJ', '/tmp/models')
         self.__rpp = RerankingParser.from_unified_model_dir(model_dir)
-
-    #####################################
-    # LOAD MODEL FROM PICKLE
-    def load_glove_model_pickle(self, path):
-        with open(path, 'rb') as pickle_file:
-            model = pickle.load(pickle_file)
-        return model
 
     ###################################################
     # BUILD
@@ -49,7 +34,6 @@ class Tree:
         self.__reset()
         nbest_list = self.__rpp.parse(sentence)
         nbest_list = nbest_list.fuse()
-        self.tree = nbest_list.subtrees()
         tree = nbest_list.as_nltk_tree()
         if draw:
             tree.draw()
