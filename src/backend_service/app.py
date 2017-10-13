@@ -1,20 +1,14 @@
 from flask import Flask, request, abort, make_response, jsonify
-from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+
 import database
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://justiceai:justiceai@localhost/justiceai'
-db = SQLAlchemy(app)
+# DEV_PASS_NOT_SECRET
+db = database.connect(app, 'postgres', 'postgres', 'postgres', host="localhost")
 ma = Marshmallow(app)
 
 from controllers import conversationController
-
-
-@app.route("/")
-def hello():
-    con, meta = database.connect('postgres', 'DEV_PASS_NOT_SECRET', 'postgres')
-    return None
 
 
 @app.route("/new", methods=['POST'])

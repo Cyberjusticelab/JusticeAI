@@ -59,6 +59,9 @@ class Fact(db.Model):
     value = db.Column(db.String(50), nullable=False)
 
 
+# Create tables
+db.create_all()
+
 '''
 -------------------
 Marshmallow Schemas
