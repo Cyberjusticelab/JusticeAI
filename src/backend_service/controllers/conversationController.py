@@ -67,6 +67,8 @@ def _generate_response(conversation, message):
         return _determine_claim_category(conversation, message)
     elif conversation.current_fact is not None:
         # Assume it is an answer to the current fact
+        print("current fact: " + conversation.current_fact)
+        print("message: " + message)
         nlp_request = nlpService.fact_extract([conversation.current_fact], message=message)
 
         for resolved_fact in nlp_request['facts']:
@@ -81,8 +83,7 @@ def _generate_response(conversation, message):
 
 def _determine_person_type(conversation, message):
     person_type = None
-    # nlp_request = nlpService.fact_extract(['person_class'], message) #TODO: CHANGE TO THIS AFTER PR
-    nlp_request = nlpService.tenant_landlord(message)
+    nlp_request = nlpService.fact_extract(['tenant_landlord'], message)
 
     for fact in nlp_request['facts']:
         person_type = fact['tenant_landlord']

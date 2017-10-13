@@ -1,14 +1,6 @@
 import requests
 
-NLP_URL = "http://0.0.0.0:3002"
-
-
-def tenant_landlord(message):
-    req_dict = {
-        "answer": message
-    }
-    res = requests.post("{}/{}".format(NLP_URL, "tenant_landlord"), json=req_dict)
-    return res.json()
+NLP_URL = "http://127.0.0.1:3002"
 
 
 def problem_category(message):

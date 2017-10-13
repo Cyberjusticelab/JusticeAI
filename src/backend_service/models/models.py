@@ -1,6 +1,8 @@
 import datetime
 from enum import Enum
+
 from marshmallow_enum import EnumField
+
 from app import db, ma
 
 '''
