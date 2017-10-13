@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a8983ebb-81b9-49e1-b5b9-9d4f4ee849e1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/compliment.py" afterPath="$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/compliment.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nlp_service/feature_extraction/fact_extraction.py" afterPath="$PROJECT_DIR$/src/nlp_service/feature_extraction/fact_extraction.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nlp_service/feature_extraction/FactTree/LogicParser.py" afterPath="$PROJECT_DIR$/src/nlp_service/feature_extraction/FactTree/LogicParser.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nlp_service/init.py" afterPath="$PROJECT_DIR$/src/nlp_service/init.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -14,70 +14,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="fact_extraction.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/fact_extraction.py">
+      <file leaf-file-name="LogicParser.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/FactTree/LogicParser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1909">
-              <caret line="16" column="10" lean-forward="true" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+            <state relative-caret-position="180">
+              <caret line="10" column="4" lean-forward="false" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
               <folding>
-                <element signature="e#0#9#0" expanded="true" />
+                <element signature="e#0#11#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="word_to_int.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/WordToInteger/word_to_int.py">
+      <file leaf-file-name="init.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/nlp_service/init.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="179">
-              <caret line="37" column="18" lean-forward="false" selection-start-line="37" selection-start-column="18" selection-end-line="37" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="clause.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/clause.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="665">
-              <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+            <state relative-caret-position="235">
+              <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
               <folding>
-                <element signature="e#0#52#0" expanded="true" />
+                <element signature="e#144#155#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="compliment.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/compliment.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="43" column="28" lean-forward="false" selection-start-line="43" selection-start-column="28" selection-end-line="43" selection-end-column="28" />
-              <folding>
-                <element signature="e#0#52#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="predicate.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/predicate.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="528">
-              <caret line="63" column="0" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#52#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="proposition.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/proposition.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1620">
-              <caret line="90" column="0" lean-forward="true" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -120,7 +76,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/nlp_service/src/first_order_logic/test.py" />
         <option value="$PROJECT_DIR$/src/nlp_service/src/first_order_logic/sentence_pipeline.py" />
         <option value="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/test.py" />
         <option value="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/phrase_vector.py" />
@@ -158,7 +113,6 @@
         <option value="$PROJECT_DIR$/src/nlp_service/fact_extraction/fact_extraction.py" />
         <option value="$PROJECT_DIR$/src/nlp_service/requirements.txt" />
         <option value="$PROJECT_DIR$/src/nlp_service/feature_extraction/FactTree/PropositionLogic.py" />
-        <option value="$PROJECT_DIR$/src/nlp_service/feature_extraction/FactTree/LogicParser.py" />
         <option value="$PROJECT_DIR$/src/nlp_service/feature_extraction/FactTree/WordStack.py" />
         <option value="$PROJECT_DIR$/src/nlp_service/feature_extraction/GlobalVariables/regex.py" />
         <option value="$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/Abstract_Model.py" />
@@ -171,6 +125,8 @@
         <option value="$PROJECT_DIR$/src/nlp_service/feature_extraction/WordToInteger/word_to_int.py" />
         <option value="$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/compliment.py" />
         <option value="$PROJECT_DIR$/src/nlp_service/feature_extraction/fact_extraction.py" />
+        <option value="$PROJECT_DIR$/src/nlp_service/init.py" />
+        <option value="$PROJECT_DIR$/src/nlp_service/feature_extraction/FactTree/LogicParser.py" />
       </list>
     </option>
   </component>
@@ -224,6 +180,14 @@
             </path>
             <path>
               <item name="JusticeAI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="JusticeAI" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="nlp_service" type="462c0819:PsiDirectoryNode" />
+              <item name="feature_extraction" type="462c0819:PsiDirectoryNode" />
+              <item name="FactTree" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="JusticeAI" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
@@ -261,20 +225,20 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.phrase_vector">
-    <configuration name="LogicParser" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.LogicParser (1)">
+    <configuration name="LogicParser (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/FactTree" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/nlp_service/feature_extraction/FactTree" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="JusticeAI" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/FactTree/LogicParser.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/nlp_service/feature_extraction/FactTree/LogicParser.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -349,18 +313,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.answers" />
-      <item index="1" class="java.lang.String" itemvalue="Python.LogicParser" />
-      <item index="2" class="java.lang.String" itemvalue="Python.fact_extraction" />
-      <item index="3" class="java.lang.String" itemvalue="Python.fact_extraction (1)" />
-      <item index="4" class="java.lang.String" itemvalue="Python.phrase_vector" />
+      <item index="1" class="java.lang.String" itemvalue="Python.fact_extraction" />
+      <item index="2" class="java.lang.String" itemvalue="Python.fact_extraction (1)" />
+      <item index="3" class="java.lang.String" itemvalue="Python.phrase_vector" />
+      <item index="4" class="java.lang.String" itemvalue="Python.LogicParser (1)" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.phrase_vector" />
-        <item index="1" class="java.lang.String" itemvalue="Python.fact_extraction (1)" />
-        <item index="2" class="java.lang.String" itemvalue="Python.fact_extraction" />
-        <item index="3" class="java.lang.String" itemvalue="Python.answers" />
-        <item index="4" class="java.lang.String" itemvalue="Python.LogicParser" />
+        <item index="0" class="java.lang.String" itemvalue="Python.LogicParser (1)" />
+        <item index="1" class="java.lang.String" itemvalue="Python.phrase_vector" />
+        <item index="2" class="java.lang.String" itemvalue="Python.fact_extraction (1)" />
+        <item index="3" class="java.lang.String" itemvalue="Python.fact_extraction" />
+        <item index="4" class="java.lang.String" itemvalue="Python.answers" />
       </list>
     </recent_temporary>
   </component>
@@ -463,8 +427,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/nlp_service/src/first_order_logic/variable.py" />
-    <entry file="file://$PROJECT_DIR$/src/nlp_service/src/first_order_logic/predicate.py" />
     <entry file="file://$PROJECT_DIR$/src/nlp_service/src/proposition.py" />
     <entry file="file://$PROJECT_DIR$/src/nlp_service/src/tokenizer.py" />
     <entry file="file://$USER_HOME$/.local/lib/python3.5/site-packages/nltk/tree.py">
@@ -475,13 +437,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/nlp_service/src/first_order_logic/first_order.py" />
-    <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/nlp_service/src/fact_extraction/word_vector.py" />
     <entry file="file://$PROJECT_DIR$/src/nlp_service/src/fact_extraction/testing.py" />
     <entry file="file://$PROJECT_DIR$/src/nlp_service/src/fact_extraction/example.txt" />
@@ -559,13 +514,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/nlp_service/init.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="19" column="21" lean-forward="false" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -651,16 +599,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/FactTree/LogicParser.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-55">
-          <caret line="140" column="34" lean-forward="false" selection-start-line="140" selection-start-column="34" selection-end-line="140" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/FactTree/PropositionLogic.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3366">
@@ -683,6 +621,32 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
           <caret line="4" column="39" lean-forward="false" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/fact_extraction.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="827">
+          <caret line="132" column="20" lean-forward="false" selection-start-line="132" selection-start-column="8" selection-end-line="132" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nlp_service/models/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nlp_service/services/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -733,12 +697,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/fact_extraction.py">
+    <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1909">
-          <caret line="16" column="10" lean-forward="true" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nlp_service/init.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#144#155#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/FactTree/LogicParser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="10" column="4" lean-forward="false" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>

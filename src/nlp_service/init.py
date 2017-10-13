@@ -7,11 +7,12 @@
 
 import nltk
 import os
+from bllipparser.ModelFetcher import download_and_install_model
 
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('wordnet')
-
+model_dir = download_and_install_model('WSJ', '/tmp/models')
 
 from nltk.corpus import stopwords
 from nltk.corpus import wordnet as wn
