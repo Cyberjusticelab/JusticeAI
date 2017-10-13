@@ -15,6 +15,5 @@ class LeaseTermTypeClassifier(GramClassifier):
                          forceTrain)
 
     def classify(self, questionInput):
-
         output = super().classify(questionInput)
         return {'lease_term_type': output}

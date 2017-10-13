@@ -9,6 +9,8 @@ from services.is_habitable_classifier import IsHabitableClassifier
 from services.is_student_classifier import IsStudentClassifier
 from services.is_tenant_dead_classifier import IsTenantDeadClassifier
 from services.lease_term_type_classifier import LeaseTermTypeClassifier
+from feature_extraction.fact_extraction import Answer
+from feature_extraction.Models.answer_model import AnswerModel
 
 app = Flask(__name__)
 
@@ -43,3 +45,13 @@ def fact_extract():
 
     question = QuestionOutput(None, None, outputFacts)
     return jsonify(question.__dict__)
+
+
+@app.route("/find_answer", methods=['POST'])
+def find_answer():
+    query_json = request.get_json()
+    query = query_json['query']
+    statement = query_json['statement']
+    answer = Answer()
+    answer_model = AnswerModel(answer.query(query, statement))
+    return jsonify(answer_model.__dict__)
