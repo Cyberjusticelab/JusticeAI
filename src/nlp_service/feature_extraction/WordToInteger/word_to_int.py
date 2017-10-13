@@ -40,7 +40,7 @@ class WordToInt():
         current = result = 0
         for word in text.split():
             if word not in self.__num_words:
-              raise Exception("Illegal word: " + word)
+                raise Exception("Illegal word: " + word)
 
             scale, increment = self.__num_words[word]
             current = current * scale + increment
@@ -49,6 +49,7 @@ class WordToInt():
                 current = 0
 
         return result + current
+
 
 if __name__ == '__main__':
     converter = WordToInt()

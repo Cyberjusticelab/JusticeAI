@@ -1,5 +1,6 @@
 import re
 
+
 class Regex:
     phrase_match = re.compile('ADJP|PP|ADVP|NP|S|SQ|SBARQ|VP')
     noun_match = re.compile('NN|PRP|CD')

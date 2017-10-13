@@ -50,7 +50,6 @@ class PhraseVector:
         cos_sim = dot(vector_a, vector_b) / (norm(vector_a) * norm(vector_b))
         return cos_sim
 
-
     ###############################################
     # REMOVE PUNCTUATION
     # ---------------------------------------------

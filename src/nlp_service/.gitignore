@@ -8,6 +8,6 @@ feature_extraction/WordVectors/*.pickle
 .idea/
 ./**/*.iml
 .idea/misc.xml
-Documentation/clause_finder.json
-Documentation/example.txt
+feature_extraction/Documentation/clause_finder.json
+feature_extraction/Documentation/example.txt
 

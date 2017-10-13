@@ -34,7 +34,7 @@ class Compliment(Abstract_Model.AbstractModel):
     # word: String
     # tag: String
     def add_word(self, word, tag):
-        if not(regex.Regex.key_word_match.match(tag)):
+        if not (regex.Regex.key_word_match.match(tag)):
             return
         self._word.append((word, tag))
         self.add_tag_index(tag)

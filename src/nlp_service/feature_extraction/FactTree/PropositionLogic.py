@@ -27,7 +27,7 @@ class Proposition():
     #
     # sentence: string
     # draw: boolean
-    def build(self, sentence, draw = False):
+    def build(self, sentence, draw=False):
         self.__reset()
         self.__predicates.build(sentence, draw)
         predicate_lst = self.__predicates.get_logic_model()

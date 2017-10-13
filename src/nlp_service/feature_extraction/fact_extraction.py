@@ -13,7 +13,7 @@ class Answer():
         "lease_ends_in": {
             "topic": ['lease', 'time'],
             "fact": ('NN', 'time'),
-            "return":('CD', int)
+            "return": ('CD', int)
         },
         "rent_in_lease_amount": {
             "topic": ['pay'],
@@ -65,10 +65,10 @@ class Answer():
                     topics_found += 1
 
         if topics_found == 0:
-            #return "Off topic"
+            # return "Off topic"
             return None
         elif topics_found < initial_topic_len:
-            #return "Insufficient data"
+            # return "Insufficient data"
             return None
         else:
             return self.__extract_answer(possible_answers)
@@ -87,7 +87,7 @@ class Answer():
         for answers in possible_answers:
             if fact[1] in answers.category:
                 return self.__parse_answer(answers.get_tagged_word(tag))
-        #return "On topic but missing information"
+        # return "On topic but missing information"
         return None
 
     #########################################

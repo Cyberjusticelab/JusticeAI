@@ -31,7 +31,7 @@ class Tree:
     #
     # sentence: string
     # draw: boolean
-    def build(self, sentence, draw = False):
+    def build(self, sentence, draw=False):
         self.__reset()
         nbest_list = self.__rpp.parse(sentence)
         nbest_list = nbest_list.fuse()
@@ -51,7 +51,7 @@ class Tree:
     # tag_lst: lst[]
     # token_lst: lst[]
     # depth: integer
-    def __traverse_tree(self, tree, tag_lst, token_lst, depth = 0):
+    def __traverse_tree(self, tree, tag_lst, token_lst, depth=0):
         for subtree in tree:
             if type(subtree) == nltk.tree.Tree:
                 if Regex.phrase_match.match(subtree.label()):
@@ -101,7 +101,7 @@ class Tree:
             pass
         elif Regex.determiner_match.match(tag):
             model.set_quantifier(word, tag)
-        #special case
+        # special case
         elif Regex.rp_match.match(tag):
             self.__logic_model.append(compliment.Compliment())
             model = self.__logic_model[len(self.__logic_model) - 1]
@@ -166,7 +166,7 @@ class Tree:
 
 if __name__ == "__main__":
     t = Tree()
-    t.build("My rent is eight hundred dollars a month", draw= True)
+    t.build("My rent is eight hundred dollars a month", draw=True)
     lst = t.get_logic_model()
     for e in lst:
         print(e)

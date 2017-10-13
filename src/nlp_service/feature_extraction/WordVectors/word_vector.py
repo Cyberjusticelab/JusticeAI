@@ -35,6 +35,7 @@ class WordVectors:
         with open('word_vector.pickle', 'wb') as f:
             pickle.dump(word_vectors, f, pickle.HIGHEST_PROTOCOL)
 
+
 if __name__ == '__main__':
     word_vectors = WordVectors()
     model = word_vectors.load_glove_model_pickle()
