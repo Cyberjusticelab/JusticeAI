@@ -21,7 +21,8 @@ after_success:
       sudo apt-get install software-properties-common -y && \
       sudo apt-add-repository ppa:ansible/ansible -y && \
       sudo apt-get update -y && \
-      sudo apt-get install sshpass ansible -y\
+      sudo apt-get install sshpass ansible -y && \
+      sudo bash -c "echo 'capstone.cyberjustice.ca ansible_user=test ansible_ssh_pass=test' >> /etc/ansible/hosts" && \
       ansible all -m ping
     ; fi;
 
