@@ -41,7 +41,7 @@ class Compliment(Abstract_Model.AbstractModel):
 
     def __str__(self):
         return "COMPLIMENT: " + str(self._word) + \
-               " | Qualifier: " + str(self._attribute) + \
+               " | Attribute: " + str(self._attribute) + \
                " | Quantifier: " + str(self.__quantifier)
 
     def __eq__(self, other):

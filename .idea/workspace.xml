@@ -2,35 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a8983ebb-81b9-49e1-b5b9-9d4f4ee849e1" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/WordVectors/training_feature_extraction.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/__init__.py" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/nlp_service/src/__init__.py" afterPath="$PROJECT_DIR$/src/nlp_service/feature_extraction/FactTree/__init__.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/Documentation/cheet_sheet.txt" afterPath="$PROJECT_DIR$/src/nlp_service/feature_extraction/Documentation/cheet_sheet.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/Documentation/clause_finder.json" afterPath="$PROJECT_DIR$/src/nlp_service/feature_extraction/Documentation/clause_finder.json" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/Documentation/example.txt" afterPath="$PROJECT_DIR$/src/nlp_service/feature_extraction/Documentation/example.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/FactTree/LogicParser.py" afterPath="$PROJECT_DIR$/src/nlp_service/feature_extraction/FactTree/LogicParser.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/FactTree/PropositionLogic.py" afterPath="$PROJECT_DIR$/src/nlp_service/feature_extraction/FactTree/PropositionLogic.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/FactTree/WordStack.py" afterPath="$PROJECT_DIR$/src/nlp_service/feature_extraction/FactTree/WordStack.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/FactTree/__init__.py" afterPath="$PROJECT_DIR$/src/nlp_service/feature_extraction/GlobalVariables/__init__.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/GlobalVariables/__init__.py" afterPath="$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/__init__.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/GlobalVariables/regex.py" afterPath="$PROJECT_DIR$/src/nlp_service/feature_extraction/GlobalVariables/regex.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/Models/Abstract_Model.py" afterPath="$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/Abstract_Model.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/Models/__init__.py" afterPath="$PROJECT_DIR$/src/nlp_service/feature_extraction/WordToInteger/__init__.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/Models/clause.py" afterPath="$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/clause.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/Models/compliment.py" afterPath="$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/compliment.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/Models/logic.py" afterPath="$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/proposition.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/Models/predicate.py" afterPath="$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/predicate.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/WordToInteger/__init__.py" afterPath="$PROJECT_DIR$/src/nlp_service/feature_extraction/WordVectors/__init__.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/WordToInteger/word_to_int.py" afterPath="$PROJECT_DIR$/src/nlp_service/feature_extraction/WordToInteger/word_to_int.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/WordVectors/__init__.py" afterPath="$PROJECT_DIR$/src/nlp_service/feature_extraction/__init__.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/WordVectors/phrase_vector.py" afterPath="$PROJECT_DIR$/src/nlp_service/feature_extraction/WordVectors/phrase_vector.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/WordVectors/word_vector.py" afterPath="$PROJECT_DIR$/src/nlp_service/feature_extraction/WordVectors/word_vector.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/fact_extraction.py" afterPath="$PROJECT_DIR$/src/nlp_service/feature_extraction/fact_extraction.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/JusticeAI.iml" afterPath="$PROJECT_DIR$/.idea/JusticeAI.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nlp_service/.gitignore" afterPath="$PROJECT_DIR$/src/nlp_service/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nlp_service/requirements.txt" afterPath="$PROJECT_DIR$/src/nlp_service/requirements.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nlp_service/test/fact_extraction/FactTree/LogicParserTest.py" afterPath="$PROJECT_DIR$/src/nlp_service/test/fact_extraction/FactTree/LogicParserTest.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nlp_service/test/fact_extraction/FactTree/PropositionLogicTest.py" afterPath="$PROJECT_DIR$/src/nlp_service/test/fact_extraction/FactTree/PropositionLogicTest.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/compliment.py" afterPath="$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/compliment.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nlp_service/feature_extraction/fact_extraction.py" afterPath="$PROJECT_DIR$/src/nlp_service/feature_extraction/fact_extraction.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -41,11 +14,69 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="word_to_int.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="fact_extraction.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/fact_extraction.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1909">
+              <caret line="16" column="10" lean-forward="true" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="word_to_int.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/WordToInteger/word_to_int.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="666">
+            <state relative-caret-position="179">
               <caret line="37" column="18" lean-forward="false" selection-start-line="37" selection-start-column="18" selection-end-line="37" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="clause.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/clause.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="665">
+              <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#52#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="compliment.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/compliment.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="216">
+              <caret line="43" column="28" lean-forward="false" selection-start-line="43" selection-start-column="28" selection-end-line="43" selection-end-column="28" />
+              <folding>
+                <element signature="e#0#52#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="predicate.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/predicate.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="528">
+              <caret line="63" column="0" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#52#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="proposition.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/proposition.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1620">
+              <caret line="90" column="0" lean-forward="true" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -125,14 +156,12 @@
         <option value="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/FactTree/LogicParser.py" />
         <option value="$PROJECT_DIR$/src/nlp_service/src/fact_extraction/fact_extraction.py" />
         <option value="$PROJECT_DIR$/src/nlp_service/fact_extraction/fact_extraction.py" />
-        <option value="$PROJECT_DIR$/src/nlp_service/feature_extraction/fact_extraction.py" />
         <option value="$PROJECT_DIR$/src/nlp_service/requirements.txt" />
         <option value="$PROJECT_DIR$/src/nlp_service/feature_extraction/FactTree/PropositionLogic.py" />
         <option value="$PROJECT_DIR$/src/nlp_service/feature_extraction/FactTree/LogicParser.py" />
         <option value="$PROJECT_DIR$/src/nlp_service/feature_extraction/FactTree/WordStack.py" />
         <option value="$PROJECT_DIR$/src/nlp_service/feature_extraction/GlobalVariables/regex.py" />
         <option value="$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/Abstract_Model.py" />
-        <option value="$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/compliment.py" />
         <option value="$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/proposition.py" />
         <option value="$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/predicate.py" />
         <option value="$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/clause.py" />
@@ -140,6 +169,8 @@
         <option value="$PROJECT_DIR$/src/nlp_service/feature_extraction/WordVectors/word_vector.py" />
         <option value="$PROJECT_DIR$/src/nlp_service/.gitignore" />
         <option value="$PROJECT_DIR$/src/nlp_service/feature_extraction/WordToInteger/word_to_int.py" />
+        <option value="$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/compliment.py" />
+        <option value="$PROJECT_DIR$/src/nlp_service/feature_extraction/fact_extraction.py" />
       </list>
     </option>
   </component>
@@ -574,59 +605,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/proposition.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="503">
-          <caret line="90" column="0" lean-forward="true" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/predicate.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="503">
-          <caret line="63" column="0" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#52#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/compliment.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-127">
-          <caret line="32" column="46" lean-forward="false" selection-start-line="32" selection-start-column="46" selection-end-line="32" selection-end-column="46" />
-          <folding>
-            <element signature="e#0#52#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/clause.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="503">
-          <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#52#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/FactTree/WordStack.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="431">
           <caret line="62" column="11" lean-forward="false" selection-start-line="62" selection-start-column="11" selection-end-line="62" selection-end-column="11" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/fact_extraction.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" column="34" lean-forward="false" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -706,9 +689,57 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/WordToInteger/word_to_int.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="666">
+        <state relative-caret-position="179">
           <caret line="37" column="18" lean-forward="false" selection-start-line="37" selection-start-column="18" selection-end-line="37" selection-end-column="18" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/clause.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="665">
+          <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/compliment.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="43" column="28" lean-forward="false" selection-start-line="43" selection-start-column="28" selection-end-line="43" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/predicate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="63" column="0" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/Models/proposition.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1620">
+          <caret line="90" column="0" lean-forward="true" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nlp_service/feature_extraction/fact_extraction.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1909">
+          <caret line="16" column="10" lean-forward="true" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

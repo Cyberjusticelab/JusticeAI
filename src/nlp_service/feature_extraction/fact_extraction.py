@@ -5,7 +5,7 @@ from feature_extraction.FactTree.PropositionLogic import Proposition
 
 class Answer():
     query_dict = {
-            "lease_term_length": {
+        "lease_term_length": {
             "topic": ['lease', 'time'],
             "fact": ('NN', 'time'),
             "return": ('CD', int)
