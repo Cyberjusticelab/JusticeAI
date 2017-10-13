@@ -1,7 +1,6 @@
 from flask import Flask
 from flask import jsonify
 from flask import request
-from models.question import QuestionInput
 from models.question import QuestionOutput
 from services.tenant_landlord_classifier import TenantLandlordClassifier
 from services.problem_category_classifier import ProblemCategoryClassifier
