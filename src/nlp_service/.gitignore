@@ -7,4 +7,7 @@ feature_extraction/WordVectors/*.pickle
 .coverage
 .idea/
 ./**/*.iml
-.idea/misc.xml 
+.idea/misc.xml
+Documentation/clause_finder.json
+Documentation/example.txt
+
