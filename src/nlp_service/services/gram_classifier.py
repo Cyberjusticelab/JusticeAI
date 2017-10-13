@@ -26,8 +26,7 @@ class GramClassifier(object):
     of the given input"""
 
     def __init__(self, baseName, inputFiles, forceTrain):
-        if os.path.exists(os.getcwd() + '/data/' +
-                          baseName + '/' + baseName + '.pickle') \
+        if os.path.exists(os.getcwd() + '/data/' + baseName + '/' + baseName + '.pickle') \
                 and not forceTrain:
             self.createFromPickle(baseName, inputFiles)
         else:

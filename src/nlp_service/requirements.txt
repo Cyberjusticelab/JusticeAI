@@ -10,3 +10,5 @@ pyflakes==1.5.0
 six==1.11.0
 textblob==0.13.0
 Werkzeug==0.12.2
+bllipparser==2016.9.11
+numpy==1.13.3
