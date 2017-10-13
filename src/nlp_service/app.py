@@ -27,9 +27,9 @@ classifiers = {
 @app.route("/problem_category", methods=['POST'])
 def problemCategory():
     question_json = request.get_json()
-    question = QuestionInput(None, None, question_json['answer'])
-    output = classifiers['problem_category'].classify(question)
-    return jsonify(output.__dict__)
+    output = classifiers['problem_category'].classify(question_json['answer'])
+    question = QuestionOutput(None, None, [output])
+    return jsonify(question.__dict__)
 
 
 @app.route("/fact_extract", methods=['POST'])
