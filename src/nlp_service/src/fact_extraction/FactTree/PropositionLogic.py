@@ -166,7 +166,7 @@ class Proposition():
 
 if __name__ == "__main__":
     p = Proposition()
-    p.build("2 years is the time on my lease.", False)
+    p.build("the months remaining on my lease is 4", False)
     lst = p.get_proposition_lst()
     for e in lst:
         print(e)

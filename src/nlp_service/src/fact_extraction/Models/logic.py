@@ -14,6 +14,7 @@ class LogicModel:
         self.clause = clause.Clause()
         self.predicate = predicate.Predicate()
         self.compliment = compliment.compliment()
+        self.category = []
         self.previous = None
         self.next = None
 
@@ -33,27 +34,44 @@ class LogicModel:
 
     def category_match(self, category):
         if self.compliment.category_match(category):
+            self.category.append(category)
             return True
         elif self.predicate.category_match(category):
+            self.category.append(category)
             return True
         elif self.clause.category_match(category):
+            self.category.append(category)
             return True
         return False
 
-    def get_element_from_tag(self, tag):
-        tag_lst = []
+    def contains_tag(self, tag):
         a = self.clause.get_element_from_tag(tag)
         if a is not None:
-            tag_lst += a
+            return True
 
         a = self.predicate.get_element_from_tag(tag)
         if a is not None:
-            tag_lst += a
+            return True
 
         a = self.compliment.get_element_from_tag(tag)
         if a is not None:
-            tag_lst += a
-        return tag_lst
+            return True
+        return False
+
+    def get_tagged_word(self, tag):
+        lst = []
+        a = self.clause.get_element_from_tag(tag)
+        if a is not None:
+            lst += a
+
+        a = self.predicate.get_element_from_tag(tag)
+        if a is not None:
+            lst += a
+
+        a = self.compliment.get_element_from_tag(tag)
+        if a is not None:
+            lst += a
+        return lst
 
     def __ne__(self, other):
         return not(self.__eq__(other))

@@ -16,13 +16,9 @@ class AbstractModel:
         self._word = []
         self._qualifier = []
         self._tags = {}
-        self._classifier = None
 
     def get_word(self):
         return self._word
-
-    def get_category(self):
-        return self._classifier
 
     def get_qualifier(self):
         return self._qualifier.copy()
@@ -51,7 +47,6 @@ class AbstractModel:
         for words in self._word:
             if Regex.relevant_word_match.match(words[1]):
                 if p.compare_phrases([words[0]], [category]) > self.match_threshold:
-                    self._classifier = category
                     return True
         return False
 

@@ -17,6 +17,7 @@ class Answer():
         },
         "rent_in_lease_amount": {
             "topic": ['pay'],
+            "fact": ('NN', 'pay'),
             "return": ('CD', int)
         }
     }
@@ -38,7 +39,8 @@ class Answer():
         possible_answers = []
 
         for propositions in proposition_lst:
-            possible_answers += propositions.get_element_from_tag(return_type[0])
+            if propositions.contains_tag(return_type[0]):
+                possible_answers.append(propositions)
             for i in range(len(topics) - 1, -1, -1):
                 if propositions.category_match(topics[i]):
                     topics.pop()
@@ -53,18 +55,20 @@ class Answer():
 
     def extract_answer(self, answer_lst, answer_type):
         fact = answer_type['fact']
+        tag = answer_type['return'][0]
         for answers in answer_lst:
-            if answers.get_category() == fact[1]:
-                return self.parse_answer(answers, answer_type)
+            if fact[1] in answers.category:
+                return self.parse_answer(answers.get_tagged_word(tag), answer_type)
         return "On topic but missing information"
 
     def parse_answer(self, answer, answer_type):
-        words = answer.get_word()
         regex = re.compile(answer_type['return'][0])
         value = ""
-        for word in words:
-            if regex.match(word[1]):
-                value += word[0]
+        for word_set in answer:
+            words = word_set.get_word()
+            for word in words:
+                if regex.match(word[1]):
+                    value += word[0]
 
         try:            
             return int(value)
@@ -79,4 +83,6 @@ if __name__ == '__main__':
     result = a.query("lease_term_length", "my lease expires in 4 years")
     print(result)
     result = a.query("lease_term_length", "my lease is time")
+    print(result)
+    result = a.query("lease_term_length", "I have 4 Mihai and my lease ends in 2 months")
     print(result)
