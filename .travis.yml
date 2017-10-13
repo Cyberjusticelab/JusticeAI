@@ -17,6 +17,11 @@ install:
   - COMPOSE_FILE=ci ./cjl run nlp_service
 after_success:
   - echo "it worked!"
+  - apt-get update
+  - apt-get install software-properties-common
+  - apt-add-repository ppa:ansible/ansible
+  - apt-get update
+  - apt-get install ansible
 
 notifications:
   slack:
