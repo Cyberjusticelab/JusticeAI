@@ -6,7 +6,7 @@ import os
 class WordVectors:
     def __init__(self):
         path = os.path.dirname(os.path.realpath(__file__))
-        self.pickle_path = os.path.join(path, 'ser.pickle')
+        self.pickle_path = os.path.join(path, 'word_vector.pickle')
 
     #####################################
     # LOAD MODEL FROM FILE
@@ -32,7 +32,7 @@ class WordVectors:
     #####################################
     # SAVE PICKLE
     def save_pickle(self, word_vectors):
-        with open('ser.pickle', 'wb') as f:
+        with open('word_vector.pickle', 'wb') as f:
             pickle.dump(word_vectors, f, pickle.HIGHEST_PROTOCOL)
 
 if __name__ == '__main__':

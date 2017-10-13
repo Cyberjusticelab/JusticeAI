@@ -1,5 +1,6 @@
-from src.fact_extraction.FactTree import LogicParser, WordStack
-from src.fact_extraction.Models import logic, clause, predicate, compliment
+from feature_extraction.FactTree import LogicParser, WordStack
+from feature_extraction.Models import clause, predicate, compliment
+from feature_extraction.Models import proposition
 
 
 class Proposition():
@@ -46,7 +47,7 @@ class Proposition():
                 self.__clause_operation(logic_lst[i], logic_lst, i)
             elif type(logic_lst[i]) == predicate.Predicate:
                 self.__predicate_operation(logic_lst[i], logic_lst, i)
-            elif type(logic_lst[i]) == compliment.compliment:
+            elif type(logic_lst[i]) == compliment.Compliment:
                 self.__compliment_operation(logic_lst[i], logic_lst, i)
 
     #############################################
@@ -142,24 +143,39 @@ class Proposition():
         else:
             self.__extract_triplet(predicate)
 
+    #############################################
+    # EXTRACT DOUBLE
+    # -------------------------------------------
+    # If a clause has a predicate without a
+    # compliment
+    #
+    # predicate: tuple(word, tag)
     def __extract_double(self, predicate):
         for clause in self.__stack.clause_stack:
-            model = logic.LogicModel()
+            model = proposition.PropositionModel()
             model.clause = clause
             model.predicate = predicate
             self.__proposition_lst.append(model)
         self.__stack.clear()
 
+    #############################################
+    # EXTRACT TRIPLET
+    # -------------------------------------------
+    # If a clause has a predicate with a compliment
+    #
+    # predicate: tuple(word, tag)
     def __extract_triplet(self, predicate):
         for clause in self.__stack.clause_stack:
             for compliment in self.__stack.compliment_stack:
-                model = logic.LogicModel()
+                model = proposition.PropositionModel()
                 model.clause = clause
                 model.predicate = predicate
                 model.compliment = compliment
                 self.__proposition_lst.append(model)
         self.__stack.clear()
 
+    #############################################
+    # GET PROPOSITION LIST
     def get_proposition_lst(self):
         return self.__proposition_lst.copy()
 

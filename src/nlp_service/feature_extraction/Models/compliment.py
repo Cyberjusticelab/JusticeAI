@@ -1,6 +1,5 @@
-from src.fact_extraction.Models import Abstract_Model
-from src.fact_extraction.GlobalVariables import regex
-
+from feature_extraction.GlobalVariables import regex
+from feature_extraction.Models import Abstract_Model
 
 '''
 COMPLIMENT
@@ -9,34 +8,46 @@ Noun with adjectives
 '''
 
 
-class compliment(Abstract_Model.AbstractModel):
+class Compliment(Abstract_Model.AbstractModel):
     def __init__(self):
         Abstract_Model.AbstractModel.__init__(self)
         self.__quantifier = None
 
+    ##########################################
+    # SET QUANTIFIER
+    # ----------------------------------------
+    # quantifier: string
+    # tag: string
     def set_quantifier(self, quantifier, tag):
         if quantifier is not None:
             self.__quantifier = (quantifier, tag)
             self.add_tag_index(tag)
 
+    ##########################################
+    # GET QUANTIFIER
     def get_quantifier(self):
         return self.__quantifier
-    
-    def __str__(self):
-        return "COMPLIMENT: " + str(self._word) + \
-               " | Qualifier: " + str(self._qualifier) + \
-               " | Quantifier: " + str(self.__quantifier)
 
-    def set_word(self, word, tag):
-        if not(regex.Regex.temp_match.match(tag)):
+    ##########################################
+    # ADD WORD
+    # ----------------------------------------
+    # word: String
+    # tag: String
+    def add_word(self, word, tag):
+        if not(regex.Regex.key_word_match.match(tag)):
             return
         self._word.append((word, tag))
         self.add_tag_index(tag)
 
+    def __str__(self):
+        return "COMPLIMENT: " + str(self._word) + \
+               " | Qualifier: " + str(self._attribute) + \
+               " | Quantifier: " + str(self.__quantifier)
+
     def __eq__(self, other):
         if type(other) != type(self):
             return False
-        elif not (self.equal_lists(self.get_qualifier(), other.get_qualifier())):
+        elif not (self.equal_lists(self.get_attribute(), other.get_attribute())):
             return False
         elif self.get_word() != other.get_word():
             return False
@@ -47,7 +58,7 @@ class compliment(Abstract_Model.AbstractModel):
     def empty_model(self):
         if len(self.get_word()) > 0:
             return False
-        elif len(self.get_qualifier()) > 0:
+        elif len(self.get_attribute()) > 0:
             return False
         elif self.get_quantifier() is not None:
             return False

@@ -15,5 +15,5 @@ class Regex:
     adverb_match = re.compile('RB')
     adverb_phrase_match = re.compile('ADVP')
     rp_match = re.compile('RP')
-    temp_match = re.compile('RP|NN|PRP|JJ|\$|CD')
+    key_word_match = re.compile('RP|NN|PRP|JJ|\$|CD')
     relevant_word_match = re.compile('NN|JJ')

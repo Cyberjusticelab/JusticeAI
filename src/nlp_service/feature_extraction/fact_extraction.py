@@ -1,6 +1,6 @@
-from src.fact_extraction.FactTree.PropositionLogic import Proposition
-from src.fact_extraction.WordToInteger.word_to_int import WordToInt
 import re
+from feature_extraction.WordToInteger.word_to_int import WordToInt
+from feature_extraction.FactTree.PropositionLogic import Proposition
 
 
 class Answer():
