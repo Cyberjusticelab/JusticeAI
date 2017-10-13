@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 from textblob import TextBlob
 from nltk.corpus import stopwords
+import os
 import nltk
 import random
 import time
+import re
+import pickle
 
 
 class GramClassifier(object):
@@ -11,13 +14,26 @@ class GramClassifier(object):
     stopWords.remove('not')
     stopWords.add('<START>')
     stopWords.add('<END>')
+    months = ['january', 'february', 'march',
+              'april', 'may', 'june',
+              'july', 'august', 'september',
+              'october', 'november', 'december']
+    monthStem = [TextBlob(month).words.stem()[0] for month in months]
 
     """GramClassifier is a Naive Bayes Classifier
     which uses a combination of 3-gram, 2-gram and
     non stopwords in a vector to determine the class
     of the given input"""
 
-    def __init__(self, baseName, inputFiles):
+    def __init__(self, baseName, inputFiles, forceTrain):
+        if os.path.exists(os.getcwd() + '/data/' +
+                          baseName + '/' + baseName + '.pickle') \
+                and not forceTrain:
+            self.createFromPickle(baseName, inputFiles)
+        else:
+            self.createFromTraining(baseName, inputFiles)
+
+    def createFromTraining(self, baseName, inputFiles):
         print('==== Creating ' + self.__class__.__name__ + ' ====')
         startTime = time.time()
         self.loadData(baseName, inputFiles)
@@ -27,19 +43,36 @@ class GramClassifier(object):
         elapsed = int(time.time() - startTime)
         print('==== Completed ' + self.__class__.__name__ +
               ' creation. Took ' + str(elapsed) + ' seconds ====')
-        print(str())
+        f = open(os.getcwd() + '/data/' + baseName +
+                 '/' + baseName + '.pickle', 'wb')
+        pickle.dump(self.cl, f)
+        f.close()
 
-    # Loads data from from the given array
-    # of input class names. e.g.:
-    #
-    # Input: ['class']
-    #
-    # Will load data from data/class.extended.txt and
-    # treate them as examples of the 'class' category
+    def createFromPickle(self, baseName, inputFiles):
+        print('=== Using Pickle version of ' +
+              self.__class__.__name__ + ' ===')
+        f = open(os.getcwd() + '/data/' + baseName +
+                 '/' + baseName + '.pickle', 'rb')
+        self.cl = pickle.load(f)
+        f.close()
+        self.loadData(baseName, inputFiles)
+        random.shuffle(self.trainingData)
+        self.vocab = set()
+        self.createVocabulary()
+
+        # Loads data from from the given array
+        # of input class names. e.g.:
+        #
+        # Input: ['class']
+        #
+        # Will load data from data/class.extended.txt and
+        # treate them as examples of the 'class' category
+
     def loadData(self, baseName, inputFiles):
         self.trainingData = []
         for inp in inputFiles:
-            f = open('data/' + baseName + '/' + inp + '.extended.txt')
+            f = open(os.getcwd() + '/data/' + baseName +
+                     '/' + inp + '.extended.txt')
             inputSet = set([l.strip('\n') for l in f.readlines()])
             inputTuples = []
             for inputString in inputSet:
@@ -82,31 +115,47 @@ class GramClassifier(object):
     # Creates a vocabulary set based on 3-grams
     def createVocabulary(self):
         for elem in self.trainingData:
-            for grams in self.stemAndTrigramify(elem[0]):
+            for grams in self.preprocess(elem[0]):
                 self.vocab.add(grams)
 
-    # An intermediat preprocessing step. Stemms each word
-    # And splits them into trigrams
-    def stemAndTrigramify(self, textString):
+    # An intermediate preprocessing step. Stems each word
+    # Splits them into 3-grams, 2-grams and single words
+    # that are not stopwords
+    def preprocess(self, textString):
         text = TextBlob(textString.lower())
         words = text.words.stem()
+        words = [self.preprocessDigits(word)
+                 for word in words]
+        words = [self.preprocessMonths(word)
+                 for word in words]
         newWordList = []
         newWordList.append('<START>')
-        newWordList.extend(words.stem())
+        newWordList.extend(words)
         newWordList.append('<END>')
         grams = [gram for gram in nltk.trigrams(
             newWordList) if len(set(gram) - self.stopWords) > 0]
         grams.extend([gram for gram in nltk.bigrams(newWordList)
                       if len(set(gram) - self.stopWords) > 0])
-        grams.extend([word for word in words.stem()
+        grams.extend([word for word in words
                       if word not in self.stopWords])
         return grams
+
+    def preprocessDigits(self, testString):
+        if re.match('\d+\S*', testString):
+            return '<DIGIT>'
+        return testString
+
+    def preprocessMonths(self, testString):
+        if testString in self.monthStem:
+            return '<MONTH>'
+        else:
+            return testString
 
     # Preprocesses the input training data
     def preprocessTrainingData(self):
         trainingList = []
         for elem in self.trainingData:
-            for gram in self.stemAndTrigramify(elem[0]):
+            for gram in self.preprocess(elem[0]):
                 data = (self.vectorize(gram), elem[1])
                 trainingList.append(data)
         return trainingList
@@ -115,6 +164,6 @@ class GramClassifier(object):
     # one of the trained catigories. Returns the
     # highest classification category.
     def classify(self, textString):
-        inputList = list(self.stemAndTrigramify(textString))
+        inputList = list(self.preprocess(textString))
         vector = self.vectorize(inputList)
         return self.cl.classify(vector)
