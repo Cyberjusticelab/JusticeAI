@@ -16,7 +16,15 @@ script:
   - COMPOSE_FILE=ci ./cjl run ml_service
   - COMPOSE_FILE=ci ./cjl run nlp_service
 after_success:
-  - if [ $TRAVIS_BRANCH == "master" ]; then sudo apt-get update -y && sudo apt-get install software-properties-common -y && sudo apt-add-repository ppa:ansible/ansible -y && sudo apt-get update -y && sudo apt-get install ansible -y; fi;
+  - if [ $TRAVIS_BRANCH == "4/docker-cd" ]; then \
+      sudo apt-get update -y && \
+      sudo apt-get install software-properties-common -y && \
+      sudo apt-add-repository ppa:ansible/ansible -y && \
+      sudo apt-get update -y && \
+      sudo apt-get install sshpass ansible -y\
+      ansible all -m ping
+    ; fi;
+
 
 notifications:
   slack:
