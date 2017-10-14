@@ -9,11 +9,8 @@ from services.is_habitable_classifier import IsHabitableClassifier
 from services.is_student_classifier import IsStudentClassifier
 from services.is_tenant_dead_classifier import IsTenantDeadClassifier
 from services.lease_term_type_classifier import LeaseTermTypeClassifier
-try:
-    from feature_extraction.fact_extraction import Answer
-    from feature_extraction.Models.answer_model import AnswerModel
-except ModuleNotFoundError:
-    pass
+#from feature_extraction.fact_extraction import Answer
+#from feature_extraction.Models.answer_model import AnswerModel
 
 app = Flask(__name__)
 

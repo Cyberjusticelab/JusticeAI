@@ -4,9 +4,9 @@ import os
 
 
 class WordVectors:
-    def __init__(self):
-        path = os.path.dirname(os.path.realpath(__file__))
-        self.pickle_path = os.path.join(path, 'word_vector.pickle')
+    #def __init__(self):
+        #path = os.path.dirname(os.path.realpath(__file__))
+        #self.pickle_path = os.path.join(path, 'word_vector.pickle')
 
     #####################################
     # LOAD MODEL FROM FILE

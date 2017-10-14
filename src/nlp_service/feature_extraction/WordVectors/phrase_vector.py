@@ -6,9 +6,9 @@ from feature_extraction.WordVectors import word_vector
 
 
 class PhraseVector:
-    __v = word_vector.WordVectors()
-    __model = __v.load_glove_model_pickle()
-    __matrix_dimension = 300
+    #__v = word_vector.WordVectors()
+    #__model = __v.load_glove_model_pickle()
+    #__matrix_dimension = 300
 
     def __init__(self):
         pass
