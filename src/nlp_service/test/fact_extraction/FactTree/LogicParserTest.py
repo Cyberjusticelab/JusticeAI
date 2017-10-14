@@ -1,7 +1,5 @@
 import unittest
-
-from src.fact_extraction.FactTree import LogicParser
-
+from feature_extraction.FactTree import LogicParser
 from feature_extraction.Models import clause, predicate, compliment
 
 

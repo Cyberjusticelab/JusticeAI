@@ -1,13 +1,14 @@
 import nltk
-from bllipparser import RerankingParser
-from bllipparser.ModelFetcher import download_and_install_model
+# from bllipparser import RerankingParser
+# from bllipparser.ModelFetcher import download_and_install_model
+# comment
 from feature_extraction.GlobalVariables.regex import Regex
 from feature_extraction.Models import compliment, predicate, clause
 
 
 class Tree:
-    model_dir = download_and_install_model('WSJ', '/tmp/models')
-    __rpp = RerankingParser.from_unified_model_dir(model_dir)
+    # model_dir = download_and_install_model('WSJ', '/tmp/models')
+    # __rpp = RerankingParser.from_unified_model_dir(model_dir)
 
     ###################################################
     # CONSTRUCTOR
