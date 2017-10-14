@@ -1,6 +1,5 @@
 import numpy
 import pickle
-import os
 
 
 class WordVectors:

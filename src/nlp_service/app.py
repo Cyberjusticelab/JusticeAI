@@ -50,9 +50,10 @@ def fact_extract():
 
 @app.route("/find_answer", methods=['POST'])
 def find_answer():
-    query_json = request.get_json()
-    query = query_json['query']
-    statement = query_json['statement']
-    answer = Answer()
-    answer_model = AnswerModel(answer.query(query, statement))
-    return jsonify(answer_model.__dict__)
+    return None
+    # query_json = request.get_json()
+    # query = query_json['query']
+    # statement = query_json['statement']
+    # answer = Answer()
+    # answer_model = AnswerModel(answer.query(query, statement))
+    # return jsonify(answer_model.__dict__)

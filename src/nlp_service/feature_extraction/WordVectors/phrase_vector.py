@@ -2,7 +2,9 @@ import nltk.tokenize
 import numpy
 from numpy import dot
 from numpy.linalg import norm
-from feature_extraction.WordVectors import word_vector
+
+
+# from feature_extraction.WordVectors import word_vector
 
 
 class PhraseVector:
