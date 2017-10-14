@@ -1,45 +1,99 @@
 #chat-component {
+  height: 100%;
+  #chat-title {
+    background-color: black;
+    height: 50px;
+    h2 {
+      margin-top: 6px;
+      color: gold;
+    }
+  }
   #chat-widow {
-    margin-top: 20px;
-    height: 300px;
+    margin: 50px auto 50px auto;
+    width: 80%;
+    height: 65%;
     overflow-y: scroll;
-    color: white;
+    overflow-x: hidden;
+    .chat-message-container {
+      min-height: 120px;
+      .chat-message-text {
+        p {
+          padding-left: 20px;
+          padding-right: 20px;
+          padding-top: 5px;
+          word-wrap: break-word;
+          font-size: 18px;
+          margin-top: 5px;
+        }
+      }
+      .chat-message-img {
+        img {
+          margin-top: 7px;
+          height: 90px;
+        }
+      }
+    }
     .chat-message {
-      height: 20px;
-      margin: 20px 20px 0px 20px;
-      font-size:35px;
+      font-size:20px;
+      margin-top: 10px;
+      padding-top: 15px;
+      padding-bottom: 10px;
+      border-radius: 5px;
+      background: lightblue;
+      min-height: 60px;
     }
     .chat-message-user {
       @extend .chat-message;
-      margin-top: 36px;
       text-align: right;
     }
     .chat-message-zeus {
       @extend .chat-message;
       text-align: left;
-      img {
-        width: 60px;
-        margin-right: 20px;
-        display: inline-block;
-      }
-      p {
-        display: inline-block;
-      }
+      background-color: antiquewhite;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: white;
+    }
+    &::-webkit-scrollbar {
+      width: 10px;
+      background-color: #F5F5F5;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: gold;
+      background-image: -webkit-linear-gradient(45deg,
+      rgba(255, 255, 255, .2) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255, 255, 255, .2) 50%,
+      rgba(255, 255, 255, .2) 75%,
+      transparent 75%,
+      transparent)
     }
   }
   #chat-input {
-    margin-top: 20px;
+    border-top: 1px solid gold;
+    background-color: rgba(248,248,255,0.5);
+    height: 150px;
+    border-radius: 20px;
     #chat-input-text {
-      width: 500px;
+      text-align: center;
+      width: 80%;
       height: 50px;
-      padding: 2px 20px 2px 20px;
+      margin: auto;
+      margin-top: 20px;
     }
     #chat-input-submit {
-      height: 50px;
-      width: 110px;
+      margin: auto;
+      margin-top: 15px;
+      width: 250px;
+      border-color: gold;
+      color: black;
+      &:hover {
+        background-color: gold;
+        color: white;
+      }
     }
     #chat-input-voice {
-      margin: 0px 0px -18px 20px;
     }
   }
 }
