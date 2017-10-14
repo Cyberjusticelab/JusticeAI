@@ -7,11 +7,12 @@
 
 import nltk
 import os
+from bllipparser.ModelFetcher import download_and_install_model
 
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('wordnet')
-
+model_dir = download_and_install_model('WSJ', '/tmp/models')
 
 from nltk.corpus import stopwords
 from nltk.corpus import wordnet as wn
@@ -67,11 +68,12 @@ def trainClassifiers():
     IsTenantDeadClassifier(True)
     LeaseTermTypeClassifier(True)
 
+
 for directory in os.listdir(os.getcwd() + '/data'):
     for file in os.listdir(os.getcwd() + '/data/' + directory):
         if '.txt' in file and '.extended.txt' not in file:
             inputFile = os.getcwd() + '/data/' + directory + '/' + file
             outputFile = os.getcwd() + '/data/' + directory + '/' + \
-                file.split('.')[0] + '.extended.txt'
+                         file.split('.')[0] + '.extended.txt'
             expandInputFile(inputFile, outputFile)
 trainClassifiers()

@@ -4,3 +4,4 @@ venv
 ./**/*.iml
 .cache
 .coverage
+.idea/*

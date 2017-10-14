@@ -10,3 +10,4 @@ pyflakes==1.5.0
 six==1.11.0
 textblob==0.13.0
 Werkzeug==0.12.2
+numpy==1.13.3
