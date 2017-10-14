@@ -4,4 +4,4 @@ venv
 ./**/*.iml
 .cache
 .coverage
-.idea/misc.xml
+.idea/*
