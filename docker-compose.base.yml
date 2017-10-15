@@ -4,21 +4,30 @@ services:
   ml_service:
     build: ./src/ml_service
     image: procezeus/ml_service
+    depends_on:
+      - postgresql_db
     networks:
       - procezeus_net
   nlp_service:
     build: ./src/nlp_service
     image: procezeus/nlp_service
+    depends_on:
+      - postgresql_db
     networks:
       - procezeus_net
   backend_service:
     build: ./src/backend_service
     image: procezeus/backend_service
+    depends_on:
+      - postgresql_db
+      - nlp_service
     networks:
       - procezeus_net
   web_client:
     build: ./src/web_client
     image: procezeus/web_client
+    depends_on:
+      - backend_service
     networks:
       - procezeus_net
   postgresql_db:

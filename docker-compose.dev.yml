@@ -19,8 +19,6 @@ services:
       - ./src/backend_service:/usr/src/app
   web_client:
     command: npm start
-    depends_on:
-      - backend_service
     ports:
       - 3039:3039
     volumes:
