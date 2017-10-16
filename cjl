@@ -28,6 +28,8 @@ if [ -z "$COMPOSE_FILE" ]; then
 fi
 
 # Passes script arguments to docker-compose
+sudo find ./src -type d -exec chmod 777 {} \;
+sudo find ./src -type f -exec chmod 666 {} \;
 COMPOSE="docker-compose -f docker-compose.base.yml -f docker-compose.$COMPOSE_FILE.yml $@"
 bash -c "$COMPOSE"
 
