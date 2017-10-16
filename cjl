@@ -22,6 +22,25 @@ if [ "$1" == "clean" ]; then
   exit
 fi
 
+# Provide the clean command
+if [ "$1" == "lint-fix" ]; then
+  if ! [ -x "$(command -v yapf)" ]; then
+    echo "You must install yapf to auto-fix Python linting errors. python3 -m pip install yapf."
+  fi
+  if ! [ -x "$(command -v npm)" ]; then
+    echo "You must install node & npm to install front-end dependencies and auto-fix Javascript linting errors."
+  fi
+
+  echo " >> Automatically fixing linting errors <<"
+  echo ""
+  yapf -ir --style google .
+  cd ./src/web_client && npm install && npm run lint-fix && cd ../..
+  echo ""
+fi
+
+
+
+
 # Choose an environment, default is dev
 if [ -z "$COMPOSE_FILE" ]; then
     COMPOSE_FILE='dev'

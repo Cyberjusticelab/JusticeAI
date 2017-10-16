@@ -2,11 +2,11 @@ version: '3'
 
 services:
   ml_service:
-    command: bash -c "pytest && flake8 --ignore F403,F405,E501,E121,E126,E402"
+    command: bash -c 'pytest && if ! [ -z "$$(yapf -dr --style google .)" ]; then echo "Linting errors. Run ./cjl lint-fix."; exit 1; fi;'
   nlp_service:
-    command: bash -c "pytest && flake8 --ignore F403,F405,E501,E121,E126,E402"
+    command: bash -c 'pytest && if ! [ -z "$$(yapf -dr --style google .)" ]; then echo "Linting errors. Run ./cjl lint-fix."; exit 1; fi;'
   backend_service:
-    command: bash -c "pytest && flake8 --ignore F403,F405,E501,E121,E126,E402"
+    command: bash -c 'pytest && if ! [ -z "$$(yapf -dr --style google .)" ]; then echo "Linting errors. Run ./cjl lint-fix."; exit 1; fi;'
   web_client:
     command: bash -c "npm run test && npm run lint"
   postgresql_db:
