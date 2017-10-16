@@ -10,7 +10,7 @@
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run --auto-watch",
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit/specs",
-    "lint-fix": "eslint --ext .js,.vue src test/unit/specs --fix"
+    "lintfix": "eslint --ext .js,.vue src test/unit/specs --fix"
   },
   "dependencies": {
     "vue": "^2.4.2",

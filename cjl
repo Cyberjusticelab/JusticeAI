@@ -31,11 +31,10 @@ if [ "$1" == "lint-fix" ]; then
     echo "You must install node & npm to install front-end dependencies and auto-fix Javascript linting errors."
   fi
 
-  echo " >> Automatically fixing linting errors <<"
-  echo ""
-  yapf -ir --style google .
-  cd ./src/web_client && npm install && npm run lint-fix && cd ../..
-  echo ""
+  echo " >> Automatically fixing linting errors <<" && echo ""
+  cd ./src/web_client && npm install && npm run lintfix && cd ../.. && yapf -ir ./src/**/*.py && \
+  echo "Done! Make sure you re-run tests to make sure nothing is broken."
+  exit
 fi
 
 
