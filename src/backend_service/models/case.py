@@ -1,5 +1,8 @@
+# coding=iso-8859-1
+
 import re
 import codecs
+import regex
 
 
 class Case:
@@ -15,7 +18,6 @@ class Case:
     def open_file(self, file_path):
         file = codecs.open(file_path, 'r', 'iso-8859-1')
         for line in file:
-            print line
             search_obj = re.search("No dossier:", line)
             if search_obj and self.no_dossier == 0:
                 self.no_dossier = file.next()
@@ -28,10 +30,13 @@ class Case:
             if search_obj:
                 self.date = file.next()
                 continue
-            search_obj = re.search("R E C T I F I", line)
-            if search_obj:
+            found = re.search("D É C I S I O N    R E C T I F I É E", line)
+            if found:
                 self.is_rectified = True
-            if re.search("C I S I O N", line):
+                self.total_hearings += 1
+                continue
+            found = re.search("D É C I S I O N", line)
+            if found:
                 self.total_hearings += 1
 
 case = Case("test.txt")
