@@ -45,7 +45,7 @@ class Compliment(Abstract_Model.AbstractModel):
                " | Quantifier: " + str(self.__quantifier)
 
     def __eq__(self, other):
-        if type(other) != type(self):
+        if not isinstance(other, type(self)):
             return False
         elif not (self.equal_lists(self.get_attribute(), other.get_attribute())):
             return False

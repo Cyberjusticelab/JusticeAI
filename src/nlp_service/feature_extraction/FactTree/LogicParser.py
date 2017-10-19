@@ -54,7 +54,7 @@ class Tree:
     # depth: integer
     def __traverse_tree(self, tree, tag_lst, token_lst, depth=0):
         for subtree in tree:
-            if type(subtree) == nltk.tree.Tree:
+            if isinstance(subtree, nltk.tree.Tree):
                 if Regex.phrase_match.match(subtree.label()):
                     new_tag_lst = [(depth, subtree.label())]
                     tag_lst.append(new_tag_lst)
@@ -90,7 +90,7 @@ class Tree:
         elif Regex.verb_match.match(tag):
             model.add_word(word, tag)
         elif Regex.adjective_match.match(tag):
-            if type(model) == compliment.Compliment:
+            if isinstance(model, compliment.Compliment):
                 model.add_word(word, tag)
             else:
                 model.add_attribute(word, tag)
