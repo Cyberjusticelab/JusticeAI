@@ -2,13 +2,13 @@
 
 import re
 import codecs
-import regex
 
 
 class Case:
     def __init__(self, file_path):
         self.no_dossier = 0
         self.no_demande = 0
+        self.no_demande_rectified = 0
         self.date = 0
         self.is_tenant = False
         self.is_rectified = False
@@ -18,30 +18,27 @@ class Case:
     def open_file(self, file_path):
         file = codecs.open(file_path, 'r', 'iso-8859-1')
         for line in file:
-            search_obj = re.search("No dossier:", line)
-            if search_obj and self.no_dossier == 0:
-                self.no_dossier = file.next()
-                continue
-            search_obj = re.search("No demande:", line)
-            if search_obj and self.no_demande == 0:
-                self.no_demande = file.next()
-                continue
-            search_obj = re.search("Date :", line)
-            if search_obj:
-                self.date = file.next()
-                continue
-            found = re.search("D É C I S I O N    R E C T I F I É E", line)
-            if found:
+            if self.no_dossier == 0 and re.search("No dossier", line):
+                next_line = file.next()
+                if re.search("^[0-9]", next_line) is not None:
+                    self.no_dossier = next_line
+                    continue
+            if self.no_demande == 0 and re.search("No demande", line):
+                next_line = file.next()
+                if re.search("^[0-9]", next_line) is not None:
+                    self.no_demande = next_line
+                    continue
+            if re.search("D\s*É\s*C\s*I\s*S\s*I\s*O\s*N\s*R\s*E\s*C\s*T\s*I\s*F\s*I\s*É\s*E", line):
                 self.is_rectified = True
-                self.total_hearings += 1
-                continue
-            found = re.search("D É C I S I O N", line)
-            if found:
+            if re.search("^Date\s*:", line):
                 self.total_hearings += 1
 
-case = Case("test.txt")
-print case.date
-print case.no_dossier
-print case.no_demande
-print case.total_hearings
-print case.is_rectified
+import os
+
+count = 0
+for fname in os.listdir('/Users/taimoorrana/Downloads/text_bk/'):
+    case = Case('/Users/taimoorrana/Downloads/text_bk/' + fname)
+    if count > 100:
+        break
+    count += 1
+    print fname, ": ", case.total_hearings
