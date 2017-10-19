@@ -3,4 +3,4 @@ import app
 
 def test_hello():
     assert app.hello() == \
-            "Hello World! From the Machine Learning Microservice"
+        "Hello World! From the Machine Learning Microservice"

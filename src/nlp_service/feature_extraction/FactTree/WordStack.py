@@ -30,7 +30,7 @@ class Stack:
     def peek(self, stack):
         try:
             return stack[len(stack) - 1]
-        except:
+        except BaseException:
             return None
 
     #####################################
@@ -43,7 +43,7 @@ class Stack:
     def next(self, lst, index):
         try:
             return lst[index + 1]
-        except:
+        except BaseException:
             return None
 
     #####################################
@@ -56,7 +56,7 @@ class Stack:
     def previous(self, lst, index):
         try:
             return lst[index - 1]
-        except:
+        except BaseException:
             return None
 
     #####################################

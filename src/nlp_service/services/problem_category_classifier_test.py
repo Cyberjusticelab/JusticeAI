@@ -4,7 +4,7 @@ from services.problem_category_classifier import ProblemCategoryClassifier
 def test_classify_lease_termination():
     assert ProblemCategoryClassifier().classify(
         'I would like to terminate my lease')[
-               'category'] == 'lease_termination'
+        'category'] == 'lease_termination'
 
 
 def test_classify_deposits():
