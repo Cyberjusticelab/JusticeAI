@@ -43,11 +43,11 @@ class Proposition():
     # logic_lst: list
     def __create_logic(self, logic_lst):
         for i in range(len(logic_lst)):
-            if type(logic_lst[i]) == clause.Clause:
+            if isinstance(logic_lst[i], clause.Clause):
                 self.__clause_operation(logic_lst[i], logic_lst, i)
-            elif type(logic_lst[i]) == predicate.Predicate:
+            elif isinstance(logic_lst[i], predicate.Predicate):
                 self.__predicate_operation(logic_lst[i], logic_lst, i)
-            elif type(logic_lst[i]) == compliment.Compliment:
+            elif isinstance(logic_lst[i], compliment.Compliment):
                 self.__compliment_operation(logic_lst[i], logic_lst, i)
 
     #############################################
@@ -66,8 +66,8 @@ class Proposition():
         if self.__stack.peek_predicate() is None:
             self.__stack.clause_stack.append(logic)
 
-        elif type(self.__stack.next(logic_lst, index)) == predicate.Predicate:
-            if type(self.__stack.previous(logic_lst, index)) == predicate.Predicate:
+        elif isinstance(self.__stack.next(logic_lst, index), predicate.Predicate):
+            if isinstance(self.__stack.previous(logic_lst, index), predicate.Predicate):
                 self.__stack.compliment_stack.append(logic)
             self.__extract_relations()
             self.__stack.clause_stack.append(logic)
@@ -118,8 +118,8 @@ class Proposition():
             self.__stack.compliment_stack.append(logic)
             self.__extract_relations()
 
-        elif type(self.__stack.next(logic_lst, index)) == predicate.Predicate:
-            if type(self.__stack.previous(logic_lst, index)) == predicate.Predicate:
+        elif isinstance(self.__stack.next(logic_lst, index), predicate.Predicate):
+            if isinstance(self.__stack.previous(logic_lst, index), predicate.Predicate):
                 self.__stack.compliment_stack.append(logic)
             self.__extract_relations()
             self.__stack.clause_stack.append(logic)

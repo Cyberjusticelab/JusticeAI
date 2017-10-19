@@ -4,4 +4,4 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-        return "Hello World! From the Machine Learning Microservice"
+    return "Hello World! From the Machine Learning Microservice"

@@ -60,7 +60,7 @@ class AbstractModel:
     def get_element_from_tag(self, tag):
         try:
             return self._tags[tag]
-        except:
+        except BaseException:
             return None
 
     #####################################
