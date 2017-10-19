@@ -5,7 +5,7 @@ if ! [ -x "$(command -v docker)" ] || ! [ -x "$(command -v docker-compose)" ]; t
   echo "You must install docker and docker-compose to use this script."
 fi
 
-# Provide the clean command
+# Destroy all containers/images
 if [ "$1" == "clean" ]; then
   echo "WARNING: This command is destructive. It removes all containers, images and volumes installed on your local machine."
   read -r -p "Are you SURE you want to continue? [y/N]" clean_confirmation
@@ -14,7 +14,6 @@ if [ "$1" == "clean" ]; then
     echo "  >>> Killing all docker containers <<<" && echo "" && docker ps -qa | xargs docker kill && echo ""
     echo "  >>> Removing all stopped containers <<<" && echo "" && docker ps -qa | xargs docker rm -v && echo ""
     echo "  >>> Removing all images <<<" && echo "" && docker images -qa | xargs docker rmi && echo ""
-    echo "  >>> Removing all volumes <<<" && echo "" && docker volume ls -qf dangling=true | xargs docker volume rm && echo ""
 
   else
     echo "Clean aborted."
@@ -22,7 +21,7 @@ if [ "$1" == "clean" ]; then
   exit
 fi
 
-# Provide the clean command
+# Tries to fix all Javascript and Python linting errors for you
 if [ "$1" == "lint-fix" ]; then
   if ! [ -x "$(command -v yapf)" ]; then
     echo "You must install yapf to auto-fix Python linting errors. python3 -m pip install yapf."
@@ -32,8 +31,8 @@ if [ "$1" == "lint-fix" ]; then
   fi
 
   echo " >> Automatically fixing linting errors <<" && echo ""
-  cd ./src/web_client && npm install && npm run lintfix && cd ../.. && yapf -ir ./src/**/*.py && \
-  echo "Done! Make sure you re-run tests to make sure nothing is broken."
+  cd ./src/web_client && npm install && npm run lintfix && cd ../.. && yapf -ir . && \
+  echo "Done!"
   exit
 fi
 

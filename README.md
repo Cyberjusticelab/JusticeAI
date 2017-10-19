@@ -19,25 +19,43 @@ To install Docker and Docker Compose, you can follow the instructions [here](htt
 
 We've developed a script to help with running the entire application with all its components. All you need is:
 
-```
+```bash
 ./cjl up
 ```
 
 If you want to suppress output push the job to the background:
 
-```
+```bash
 ./cjl up -d
 ```
 
-Docker isn't always the best at determining diffs between images. You can manually rebuild all images with
+Docker isn't always the best at determining diffs between images. You can manually rebuild all images with:
 
-```
+```bash
 ./cjl build
+```
+
+If that doesn't work, try destroying all Docker containers/images on your machine:
+
+```bash
+./cjl clean
+```
+
+To run all tests for all services:
+
+```bash
+./cjl test
+```
+
+To (try to) fix all linting errors for all services (NOTE THAT THIS DOES NOT ALWAYS FIX ALL ERRORS):
+
+```bash
+./cjl lint-fix
 ```
 
 In order to shut down all containers:
 
-```
+```bash
 ./cjl down
 ```
 
