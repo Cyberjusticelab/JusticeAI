@@ -41,13 +41,7 @@ If that doesn't work, try destroying all Docker containers/images on your machin
 ./cjl clean
 ```
 
-To run all tests for all services:
-
-```bash
-./cjl test
-```
-
-To (try to) fix all linting errors for all services (NOTE THAT THIS DOES NOT ALWAYS FIX ALL ERRORS):
+To try to fix all linting errors for all services:
 
 ```bash
 ./cjl lint-fix
