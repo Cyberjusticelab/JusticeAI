@@ -4,26 +4,17 @@ services:
   ml_service:
     ports:
       - 3001:3001
-    environment:
-      FLASK_DEBUG: 1
-      FLASK_APP: app.py
     volumes:
       - ./src/ml_service:/usr/src/app
   nlp_service:
     ports:
       - 3002:3002
-    environment:
-      FLASK_DEBUG: 1
-      FLASK_APP: app.py
     volumes:
       - ./src/nlp_service:/usr/src/app
       - /usr/src/app/data
   backend_service:
     ports:
       - 3003:3003
-    environment:
-      FLASK_DEBUG: 1
-      FLASK_APP: app.py
     volumes:
       - ./src/backend_service:/usr/src/app
   web_client:
