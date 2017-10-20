@@ -1,3 +1,15 @@
+# Backend Service
+
+## Run Tests and Lints
+
+```
+export COMPOSE_FILE=ci
+./cjl up -d && ./cjl run backend_service
+```
+
+---
+# Backend API
+
 # Initialize a new conversation
 
 Initializes a new conversation
@@ -129,11 +141,87 @@ Gets the message history for a conversation
 
 ---
 
-# Backend Service
+# Upload a file
 
-## Run Tests and Lints
+Upload a file that serves as evidence for a particular conversation.
 
+**URL** : `/conversation/:conversation_id/files`
+
+**Method** : `POST`
+
+**Data constraints**
+
+Content-Type: `multipart/form-data`
+
+## Success Response
+
+**Code** : `200 OK`
+
+## Error Response
+
+**Code** : `400 Bad Request`
+
+---
+
+# Get conversation file metadata
+
+Gets a list of file metadata for a conversation
+
+**URL** : `/conversation/:conversation_id/files`
+
+**Method** : `GET`
+
+## Success Response
+
+**Code** : `200 OK`
+
+**Content examples**
+
+```json
+{
+	"files": [
+		{
+			"id": 10,
+			"file_type": "application/pdf",
+			"name": "MY_LEASE.pdf"
+		},
+		{
+			"id": 15,
+			"file_type": "image/jpg",
+			"name": "MY_LEAKY_PIPES.jpg"
+		}
+	]	
+}
 ```
-export COMPOSE_FILE=ci
-./cjl up -d && ./cjl run backend_service
-```
+
+## Error Response
+
+**Code** : `400 Bad Request`
+
+**Code** : `404 Not Found`
+
+---
+
+# Get conversation file
+
+Downloads a file uploaded as part of a conversation
+
+**URL** : `/conversation/:conversation_id/files/file_id`
+
+**Method** : `GET`
+
+## Success Response
+
+**Code** : `200 OK`
+
+**Content-Type** : `image/jpeg, image/png, application/pdf`
+
+**Content-Disposition** : attachment; filename=file_name.extension
+
+**Body** : Binary file content
+
+## Error Response
+
+**Code** : `400 Bad Request`
+
+**Code** : `404 Not Found`

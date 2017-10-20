@@ -6,6 +6,10 @@ from models.staticStrings import *
 from services import nlpService
 
 
+#######################
+# Conversation Handling
+#######################
+
 def get_conversation(conversation_id):
     conversation = Conversation.query.get(conversation_id)
     if conversation:
@@ -59,6 +63,42 @@ def receive_message(conversation_id, message):
     else:
         abort(make_response(jsonify(message="Conversation does not exist"), 404))
 
+
+###############
+# File Handling
+###############
+
+def get_file_list(conversation_id):
+    print("get_file_list with conversation_id: {}".format(conversation_id))
+    return jsonify(
+        {
+            'files': [
+                {
+                    "id": 1,
+                    "file_type": "application/pdf",
+                    "name": "MY_LEASE.pdf"
+                }
+            ]
+        }
+    )
+
+
+def upload_file(conversation_id, file):
+    print("upload_file with conversation_id: {}, file: {}".format(conversation_id, file))
+    # Check if the file has a filename
+    if file.filename == '':
+        abort(make_response(jsonify(message="No file selected"), 400))
+    return '', 200
+
+
+def get_file(conversation_id, file_id):
+    print("get_file with conversation_id: {}, file_id: {}".format(conversation_id, file_id))
+    return '', 200
+
+
+##################
+# Private Methods
+##################
 
 def _generate_response(conversation, message):
     if conversation.person_type is None:
