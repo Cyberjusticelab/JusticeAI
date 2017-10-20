@@ -10,4 +10,4 @@ COPY . .
 
 ENV FLASK_APP=app.py
 EXPOSE 3001
-CMD [ "python", "-m", "flask", "run", "--host=0.0.0.0", "-p 3001" ]
+CMD [ "gunicorn", "-w 3", "--reload", "-b 0.0.0.0:3001", "app:app" ]
