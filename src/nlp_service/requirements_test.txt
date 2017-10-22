@@ -4,5 +4,5 @@
 
 pytest
 pytest-cov
-flake8
+autopep8
 
