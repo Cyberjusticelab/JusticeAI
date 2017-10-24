@@ -1,7 +1,12 @@
+@import "./Utils";
+
 #dashboard-component {
     height: 100%;
     .container-fluid, .row{
         height: 100%;
+    }
+    .col-md-9, .col-md-3 {
+        padding: 0px;
     }
 }
 

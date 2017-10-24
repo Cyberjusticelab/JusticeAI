@@ -4,7 +4,6 @@
 
 <template>
     <div id="sidebar-component">
-        <p>Hey</p>
     </div>
 </template>
 

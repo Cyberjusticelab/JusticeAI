@@ -4,9 +4,6 @@
 
 <template>
   <b-container fluid id="chat-component">
-    <b-row id="chat-title">
-      <b-col sm="2"><h2>ProceZeus</h2></b-col>
-    </b-row>
     <div id="chat-widow" v-chat-scroll>
       <div class="chat-message-container" v-for="(message, index) in chatLog">
         <b-row>
@@ -27,7 +24,7 @@
       <b-form @submit="sendUserMessage">
         <b-form-group>
           <b-form-input id="chat-input-text" v-model="currentUserInput" placeholder="Enter your message" autocomplete="off"></b-form-input>
-          <b-button id="chat-input-submit" size="lg" variant="outline-success" type="submit":disabled="!currentUserInput">Send</b-button>
+          <b-button id="chat-input-submit" size="lg" variant="outline-success" type="submit":disabled="!currentUserInput">SEND</b-button>
         </b-form-group>
       </b-form>
       <!--<icon id="chat-input-voice" name="microphone" scale="3"></icon>-->

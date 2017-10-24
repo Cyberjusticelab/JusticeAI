@@ -1,17 +1,13 @@
+@import "./Utils";
+
 #chat-component {
   height: 100%;
-  #chat-title {
-    background-color: black;
-    height: 50px;
-    h2 {
-      margin-top: 6px;
-      color: gold;
-    }
-  }
+  background-color: $main-gold-1;
+  overflow: hidden;
   #chat-widow {
-    margin: 50px auto 50px auto;
-    width: 80%;
-    height: 65%;
+    background-color: $main-grey-3;
+    width: 100%;
+    height: 78%;
     overflow-y: scroll;
     overflow-x: hidden;
     .chat-message-container {
@@ -72,24 +68,23 @@
   }
   #chat-input {
     border-top: 1px solid gold;
-    background-color: rgba(248,248,255,0.5);
-    height: 150px;
-    border-radius: 20px;
+    background-color: $main-grey-2;
+    height: 23%;
     #chat-input-text {
       text-align: center;
       width: 80%;
       height: 50px;
       margin: auto;
-      margin-top: 20px;
+      margin-top: 45px;
     }
     #chat-input-submit {
       margin: auto;
       margin-top: 15px;
       width: 250px;
-      border-color: gold;
+      border-color: $main-gold-2;
       color: black;
-      &:hover {
-        background-color: gold;
+      &:hover:enabled {
+        background-color: $main-gold-2;
         color: white;
       }
     }
