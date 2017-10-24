@@ -44,6 +44,7 @@ class Conversation(db.Model):
     current_fact = db.Column(db.String(50))
     messages = db.relationship('Message')
     facts = db.relationship('Fact')
+    files = db.relationship('File')
 
 
 class Message(db.Model):
@@ -62,6 +63,15 @@ class Fact(db.Model):
 
     def __repr__(self):
         return "{}:{}".format(self.name, self.value)
+
+
+class File(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    conversation_id = db.Column(db.Integer, db.ForeignKey('conversation.id'))
+    name = db.Column(db.String(50), nullable=False)
+    type = db.Column(db.String(50), nullable=False)
+    path = db.Column(db.String(100))
+    timestamp = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
 
 # Create tables
@@ -86,6 +96,11 @@ class MessageSchema(ma.ModelSchema):
 class FactSchema(ma.ModelSchema):
     class Meta:
         model = Fact
+
+
+class FileSchema(ma.ModelSchema):
+    class Meta:
+        fields = ('id', 'name', 'type', 'timestamp')
 
 
 class ConversationSchema(ma.ModelSchema):

@@ -3,7 +3,7 @@ from flask import jsonify, abort, make_response
 from models.factService import FactService
 from models.models import *
 from models.staticStrings import *
-from services import nlpService
+from services import nlpService, fileService
 
 
 #######################
@@ -33,7 +33,6 @@ def init_conversation(name):
 
 
 def receive_message(conversation_id, message):
-    # Retrieve conversation
     conversation = Conversation.query.get(conversation_id)
 
     if conversation:
@@ -69,26 +68,44 @@ def receive_message(conversation_id, message):
 ###############
 
 def get_file_list(conversation_id):
-    print("get_file_list with conversation_id: {}".format(conversation_id))
-    return jsonify(
-        {
-            'files': [
-                {
-                    "id": 1,
-                    "file_type": "application/pdf",
-                    "name": "MY_LEASE.pdf"
-                }
-            ]
+    conversation = Conversation.query.get(conversation_id)
+
+    if conversation:
+        return {
+            'files': FileSchema.jsonify(conversation.files)
         }
-    )
+    else:
+        abort(make_response(jsonify(message="Conversation does not exist"), 404))
 
 
 def upload_file(conversation_id, file):
-    print("upload_file with conversation_id: {}, file: {}".format(conversation_id, file))
-    # Check if the file has a filename
-    if file.filename == '':
-        abort(make_response(jsonify(message="No file selected"), 400))
-    return '', 200
+    # Retrieve conversation
+    conversation = Conversation.query.get(conversation_id)
+
+    if conversation:
+        # Check if the file has a filename
+        if file.filename == '':
+            abort(make_response(jsonify(message="No file selected"), 400))
+
+        if fileService.is_accepted_format(file):
+            # Create the file and commit it to generate id
+            new_file = File(name=fileService.sanitize_name(file), type=file.content_type)
+            conversation.files.append(new_file)
+            db.session.commit()
+
+            # Generate path information and upload file to disk
+            new_file.path = fileService.generate_path(conversation.id, new_file.id)
+            fileService.upload_file(file, new_file.path, new_file.name)
+            db.session.commit()
+
+            # Return the file info
+            return FileSchema().jsonify(new_file)
+        else:
+            abort(make_response(
+                jsonify(message="Filetype {} is not allowed".format(fileService.get_file_extension(file))), 400))
+
+    else:
+        abort(make_response(jsonify(message="Conversation does not exist"), 404))
 
 
 def get_file(conversation_id, file_id):

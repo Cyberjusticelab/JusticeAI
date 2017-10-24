@@ -7,7 +7,7 @@ import database
 app = Flask(__name__)
 
 # DB Setup
-# db = database.connect(app, 'postgres', 'postgres', 'postgres', host="localhost")
+#db = database.connect(app, 'postgres', 'postgres', 'postgres', host="localhost")
 db = database.connect(app, 'postgres', 'DEV_PASS_NOT_SECRET', 'postgres')
 ma = Marshmallow(app)
 

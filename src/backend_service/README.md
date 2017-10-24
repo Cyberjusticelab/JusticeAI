@@ -149,17 +149,34 @@ Upload a file that serves as evidence for a particular conversation.
 
 **Method** : `POST`
 
-**Data constraints**
+**Headers**
 
 Content-Type: `multipart/form-data`
+
+**Data constraints**
+
+Provide 'file' form key with file data.
 
 ## Success Response
 
 **Code** : `200 OK`
 
+**Content examples**
+
+```json
+{
+    "id": 1,
+    "name": "leaky_pipes.png",
+    "type": "image/png",
+    "timestamp": "2017-10-24T00:01:27.806730+00:00"
+}
+```
+
 ## Error Response
 
 **Code** : `400 Bad Request`
+
+**Code** : `404 Not Found`
 
 ---
 
@@ -181,14 +198,16 @@ Gets a list of file metadata for a conversation
 {
 	"files": [
 		{
-			"id": 10,
-			"file_type": "application/pdf",
-			"name": "MY_LEASE.pdf"
+			"id": 1,
+			"name": "leaky_pipes.png",
+			"type": "image/png",
+			"timestamp": "2017-10-24T00:01:27.000000+00:00"
 		},
 		{
-			"id": 15,
-			"file_type": "image/jpg",
-			"name": "MY_LEAKY_PIPES.jpg"
+			"id": 2,
+			"name": "my_least.pdf",
+			"type": "application/pdf",
+			"timestamp": "2017-10-24T00:01:30.000000+00:00"
 		}
 	]	
 }
