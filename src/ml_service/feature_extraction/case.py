@@ -2,7 +2,6 @@
 
 import re
 import codecs
-import os
 import json
 
 
@@ -60,10 +59,3 @@ class Case:
 def write_to_json_file(path, file_name, data):
     with open(path + '/' + file_name + ".json", "w+") as JSON_File:
         json.dump(data, JSON_File)
-
-
-# Path of the cases directory
-directory_path = "./dummy_cases/"
-for file_name in os.listdir(directory_path):
-    case = Case(directory_path + file_name)
-    write_to_json_file('./case_info_extracted', "case#" + case.data["noDemande"][0], case.data)
