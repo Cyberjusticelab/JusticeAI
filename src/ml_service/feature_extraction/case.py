@@ -52,10 +52,6 @@ class Case:
             if re.search("^[D|d]ate\s*:", line):
                 self.data["totalHearings"] += 1
 
-        # If no hearings were found, something went wrong
-        if self.data["totalHearings"] == 0:
-            print "Unable to find a hearing in ", file_path
-
         # If total hearing is greater than 1, then the case was rectified
         if self.data["totalHearings"] > 1:
             self.data["isRectified"] = True
