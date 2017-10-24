@@ -35,3 +35,7 @@ def is_accepted_format(file):
 
 def get_file_extension(file):
     return file.filename.rsplit('.', 1)[1].lower()
+
+
+def get_accepted_formats_string():
+    return ", ".join(ALLOWED_EXTENSIONS)

@@ -1,3 +1,4 @@
+import flask
 from flask import jsonify, abort, make_response
 
 from models.factService import FactService
@@ -71,15 +72,16 @@ def get_file_list(conversation_id):
     conversation = Conversation.query.get(conversation_id)
 
     if conversation:
-        return {
-            'files': FileSchema.jsonify(conversation.files)
-        }
+        return jsonify(
+            {
+                'files': [FileSchema().dump(file).data for file in conversation.files]
+            }
+        )
     else:
         abort(make_response(jsonify(message="Conversation does not exist"), 404))
 
 
 def upload_file(conversation_id, file):
-    # Retrieve conversation
     conversation = Conversation.query.get(conversation_id)
 
     if conversation:
@@ -102,15 +104,24 @@ def upload_file(conversation_id, file):
             return FileSchema().jsonify(new_file)
         else:
             abort(make_response(
-                jsonify(message="Filetype {} is not allowed".format(fileService.get_file_extension(file))), 400))
+                jsonify(message="Filetype {} is not supported. Supported filetypes are {}.".format(
+                    fileService.get_file_extension(file), fileService.get_accepted_formats_string())), 400))
 
     else:
         abort(make_response(jsonify(message="Conversation does not exist"), 404))
 
 
 def get_file(conversation_id, file_id):
-    print("get_file with conversation_id: {}, file_id: {}".format(conversation_id, file_id))
-    return '', 200
+    conversation = Conversation.query.get(conversation_id)
+
+    if conversation:
+        for file in conversation.files:
+            if file.id == int(file_id):
+                return flask.send_from_directory(file.path, file.name, mimetype=file.type, as_attachment=True)
+
+        return abort(make_response(jsonify(message="File does not exist"), 404))
+    else:
+        abort(make_response(jsonify(message="Conversation does not exist"), 404))
 
 
 ##################

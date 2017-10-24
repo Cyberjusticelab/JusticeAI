@@ -221,11 +221,11 @@ Gets a list of file metadata for a conversation
 
 ---
 
-# Get conversation file
+# Get conversation's file
 
 Downloads a file uploaded as part of a conversation
 
-**URL** : `/conversation/:conversation_id/files/file_id`
+**URL** : `/conversation/:conversation_id/files/:file_id`
 
 **Method** : `GET`
 
