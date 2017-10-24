@@ -67,4 +67,3 @@ directory_path = "./dummy_cases/"
 for file_name in os.listdir(directory_path):
     case = Case(directory_path + file_name)
     write_to_json_file('./case_info_extracted', "case#" + case.data["noDemande"][0], case.data)
-    print file_name, ": ", case.data["noDossier"], case.data["noDemande"]
