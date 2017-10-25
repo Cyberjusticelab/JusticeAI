@@ -10,15 +10,14 @@
         cursor: pointer;
     }
     #sidebar-logo {
-        text-align: center;
         height: 15%;
         img {
             margin-top: 40px;
             width: 70%;
         }
         p {
+            margin-top: -8px;
             font-size: 10px;
-            display: inline-block;
             color: $main-grey-5;
             font-style: italic;
         }
@@ -30,7 +29,8 @@
             font-size: 30px;
         }
         img {
-            width: 20%;
+            margin-top: 25px;
+            height: 80px;
         }
     }
     #sidebar-menu {
@@ -49,37 +49,34 @@
                 margin-top: 22px;
             }
             &:hover {
+                border-color: $main-gold-1;
                 background-color: $main-grey-3;
                 color: $main-gold-1;
                 cursor: pointer;
             }
         }
         ul {
-            width: 100%;
             margin: 10px;
-            padding: 0px;
             li {
                 height: 34px;
                 list-style: none;
-                text-align: right;
                 width: 90%;
+                text-align: left;
                 p {
                     display: inline-block;
                     color: $main-grey-3;
-                    margin-right: 10px;
                 }
-                .file-img {
-                    margin-right: 1px;
+                .sidebar-file-view {
+                    margin-right: 15%;
                     display: inline-block;
                 }
-                #sidebar-file-view {
-                    @extend .file-img;
-                }
-                #sidebar-file-download {
-                    @extend .file-img;
-                    margin-top: -5px;
+                .col-md-6 {
+                    overflow: hidden;
                 }
             }
         }
     }
 }
+
+
+
