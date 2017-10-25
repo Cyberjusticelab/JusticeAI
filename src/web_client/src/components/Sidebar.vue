@@ -13,18 +13,18 @@
             <h2>{{ username }}</h2>
         </div>
         <div id="sidebar-menu">
-            <div id="sidebar-upload-file" class="sidebar-menu" v-on:click="openFileList = !openFileList; openReportList = false" v-bind:class="{ 'active-menu': openFileList}">
+            <div id="sidebar-upload-file" class="sidebar-menu" v-on:click="openFileList = !openFileList && uploadedFileList.length > 0; openReportList = false" v-bind:class="{ 'active-menu': openFileList}">
                 <h3>UPLOADED FILES</h3>
             </div>
             <transition name="fade">
                 <ul v-if="openFileList">
-                    <li v-for="(file, key) in uploadedFileList">
+                    <li v-for="file in uploadedFileList">
                         <b-row>
                             <b-col md="6" offset-md="2">
                                 <p>{{ file.name }}</p>
                             </b-col>
                             <b-col md="1">
-                                <img class="sidebar-file-view" alt="" src="../assets/file_view.png">
+                                <img class="sidebar-file-view" alt="" src="../assets/file_view.png" v-on:click="openUploadedFile(file.id)">
                             </b-col>
                         </b-row>
                     </li>
@@ -61,17 +61,40 @@
 export default {
     data () {
         return {
-            uploadedFileList: {
-                file1: {
-                    name: 'Lease.pdf'
-                },
-                file2: {
-                    name: 'Agreement.pdf'
-                }
-            },
+            uploadedFileList: new Array,
             openFileList: false,
             openReportList: false,
-            username: this.$localStorage.get('username').toUpperCase()
+            username: this.$localStorage.get('username').toUpperCase(),
+            api_url: process.env.API_URL,
+            connectionError: false
+        }
+    },
+    methods: {
+        getFileList () {
+            if (this.$localStorage.get('zeusId')) {
+                let zeusId = this.$localStorage.get('zeusId');
+                this.$http.get(this.api_url + zeusId + '/files').then(
+                    response => {
+                        if (response.body.files.length > 0) {
+                            this.uploadedFileList = response.body.files;
+                        }
+                    },
+                    response => {
+                        this.connectionError = true;
+                    }
+                );
+            }
+        },
+        openUploadedFile (fileId) {
+            let zeusId = this.$localStorage.get('zeusId');
+            this.$http.get(this.api_url + zeusId + '/files' + fileId).then(
+                response => {
+                    // open file
+                },
+                response => {
+                    this.connectionError = true;
+                }
+            );
         }
     }
 }

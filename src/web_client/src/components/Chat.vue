@@ -57,7 +57,7 @@
               <p v-if="currentUserInput">{{ currentUserInput }}</p>
             </div>
           </b-col>
-          <b-col md="2">
+          <b-col md="1">
             <div id="chat-user-avatar">
               <img src="../assets/user_avatar_2.png"/>
             </div>
