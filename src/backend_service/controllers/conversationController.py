@@ -12,11 +12,9 @@ from services.staticStrings import *
 ########################
 
 def get_conversation(conversation_id):
-    conversation = Conversation.query.get(conversation_id)
-    if conversation:
-        return ConversationSchema().jsonify(conversation)
-    else:
-        abort(make_response(jsonify(message="Conversation does not exist"), 404))
+    conversation = __get_conversation(conversation_id)
+
+    return ConversationSchema().jsonify(conversation)
 
 
 def init_conversation(name):
@@ -34,45 +32,41 @@ def init_conversation(name):
 
 
 def receive_message(conversation_id, message):
-    conversation = Conversation.query.get(conversation_id)
+    conversation = __get_conversation(conversation_id)
 
-    if conversation:
-
-        file_request = None
-        # First message in the conversation
-        if len(conversation.messages) == 0:
-            response_text = StaticStrings.chooseFrom(StaticStrings.welcome).format(name=conversation.name)
-        else:
-            # Add user's message
-            user_message = Message(sender_type=SenderType.USER, text=message)
-            conversation.messages.append(user_message)
-
-            # Generate response text & optional parameters
-            response = __generate_response(conversation, user_message.text)
-            response_text = response.get('response_text')
-            file_request = response.get('file_request')
-
-        # Persist response message
-        response = Message(sender_type=SenderType.BOT, text=response_text)
-
-        # Create relationship between message and file request if present
-        if file_request is not None:
-            response.file_request = file_request
-
-        conversation.messages.append(response)
-
-        # Commit
-        db.session.commit()
-
-        # Build response dict
-        response_dict = {'conversation_id': conversation.id, 'message': response_text}
-
-        if file_request is not None:
-            response_dict['file_request'] = FileRequestSchema().dump(file_request).data
-
-        return jsonify(response_dict)
+    file_request = None
+    # First message in the conversation
+    if len(conversation.messages) == 0:
+        response_text = StaticStrings.chooseFrom(StaticStrings.welcome).format(name=conversation.name)
     else:
-        abort(make_response(jsonify(message="Conversation does not exist"), 404))
+        # Add user's message
+        user_message = Message(sender_type=SenderType.USER, text=message)
+        conversation.messages.append(user_message)
+
+        # Generate response text & optional parameters
+        response = __generate_response(conversation, user_message.text)
+        response_text = response.get('response_text')
+        file_request = response.get('file_request')
+
+    # Persist response message
+    response = Message(sender_type=SenderType.BOT, text=response_text)
+
+    # Create relationship between message and file request if present
+    if file_request is not None:
+        response.file_request = file_request
+
+    conversation.messages.append(response)
+
+    # Commit
+    db.session.commit()
+
+    # Build response dict
+    response_dict = {'conversation_id': conversation.id, 'message': response_text}
+
+    if file_request is not None:
+        response_dict['file_request'] = FileRequestSchema().dump(file_request).data
+
+    return jsonify(response_dict)
 
 
 ################
@@ -80,64 +74,63 @@ def receive_message(conversation_id, message):
 ################
 
 def get_file_list(conversation_id):
-    conversation = Conversation.query.get(conversation_id)
+    conversation = __get_conversation(conversation_id)
 
-    if conversation:
-        return jsonify(
-            {
-                'files': [FileSchema().dump(file).data for file in conversation.files]
-            }
-        )
-    else:
-        abort(make_response(jsonify(message="Conversation does not exist"), 404))
+    return jsonify(
+        {
+            'files': [FileSchema().dump(file).data for file in conversation.files]
+        }
+    )
 
 
 def upload_file(conversation_id, file):
-    conversation = Conversation.query.get(conversation_id)
+    conversation = __get_conversation(conversation_id)
 
-    if conversation:
-        # Check if the file has a filename
-        if file.filename == '':
-            abort(make_response(jsonify(message="No file selected"), 400))
+    # Check if the file has a filename
+    if file.filename == '':
+        abort(make_response(jsonify(message="No file selected"), 400))
 
-        if fileService.is_accepted_format(file):
-            # Create the file and commit it to generate id
-            new_file = File(name=fileService.sanitize_name(file), type=file.content_type)
-            conversation.files.append(new_file)
-            db.session.commit()
+    if fileService.is_accepted_format(file):
+        # Create the file and commit it to generate id
+        new_file = File(name=fileService.sanitize_name(file), type=file.content_type)
+        conversation.files.append(new_file)
+        db.session.commit()
 
-            # Generate path information and upload file to disk
-            new_file.path = fileService.generate_path(conversation.id, new_file.id)
-            fileService.upload_file(file, new_file.path, new_file.name)
-            db.session.commit()
+        # Generate path information and upload file to disk
+        new_file.path = fileService.generate_path(conversation.id, new_file.id)
+        fileService.upload_file(file, new_file.path, new_file.name)
+        db.session.commit()
 
-            # Return the file info
-            return FileSchema().jsonify(new_file)
-        else:
-            abort(make_response(
-                jsonify(message="Filetype {} is not supported. Supported filetypes are {}.".format(
-                    fileService.get_file_extension(file), fileService.get_accepted_formats_string())), 400))
-
+        # Return the file info
+        return FileSchema().jsonify(new_file)
     else:
-        abort(make_response(jsonify(message="Conversation does not exist"), 404))
+        abort(make_response(
+            jsonify(message="Filetype {} is not supported. Supported filetypes are {}.".format(
+                fileService.get_file_extension(file), fileService.get_accepted_formats_string())), 400))
 
 
 def get_file(conversation_id, file_id):
-    conversation = Conversation.query.get(conversation_id)
+    conversation = __get_conversation(conversation_id)
 
-    if conversation:
-        for file in conversation.files:
-            if file.id == int(file_id):
-                return flask.send_from_directory(file.path, file.name, mimetype=file.type, as_attachment=True)
+    for file in conversation.files:
+        if file.id == int(file_id):
+            return flask.send_from_directory(file.path, file.name, mimetype=file.type, as_attachment=True)
 
-        return abort(make_response(jsonify(message="File does not exist"), 404))
-    else:
-        abort(make_response(jsonify(message="Conversation does not exist"), 404))
+    return abort(make_response(jsonify(message="File does not exist"), 404))
 
 
 ##################
 # Private Methods
 ##################
+
+def __get_conversation(conversation_id):
+    conversation = Conversation.query.get(conversation_id)
+
+    if conversation:
+        return conversation
+
+    abort(make_response(jsonify(message="Conversation does not exist"), 404))
+
 
 def __generate_response(conversation, message):
     if conversation.person_type is None:
