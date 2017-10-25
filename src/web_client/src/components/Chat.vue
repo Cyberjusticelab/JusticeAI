@@ -6,7 +6,7 @@
   <b-container fluid id="chat-component">
     <!-- Chat History -->
     <transition name="fade">
-      <div id="chat-history" v-if="openChatHistory">
+      <div id="chat-history" v-if="openChatHistory" v-chat-scroll>
         <ul>
           <li v-for="(conv, index) in chatLog">
             <h3>{{ conv.sender_type }}</h3>

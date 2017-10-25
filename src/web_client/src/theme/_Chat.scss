@@ -5,6 +5,7 @@
   background-color: $main-gold-1;
   overflow: hidden;
   #chat-history {
+    overflow-y: scroll;
     width: 100%;
     height: 100%;
     background-color: rgba(41,41,41,0.8);
