@@ -43,6 +43,21 @@
               <transition name="fade">
                 <p v-if="currentZeusInput">{{ currentZeusInput }} </p>
               </transition>
+              <transition name="fade">
+                <file-upload
+                  ref="upload"
+                  v-model="files"
+                  :drop="true"
+                  :post-action="uploadUrl"
+                >
+                  <p v-if="files.length == 0" id="drag-and-drop">drag and drop or click to select file</p>
+                  <p v-if="files" id="file-name" v-for="file in files">{{ file.name }}</p>
+                </file-upload>
+              </transition>
+              <div id="file-upload-button-group">
+                <b-button v-show="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true" type="button" size="lg" variant="warning" :disabled="files.length == 0">Upload</b-button>
+                <b-button v-show="$refs.upload && $refs.upload.active" @click.prevent="$refs.upload.active = false" type="button" size="lg" variant="danger">Stop</b-button>
+              </div>
             </div>
           </b-col>
         </b-row>
@@ -90,12 +105,14 @@ export default {
   data () {
     return {
       chatLog: new Array,
+      files: new Array,
       currentUserInput: null,
       currentZeusInput: null,
       username: null,
       connectionError: false,
       openChatHistory: false,
-      api_url: process.env.API_URL
+      api_url: process.env.API_URL,
+      uploadUrl: 'http://www.google.com'
     }
   },
   created () {

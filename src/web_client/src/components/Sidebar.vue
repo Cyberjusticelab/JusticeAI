@@ -4,15 +4,21 @@
 
 <template>
     <div id="sidebar-component">
+        <!-- LOGO -->
         <div id="sidebar-logo">
             <img alt="" src="../assets/logo.png">
             <p>Alpha</p>
         </div>
+        <!-- End of LOGO -->
+        <!-- User Information -->
         <div id="sidebar-account">
             <img alt="" src="../assets/user_avatar_1.png">
             <h2>{{ username }}</h2>
         </div>
+        <!-- End of User Information -->
+        <!-- Toggle Menu -->
         <div id="sidebar-menu">
+            <!-- Uploaded File List -->
             <div id="sidebar-upload-file" class="sidebar-menu" v-on:click="openFileList = !openFileList && uploadedFileList.length > 0; openReportList = false" v-bind:class="{ 'active-menu': openFileList}">
                 <h3>UPLOADED FILES</h3>
             </div>
@@ -30,6 +36,8 @@
                     </li>
                 </ul>
             </transition>
+            <!-- End of Uploaded File List -->
+            <!-- Report List -->
             <div id="sidebar-reports" class="sidebar-menu" v-on:click="openReportList = !openReportList; openFileList = false" v-bind:class="{ 'active-menu': openFileList}">
                 <h3>REPORTS</h3>
             </div>
@@ -47,13 +55,18 @@
                     </li>
                 </ul>
             </transition>
+            <!-- End Report List -->
+            <!-- Previous Case List -->
             <div id="sidebar-previous-case" class="sidebar-menu">
                 <h3>PREVIOUS CASES</h3>
             </div>
+            <!-- End of Previous Case List -->
+            <!-- Progress Bar -->
             <div id="sidebar-progress">
-
             </div>
+            <!-- End of Progress Bar -->
         </div>
+        <!-- End of Toggle Menu -->
     </div>
 </template>
 
