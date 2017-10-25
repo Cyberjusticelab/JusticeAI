@@ -12,9 +12,18 @@
             <h2>BRUCE CAI</h2>
         </div>
         <div id="sidebar-menu">
-            <div id="sidebar-upload-file" class="sidebar-menu">
+            <div id="sidebar-upload-file" class="sidebar-menu" v-on:click="openFileList = !openFileList" v-bind:class="{ 'active-menu': openFileList}">
                 <h3>UPLOADED FILES</h3>
             </div>
+            <transition name="fade">
+                <ul key="3" v-if="openFileList">
+                    <li v-for="(file, key) in uploadedFileList">
+                        <p>{{ file.name }}</p>
+                        <img alt="" src="../assets/file_download.png">
+                        <img alt="" src="../assets/file_view.png">
+                    </li>
+                </ul>
+            </transition>
             <div id="sidebar-reports" class="sidebar-menu">
                 <h3>REPORTS</h3>
             </div>
@@ -29,5 +38,19 @@
 </template>
 
 <script>
-export default {}
+export default {
+    data () {
+        return {
+            uploadedFileList: {
+                file1: {
+                    name: 'Lease.pdf'
+                },
+                file2: {
+                    name: 'Agreement.pdf'
+                }
+            },
+            openFileList: false
+        }
+    }
+}
 </script>
