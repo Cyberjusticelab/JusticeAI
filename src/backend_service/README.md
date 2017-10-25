@@ -85,6 +85,11 @@ Response containing a request for a file.
     "message": "So Tim Timmens, I see you're a tenant. What issue can I help you with today?"
 }
 ```
+
+### Document Types
+
+*LEASE*: A lease for a dwelling
+
 ## Error Response
 
 **Code** : `404 Not Found`
