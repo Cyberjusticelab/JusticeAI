@@ -23,6 +23,9 @@ import Sidebar from './Sidebar'
 export default {
     components: {
         Chat, Sidebar
+    },
+    created () {
+        this.$localStorage.set('username', 'Bruce Lee');
     }
 }
 </script>

@@ -10,7 +10,7 @@
         </div>
         <div id="sidebar-account">
             <img alt="" src="../assets/user_avatar_1.png">
-            <h2>BRUCE CAI</h2>
+            <h2>{{ username }}</h2>
         </div>
         <div id="sidebar-menu">
             <div id="sidebar-upload-file" class="sidebar-menu" v-on:click="openFileList = !openFileList" v-bind:class="{ 'active-menu': openFileList}">
@@ -50,7 +50,8 @@ export default {
                     name: 'Agreement.pdf'
                 }
             },
-            openFileList: false
+            openFileList: false,
+            username: this.$localStorage.get('username').toUpperCase()
         }
     }
 }

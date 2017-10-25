@@ -8,7 +8,7 @@
     <transition name="fade">
       <div id="chat-history" v-if="openChatHistory" v-chat-scroll>
         <ul>
-          <li v-for="(conv, index) in chatLog">
+          <li v-for="conv in chatLog">
             <h3>{{ conv.sender_type }}</h3>
             <p>- {{ conv.text }}</p>
             <p>on {{ conv.timestamp.split('T')[0] }} at {{ conv.timestamp.split('T')[1].substring(0,8) }}</p>
@@ -92,7 +92,7 @@ export default {
       chatLog: new Array,
       currentUserInput: null,
       currentZeusInput: null,
-      username: 'Bruce Lee', // TODO: prompt user's name
+      username: null,
       connectionError: false,
       openChatHistory: false
     }
@@ -107,7 +107,7 @@ export default {
   methods: {
     initChatSession () {
       this.$http.post('http://localhost:3003/new',{
-        name: this.username
+        name: this.$localStorage.get('username')
       }).then(
         response => {
           this.$localStorage.set('zeusId', response.body.conversation_id);
