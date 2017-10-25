@@ -1,6 +1,10 @@
 import case
+import os
 
-case = case.Case("./dummy_cases/sample_case1.txt")
+
+case = case.Case(os.getcwd() + "/dummy_cases/sample_case1.txt")
+assert len(case.data["noDemande"]) == 1
+assert case.data["noDemande"][0] == "1234567"
 
 
 def test_no_demande():

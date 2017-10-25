@@ -17,32 +17,32 @@ class Case:
 
             # Extract "No dossier" ID
             if self.data["noDossier"] == 0 and re.search("^[N|n]o[s]? dossier[s]?\s*:", line):
-                line = current_file.next().strip()
+                line = current_file.readline().strip()
 
                 while line == "":
-                    line = current_file.next().strip()
+                    line = current_file.readline().strip()
 
                 data = []
                 # If the next line contains numbers then it's the ID we are looking for
                 while re.search("^\d{2}.+[A-Z]$", line) is not None:
                     data.append(line)
-                    line = current_file.next().strip()
+                    line = current_file.readline().strip()
 
                 self.data["noDossier"] = data
 
             # Extract "No demande" ID
             if self.data["noDemande"] == 0 and re.search("^[N|n]o[s]? demande[s]?\s*:", line):
-                line = current_file.next().strip()
+                line = current_file.readline().strip()
 
                 while line == "":
-                    line = current_file.next().strip()
+                    line = current_file.readline().strip()
 
                 data = []
                 # If the next line contains numbers then it's the ID we are looking for
                 while re.search("^\d.*\d$", line) is not None:
                     for id in line.split(" et "):
                         data.append(id)
-                    line = current_file.next().strip()
+                    line = current_file.readline().strip()
 
                 self.data["noDemande"] = data
 
