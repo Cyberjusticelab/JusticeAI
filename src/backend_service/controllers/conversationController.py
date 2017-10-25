@@ -1,17 +1,20 @@
+import flask
 from flask import jsonify, abort, make_response
 
-from models.factService import FactService
 from models.models import *
-from models.staticStrings import *
-from services import nlpService
+from services import nlpService, fileService
+from services.factService import FactService
+from services.staticStrings import *
 
+
+########################
+# Conversation Handling
+########################
 
 def get_conversation(conversation_id):
-    conversation = Conversation.query.get(conversation_id)
-    if conversation:
-        return ConversationSchema().jsonify(conversation)
-    else:
-        abort(make_response(jsonify(message="Conversation does not exist"), 404))
+    conversation = __get_conversation(conversation_id)
+
+    return ConversationSchema().jsonify(conversation)
 
 
 def init_conversation(name):
@@ -29,42 +32,111 @@ def init_conversation(name):
 
 
 def receive_message(conversation_id, message):
-    # Retrieve conversation
+    conversation = __get_conversation(conversation_id)
+
+    file_request = None
+    # First message in the conversation
+    if len(conversation.messages) == 0:
+        response_text = StaticStrings.chooseFrom(StaticStrings.welcome).format(name=conversation.name)
+    else:
+        # Add user's message
+        user_message = Message(sender_type=SenderType.USER, text=message)
+        conversation.messages.append(user_message)
+
+        # Generate response text & optional parameters
+        response = __generate_response(conversation, user_message.text)
+        response_text = response.get('response_text')
+        file_request = response.get('file_request')
+
+    # Persist response message
+    response = Message(sender_type=SenderType.BOT, text=response_text)
+
+    # Create relationship between message and file request if present
+    if file_request is not None:
+        response.file_request = file_request
+
+    conversation.messages.append(response)
+
+    # Commit
+    db.session.commit()
+
+    # Build response dict
+    response_dict = {'conversation_id': conversation.id, 'message': response_text}
+
+    if file_request is not None:
+        response_dict['file_request'] = FileRequestSchema().dump(file_request).data
+
+    return jsonify(response_dict)
+
+
+################
+# File Handling
+################
+
+def get_file_list(conversation_id):
+    conversation = __get_conversation(conversation_id)
+
+    return jsonify(
+        {
+            'files': [FileSchema().dump(file).data for file in conversation.files]
+        }
+    )
+
+
+def upload_file(conversation_id, file):
+    conversation = __get_conversation(conversation_id)
+
+    # Check if the file has a filename
+    if file.filename == '':
+        abort(make_response(jsonify(message="No file selected"), 400))
+
+    if fileService.is_accepted_format(file):
+        # Create the file and commit it to generate id
+        new_file = File(name=fileService.sanitize_name(file), type=file.content_type)
+        conversation.files.append(new_file)
+        db.session.commit()
+
+        # Generate path information and upload file to disk
+        new_file.path = fileService.generate_path(conversation.id, new_file.id)
+        fileService.upload_file(file, new_file.path, new_file.name)
+        db.session.commit()
+
+        # Return the file info
+        return FileSchema().jsonify(new_file)
+    else:
+        abort(make_response(
+            jsonify(message="Filetype {} is not supported. Supported filetypes are {}.".format(
+                fileService.get_file_extension(file), fileService.get_accepted_formats_string())), 400))
+
+
+def get_file(conversation_id, file_id):
+    conversation = __get_conversation(conversation_id)
+
+    for file in conversation.files:
+        if file.id == int(file_id):
+            return flask.send_from_directory(file.path, file.name, mimetype=file.type, as_attachment=True)
+
+    return abort(make_response(jsonify(message="File does not exist"), 404))
+
+
+##################
+# Private Methods
+##################
+
+def __get_conversation(conversation_id):
     conversation = Conversation.query.get(conversation_id)
 
     if conversation:
+        return conversation
 
-        # First message in the conversation
-        if len(conversation.messages) == 0:
-            response_text = StaticStrings.chooseFrom(StaticStrings.welcome).format(name=conversation.name)
-        else:
-            # Add user's message
-            user_message = Message(sender_type=SenderType.USER, text=message)
-            conversation.messages.append(user_message)
-            response_text = _generate_response(conversation, user_message.text)
-
-        # Persist response message
-        response = Message(sender_type=SenderType.BOT, text=response_text)
-        conversation.messages.append(response)
-
-        # Commit
-        db.session.commit()
-
-        return jsonify(
-            {
-                'conversation_id': conversation.id,
-                'message': response_text
-            }
-        )
-    else:
-        abort(make_response(jsonify(message="Conversation does not exist"), 404))
+    abort(make_response(jsonify(message="Conversation does not exist"), 404))
 
 
-def _generate_response(conversation, message):
+def __generate_response(conversation, message):
     if conversation.person_type is None:
-        return _determine_person_type(conversation, message)
+        return __determine_person_type(conversation, message)
     elif conversation.claim_category is None:
-        return _determine_claim_category(conversation, message)
+        return __determine_claim_category(conversation, message)
     elif conversation.current_fact is not None:
         # Assume it is an answer to the current fact
         nlp_request = nlpService.fact_extract([conversation.current_fact], message=message)
@@ -75,11 +147,12 @@ def _generate_response(conversation, message):
                 conversation.facts.append(new_fact)
 
         db.session.commit()
-        question = _probe_facts(conversation)
-        return question
+        question = __probe_facts(conversation)
+
+        return {'response_text': question}
 
 
-def _determine_person_type(conversation, message):
+def __determine_person_type(conversation, message):
     person_type = None
     nlp_request = nlpService.fact_extract(['tenant_landlord'], message)
 
@@ -92,15 +165,25 @@ def _determine_person_type(conversation, message):
             'landlord': PersonType.LANDLORD
         }[person_type]
 
+        file_request = None
+        if person_type == 'tenant':
+            file_request = FileRequest(document_type=DocumentType.LEASE)
+
         db.session.commit()
 
-        return StaticStrings.chooseFrom(StaticStrings.problem_inquiry).format(name=conversation.name,
-                                                                              person_type=conversation.person_type.value.lower())
+        # Generate response based on person type
+        response = None
+        if person_type == 'tenant':
+            response = StaticStrings.chooseFrom(StaticStrings.problem_inquiry_tenant).format(name=conversation.name)
+        elif person_type == 'landlord':
+            response = StaticStrings.chooseFrom(StaticStrings.problem_inquiry_landlord).format(name=conversation.name)
+
+        return {'response_text': response, 'file_request': file_request}
     else:
-        return StaticStrings.chooseFrom(StaticStrings.clarify)
+        return {'response_text': StaticStrings.chooseFrom(StaticStrings.clarify)}
 
 
-def _determine_claim_category(conversation, message):
+def __determine_claim_category(conversation, message):
     claim_category = None
     nlp_request = nlpService.problem_category(message)
 
@@ -118,15 +201,17 @@ def _determine_claim_category(conversation, message):
         db.session.commit()
 
         # Generate the first question
-        first_question = _probe_facts(conversation)
+        first_question = __probe_facts(conversation)
 
-        return StaticStrings.chooseFrom(StaticStrings.category_acknowledge).format(
+        response = StaticStrings.chooseFrom(StaticStrings.category_acknowledge).format(
             claim_category=conversation.claim_category.value.lower().replace("_", " "), first_question=first_question)
+
+        return {'response_text': response}
     else:
-        return StaticStrings.chooseFrom(StaticStrings.clarify)
+        return {'response_text': StaticStrings.chooseFrom(StaticStrings.clarify)}
 
 
-def _probe_facts(conversation):
+def __probe_facts(conversation):
     resolved_facts = [fact.name for fact in conversation.facts]
     fact, question = FactService.get_question(conversation.claim_category.value.lower(), resolved_facts)
 
