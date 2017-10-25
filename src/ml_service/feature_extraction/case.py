@@ -47,8 +47,11 @@ class Case:
 
                 self.data["noDemande"] = data
 
-            # Extract total amount of hearings
-            # Each hearing has a date stamp. Counting each date stamp give us the total amount of hearing for this case
+            '''
+            Extract total amount of hearings.
+            Each hearing has a date stamp. 
+            Counting each date stamp give us the total amount of hearing for this case.
+            '''
             if re.search("^[D|d]ate\s*:", line):
                 self.data["totalHearings"] += 1
 
