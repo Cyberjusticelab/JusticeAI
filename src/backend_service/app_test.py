@@ -1,6 +1,6 @@
-from models.factService import FactService
-from models.staticStrings import StaticStrings
 from services import fileService
+from services.factService import FactService
+from services.staticStrings import StaticStrings
 
 
 ################

@@ -1,10 +1,10 @@
 import flask
 from flask import jsonify, abort, make_response
 
-from models.factService import FactService
 from models.models import *
-from models.staticStrings import *
 from services import nlpService, fileService
+from services.factService import FactService
+from services.staticStrings import *
 
 
 ########################
@@ -48,7 +48,7 @@ def receive_message(conversation_id, message):
             conversation.messages.append(user_message)
 
             # Generate response text & optional parameters
-            response = _generate_response(conversation, user_message.text)
+            response = __generate_response(conversation, user_message.text)
             response_text = response.get('response_text')
             file_request = response.get('file_request')
 
@@ -139,11 +139,11 @@ def get_file(conversation_id, file_id):
 # Private Methods
 ##################
 
-def _generate_response(conversation, message):
+def __generate_response(conversation, message):
     if conversation.person_type is None:
-        return _determine_person_type(conversation, message)
+        return __determine_person_type(conversation, message)
     elif conversation.claim_category is None:
-        return _determine_claim_category(conversation, message)
+        return __determine_claim_category(conversation, message)
     elif conversation.current_fact is not None:
         # Assume it is an answer to the current fact
         nlp_request = nlpService.fact_extract([conversation.current_fact], message=message)
@@ -154,12 +154,12 @@ def _generate_response(conversation, message):
                 conversation.facts.append(new_fact)
 
         db.session.commit()
-        question = _probe_facts(conversation)
+        question = __probe_facts(conversation)
 
         return {'response_text': question}
 
 
-def _determine_person_type(conversation, message):
+def __determine_person_type(conversation, message):
     person_type = None
     nlp_request = nlpService.fact_extract(['tenant_landlord'], message)
 
@@ -190,7 +190,7 @@ def _determine_person_type(conversation, message):
         return {'response_text': StaticStrings.chooseFrom(StaticStrings.clarify)}
 
 
-def _determine_claim_category(conversation, message):
+def __determine_claim_category(conversation, message):
     claim_category = None
     nlp_request = nlpService.problem_category(message)
 
@@ -208,7 +208,7 @@ def _determine_claim_category(conversation, message):
         db.session.commit()
 
         # Generate the first question
-        first_question = _probe_facts(conversation)
+        first_question = __probe_facts(conversation)
 
         response = StaticStrings.chooseFrom(StaticStrings.category_acknowledge).format(
             claim_category=conversation.claim_category.value.lower().replace("_", " "), first_question=first_question)
@@ -218,7 +218,7 @@ def _determine_claim_category(conversation, message):
         return {'response_text': StaticStrings.chooseFrom(StaticStrings.clarify)}
 
 
-def _probe_facts(conversation):
+def __probe_facts(conversation):
     resolved_facts = [fact.name for fact in conversation.facts]
     fact, question = FactService.get_question(conversation.claim_category.value.lower(), resolved_facts)
 
