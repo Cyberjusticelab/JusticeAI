@@ -5,6 +5,7 @@ from werkzeug.utils import secure_filename
 from app import app
 
 UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER_TEST = 'uploadsTest'
 ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -23,8 +24,8 @@ def sanitize_name(file):
     return secure_filename(file.filename)
 
 
-def generate_path(conversation_id, file_id):
-    return '{}/conversations/{}/{}'.format(UPLOAD_FOLDER, conversation_id, file_id)
+def generate_path(conversation_id, file_id, testing=False):
+    return '{}/conversations/{}/{}'.format((UPLOAD_FOLDER_TEST if testing else UPLOAD_FOLDER), conversation_id, file_id)
 
 
 def is_accepted_format(file):
