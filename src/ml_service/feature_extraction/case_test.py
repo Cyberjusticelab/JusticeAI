@@ -2,9 +2,7 @@ import case
 import os
 
 
-case = case.Case(os.getcwd() + "/dummy_cases/sample_case1.txt")
-assert len(case.data["noDemande"]) == 1
-assert case.data["noDemande"][0] == "1234567"
+case = case.Case(os.getcwd() + "/ml_service/feature_extraction/dummy_cases/sample_case1.txt")
 
 
 def test_no_demande():
