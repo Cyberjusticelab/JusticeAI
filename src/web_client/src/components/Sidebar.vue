@@ -16,7 +16,7 @@
                 <h3>UPLOADED FILES</h3>
             </div>
             <transition name="fade">
-                <ul key="3" v-if="openFileList">
+                <ul v-if="openFileList">
                     <li v-for="(file, key) in uploadedFileList">
                         <p>{{ file.name }}</p>
                         <img alt="" src="../assets/file_download.png">
