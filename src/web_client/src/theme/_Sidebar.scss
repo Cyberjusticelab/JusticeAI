@@ -16,6 +16,12 @@
             margin-top: 40px;
             width: 70%;
         }
+        p {
+            font-size: 10px;
+            display: inline-block;
+            color: $main-grey-5;
+            font-style: italic;
+        }
     }
     #sidebar-account {
         height: 20%;
@@ -71,12 +77,4 @@
             }
         }
     }
-}
-
-//animation
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .7s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
 }

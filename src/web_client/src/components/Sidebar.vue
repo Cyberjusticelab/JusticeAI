@@ -6,6 +6,7 @@
     <div id="sidebar-component">
         <div id="sidebar-logo">
             <img alt="" src="../assets/logo.png">
+            <p>Alpha</p>
         </div>
         <div id="sidebar-account">
             <img alt="" src="../assets/user_avatar_1.png">

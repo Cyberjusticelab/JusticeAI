@@ -4,23 +4,22 @@
 
 <template>
   <b-container fluid id="chat-component">
-    <div id="chat-widow">
-      <!--
-      <div class="chat-message-container" v-for="(message, index) in chatLog">
-        <b-row>
-          <b-col sm="3" offset-sm="1">
-            <div v-if="message.type == 'BOT'" class="chat-message-img">
-              <img src="../assets/zeus_avatar_2.png"/>
-            </div>
-          </b-col>
-          <b-col sm="8">
-            <div v-bind:class="{ 'chat-message-user': message.type == 'USER', 'chat-message-zeus': message.type == 'BOT' }" class="chat-message-text">
-              <p>{{ message.text }}</p>
-            </div>
-          </b-col>
-        </b-row>
+    <!-- Chat History -->
+    <transition name="fade">
+      <div id="chat-history" v-if="openChatHistory">
+        <ul>
+          <li v-for="(conv, index) in chatLog">
+            <h3>{{ conv.sender_type }}</h3>
+            <p>- {{ conv.text }}</p>
+            <p>on {{ conv.timestamp.split('T')[0] }} at {{ conv.timestamp.split('T')[1].substring(0,8) }}</p>
+          </li>
+        </ul>
       </div>
-      -->
+    </transition>
+    <!-- End of Chat History -->
+    <!-- Chat Widow -->
+    <div id="chat-widow">
+      <!-- Log out -->
       <div id="logout">
         <b-row>
           <b-col md="2" offset-md="10">
@@ -29,6 +28,8 @@
           </b-col>
         </b-row>
       </div>
+      <!-- End of Log out -->
+      <!-- Zeus Chat -->
       <div id="chat-zeus-container">
         <b-row>
           <b-col md="2" offset-md="1">
@@ -46,6 +47,8 @@
           </b-col>
         </b-row>
       </div>
+      <!-- End of Zeus Chat -->
+      <!-- User Chat -->
       <div id="chat-user-container">
         <b-row>
           <b-col md="7" offset-md="2">
@@ -61,16 +64,24 @@
           </b-col>
         </b-row>
       </div>
+      <!-- End of User Chat -->
     </div>
+    <!-- End of Chat Widow -->
+    <!-- Input Widow -->
     <div id="chat-input">
       <b-form @submit.prevent="sendUserMessage()">
         <b-form-group>
           <b-form-input id="chat-input-text" v-model="currentUserInput" placeholder="Enter your message" autocomplete="off"></b-form-input>
           <b-button id="chat-input-submit" size="lg" variant="outline-success" type="submit":disabled="!currentUserInput">SEND</b-button>
+          <div id="chat-history-button" v-on:click="openChatHistory = !openChatHistory; getChatHistory()">
+            <img v-if="!openChatHistory" alt="" src="../assets/history_open.png">
+            <img v-if="openChatHistory" alt="" src="../assets/history_disable.png">
+          </div>
         </b-form-group>
       </b-form>
       <!--<icon id="chat-input-voice" name="microphone" scale="3"></icon>-->
     </div>
+    <!-- End of Input Widow -->
   </b-container>
 </template>
 
@@ -82,13 +93,13 @@ export default {
       currentUserInput: null,
       currentZeusInput: null,
       username: 'Bruce Lee', // TODO: prompt user's name
-      connectionError: false
+      connectionError: false,
+      openChatHistory: false
     }
   },
   created () {
     if (this.$localStorage.get('zeusId')) {
-      let zeusId = this.$localStorage.get('zeusId');
-      this.getChatHistory(zeusId);
+      this.getChatHistory();
     } else {
       this.initChatSession();
     }
@@ -125,7 +136,8 @@ export default {
         }
       );
     },
-    getChatHistory (zeusId) {
+    getChatHistory () {
+      let zeusId = this.$localStorage.get('zeusId');
       this.$http.get('http://localhost:3003/conversation/' + zeusId).then(
         response => {
           this.chatLog = response.body.messages;
