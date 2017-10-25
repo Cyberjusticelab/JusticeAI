@@ -11,4 +11,4 @@ COPY . .
 RUN python init.py
 ENV FLASK_APP=app.py
 EXPOSE 3002
-CMD [ "gunicorn", "-w 3", "--reload", "-b 0.0.0.0:3002", "app:app" ]
+CMD [ "gunicorn", "-w 3", "-b 0.0.0.0:3002", "app:app" ]

@@ -21,6 +21,19 @@ if [ "$1" == "clean" ]; then
   exit
 fi
 
+# Runs all tests and lints across all services
+if [ "$1" == "test" ]; then
+  docker-compose -f docker-compose.base.yml -f docker-compose.ci.yml down &&
+  docker-compose -f docker-compose.base.yml -f docker-compose.ci.yml build &&
+  docker-compose -f docker-compose.base.yml -f docker-compose.ci.yml up -d
+  docker-compose -f docker-compose.base.yml -f docker-compose.ci.yml run ml_service
+  docker-compose -f docker-compose.base.yml -f docker-compose.ci.yml run nlp_service
+  docker-compose -f docker-compose.base.yml -f docker-compose.ci.yml run backend_service
+  docker-compose -f docker-compose.base.yml -f docker-compose.ci.yml run web_client
+  docker-compose -f docker-compose.base.yml -f docker-compose.ci.yml down
+  exit
+fi
+
 # Tries to fix all Javascript and Python linting errors for you
 if [ "$1" == "lint-fix" ]; then
   if ! [ -x "$(command -v autopep8)" ]; then
