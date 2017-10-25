@@ -65,6 +65,8 @@ Provide the conversation_id and a message. Message should be empty string for fi
 
 **Content examples**
 
+Simple response containing a message.
+
 ```json
 {
     "conversation_id": 1,
@@ -72,6 +74,17 @@ Provide the conversation_id and a message. Message should be empty string for fi
 }
 ```
 
+Response containing a request for a file.
+
+```json
+{
+    "conversation_id": 1,
+    "file_request": {
+        "document_type": "LEASE"
+    },
+    "message": "So Tim Timmens, I see you're a tenant. What issue can I help you with today?"
+}
+```
 ## Error Response
 
 **Code** : `404 Not Found`
@@ -114,7 +127,10 @@ Gets the message history for a conversation
             "id": 3,
             "sender_type": "BOT",
             "text": "What's your issue as a tenant?",
-            "timestamp": "2017-10-12T00:00:42+00:00"
+            "timestamp": "2017-10-12T00:00:42+00:00",
+            "file_request": {
+                "document_type": "LEASE"
+            }
         },
         {
             "id": 4,
@@ -128,7 +144,7 @@ Gets the message history for a conversation
             "text": "Did your landlord give you any warning of the rent increase in advance?",
             "timestamp": "2017-10-12T00:00:50+00:00"
         }
-    ],
+    ]
 
 }
 ```

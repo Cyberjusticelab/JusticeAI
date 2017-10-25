@@ -7,9 +7,9 @@ from models.staticStrings import *
 from services import nlpService, fileService
 
 
-#######################
+########################
 # Conversation Handling
-#######################
+########################
 
 def get_conversation(conversation_id):
     conversation = Conversation.query.get(conversation_id)
@@ -38,6 +38,7 @@ def receive_message(conversation_id, message):
 
     if conversation:
 
+        file_request = None
         # First message in the conversation
         if len(conversation.messages) == 0:
             response_text = StaticStrings.chooseFrom(StaticStrings.welcome).format(name=conversation.name)
@@ -45,28 +46,38 @@ def receive_message(conversation_id, message):
             # Add user's message
             user_message = Message(sender_type=SenderType.USER, text=message)
             conversation.messages.append(user_message)
-            response_text = _generate_response(conversation, user_message.text)
+
+            # Generate response text & optional parameters
+            response = _generate_response(conversation, user_message.text)
+            response_text = response.get('response_text')
+            file_request = response.get('file_request')
 
         # Persist response message
         response = Message(sender_type=SenderType.BOT, text=response_text)
+
+        # Create relationship between message and file request if present
+        if file_request is not None:
+            response.file_request = file_request
+
         conversation.messages.append(response)
 
         # Commit
         db.session.commit()
 
-        return jsonify(
-            {
-                'conversation_id': conversation.id,
-                'message': response_text
-            }
-        )
+        # Build response dict
+        response_dict = {'conversation_id': conversation.id, 'message': response_text}
+
+        if file_request is not None:
+            response_dict['file_request'] = FileRequestSchema().dump(file_request).data
+
+        return jsonify(response_dict)
     else:
         abort(make_response(jsonify(message="Conversation does not exist"), 404))
 
 
-###############
+################
 # File Handling
-###############
+################
 
 def get_file_list(conversation_id):
     conversation = Conversation.query.get(conversation_id)
@@ -144,7 +155,8 @@ def _generate_response(conversation, message):
 
         db.session.commit()
         question = _probe_facts(conversation)
-        return question
+
+        return {'response_text': question}
 
 
 def _determine_person_type(conversation, message):
@@ -160,12 +172,22 @@ def _determine_person_type(conversation, message):
             'landlord': PersonType.LANDLORD
         }[person_type]
 
+        file_request = None
+        if person_type == 'tenant':
+            file_request = FileRequest(document_type=DocumentType.LEASE)
+
         db.session.commit()
 
-        return StaticStrings.chooseFrom(StaticStrings.problem_inquiry).format(name=conversation.name,
-                                                                              person_type=conversation.person_type.value.lower())
+        # Generate response based on person type
+        response = None
+        if person_type == 'tenant':
+            response = StaticStrings.chooseFrom(StaticStrings.problem_inquiry_tenant).format(name=conversation.name)
+        elif person_type == 'landlord':
+            response = StaticStrings.chooseFrom(StaticStrings.problem_inquiry_landlord).format(name=conversation.name)
+
+        return {'response_text': response, 'file_request': file_request}
     else:
-        return StaticStrings.chooseFrom(StaticStrings.clarify)
+        return {'response_text': StaticStrings.chooseFrom(StaticStrings.clarify)}
 
 
 def _determine_claim_category(conversation, message):
@@ -188,10 +210,12 @@ def _determine_claim_category(conversation, message):
         # Generate the first question
         first_question = _probe_facts(conversation)
 
-        return StaticStrings.chooseFrom(StaticStrings.category_acknowledge).format(
+        response = StaticStrings.chooseFrom(StaticStrings.category_acknowledge).format(
             claim_category=conversation.claim_category.value.lower().replace("_", " "), first_question=first_question)
+
+        return {'response_text': response}
     else:
-        return StaticStrings.chooseFrom(StaticStrings.clarify)
+        return {'response_text': StaticStrings.chooseFrom(StaticStrings.clarify)}
 
 
 def _probe_facts(conversation):

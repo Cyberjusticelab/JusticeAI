@@ -29,6 +29,10 @@ class ClaimCategory(Enum):
     DEPOSITS = "DEPOSITS"
 
 
+class DocumentType(Enum):
+    LEASE = "LEASE"
+
+
 '''
 -----------------
 SQLAlchemy Models
@@ -53,6 +57,20 @@ class Message(db.Model):
     sender_type = db.Column(db.Enum(SenderType), nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     text = db.Column(db.Text, nullable=False)
+    file_request = db.relationship('FileRequest', uselist=False, backref='message')
+
+    def request_file(self, document_type):
+        file_request = FileRequest(document_type=document_type)
+        self.file_request = file_request
+
+
+class FileRequest(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    message_id = db.Column(db.Integer, db.ForeignKey('message.id'))
+    document_type = db.Column(db.Enum(DocumentType), nullable=False)
+
+    def __init__(self, document_type):
+        self.document_type = document_type
 
 
 class Fact(db.Model):
@@ -85,9 +103,20 @@ Marshmallow Schemas
 '''
 
 
+class FileRequestSchema(ma.ModelSchema):
+    # Enum
+    document_type = EnumField(DocumentType, by_value=True)
+
+    class Meta:
+        fields = ['document_type']
+
+
 class MessageSchema(ma.ModelSchema):
     # Enum
     sender_type = EnumField(SenderType, by_value=True)
+
+    # One to one
+    file_request = ma.Nested(FileRequestSchema)
 
     class Meta:
         model = Message
@@ -108,9 +137,9 @@ class ConversationSchema(ma.ModelSchema):
     person_type = EnumField(PersonType, by_value=True)
     claim_category = EnumField(ClaimCategory, by_value=True)
 
-    # Lists
+    # One to many
     messages = ma.Nested(MessageSchema, many=True)
     facts = ma.Nested(FactSchema, many=True)
 
     class Meta:
-        model = Conversation
+        fields = ('id', 'name', 'person_type', 'messages', 'facts')
