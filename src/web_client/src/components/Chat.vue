@@ -9,7 +9,7 @@
         <b-row>
           <b-col sm="3" offset-sm="1">
             <div v-if="message.type == 'BOT'" class="chat-message-img">
-              <img src="../assets/zeus.jpg"/>
+              <img src="../assets/zeus_avatar_2.png"/>
             </div>
           </b-col>
           <b-col sm="8">
