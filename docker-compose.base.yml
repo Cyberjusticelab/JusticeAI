@@ -4,25 +4,35 @@ services:
   ml_service:
     build: ./src/ml_service
     image: procezeus/ml_service
+    restart: always
     networks:
       - procezeus_net
   nlp_service:
     build: ./src/nlp_service
     image: procezeus/nlp_service
+    restart: always
     networks:
       - procezeus_net
   backend_service:
     build: ./src/backend_service
     image: procezeus/backend_service
+    restart: always
+    depends_on:
+      - postgresql_db
+      - nlp_service
     networks:
       - procezeus_net
   web_client:
     build: ./src/web_client
+    restart: always
     image: procezeus/web_client
+    depends_on:
+      - backend_service
     networks:
       - procezeus_net
   postgresql_db:
     image: postgres
+    restart: always
     volumes:
       - procezeus_db:/var/lib/postgresql/data
     networks:
