@@ -44,8 +44,9 @@
             padding: 0px;
             color: $main-grey-3;
             h3 {
+                font-size: 23px;
                 margin: 0px;
-                margin-top: 20px;
+                margin-top: 22px;
             }
             &:hover {
                 background-color: $main-grey-3;
@@ -55,24 +56,28 @@
         }
         ul {
             width: 100%;
-            margin: 0px;
+            margin: 10px;
             padding: 0px;
             li {
-                height: 30px;
+                height: 34px;
                 list-style: none;
                 text-align: right;
-                width: 80%;
+                width: 90%;
                 p {
-                    margin-top: 2px;
-                    max-width: 80%;
                     display: inline-block;
                     color: $main-grey-3;
-                    margin-right: 55px;
+                    margin-right: 10px;
                 }
-                img {
-                    height: 60%;
-                    margin-right: 5px;
+                .file-img {
+                    margin-right: 1px;
                     display: inline-block;
+                }
+                #sidebar-file-view {
+                    @extend .file-img;
+                }
+                #sidebar-file-download {
+                    @extend .file-img;
+                    margin-top: -5px;
                 }
             }
         }

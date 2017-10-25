@@ -20,8 +20,8 @@
                 <ul v-if="openFileList">
                     <li v-for="(file, key) in uploadedFileList">
                         <p>{{ file.name }}</p>
-                        <img alt="" src="../assets/file_download.png">
-                        <img alt="" src="../assets/file_view.png">
+                        <img id="sidebar-file-view" alt="" src="../assets/file_view.png">
+                        <img id="sidebar-file-download" alt="" src="../assets/file_download.png">
                     </li>
                 </ul>
             </transition>

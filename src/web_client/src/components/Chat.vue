@@ -94,7 +94,8 @@ export default {
       currentZeusInput: null,
       username: null,
       connectionError: false,
-      openChatHistory: false
+      openChatHistory: false,
+      api_url: process.env.API_URL
     }
   },
   created () {
@@ -106,7 +107,7 @@ export default {
   },
   methods: {
     initChatSession () {
-      this.$http.post('http://localhost:3003/new',{
+      this.$http.post(this.api_url + 'new',{
         name: this.$localStorage.get('username')
       }).then(
         response => {
@@ -120,7 +121,7 @@ export default {
       );
     },
     sendUserMessage () {
-      this.$http.post('http://localhost:3003/conversation', {
+      this.$http.post(this.api_url + 'conversation', {
         conversation_id: this.$localStorage.get('zeusId'),
         message: this.currentUserInput
       }).then(
@@ -138,7 +139,7 @@ export default {
     },
     getChatHistory () {
       let zeusId = this.$localStorage.get('zeusId');
-      this.$http.get('http://localhost:3003/conversation/' + zeusId).then(
+      this.$http.get(this.api_url + 'conversation/' + zeusId).then(
         response => {
           this.chatLog = response.body.messages;
           this.username = response.body.name;
