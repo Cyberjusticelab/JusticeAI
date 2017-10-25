@@ -81,7 +81,7 @@ export default {
       chatLog: new Array,
       currentUserInput: null,
       currentZeusInput: null,
-      username: 'Hammer of Justice!', // TODO: prompt user's name
+      username: 'Bruce Lee', // TODO: prompt user's name
       connectionError: false
     }
   },
@@ -114,8 +114,11 @@ export default {
         message: this.currentUserInput
       }).then(
         response => {
-          this.currentZeusInput = response.body.message;
-          this.currentUserInput = null;
+          this.currentZeusInput = null;
+          setTimeout(() => {
+            this.currentZeusInput = response.body.message;
+            this.currentUserInput = null;
+          }, 800);
         },
         response => {
           this.connectionError = true;
