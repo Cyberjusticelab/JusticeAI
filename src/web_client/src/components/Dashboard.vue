@@ -25,7 +25,7 @@ export default {
         Chat, Sidebar
     },
     created () {
-        this.$localStorage.set('username', 'Bruce Lee');
+        this.$localStorage.set('username', 'Bruce Lee')
     }
 }
 </script>

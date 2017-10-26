@@ -4,37 +4,69 @@
 
 <template>
     <div id="sidebar-component">
+        <!-- LOGO -->
         <div id="sidebar-logo">
             <img alt="" src="../assets/logo.png">
             <p>Alpha</p>
         </div>
+        <!-- End of LOGO -->
+        <!-- User Information -->
         <div id="sidebar-account">
             <img alt="" src="../assets/user_avatar_1.png">
             <h2>{{ username }}</h2>
         </div>
+        <!-- End of User Information -->
+        <!-- Toggle Menu -->
         <div id="sidebar-menu">
-            <div id="sidebar-upload-file" class="sidebar-menu" v-on:click="openFileList = !openFileList" v-bind:class="{ 'active-menu': openFileList}">
+            <!-- Uploaded File List -->
+            <div id="sidebar-upload-file" class="sidebar-menu" v-on:click="getFileList()" v-bind:class="{ 'active-menu': openFileList}">
                 <h3>UPLOADED FILES</h3>
             </div>
             <transition name="fade">
                 <ul v-if="openFileList">
-                    <li v-for="(file, key) in uploadedFileList">
-                        <p>{{ file.name }}</p>
-                        <img alt="" src="../assets/file_download.png">
-                        <img alt="" src="../assets/file_view.png">
+                    <li v-for="file in uploadedFileList">
+                        <b-row>
+                            <b-col md="6" offset-md="2">
+                                <p>{{ file.name }}</p>
+                            </b-col>
+                            <b-col md="1">
+                                <img class="sidebar-file-view" alt="" src="../assets/file_view.png" v-on:click="openUploadedFile(file.id)">
+                            </b-col>
+                        </b-row>
                     </li>
                 </ul>
             </transition>
-            <div id="sidebar-reports" class="sidebar-menu">
+            <!-- End of Uploaded File List -->
+            <!-- Report List -->
+            <div id="sidebar-reports" class="sidebar-menu" v-on:click="openReportList = !openReportList; openFileList = false" v-bind:class="{ 'active-menu': openFileList}">
                 <h3>REPORTS</h3>
             </div>
+            <transition name="fade">
+                <ul v-if="openReportList">
+                    <li>
+                        <b-row>
+                            <b-col md="6" offset-md="2">
+                                <p>demo.pdf</p>
+                            </b-col>
+                            <b-col md="1">
+                                <img class="sidebar-file-view" alt="" src="../assets/file_view.png">
+                            </b-col>
+                        </b-row>
+                    </li>
+                </ul>
+            </transition>
+            <!-- End Report List -->
+            <!-- Previous Case List -->
             <div id="sidebar-previous-case" class="sidebar-menu">
                 <h3>PREVIOUS CASES</h3>
             </div>
+            <!-- End of Previous Case List -->
+            <!-- Progress Bar -->
             <div id="sidebar-progress">
-
             </div>
+            <!-- End of Progress Bar -->
         </div>
+        <!-- End of Toggle Menu -->
     </div>
 </template>
 
@@ -42,16 +74,57 @@
 export default {
     data () {
         return {
-            uploadedFileList: {
-                file1: {
-                    name: 'Lease.pdf'
-                },
-                file2: {
-                    name: 'Agreement.pdf'
-                }
-            },
+            uploadedFileList: new Array,
             openFileList: false,
-            username: this.$localStorage.get('username').toUpperCase()
+            openReportList: false,
+            username: this.$localStorage.get('username').toUpperCase(),
+            api_url: process.env.API_URL,
+            connectionError: false
+        }
+    },
+    methods: {
+        getFileList () {
+            if (this.$localStorage.get('zeusId')) {
+                let zeusId = this.$localStorage.get('zeusId')
+                this.$http.get(this.api_url + 'conversation/' + zeusId + '/files').then(
+                    response => {
+                        if (response.body.files.length > 0) {
+                            this.uploadedFileList = response.body.files
+                            this.openFileList = true
+                            this.openReportList = false
+                        } else {
+                            this.openFileList = false
+                        }
+                    },
+                    response => {
+                        this.connectionError = true
+                    }
+                )
+            } else {
+                this.openFileList = false
+            }
+        },
+        openUploadedFile (fileId) {
+            let zeusId = this.$localStorage.get('zeusId')
+            this.$http.get(this.api_url + 'conversation/' + zeusId + '/files/' + fileId).then(
+                response => {
+                    console.log(response)
+                    window.open(response.body)
+                    let file = new Blob([response.bodyText], {
+                        type: response.headers.map['content-type']
+                    })
+                    let fileLink = window.URL.createObjectURL(file)
+                    console.log(fileLink)
+                    var a = document.createElement('a')
+                    a.href = fileLink
+                    a.download = "download"
+                    document.body.appendChild(a)
+                    a.click()
+                },
+                response => {
+                    this.connectionError = true
+                }
+            )
         }
     }
 }
