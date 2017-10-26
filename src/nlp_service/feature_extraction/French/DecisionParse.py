@@ -82,5 +82,5 @@ class Parser:
 
 if __name__ == "__main__":
     parser = Parser()
-    s = parser.parse('AZ-51115100.txt')
+    s = parser.parse('AZ-51175248.txt')
     s.print_stems()

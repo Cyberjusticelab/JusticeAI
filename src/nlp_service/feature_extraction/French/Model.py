@@ -5,9 +5,10 @@ import re
 
 
 class DecisionModel:
-    moneyMatch = re.compile('(\d*\s*\$)')
+    money_match = re.compile('(\d*\s*\$)')
+    extra_parse = re.compile("\w'")
     custom_stop_words = stopwords.words('french') + [',', ';', '.', '!', '?', 'le', 'la', "l'", "d'", 'les', 'plus',
-                                                     'dû', 'considérant']
+                                                     'dû', 'considérant', 'surtout', 'a', 'q']
 
     def __init__(self):
         self.topics = []
@@ -39,8 +40,10 @@ class DecisionModel:
             self.core_decisions.append(self.__stem(sent))
 
     def __ner(self, sentence):
-        if self.moneyMatch.search(sentence):
+        if self.money_match.search(sentence):
             sentence = re.sub('[\d*\s*]*\$', ' argent', sentence)
+        if self.extra_parse.search(sentence):
+            sentence = re.sub("\w'", ' ', sentence)
         return sentence
 
     def __stem(self, sentence):
