@@ -1,17 +1,17 @@
 import case
 import os
 
-case = case.Case(os.getcwd() + "/feature_extraction/dummy_cases/sample_case1.txt")
+case = case.Case(os.getcwd() + "/dummy_cases/sample_case1.txt")
 
 
 def test_no_demande():
-    assert len(case.data["noDemande"]) == 1
-    assert case.data["noDemande"][0] == "1234567"
+    assert len(case.data["applicationID"]) == 1
+    assert case.data["applicationID"][0] == "1234567"
 
 
 def test_no_dossier():
-    assert len(case.data["noDossier"]) == 1
-    assert case.data["noDossier"][0] == "123456 12 12345678 D"
+    assert len(case.data["fileID"]) == 1
+    assert case.data["fileID"][0] == "123456 12 12345678 D"
 
 
 def test_total_hearings():
