@@ -38,7 +38,7 @@
             </transition>
             <!-- End of Uploaded File List -->
             <!-- Report List -->
-            <div id="sidebar-reports" class="sidebar-menu" v-on:click="openReportList = !openReportList; openFileList = false" v-bind:class="{ 'active-menu': openFileList}">
+            <div id="sidebar-reports" class="sidebar-menu" v-on:click="openReportList = !openReportList; openFileList = false" v-bind:class="{ 'active-menu': openReportList}">
                 <h3>REPORTS</h3>
             </div>
             <transition name="fade">
