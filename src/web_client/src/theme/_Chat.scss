@@ -60,6 +60,27 @@
       #chat-message-zeus {
         @extend .chat-message;
         margin-top: 30px;
+        label {
+          width: 80%;
+          cursor: pointer;
+          &:hover {
+            background-color: $main-grey-5;
+          }
+          p {
+            font-style: italic;
+          }
+        }
+        #file-upload-button-group {
+          button {
+            margin-bottom: 10px;
+            height: 50px;
+          }
+          p {
+            font-size: 8px;
+            color: green;
+            font-style: italic;
+          }
+        }
       }
     }
     #chat-user-container {
