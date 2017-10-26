@@ -35,9 +35,13 @@ def receive_message(conversation_id, message):
     conversation = __get_conversation(conversation_id)
 
     file_request = None
+    possible_answers = None
+    additional_info = None
     # First message in the conversation
     if len(conversation.messages) == 0:
-        response_text = StaticStrings.chooseFrom(StaticStrings.welcome).format(name=conversation.name)
+        response_text = StaticStrings.chooseFrom(StaticStrings.disclaimer).format(name=conversation.name)
+        possible_answers = ["Yes"]
+        additional_info = {"should_parse_as_html": True}
     else:
         # Add user's message
         user_message = Message(sender_type=SenderType.USER, text=message)
@@ -47,6 +51,8 @@ def receive_message(conversation_id, message):
         response = __generate_response(conversation, user_message.text)
         response_text = response.get('response_text')
         file_request = response.get('file_request')
+        possible_answers = response.get('possible_answers')
+        additional_info = response.get('additional_info')
 
     # Persist response message
     response = Message(sender_type=SenderType.BOT, text=response_text)
@@ -65,6 +71,10 @@ def receive_message(conversation_id, message):
 
     if file_request is not None:
         response_dict['file_request'] = FileRequestSchema().dump(file_request).data
+    if possible_answers is not None:
+        response_dict['possible_answers'] = possible_answers
+    if additional_info is not None:
+        response_dict['additional_info'] = additional_info
 
     return jsonify(response_dict)
 
@@ -133,6 +143,9 @@ def __get_conversation(conversation_id):
 
 
 def __generate_response(conversation, message):
+    if len(conversation.messages) <= 2:
+        response_text = StaticStrings.chooseFrom(StaticStrings.welcome).format(name=conversation.name)
+        return {'response_text': response_text}
     if conversation.person_type is None:
         return __determine_person_type(conversation, message)
     elif conversation.claim_category is None:
