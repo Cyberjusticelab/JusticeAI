@@ -41,6 +41,7 @@
       min-height: 50px;
       border-radius: 25px;
       border: 2px solid $main-gold-2;
+      background-color: $main-grey-5;
       p {
         text-align: center;
         margin: auto;
@@ -90,6 +91,9 @@
       #chat-message-user {
         @extend .chat-message;
       }
+    }
+    .msgIsSent {
+      border-color: mediumturquoise !important;
     }
   }
   #chat-input {
