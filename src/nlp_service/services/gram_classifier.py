@@ -18,7 +18,7 @@ class GramClassifier(object):
               'april', 'may', 'june',
               'july', 'august', 'september',
               'october', 'november', 'december']
-    monthStem = [TextBlob(month).words.stem()[0] for month in months]
+    monthStem = [TextBlob(month).words.__stem()[0] for month in months]
 
     """GramClassifier is a Naive Bayes Classifier
     which uses a combination of 3-gram, 2-gram and
@@ -122,7 +122,7 @@ class GramClassifier(object):
     # that are not stopwords
     def preprocess(self, textString):
         text = TextBlob(textString.lower())
-        words = text.words.stem()
+        words = text.words.__stem()
         words = [self.preprocessDigits(word)
                  for word in words]
         words = [self.preprocessMonths(word)
