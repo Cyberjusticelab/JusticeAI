@@ -49,14 +49,17 @@
                   v-model="files"
                   :drop="true"
                   :post-action="uploadUrl"
+                  v-if="filePrompt"
+                  extensions="jpg,jpeg,pdf,docx,webp,png"
                 >
                   <p v-if="files.length == 0" id="drag-and-drop">drag and drop or click to select file</p>
                   <p v-if="files" id="file-name" v-for="file in files">{{ file.name }}</p>
                 </file-upload>
               </transition>
-              <div id="file-upload-button-group">
+              <div id="file-upload-button-group" v-if="filePrompt">
                 <b-button v-show="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true" type="button" size="lg" variant="warning" :disabled="files.length == 0">Upload</b-button>
                 <b-button v-show="$refs.upload && $refs.upload.active" @click.prevent="$refs.upload.active = false" type="button" size="lg" variant="danger">Stop</b-button>
+                <p v-if="files[0] && files[0].success && $refs.upload.uploaded">Successfully uploaded <span>{{ files[0].name }}</span></p>
               </div>
             </div>
           </b-col>
@@ -112,14 +115,15 @@ export default {
       connectionError: false,
       openChatHistory: false,
       api_url: process.env.API_URL,
-      uploadUrl: 'http://www.google.com'
+      filePrompt: false,
+      uploadUrl: new String
     }
   },
   created () {
     if (this.$localStorage.get('zeusId')) {
-      this.getChatHistory();
+      this.getChatHistory()
     } else {
-      this.initChatSession();
+      this.initChatSession()
     }
   },
   methods: {
@@ -128,14 +132,16 @@ export default {
         name: this.$localStorage.get('username')
       }).then(
         response => {
-          this.$localStorage.set('zeusId', response.body.conversation_id);
-          this.currentUserInput = '';
-          this.sendUserMessage();
+          this.$localStorage.set('zeusId', response.body.conversation_id)
+          this.currentUserInput = ''
+          this.sendUserMessage()
+          let zeusId = this.$localStorage.get('zeusId')
+          this.uploadUrl = this.api_url + 'conversation/' + zeusId + '/files'
         },
         response => {
-          this.connectionError = true;
+          this.connectionError = true
         }
-      );
+      )
     },
     sendUserMessage () {
       this.$http.post(this.api_url + 'conversation', {
@@ -143,31 +149,37 @@ export default {
         message: this.currentUserInput
       }).then(
         response => {
-          this.currentZeusInput = null;
+          this.currentZeusInput = null
           setTimeout(() => {
-            this.currentZeusInput = response.body.message;
-            this.currentUserInput = null;
-          }, 800);
+            this.currentZeusInput = response.body.message
+            this.currentUserInput = null
+            if (response.body.file_request) {
+              this.filePrompt = true
+            } else {
+              this.filePrompt = false
+            }
+          }, 800)
         },
         response => {
-          this.connectionError = true;
+          this.connectionError = true
         }
-      );
+      )
     },
     getChatHistory () {
-      let zeusId = this.$localStorage.get('zeusId');
+      let zeusId = this.$localStorage.get('zeusId')
       this.$http.get(this.api_url + 'conversation/' + zeusId).then(
         response => {
-          this.chatLog = response.body.messages;
-          this.username = response.body.name;
+          this.chatLog = response.body.messages
+          this.username = response.body.name
           if (!this.currentZeusInput) {
-            this.currentZeusInput = this.chatLog[this.chatLog.length-1].text;
+            this.currentZeusInput = this.chatLog[this.chatLog.length-1].text
           }
+          this.uploadUrl = this.api_url + 'conversation/' + zeusId + '/files'
         },
         response => {
-          this.connectionError = true;
+          this.connectionError = true
         }
-      );
+      )
     }
   }
 }
