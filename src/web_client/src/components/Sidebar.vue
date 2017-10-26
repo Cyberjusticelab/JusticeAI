@@ -109,6 +109,7 @@ export default {
             this.$http.get(this.api_url + 'conversation/' + zeusId + '/files/' + fileId).then(
                 response => {
                     console.log(response)
+                    window.open(response.body)
                     let file = new Blob([response.bodyText], {
                         type: response.headers.map['content-type']
                     })

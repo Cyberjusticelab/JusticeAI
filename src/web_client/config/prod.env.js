@@ -1,4 +1,4 @@
 module.exports = {
   NODE_ENV: '"production"',
-  API_URL: '"http://backend_service/"'
+  API_URL: '"https://capstone.cyberjustice.ca/"'
 }
