@@ -84,7 +84,7 @@ export default {
     },
     methods: {
         getFileList () {
-            if (this.$localStorage.get('zeusId')) {
+            if (this.$localStorage.get('zeusId') && !this.openFileList) {
                 let zeusId = this.$localStorage.get('zeusId')
                 this.$http.get(this.api_url + 'conversation/' + zeusId + '/files').then(
                     response => {
@@ -106,25 +106,8 @@ export default {
         },
         openUploadedFile (fileId) {
             let zeusId = this.$localStorage.get('zeusId')
-            this.$http.get(this.api_url + 'conversation/' + zeusId + '/files/' + fileId).then(
-                response => {
-                    console.log(response)
-                    window.open(response.body)
-                    let file = new Blob([response.bodyText], {
-                        type: response.headers.map['content-type']
-                    })
-                    let fileLink = window.URL.createObjectURL(file)
-                    console.log(fileLink)
-                    var a = document.createElement('a')
-                    a.href = fileLink
-                    a.download = "download"
-                    document.body.appendChild(a)
-                    a.click()
-                },
-                response => {
-                    this.connectionError = true
-                }
-            )
+            window.open(this.api_url + 'conversation/'
+            + zeusId + '/files/' + fileId)
         }
     }
 }
