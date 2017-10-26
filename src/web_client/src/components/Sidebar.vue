@@ -19,7 +19,7 @@
         <!-- Toggle Menu -->
         <div id="sidebar-menu">
             <!-- Uploaded File List -->
-            <div id="sidebar-upload-file" class="sidebar-menu" v-on:click="openFileList = !openFileList && uploadedFileList.length > 0; openReportList = false" v-bind:class="{ 'active-menu': openFileList}">
+            <div id="sidebar-upload-file" class="sidebar-menu" v-on:click="getFileList()" v-bind:class="{ 'active-menu': openFileList}">
                 <h3>UPLOADED FILES</h3>
             </div>
             <transition name="fade">
@@ -85,29 +85,45 @@ export default {
     methods: {
         getFileList () {
             if (this.$localStorage.get('zeusId')) {
-                let zeusId = this.$localStorage.get('zeusId');
-                this.$http.get(this.api_url + zeusId + '/files').then(
+                let zeusId = this.$localStorage.get('zeusId')
+                this.$http.get(this.api_url + 'conversation/' + zeusId + '/files').then(
                     response => {
                         if (response.body.files.length > 0) {
-                            this.uploadedFileList = response.body.files;
+                            this.uploadedFileList = response.body.files
+                            this.openFileList = true
+                            this.openReportList = false
+                        } else {
+                            this.openFileList = false
                         }
                     },
                     response => {
-                        this.connectionError = true;
+                        this.connectionError = true
                     }
-                );
+                )
+            } else {
+                this.openFileList = false
             }
         },
         openUploadedFile (fileId) {
-            let zeusId = this.$localStorage.get('zeusId');
-            this.$http.get(this.api_url + zeusId + '/files' + fileId).then(
+            let zeusId = this.$localStorage.get('zeusId')
+            this.$http.get(this.api_url + 'conversation/' + zeusId + '/files/' + fileId).then(
                 response => {
-                    // open file
+                    console.log(response)
+                    let file = new Blob([response.bodyText], {
+                        type: response.headers.map['content-type']
+                    })
+                    let fileLink = window.URL.createObjectURL(file)
+                    console.log(fileLink)
+                    var a = document.createElement('a')
+                    a.href = fileLink
+                    a.download = "download"
+                    document.body.appendChild(a)
+                    a.click()
                 },
                 response => {
-                    this.connectionError = true;
+                    this.connectionError = true
                 }
-            );
+            )
         }
     }
 }
