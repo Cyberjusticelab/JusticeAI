@@ -186,10 +186,13 @@ export default {
       )
     },
     configChat (conversation) {
-      console.log(conversation)
       this.zeus.input = conversation.message || conversation.html || conversation.text
       this.zeus.filePrompt = (conversation.file_request !== undefined) && (conversation.file_request !== null)
-      this.zeus.suggestion = conversation.possible_answers || []
+      if (conversation.possible_answers == undefined) {
+        this.zeus.suggestion = []
+      } else {
+        this.zeus.suggestion = JSON.parse(conversation.possible_answers) || []
+      }
       this.user.input = null
       this.user.isSent = false
       this.user.disableInput = conversation.enforce_possible_answer

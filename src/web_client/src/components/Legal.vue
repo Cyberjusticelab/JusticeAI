@@ -112,7 +112,7 @@ export default {
         }
     },
     created () {
-        this.$http.post(this.api_url + 'legal').then(
+        this.$http.get(this.api_url + 'legal').then(
             response => {
                 this.legalContent = response.body
             },
