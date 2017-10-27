@@ -14,7 +14,7 @@ ma = Marshmallow(app)
 # Cors Setup
 CORS(app)
 
-from controllers import conversationController
+from controllers import conversationController, legalController
 
 
 @app.route("/new", methods=['POST'])
@@ -35,3 +35,31 @@ def get_conversation(conversation_id=None):
         return conversationController.get_conversation(conversation_id)
     else:
         abort(make_response(jsonify(message="Invalid request"), 400))
+
+
+@app.route("/conversation/<conversation_id>/files", methods=['GET', 'POST'])
+def handle_files(conversation_id=None):
+    if conversation_id:
+        if request.method == 'GET':
+            return conversationController.get_file_list(conversation_id)
+
+        if request.method == 'POST':
+            if 'file' not in request.files:
+                abort(make_response(jsonify(message="No file provided"), 400))
+
+            return conversationController.upload_file(conversation_id, request.files['file'])
+    else:
+        abort(make_response(jsonify(message="Invalid request"), 400))
+
+
+@app.route("/conversation/<conversation_id>/files/<file_id>", methods=['GET'])
+def get_files(conversation_id=None, file_id=None):
+    if conversation_id and file_id:
+        return conversationController.get_file(conversation_id, file_id)
+    else:
+        abort(make_response(jsonify(message="Invalid request"), 400))
+
+
+@app.route("/legal", methods=['GET'])
+def get_legal_documents():
+    return legalController.get_legal_documents()

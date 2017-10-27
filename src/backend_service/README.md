@@ -1,3 +1,15 @@
+# Backend Service
+
+## Run Tests and Lints
+
+```
+export COMPOSE_FILE=ci
+./cjl up -d && ./cjl run backend_service
+```
+
+---
+# Backend API
+
 # Initialize a new conversation
 
 Initializes a new conversation
@@ -53,12 +65,30 @@ Provide the conversation_id and a message. Message should be empty string for fi
 
 **Content examples**
 
+Simple response containing a message.
+
 ```json
 {
     "conversation_id": 1,
     "message": "Hello Tim Timmens, are you a landlord or a tenant?"
 }
 ```
+
+Response containing a request for a file.
+
+```json
+{
+    "conversation_id": 1,
+    "file_request": {
+        "document_type": "LEASE"
+    },
+    "message": "So Tim Timmens, I see you're a tenant. What issue can I help you with today?"
+}
+```
+
+### Document Types
+
+*LEASE*: A lease for a dwelling
 
 ## Error Response
 
@@ -102,7 +132,10 @@ Gets the message history for a conversation
             "id": 3,
             "sender_type": "BOT",
             "text": "What's your issue as a tenant?",
-            "timestamp": "2017-10-12T00:00:42+00:00"
+            "timestamp": "2017-10-12T00:00:42+00:00",
+            "file_request": {
+                "document_type": "LEASE"
+            }
         },
         {
             "id": 4,
@@ -116,7 +149,7 @@ Gets the message history for a conversation
             "text": "Did your landlord give you any warning of the rent increase in advance?",
             "timestamp": "2017-10-12T00:00:50+00:00"
         }
-    ],
+    ]
 
 }
 ```
@@ -129,11 +162,121 @@ Gets the message history for a conversation
 
 ---
 
-# Backend Service
+# Upload a file
 
-## Run Tests and Lints
+Upload a file that serves as evidence for a particular conversation.
 
+**URL** : `/conversation/:conversation_id/files`
+
+**Method** : `POST`
+
+**Headers**
+
+Content-Type: `multipart/form-data`
+
+**Data constraints**
+
+Provide 'file' form key with file data.
+
+## Success Response
+
+**Code** : `200 OK`
+
+**Content examples**
+
+```json
+{
+    "id": 1,
+    "name": "leaky_pipes.png",
+    "type": "image/png",
+    "timestamp": "2017-10-24T00:01:27.806730+00:00"
+}
 ```
-export COMPOSE_FILE=ci
-./cjl up -d && ./cjl run backend_service
+
+## Error Response
+
+**Code** : `400 Bad Request`
+
+**Code** : `404 Not Found`
+
+---
+
+# Get conversation file metadata
+
+Gets a list of file metadata for a conversation
+
+**URL** : `/conversation/:conversation_id/files`
+
+**Method** : `GET`
+
+## Success Response
+
+**Code** : `200 OK`
+
+**Content examples**
+
+```json
+{
+	"files": [
+		{
+			"id": 1,
+			"name": "leaky_pipes.png",
+			"type": "image/png",
+			"timestamp": "2017-10-24T00:01:27.000000+00:00"
+		},
+		{
+			"id": 2,
+			"name": "my_least.pdf",
+			"type": "application/pdf",
+			"timestamp": "2017-10-24T00:01:30.000000+00:00"
+		}
+	]	
+}
 ```
+
+## Error Response
+
+**Code** : `400 Bad Request`
+
+**Code** : `404 Not Found`
+
+---
+
+# Get conversation's file
+
+Downloads a file uploaded as part of a conversation
+
+**URL** : `/conversation/:conversation_id/files/:file_id`
+
+**Method** : `GET`
+
+## Success Response
+
+**Code** : `200 OK`
+
+**Content-Type** : `image/jpeg, image/png, application/pdf`
+
+**Content-Disposition** : attachment; filename=file_name.extension
+
+**Body** : Binary file content
+
+## Error Response
+
+**Code** : `400 Bad Request`
+
+**Code** : `404 Not Found`
+
+---
+
+# Get Latest Legal Documents
+
+Obtains information and contents of the latest legal documents
+
+**URL** : `/legal`
+
+**Method** : `GET`
+
+## Success Response
+
+**Code** : `200 OK`
+

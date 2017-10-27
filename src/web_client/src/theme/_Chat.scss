@@ -1,99 +1,130 @@
+@import "./Utils";
+
 #chat-component {
   height: 100%;
-  #chat-title {
-    background-color: black;
-    height: 50px;
-    h2 {
-      margin-top: 6px;
-      color: gold;
+  background-color: $main-gold-1;
+  overflow: hidden;
+  #chat-history {
+    overflow-y: scroll;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(41,41,41,0.8);
+    position: fixed;
+    z-index: 999;
+    ul {
+      padding: 0px;
+      text-align: left;
+      list-style: none;
+      margin-top: 40px;
+      li {
+        margin-left: 100px;
+        color: $main-white-1;
+      }
     }
   }
   #chat-widow {
-    margin: 50px auto 50px auto;
-    width: 80%;
-    height: 65%;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    .chat-message-container {
-      min-height: 120px;
-      .chat-message-text {
-        p {
-          padding-left: 20px;
-          padding-right: 20px;
-          padding-top: 5px;
-          word-wrap: break-word;
-          font-size: 18px;
-          margin-top: 5px;
-        }
+    background-color: $main-grey-6;
+    width: 100%;
+    height: 78%;
+    #logout {
+      cursor: pointer;
+      img {
+        margin-top: 10px;
       }
-      .chat-message-img {
-        img {
-          margin-top: 7px;
-          height: 90px;
-        }
+      p {
+        font-weight: bold;
+        color: $main-gold-2;
       }
     }
     .chat-message {
-      font-size:20px;
-      margin-top: 10px;
-      padding-top: 15px;
-      padding-bottom: 10px;
-      border-radius: 5px;
-      background: lightblue;
-      min-height: 60px;
+      margin-top: 60px;
+      min-height: 50px;
+      border-radius: 25px;
+      border: 2px solid $main-gold-2;
+      background-color: $main-grey-5;
+      p {
+        text-align: center;
+        margin: auto;
+        padding: 12px;
+      }
+      img {
+        margin: auto;
+        padding: 10px;
+        height: 48px;
+      }
     }
-    .chat-message-user {
-      @extend .chat-message;
-      text-align: right;
+    #chat-zeus-container {
+      min-height: 40%;
+      #chat-zeus-avatar {
+        margin-top: 30px;
+      }
+      #chat-message-zeus {
+        @extend .chat-message;
+        margin-top: 30px;
+        label {
+          width: 80%;
+          cursor: pointer;
+          &:hover {
+            background-color: $main-grey-5;
+          }
+          p {
+            font-style: italic;
+          }
+        }
+        #file-upload-button-group {
+          button {
+            margin-bottom: 10px;
+            height: 50px;
+          }
+          p {
+            font-size: 8px;
+            color: green;
+            font-style: italic;
+          }
+        }
+      }
     }
-    .chat-message-zeus {
-      @extend .chat-message;
-      text-align: left;
-      background-color: antiquewhite;
+    #chat-user-container {
+      #chat-user-avatar {
+        margin-top: 60px;
+      }
+      #chat-message-user {
+        @extend .chat-message;
+      }
     }
-    &::-webkit-scrollbar-track {
-      background-color: white;
-    }
-    &::-webkit-scrollbar {
-      width: 10px;
-      background-color: #F5F5F5;
-    }
-    &::-webkit-scrollbar-thumb {
-      background-color: gold;
-      background-image: -webkit-linear-gradient(45deg,
-      rgba(255, 255, 255, .2) 25%,
-      transparent 25%,
-      transparent 50%,
-      rgba(255, 255, 255, .2) 50%,
-      rgba(255, 255, 255, .2) 75%,
-      transparent 75%,
-      transparent)
+    .msgIsSent {
+      border-color: mediumturquoise !important;
     }
   }
   #chat-input {
     border-top: 1px solid gold;
-    background-color: rgba(248,248,255,0.5);
-    height: 150px;
-    border-radius: 20px;
+    background-color: $main-grey-5;
+    height: 23%;
     #chat-input-text {
       text-align: center;
       width: 80%;
       height: 50px;
       margin: auto;
-      margin-top: 20px;
+      margin-top: 45px;
     }
     #chat-input-submit {
       margin: auto;
       margin-top: 15px;
       width: 250px;
-      border-color: gold;
+      border-color: $main-gold-2;
       color: black;
-      &:hover {
-        background-color: gold;
-        color: white;
+      &:hover:enabled {
+        background-color: $main-gold-2;
+        color: $main-white-1;
       }
     }
-    #chat-input-voice {
+    #chat-history-button {
+      display: inline-block;
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      cursor: pointer;
+      z-index: 999;
     }
   }
 }
