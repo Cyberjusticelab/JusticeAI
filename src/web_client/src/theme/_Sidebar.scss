@@ -35,7 +35,7 @@
         }
     }
     #sidebar-menu {
-        height: 45%;
+        height: 60%;
         .sidebar-menu {
             background-color: $main-grey-2;
             height: 70px;
@@ -54,6 +54,10 @@
                 background-color: $main-grey-3;
                 color: $main-gold-1;
                 cursor: pointer;
+            }
+            &:active {
+                background-color: $main-gold-1;
+                color: $main-white-1;
             }
         }
         ul {
@@ -74,6 +78,16 @@
                 .col-md-6 {
                     overflow: hidden;
                 }
+            }
+        }
+    }
+    #sidebar-legal {
+        height: 5%;
+        a {
+            color: $main-grey-5;
+            text-decoration: none;
+            &:hover {
+                color: $main-gold-1;
             }
         }
     }
