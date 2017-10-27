@@ -16,6 +16,8 @@ services:
     command: npm start
     ports:
       - 3039:3039
+    environment:
+      NODE_ENV: production
   postgresql_db:
     environment:
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
