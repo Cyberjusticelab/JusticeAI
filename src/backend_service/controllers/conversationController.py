@@ -43,7 +43,7 @@ def receive_message(conversation_id, message):
     # First message in the conversation
     if len(conversation.messages) == 0:
         response_html = StaticStrings.chooseFrom(StaticStrings.disclaimer).format(name=conversation.name)
-        possible_answers = ["Yes"]
+        possible_answers = str(["Yes"])
         enforce_possible_answer = True
     else:
         # Add user's message
@@ -61,13 +61,13 @@ def receive_message(conversation_id, message):
         response = Message(
             sender_type=SenderType.BOT,
             text=response_text,
-            possible_answers=str(possible_answers)
+            possible_answers=possible_answers
         )
     elif response_html is not None:
         response = Message(
             sender_type=SenderType.BOT,
             text=response_html,
-            possible_answers=str(possible_answers)
+            possible_answers=possible_answers
         )
     else:
         return abort(make_response(jsonify(message="Response text not generated"), 400))
