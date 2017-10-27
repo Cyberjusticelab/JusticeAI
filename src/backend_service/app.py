@@ -3,12 +3,12 @@ from flask_cors import CORS
 from flask_marshmallow import Marshmallow
 
 import database
+import os
 
 app = Flask(__name__)
 
 # DB Setup
-# db = database.connect(app, 'postgres', 'postgres', 'postgres', host="localhost")
-db = database.connect(app, 'postgres', 'DEV_PASS_NOT_SECRET', 'postgres')
+db = database.connect(app, 'postgres', os.environ['POSTGRES_PASSWORD'], 'postgres')
 ma = Marshmallow(app)
 
 # Cors Setup
