@@ -6,9 +6,9 @@
   <b-container fluid id="chat-component">
     <!-- Chat History -->
     <transition name="fade">
-      <div id="chat-history" v-if="openChatHistory" v-chat-scroll>
+      <div id="chat-history" v-if="user.openChatHistory" v-chat-scroll>
         <ul>
-          <li v-for="conv in chatLog">
+          <li v-for="conv in chatHistory">
             <h3>{{ conv.sender_type }}</h3>
             <p>- {{ conv.text }}</p>
             <p>on {{ conv.timestamp.split('T')[0] }} at {{ conv.timestamp.split('T')[1].substring(0,8) }}</p>
@@ -39,27 +39,27 @@
           </b-col>
           <b-col md="7">
             <div id="chat-message-zeus">
-              <img v-if="!currentZeusInput" alt="" src="../assets/chatting.gif">
+              <img v-if="!zeus.input" alt="" src="../assets/chatting.gif">
               <transition name="fade">
-                <p v-if="currentZeusInput">{{ currentZeusInput }} </p>
+                <p v-if="zeus.input" v-html="zeus.input"></p>
               </transition>
               <transition name="fade">
                 <file-upload
                   ref="upload"
-                  v-model="files"
+                  v-model="zeus.file"
                   :drop="true"
                   :post-action="uploadUrl"
-                  v-if="filePrompt"
+                  v-if="zeus.filePrompt"
                   extensions="jpg,jpeg,pdf,docx,webp,png"
                 >
-                  <p v-if="files.length == 0" id="drag-and-drop">drag and drop or click to select file</p>
-                  <p v-if="files" id="file-name" v-for="file in files">{{ file.name }}</p>
+                  <p v-if="zeus.file.length == 0" id="drag-and-drop">drag and drop or click to select file</p>
+                  <p v-if="zeus.file" id="file-name" v-for="file in zeus.file">{{ file.name }}</p>
                 </file-upload>
               </transition>
-              <div id="file-upload-button-group" v-if="filePrompt">
-                <b-button v-show="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true" type="button" size="lg" variant="warning" :disabled="files.length == 0">Upload</b-button>
+              <div id="file-upload-button-group" v-if="zeus.filePrompt">
+                <b-button v-show="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true" type="button" size="lg" variant="warning" :disabled="zeus.file.length == 0">Upload</b-button>
                 <b-button v-show="$refs.upload && $refs.upload.active" @click.prevent="$refs.upload.active = false" type="button" size="lg" variant="danger">Stop</b-button>
-                <p v-if="files[0] && files[0].success && $refs.upload.uploaded">Successfully uploaded <span>{{ files[0].name }}</span></p>
+                <p v-if="zeus.file[0] && zeus.file[0].success && $refs.upload.uploaded">Successfully uploaded <span>{{ zeus.file[0].name }}</span></p>
               </div>
             </div>
           </b-col>
@@ -70,9 +70,9 @@
       <div id="chat-user-container">
         <b-row>
           <b-col md="7" offset-md="2">
-            <div id="chat-message-user" v-bind:class="{ msgIsSent: msgIsSent && chatLog}">
-              <img v-if="!currentUserInput" alt="" src="../assets/chatting.gif">
-              <p v-if="currentUserInput">{{ currentUserInput }}</p>
+            <div id="chat-message-user" v-bind:class="{ msgIsSent: user.isSent && chatHistory}">
+              <img v-if="!user.input" alt="" src="../assets/chatting.gif">
+              <p v-if="user.input" v-html="user.input"></p>
             </div>
           </b-col>
           <b-col md="1">
@@ -89,11 +89,11 @@
     <div id="chat-input">
       <b-form @submit.prevent="sendUserMessage()">
         <b-form-group>
-          <b-form-input id="chat-input-text" v-model="currentUserInput" placeholder="Enter your message" autocomplete="off"></b-form-input>
-          <b-button id="chat-input-submit" size="lg" variant="outline-success" type="submit":disabled="!currentUserInput">SEND</b-button>
-          <div id="chat-history-button" v-on:click="openChatHistory = !openChatHistory; getChatHistory()">
-            <img v-if="!openChatHistory" alt="" src="../assets/history_open.png">
-            <img v-if="openChatHistory" alt="" src="../assets/history_disable.png">
+          <b-form-input id="chat-input-text" v-model="user.input" placeholder="Enter your message" autocomplete="off"></b-form-input>
+          <b-button id="chat-input-submit" size="lg" variant="outline-success" type="submit":disabled="!user.input">SEND</b-button>
+          <div id="chat-history-button" v-on:click="user.openChatHistory = !user.openChatHistory; getChatHistory()">
+            <img v-if="!user.openChatHistory" alt="" src="../assets/history_open.png">
+            <img v-if="user.openChatHistory" alt="" src="../assets/history_disable.png">
           </div>
         </b-form-group>
       </b-form>
@@ -107,17 +107,22 @@
 export default {
   data () {
     return {
-      chatLog: new Array,
-      files: new Array,
-      currentUserInput: null,
-      currentZeusInput: null,
-      username: null,
-      connectionError: false,
-      openChatHistory: false,
       api_url: process.env.API_URL,
-      filePrompt: false,
       uploadUrl: new String,
-      msgIsSent: false
+      connectionError: false,
+      chatHistory: new Array,
+      zeus: {
+        input: null,
+        file: new Array,
+        filePrompt: false,
+        suggestion: new Array
+      },
+      user: {
+        name: null,
+        input: null,
+        isSent: false,
+        openChatHistory: false,
+      }
     }
   },
   created () {
@@ -134,7 +139,7 @@ export default {
       }).then(
         response => {
           this.$localStorage.set('zeusId', response.body.conversation_id)
-          this.currentUserInput = ''
+          this.user.input = ''
           this.sendUserMessage()
           let zeusId = this.$localStorage.get('zeusId')
           this.uploadUrl = this.api_url + 'conversation/' + zeusId + '/files'
@@ -147,20 +152,20 @@ export default {
     sendUserMessage () {
       this.$http.post(this.api_url + 'conversation', {
         conversation_id: this.$localStorage.get('zeusId'),
-        message: this.currentUserInput
+        message: this.user.input
       }).then(
         response => {
-          this.currentZeusInput = null
-          this.msgIsSent = this.currentUserInput != ''
+          this.zeus.input = null
+          this.user.isSent = this.user.input != ''
           setTimeout(() => {
-            this.currentZeusInput = response.body.message
-            this.currentUserInput = null
+            this.zeus.input = response.body.message || response.body.html
+            this.user.input = null
             if (response.body.file_request) {
-              this.filePrompt = true
+              this.zeus.filePrompt = true
             } else {
-              this.filePrompt = false
+              this.zeus.filePrompt = false
             }
-            this.msgIsSent = false
+            this.user.isSent = false
           }, 1100)
         },
         response => {
@@ -172,10 +177,10 @@ export default {
       let zeusId = this.$localStorage.get('zeusId')
       this.$http.get(this.api_url + 'conversation/' + zeusId).then(
         response => {
-          this.chatLog = response.body.messages
-          this.username = response.body.name
-          if (!this.currentZeusInput) {
-            this.currentZeusInput = this.chatLog[this.chatLog.length-1].text
+          this.chatHistory = response.body.messages
+          this.user.name = response.body.name
+          if (!this.zeus.input) {
+            this.zeus.input = this.chatHistory[this.chatHistory.length-1].text
           }
           this.uploadUrl = this.api_url + 'conversation/' + zeusId + '/files'
         },
