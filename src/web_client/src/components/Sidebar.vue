@@ -67,6 +67,11 @@
             <!-- End of Progress Bar -->
         </div>
         <!-- End of Toggle Menu -->
+        <!-- Legal -->
+        <div id="sidebar-legal">
+            <a href="/legal">© 2017 Cyberjustice Laboratory</a>
+        </div>
+        <!-- End of Legal -->
     </div>
 </template>
 

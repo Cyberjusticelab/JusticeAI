@@ -62,7 +62,7 @@
                 <p v-if="zeus.file[0] && zeus.file[0].success && $refs.upload.uploaded">Successfully uploaded <span>{{ zeus.file[0].name }}</span></p>
               </div>
               <div id="pre-selected-answer-group" v-if="zeus.suggestion && zeus.input">
-                <b-button v-for="answer in zeus.suggestion" type="button" size="lg" variant="warning" v-on:click="user.input = answer; sendUserMessage()">{{ answer }}</b-button>
+                <b-button v-for="answer in zeus.suggestion" :key="answer.id" type="button" size="lg" variant="warning" v-on:click="user.input = answer; sendUserMessage()">{{ answer }}</b-button>
               </div>
             </div>
           </b-col>
