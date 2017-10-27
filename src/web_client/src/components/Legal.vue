@@ -101,3 +101,25 @@
         </div>
     </b-container>
 </template>
+
+<script>
+export default {
+    data () {
+        return {
+            api_url: process.env.API_URL,
+            legalContent: new Object,
+            connectionError: false
+        }
+    },
+    created () {
+        this.$http.post(this.api_url + 'legal').then(
+            response => {
+                this.legalContent = response.body
+            },
+            response => {
+                this.connectionError = true
+            }
+        )
+    }
+}
+</script>
