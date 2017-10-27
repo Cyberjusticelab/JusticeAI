@@ -1,15 +1,9 @@
 import flask
-from flask import jsonify, abort, make_response
+from flask import jsonify
 from glob import glob
 import os
 import re
 import json
-
-from models.models import *
-from services import nlpService, fileService
-from services.factService import FactService
-from services.staticStrings import *
-
 
 def get_legal_documents():
     filepaths = glob(os.getcwd() + '/legal/*.json')
