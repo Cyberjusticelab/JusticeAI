@@ -55,6 +55,10 @@
                 color: $main-gold-1;
                 cursor: pointer;
             }
+            &:active {
+                background-color: $main-gold-1;
+                color: $main-white-1;
+            }
         }
         ul {
             margin: 10px;

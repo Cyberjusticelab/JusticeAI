@@ -160,6 +160,7 @@ export default {
         response => {
           this.zeus.input = null
           this.user.isSent = this.user.input != ''
+          this.zeus.filePrompt = false;
           setTimeout(() => {
             this.configChat(response.body)
           }, 1100)
