@@ -9,5 +9,6 @@ RUN pip install --no-cache-dir -r requirements_test.txt
 COPY . .
 
 ENV FLASK_APP=app.py
+ENV POSTGRES_PASS
 EXPOSE 3003
 CMD [ "gunicorn", "-w 3", "-b 0.0.0.0:3003", "app:app" ]
