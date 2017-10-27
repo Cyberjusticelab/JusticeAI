@@ -92,8 +92,8 @@
     <div id="chat-input">
       <b-form @submit.prevent="sendUserMessage()">
         <b-form-group>
-          <b-form-input id="chat-input-text" v-model="user.input" placeholder="Enter your message" autocomplete="off"></b-form-input>
-          <b-button id="chat-input-submit" size="lg" variant="outline-success" type="submit":disabled="!user.input">SEND</b-button>
+          <b-form-input id="chat-input-text" v-model="user.input" placeholder="Enter your message" autocomplete="off" :disabled="user.disableInput"></b-form-input>
+          <b-button id="chat-input-submit" size="lg" variant="outline-success" type="submit" :disabled="!user.input">SEND</b-button>
           <div id="chat-history-button" v-on:click="user.openChatHistory = !user.openChatHistory; getChatHistory()">
             <img v-if="!user.openChatHistory" alt="" src="../assets/history_open.png">
             <img v-if="user.openChatHistory" alt="" src="../assets/history_disable.png">
@@ -125,6 +125,7 @@ export default {
         input: null,
         isSent: false,
         openChatHistory: false,
+        disableInput: false
       }
     }
   },
@@ -141,11 +142,10 @@ export default {
         name: this.$localStorage.get('username')
       }).then(
         response => {
-          let zeusId = this.$localStorage.get('zeusId')
           this.$localStorage.set('zeusId', response.body.conversation_id)
           this.user.input = ''
           this.sendUserMessage()
-          this.uploadUrl = this.api_url + 'conversation/' + zeusId + '/files'
+          this.uploadUrl = this.api_url + 'conversation/' + response.body.conversation_id + '/files'
         },
         response => {
           this.connectionError = true
@@ -161,11 +161,7 @@ export default {
           this.zeus.input = null
           this.user.isSent = this.user.input != ''
           setTimeout(() => {
-            this.zeus.input = response.body.message || response.body.html
-            this.zeus.filePrompt = response.body.file_request !== undefined
-            this.zeus.suggestion = response.body.possible_answers || []
-            this.user.input = null
-            this.user.isSent = false
+            this.configChat(response.body)
           }, 1100)
         },
         response => {
@@ -179,11 +175,8 @@ export default {
         response => {
           this.chatHistory = response.body.messages
           this.user.name = response.body.name
-          let latestMsg = this.chatHistory[this.chatHistory.length-1]
           if (!this.zeus.input) {
-            this.zeus.input = latestMsg.text
-            this.zeus.filePrompt = latestMsg.file_request !== null
-            this.zeus.suggestion = latestMsg.possible_answers || []
+            this.configChat(this.chatHistory[this.chatHistory.length-1])
           }
           this.uploadUrl = this.api_url + 'conversation/' + zeusId + '/files'
         },
@@ -191,6 +184,15 @@ export default {
           this.connectionError = true
         }
       )
+    },
+    configChat (conversation) {
+      console.log(conversation)
+      this.zeus.input = conversation.message || conversation.html || conversation.text
+      this.zeus.filePrompt = (conversation.file_request !== undefined) && (conversation.file_request !== null)
+      this.zeus.suggestion = conversation.possible_answers || []
+      this.user.input = null
+      this.user.isSent = false
+      this.user.disableInput = conversation.enforce_possible_answer
     }
   }
 }
