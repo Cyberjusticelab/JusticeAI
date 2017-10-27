@@ -10,10 +10,12 @@ services:
   backend_service:
     ports:
       - 3003:3003
+    environment:
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
   web_client:
     command: npm start
     ports:
       - 3039:3039
   postgresql_db:
     environment:
-      - POSTGRES_PASSWORD
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
