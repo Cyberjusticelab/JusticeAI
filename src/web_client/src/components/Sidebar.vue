@@ -20,7 +20,7 @@
         <div id="sidebar-menu">
             <!-- Uploaded File List -->
             <div id="sidebar-upload-file" class="sidebar-menu" v-on:click="getFileList()" v-bind:class="{ 'active-menu': openFileList}">
-                <h3>UPLOADED FILES</h3>
+                <h3>UPLOADED FILES <span>({{ uploadedFileList.length }})</span></h3>
             </div>
             <transition name="fade">
                 <ul v-if="openFileList">
