@@ -59,6 +59,7 @@ class Message(db.Model):
     text = db.Column(db.Text, nullable=False)
     file_request = db.relationship('FileRequest', uselist=False, backref='message')
     possible_answers = db.Column(db.Text)
+    enforce_possible_answer = db.Column(db.Boolean)
 
     def request_file(self, document_type):
         file_request = FileRequest(document_type=document_type)

@@ -1,5 +1,6 @@
 import flask
 from flask import jsonify, abort, make_response
+import json
 
 from models.models import *
 from services import nlpService, fileService
@@ -43,7 +44,7 @@ def receive_message(conversation_id, message):
     # First message in the conversation
     if len(conversation.messages) == 0:
         response_html = StaticStrings.chooseFrom(StaticStrings.disclaimer).format(name=conversation.name)
-        possible_answers = str(["Yes"])
+        possible_answers = json.dumps(["Yes"])
         enforce_possible_answer = True
     else:
         # Add user's message
@@ -61,13 +62,15 @@ def receive_message(conversation_id, message):
         response = Message(
             sender_type=SenderType.BOT,
             text=response_text,
-            possible_answers=possible_answers
+            possible_answers=possible_answers,
+            enforce_possible_answer=enforce_possible_answer
         )
     elif response_html is not None:
         response = Message(
             sender_type=SenderType.BOT,
             text=response_html,
-            possible_answers=possible_answers
+            possible_answers=possible_answers,
+            enforce_possible_answer=enforce_possible_answer
         )
     else:
         return abort(make_response(jsonify(message="Response text not generated"), 400))
