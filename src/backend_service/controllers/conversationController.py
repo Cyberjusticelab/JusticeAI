@@ -76,7 +76,7 @@ def receive_message(conversation_id, message):
 
     if response_text is not None:
         response_dict['message'] = response_text
-    if response_text is not None:
+    if response_html is not None:
         response_dict['html'] = response_html
     if file_request is not None:
         response_dict['file_request'] = FileRequestSchema().dump(file_request).data
