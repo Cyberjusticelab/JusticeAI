@@ -70,7 +70,7 @@
       <div id="chat-user-container">
         <b-row>
           <b-col md="7" offset-md="2">
-            <div id="chat-message-user">
+            <div id="chat-message-user" v-bind:class="{ msgIsSent: msgIsSent && chatLog}">
               <img v-if="!currentUserInput" alt="" src="../assets/chatting.gif">
               <p v-if="currentUserInput">{{ currentUserInput }}</p>
             </div>
@@ -116,7 +116,8 @@ export default {
       openChatHistory: false,
       api_url: process.env.API_URL,
       filePrompt: false,
-      uploadUrl: new String
+      uploadUrl: new String,
+      msgIsSent: false
     }
   },
   created () {
@@ -150,6 +151,7 @@ export default {
       }).then(
         response => {
           this.currentZeusInput = null
+          this.msgIsSent = this.currentUserInput != ''
           setTimeout(() => {
             this.currentZeusInput = response.body.message
             this.currentUserInput = null
@@ -158,7 +160,8 @@ export default {
             } else {
               this.filePrompt = false
             }
-          }, 800)
+            this.msgIsSent = false
+          }, 1100)
         },
         response => {
           this.connectionError = true
