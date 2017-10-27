@@ -5,6 +5,7 @@ import os
 import re
 import json
 
+
 def get_legal_documents():
     filepaths = glob(os.getcwd() + '/legal/*.json')
     filenames = [filepath.split('/').pop() for filepath in filepaths]
