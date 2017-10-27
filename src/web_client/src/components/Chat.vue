@@ -61,6 +61,9 @@
                 <b-button v-show="$refs.upload && $refs.upload.active" @click.prevent="$refs.upload.active = false" type="button" size="lg" variant="danger">Stop</b-button>
                 <p v-if="zeus.file[0] && zeus.file[0].success && $refs.upload.uploaded">Successfully uploaded <span>{{ zeus.file[0].name }}</span></p>
               </div>
+              <div id="pre-selected-answer-group" v-if="zeus.suggestion && zeus.input">
+                <b-button v-for="answer in zeus.suggestion" type="button" size="lg" variant="warning" v-on:click="user.input = answer; sendUserMessage()">{{ answer }}</b-button>
+              </div>
             </div>
           </b-col>
         </b-row>
@@ -138,10 +141,10 @@ export default {
         name: this.$localStorage.get('username')
       }).then(
         response => {
+          let zeusId = this.$localStorage.get('zeusId')
           this.$localStorage.set('zeusId', response.body.conversation_id)
           this.user.input = ''
           this.sendUserMessage()
-          let zeusId = this.$localStorage.get('zeusId')
           this.uploadUrl = this.api_url + 'conversation/' + zeusId + '/files'
         },
         response => {
@@ -159,12 +162,9 @@ export default {
           this.user.isSent = this.user.input != ''
           setTimeout(() => {
             this.zeus.input = response.body.message || response.body.html
+            this.zeus.filePrompt = response.body.file_request !== undefined
+            this.zeus.suggestion = response.body.possible_answers || []
             this.user.input = null
-            if (response.body.file_request) {
-              this.zeus.filePrompt = true
-            } else {
-              this.zeus.filePrompt = false
-            }
             this.user.isSent = false
           }, 1100)
         },
@@ -179,8 +179,11 @@ export default {
         response => {
           this.chatHistory = response.body.messages
           this.user.name = response.body.name
+          let latestMsg = this.chatHistory[this.chatHistory.length-1]
           if (!this.zeus.input) {
-            this.zeus.input = this.chatHistory[this.chatHistory.length-1].text
+            this.zeus.input = latestMsg.text
+            this.zeus.filePrompt = latestMsg.file_request !== null
+            this.zeus.suggestion = latestMsg.possible_answers || []
           }
           this.uploadUrl = this.api_url + 'conversation/' + zeusId + '/files'
         },
