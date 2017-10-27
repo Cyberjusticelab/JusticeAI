@@ -245,6 +245,6 @@ def __probe_facts(conversation):
 
     return question
 
+
 def __has_just_accepted_disclaimer(conversation):
     return len(conversation.messages) == 2
-
