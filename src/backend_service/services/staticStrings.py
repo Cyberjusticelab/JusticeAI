@@ -4,7 +4,7 @@ import random
 class StaticStrings:
     # Asking for Acceptance to legal conditions
     disclaimer = [
-        "Hello {name}! Before we start, I want to make it clear that I am not a replacement for a lawyer and any information I provide you with is not meant to be construed as legal advice. Always check in with your legal professional. You can read more about our terms of use <a href='/legal'>here</a>. Do you accept these conditions?"
+        "Hello {name}! Before we start, I want to make it clear that I am not a replacement for a lawyer and any information I provide you with is not meant to be construed as legal advice. Always check in with your legal professional. You can read more about our terms of use <a href='/legal' target='_blank'>here</a>. Do you accept these conditions?"
     ]
 
     # Asking for person type

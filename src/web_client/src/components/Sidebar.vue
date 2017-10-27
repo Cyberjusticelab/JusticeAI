@@ -20,7 +20,7 @@
         <div id="sidebar-menu">
             <!-- Uploaded File List -->
             <div id="sidebar-upload-file" class="sidebar-menu" v-on:click="getFileList()" v-bind:class="{ 'active-menu': openFileList}">
-                <h3>UPLOADED FILES</h3>
+                <h3>UPLOADED FILES <span>({{ uploadedFileList.length }})</span></h3>
             </div>
             <transition name="fade">
                 <ul v-if="openFileList">
@@ -67,6 +67,11 @@
             <!-- End of Progress Bar -->
         </div>
         <!-- End of Toggle Menu -->
+        <!-- Legal -->
+        <div id="sidebar-legal">
+            <a href="/legal" target="_blank">© 2017 Cyberjustice Laboratory</a>
+        </div>
+        <!-- End of Legal -->
     </div>
 </template>
 
