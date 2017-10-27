@@ -1,0 +1,41 @@
+T1	Money 50 56	amende
+T2	Money 60 68	12 000 $
+T3	Tenant 152 162	locataires
+T4	Home 318 326	logement
+T5	Time 356 366	trois mois
+T6	Date 477 484	janvier
+T7	Date 488 500	février 2015
+T8	Lease 616 624	location
+T9	Home 759 767	logement
+T10	Tenant 838 848	locataires
+T11	Home 909 917	logement
+T12	Tenant 956 966	locataires
+T13	Home 1064 1075	appartement
+T14	Time 1815 1824	24 heures
+T15	Home 1850 1861	appartement
+T16	Tenant 1906 1916	locataires
+T17	Time 1954 1963	une heure
+T18	Tenant 2029 2039	locataires
+T19	Time 2126 2135	une heure
+T20	Time 2372 2376	jour
+T21	Time 2381 2387	heures
+T22	Tenant 2663 2673	locataires
+T23	Tenant 2850 2860	locataires
+T24	Home 2952 2960	logement
+T25	Tenant 3197 3207	locataires
+T26	Time 3957 3966	une heure
+T27	Money 4167 4173	6000 $
+T29	Termination 604 612	terminer
+T30	Demand 1666 1674	demander
+T28	Demand 2016 2023	demande
+T31	Demand 2156 2163	demande
+T32	Demand 2650 2658	demandes
+T33	Home 2791 2799	logement
+T34	Demand 3335 3343	requêtes
+T35	Reject 3324 3330	ignoré
+T36	Demand 3415 3423	demandes
+T37	Reject 3581 3593	pas d’accord
+T38	Demand 3629 3637	demandes
+T39	Demand 3755 3763	demandes
+T40	Tenant 3801 3811	locataires
+T41	Demand 3936 3943	demande

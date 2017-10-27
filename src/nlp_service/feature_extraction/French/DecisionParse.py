@@ -2,7 +2,7 @@
 
 import re
 from src.nlp_service.feature_extraction.French.Model import DecisionModel
-
+import os
 
 class State:
     TOPIC = 0
@@ -27,7 +27,7 @@ class Parser:
         return self.model
 
     def __extract(self, filename):
-        file = open(r'C:/Users/bulbasaur/Desktop/text_bk/' + filename, 'r', encoding="ISO-8859-1")
+        file = open(r'/home/charmander/Data/text_bk/' + filename, 'r', encoding="ISO-8859-1")
         for lines in file:
             tpl = self.__statement_index(lines)
             self.__update_state(tpl[1], lines)
@@ -80,7 +80,12 @@ class Parser:
         sentence = sentence.replace(',', ".")
         return sentence.split('.')
 
+
 if __name__ == "__main__":
     parser = Parser()
-    s = parser.parse('AZ-51175248.txt')
-    s.print_stems()
+    j = 0
+    for i in os.listdir(r"/home/charmander/Data/text_bk/"):
+        if 'AZ-51205' in i and j < 5:
+            j += 1
+            model = parser.parse(i)
+            model.print_stems()

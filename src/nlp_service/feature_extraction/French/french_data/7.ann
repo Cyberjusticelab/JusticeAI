@@ -1,0 +1,40 @@
+T1	Landlord 8 16	locateur
+T2	Demand 17 24	demande
+T3	Termination 28 39	résiliation
+T4	Lease 43 47	bail
+T5	Expulsion 53 62	expulsion
+T6	Tenant 67 77	locataires
+T7	Home 98 103	loyer
+T8	Money 105 112	1 000 $
+T9	Home 127 132	loyer
+T10	Landlord 222 230	locateur
+T11	Money 252 260	intérêts
+T13	Demand 231 238	demande
+T14	Money 275 280;281 285	1 160 30 $
+T12	Landlord 289 297	locateur
+T15	Demand 298 305	demande
+T16	Termination 309 320	résiliation
+T17	Lease 324 328	bail
+T18	Expulsion 334 343	expulsion
+T19	Tenant 347 356	locataire
+T20	Money 384 389	625 $
+T21	Home 377 382	loyer
+T22	Money 404 412	loyer dû
+T23	Tenant 524 533	locatrice
+T24	Demand 548 555	demande
+T25	Home 571 576	loyer
+T26	Article 591 603	article 1947
+T27	Lease 653 657	bail
+T28	Money 752 757	frais
+T29	Date 774 779	datée
+T30	Date 783 798	24 juillet 2015
+T31	Landlord 803 811	locateur
+T32	Home 838 846	logement
+T33	Time 854 862	60 jours
+T34	Lease 938 942	bail
+T35	Money 960 965	565 $
+T36	Home 946 951	loyer
+T37	Pay 952 958	impayé
+T38	Money 973 978	565 $
+T39	Money 1004 1005;1006 1010	8 50 $
+T40	Money 1014 1019	frais

@@ -1,0 +1,354 @@
+T1	Landlord 9 17	locateur
+T2	Lease 94 98	bail
+T3	Date 128 145	1er décembre 2016
+T4	Date 149 165	30 novembre 2017
+T5	Home 170 175	loyer
+T7	Money 187 192	752 $
+T6	Time_Frequency 176 183	mensuel
+T8	Tenant 196 205	locataire
+T9	Home 226 234	logement
+T10	Tenant 270 279	locataire
+T11	Landlord 291 299	locateur
+T12	Money 325 329	82 $
+T13	Money 304 309	frais
+T14	Landlord 385 393	locateur
+T15	Lease 420 424	bail
+T16	Tenant 443 452	locataire
+T17	Home 473 478	loyer
+T18	Money 480 485	920 $
+T19	Lease 606 610	bail
+T20	Home 614 619	loyer
+T21	Time_Frequency 620 627	mensuel
+T22	Money 631 636	595 $
+T23	Time 657 661	jour
+T24	Time_Frequency 665 676	chaque mois
+T25	Tenant 703 712	locataire
+T26	Money 718 725	1 110 $
+T27	Home 735 740	loyer
+T28	Time 745 749	mois
+T29	Date 753 756	mai
+T30	Money 767 772	515 $
+T31	Date 777 786	juin 2017
+T32	Money 793 796	9 $
+T34	Tenant 879 888	locataire
+T35	Money 908 913	somme
+T36	Tenant 917 926	locataire
+T37	Time 952 966	trois semaines
+T39	Home 987 992	loyer
+T33	Lease 1012 1016	bail
+T38	Article 1059 1071	article 1971
+T40	Lease 1077 1081	bail
+T41	Home 1116 1121	loyer
+T42	Money 1130 1138	intérêts
+T43	Money 1146 1151	frais
+T44	Money 814 819	frais
+T45	Article 1214 1226	article 1883
+T46	Landlord 1251 1259	locateur
+T47	Article 1338 1348;1349 1350	article 82 1
+T48	Lease 1400 1404	bail
+T49	Tenant 1431 1440	locataire
+T50	Home 1469 1477	logement
+T51	Expulsion 1418 1427	expulsion
+T52	Money 56 61	frais
+T53	Termination 405 416	résiliation
+T54	Expulsion 430 439	expulsion
+T55	Pay 282 287	payer
+T56	Pay 638 645	payable
+T57	Pay 975 983	paiement
+T58	Termination 997 1008	résiliation
+T59	Termination 1102 1109	résilié
+T60	Pay 1157 1162	payés
+T61	Termination 1389 1396	résilie
+T62	Order 30 40	ordonnance
+T63	Order 1408 1415	ordonne
+T64	Tenant 1491 1500	locataire
+T65	Pay 1503 1508	payer
+T66	Landlord 1512 1520	locateur
+T67	Money 1533 1540	1 110 $
+T68	Money 1551 1559	intérêts
+T69	Article 1614 1626	article 1619
+T70	Compensation 1579 1588	indemnité
+T71	Date 1643 1655	1er mai 2017
+T72	Money 1672 1677	515 $
+T73	Date 1708 1721	1er juin 2017
+T74	Money 1732 1737	frais
+T75	Money 1753 1757	83 $
+T76	Landlord 1811 1819	locateur
+T77	Termination 1831 1842	résiliation
+T78	Lease 1846 1850	bail
+T79	Expulsion 1856 1865	expulsion
+T80	Tenant 1872 1881	locataire
+T81	Home 1902 1907	loyer
+T82	Money 1909 1916	2 560 $
+T83	Home 1931 1936	loyer
+T84	Lease 2065 2069	bail
+T85	Date 2083 2096	1er mars 2017
+T86	Date 2100 2115	28 février 2018
+T87	Home 2119 2124	loyer
+T88	Time_Frequency 2125 2132	mensuel
+T89	Money 2136 2141	815 $
+T90	Pay 2143 2150	payable
+T91	Time 2162 2166	jour
+T92	Time_Frequency 2170 2181	chaque mois
+T93	Tenant 2185 2194	locataire
+T94	Time 2226 2231	15h57
+T95	Time 2235 2239	jour
+T96	Demand 2206 2213	demande
+T97	Demand 1820 1827	demande
+T98	Demand 18 25	demande
+T99	Demand 342 349	demande
+T100	Condemn 258 266	condamne
+T101	Reject 331 338	rejette
+T102	Demand 394 401	demande
+T103	Condemn 1479 1487	condamne
+T104	Reject 1759 1766	rejette
+T105	Demand 1770 1777	demande
+T106	Demand 2391 2398	demande
+T107	Money 2421 2427	sommes
+T108	Landlord 2445 2453	locateur
+T109	Landlord 2550 2558	locateur
+T110	Tenant 2573 2582	locataire
+T111	Termination 2606 2617	résiliation
+T112	Lease 2621 2625	bail
+T113	Pay 2629 2635	payant
+T114	Landlord 2658 2666	locateur
+T115	Landlord 2671 2679	locateur
+T116	Money 2729 2737	intérêts
+T117	Tenant 2778 2787	locataire
+T118	Tenant 2825 2834	locataire
+T119	Money 2840 2847	3 465 $
+T120	Home 2857 2862	loyer
+T121	Date 2866 2873	janvier
+T122	Money 2884 2889	205 $
+T123	Date 2892 2899	février
+T124	Date 2901 2905	mars
+T125	Date 2907 2912	avril
+T126	Date 2916 2924	mai 2017
+T127	Tenant 2928 2937	locataire
+T128	Time 2963 2977	trois semaines
+T129	Pay 2986 2994	paiement
+T130	Home 2998 3003	loyer
+T131	Termination 3008 3019	résiliation
+T132	Lease 3023 3027	bail
+T133	Article 3070 3082	article 1971
+T134	Money 3209 3214	frais
+T135	Money 3301 3306	frais
+T136	Landlord 3375 3383	locateur
+T137	Tenant 3398 3407	locataire
+T138	Money 3411 3418	montant
+T139	Termination 3458 3469	résiliation
+T140	Termination 3515 3522	résilie
+T141	Lease 3526 3530	bail
+T142	Order 3534 3541	ordonne
+T143	Expulsion 3544 3553	expulsion
+T144	Tenant 3560 3569	locataire
+T145	Home 3598 3606	logement
+T146	Order 3608 3615	ordonne
+T147	Order 3661 3671	ordonnance
+T148	Expulsion 3674 3683	expulsion
+T149	Time 3697 3705	11e jour
+T150	Date 3712 3716	date
+T151	Condemn 3746 3754	condamne
+T152	Tenant 3758 3767	locataire
+T153	Landlord 3779 3787	locateur
+T154	Pay 3770 3775	payer
+T155	Money 3788 3795	3 465 $
+T156	Money 3806 3814	intérêts
+T157	Article 3869 3881	article 1619
+T158	Date 3898 3912	2 janvier 2017
+T159	Money 3917 3922	550 $
+T160	Home 3974 3979	loyer
+T161	Money 4011 4015	83 $
+T162	Money 3990 3995	frais
+T163	Tenant 4020 4029	locataire
+T164	Demand 4030 4037	demande
+T165	Date 4079 4095	12 novembre 2014
+T166	Termination 4174 4185	résiliation
+T167	Lease 4189 4193	bail
+T168	Date 4197 4214	20 septembre 2014
+T169	Order 4216 4223	ordonne
+T170	Expulsion 4226 4235	expulsion
+T171	Time 4236 4245	immédiate
+T172	Tenant 4252 4261	locataire
+T173	Home 4290 4298	logement
+T174	Condemn 4305 4313	condamne
+T175	Pay 4316 4321	payer
+T176	Landlord 4325 4333	locateur
+T177	Money 4338 4343	frais
+T178	Money 4359 4361;4362 4366	79 50 $
+T179	Demand 4440 4447	demande
+T180	Demand 4471 4478	demande
+T181	Landlord 4493 4501	locateur
+T182	Termination 4505 4516	résiliation
+T183	Lease 4520 4524	bail
+T184	Expulsion 4528 4537	expulsion
+T185	Tenant 4544 4553	locataire
+T186	Demand 4624 4632	demandes
+T187	Demand 4729 4738	demandent
+T188	Order 4794 4805	ordonnances
+T189	Order 4917 4924	ordonne
+T190	Lease 4966 4970	bail
+T191	Termination 4971 4978	résilié
+T192	Date 4992 5007	30 janvier 2015
+T193	Time 5010 5013	20h
+T194	Order 5015 5022	ordonne
+T195	Expulsion 5025 5034	expulsion
+T196	Tenant 5041 5050	locataire
+T197	Home 5079 5087	logement
+T198	Date 5101 5116	30 janvier 2015
+T199	Time 5119 5122	20h
+T200	Order 5124 5131	ordonne
+T201	Tenant 5137 5146	locataire
+T202	Home 5171 5179	logement
+T203	Landlord 5192 5200	locateur
+T204	Date 5217 5232	30 janvier 2015
+T205	Time 5235 5238	20h
+T206	Condemn 5240 5248	condamne
+T207	Tenant 5252 5261	locataire
+T208	Pay 5264 5269	payer
+T209	Landlord 5273 5281	locateur
+T210	Money 5294 5299;5300 5304	1 409 50 $
+T211	Landlord 5399 5408	locateurs
+T212	Demand 5409 5418	demandent
+T213	Termination 5422 5433	résiliation
+T214	Lease 5437 5441	bail
+T215	Expulsion 5447 5456	expulsion
+T216	Tenant 5463 5472	locataire
+T217	Home 5493 5498	loyer
+T218	Money 5500 5507	2 060 $
+T219	Home 5522 5527	loyer
+T220	Lease 5631 5635	bail
+T221	Date 5639 5655	1er juillet 2014
+T222	Date 5659 5671	30 juin 2015
+T223	Home 5675 5680	loyer
+T224	Time_Frequency 5681 5688	mensuel
+T225	Money 5692 5697	640 $
+T226	Pay 5699 5706	payable
+T227	Time 5718 5722	jour
+T228	Time_Frequency 5726 5737	chaque mois
+T229	Tenant 5764 5773	locataire
+T230	Money 5779 5786	2 700 $
+T231	Home 5796 5801	loyer
+T232	Time 5806 5810	mois
+T233	Date 5814 5822	novembre
+T234	Money 5824 5829	140 $
+T235	Date 5832 5845	décembre 2014
+T236	Date 5847 5854	janvier
+T237	Date 5856 5876	février et mars 2015
+T238	Money 5883 5884;5885 5889	8 50 $
+T239	Tenant 5953 5962	locataire
+T240	Money 5982 5987	somme
+T241	Money 6018 6029	financières
+T242	Tenant 6033 6042	locataire
+T243	Time 6068 6082	trois semaines
+T244	Pay 6091 6099	paiement
+T245	Home 6103 6108	loyer
+T246	Termination 6113 6124	résiliation
+T247	Lease 6128 6132	bail
+T248	Article 6175 6187	article 1971
+T249	Landlord 6213 6222	locateurs
+T250	Article 6294 6304;6305 6306	article 82 1
+T251	Termination 6311 6318	résilie
+T252	Lease 6322 6326	bail
+T253	Order 6330 6337	ordonne
+T254	Expulsion 6340 6349	expulsion
+T255	Tenant 6356 6365	locataire
+T256	Home 6394 6402	logement
+T257	Order 6404 6411	ordonne
+T258	Order 6457 6467	ordonnance
+T259	Expulsion 6470 6479	expulsion
+T260	Time 6493 6501	11e jour
+T261	Date 6508 6512	date
+T262	Condemn 6514 6522	condamne
+T263	Tenant 6526 6535	locataire
+T264	Pay 6538 6543	payer
+T265	Landlord 6548 6557	locateurs
+T266	Money 6561 6566	somme
+T267	Money 6570 6577	2 700 $
+T268	Money 6588 6596	intérêts
+T269	Article 6651 6663	article 1619
+T270	Date 6680 6695	20 février 2015
+T271	Money 6712 6719	2 060 $
+T272	Date 6750 6763	1er mars 2015
+T273	Money 6795 6797;6798 6802	80 50 $
+T274	Money 6774 6779	frais
+T275	Landlord 6807 6815	locateur
+T276	Demand 6816 6823	demande
+T277	Termination 6827 6838	résiliation
+T278	Lease 6842 6846	bail
+T279	Expulsion 6852 6860	éviction
+T280	Tenant 6864 6873	locataire
+T281	Order 6912 6922	ordonnance
+T282	Home 6943 6948	loyer
+T283	Money 6955 6960	somme
+T284	Money 6964 6969	556 $
+T285	Home 6978 6983	loyer
+T286	Money 7016 7024	intérêts
+T287	Money 7032 7037	frais
+T288	Lease 7134 7138	bail
+T289	Date 7168 7184	1er juillet 2014
+T290	Date 7188 7200	30 juin 2015
+T291	Home 7205 7210	loyer
+T292	Time_Frequency 7211 7218	mensuel
+T293	Money 7222 7227	562 $
+T294	Date 7253 7265	30 juin 2016
+T295	Tenant 7269 7278	locataire
+T296	Pay 7281 7285	payé
+T297	Home 7289 7294	loyer
+T298	Tenant 7349 7358	locataire
+T299	Pay 7382 7390	paiement
+T300	Home 7394 7399	loyer
+T301	Tenant 7410 7418	locateur
+T302	Home 7472 7480	immeuble
+T303	Tenant 7484 7493	locataire
+T304	Time 7525 7539	trois semaines
+T305	Pay 7548 7556	paiement
+T306	Home 7560 7565	loyer
+T307	Termination 7570 7581	résiliation
+T308	Lease 7585 7589	bail
+T309	Article 7638 7650	article 1971
+T310	Termination 7711 7722	résiliation
+T311	Lease 7726 7730	bail
+T312	Order 7753 7763	ordonnance
+T313	Article 7772 7784	article 1973
+T314	Order 7824 7832	ordonner
+T315	Article 7895 7905;7906 7907	article 82 1
+T316	Order 7910 7917	ordonne
+T317	Tenant 7921 7930	locataire
+T318	Pay 7934 7939	payer
+T319	Home 7943 7948	loyer
+T320	Time 7960 7964	jour
+T321	Time_Frequency 7968 7980	chaque terme
+T322	Date 7994 8010	1er juillet 2015
+T323	Landlord 8023 8031	locateur
+T324	Order 8076 8086	ordonnance
+T325	Time 8174 8182	30 jours
+T326	Landlord 8261 8269	locateur
+T327	Demand 8270 8277	demande
+T328	Termination 8281 8292	résiliation
+T329	Lease 8296 8300	bail
+T330	Expulsion 8306 8315	expulsion
+T331	Tenant 8322 8331	locataire
+T332	Home 8352 8357	loyer
+T333	Money 8359 8366	1 560 $
+T334	Home 8381 8386	loyer
+T335	Lease 8490 8494	bail
+T336	Date 8498 8516	1er septembre 2014
+T337	Date 8520 8532	31 août 2015
+T338	Home 8536 8541	loyer
+T339	Money 8553 8558	780 $
+T340	Tenant 8585 8594	locataire
+T341	Money 8600 8607	2 340 $
+T342	Home 8617 8622	loyer
+T343	Time 8627 8631	mois
+T344	Date 8635 8642	février
+T345	Date 8644 8648	mars
+T346	Date 8652 8662	avril 2015
+T347	Money 8669 8672	8 $
+T348	Money 8690 8695	frais
+T349	Money 8736 8740	72 $
+T350	Demand 8766 8773	demande
+T351	Tenant 8777 8786	locataire
+T352	Time 8812 8826	trois semaines
+T353	Pay 8835 8843	paiement
+T354	Home 8847 8852	loyer

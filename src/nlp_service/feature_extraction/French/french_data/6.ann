@@ -1,0 +1,23 @@
+T1	Landlord 8 16	locateur
+T2	Demand 17 24	demande
+T3	Termination 28 39	résiliation
+T4	Lease 43 47	bail
+T5	Expulsion 53 62	expulsion
+T6	Tenant 66 75	locataire
+T7	Home 96 101	loyer
+T8	Home 116 121	loyer
+T9	Landlord 213 221	locateur
+T10	Demand 222 229	demande
+T11	Termination 239 250	résiliation
+T12	Lease 254 258	bail
+T13	Tenant 275 284	locataire
+T14	Pay 285 289	paie
+T15	Time_Frequency 290 301	fréquemment
+T16	Home 306 311	loyer
+T17	Demand 345 352	demande
+T18	Lease 405 409	bail
+T19	Date 413 425	29 août 2016
+T20	Date 429 441	28 août 2017
+T21	Home 446 451	loyer
+T22	Time_Frequency 452 459	mensuel
+T23	Money 463 470	1 100 $
