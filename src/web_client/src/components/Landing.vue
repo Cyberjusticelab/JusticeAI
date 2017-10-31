@@ -26,9 +26,9 @@
 
 <script>
 export default {
-    data () {
-        return {
-            userPrompt: false
+    created () {
+        if (this.$localStorage.get('zeusId')) {
+            this.$router.push('dashboard')
         }
     },
     methods: {
