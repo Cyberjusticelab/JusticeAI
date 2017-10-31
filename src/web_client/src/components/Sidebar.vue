@@ -82,7 +82,7 @@ export default {
             uploadedFileList: new Array,
             openFileList: false,
             openReportList: false,
-            username: this.$localStorage.get('username').toUpperCase(),
+            username: this.$localStorage.get('usertype').toUpperCase(),
             api_url: process.env.API_URL,
             connectionError: false
         }

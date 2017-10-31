@@ -17,8 +17,8 @@
                 <img alt="" src="../assets/logo.png" id="landing-page-logo">
             </div>
             <div id="landing-page-button-group">
-                <b-button size="lg" variant="outline-success">I am a tenant</b-button>
-                <b-button size="lg" variant="outline-success">I am a landlord</b-button>
+                <b-button size="lg" variant="outline-success" v-on:click="chooseType('tenant')">I am a tenant</b-button>
+                <b-button size="lg" variant="outline-success" v-on:click="chooseType('user')">I am a landlord</b-button>
             </div>
         </div>
     </b-container>
@@ -28,9 +28,15 @@
 export default {
     data () {
         return {
+            userPrompt: false
         }
     },
-    created () {
+    methods: {
+        chooseType(usertype) {
+            this.$localStorage.set('usertype', usertype)
+            this.$localStorage.remove('zeusId')
+            this.$router.push('dashboard')
+        }
     }
 }
 </script>
