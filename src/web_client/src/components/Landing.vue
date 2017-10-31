@@ -18,7 +18,7 @@
             </div>
             <div id="landing-page-button-group">
                 <b-button size="lg" variant="outline-success" v-on:click="chooseType('tenant')">I am a tenant</b-button>
-                <b-button size="lg" variant="outline-success" v-on:click="chooseType('user')">I am a landlord</b-button>
+                <b-button size="lg" variant="outline-success" v-on:click="chooseType('landloard')">I am a landlord</b-button>
             </div>
         </div>
     </b-container>
