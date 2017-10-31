@@ -20,11 +20,16 @@
     <!-- Chat Widow -->
     <div id="chat-widow">
       <!-- Log out -->
-      <div id="logout">
+      <div id="chat-nav">
         <b-row>
           <b-col md="2" offset-md="10">
-            <img alt="" src="../assets/logout.png">
-            <p>LOG OUT</p>
+            <div id="chat-reset" v-on:click="resetChat()">
+              <img alt="" src="../assets/logout.png">
+              <p>
+                <span v-if="isLoggedIn">Sign Out</span>
+                <span v-if="!isLoggedIn">Reset</span>
+              </p>
+            </div>
           </b-col>
         </b-row>
       </div>
@@ -114,6 +119,7 @@ export default {
       uploadUrl: new String,
       connectionError: false,
       chatHistory: new Array,
+      isLoggedIn: false, //TODO: account feature
       zeus: {
         input: null,
         file: new Array,
@@ -197,6 +203,16 @@ export default {
       this.user.input = null
       this.user.isSent = false
       this.user.disableInput = conversation.enforce_possible_answer
+    },
+    resetChat () {
+      if (this.isLoggedIn) {
+        //TODO: some logout logic here
+      } else {
+        this.$localStorage.remove('zeusId')
+        this.$localStorage.remove('username')
+        this.$localStorage.remove('usertype')
+        this.$router.push('/')
+      }
     }
   }
 }

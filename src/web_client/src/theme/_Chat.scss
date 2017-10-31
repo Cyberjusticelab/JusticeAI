@@ -26,20 +26,25 @@
     background-color: $main-grey-6;
     width: 100%;
     height: 78%;
-    #logout {
-      cursor: pointer;
-      img {
-        margin-top: 10px;
-      }
-      p {
-        font-weight: bold;
-        color: $main-gold-2;
+    #chat-nav {
+      #chat-reset {
+        cursor: pointer;
+        img {
+          height: 25px;
+          margin-top: 10px;
+        }
+        span {
+          font-weight: bold;
+          color: $main-gold-2;
+          &:hover {
+            color: $main-grey-4;
+          }
+        }
       }
     }
     .chat-message {
       margin-top: 60px;
       min-height: 50px;
-      border-radius: 25px;
       border: 2px solid $main-gold-2;
       background-color: $main-grey-5;
       p {
