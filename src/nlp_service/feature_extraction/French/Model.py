@@ -84,18 +84,21 @@ class DecisionModel:
             if word.lower() in self.custom_stop_words:
                 pass
             else:
-                try:
-                    self.fv.word_vectors[singularize(word)]
-                except KeyError:
-                    break
-
                 for v in self.custom_vectors:
-                    result = 1 - spatial.distance.cosine(self.fv.word_vectors[singularize(word)],
-                                                         self.custom_vectors[v])
+
+                    try:
+                        result = 1 - spatial.distance.cosine(self.fv.word_vectors[singularize(word)],
+                                                             self.custom_vectors[v])
+                        if v == 'Other':
+                            key_lst.append(word)
+                            break
+                    except:
+                        continue
+
                     if result > 0.8:
                         word = self.entity_2_french[v]
+                        key_lst.append(word)
                         break
-                key_lst.append(singularize(word))
         return key_lst
 
     def print_stems(self):
