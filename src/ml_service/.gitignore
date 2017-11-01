@@ -4,5 +4,5 @@ venv
 .coverage
 coverage.xml
 .idea/
-./**/*.iml
-.idea/*
+outputs
+*.bin
