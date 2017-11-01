@@ -10,5 +10,3 @@ feature_extraction/WordVectors/*.pickle
 ./**/*.iml
 feature_extraction/Documentation/clause_finder.json
 feature_extraction/Documentation/example.txt
-src/__pycache__/__init__.cpython-35.pyc
-src/__pycache__/__init__.cpython-36.pyc
