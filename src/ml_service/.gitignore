@@ -6,6 +6,6 @@ coverage.xml
 .idea/
 ./**/*.iml
 .idea/*
-preprocessing/French/french_data/*
-preprocessing/train.py
 *.bin
+/preprocessing/French/french_data/*
+/preprocessing/train.py
