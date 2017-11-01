@@ -2,6 +2,7 @@ __pycache__
 venv
 data/**/*.extended.txt
 data/**/*.pickle
+preprocessing/French/*.pickle
 feature_extraction/WordVectors/*.pickle
 .cache
 .coverage
