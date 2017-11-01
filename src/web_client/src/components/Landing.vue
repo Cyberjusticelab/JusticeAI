@@ -13,12 +13,24 @@
                 </b-row>
             </div>
             <div id="landing-page-title">
-                <img alt="" src="../assets/landing_page_zeus_avatar.png" id="landing-page-zeus">
-                <img alt="" src="../assets/logo.png" id="landing-page-logo">
+                <b-row>
+                    <b-col md="4" offset="4">
+                        <div id="title-image">
+                            <img alt="" src="../assets/landing_page_zeus_avatar.png" id="landing-page-zeus">
+                            <img alt="" src="../assets/logo.png" id="landing-page-logo">
+                        </div>
+                    </b-col>
+                </b-row>
             </div>
             <div id="landing-page-button-group">
-                <b-button size="lg" variant="outline-success" v-on:click="chooseType('tenant')">I am a tenant</b-button>
-                <b-button size="lg" variant="outline-success" v-on:click="chooseType('landlord')">I am a landlord</b-button>
+                <b-row>
+                    <b-col md="6" offset="3">
+                        <div id="button-group">
+                            <b-button size="lg" variant="outline-success" v-on:click="chooseType('tenant')">I am a tenant</b-button>
+                            <b-button size="lg" variant="outline-success" v-on:click="chooseType('landlord')">I am a landlord</b-button>
+                        </div>
+                    </b-col>
+                </b-row>
             </div>
         </div>
     </b-container>

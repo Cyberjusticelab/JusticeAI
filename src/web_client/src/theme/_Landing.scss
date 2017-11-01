@@ -12,7 +12,6 @@
         background: url("../assets/landing_page_background.png") no-repeat center center fixed;
         background-size: cover;
         #landing-page-nav {
-            height: 10%;
             button {
                 margin-top: 10px;
                 color: $main-grey-5;
@@ -27,28 +26,31 @@
             }
         }
         #landing-page-title {
-            height: 25%;
             text-align: center;
-            img {
-                display: block;
-                margin: auto;
-            }
-            #landing-page-zeus {
-                margin-top: 150px;
+            padding-top: 200px;
+            padding-bottom: 35px;
+            #title-image {
+                height: 100%;
+                img {
+                    display: block;
+                    margin: auto;
+                }
             }
         }
         #landing-page-button-group {
-            button {
-                border-color: $main-gold-1;
-                color: $main-gold-1;
-                margin-left: 10px;
-                margin-right: 10px;
-                cursor: pointer;
-                width: 200px;
-                &:hover, &:active {
-                    background-color: $main-gold-1;
-                    color: $main-grey-5;
+            #button-group {
+                button {
                     border-color: $main-gold-1;
+                    color: $main-gold-1;
+                    margin-left: 10px;
+                    margin-right: 10px;
+                    cursor: pointer;
+                    width: 200px;
+                    &:hover, &:active {
+                        background-color: $main-gold-1;
+                        color: $main-grey-5;
+                        border-color: $main-gold-1;
+                    }
                 }
             }
         }
