@@ -2,9 +2,8 @@
 
 import os
 import re
-
 from src.nlp_service.preprocessing.French.Model import DecisionModel
-
+from src.nlp_service.preprocessing.French.GlobalVariable import Global
 
 class State:
     TOPIC = 0
@@ -29,7 +28,7 @@ class Parser:
         return self.model
 
     def __extract(self, filename):
-        file = open(r'/home/charmander/Data/text_bk/' + filename, 'r', encoding="ISO-8859-1")
+        file = open(Global.Precedence_Directory + filename, 'r', encoding="ISO-8859-1")
         for lines in file:
             tpl = self.__statement_index(lines)
             self.__update_state(tpl[1], lines)
@@ -86,7 +85,7 @@ class Parser:
 if __name__ == "__main__":
     parser = Parser()
     j = 0
-    for i in os.listdir(r"/home/charmander/Data/text_bk/"):
+    for i in os.listdir(Global.Precedence_Directory):
         if 'AZ-51205' in i and j < 5:
             j += 1
             model = parser.parse(i)

@@ -57,7 +57,8 @@ class Ner:
         for i in range(len(token_list)):
             try:
                 vec = self.vectorise_window(token_list, i, window)
-                self.entity_labels[token_list[i][1]].append(vec)
+                if vec is not None:
+                    self.entity_labels[token_list[i][1]].append(vec)
             except KeyError:
                 pass
 
@@ -68,6 +69,8 @@ class Ner:
             try:
                 word = token_list[i][0].lower()
                 word = re.sub('[' + string.punctuation + ']', '', word)
+                if token_list[i][1] == 'Money':
+                    word = '$'
             except IndexError:
                 continue
             try:
@@ -75,6 +78,8 @@ class Ner:
                 num_words += 1
             except:
                 pass
+        if num_words == 0:
+            return None
         return numpy.divide(vec_sum, num_words)
 
     def form_tuple(self, filename):
@@ -138,5 +143,5 @@ class Ner:
         return return_list
 
 ner = Ner()
-ner.train_named_entity(window=2)
+ner.train_named_entity(window=1)
 

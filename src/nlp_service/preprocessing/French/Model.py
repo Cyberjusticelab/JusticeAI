@@ -4,31 +4,22 @@ import re
 
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-from pattern3.text.fr import singularize
-from scipy import spatial
-
-from src.nlp_service.preprocessing.French.Vectorize import FrenchVectors
-
-
-def load():
-    with open('ner_model.pickle', 'rb') as pickle_file:
-        model = pickle.load(pickle_file)
-    return model
+from src.nlp_service.preprocessing.French.NerMatrix import NamedEntity
 
 class DecisionModel:
+    ner = NamedEntity()
     entity_2_french = {
         'Time': "temps",
         'Date': "date",
         'Money': "argent",
         'Time_Frequency': "fréquence",
+        'Relative_Time': 'relatif',
         'Other': "autre"
     }
-    custom_vectors = load()
-    fv = FrenchVectors()
-    money_match = re.compile('(\d*\s*\$)')
     extra_parse = re.compile("\w'")
-    custom_stop_words = stopwords.words('french') + [',', ';', '.', '!', '?', 'le', 'la', "l'", "d'", 'les', 'plus',
-                                                     'dû', 'considérant', 'surtout', 'a', 'q']
+    custom_stop_words = stopwords.words('french') + \
+                        [',', ';', '.', '!', '?',
+                         'c', '(', ')']
 
     def __init__(self):
         self.topics = []
@@ -46,49 +37,42 @@ class DecisionModel:
     def format(self):
         for topic in self.topics:
             self.topics_str += topic + "\n"
-            sent = self.__ner(topic)
-            self.core_topic.append(self.__singularize(sent))
+            self.core_topic.append(self.__ner(topic))
 
         for fact in self.facts:
             self.facts_str += fact + "\n"
-            sent = self.__ner(fact)
-            self.core_facts.append(self.__singularize(sent))
+            self.core_facts.append(self.__ner(fact))
 
         for decision in self.decisions:
             self.decisions_str += decision + "\n"
-            sent = self.__ner(decision)
-            self.core_decisions.append(self.__singularize(sent))
+            self.core_decisions.append(self.__ner(decision))
 
     def __ner(self, sentence):
-        if self.money_match.search(sentence):
-            sentence = re.sub('[\d*\s*]*\$', ' argent', sentence)
-        if self.extra_parse.search(sentence):
-            sentence = re.sub("\w'", ' ', sentence)
-        return sentence
-
-    def __singularize(self, sentence):
         word_list = word_tokenize(sentence, language='french')
+        word_list = [word for word in word_list if word not in self.custom_stop_words]
         key_lst = []
-        for i in word_list:
-            word = i
-            if word.lower() in self.custom_stop_words:
-                pass
+        previous_word = ''
+        for i in range(len(word_list)):
+            kernel = []
+            kernel.append(word_list[i])
+            if i != 0:
+                kernel.append(word_list[i - 1])
+            if i != (len(word_list) - 1):
+                kernel.append(word_list[i + 1])
+
+            entity = self.ner.map_to_entity(kernel)
+
+            if entity == 'Other':
+                key_lst.append(word_list[i])
+                previous_word = word_list[i]
+            elif entity is None:
+                continue
+            elif entity == previous_word:
+                continue
             else:
-                for v in self.custom_vectors:
+                key_lst.append(self.entity_2_french[entity])
+                previous_word = entity
 
-                    try:
-                        result = 1 - spatial.distance.cosine(self.fv.word_vectors[singularize(word)],
-                                                             self.custom_vectors[v])
-                        if v == 'Other':
-                            key_lst.append(word)
-                            break
-                    except:
-                        continue
-
-                    if result > 0.8:
-                        word = self.entity_2_french[v]
-                        key_lst.append(word)
-                        break
         return key_lst
 
     def print_stems(self):
@@ -105,11 +89,11 @@ class DecisionModel:
             print(decision)
 
     def __str__(self):
-        return self.topics_str + "\n" \
-               + "\n" + self.facts_str + "\n" \
-               + "\n" + self.decisions_str
-        '''
         return "TOPICS: \n" + self.topics_str + "\n" \
                + "FACTS: \n" + self.facts_str + "\n" \
                + "DECISION: \n" + self.decisions_str
-        '''
+
+    def training_outpu(self):
+        return self.topics_str + "\n" \
+               + "\n" + self.facts_str + "\n" \
+               + "\n" + self.decisions_str
