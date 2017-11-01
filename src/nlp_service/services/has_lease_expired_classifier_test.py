@@ -1,4 +1,4 @@
-from services.has_lease_expired_classifier import HasLeaseExpiredClassifier
+from src.nlp_service.services.has_lease_expired_classifier import HasLeaseExpiredClassifier
 
 
 def test_classify_false():
