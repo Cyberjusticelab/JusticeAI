@@ -9,7 +9,10 @@ import re
 
 np.seterr(all='raise')
 stoppers = stopwords.words('french')
-word_vectors = KeyedVectors.load_word2vec_format('non-lem.bin', binary=True)
+binaryFilePath = os.path.join(os.path.dirname(
+    os.path.realpath(__file__)), '../../non-lem.bin')
+
+word_vectors = KeyedVectors.load_word2vec_format(binaryFilePath, binary=True)
 tok = ToktokTokenizer()
 
 
