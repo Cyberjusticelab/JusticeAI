@@ -20,8 +20,8 @@ def writeFactsToFile(factDict, labels):
     outputDirPath = os.path.join(os.path.dirname(
         os.path.realpath(__file__)), '../../outputs/')
     for i, sent in enumerate(factDict.keys()):
-    filePath = os.path.join(outputDirPath, str(labels[i]))
-    normalizedFilePath = os.path.normpath(filePath)
-    f = open(normalizedFilePath, 'a')
-    f.write('{:.140}'.format(sent) + '\n')
-    f.close()
+        filePath = os.path.join(outputDirPath, str(labels[i]))
+        normalizedFilePath = os.path.normpath(filePath)
+        f = open(normalizedFilePath, 'a')
+        f.write('{:.140}'.format(sent) + '\n')
+        f.close()
