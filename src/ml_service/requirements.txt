@@ -5,3 +5,5 @@ itsdangerous==0.24
 Jinja2==2.9.6
 MarkupSafe==1.0
 Werkzeug==0.12.2
+scipy==1.0.0
+gensim==3.0.1

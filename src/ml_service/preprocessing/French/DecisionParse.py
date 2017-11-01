@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import re
 
-from src.nlp_service.preprocessing.French.GlobalVariable import Global
-from src.nlp_service.preprocessing.French.Model import PrecedenceModel
+from src.ml_service.preprocessing.French.GlobalVariable import Global
+from src.ml_service.preprocessing.French.Model import PrecedenceModel
 
 
 # #################################################

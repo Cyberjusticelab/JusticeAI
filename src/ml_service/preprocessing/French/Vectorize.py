@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from gensim.models.keyedvectors import KeyedVectors
 
-from src.nlp_service.preprocessing.French.GlobalVariable import Global
+from src.ml_service.preprocessing.French.GlobalVariable import Global
 
 
 # #################################################

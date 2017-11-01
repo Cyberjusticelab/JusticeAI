@@ -4,7 +4,7 @@ import pickle
 import numpy
 import scipy.spatial.distance
 
-from src.nlp_service.preprocessing.French.Vectorize import FrenchVectors
+from src.ml_service.preprocessing.French.Vectorize import FrenchVectors
 
 
 # #################################################

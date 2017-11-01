@@ -7,7 +7,7 @@ import string
 import nltk
 import numpy
 
-from src.nlp_service.preprocessing.French.Vectorize import FrenchVectors
+from src.ml_service.preprocessing.French.Vectorize import FrenchVectors
 
 
 class Ner:
