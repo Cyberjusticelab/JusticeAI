@@ -1,5 +1,6 @@
 import flask
 from flask import jsonify, abort, make_response
+import json
 
 from models.models import *
 from services import nlpService, fileService
@@ -34,10 +35,17 @@ def init_conversation(name):
 def receive_message(conversation_id, message):
     conversation = __get_conversation(conversation_id)
 
+    response_text = None
+    response_html = None
     file_request = None
+    possible_answers = None
+    additional_info = None
+    enforce_possible_answer = False
     # First message in the conversation
     if len(conversation.messages) == 0:
-        response_text = StaticStrings.chooseFrom(StaticStrings.welcome).format(name=conversation.name)
+        response_html = StaticStrings.chooseFrom(StaticStrings.disclaimer).format(name=conversation.name)
+        possible_answers = json.dumps(["Yes"])
+        enforce_possible_answer = True
     else:
         # Add user's message
         user_message = Message(sender_type=SenderType.USER, text=message)
@@ -47,9 +55,25 @@ def receive_message(conversation_id, message):
         response = __generate_response(conversation, user_message.text)
         response_text = response.get('response_text')
         file_request = response.get('file_request')
+        possible_answers = response.get('possible_answers')
 
     # Persist response message
-    response = Message(sender_type=SenderType.BOT, text=response_text)
+    if response_text is not None:
+        response = Message(
+            sender_type=SenderType.BOT,
+            text=response_text,
+            possible_answers=possible_answers,
+            enforce_possible_answer=enforce_possible_answer
+        )
+    elif response_html is not None:
+        response = Message(
+            sender_type=SenderType.BOT,
+            text=response_html,
+            possible_answers=possible_answers,
+            enforce_possible_answer=enforce_possible_answer
+        )
+    else:
+        return abort(make_response(jsonify(message="Response text not generated"), 400))
 
     # Create relationship between message and file request if present
     if file_request is not None:
@@ -61,10 +85,18 @@ def receive_message(conversation_id, message):
     db.session.commit()
 
     # Build response dict
-    response_dict = {'conversation_id': conversation.id, 'message': response_text}
+    response_dict = {'conversation_id': conversation.id}
 
+    if response_text is not None:
+        response_dict['message'] = response_text
+    if response_html is not None:
+        response_dict['html'] = response_html
     if file_request is not None:
         response_dict['file_request'] = FileRequestSchema().dump(file_request).data
+    if possible_answers is not None:
+        response_dict['possible_answers'] = possible_answers
+        if enforce_possible_answer:
+            response_dict['enforce_possible_answer'] = True
 
     return jsonify(response_dict)
 
@@ -133,6 +165,9 @@ def __get_conversation(conversation_id):
 
 
 def __generate_response(conversation, message):
+    if __has_just_accepted_disclaimer(conversation):
+        response_text = StaticStrings.chooseFrom(StaticStrings.welcome).format(name=conversation.name)
+        return {'response_text': response_text}
     if conversation.person_type is None:
         return __determine_person_type(conversation, message)
     elif conversation.claim_category is None:
@@ -224,3 +259,7 @@ def __probe_facts(conversation):
         question = "FACT DUMP: {}".format(fact_dump)
 
     return question
+
+
+def __has_just_accepted_disclaimer(conversation):
+    return len(conversation.messages) == 2

@@ -10,15 +10,14 @@
         cursor: pointer;
     }
     #sidebar-logo {
-        text-align: center;
         height: 15%;
         img {
             margin-top: 40px;
             width: 70%;
         }
         p {
+            margin-top: 8px;
             font-size: 10px;
-            display: inline-block;
             color: $main-grey-5;
             font-style: italic;
         }
@@ -30,11 +29,13 @@
             font-size: 30px;
         }
         img {
-            width: 20%;
+            margin-top: 25px;
+            height: 80px;
+            cursor: pointer;
         }
     }
     #sidebar-menu {
-        height: 45%;
+        height: 60%;
         .sidebar-menu {
             background-color: $main-grey-2;
             height: 70px;
@@ -44,36 +45,49 @@
             padding: 0px;
             color: $main-grey-3;
             h3 {
+                font-size: 23px;
                 margin: 0px;
-                margin-top: 20px;
+                margin-top: 22px;
             }
             &:hover {
+                border-color: $main-gold-1;
                 background-color: $main-grey-3;
                 color: $main-gold-1;
                 cursor: pointer;
             }
+            &:active {
+                background-color: $main-gold-1;
+                color: $main-white-1;
+            }
         }
         ul {
-            width: 100%;
-            margin: 0px;
-            padding: 0px;
+            margin: 10px;
             li {
-                height: 30px;
+                height: 34px;
                 list-style: none;
-                text-align: right;
-                width: 80%;
+                width: 90%;
+                text-align: left;
                 p {
-                    margin-top: 2px;
-                    max-width: 80%;
                     display: inline-block;
                     color: $main-grey-3;
-                    margin-right: 55px;
                 }
-                img {
-                    height: 60%;
-                    margin-right: 5px;
+                .sidebar-file-view {
+                    margin-right: 15%;
                     display: inline-block;
                 }
+                .col-md-6 {
+                    overflow: hidden;
+                }
+            }
+        }
+    }
+    #sidebar-legal {
+        height: 5%;
+        a {
+            color: $main-grey-5;
+            text-decoration: none;
+            &:hover {
+                color: $main-gold-1;
             }
         }
     }

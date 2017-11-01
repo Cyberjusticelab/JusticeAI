@@ -265,3 +265,18 @@ Downloads a file uploaded as part of a conversation
 **Code** : `400 Bad Request`
 
 **Code** : `404 Not Found`
+
+---
+
+# Get Latest Legal Documents
+
+Obtains information and contents of the latest legal documents
+
+**URL** : `/legal`
+
+**Method** : `GET`
+
+## Success Response
+
+**Code** : `200 OK`
+

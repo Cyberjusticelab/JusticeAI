@@ -1,0 +1,8 @@
+#Mac files
+.DS_Store
+
+#PyCharm
+.idea/
+
+#Data folder
+text_bk/

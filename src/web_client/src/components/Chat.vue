@@ -6,9 +6,9 @@
   <b-container fluid id="chat-component">
     <!-- Chat History -->
     <transition name="fade">
-      <div id="chat-history" v-if="openChatHistory" v-chat-scroll>
+      <div id="chat-history" v-if="user.openChatHistory" v-chat-scroll>
         <ul>
-          <li v-for="conv in chatLog">
+          <li v-for="conv in chatHistory">
             <h3>{{ conv.sender_type }}</h3>
             <p>- {{ conv.text }}</p>
             <p>on {{ conv.timestamp.split('T')[0] }} at {{ conv.timestamp.split('T')[1].substring(0,8) }}</p>
@@ -20,11 +20,16 @@
     <!-- Chat Widow -->
     <div id="chat-widow">
       <!-- Log out -->
-      <div id="logout">
+      <div id="chat-nav">
         <b-row>
           <b-col md="2" offset-md="10">
-            <img alt="" src="../assets/logout.png">
-            <p>LOG OUT</p>
+            <div id="chat-reset" v-on:click="resetChat()">
+              <img alt="" src="../assets/logout.png">
+              <p>
+                <span v-if="isLoggedIn">Sign Out</span>
+                <span v-if="!isLoggedIn">Reset</span>
+              </p>
+            </div>
           </b-col>
         </b-row>
       </div>
@@ -39,10 +44,31 @@
           </b-col>
           <b-col md="7">
             <div id="chat-message-zeus">
-              <img v-if="!currentZeusInput" alt="" src="../assets/chatting.gif">
+              <img v-if="!zeus.input" alt="" src="../assets/chatting.gif">
               <transition name="fade">
-                <p v-if="currentZeusInput">{{ currentZeusInput }} </p>
+                <p v-if="zeus.input" v-html="zeus.input"></p>
               </transition>
+              <transition name="fade">
+                <file-upload
+                  ref="upload"
+                  v-model="zeus.file"
+                  :drop="true"
+                  :post-action="uploadUrl"
+                  v-if="zeus.filePrompt"
+                  extensions="jpg,jpeg,pdf,docx,webp,png"
+                >
+                  <p v-if="zeus.file.length == 0" id="drag-and-drop">drag and drop or click to select file</p>
+                  <p v-if="zeus.file" id="file-name" v-for="file in zeus.file">{{ file.name }}</p>
+                </file-upload>
+              </transition>
+              <div id="file-upload-button-group" v-if="zeus.filePrompt">
+                <b-button v-show="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true" type="button" size="lg" variant="warning" :disabled="zeus.file.length == 0">Upload</b-button>
+                <b-button v-show="$refs.upload && $refs.upload.active" @click.prevent="$refs.upload.active = false" type="button" size="lg" variant="danger">Stop</b-button>
+                <p v-if="zeus.file[0] && zeus.file[0].success && $refs.upload.uploaded">Successfully uploaded <span>{{ zeus.file[0].name }}</span></p>
+              </div>
+              <div id="pre-selected-answer-group" v-if="zeus.suggestion && zeus.input">
+                <b-button v-for="answer in zeus.suggestion" :key="answer.id" type="button" size="lg" variant="warning" v-on:click="user.input = answer; sendUserMessage()">{{ answer }}</b-button>
+              </div>
             </div>
           </b-col>
         </b-row>
@@ -52,12 +78,12 @@
       <div id="chat-user-container">
         <b-row>
           <b-col md="7" offset-md="2">
-            <div id="chat-message-user">
-              <img v-if="!currentUserInput" alt="" src="../assets/chatting.gif">
-              <p v-if="currentUserInput">{{ currentUserInput }}</p>
+            <div id="chat-message-user" v-bind:class="{ msgIsSent: user.isSent && chatHistory}">
+              <img v-if="!user.input" alt="" src="../assets/chatting.gif">
+              <p v-if="user.input" v-html="user.input"></p>
             </div>
           </b-col>
-          <b-col md="2">
+          <b-col md="1">
             <div id="chat-user-avatar">
               <img src="../assets/user_avatar_2.png"/>
             </div>
@@ -71,11 +97,11 @@
     <div id="chat-input">
       <b-form @submit.prevent="sendUserMessage()">
         <b-form-group>
-          <b-form-input id="chat-input-text" v-model="currentUserInput" placeholder="Enter your message" autocomplete="off"></b-form-input>
-          <b-button id="chat-input-submit" size="lg" variant="outline-success" type="submit":disabled="!currentUserInput">SEND</b-button>
-          <div id="chat-history-button" v-on:click="openChatHistory = !openChatHistory; getChatHistory()">
-            <img v-if="!openChatHistory" alt="" src="../assets/history_open.png">
-            <img v-if="openChatHistory" alt="" src="../assets/history_disable.png">
+          <b-form-input id="chat-input-text" v-model="user.input" placeholder="Enter your message" autocomplete="off" :disabled="user.disableInput"></b-form-input>
+          <b-button id="chat-input-submit" size="lg" variant="outline-success" type="submit" :disabled="!user.input">SEND</b-button>
+          <div id="chat-history-button" v-on:click="user.openChatHistory = !user.openChatHistory; getChatHistory()">
+            <img v-if="!user.openChatHistory" alt="" src="../assets/history_open.png">
+            <img v-if="user.openChatHistory" alt="" src="../assets/history_disable.png">
           </div>
         </b-form-group>
       </b-form>
@@ -89,67 +115,104 @@
 export default {
   data () {
     return {
-      chatLog: new Array,
-      currentUserInput: null,
-      currentZeusInput: null,
-      username: null,
+      api_url: process.env.API_URL,
+      uploadUrl: new String,
       connectionError: false,
-      openChatHistory: false
+      chatHistory: new Array,
+      isLoggedIn: false, //TODO: account feature
+      zeus: {
+        input: null,
+        file: new Array,
+        filePrompt: false,
+        suggestion: new Array
+      },
+      user: {
+        name: null,
+        input: null,
+        isSent: false,
+        openChatHistory: false,
+        disableInput: false
+      }
     }
   },
   created () {
     if (this.$localStorage.get('zeusId')) {
-      this.getChatHistory();
+      this.getChatHistory()
     } else {
-      this.initChatSession();
+      this.initChatSession()
     }
   },
   methods: {
     initChatSession () {
-      this.$http.post('http://localhost:3003/new',{
+      this.$http.post(this.api_url + 'new',{
         name: this.$localStorage.get('username')
       }).then(
         response => {
-          this.$localStorage.set('zeusId', response.body.conversation_id);
-          this.currentUserInput = '';
-          this.sendUserMessage();
+          this.$localStorage.set('zeusId', response.body.conversation_id)
+          this.user.input = ''
+          this.sendUserMessage()
+          this.uploadUrl = this.api_url + 'conversation/' + response.body.conversation_id + '/files'
         },
         response => {
-          this.connectionError = true;
+          this.connectionError = true
         }
-      );
+      )
     },
     sendUserMessage () {
-      this.$http.post('http://localhost:3003/conversation', {
+      this.$http.post(this.api_url + 'conversation', {
         conversation_id: this.$localStorage.get('zeusId'),
-        message: this.currentUserInput
+        message: this.user.input
       }).then(
         response => {
-          this.currentZeusInput = null;
+          this.zeus.input = null
+          this.user.isSent = this.user.input != ''
+          this.zeus.filePrompt = false;
           setTimeout(() => {
-            this.currentZeusInput = response.body.message;
-            this.currentUserInput = null;
-          }, 800);
+            this.configChat(response.body)
+          }, 1100)
         },
         response => {
-          this.connectionError = true;
+          this.connectionError = true
         }
-      );
+      )
     },
     getChatHistory () {
-      let zeusId = this.$localStorage.get('zeusId');
-      this.$http.get('http://localhost:3003/conversation/' + zeusId).then(
+      let zeusId = this.$localStorage.get('zeusId')
+      this.$http.get(this.api_url + 'conversation/' + zeusId).then(
         response => {
-          this.chatLog = response.body.messages;
-          this.username = response.body.name;
-          if (!this.currentZeusInput) {
-            this.currentZeusInput = this.chatLog[this.chatLog.length-1].text;
+          this.chatHistory = response.body.messages
+          this.user.name = response.body.name
+          if (!this.zeus.input) {
+            this.configChat(this.chatHistory[this.chatHistory.length-1])
           }
+          this.uploadUrl = this.api_url + 'conversation/' + zeusId + '/files'
         },
         response => {
-          this.connectionError = true;
+          this.connectionError = true
         }
-      );
+      )
+    },
+    configChat (conversation) {
+      this.zeus.input = conversation.message || conversation.html || conversation.text
+      this.zeus.filePrompt = (conversation.file_request !== undefined) && (conversation.file_request !== null)
+      if (conversation.possible_answers == undefined) {
+        this.zeus.suggestion = []
+      } else {
+        this.zeus.suggestion = JSON.parse(conversation.possible_answers) || []
+      }
+      this.user.input = null
+      this.user.isSent = false
+      this.user.disableInput = conversation.enforce_possible_answer
+    },
+    resetChat () {
+      if (this.isLoggedIn) {
+        //TODO: some logout logic here
+      } else {
+        this.$localStorage.remove('zeusId')
+        this.$localStorage.remove('username')
+        this.$localStorage.remove('usertype')
+        this.$router.push('/')
+      }
     }
   }
 }

@@ -7,6 +7,8 @@ services:
     command: bash -c 'pytest && if ! [ -z "$$(autopep8 -dr .)" ]; then autopep8 -dr .; exit 1; fi;'
   backend_service:
     command: bash -c 'pytest && if ! [ -z "$$(autopep8 -dr .)" ]; then autopep8 -dr .; exit 1; fi;'
+    environment:
+      POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
   web_client:
     command: bash -c "npm run test && npm run lint"
   postgresql_db:
