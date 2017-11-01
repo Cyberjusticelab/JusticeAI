@@ -1,4 +1,4 @@
-import app
+from src.ml_service import app
 
 
 def test_hello():
