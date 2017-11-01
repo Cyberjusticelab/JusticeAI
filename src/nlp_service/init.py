@@ -75,6 +75,6 @@ for directory in os.listdir(os.getcwd() + '/data'):
         if '.txt' in file and '.extended.txt' not in file:
             inputFile = os.getcwd() + '/data/' + directory + '/' + file
             outputFile = os.getcwd() + '/data/' + directory + '/' + \
-                file.split('.')[0] + '.extended.txt'
+                         file.split('.')[0] + '.extended.txt'
             expandInputFile(inputFile, outputFile)
 trainClassifiers()

@@ -1,8 +1,10 @@
+import os
 import pickle
+
 import numpy
 import scipy.spatial.distance
+
 from src.nlp_service.preprocessing.French.Vectorize import FrenchVectors
-import os
 
 
 # #################################################
@@ -80,5 +82,3 @@ class NamedEntity:
         a = self.__cos_dist(vec)
         x = numpy.where(a == numpy.min(a))
         return self.__entity[x[0][0]]
-
-

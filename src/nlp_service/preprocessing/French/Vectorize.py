@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from gensim.models.keyedvectors import KeyedVectors
+
 from src.nlp_service.preprocessing.French.GlobalVariable import Global
 
 
@@ -34,4 +35,4 @@ class FrenchVectors:
     # SAVE VECTOR
     def save_word_vector(self, directory):
         file = directory
-        self.word_vectors.save_word2vec_format(file, binary = True)
+        self.word_vectors.save_word2vec_format(file, binary=True)

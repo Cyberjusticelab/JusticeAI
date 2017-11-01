@@ -3,8 +3,10 @@ import os
 import pickle
 import re
 import string
+
 import nltk
 import numpy
+
 from src.nlp_service.preprocessing.French.Vectorize import FrenchVectors
 
 
@@ -29,7 +31,7 @@ class Ner:
     # Main method. Just run with a window size and
     # model will be saved in same directory
     # window: int
-    def train_named_entity(self, window = 0):
+    def train_named_entity(self, window=0):
         tuple_list = []
         tokens_list = []
         tokens = None
@@ -203,4 +205,3 @@ class Ner:
 if __name__ == '__main__':
     ner = Ner()
     ner.train_named_entity(window=1)
-

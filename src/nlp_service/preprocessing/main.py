@@ -1,4 +1,5 @@
 import sys
+
 try:
     from src.nlp_service.preprocessing.French.DecisionParse import Parser
 except:
@@ -6,7 +7,6 @@ except:
     sys.exit(1)
 from src.nlp_service.preprocessing.French.GlobalVariable import Global
 import os
-
 
 '''
 Look at /French/GlobalVariables/ to set your models directory

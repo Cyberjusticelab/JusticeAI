@@ -1,6 +1,5 @@
 from src.nlp_service.preprocessing.French.NerTraining import Ner
 
-
 '''
 Look at /French/GlobalVariables/ to set your models directory
 '''
