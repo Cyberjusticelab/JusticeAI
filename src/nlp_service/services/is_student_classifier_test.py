@@ -1,4 +1,4 @@
-from is_student_classifier import IsStudentClassifier
+from services.is_student_classifier import IsStudentClassifier
 
 
 def test_classify_true():

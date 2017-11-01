@@ -1,4 +1,4 @@
-from tenant_landlord_classifier import TenantLandlordClassifier
+from services.tenant_landlord_classifier import TenantLandlordClassifier
 
 
 def test_classify_tenant():
