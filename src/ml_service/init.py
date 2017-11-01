@@ -4,6 +4,7 @@ import urllib
 import os
 import time
 from threading import Thread
+from sys import stdout
 
 nltk.download('punkt')
 nltk.download('stopwords')
@@ -16,7 +17,8 @@ def monitorDownload(filename, filesize):
     while limit > current_size:
         current_size = os.stat(filename).st_size
         percentage = (current_size / filesize * 1.00) * 100
-        print("\t%s - Download percentage: %f%%" % (filename, percentage))
+        stdout.write("\r%s - Download percentage: %f%%" % (filename, percentage))
+        stdout.flush()
         time.sleep(3)
 
 
