@@ -17,4 +17,4 @@ class Global:
 
     # Add stop words as you see fit
     custom_stop_words = stopwords.words('french') + \
-                        [',', ';', '.', '!', '?', 'c', '(', ')']
+                        [',', ';', '.', '!', '?', 'c', '(', ')', 'ainsi']

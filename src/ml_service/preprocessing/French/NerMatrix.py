@@ -5,6 +5,7 @@ import numpy
 import scipy.spatial.distance
 
 from src.ml_service.preprocessing.French.Vectorize import FrenchVectors
+from src.ml_service.preprocessing.French.GlobalVariable import Global
 
 
 # #################################################
@@ -70,6 +71,8 @@ class NamedEntity:
         num_words = 0
         for i in range(len(word_list)):
             try:
+                if word_list[i] in Global.custom_stop_words:
+                    continue
                 vec = numpy.add(vec, self.__fv.word_vectors[word_list[i]])
                 num_words += 1
             except KeyError:
