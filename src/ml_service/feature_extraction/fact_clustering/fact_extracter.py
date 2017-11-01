@@ -80,7 +80,7 @@ def extractFactsFromFiles(j):
 
 def _saveErrorWords(errorWordSet):
     filePath = os.path.join(os.path.dirname(
-    os.path.realpath(__file__)), '../../error_words.txt')
+        os.path.realpath(__file__)), '../../error_words.txt')
     normalizedFilePath = os.path.normpath(filePath)
 
     errorFile = open(normalizedFilePath, 'w')
