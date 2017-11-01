@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
+import pickle
+import re
+
+from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from pattern3.text.fr import singularize
-from nltk.corpus import stopwords
-import re
-import pickle
 from scipy import spatial
-from src.nlp_service.feature_extraction.French.Vectorize import FrenchVectors
+
+from src.nlp_service.preprocessing.French.Vectorize import FrenchVectors
+
 
 def load():
     with open('ner_model.pickle', 'rb') as pickle_file:
@@ -14,23 +17,10 @@ def load():
 
 class DecisionModel:
     entity_2_french = {
-        'Tenant': "locataire",
-        'Landlord': "locateur",
         'Time': "temps",
         'Date': "date",
         'Money': "argent",
-        'Home': "habitat",
-        'Lease': "bail",
         'Time_Frequency': "fréquence",
-        'Article': "article",
-        'Expulsion': "expulsion",
-        'Termination': "résiliation",
-        'Pay': "payer",
-        'Order': "ordonner",
-        'Compensation': "compensation",
-        'Demand': "demander",
-        'Reject': "rejetter",
-        'Condemn': "condamner",
         'Other': "autre"
     }
     custom_vectors = load()

@@ -1,32 +1,22 @@
 # -*- coding: utf-8 -*-
-from src.nlp_service.feature_extraction.French.Vectorize import FrenchVectors
 import os
-import numpy
 import pickle
-import nltk
-from nltk.tokenize import WhitespaceTokenizer
 import re
 import string
 
+import nltk
+import numpy
+
+from src.nlp_service.preprocessing.French.Vectorize import FrenchVectors
+
+
 class Ner:
     entity_labels = {
-        'Tenant': [],
-        'Landlord': [],
         'Time': [],
         'Date': [],
         'Money': [],
-        'Home': [],
-        'Lease': [],
         'Time_Frequency': [],
-        'Article': [],
-        'Expulsion': [],
-        'Termination': [],
-        'Pay': [],
-        'Order': [],
-        'Compensation': [],
-        'Demand': [],
-        'Reject': [],
-        'Condemn': [],
+        'Relative_Time': [],
         'Other': []
     }
 
@@ -47,35 +37,45 @@ class Ner:
                 tpl = self.form_tuple(i)
                 tuple_list.append(tpl)
                 tokens = self.annotate_raw_text(content, tpl)
-            self.populate_labels(tokens)
-        self.define_vectors()
+            self.populate_labels(tokens, window)
+        self.create_vectors()
         self.save_pickle()
 
     def save_pickle(self):
         with open('ner_model.pickle', 'wb') as f:
             pickle.dump(self.entity_labels, f, pickle.HIGHEST_PROTOCOL)
 
-    def define_vectors(self):
+    def create_vectors(self):
         for entity in self.entity_labels:
-            word_lst = self.entity_labels[entity]
-            num_words = 0
             vec_sum = numpy.zeros(300)
-            for word in word_lst:
-                word = word.lower()
-                word = re.sub('['+string.punctuation+']', '', word)
-                try:
-                    vec_sum = numpy.add(vec_sum, self.fv.word_vectors[word])
-                    num_words += 1
-                except:
-                    pass
-            self.entity_labels[entity] = numpy.divide(vec_sum, num_words)
+            lst = self.entity_labels[entity]
+            for vectors in lst:
+                vec_sum = numpy.add(vec_sum, vectors)
+            self.entity_labels[entity] = numpy.divide(vec_sum, len(lst))
 
-    def populate_labels(self, token_list):
-        for token in token_list:
+    def populate_labels(self, token_list, window):
+        for i in range(len(token_list)):
             try:
-                self.entity_labels[token[1]].append(token[0])
+                vec = self.vectorise_window(token_list, i, window)
+                self.entity_labels[token_list[i][1]].append(vec)
+            except KeyError:
+                pass
+
+    def vectorise_window(self, token_list, index, window):
+        num_words = 0
+        vec_sum = numpy.zeros(300)
+        for i in range(index - window, index + window + 1, 1):
+            try:
+                word = token_list[i][0].lower()
+                word = re.sub('[' + string.punctuation + ']', '', word)
+            except IndexError:
+                continue
+            try:
+                vec_sum = numpy.add(vec_sum, self.fv.word_vectors[word])
+                num_words += 1
             except:
                 pass
+        return numpy.divide(vec_sum, num_words)
 
     def form_tuple(self, filename):
         tuple_list = []
@@ -106,6 +106,7 @@ class Ner:
         return_list = []
         tuple_list.sort(key=lambda x: x[0][2][0], reverse=True)
         text = text.replace(",", " ")
+        text = text.replace("'", " ")
         for i in range(len(tuple_list)):
             span = tuple_list[i][0][2]
             start = span[0]
@@ -119,7 +120,6 @@ class Ner:
                 pass
             text = text[:end] + ';' + tuple_list[i][0][0] + ")" + text[end:]
             text = text[:start] + "(" + text[start:]
-        text = text.replace("'", " ")
         text = text.replace("\n", " ")
         tokens = text.split(" ")
         for i in range(len(tokens)):
@@ -138,5 +138,5 @@ class Ner:
         return return_list
 
 ner = Ner()
-ner.train_named_entity()
+ner.train_named_entity(window=2)
 

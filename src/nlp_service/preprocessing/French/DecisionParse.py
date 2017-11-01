@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
-import re
-from src.nlp_service.feature_extraction.French.Model import DecisionModel
 import os
+import re
+
+from src.nlp_service.preprocessing.French.Model import DecisionModel
+
 
 class State:
     TOPIC = 0
