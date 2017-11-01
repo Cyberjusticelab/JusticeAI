@@ -1,4 +1,4 @@
-from src.nlp_service.services.lease_term_type_classifier import LeaseTermTypeClassifier
+from lease_term_type_classifier import LeaseTermTypeClassifier
 
 
 def test_classify_indeterminate():

@@ -1,4 +1,4 @@
-from src.nlp_service.services.problem_category_classifier import ProblemCategoryClassifier
+from problem_category_classifier import ProblemCategoryClassifier
 
 
 def test_classify_lease_termination():
