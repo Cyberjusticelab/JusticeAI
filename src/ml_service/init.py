@@ -21,7 +21,7 @@ def monitorDownload(filename, filesize):
 
 
 print("[START] Downloading Binary for Word2Vec Model")
-thr = Thread(target=monitorDownload, args=('test.bin', 312726847,))
+thr = Thread(target=monitorDownload, args=('non-lem.bin', 312726847,))
 thr.start()
 urllib.request.urlretrieve(
     "http://embeddings.org/frWac_non_lem_no_postag_no_phrase_500_skip_cut100.bin", "non-lem.bin")
