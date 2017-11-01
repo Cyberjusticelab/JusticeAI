@@ -66,7 +66,7 @@ class NamedEntity:
     # word_list: list[String]
     # return String
     def map_to_entity(self, word_list):
-        vec = numpy.zeros(300)
+        vec = numpy.zeros(500)
         num_words = 0
         for i in range(len(word_list)):
             try:

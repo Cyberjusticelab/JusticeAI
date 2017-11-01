@@ -8,6 +8,7 @@ import nltk
 import numpy
 
 from src.ml_service.preprocessing.French.Vectorize import FrenchVectors
+from src.ml_service.preprocessing.French.GlobalVariable import Global
 
 
 class Ner:
@@ -150,7 +151,7 @@ class Ner:
     # CREATE VECTORS
     def __create_vectors(self):
         for entity in self.entity_labels:
-            vec_sum = numpy.zeros(300)
+            vec_sum = numpy.zeros(500)
             lst = self.entity_labels[entity]
 
             for vectors in lst:
@@ -173,11 +174,13 @@ class Ner:
     # VECTORIZE WINDOW
     def __vectorize_word_window(self, token_list, index, window):
         num_words = 0
-        vec_sum = numpy.zeros(300)
+        vec_sum = numpy.zeros(500)
         for i in range(index - window, index + window + 1, 1):
             try:
                 word = token_list[i][0].lower()
                 word = re.sub('[' + string.punctuation + ']', '', word)
+                if word in Global.custom_stop_words:
+                    continue
                 if token_list[i][1] == 'Money':
                     word = '$'
             except IndexError:

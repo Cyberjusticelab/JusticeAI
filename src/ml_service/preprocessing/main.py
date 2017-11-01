@@ -1,10 +1,4 @@
-import sys
-
-try:
-    from src.ml_service.preprocessing.French.DecisionParse import Parser
-except:
-    print("Train NER model first")
-    sys.exit(1)
+from src.ml_service.preprocessing.French.DecisionParse import Parser
 from src.ml_service.preprocessing.French.GlobalVariable import Global
 import os
 
