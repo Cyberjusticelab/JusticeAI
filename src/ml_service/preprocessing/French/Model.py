@@ -124,11 +124,13 @@ class PrecedenceModel:
     # a corpus.
     # copy paste text output to your text editor/corpus
     def training_output(self):
-        return self.topics_str + "\n" \
-               + "\n" + self.facts_str + "\n" \
-               + "\n" + self.decisions_str
+        out = self.topics_str + "\n"
+        out += "\n" + self.facts_str + "\n"
+        out += "\n" + self.decisions_str
+        return out
 
     def __str__(self):
-        return "TOPICS: \n" + self.topics_str + "\n" \
-               + "FACTS: \n" + self.facts_str + "\n" \
-               + "DECISION: \n" + self.decisions_str
+        out = "TOPICS: \n" + self.topics_str + "\n"
+        out += "FACTS: \n" + self.facts_str + "\n"
+        out += "DECISION: \n" + self.decisions_str
+        return out
