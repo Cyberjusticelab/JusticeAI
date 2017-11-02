@@ -20,11 +20,12 @@ Initializes a new conversation
 
 **Data constraints**
 
-Provide the user's name
+Provide the user's name and person type.
 
 ```json
 {
-    "name": "[unicode 40 chars max]"
+    "name": "[unicode 40 chars max]",
+    "person_type": "(TENANT|LANDLORD)"
 }
 ```
 ## Success Response
@@ -70,7 +71,7 @@ Simple response containing a message.
 ```json
 {
     "conversation_id": 1,
-    "message": "Hello Tim Timmens, are you a landlord or a tenant?"
+    "message": "Hello Tim Timmens, what kind of problem are you having?"
 }
 ```
 
@@ -82,7 +83,7 @@ Response containing a request for a file.
     "file_request": {
         "document_type": "LEASE"
     },
-    "message": "So Tim Timmens, I see you're a tenant. What issue can I help you with today?"
+    "message": "Could you please upload your lease if you have it, Tim Timmens?"
 }
 ```
 
