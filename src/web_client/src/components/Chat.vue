@@ -22,7 +22,7 @@
       <!-- Log out -->
       <div id="chat-nav">
         <el-row>
-          <el-col :md="2" :offset="10">
+          <el-col :sm="2" :offset="22">
             <div id="chat-reset" v-on:click="resetChat()">
               <img alt="" src="../assets/logout.png">
               <p>
@@ -37,12 +37,12 @@
       <!-- Zeus Chat -->
       <div id="chat-zeus-container">
         <el-row>
-          <el-col :md="2" :offset="1">
+          <el-col :sm="4" :offset="3">
             <div id="chat-zeus-avatar">
               <img src="../assets/zeus_avatar_2.png"/>
             </div>
           </el-col>
-          <el-col :md="7">
+          <el-col :sm="14">
             <div id="chat-message-zeus">
               <img v-if="!zeus.input" alt="" src="../assets/chatting.gif">
               <transition name="fade">
@@ -77,13 +77,13 @@
       <!-- User Chat -->
       <div id="chat-user-container">
         <el-row>
-          <el-col :md="7" :offset="2">
+          <el-col :sm="14" :offset="3">
             <div id="chat-message-user" v-bind:class="{ msgIsSent: user.isSent && chatHistory}">
               <img v-if="!user.input" alt="" src="../assets/chatting.gif">
               <p v-if="user.input" v-html="user.input"></p>
             </div>
           </el-col>
-          <el-col :md="1">
+          <el-col :md="4">
             <div id="chat-user-avatar">
               <img src="../assets/user_avatar_2.png"/>
             </div>
