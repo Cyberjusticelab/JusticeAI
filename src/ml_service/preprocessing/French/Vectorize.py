@@ -15,7 +15,7 @@ def load_from_bin():
         model = KeyedVectors.load_word2vec_format(file, binary=True)
         print("Loading complete")
         return model
-    except:
+    except BaseException:
         return None
 
 

@@ -7,14 +7,14 @@ def get_path():
         __script_dir = os.path.abspath(__file__ + r"/../../../")
         __rel_path = r'WordVectors/non-lem.bin'
         return os.path.join(__script_dir, __rel_path)
-    except:
+    except BaseException:
         return ""
 
 
 def get_stop_words():
     try:
         return stopwords.words('french') + [',', ';', '.', '!', '?', 'c', '(', ')', 'ainsi']
-    except:
+    except BaseException:
         return None
 
 
