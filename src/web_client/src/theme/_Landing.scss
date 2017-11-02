@@ -46,6 +46,9 @@
                     margin-right: 10px;
                     cursor: pointer;
                     width: 200px;
+                    background-color: transparent;
+                    font-family: $zeus-font;
+                    font-size: 20px;
                     &:hover, &:active {
                         background-color: $main-gold-1;
                         color: $main-grey-5;
