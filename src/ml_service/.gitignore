@@ -9,3 +9,4 @@ coverage.xml
 *.bin
 /preprocessing/French/french_data/*
 /preprocessing/train.py
+/preprocessing/French/NerTraining.py

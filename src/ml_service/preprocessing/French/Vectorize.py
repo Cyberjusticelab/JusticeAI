@@ -9,11 +9,14 @@ from src.ml_service.preprocessing.French.GlobalVariable import Global
 # -------------------------------------------------
 # return word_vector_model
 def load_from_bin():
-    print("Loading word vector file... May take a few seconds")
-    file = Global.Word_Vector_Directory
-    model = KeyedVectors.load_word2vec_format(file, binary=True)
-    print("Loading complete")
-    return model
+    try:
+        print("Loading word vector file... May take a few seconds")
+        file = Global.Word_Vector_Directory
+        model = KeyedVectors.load_word2vec_format(file, binary=True)
+        print("Loading complete")
+        return model
+    except:
+        return None
 
 
 class FrenchVectors:
