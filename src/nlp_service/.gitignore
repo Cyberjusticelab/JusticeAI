@@ -1,5 +1,6 @@
 __pycache__
 venv
+services/**/*.pyc
 data/**/*.extended.txt
 data/**/*.pickle
 feature_extraction/WordVectors/*.pickle
