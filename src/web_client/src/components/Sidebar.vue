@@ -25,14 +25,14 @@
             <transition name="fade">
                 <ul v-if="openReportList">
                     <li>
-                        <b-row>
-                            <b-col md="6" offset-md="2">
+                        <el-row>
+                            <el-col :md="6" offset-:md="2">
                                 <p>report.pdf</p>
-                            </b-col>
-                            <b-col md="1">
+                            </el-col>
+                            <el-col :md="1">
                                 <img class="sidebar-file-view" alt="" src="../assets/file_view.png">
-                            </b-col>
-                        </b-row>
+                            </el-col>
+                        </el-row>
                     </li>
                 </ul>
             </transition>

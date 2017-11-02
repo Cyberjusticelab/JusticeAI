@@ -3,7 +3,7 @@
 </style>
 
 <template>
-  <b-container fluid id="chat-component">
+  <div id="chat-component">
     <!-- Chat History -->
     <transition name="fade">
       <div id="chat-history" v-if="user.openChatHistory" v-chat-scroll>
@@ -21,8 +21,8 @@
     <div id="chat-widow">
       <!-- Log out -->
       <div id="chat-nav">
-        <b-row>
-          <b-col md="2" offset-md="10">
+        <el-row>
+          <el-col :md="2" :offset="10">
             <div id="chat-reset" v-on:click="resetChat()">
               <img alt="" src="../assets/logout.png">
               <p>
@@ -30,19 +30,19 @@
                 <span v-if="!isLoggedIn">Reset</span>
               </p>
             </div>
-          </b-col>
-        </b-row>
+          </el-col>
+        </el-row>
       </div>
       <!-- End of Log out -->
       <!-- Zeus Chat -->
       <div id="chat-zeus-container">
-        <b-row>
-          <b-col md="2" offset-md="1">
+        <el-row>
+          <el-col :md="2" :offset="1">
             <div id="chat-zeus-avatar">
               <img src="../assets/zeus_avatar_2.png"/>
             </div>
-          </b-col>
-          <b-col md="7">
+          </el-col>
+          <el-col :md="7">
             <div id="chat-message-zeus">
               <img v-if="!zeus.input" alt="" src="../assets/chatting.gif">
               <transition name="fade">
@@ -62,53 +62,51 @@
                 </file-upload>
               </transition>
               <div id="file-upload-button-group" v-if="zeus.filePrompt">
-                <b-button v-show="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true" type="button" size="lg" variant="warning" :disabled="zeus.file.length == 0">Upload</b-button>
-                <b-button v-show="$refs.upload && $refs.upload.active" @click.prevent="$refs.upload.active = false" type="button" size="lg" variant="danger">Stop</b-button>
+                <el-button v-show="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true" type="warning"  :disabled="zeus.file.length == 0">Upload</el-button>
+                <el-button v-show="$refs.upload && $refs.upload.active" @click.prevent="$refs.upload.active = false" type="warning"  >Stop</el-button>
                 <p v-if="zeus.file[0] && zeus.file[0].success && $refs.upload.uploaded">Successfully uploaded <span>{{ zeus.file[0].name }}</span></p>
               </div>
               <div id="pre-selected-answer-group" v-if="zeus.suggestion && zeus.input">
-                <b-button v-for="answer in zeus.suggestion" :key="answer.id" type="button" size="lg" variant="warning" v-on:click="user.input = answer; sendUserMessage()">{{ answer }}</b-button>
+                <el-button v-for="answer in zeus.suggestion" :key="answer.id" type="warning"   v-on:click="user.input = answer; sendUserMessage()">{{ answer }}</el-button>
               </div>
             </div>
-          </b-col>
-        </b-row>
+          </el-col>
+        </el-row>
       </div>
       <!-- End of Zeus Chat -->
       <!-- User Chat -->
       <div id="chat-user-container">
-        <b-row>
-          <b-col md="7" offset-md="2">
+        <el-row>
+          <el-col :md="7" :offset="2">
             <div id="chat-message-user" v-bind:class="{ msgIsSent: user.isSent && chatHistory}">
               <img v-if="!user.input" alt="" src="../assets/chatting.gif">
               <p v-if="user.input" v-html="user.input"></p>
             </div>
-          </b-col>
-          <b-col md="1">
+          </el-col>
+          <el-col :md="1">
             <div id="chat-user-avatar">
               <img src="../assets/user_avatar_2.png"/>
             </div>
-          </b-col>
-        </b-row>
+          </el-col>
+        </el-row>
       </div>
       <!-- End of User Chat -->
     </div>
     <!-- End of Chat Widow -->
     <!-- Input Widow -->
     <div id="chat-input">
-      <b-form @submit.prevent="sendUserMessage()">
-        <b-form-group>
-          <b-form-input id="chat-input-text" v-model="user.input" placeholder="Enter your message" autocomplete="off" :disabled="user.disableInput"></b-form-input>
-          <b-button id="chat-input-submit" size="lg" variant="outline-success" type="submit" :disabled="!user.input">SEND</b-button>
-          <div id="chat-history-button" v-on:click="user.openChatHistory = !user.openChatHistory; getChatHistory()">
-            <img v-if="!user.openChatHistory" alt="" src="../assets/history_open.png">
-            <img v-if="user.openChatHistory" alt="" src="../assets/history_disable.png">
-          </div>
-        </b-form-group>
-      </b-form>
+      <el-form>
+        <el-input id="chat-input-text" v-model="user.input" placeholder="Enter your message" autocomplete="off" :disabled="user.disableInput"></el-input>
+        <el-button id="chat-input-submit" type="warning" :disabled="!user.input" @click="sendUserMessage()">SEND</el-button>
+        <div id="chat-history-button" v-on:click="user.openChatHistory = !user.openChatHistory; getChatHistory()">
+          <img v-if="!user.openChatHistory" alt="" src="../assets/history_open.png">
+          <img v-if="user.openChatHistory" alt="" src="../assets/history_disable.png">
+        </div>
+      </el-form>
       <!--<icon id="chat-input-voice" name="microphone" scale="3"></icon>-->
     </div>
     <!-- End of Input Widow -->
-  </b-container>
+  </div>
 </template>
 
 <script>
