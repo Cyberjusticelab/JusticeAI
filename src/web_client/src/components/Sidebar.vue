@@ -24,16 +24,16 @@
             </div>
             <transition name="fade">
                 <ul v-if="openReportList">
-                    <li>
-                        <b-row>
-                            <b-col md="6" offset-md="2">
+                    <el-row>
+                        <li>
+                            <el-col :sm="8" :offset="6">
                                 <p>report.pdf</p>
-                            </b-col>
-                            <b-col md="1">
+                            </el-col>
+                            <el-col :sm="2" :offset="2">
                                 <img class="sidebar-file-view" alt="" src="../assets/file_view.png">
-                            </b-col>
-                        </b-row>
-                    </li>
+                            </el-col>
+                        </li>
+                    </el-row>
                 </ul>
             </transition>
             <!-- End Report List -->
@@ -69,7 +69,6 @@ export default {
         }
     },
     methods: {
-
     }
 }
 </script>
