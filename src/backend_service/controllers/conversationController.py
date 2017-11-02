@@ -18,8 +18,11 @@ def get_conversation(conversation_id):
     return ConversationSchema().jsonify(conversation)
 
 
-def init_conversation(name):
-    conversation = Conversation(name=name)
+def init_conversation(name, person_type):
+    if person_type.upper() not in PersonType.__members__:
+        return abort(make_response(jsonify(message="Invalid person type provided"), 400))
+
+    conversation = Conversation(name=name, person_type=PersonType[person_type.upper()])
 
     # Persist new conversation to DB
     db.session.add(conversation)
