@@ -40,6 +40,10 @@ Provide the user's name and person type.
 }
 ```
 
+## Error Response
+
+**Code** : `400 Bad Request` - *Invalid person_type provided*
+
 ---
 
 # Send a message
@@ -281,3 +285,45 @@ Obtains information and contents of the latest legal documents
 
 **Code** : `200 OK`
 
+**Content examples**
+
+```json
+[
+    {
+        "abbreviation": "EULA",
+        "html": {
+            "content": [
+                {
+                    "subtitle": "TL;DR",
+                    "summary": "no purse as fully me or point. Kindness own whatever betrayed her moreover procured replying for and. Proposal indulged no do do sociable he throwing settling. Covered ten nor comfort offices carried. Age she way earnestly the fulfilled extremely.",
+                    "text": "Prevailed sincerity behaviour to so do principle mr. As departure at no propriety zealously my. On dear rent if girl view. First on smart there he sense. Earnestly enjoyment her you resources. Brother chamber ten old against. Mr be cottage so related minuter is. Delicate say and blessing ladyship exertion few margaret. Delight herself welcome against smiling its for. Suspected discovery by he affection household of principle perfectly he.",
+                    "title": "DESCRIPTION OF SERVICE"
+                },
+                {
+                    "subtitle": "TL;DR",
+                    "summary": "Scarcely on striking packages by so property in delicate. Up or well must less rent read walk so be. Easy sold at do hour sing spot. Any meant has cease too the decay. Since party burst am it match. By or blushes between besides offices noisier as.",
+                    "text": "It prepare is ye nothing blushes up brought. Or as gravity pasture limited evening on. Wicket around beauty say she. Frankness resembled say not new smallness you discovery. Noisier ferrars yet shyness weather ten colonel. Too him himself engaged husband pursuit musical. Man age but him determine consisted therefore. Dinner to beyond regret wished an branch he. Remain bed but expect suffer little repair.",
+                    "title": "ACCEPTANCE OF TERMS"
+                },
+                {
+                    "subtitle": "TL;DR",
+                    "summary": "Luckily friends do ashamed to do suppose. Tried meant mr smile so. Exquisite behaviour as to middleton perfectly.",
+                    "text": "He my polite be object oh change. Consider no mr am overcame yourself throwing sociable children. Hastily her totally conduct may. My solid by stuff first smile fanny. Humoured how advanced mrs elegance sir who. Home sons when them dine do want to. Estimating themselves unsatiable imprudence an he at an. Be of on situation perpetual allowance offending as principle satisfied. Improved carriage securing are desirous too.",
+                    "title": "MODIFICATION OF TERMS"
+                },
+                {
+                    "subtitle": "TL;DR",
+                    "summary": "Improved own provided blessing may peculiar domestic. Sight house has sex never. No visited raising gravity outward subject my cottage mr be. Hold do at tore in park feet near my case.",
+                    "text": "Extremely we promotion remainder eagerness enjoyment an. Ham her demands removal brought minuter raising invited gay. Contented consisted continual curiosity contained get sex. Forth child dried in in aware do. You had met they song how feel lain evil near. Small she avoid six yet table china. And bed make say been then dine mrs. To household rapturous fulfilled attempted on so. ",
+                    "title": "REGISTRATION"
+                }
+            ],
+            "header": "End User License Agreement",
+            "subheader": "Savings her pleased are several started females met. Short her not among being any. Thing of judge fruit charm views do. Miles mr an forty along as he. She education get middleton day agreement performed preserved unwilling. Do however as pleased offence outward beloved by present. By outward neither he so covered amiable greater. Juvenile proposal betrayed he an informed weddings followed. Precaution day see imprudence sympathize principles. At full leaf give quit to in they up."
+        },
+        "time_created": "2017-10-26T20:52:41-04:00",
+        "type": "End User License Agreement",
+        "version": 1
+    }
+]
+```
