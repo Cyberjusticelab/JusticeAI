@@ -11,6 +11,13 @@ def get_path():
         return ""
 
 
+def get_stop_words():
+    try:
+        return stopwords.words('french') + [',', ';', '.', '!', '?', 'c', '(', ')', 'ainsi']
+    except:
+        return None
+
+
 # #################################################
 # GLOBAL
 # -------------------------------------------------
@@ -22,5 +29,4 @@ class Global:
     Word_Vector_Directory = get_path()
 
     # Add stop words as you see fit
-    custom_stop_words = stopwords.words('french') + \
-                        [',', ';', '.', '!', '?', 'c', '(', ')', 'ainsi']
+    custom_stop_words = get_stop_words()
