@@ -169,10 +169,7 @@ def __get_conversation(conversation_id):
 
 def __generate_response(conversation, message):
     if __has_just_accepted_disclaimer(conversation):
-        response_text = StaticStrings.chooseFrom(StaticStrings.welcome).format(name=conversation.name)
-        return {'response_text': response_text}
-    if conversation.person_type is None:
-        return __determine_person_type(conversation, message)
+        return __ask_initial_question(conversation)
     elif conversation.claim_category is None:
         return __determine_claim_category(conversation, message)
     elif conversation.current_fact is not None:
@@ -190,35 +187,23 @@ def __generate_response(conversation, message):
         return {'response_text': question}
 
 
-def __determine_person_type(conversation, message):
-    person_type = None
-    nlp_request = nlpService.fact_extract(['tenant_landlord'], message)
+def __ask_initial_question(conversation):
+    person_type = conversation.person_type
 
-    for fact in nlp_request['facts']:
-        person_type = fact['tenant_landlord']
+    file_request = None
+    if person_type is PersonType.TENANT:
+        file_request = FileRequest(document_type=DocumentType.LEASE)
 
-    if person_type is not None:
-        conversation.person_type = {
-            'tenant': PersonType.TENANT,
-            'landlord': PersonType.LANDLORD
-        }[person_type]
+    db.session.commit()
 
-        file_request = None
-        if person_type == 'tenant':
-            file_request = FileRequest(document_type=DocumentType.LEASE)
+    # Generate response based on person type
+    response = None
+    if person_type is PersonType.TENANT:
+        response = StaticStrings.chooseFrom(StaticStrings.problem_inquiry_tenant).format(name=conversation.name)
+    elif person_type is PersonType.LANDLORD:
+        response = StaticStrings.chooseFrom(StaticStrings.problem_inquiry_landlord).format(name=conversation.name)
 
-        db.session.commit()
-
-        # Generate response based on person type
-        response = None
-        if person_type == 'tenant':
-            response = StaticStrings.chooseFrom(StaticStrings.problem_inquiry_tenant).format(name=conversation.name)
-        elif person_type == 'landlord':
-            response = StaticStrings.chooseFrom(StaticStrings.problem_inquiry_landlord).format(name=conversation.name)
-
-        return {'response_text': response, 'file_request': file_request}
-    else:
-        return {'response_text': StaticStrings.chooseFrom(StaticStrings.clarify)}
+    return {'response_text': response, 'file_request': file_request}
 
 
 def __determine_claim_category(conversation, message):
