@@ -20,7 +20,7 @@ from controllers import conversationController, legalController
 @app.route("/new", methods=['POST'])
 def init_conversation():
     init_request = request.get_json()
-    return conversationController.init_conversation(init_request['name'])
+    return conversationController.init_conversation(init_request['name'], init_request['person_type'])
 
 
 @app.route("/conversation", methods=['POST'])
