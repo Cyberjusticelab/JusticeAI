@@ -144,16 +144,6 @@ def upload_file(conversation_id, file):
                 fileService.get_file_extension(file), fileService.get_accepted_formats_string())), 400))
 
 
-def get_file(conversation_id, file_id):
-    conversation = __get_conversation(conversation_id)
-
-    for file in conversation.files:
-        if file.id == int(file_id):
-            return flask.send_from_directory(file.path, file.name, mimetype=file.type, as_attachment=True)
-
-    return abort(make_response(jsonify(message="File does not exist"), 404))
-
-
 ##################
 # Private Methods
 ##################

@@ -167,7 +167,7 @@ Gets the message history for a conversation
 
 ---
 
-# Upload a file
+# Upload a file 
 
 Upload a file that serves as evidence for a particular conversation.
 
@@ -191,7 +191,6 @@ Provide 'file' form key with file data.
 
 ```json
 {
-    "id": 1,
     "name": "leaky_pipes.png",
     "type": "image/png",
     "timestamp": "2017-10-24T00:01:27.806730+00:00"
@@ -224,13 +223,11 @@ Gets a list of file metadata for a conversation
 {
 	"files": [
 		{
-			"id": 1,
 			"name": "leaky_pipes.png",
 			"type": "image/png",
 			"timestamp": "2017-10-24T00:01:27.000000+00:00"
 		},
 		{
-			"id": 2,
 			"name": "my_least.pdf",
 			"type": "application/pdf",
 			"timestamp": "2017-10-24T00:01:30.000000+00:00"
@@ -238,32 +235,6 @@ Gets a list of file metadata for a conversation
 	]	
 }
 ```
-
-## Error Response
-
-**Code** : `400 Bad Request`
-
-**Code** : `404 Not Found`
-
----
-
-# Get conversation's file
-
-Downloads a file uploaded as part of a conversation
-
-**URL** : `/conversation/:conversation_id/files/:file_id`
-
-**Method** : `GET`
-
-## Success Response
-
-**Code** : `200 OK`
-
-**Content-Type** : `image/jpeg, image/png, application/pdf`
-
-**Content-Disposition** : attachment; filename=file_name.extension
-
-**Body** : Binary file content
 
 ## Error Response
 
