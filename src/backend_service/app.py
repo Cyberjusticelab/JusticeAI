@@ -20,7 +20,7 @@ from controllers import conversationController, legalController
 @app.route("/new", methods=['POST'])
 def init_conversation():
     init_request = request.get_json()
-    return conversationController.init_conversation(init_request['name'])
+    return conversationController.init_conversation(init_request['name'], init_request['person_type'])
 
 
 @app.route("/conversation", methods=['POST'])
@@ -48,14 +48,6 @@ def handle_files(conversation_id=None):
                 abort(make_response(jsonify(message="No file provided"), 400))
 
             return conversationController.upload_file(conversation_id, request.files['file'])
-    else:
-        abort(make_response(jsonify(message="Invalid request"), 400))
-
-
-@app.route("/conversation/<conversation_id>/files/<file_id>", methods=['GET'])
-def get_files(conversation_id=None, file_id=None):
-    if conversation_id and file_id:
-        return conversationController.get_file(conversation_id, file_id)
     else:
         abort(make_response(jsonify(message="Invalid request"), 400))
 

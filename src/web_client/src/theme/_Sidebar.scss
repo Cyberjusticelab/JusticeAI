@@ -10,7 +10,7 @@
         cursor: pointer;
     }
     #sidebar-logo {
-        height: 15%;
+        height: 120px;
         img {
             margin-top: 40px;
             width: 70%;
@@ -23,10 +23,11 @@
         }
     }
     #sidebar-account {
-        height: 20%;
+        height: 210px;
         color: $main-grey-5;
         h2 {
             font-size: 30px;
+            margin-top: 20px;
         }
         img {
             margin-top: 25px;
@@ -35,7 +36,7 @@
         }
     }
     #sidebar-menu {
-        height: 60%;
+        height: 500px;
         .sidebar-menu {
             background-color: $main-grey-2;
             height: 70px;
@@ -61,9 +62,7 @@
             }
         }
         ul {
-            margin: 10px;
             li {
-                height: 34px;
                 list-style: none;
                 width: 90%;
                 text-align: left;
@@ -72,17 +71,14 @@
                     color: $main-grey-3;
                 }
                 .sidebar-file-view {
-                    margin-right: 15%;
                     display: inline-block;
-                }
-                .col-md-6 {
-                    overflow: hidden;
+                    margin-top: 15px;
                 }
             }
         }
     }
     #sidebar-legal {
-        height: 5%;
+        height: 20px;
         a {
             color: $main-grey-5;
             text-decoration: none;

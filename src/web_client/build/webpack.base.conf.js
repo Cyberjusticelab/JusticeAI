@@ -70,8 +70,18 @@ module.exports = {
         }
       },
       {
-          test: /\.s[a|c]ss$/,
-          loader: 'style!css!sass'
+        test: /\.s[a|c]ss$/,
+        loader: 'style!css!sass'
+      },
+      {
+        test: /\.s[a|c]ss$/,
+        loader: "style-loader" // creates style nodes from JS strings
+      }, {
+        test: /\.s[a|c]ss$/,
+        loader: "css-loader" // translates CSS into CommonJS
+      }, {
+        test: /\.s[a|c]ss$/,
+        loader: "sass-loader" // compiles Sass to CSS
       }
     ]
   }

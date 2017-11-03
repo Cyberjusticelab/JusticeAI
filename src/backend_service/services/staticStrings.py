@@ -7,14 +7,6 @@ class StaticStrings:
         "Hello {name}! Before we start, I want to make it clear that I am not a replacement for a lawyer and any information I provide you with is not meant to be construed as legal advice. Always check in with your legal professional. You can read more about our terms of use <a href='/legal' target='_blank'>here</a>. Do you accept these conditions?"
     ]
 
-    # Asking for person type
-    welcome = [
-        "Hello {name}! To start off, are you a landlord or a tenant?",
-        "Hey {name}, I'm here to help you with your rental disputes! Are you a landlord or a tenant?",
-        "Nice to meet you {name}, are you a landlord or a tenant?",
-        "You've got questions, I've got answers! Are you a landlord or a tenant, {name}?"
-    ]
-
     # Asking for initial problem description
     problem_inquiry_landlord = [
         "So {name}, I see you're a landlord. What issue can I help you with today?",

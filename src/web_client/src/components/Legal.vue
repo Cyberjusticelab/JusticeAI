@@ -3,55 +3,51 @@
 </style>
 
 <template>
-    <b-container fluid id="legal-component">
-        <div id="legal-nav">
-            <b-row>
-                <b-col md="3">
+    <el-container id="legal-component">
+        <el-row>
+            <div id="legal-nav">
+                <el-col :sm="6">
                     <div id="legal-nav-logo">
                         <img alt="" src="../assets/logo.png">
                     </div>
-                </b-col>
-                <b-col md="1" offset-md="8">
+                </el-col>
+                <el-col :sm="2" :offset="16">
                     <div id="legal-nav-item">
                         <a href="/">Home</a>
                     </div>
-                </b-col>
-            </b-row>
-        </div>
+                </el-col>
+            </div>
+        </el-row>
         <div id="legal-content">
-            <b-row>
-                <b-col md="6" offset-md="3">
+            <el-row>
+                <el-col :sm="12" :offset="6">
                     <div class="legal-content-main-header">
                         <h1>{{ eula.header }}</h1>
                         <p>{{ eula.subheader }} </p>
                     </div>
-                </b-col>
-            </b-row>
+                </el-col>
+            </el-row>
             <div v-for="(section,index) in eula.content" v-bind:class="{ 'legal-content-body-1': index%2 !== 0, 'legal-content-body-2': index%2 == 0 }">
-                <b-row>
-                    <b-col md="5" offset-md="1">
+                <el-row :gutter="24">
+                    <el-col :sm="12">
                         <div class="legal-content-text">
                             <h4>{{ section.title }}</h4>
                             <p>{{ section.text }}</p>
                         </div>
-                    </b-col>
-                    <b-col md="5">
+                    </el-col>
+                    <el-col :sm="12">
                         <div class="legal-content-text">
                             <h4>{{ section.subtitle }}</h4>
                             <p>﻿{{ section.summary }}</p>
                         </div>
-                    </b-col>
-                </b-row>
+                    </el-col>
+                </el-row>
             </div>
         </div>
         <div id="legal-footer">
-            <b-row>
-                <b-col md="4" offset="1">
-                    <p>© 2017 Cyberjustice Laboratory</p>
-                </b-col>
-            </b-row>
+            <p>© 2017 Cyberjustice Laboratory</p>
         </div>
-    </b-container>
+    </el-container>
 </template>
 
 <script>
