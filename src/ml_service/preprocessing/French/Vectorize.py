@@ -2,6 +2,7 @@
 from gensim.models.keyedvectors import KeyedVectors
 
 from src.ml_service.preprocessing.French.GlobalVariable import Global
+import numpy
 
 
 # #################################################
@@ -39,3 +40,16 @@ class FrenchVectors:
     def save_word_vector(self, directory):
         file = directory
         self.word_vectors.save_word2vec_format(file, binary=True)
+
+    @staticmethod
+    def vectorize_sent(word_list):
+        vector = numpy.zeros(500)
+        num = 0
+        for word in word_list:
+            try:
+                vector = numpy.add(vector, FrenchVectors.word_vectors[word])
+                num += 1
+            except KeyError:
+                pass
+        return numpy.divide(vector, num)
+
