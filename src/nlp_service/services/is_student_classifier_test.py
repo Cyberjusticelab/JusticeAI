@@ -7,5 +7,6 @@ def test_classify_true():
 
 
 def test_classify_false():
+    # This test keeps failing.
     assert IsStudentClassifier().classify('I have graduated')[
         'is_student'] == 'false'
