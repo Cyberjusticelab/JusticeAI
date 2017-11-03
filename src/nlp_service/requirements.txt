@@ -12,3 +12,5 @@ six==1.11.0
 textblob==0.13.0
 Werkzeug==0.12.2
 numpy==1.13.3
+scipy==1.0.0
+gensim==3.0.1

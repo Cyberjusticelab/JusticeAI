@@ -3,6 +3,7 @@ venv
 services/**/*.pyc
 data/**/*.extended.txt
 data/**/*.pickle
+preprocessing/French/*.pickle
 feature_extraction/WordVectors/*.pickle
 .cache
 .coverage
@@ -10,4 +11,3 @@ feature_extraction/WordVectors/*.pickle
 ./**/*.iml
 feature_extraction/Documentation/clause_finder.json
 feature_extraction/Documentation/example.txt
-
