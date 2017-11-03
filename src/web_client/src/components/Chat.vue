@@ -96,7 +96,7 @@
     <!-- Input Widow -->
     <div id="chat-input">
       <el-form>
-        <el-input id="chat-input-text" v-model="user.input" placeholder="Enter your message" autoComplete="off" :disabled="user.disableInput"></el-input>
+        <el-input id="chat-input-text" autosize v-model="user.input" placeholder="Enter your message" autoComplete="off" :disabled="user.disableInput"></el-input>
         <el-button id="chat-input-submit" type="warning" :disabled="!user.input" @click="sendUserMessage()">SEND</el-button>
         <div id="chat-history-button" v-on:click="user.openChatHistory = !user.openChatHistory; getChatHistory()">
           <img v-if="!user.openChatHistory" alt="" src="../assets/history_open.png">
