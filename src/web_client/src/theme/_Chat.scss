@@ -47,10 +47,12 @@
       min-height: 50px;
       border: 2px solid $main-gold-2;
       background-color: $main-grey-5;
+      color: $main-grey-2;
       p {
         text-align: center;
         margin: auto;
         padding: 12px;
+        font-family: $zeus-font;
       }
       img {
         margin: auto;
@@ -105,19 +107,20 @@
     border-top: 1px solid gold;
     background-color: $main-grey-5;
     height: 23%;
-    #chat-input-text {
-      text-align: center;
+    .el-input {
       width: 80%;
       height: 50px;
       margin: auto;
       margin-top: 45px;
+      display: block;
     }
-    #chat-input-submit {
+    .el-button {
       margin: auto;
       margin-top: 15px;
       width: 250px;
       border-color: $main-gold-2;
       color: black;
+      display: block;
       &:hover:enabled {
         background-color: $main-gold-2;
         color: $main-white-1;

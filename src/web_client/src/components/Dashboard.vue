@@ -4,16 +4,16 @@
 
 <template>
     <div id="dashboard-component">
-        <b-container fluid>
-            <b-row>
-                <b-col md="3">
+        <el-container>
+            <el-row>
+                <el-col :sm="5" >
                     <sidebar></sidebar>
-                </b-col>
-                <b-col md="9">
+                </el-col>
+                <el-col :sm="19">
                     <chat></chat>
-                </b-col>
-            </b-row>
-        </b-container>
+                </el-col>
+            </el-row>
+        </el-container>
     </div>
 </template>
 

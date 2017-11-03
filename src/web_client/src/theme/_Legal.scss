@@ -3,23 +3,29 @@
 #legal-component {
     width: 100%;
     padding: 0px;
-    overflow-x: hidden;
+    .el-container {
+        width: 100%;
+    }
     #legal-nav {
         width: 100%;
-        background-color: $main-grey-1;
+        background-color: $main-grey-2;
         height: 60px;
         position: fixed;
-        #legal-nav-logo {
-            height: 70%;
-            padding-top: 4px;
-            img {
-                height: 100%;
+        .el-col {
+            height: 100%;
+            #legal-nav-logo {
+                height: 70%;
+                padding-top: 7px;
+                img {
+                    height: 90%;
+                }
             }
-        }
-        #legal-nav-item {
-            padding-top: 18px;
-            a {
-                color: $main-grey-5;
+            #legal-nav-item {
+                padding-top: 18px;
+                a {
+                    text-decoration: none;
+                    color: $main-grey-5;
+                }
             }
         }
     }
@@ -43,8 +49,10 @@
     }
     #legal-footer {
         width: 100%;
+        height: 60px;
         background-color: $main-grey-1;
         p {
+            text-align: center;
             color: $main-grey-4;
             margin-top: 20px;
         }

@@ -131,7 +131,7 @@ class FactSchema(ma.ModelSchema):
 
 class FileSchema(ma.ModelSchema):
     class Meta:
-        fields = ('id', 'name', 'type', 'timestamp')
+        fields = ('name', 'type', 'timestamp')
 
 
 class ConversationSchema(ma.ModelSchema):
