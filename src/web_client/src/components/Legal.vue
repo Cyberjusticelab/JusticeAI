@@ -20,7 +20,7 @@
         </el-row>
         <div id="legal-content">
             <el-row>
-                <el-col :sm="12" :offset="6">
+                <el-col :sm="10" :offset="7">
                     <div class="legal-content-main-header">
                         <h1>{{ eula.header }}</h1>
                         <p>{{ eula.subheader }} </p>
@@ -29,13 +29,13 @@
             </el-row>
             <div v-for="(section,index) in eula.content" v-bind:class="{ 'legal-content-body-1': index%2 !== 0, 'legal-content-body-2': index%2 == 0 }">
                 <el-row :gutter="24">
-                    <el-col :sm="12">
+                    <el-col :sm="9" :offset="2">
                         <div class="legal-content-text">
                             <h4>{{ section.title }}</h4>
                             <p>{{ section.text }}</p>
                         </div>
                     </el-col>
-                    <el-col :sm="12">
+                    <el-col :sm="9" :offset="2">
                         <div class="legal-content-text">
                             <h4>{{ section.subtitle }}</h4>
                             <p>﻿{{ section.summary }}</p>
