@@ -121,5 +121,5 @@ class Parser:
     # ** This method can be enhanced for better classification
     #    This is just a proof of concept for now
     def __split_sub_sentence(self, sentence):
-        sentence = sentence.replace(',', ".")
+        #sentence = sentence.replace(',', ".")
         return sentence.split('.')
