@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
+import os
 import re
 
-from src.ml_service.preprocessing.French.GlobalVariable import Global
-from src.ml_service.preprocessing.French.Model import PrecedenceModel
+import numpy as np
+
+from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.Vectorize import FrenchVectors
+from src.ml_service.GlobalVariables.GlobalVariable import Global
+from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.Model import PrecedenceModel
 
 
 # #################################################
@@ -22,7 +26,7 @@ class State:
 class Precedence_Parser:
     __factMatch = re.compile('\[\d+\]\s')
     __minimum_line_length = 6
-    __conjunction_match = re.compile('mais\s|ou\s|et\s|donc\s|or\s|ni\s|car\s|plus\s|ainsi\s')
+    __conjunction_match = re.compile('mais\s|ou\s|et\s|donc\s|or\s|ni\s|car\s|ainsi\s')
 
     # #################################################
     # CONSTRUCTOR
@@ -125,3 +129,33 @@ class Precedence_Parser:
         if self.__conjunction_match.findall(sentence):
             sentence = re.sub(self.__conjunction_match, '. ', sentence)
         return sentence.split('.')
+
+    '''
+    ------------------------------------------------------
+    Parse Training Data
+    ------------------------------------------------------
+
+    Vectorizes sentences and creates a matrix from it.
+    Also appends original sentence to a list
+
+    file_directory <string>: precedence file directory
+    nb_of_files <int>: Number of files to train on
+
+    returns <array, array>    
+    '''
+    def parse_training_data(self, file_directory, nb_of_files):
+        j = 0
+        data = []
+        sent = []
+        for i in os.listdir(file_directory):
+            if (nb_of_files is not None) and (j >= nb_of_files):
+                break
+            j += 1
+            model = self.parse(i)
+            for i in range(len(model.core_topic)):
+                if model.topics[i] in sent:
+                    continue
+                vec = FrenchVectors.vectorize_sent(model.core_topic[i])
+                data.append(vec)
+                sent.append(model.topics[i])
+        return np.array(data), np.array(sent)

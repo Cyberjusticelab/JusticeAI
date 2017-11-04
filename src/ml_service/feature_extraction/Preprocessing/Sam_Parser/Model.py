@@ -3,8 +3,8 @@ import re
 
 from nltk.tokenize import word_tokenize
 
-from src.ml_service.preprocessing.French.GlobalVariable import Global
-from src.ml_service.preprocessing.French.NerMatrix import NamedEntity
+from src.ml_service.GlobalVariables.GlobalVariable import  Global
+from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.NerMatrix import NamedEntity
 
 
 # #################################################

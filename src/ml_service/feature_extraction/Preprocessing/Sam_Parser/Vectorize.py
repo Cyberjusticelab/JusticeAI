@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
+import numpy
 from gensim.models.keyedvectors import KeyedVectors
 
-from src.ml_service.preprocessing.French.GlobalVariable import Global
-import numpy
+from src.ml_service.GlobalVariables.GlobalVariable import Global
 
 
 # #################################################
@@ -41,15 +41,55 @@ class FrenchVectors:
         file = directory
         self.word_vectors.save_word2vec_format(file, binary=True)
 
+    '''
+    ----------------------------------------------------------------
+    Vectorize Sentence
+    ----------------------------------------------------------------
+    
+    Adds vectors together and divides by number of words
+    
+    word_list <list[String]>: list of words representing a sentence
+    return: numpy array
+    '''
     @staticmethod
     def vectorize_sent(word_list):
-        vector = numpy.zeros(500)
+        vector = numpy.zeros(Global.Word_Vector_Size)
         num = 0
         for word in word_list:
             try:
+                if word in Global.custom_stop_words:
+                    continue
                 vector = numpy.add(vector, FrenchVectors.word_vectors[word])
                 num += 1
             except KeyError:
                 pass
         return numpy.divide(vector, num)
 
+    '''
+    ---------------------------------------------------
+    Vectorize Kernel
+    ---------------------------------------------------
+    
+    Vectorizes word window given by the kernel matrix.
+    Used in named entity recognition
+    
+    word_list: <list[String]>
+    returns: numpy array
+    '''
+    @staticmethod
+    def vectorize_kernel(word_list):
+        vec = numpy.zeros(Global.Word_Vector_Size)
+        num_words = 0
+        for i in range(len(word_list)):
+            try:
+                if word_list[i] in Global.custom_stop_words:
+                    continue
+                vec = numpy.add(vec, FrenchVectors.word_vectors[word_list[i]])
+                num_words += 1
+            except KeyError:
+                if i == 0:
+                    return None
+                continue
+        if num_words == 0:
+            return None
+        return numpy.divide(vec, num_words)

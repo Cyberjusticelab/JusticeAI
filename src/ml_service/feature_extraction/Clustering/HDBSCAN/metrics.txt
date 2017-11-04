@@ -7,3 +7,11 @@ Number_of_clusters: 465	Number_of_files used: 4000	Noise: 800
 Number_of_clusters: 794	Number_of_files used: 8000	Noise: 1381
 Number_of_clusters: 1407	Number_of_files used: 16000	Noise: 2485
 Number_of_clusters: 2470	Number_of_files used: 32000	Noise: 4322
+Number_of_clusters: 6	Number_of_files used: 10	Noise: 7
+Number_of_clusters: 25	Number_of_files used: 100	Noise: 30
+Number_of_clusters: 25	Number_of_files used: 100	Noise: 30
+Number_of_clusters: 23	Number_of_files used: 100	Noise: 33
+Number_of_clusters: 23	Number_of_files used: 100	Noise: 33
+Number_of_clusters: 23	Number_of_files used: 100	Noise: 40
+Number_of_clusters: 142	Number_of_files used: 1000	Noise: 270
+Number_of_clusters: 142	Number_of_files used: 1000	Noise: 270
