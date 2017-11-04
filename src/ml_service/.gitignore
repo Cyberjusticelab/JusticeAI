@@ -4,5 +4,9 @@ venv
 .coverage
 coverage.xml
 .idea/
-outputs
+./**/*.iml
+.idea/*
 *.bin
+/preprocessing/French/french_data/*
+/preprocessing/train.py
+/preprocessing/French/NerTraining.py

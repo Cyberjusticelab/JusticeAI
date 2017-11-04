@@ -54,12 +54,12 @@ def _vectorize(sentence, errorWordSet):
                     newWord = word_vectors.wv[word]
                     numWords += 1
                     vec = np.add(vec, newWord)
-                except:
+                except BaseException:
                     try:
                         newWord = word_vectors.wv[singularize(word)]
                         numWords += 1
                         vec = np.add(vec, newWord)
-                    except:
+                    except BaseException:
                         errorWordSet.add(word)
     if numWords < 1:
         return None
