@@ -10,3 +10,6 @@ coverage.xml
 /preprocessing/French/french_data/*
 /preprocessing/train.py
 /preprocessing/French/NerTraining.py
+/preprocessing/French/Clustering/first_pass/*
+/preprocessing/French/Clustering/outliers/*
+/preprocessing/French/Clustering/second_pass/*

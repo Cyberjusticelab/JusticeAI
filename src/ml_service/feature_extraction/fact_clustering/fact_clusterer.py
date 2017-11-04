@@ -12,7 +12,7 @@ def clusterFacts(factDict):
     ms.fit(X)
     labels = ms.labels_
     n_clusters = len(np.unique(labels))
-    print("Number of estimated clusters : %d" % n_clusters)
+    print("Number of estimated first_pass : %d" % n_clusters)
     writeFactsToFile(factDict, labels)
 
 

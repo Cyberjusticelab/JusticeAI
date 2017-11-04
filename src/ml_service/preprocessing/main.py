@@ -1,4 +1,4 @@
-from src.ml_service.preprocessing.French.DecisionParse import Parser
+from src.ml_service.preprocessing.French.DecisionParse import Precedence_Parser
 from src.ml_service.preprocessing.French.GlobalVariable import Global
 import os
 
@@ -9,7 +9,7 @@ Look at /French/GlobalVariables/ to set your models directory
 # #######################################
 # DEMO
 if __name__ == '__main__':
-    parser = Parser()
+    parser = Precedence_Parser()
     j = 0
     for i in os.listdir(Global.Precedence_Directory):
         if 'AZ-5120' in i and j < 10:

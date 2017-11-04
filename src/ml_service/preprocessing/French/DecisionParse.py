@@ -19,9 +19,10 @@ class State:
 
 # #################################################
 # PARSER
-class Parser:
+class Precedence_Parser:
     __factMatch = re.compile('\[\d+\]\s')
     __minimum_line_length = 6
+    __conjunction_match = re.compile('mais\s|ou\s|et\s|donc\s|or\s|ni\s|car\s|plus\s|ainsi\s')
 
     # #################################################
     # CONSTRUCTOR
@@ -121,5 +122,6 @@ class Parser:
     # ** This method can be enhanced for better classification
     #    This is just a proof of concept for now
     def __split_sub_sentence(self, sentence):
-        #sentence = sentence.replace(',', ".")
+        if self.__conjunction_match.findall(sentence):
+            sentence = re.sub(self.__conjunction_match, '. ', sentence)
         return sentence.split('.')

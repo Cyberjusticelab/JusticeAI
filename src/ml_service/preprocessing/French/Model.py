@@ -77,6 +77,8 @@ class PrecedenceModel:
         for i in range(len(word_list)):
             if word_list[i] == 'locateur':
                 word_list[i] = 'propriétaire'
+            elif word_list[i] == 'locatrice':
+                word_list[i] = 'locataire'
             kernel = [word_list[i]]
             if i != 0:
                 kernel.append(word_list[i - 1])
