@@ -3,6 +3,8 @@
 #legal-component {
     width: 100%;
     padding: 0px;
+    overflow-x: hidden;
+    font-family: $zeus-font;
     .el-container {
         width: 100%;
     }
@@ -11,6 +13,7 @@
         background-color: $main-grey-2;
         height: 60px;
         position: fixed;
+        z-index: 1;
         .el-col {
             height: 100%;
             #legal-nav-logo {
@@ -25,11 +28,14 @@
                 a {
                     text-decoration: none;
                     color: $main-grey-5;
+                    cursor: pointer;
                 }
             }
         }
     }
     #legal-content {
+        min-width: 100%;
+        margin-bottom: 80px;
         .legal-content-main-header {
             margin-top: 140px;
             margin-bottom: 50px;
@@ -45,16 +51,17 @@
             @extend .legal-content-body-1;
             background-color: $main-grey-5;
         }
-        margin-bottom: 50px;
     }
     #legal-footer {
+        position: fixed;
+        bottom: 0px;
         width: 100%;
-        height: 60px;
+        height: 40px;
         background-color: $main-grey-1;
         p {
             text-align: center;
             color: $main-grey-4;
-            margin-top: 20px;
+            margin-bottom: 10px;
         }
     }
 }
