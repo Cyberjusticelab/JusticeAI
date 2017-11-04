@@ -1,15 +1,16 @@
-
 import re
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem.snowball import SnowballStemmer
 from fact_extraction import extract_data_from_cases
 from stop_words import get_stop_words
+from preprocessing import preprocessing
 
 stemmer = SnowballStemmer("french")
 
-claim_text = extract_data_from_cases('/Users/taimoorrana/Downloads/text_bk/', 2000)
-f = open('helloworld.txt','w')
+claim_text = extract_data_from_cases('/Users/taimoorrana/Downloads/text_bk/', 1000)
+claim_text = preprocessing(claim_text)
+f = open('helloworld.txt', 'w')
 
 # stem words
 def tokenize_and_stem(text):
@@ -39,7 +40,7 @@ def tokenize_only(text):
 # use extend so it's a big flat list of vocab
 totalvocab_stemmed = []
 totalvocab_tokenized = []
-#stopwords = stopwords.words('french')
+# stopwords = stopwords.words('french')
 stopwords = get_stop_words('fr')
 # for word in stopwords:
 #     print(word)
@@ -54,21 +55,23 @@ for i in claim_text:
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-#define vectorizer parameters
+# define vectorizer parameters
 tfidf_vectorizer = TfidfVectorizer(encoding="iso-8859-1", max_features=200000,
-                                 stop_words=stopwords,
-                                 use_idf=True, tokenizer=tokenize_and_stem, ngram_range=(1,3))
+                                   stop_words=stopwords,
+                                   use_idf=True, tokenizer=tokenize_and_stem)
 
-tfidf_matrix = tfidf_vectorizer.fit_transform(claim_text) #fit the vectorizer to synopses
+tfidf_matrix = tfidf_vectorizer.fit_transform(claim_text)  # fit the vectorizer to synopses
 
 f.write(tfidf_vectorizer.get_feature_names().__str__())
 f.write("\n")
 
 from sklearn.metrics.pairwise import cosine_similarity
+
 dist = 1 - cosine_similarity(tfidf_matrix)
 
 from sklearn.cluster import KMeans
-km = KMeans(n_clusters=6, init='k-means++')
+
+km = KMeans(n_clusters=10, init='k-means++')
 km.fit(tfidf_matrix)
 
 # import matplotlib.pyplot as plt
@@ -86,16 +89,14 @@ km.fit(tfidf_matrix)
 
 clusters = km.labels_.tolist()
 
-
 print(clusters)
 print(len(claim_text))
-claim_cluster = [[] for i in range(6)]
+claim_cluster = [[] for i in range(10)]
 index = 0
 
 for claim in claim_text:
     claim_cluster[clusters[index]].append(claim)
     index += 1
-
 
 for claimlist in claim_cluster:
     for claim in claimlist:

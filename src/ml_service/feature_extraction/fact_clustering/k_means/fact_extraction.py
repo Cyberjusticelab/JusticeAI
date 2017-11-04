@@ -14,11 +14,15 @@ def _open_file(file_path):
     # how many claims are there?
     claim_count = 0
     date_count = 0
+    is_english = False
     for line in current_file:
         if re.search("^[D|d]ate\s*:", line):
             date_count += 1
             if date_count > 1:
                 break
+        if re.search("the|rent|time|landlord|payment|amount", line):
+            is_english = True
+            break
         if re.search("\[\d+\]", line):
             claim_count += 1
         if re.search('POUR CES MOTIFS, LE TRIBUNAL', line):
@@ -28,23 +32,16 @@ def _open_file(file_path):
     get_next_line = True
 
     # extract and save those claims
-    while claim_count > 0:
+    while claim_count > 0 and not is_english:
         if re.search("\[\d+\]", line):
             claim_count -= 1
-            line = re.sub("[\d*\s*]*\d+[,]?\d*\s*\$", " frais ", line)
-            claim = line[4:]  # this gets rid of the [12] tags in front of each fact
+            claim = line
             line = current_file.readline().strip()
             get_next_line = False
 
             while re.search("\[\d+\]", line) is None and line != '':
-                line = current_file.readline().strip()
-                line = re.sub("[\d*\s*]*\d+[,]?\d*\s*\$", " frais ", line)
-                if re.search('POUR CES MOTIFS, LE TRIBUNAL', line):
-                    line = line.replace('POUR CES MOTIFS, LE TRIBUNAL', "")
-                    claim += line
-                    claim_text.append(claim)
-                    break
                 claim += line
+                line = current_file.readline().strip()
             claim_text.append(claim)
             if line == '':
                 break
