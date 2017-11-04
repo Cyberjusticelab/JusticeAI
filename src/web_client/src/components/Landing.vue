@@ -45,6 +45,7 @@ export default {
     },
     methods: {
         chooseType(usertype) {
+            this.$localStorage.set('username', usertype) //TODO: prompt username
             this.$localStorage.set('usertype', usertype)
             this.$localStorage.remove('zeusId')
             this.$router.push('dashboard')

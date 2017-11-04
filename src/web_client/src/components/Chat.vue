@@ -95,14 +95,14 @@
     <!-- End of Chat Widow -->
     <!-- Input Widow -->
     <div id="chat-input">
-      <el-form>
-        <el-input id="chat-input-text" v-model="user.input" placeholder="Enter your message" autocomplete="off" :disabled="user.disableInput"></el-input>
-        <el-button id="chat-input-submit" type="warning" :disabled="!user.input" @click="sendUserMessage()">SEND</el-button>
+      <form v-on:submit.prevent="sendUserMessage()">
+        <el-input id="chat-input-text" autosize v-model="user.input" placeholder="Enter your message" autoComplete="off" :disabled="user.disableInput"></el-input>
+        <el-button id="chat-input-submit" type="warning" :disabled="!user.input">SEND</el-button>
         <div id="chat-history-button" v-on:click="user.openChatHistory = !user.openChatHistory; getChatHistory()">
           <img v-if="!user.openChatHistory" alt="" src="../assets/history_open.png">
           <img v-if="user.openChatHistory" alt="" src="../assets/history_disable.png">
         </div>
-      </el-form>
+      </form>
       <!--<icon id="chat-input-voice" name="microphone" scale="3"></icon>-->
     </div>
     <!-- End of Input Widow -->
@@ -143,7 +143,8 @@ export default {
   methods: {
     initChatSession () {
       this.$http.post(this.api_url + 'new',{
-        name: this.$localStorage.get('username')
+        name: this.$localStorage.get('username'),
+        person_type: this.$localStorage.get('usertype')
       }).then(
         response => {
           this.$localStorage.set('zeusId', response.body.conversation_id)
