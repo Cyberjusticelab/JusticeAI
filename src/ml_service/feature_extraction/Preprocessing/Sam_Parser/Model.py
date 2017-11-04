@@ -3,7 +3,7 @@ import re
 
 from nltk.tokenize import word_tokenize
 
-from src.ml_service.GlobalVariables.GlobalVariable import  Global
+from src.ml_service.GlobalVariables.GlobalVariable import Global
 from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.NerMatrix import NamedEntity
 
 

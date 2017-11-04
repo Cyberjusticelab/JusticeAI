@@ -30,6 +30,7 @@ def get_stop_words():
             'vont', 'votre', 'vous', 'vu', 'ça', 'étaient', 'état', 'étions', 'été', 'être',
          ]
 
+
 def get_french_ner_path():
     try:
         __script_dir = os.path.abspath(__file__ + r"/../../")
@@ -44,6 +45,8 @@ def get_french_ner_path():
 # Change these variables to make code work on your machine
 # tmp solution since we can't download models online via
 # HTTP
+
+
 class Global:
     Precedence_Directory = r"/home/charmander/Data/text_bk/"
     French_Word_Vector_Directory = get_french_vector_path()

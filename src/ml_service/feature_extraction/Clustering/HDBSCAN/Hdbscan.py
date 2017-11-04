@@ -22,6 +22,7 @@ class HdbscanTrain:
     nb_of_files <int>: number of files to train on
     plot <bool>: plot the graph of the clusters
     '''
+
     def train(self, output_directory, data_matrix, sent, nb_of_files, plot=False):
         hdb = HDBSCAN(min_cluster_size=2).fit(data_matrix)
 
@@ -31,7 +32,7 @@ class HdbscanTrain:
 
         hdb_colors = plt.cm.Spectral(np.linspace(0, 1, len(hdb_unique_labels)))
         fig = plt.figure(figsize=plt.figaspect(0.5))
-        hdb_axis = fig.add_subplot('121') # value 121 taken from demo found on github
+        hdb_axis = fig.add_subplot('121')  # value 121 taken from demo found on github
 
         for label, col in zip(hdb_unique_labels, hdb_colors):
             file = open(output_directory + str(label) + '.txt', 'w')
@@ -53,7 +54,6 @@ class HdbscanTrain:
         if plot:
             plt.show()
 
-
     '''
     ------------------------------------------------------
     Write Metrics
@@ -64,6 +64,7 @@ class HdbscanTrain:
     n_clusters_hdb_ <int> : number of created clusters
     nb_of_files <int> : number of files used for training
     '''
+
     def __write_metrics(self, output_directory, n_clusters_hdb_, nb_of_files):
         num_lines = sum(1 for line in open(output_directory + '-1.txt'))
 

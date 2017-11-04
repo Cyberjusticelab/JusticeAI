@@ -144,6 +144,7 @@ class Precedence_Parser:
 
     returns <array, array>    
     '''
+
     def parse_training_data(self, file_directory, nb_of_files):
         j = 0
         data = []
