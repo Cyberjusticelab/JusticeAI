@@ -127,7 +127,8 @@ class Precedence_Parser:
     #    This is just a proof of concept for now
     def __split_sub_sentence(self, sentence):
         if self.__conjunction_match.findall(sentence):
-            sentence = re.sub(self.__conjunction_match, '. ', sentence)
+            sentence = re.sub(self.__conjunction_match, ', ', sentence)
+        sentence = sentence.replace(',', '.')
         return sentence.split('.')
 
     '''

@@ -80,8 +80,9 @@ class HdbscanTrain:
 
 if __name__ == '__main__':
     parser = Precedence_Parser()
-    number_of_files = 500
-    data_matrix, sent = parser.parse_training_data(Global.Precedence_Directory, number_of_files)
-    clusterer = HdbscanTrain()
-    cluster_dir = r'cluster_dir/'
-    clusterer.train(cluster_dir, data_matrix, sent, number_of_files, plot=True)
+    number_of_files = [10, 100, 500, 1000, 2000, 4000, 8000, 16000, 32000]
+    for i in number_of_files:
+        data_matrix, sent = parser.parse_training_data(Global.Precedence_Directory, i)
+        clusterer = HdbscanTrain()
+        cluster_dir = r'cluster_dir/'
+        clusterer.train(cluster_dir, data_matrix, sent, i)
