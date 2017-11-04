@@ -12,9 +12,9 @@ if __name__ == '__main__':
     parser = Parser()
     j = 0
     for i in os.listdir(Global.Precedence_Directory):
-        if 'AZ-51210' in i and j < 5:
+        if 'AZ-5120' in i and j < 10:
             j += 1
             model = parser.parse(i)
-            t = model.topics
-            for j in range(len(t)):
-                print(model.training_output())
+            for l in range(len(model.core_decisions)):
+                print(model.core_decisions[l])
+                print(model.decisions[l])

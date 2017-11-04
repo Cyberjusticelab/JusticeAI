@@ -45,15 +45,21 @@ class PrecedenceModel:
     def format(self):
         for topic in self.topics:
             self.topics_str += topic + "\n"
-            self.core_topic.append(self.__ner(topic))
+            lst = self.__ner(topic)
+            if len(lst) > 0:
+                self.core_topic.append(lst)
 
         for fact in self.facts:
             self.facts_str += fact + "\n"
-            self.core_facts.append(self.__ner(fact))
+            lst = self.__ner(fact)
+            if len(lst) > 0:
+                self.core_facts.append(lst)
 
         for decision in self.decisions:
             self.decisions_str += decision + "\n"
-            self.core_decisions.append(self.__ner(decision))
+            lst = self.__ner(decision)
+            if len(lst) > 0:
+                self.core_decisions.append(lst)
 
     # #################################################
     # NAMED ENTITY RECOGNITION
@@ -69,6 +75,8 @@ class PrecedenceModel:
         previous_word = ''
 
         for i in range(len(word_list)):
+            if word_list[i] == 'locateur':
+                word_list[i] = 'propriétaire'
             kernel = [word_list[i]]
             if i != 0:
                 kernel.append(word_list[i - 1])
