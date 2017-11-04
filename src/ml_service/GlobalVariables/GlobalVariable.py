@@ -4,7 +4,7 @@ import os
 
 def get_french_vector_path():
     try:
-        __script_dir = os.path.abspath(__file__ + r"../")
+        __script_dir = os.path.abspath(__file__ + r"/../../")
         __rel_path = r'WordVectors/non-lem.bin'
         return os.path.join(__script_dir, __rel_path)
     except BaseException:
@@ -32,7 +32,7 @@ def get_stop_words():
 
 def get_french_ner_path():
     try:
-        __script_dir = os.path.abspath(__file__ + r"../")
+        __script_dir = os.path.abspath(__file__ + r"/../../")
         __rel_path = r'MLModels/ner_model.pickle'
         return os.path.join(__script_dir, __rel_path)
     except BaseException:

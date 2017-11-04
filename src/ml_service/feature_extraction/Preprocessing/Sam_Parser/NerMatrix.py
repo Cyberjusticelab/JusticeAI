@@ -64,6 +64,8 @@ class NamedEntity:
     # return String
     def map_to_entity(self, word_list):
         vec = FrenchVectors.vectorize_kernel(word_list)
+        if vec is None:
+            return None
         a = self.__cos_dist(vec)
         x = numpy.where(a == numpy.min(a))
         return self.__entity[x[0][0]]
