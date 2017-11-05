@@ -33,6 +33,6 @@ def preprocessing(facts):
         match = re.search("\.([a-z][a-z])", facts[i])
         if match is not None:
             facts[i] = facts[i][:match.start()] + '. ' + facts[i][match.start()+1:]
-
+        facts[i] = re.sub("locatrice(s)?", "locateur", facts[i])
     return facts
 

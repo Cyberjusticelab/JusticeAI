@@ -8,9 +8,10 @@ from preprocessing import preprocessing
 
 stemmer = SnowballStemmer("french")
 
-claim_text = extract_data_from_cases('/Users/taimoorrana/Downloads/text_bk/', 1000)
+claim_text = extract_data_from_cases('/Users/taimoorrana/Downloads/text_bk/', 5000)
 claim_text = preprocessing(claim_text)
-f = open('helloworld.txt', 'w')
+print("finished preprocessing")
+f = open('clusters.txt', 'w')
 
 # stem words
 def tokenize_and_stem(text):
@@ -22,7 +23,7 @@ def tokenize_and_stem(text):
         if re.search('[a-zA-Z]', token):
             filtered_tokens.append(token)
     stems = [stemmer.stem(t) for t in filtered_tokens]
-    return stems
+    return filtered_tokens
 
 
 def tokenize_only(text):
@@ -36,12 +37,12 @@ def tokenize_only(text):
     return filtered_tokens
 
 
-# not super pythonic, no, not at all.
-# use extend so it's a big flat list of vocab
 totalvocab_stemmed = []
 totalvocab_tokenized = []
 # stopwords = stopwords.words('french')
 stopwords = get_stop_words('fr')
+stopwords.append('moisDanslannee')
+stopwords.append('pour ces motifs, le tribunal')
 # for word in stopwords:
 #     print(word)
 for i in claim_text:
@@ -56,33 +57,40 @@ for i in claim_text:
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 # define vectorizer parameters
-tfidf_vectorizer = TfidfVectorizer(encoding="iso-8859-1", max_features=200000,
+tfidf_vectorizer = TfidfVectorizer(encoding="iso-8859-1",
                                    stop_words=stopwords,
-                                   use_idf=True, tokenizer=tokenize_and_stem)
+                                   strip_accents='ascii',
+                                   use_idf=True,
+                                   tokenizer=tokenize_and_stem,
+                                   min_df=0.01, max_df=0.8
+                                   , norm='l2',
+                                   ngram_range={1, 4}
+                                   )
 
 tfidf_matrix = tfidf_vectorizer.fit_transform(claim_text)  # fit the vectorizer to synopses
 
 f.write(tfidf_vectorizer.get_feature_names().__str__())
 f.write("\n")
-
+print("feature names:",)
 from sklearn.metrics.pairwise import cosine_similarity
 
 dist = 1 - cosine_similarity(tfidf_matrix)
 
 from sklearn.cluster import KMeans
 
-km = KMeans(n_clusters=10, init='k-means++')
+km = KMeans(n_clusters=550, init='k-means++')
 km.fit(tfidf_matrix)
-
+print("finish clustering",tfidf_vectorizer.get_feature_names().__str__().__len__())
 # import matplotlib.pyplot as plt
 # wcss = []
-# for i in range(1,30):
+# for i in range(1, 50):
 #     km = KMeans(n_clusters=i, init='k-means++')
 #     km.fit(tfidf_matrix)
-#     print(i)
+#     print(i, km.inertia_)
+#
 #     wcss.append(km.inertia_)
 #
-# plt.plot(range(1,30), wcss)
+# plt.plot(range(1, 50), wcss)
 # plt.xlabel('numbers of cluster')
 # plt.ylabel('wcss')
 # plt.show()
@@ -91,7 +99,7 @@ clusters = km.labels_.tolist()
 
 print(clusters)
 print(len(claim_text))
-claim_cluster = [[] for i in range(10)]
+claim_cluster = [[] for i in range(550)]
 index = 0
 
 for claim in claim_text:
