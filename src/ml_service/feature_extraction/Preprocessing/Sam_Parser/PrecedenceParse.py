@@ -7,6 +7,7 @@ import numpy as np
 from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.Vectorize import FrenchVectors
 from src.ml_service.GlobalVariables.GlobalVariable import Global
 from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.Model import PrecedenceModel
+from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.Pipe import PipeSent
 
 
 # #################################################
@@ -26,13 +27,13 @@ class State:
 class Precedence_Parser:
     __factMatch = re.compile('\[\d+\]\s')
     __minimum_line_length = 6
-    __conjunction_match = re.compile('mais\s|ou\s|et\s|donc\s|or\s|ni\s|car\s|ainsi\s')
 
     # #################################################
     # CONSTRUCTOR
     def __init__(self):
         self.__state = None
         self.__model = None
+        self.__pipe = PipeSent()
 
     # #################################################
     # PARSE
@@ -126,10 +127,11 @@ class Precedence_Parser:
     # ** This method can be enhanced for better classification
     #    This is just a proof of concept for now
     def __split_sub_sentence(self, sentence):
-        if self.__conjunction_match.findall(sentence):
-            sentence = re.sub(self.__conjunction_match, ', ', sentence)
-        sentence = sentence.replace(',', '.')
-        return sentence.split('.')
+        sent_list = sentence.split('.')
+        sub_sent = []
+        for sent in sent_list:
+            sub_sent += self.__pipe.pipe(sent)
+        return sub_sent
 
     '''
     ------------------------------------------------------
@@ -155,8 +157,6 @@ class Precedence_Parser:
             j += 1
             model = self.parse(i)
             for i in range(len(model.core_topic)):
-                if model.topics[i] in sent:
-                    continue
                 vec = FrenchVectors.vectorize_sent(model.core_topic[i])
                 data.append(vec)
                 sent.append(model.topics[i])
