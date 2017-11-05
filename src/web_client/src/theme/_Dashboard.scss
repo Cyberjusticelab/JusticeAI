@@ -2,16 +2,22 @@
 
 #dashboard-component {
     height: 100%;
-    .container-fluid, .row{
+    .el-container {
+        width: 100%;
         height: 100%;
-    }
-    .col-md-9, .col-md-3 {
-        padding: 0px;
+        .el-row {
+            width: 100%;
+            height: 100%;
+            .el-col {
+                height: 100%;
+            }
+        }
     }
     #chat-component {
         padding-right: 0px;
         padding-left: 10px;
     }
 }
+
 
 

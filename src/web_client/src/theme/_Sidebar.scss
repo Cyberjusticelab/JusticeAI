@@ -10,7 +10,7 @@
         cursor: pointer;
     }
     #sidebar-logo {
-        height: 15%;
+        height: 120px;
         img {
             margin-top: 40px;
             width: 70%;
@@ -23,10 +23,11 @@
         }
     }
     #sidebar-account {
-        height: 20%;
+        height: 210px;
         color: $main-grey-5;
         h2 {
             font-size: 30px;
+            margin-top: 20px;
         }
         img {
             margin-top: 25px;
@@ -35,7 +36,7 @@
         }
     }
     #sidebar-menu {
-        height: 60%;
+        height: 500px;
         .sidebar-menu {
             background-color: $main-grey-2;
             height: 70px;
@@ -61,31 +62,36 @@
             }
         }
         ul {
-            margin: 10px;
             li {
-                height: 34px;
                 list-style: none;
                 width: 90%;
                 text-align: left;
-                p {
-                    display: inline-block;
-                    color: $main-grey-3;
-                }
-                .sidebar-file-view {
-                    margin-right: 15%;
-                    display: inline-block;
-                }
-                .col-md-6 {
-                    overflow: hidden;
+                .el-col {
+                    height: 40px;
+                    p {
+                        display: inline-block;
+                        color: $main-grey-3;
+                        width: 100%;
+                        overflow: hidden;
+                        margin: 0px;
+                    }
+                    .sidebar-file-view {
+                        display: inline-block;
+                        margin-top: 3px;
+                    }
                 }
             }
         }
     }
     #sidebar-legal {
-        height: 5%;
+        position: fixed;
+        bottom: 3px;
+        height: 25px;
+        text-align: center;
         a {
             color: $main-grey-5;
             text-decoration: none;
+            margin-left: 30px;
             &:hover {
                 color: $main-gold-1;
             }

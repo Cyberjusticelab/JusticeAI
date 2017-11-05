@@ -4,6 +4,7 @@
   height: 100%;
   background-color: $main-gold-1;
   overflow: hidden;
+  font-family: $zeus-font;
   #chat-history {
     overflow-y: scroll;
     width: 100%;
@@ -16,8 +17,9 @@
       text-align: left;
       list-style: none;
       margin-top: 40px;
+      padding-left: 100px;
+      width: 850px;
       li {
-        margin-left: 100px;
         color: $main-white-1;
       }
     }
@@ -33,7 +35,8 @@
           height: 25px;
           margin-top: 10px;
         }
-        span {
+        p {
+          margin: 0px;
           font-weight: bold;
           color: $main-gold-2;
           &:hover {
@@ -44,18 +47,26 @@
     }
     .chat-message {
       margin-top: 60px;
-      min-height: 50px;
+      min-height: 40px;
       border: 2px solid $main-gold-2;
       background-color: $main-grey-5;
+      color: $main-grey-2;
       p {
         text-align: center;
         margin: auto;
         padding: 12px;
+        font-family: $zeus-font;
+        color: $main-grey-2;
+        font-weight: bolder;
+        font-size: 18px;
+        a {
+          text-decoration: none !important;
+          color: $main-white-1;
+        }
       }
       img {
         margin: auto;
-        padding: 10px;
-        height: 48px;
+        height: 41px;
       }
     }
     #chat-zeus-container {
@@ -74,12 +85,16 @@
           }
           p {
             font-style: italic;
+            color: $main-grey-3;
+            font-weight: normal;
+            margin-bottom: 20px;
+            border: 1px dashed $main-grey-4;
           }
         }
         #file-upload-button-group, #pre-selected-answer-group {
           button {
-            margin-bottom: 20px;
-            height: 50px;
+            margin-bottom: 10px;
+            height: 40px;
           }
           p {
             font-size: 8px;
@@ -95,6 +110,9 @@
       }
       #chat-message-user {
         @extend .chat-message;
+        p {
+          overflow-wrap: break-word;
+        }
       }
     }
     .msgIsSent {
@@ -105,19 +123,23 @@
     border-top: 1px solid gold;
     background-color: $main-grey-5;
     height: 23%;
-    #chat-input-text {
-      text-align: center;
+    .el-input {
       width: 80%;
       height: 50px;
       margin: auto;
       margin-top: 45px;
+      display: block;
+      text-align: center;
     }
-    #chat-input-submit {
+    .el-button {
       margin: auto;
       margin-top: 15px;
       width: 250px;
       border-color: $main-gold-2;
-      color: black;
+      background-color: $main-gold-2;
+      color: $main-grey-2;
+      display: block;
+      font-weight: bolder;
       &:hover:enabled {
         background-color: $main-gold-2;
         color: $main-white-1;

@@ -3,18 +3,20 @@
 </style>
 
 <template>
-    <div id="dashboard-component">
-        <b-container fluid>
-            <b-row>
-                <b-col md="3">
-                    <sidebar></sidebar>
-                </b-col>
-                <b-col md="9">
-                    <chat></chat>
-                </b-col>
-            </b-row>
-        </b-container>
-    </div>
+    <transition name="fade">
+        <div id="dashboard-component">
+            <el-container>
+                <el-row>
+                    <el-col :sm="5" >
+                        <sidebar></sidebar>
+                    </el-col>
+                    <el-col :sm="19">
+                        <chat></chat>
+                    </el-col>
+                </el-row>
+            </el-container>
+        </div>
+    </transition>
 </template>
 
 <script>
