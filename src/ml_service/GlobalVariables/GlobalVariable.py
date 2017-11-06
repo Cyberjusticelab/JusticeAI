@@ -2,13 +2,13 @@ from nltk.corpus import stopwords
 import os
 
 
-def get_path():
+def get_french_vector_path():
     try:
-        __script_dir = os.path.abspath(__file__ + r"/../../../")
+        __script_dir = os.path.abspath(__file__ + r"/../../")
         __rel_path = r'WordVectors/non-lem.bin'
         return os.path.join(__script_dir, __rel_path)
     except BaseException:
-        return ""
+        print("Please download French Vector")
 
 
 def get_stop_words():
@@ -31,15 +31,25 @@ def get_stop_words():
          ]
 
 
+def get_french_ner_path():
+    try:
+        __script_dir = os.path.abspath(__file__ + r"/../../")
+        __rel_path = r'MLModels/ner_model.pickle'
+        return os.path.join(__script_dir, __rel_path)
+    except BaseException:
+        print("Couldn't find model")
+
 # #################################################
 # GLOBAL
 # -------------------------------------------------
 # Change these variables to make code work on your machine
 # tmp solution since we can't download models online via
 # HTTP
+
+
 class Global:
     Precedence_Directory = r"/home/charmander/Data/text_bk/"
-    Word_Vector_Directory = get_path()
-
-    # Add stop words as you see fit
+    French_Word_Vector_Directory = get_french_vector_path()
+    French_NER = get_french_ner_path()
+    Word_Vector_Size = 500
     custom_stop_words = get_stop_words()

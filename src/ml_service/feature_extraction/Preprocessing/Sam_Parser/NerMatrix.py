@@ -4,8 +4,8 @@ import pickle
 import numpy
 import scipy.spatial.distance
 
-from src.ml_service.preprocessing.French.Vectorize import FrenchVectors
-from src.ml_service.preprocessing.French.GlobalVariable import Global
+from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.Vectorize import FrenchVectors
+from src.ml_service.GlobalVariables.GlobalVariable import Global
 
 
 # #################################################
@@ -34,11 +34,7 @@ class NamedEntity:
     # read .pickle model
     # create matrix
     def __load(self):
-        script_dir = os.path.dirname(__file__)
-        rel_path = 'ner_model.pickle'
-        abs_file_path = os.path.join(script_dir, rel_path)
-
-        with open(abs_file_path, 'rb') as pickle_file:
+        with open(Global.French_NER, 'rb') as pickle_file:
             model = pickle.load(pickle_file)
 
         time_vector = model['Time']
@@ -67,21 +63,9 @@ class NamedEntity:
     # word_list: list[String]
     # return String
     def map_to_entity(self, word_list):
-        vec = numpy.zeros(500)
-        num_words = 0
-        for i in range(len(word_list)):
-            try:
-                if word_list[i] in Global.custom_stop_words:
-                    continue
-                vec = numpy.add(vec, self.__fv.word_vectors[word_list[i]])
-                num_words += 1
-            except KeyError:
-                if i == 0:
-                    return None
-                continue
-        if num_words == 0:
-            return 'Other'
-        vec = numpy.divide(vec, num_words)
+        vec = FrenchVectors.vectorize_kernel(word_list)
+        if vec is None:
+            return None
         a = self.__cos_dist(vec)
         x = numpy.where(a == numpy.min(a))
         return self.__entity[x[0][0]]
