@@ -8,6 +8,8 @@ from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.NerMatrix import
 
 # #################################################
 # PRECEDENCE MODEL
+
+
 class PrecedenceModel:
     ner = NamedEntity()
     extra_parse = re.compile("l'")
@@ -24,7 +26,7 @@ class PrecedenceModel:
 
     syn_dict = {
         'locateur': 'propriétaire',
-        'locatrice': 'locataire'
+        'locatrice': 'propriétaire'
     }
 
     # #################################################

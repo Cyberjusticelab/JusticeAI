@@ -154,20 +154,21 @@ class Precedence_Parser:
     file_directory <string>: precedence file directory
     nb_of_files <int>: Number of files to train on
 
-    returns <array, array>    
+    returns <array, array, array>    
     '''
 
-    def parse_training_data(self, file_directory, nb_of_files):
+    def parse_topics(self, file_directory, nb_of_files):
         j = 0
         data = []
         sent = []
         original_sent = []
         print("Fetching from precedence")
-        percent = 0.0
+
         for i in os.listdir(file_directory):
             if j >= nb_of_files:
                 break
             j += 1
+
             percent = float(j / nb_of_files) * 100
             stdout.write("\rData Extraction: %f " % percent)
             stdout.flush()

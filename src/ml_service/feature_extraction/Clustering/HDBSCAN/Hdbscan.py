@@ -1,4 +1,3 @@
-import numpy as np
 from hdbscan import HDBSCAN
 import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE
@@ -17,56 +16,77 @@ class HdbscanTrain:
     ------------------------------------------------------
     
     Clustering algorithm using HDBSCAN
-    
-    file_directory <string>: precedence file directory
+        
     output_directory <string>: output directory of clusters
+    tpl <array, array, array>: vetors, transformed sentences, original sentence
     nb_of_files <int>: number of files to train on
-    plot <bool>: plot the graph of the clusters
+    config <int, int>: configuration for TSNE manifold
     '''
 
-    def train(self, output_directory, data_matrix, sent, original_sent, nb_of_files, config, plot=False):
-        print("Standardizing matrix")
-        tsne = TSNE(n_components=2,
-                    learning_rate=config[0],
-                    perplexity=config[1])
-        data_matrix = tsne.fit_transform(data_matrix)
+    def train(self, output_directory, tpl, nb_of_files, config):
+        data_matrix = tpl[0]
+        sent = tpl[1]
+        original_sent = tpl[2]
+        data_matrix = self.manifold(data_matrix, config[0], config[1])
         print("Clustering")
         hdb = HDBSCAN(min_cluster_size=2).fit(data_matrix)
         hdb_labels = hdb.labels_
         n_clusters_hdb_ = len(set(hdb_labels)) - (1 if -1 in hdb_labels else 0)
         hdb_unique_labels = set(hdb_labels)
+        self.__write_clusters(hdb_unique_labels, hdb_labels, output_directory, sent, original_sent)
+        self.__write_metrics(output_directory, n_clusters_hdb_, nb_of_files, config)
 
-        hdb_colors = plt.cm.Spectral(np.linspace(0, 1, len(hdb_unique_labels)))
-        fig = plt.figure(figsize=plt.figaspect(0.5))
-        hdb_axis = fig.add_subplot('121')  # value 121 taken from demo found on github
+    '''        
+    ------------------------------------------------------
+    MANIFOLD
+    ------------------------------------------------------
+    Preprocessing for HDBSCAN
+    Reduces dimension of vectors to yield much better results
+    Reduces noise and groups up more similar terms
+    
+    data_matrix <numpy array>: vectors
+    learning_rate <int>
+    perplexity <int>
+    '''
 
-        for label, col in zip(hdb_unique_labels, hdb_colors):
+    def manifold(self, data_matrix, learning_rate, perplexity):
+        print("Standardizing matrix")
+        tsne = TSNE(n_components=2,
+                    learning_rate=learning_rate,
+                    perplexity=perplexity)
+        return tsne.fit_transform(data_matrix)
+
+    '''
+    ------------------------------------------------------
+    WRITE CLUSTERS
+    ------------------------------------------------------
+    Writes 1 text file per cluster
+    Every text file has the topics in the forms of:
+    1- The sentence which was used to create a vector
+    2- The original sentence from the text
+    
+    hdb_unique_labels <int>: index of vector
+    hdb_labels <int>: index of vector
+    output_directory <string>: directory
+    sent <numpy array>: sentences for vectors
+    original_sent <numpy array>: original sentences
+    '''
+
+    def __write_clusters(self, unique_labels, labels, output_directory, sent, original_sent):
+        for label in unique_labels:
             file = open(output_directory + str(label) + '.txt', 'w')
 
-            for word in sent[hdb_labels == label]:
+            for word in sent[labels == label]:
                 file.writelines("[*] " + word)
                 file.writelines('\n')
 
             file.writelines("-------------------------------\n")
 
-            for word in original_sent[hdb_labels == label]:
+            for word in original_sent[labels == label]:
                 file.writelines("[*] " + word)
                 file.writelines('\n')
 
             file.close()
-            if label == -1:
-                # Black used for noise.
-                col = 'k'
-            hdb_axis.plot(data_matrix[hdb_labels == label, 0],
-                          data_matrix[hdb_labels == label, 1],
-                          'o',
-                          markerfacecolor=col,
-                          markeredgecolor='k',
-                          markersize=6)
-
-        self.__write_metrics(output_directory, n_clusters_hdb_, nb_of_files, config)
-        if plot:
-            plt.show()
 
     '''
     ------------------------------------------------------
@@ -94,6 +114,17 @@ class HdbscanTrain:
         print('Number_of_files_used: ' + str(nb_of_files))
         print('Noise: ' + str(num_lines))
 
+    '''
+    ------------------------------------------------------
+    PLOT
+    ------------------------------------------------------
+    
+    Plots the clusters
+    
+    matrix <numpy array>: word vectors
+    sent <numpy array>: sentences in english
+    '''
+
     def plot(self, matrix, sent):
         tsne = TSNE(n_components=2,
                     learning_rate=300,
@@ -107,15 +138,16 @@ class HdbscanTrain:
 
 if __name__ == '__main__':
     parser = Precedence_Parser()
-    number_of_files = [8000]
-    config = (200, 22)
+    number_of_files = 8000
+    config = (200, 25)
+    cluster_dir = r'cluster_dir/'
+    clusterer = HdbscanTrain()
+
     start = time.time()
-    for i in number_of_files:
-        data_matrix, sent, original_sent = parser.parse_training_data(Global.Precedence_Directory, i)
-        clusterer = HdbscanTrain()
-        cluster_dir = r'cluster_dir/'
-        #clusterer.plot(data_matrix, sent)
-        clusterer.train(cluster_dir, data_matrix, sent, original_sent, i, config)
+
+    tpl = parser.parse_topics(Global.Precedence_Directory, number_of_files)
+    clusterer.train(cluster_dir, tpl, number_of_files, config)
+
     elapsed = time.time()
     print('Elapsed:')
     print(elapsed - start)

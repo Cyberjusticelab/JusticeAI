@@ -10,10 +10,28 @@ class PipeSent():
     def __init__(self):
         pass
 
+    '''
+    ------------------------------------------------------
+    PIPE
+    ------------------------------------------------------
+    Main method for splitting sentence
+    sent <string>: full sentence
+    return <list, list>: sub sentences, full sentences
+    '''
+
     def pipe(self, sent):
         s = self.filter_words(sent)
-        tagged_sent = parsetree(s, relations=True)
-        return self.sub_sent(tagged_sent, sent)
+        sub_sent = parsetree(s, relations=True)
+        return self.sub_sent(sub_sent, sent)
+
+    '''
+    ------------------------------------------------------
+    FILTER WORDS
+    ------------------------------------------------------
+    Remove unecessary words from a sentence
+    sent <string>: full sentence
+    return <string>: sentence without useful words
+    '''
 
     def filter_words(self, sent):
         word_list = tag(sent)
@@ -24,6 +42,17 @@ class PipeSent():
         word_list = word_tokenize(new_string, language='french')
         detokenizer = MosesDetokenizer()
         return detokenizer.detokenize(word_list, return_str=True)
+
+    '''
+    ------------------------------------------------------
+    SUB SENT
+    ------------------------------------------------------
+    Creates sub sentence from full sentence
+    tagged_sent<pattern.parsetree>
+    s<string>: original sentence
+    
+    returns: sub sentence list, original sentence list
+    '''
 
     def sub_sent(self, tagged_sent, s):
         original_sent = []
@@ -59,9 +88,9 @@ class PipeSent():
     def format_noun(self, word):
         return singularize(word)
 
-
     def format_verb(self, word):
         return conjugate(word)
+
 
 if __name__ == '__main__':
     p = PipeSent()
