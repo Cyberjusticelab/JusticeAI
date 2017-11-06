@@ -21,6 +21,7 @@ def load_from_bin():
     except BaseException:
         print("Download French Vector model first")
 
+
 def get_stop_words():
     return stopwords.words('french') + \
         [',', ';', '.', '!', '?', 'c', '(', ')', 'ainsi',
@@ -39,6 +40,7 @@ def get_stop_words():
             'tes', 'ton', 'tous''tout', 'trop', 'très', 'tu', 'voient',
             'vont', 'votre', 'vous', 'vu', 'ça', 'étaient', 'état', 'étions', 'été', 'être',
          ]
+
 
 class FrenchVectors:
     word_vectors = load_from_bin()
