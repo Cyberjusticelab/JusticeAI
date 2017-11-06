@@ -165,6 +165,8 @@ class Precedence_Parser:
         print("Fetching from precedence")
         percent = 0.0
         for i in os.listdir(file_directory):
+            if j >= nb_of_files:
+                break
             j += 1
             percent = float(j / nb_of_files) * 100
             stdout.write("\rData Extraction: %f " % percent)
