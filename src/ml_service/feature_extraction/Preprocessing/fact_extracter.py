@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 from nltk.corpus import stopwords
 from nltk.tokenize import ToktokTokenizer, sent_tokenize
-import numpy as np
 from gensim.models.keyedvectors import KeyedVectors
 from pattern3.fr import singularize
+from feature_extraction.Preprocessing.related_word_fetcher import find_related
+import numpy as np
 import os
 import re
 import logging
-import related_word_fetcher
 
 logger = logging.getLogger('fact_clustering')
 np.seterr(all='raise')
@@ -90,7 +90,7 @@ def _vectorize(sentence, errorWordSet):
                     numWords += 1
                     vec = np.add(vec, newWord)
                 except BaseException:
-                    similarWord = related_word_fetcher.find_related(word)
+                    similarWord = find_related(word)
                     try:
                         newWord = word_vectors[similarWord]
                         logger.info("Using similar word: " +
