@@ -8,6 +8,7 @@ from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.Vectorize import
 from src.ml_service.GlobalVariables.GlobalVariable import Global
 from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.Model import PrecedenceModel
 from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.Pipe import PipeSent
+from sys import stdout
 
 
 # #################################################
@@ -161,10 +162,14 @@ class Precedence_Parser:
         data = []
         sent = []
         original_sent = []
+        print("Fetching from precedence")
+        percent = 0.0
         for i in os.listdir(file_directory):
-            if (nb_of_files is not None) and (j >= nb_of_files):
-                break
             j += 1
+            percent = float(j / nb_of_files) * 100
+            stdout.write("\rData Extraction: %f " % percent)
+            stdout.flush()
+
             model = self.parse(i)
             for i in range(len(model.core_topic)):
                 if model.topics[i] in sent:

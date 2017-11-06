@@ -108,7 +108,7 @@ class HdbscanTrain:
 if __name__ == '__main__':
     parser = Precedence_Parser()
     number_of_files = [8000]
-    config = (200, 25)
+    config = (200, 22)
     start = time.time()
     for i in number_of_files:
         data_matrix, sent, original_sent = parser.parse_training_data(Global.Precedence_Directory, i)
