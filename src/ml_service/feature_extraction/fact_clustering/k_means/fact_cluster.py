@@ -1,10 +1,10 @@
 import re
 import nltk
-from nltk.corpus import stopwords
 from nltk.stem.snowball import SnowballStemmer
 from fact_extraction import extract_data_from_cases
 from stop_words import get_stop_words
 from preprocessing import preprocessing
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 stemmer = SnowballStemmer("french")
 
@@ -39,12 +39,10 @@ def tokenize_only(text):
 
 totalvocab_stemmed = []
 totalvocab_tokenized = []
-# stopwords = stopwords.words('french')
 stopwords = get_stop_words('fr')
 stopwords.append('moisDanslannee')
 stopwords.append('pour ces motifs, le tribunal')
-# for word in stopwords:
-#     print(word)
+
 for i in claim_text:
     allwords_stemmed = tokenize_and_stem(i)  # for each item in 'synopses', tokenize/stem
     allwords_stemmed = [word for word in allwords_stemmed if word not in stopwords]
@@ -53,8 +51,6 @@ for i in claim_text:
     allwords_tokenized = tokenize_only(i)
     allwords_tokenized = [word for word in allwords_tokenized if word not in stopwords]
     totalvocab_tokenized.extend(allwords_tokenized)
-
-from sklearn.feature_extraction.text import TfidfVectorizer
 
 # define vectorizer parameters
 tfidf_vectorizer = TfidfVectorizer(encoding="iso-8859-1",
@@ -71,29 +67,10 @@ tfidf_matrix = tfidf_vectorizer.fit_transform(claim_text)  # fit the vectorizer 
 
 f.write(tfidf_vectorizer.get_feature_names().__str__())
 f.write("\n")
-print("feature names:",)
-from sklearn.metrics.pairwise import cosine_similarity
-
-dist = 1 - cosine_similarity(tfidf_matrix)
-
 from sklearn.cluster import KMeans
 
 km = KMeans(n_clusters=550, init='k-means++')
 km.fit(tfidf_matrix)
-print("finish clustering",tfidf_vectorizer.get_feature_names().__str__().__len__())
-# import matplotlib.pyplot as plt
-# wcss = []
-# for i in range(1, 50):
-#     km = KMeans(n_clusters=i, init='k-means++')
-#     km.fit(tfidf_matrix)
-#     print(i, km.inertia_)
-#
-#     wcss.append(km.inertia_)
-#
-# plt.plot(range(1, 50), wcss)
-# plt.xlabel('numbers of cluster')
-# plt.ylabel('wcss')
-# plt.show()
 
 clusters = km.labels_.tolist()
 
