@@ -3,12 +3,13 @@ import re
 
 from nltk.tokenize import word_tokenize
 
-from src.ml_service.preprocessing.French.GlobalVariable import Global
-from src.ml_service.preprocessing.French.NerMatrix import NamedEntity
-
+from src.ml_service.GlobalVariables.GlobalVariable import Global
+from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.NerMatrix import NamedEntity
 
 # #################################################
 # PRECEDENCE MODEL
+
+
 class PrecedenceModel:
     ner = NamedEntity()
     extra_parse = re.compile("l'")
@@ -21,6 +22,11 @@ class PrecedenceModel:
         'Time_Frequency': "fréquence",
         'Relative_Time': 'relatif',
         'Other': "autre"
+    }
+
+    syn_dict = {
+        'locateur': 'propriétaire',
+        'locatrice': 'propriétaire'
     }
 
     # #################################################
@@ -37,6 +43,10 @@ class PrecedenceModel:
         self.core_topic = []
         self.core_facts = []
         self.core_decisions = []
+
+        self.original_topic = []
+        self.original_facts = []
+        self.original_decisions = []
 
     # #################################################
     # FORMAT
@@ -75,8 +85,11 @@ class PrecedenceModel:
         previous_word = ''
 
         for i in range(len(word_list)):
-            if word_list[i] == 'locateur':
-                word_list[i] = 'propriétaire'
+            try:
+                word_list[i] = self.syn_dict[word_list[i]]
+            except KeyError:
+                pass
+
             kernel = [word_list[i]]
             if i != 0:
                 kernel.append(word_list[i - 1])
@@ -106,6 +119,7 @@ class PrecedenceModel:
     def __preprocess(self, sentence):
         if self.extra_parse.search(sentence):
             sentence = re.sub("l'", ' ', sentence)
+
         word_list = word_tokenize(sentence, language='french')
         word_list = [word for word in word_list if word not in Global.custom_stop_words]
         return word_list

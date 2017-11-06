@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
+import os
 import re
 
-from src.ml_service.preprocessing.French.GlobalVariable import Global
-from src.ml_service.preprocessing.French.Model import PrecedenceModel
+import numpy as np
+
+from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.Vectorize import FrenchVectors
+from src.ml_service.GlobalVariables.GlobalVariable import Global
+from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.Model import PrecedenceModel
+from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.Pipe import PipeSent
+from sys import stdout
 
 
 # #################################################
@@ -19,7 +25,7 @@ class State:
 
 # #################################################
 # PARSER
-class Parser:
+class Precedence_Parser:
     __factMatch = re.compile('\[\d+\]\s')
     __minimum_line_length = 6
 
@@ -28,6 +34,7 @@ class Parser:
     def __init__(self):
         self.__state = None
         self.__model = None
+        self.__pipe = PipeSent()
 
     # #################################################
     # PARSE
@@ -100,19 +107,22 @@ class Parser:
         sub_sent = self.__split_sub_sentence(line)
 
         if self.__state == State.TOPIC:
-            for l in sub_sent:
-                if len(l) > 1:
-                    self.__model.topics.append(l)
+            for i in range(len(sub_sent[0])):
+                if len(sub_sent[0]) > 1:
+                    self.__model.topics.append(sub_sent[0][i])
+                    self.__model.original_topic.append(sub_sent[1][i])
 
         elif self.__state == State.FACTS:
-            for l in sub_sent:
-                if len(l) > 1:
-                    self.__model.facts.append(l)
+            for i in range(len(sub_sent[0])):
+                if len(sub_sent[0]) > 1:
+                    self.__model.facts.append(sub_sent[0][i])
+                    self.__model.original_facts.append(sub_sent[1][i])
 
         elif self.__state == State.DECISION:
-            for l in sub_sent:
-                if len(l) > 1:
-                    self.__model.decisions.append(l)
+            for i in range(len(sub_sent[0])):
+                if len(sub_sent[0]) > 1:
+                    self.__model.decisions.append(sub_sent[0][i])
+                    self.__model.original_decisions.append(sub_sent[1][i])
 
     # #################################################
     # SPLIT SUB SENTENCE
@@ -121,5 +131,54 @@ class Parser:
     # ** This method can be enhanced for better classification
     #    This is just a proof of concept for now
     def __split_sub_sentence(self, sentence):
-        #sentence = sentence.replace(',', ".")
-        return sentence.split('.')
+        sent_list = sentence.split('.')
+        sub_sent = []
+        original_sent = []
+        for sent in sent_list:
+            try:
+                tpl = self.__pipe.pipe(sent)
+                sub_sent += tpl[0]
+                original_sent += tpl[1]
+            except TypeError:
+                pass
+        return sub_sent, original_sent
+
+    '''
+    ------------------------------------------------------
+    Parse Training Data
+    ------------------------------------------------------
+
+    Vectorizes sentences and creates a matrix from it.
+    Also appends original sentence to a list
+
+    file_directory <string>: precedence file directory
+    nb_of_files <int>: Number of files to train on
+
+    returns <array, array, array>    
+    '''
+
+    def parse_topics(self, file_directory, nb_of_files):
+        j = 0
+        data = []
+        sent = []
+        original_sent = []
+        print("Fetching from precedence")
+
+        for i in os.listdir(file_directory):
+            if j >= nb_of_files:
+                break
+            j += 1
+
+            percent = float(j / nb_of_files) * 100
+            stdout.write("\rData Extraction: %f " % percent)
+            stdout.flush()
+
+            model = self.parse(i)
+            for i in range(len(model.core_topic)):
+                if model.topics[i] in sent:
+                    continue
+                vec = FrenchVectors.vectorize_sent(model.core_topic[i])
+                data.append(vec)
+                sent.append(model.topics[i])
+                original_sent.append(model.original_topic[i])
+        return np.array(data), np.array(sent), np.array(original_sent)
