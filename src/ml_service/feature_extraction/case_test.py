@@ -1,4 +1,4 @@
-import case
+from src.ml_service.feature_extraction import case
 import os
 
 case = case.Case(os.getcwd() + "/feature_extraction/dummy_cases/sample_case1.txt")
