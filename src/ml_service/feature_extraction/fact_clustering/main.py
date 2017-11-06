@@ -14,7 +14,7 @@ logger.addHandler(hdlr)
 
 
 start = time.time()
-facts = fact_extracter.extractFactsFromFiles(1)
+facts = fact_extracter.extractFactsFromFiles(1000)
 done = time.time()
 related_word_fetcher.save_cache()
 print('Vectorization time:')

@@ -29,7 +29,7 @@ def _extract(filename, errorWordSet):
     """
     factDict = {}
     for line in _getFactsLinesFromFile(filename):
-        for sentence in re.split(',;.?!', _clean(line)):
+        for sentence in re.split('(;|\.|\?|\!)', _clean(line)):
             vector = _vectorize(sentence, errorWordSet)
             if vector is not None:
                 factDict[sentence] = vector
