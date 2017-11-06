@@ -42,6 +42,10 @@ class PrecedenceModel:
         self.core_facts = []
         self.core_decisions = []
 
+        self.original_topic = []
+        self.original_facts = []
+        self.original_decisions = []
+
     # #################################################
     # FORMAT
     # -------------------------------------------------

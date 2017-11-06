@@ -106,19 +106,22 @@ class Precedence_Parser:
         sub_sent = self.__split_sub_sentence(line)
 
         if self.__state == State.TOPIC:
-            for l in sub_sent:
-                if len(l) > 1:
-                    self.__model.topics.append(l)
+            for i in range(len(sub_sent[0])):
+                if len(sub_sent[0]) > 1:
+                    self.__model.topics.append(sub_sent[0][i])
+                    self.__model.original_topic.append(sub_sent[1][i])
 
         elif self.__state == State.FACTS:
-            for l in sub_sent:
-                if len(l) > 1:
-                    self.__model.facts.append(l)
+            for i in range(len(sub_sent[0])):
+                if len(sub_sent[0]) > 1:
+                    self.__model.facts.append(sub_sent[0][i])
+                    self.__model.original_facts.append(sub_sent[1][i])
 
         elif self.__state == State.DECISION:
-            for l in sub_sent:
-                if len(l) > 1:
-                    self.__model.decisions.append(l)
+            for i in range(len(sub_sent[0])):
+                if len(sub_sent[0]) > 1:
+                    self.__model.decisions.append(sub_sent[0][i])
+                    self.__model.original_decisions.append(sub_sent[1][i])
 
     # #################################################
     # SPLIT SUB SENTENCE
@@ -129,9 +132,15 @@ class Precedence_Parser:
     def __split_sub_sentence(self, sentence):
         sent_list = sentence.split('.')
         sub_sent = []
+        original_sent = []
         for sent in sent_list:
-            sub_sent += self.__pipe.pipe(sent)
-        return sub_sent
+            try:
+                tpl = self.__pipe.pipe(sent)
+                sub_sent += tpl[0]
+                original_sent += tpl[1]
+            except TypeError:
+                pass
+        return sub_sent, original_sent
 
     '''
     ------------------------------------------------------
@@ -151,13 +160,17 @@ class Precedence_Parser:
         j = 0
         data = []
         sent = []
+        original_sent = []
         for i in os.listdir(file_directory):
             if (nb_of_files is not None) and (j >= nb_of_files):
                 break
             j += 1
             model = self.parse(i)
             for i in range(len(model.core_topic)):
+                if model.topics[i] in sent:
+                    continue
                 vec = FrenchVectors.vectorize_sent(model.core_topic[i])
                 data.append(vec)
                 sent.append(model.topics[i])
-        return np.array(data), np.array(sent)
+                original_sent.append(model.original_topic[i])
+        return np.array(data), np.array(sent), np.array(original_sent)

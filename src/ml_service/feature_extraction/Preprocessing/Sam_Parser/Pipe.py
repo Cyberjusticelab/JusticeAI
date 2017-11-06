@@ -5,17 +5,15 @@ import re
 
 
 class PipeSent():
-    filter_match = re.compile('NN|PRP|VB')
+    filter_match = re.compile('NN|VB')
 
     def __init__(self):
         pass
 
     def pipe(self, sent):
-        sentence_list = []
-        sent = self.filter_words(sent)
-        tagged_sent = parsetree(sent, relations=True)
-        self.sub_sent(tagged_sent, sentence_list)
-        return sentence_list
+        s = self.filter_words(sent)
+        tagged_sent = parsetree(s, relations=True)
+        return self.sub_sent(tagged_sent, sent)
 
     def filter_words(self, sent):
         word_list = tag(sent)
@@ -27,7 +25,9 @@ class PipeSent():
         detokenizer = MosesDetokenizer()
         return detokenizer.detokenize(word_list, return_str=True)
 
-    def sub_sent(self, tagged_sent, sentence_list):
+    def sub_sent(self, tagged_sent, s):
+        original_sent = []
+        sentence_list = []
         for sentence in tagged_sent:
             dict = {}
             for relation in (sentence.relations['SBJ']):
@@ -53,6 +53,8 @@ class PipeSent():
 
             for sent in dict:
                 sentence_list.append(dict[sent])
+                original_sent.append(s)
+            return sentence_list, original_sent
 
     def format_noun(self, word):
         return singularize(word)
@@ -63,6 +65,6 @@ class PipeSent():
 
 if __name__ == '__main__':
     p = PipeSent()
-    sentence = '''Le locateur déclare que les locataires ont quitté le logement en date.'''
+    sentence = '''locateur demande ordonnance accès et le frais'''
     lst = p.pipe(sentence)
     print(lst)

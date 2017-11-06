@@ -24,13 +24,12 @@ class HdbscanTrain:
     plot <bool>: plot the graph of the clusters
     '''
 
-    def train(self, output_directory, data_matrix, sent, nb_of_files, config, plot=False):
+    def train(self, output_directory, data_matrix, sent, original_sent, nb_of_files, config, plot=False):
         print("Standardizing matrix")
         tsne = TSNE(n_components=2,
                     learning_rate=config[0],
                     perplexity=config[1])
         data_matrix = tsne.fit_transform(data_matrix)
-
         print("Clustering")
         hdb = HDBSCAN(min_cluster_size=2).fit(data_matrix)
         hdb_labels = hdb.labels_
@@ -43,9 +42,17 @@ class HdbscanTrain:
 
         for label, col in zip(hdb_unique_labels, hdb_colors):
             file = open(output_directory + str(label) + '.txt', 'w')
+
             for word in sent[hdb_labels == label]:
-                file.writelines(word)
+                file.writelines("[*] " + word)
                 file.writelines('\n')
+
+            file.writelines("-------------------------------\n")
+
+            for word in original_sent[hdb_labels == label]:
+                file.writelines("[*] " + word)
+                file.writelines('\n')
+
             file.close()
             if label == -1:
                 # Black used for noise.
@@ -100,15 +107,15 @@ class HdbscanTrain:
 
 if __name__ == '__main__':
     parser = Precedence_Parser()
-    number_of_files = [500, 1000, 2000, 4000]
-    config = (200, 20)
+    number_of_files = [8000]
+    config = (200, 25)
     start = time.time()
     for i in number_of_files:
-        data_matrix, sent = parser.parse_training_data(Global.Precedence_Directory, i)
+        data_matrix, sent, original_sent = parser.parse_training_data(Global.Precedence_Directory, i)
         clusterer = HdbscanTrain()
         cluster_dir = r'cluster_dir/'
         #clusterer.plot(data_matrix, sent)
-        clusterer.train(cluster_dir, data_matrix, sent, i, config)
+        clusterer.train(cluster_dir, data_matrix, sent, original_sent, i, config)
     elapsed = time.time()
     print('Elapsed:')
     print(elapsed - start)
