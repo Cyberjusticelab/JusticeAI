@@ -12,3 +12,4 @@ coverage.xml
 /feature_extraction/Preprocessing/Sam_Parser/french_data/*
 /feature_extraction/Clustering/HDBSCAN/cluster_dir/*
 /feature_extraction/Clustering/HDBSCAN/metrics.txt
+outputs
