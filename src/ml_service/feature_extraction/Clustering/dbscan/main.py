@@ -5,7 +5,8 @@ from src.ml_service.feature_extraction.Preprocessing.Arek_Parser import fact_ext
 from src.ml_service.feature_extraction.Preprocessing.Arek_Parser import related_word_fetcher
 import logging
 
-if __name__ == '__main__':
+
+def execute():
     logger = logging.getLogger('fact_clustering')
     logger.setLevel(logging.INFO)
     formatter = logging.Formatter('%(asctime)s - %(module)s - %(message)s')
@@ -26,3 +27,7 @@ if __name__ == '__main__':
 
     print('Clustering time:')
     print(done - start)
+
+
+if __name__ == '__main__':
+    execute()

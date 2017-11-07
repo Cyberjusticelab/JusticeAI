@@ -14,7 +14,7 @@ def clusterFacts(factDict):
                   and the values are the associated sentence vectors
     """
     X = np.matrix(list(factDict.values()))
-    ms = DBSCAN()
+    ms = DBSCAN(min_samples=2, eps=0.4, n_jobs=-1)
     ms.fit(X)
     labels = ms.labels_
     n_clusters = len(np.unique(labels))
