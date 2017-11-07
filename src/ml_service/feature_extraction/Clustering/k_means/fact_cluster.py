@@ -71,8 +71,6 @@ class KMeansWrapper:
         f = open(file_name + ".txt", 'w')
         clusters = self.km.labels_.tolist()
         claim_cluster = [[] for i in range(self.cluster_size)]
-        print("cluster size: ", len(clusters))
-        print("claim_text size: ", len(self.claim_text))
         for i in range(len(clusters)):
             claim_cluster[clusters[i]].append(self.claim_text[i])
 
