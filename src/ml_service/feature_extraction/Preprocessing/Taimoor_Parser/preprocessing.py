@@ -2,7 +2,6 @@ import re
 
 
 def preprocessing(facts):
-
     """
     Takes a list of strings and removes/replaces words such that they map to a common word. 
     Also remove unnecessary words/phrases
@@ -33,15 +32,15 @@ def preprocessing(facts):
         # replace date value
         facts[i] = re.sub("\d+-\d+-\d+", " date ", facts[i])
         facts[i] = re.sub(
-            "\d+.{0,2}?\s+("+months+")(\s+(\d{4}))?",
+            "\d+.{0,2}?\s+(" + months + ")(\s+(\d{4}))?",
             " date ", facts[i])
         facts[i] = re.sub(
-            "("+months+")\s+(\d{4})",
+            "(" + months + ")\s+(\d{4})",
             " date ", facts[i])
 
         # replace month values
         facts[i] = re.sub(
-            "("+months+")",
+            "(" + months + ")",
             " nom_du_mois ", facts[i])
 
         # remove hyphens
@@ -52,7 +51,7 @@ def preprocessing(facts):
         if match is not None:
             facts[i] = facts[i][:match.start()] + ". " + facts[i][match.start() + 1:]
 
-        # map landlord to a commun word
+        # map landlord to a common word
         facts[i] = re.sub("locatrice(s)?", "locateur", facts[i])
 
         facts[i] = re.sub("pour ces motifs, le tribunal", "", facts[i])

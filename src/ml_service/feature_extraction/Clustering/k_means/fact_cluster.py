@@ -1,9 +1,9 @@
 import re
 import nltk
 from nltk.stem.snowball import SnowballStemmer
-from fact_extraction import extract_data_from_cases
+from src.ml_service.feature_extraction.Preprocessing.Taimoor_Parser.fact_extraction import extract_data_from_cases
 from stop_words import get_stop_words
-from preprocessing import preprocessing
+from src.ml_service.feature_extraction.Preprocessing.Taimoor_Parser.preprocessing import preprocessing
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
 
@@ -73,4 +73,3 @@ class KMeansWrapper:
                 f.write("\n")
             f.write("\n\n========================================================================\n\n")
         f.close()
-
