@@ -1,7 +1,8 @@
-from feature_extraction import case
+from feature_extraction.Preprocessing.Taimoor_Parser import case
 import os
 
-c = case.Case(os.getcwd() + "/feature_extraction/dummy_cases/sample_case1.txt")
+c = case.Case(os.getcwd() + "/feature_extraction/Preprocessing/"
+                            "Taimoor_Parser/dummy_cases/sample_case1.txt")
 
 
 def test_no_demande():

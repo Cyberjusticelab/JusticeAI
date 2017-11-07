@@ -39,6 +39,8 @@ class PipeSent():
         for word in word_list:
             if self.filter_match.match(word[1]):
                 new_string += word[0] + " "
+            elif '$' in word[0]:
+                new_string += 'argent '
         word_list = word_tokenize(new_string, language='french')
         detokenizer = MosesDetokenizer()
         return detokenizer.detokenize(word_list, return_str=True)
@@ -62,38 +64,43 @@ class PipeSent():
             for relation in (sentence.relations['SBJ']):
                 for words in sentence.relations['SBJ'][relation]:
                     try:
-                        dict[relation] += " " + self.format_noun(words.string)
+                        dict[relation] += " " + words.string
                     except KeyError:
-                        dict[relation] = self.format_noun(words.string)
+                        dict[relation] = words.string
 
             for relation in (sentence.relations['VP']):
                 for words in sentence.relations['VP'][relation]:
                     try:
-                        dict[relation] += " " + self.format_verb(words.string)
+                        dict[relation] += " " + words.string
                     except KeyError:
-                        dict[relation] = self.format_verb(words.string)
+                        dict[relation] = words.string
 
             for relation in (sentence.relations['OBJ']):
                 for words in sentence.relations['OBJ'][relation]:
                     try:
-                        dict[relation] += " " + self.format_noun(words.string)
+                        dict[relation] += " " + words.string
                     except KeyError:
-                        dict[relation] = self.format_noun(words.string)
+                        dict[relation] = words.string
 
             for sent in dict:
                 sentence_list.append(dict[sent])
                 original_sent.append(s)
             return sentence_list, original_sent
 
-    def format_noun(self, word):
-        return singularize(word)
-
-    def format_verb(self, word):
-        return conjugate(word)
-
 
 if __name__ == '__main__':
+    from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.PrecedenceParse import Precedence_Parser
+    from src.ml_service.GlobalVariables.GlobalVariable import Global
     p = PipeSent()
-    sentence = '''locateur demande ordonnance accès et le frais'''
-    lst = p.pipe(sentence)
-    print(lst)
+    parser = Precedence_Parser()
+    tpl = parser.parse_topics(Global.Precedence_Directory, 50)
+    original_sent = tpl[2]
+    file = open('sub.txt', 'a')
+    for s in original_sent:
+        lst = p.pipe(s)
+        for l in lst[0]:
+            file.write("SUB SENTENCES: \n")
+            file.write(l + '\n\n')
+        file.write("ORIGINAL SENTENCE: \n")
+        file.write(s + '\n\n')
+        file.write("------------------------------------------\n\n")
