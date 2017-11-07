@@ -13,6 +13,12 @@ Connect via `psql`:
 ./cjl run --rm postgresql_db "psql -h postgresql_db -U postgres"
 ```
 
+SQL script backup via `pg_dump`:
+```
+export PGPASSWORD=$(printf '%s' "$POSTGRES_PASSWORD")
+./cjl run --rm -e PGPASSWORD='$PGPASSWORD' postgresql_db "pg_dump -h postgresql_db -U postgres -p 5432"
+```
+
 The above command will prompt you to enter the database password.
 
 
