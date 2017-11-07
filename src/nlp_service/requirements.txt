@@ -14,3 +14,4 @@ Werkzeug==0.12.2
 numpy==1.13.3
 scipy==1.0.0
 gensim==3.0.1
+rasa_nlu==0.10.4
