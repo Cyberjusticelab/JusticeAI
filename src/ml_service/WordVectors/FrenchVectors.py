@@ -48,6 +48,7 @@ class FrenchVectors:
     word_vectors = load_from_bin()
     custom_stop_words = get_stop_words()
     Word_Vector_Size = 500
+    word_idf_dict = None
 
     def __init__(self):
         pass
@@ -73,7 +74,12 @@ class FrenchVectors:
                 continue
             while True:
                 try:
-                    vector = numpy.add(vector, FrenchVectors.word_vectors[word])
+                    word_vec = FrenchVectors.word_vectors[word]
+                    if FrenchVectors.word_idf_dict is not None:
+                        word_idf = FrenchVectors.word_idf_dict[word]
+                        if word_idf is not None:
+                            word_vec = numpy.multiply(word_idf, word_vec)
+                    vector = numpy.add(vector, word_vec)
                     num += 1
                     break
 
@@ -81,4 +87,6 @@ class FrenchVectors:
                     word = find_related(word)
                     if word is None:
                         break
+        if num == 0:
+            return None
         return numpy.divide(vector, num)

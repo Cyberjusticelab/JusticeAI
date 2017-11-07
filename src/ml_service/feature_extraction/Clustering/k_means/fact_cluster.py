@@ -8,6 +8,8 @@ from sklearn.cluster import KMeans
 from src.ml_service.feature_extraction.Preprocessing.Taimoor_Parser.fact_extraction import extract_data_from_cases
 from src.ml_service.feature_extraction.Preprocessing.Taimoor_Parser.preprocessing import preprocessing
 from src.ml_service.GlobalVariables.GlobalVariable import Global
+from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.PrecedenceParse import FrenchVectors
+import numpy
 
 
 class KMeansWrapper:
@@ -48,11 +50,29 @@ class KMeansWrapper:
                                            stop_words=stopwords.words('french'),
                                            strip_accents='ascii',
                                            use_idf=True,
-                                           tokenizer=self.tokenize_and_stem,
-                                           min_df=0.01, max_df=0.8, norm='l2',
-                                           ngram_range={1, 4}
+                                           tokenizer=self.tokenize_only,
+                                           min_df=0.0, max_df=0.8, norm='l2',
                                            )
-        return tfidf_vectorizer.fit_transform(self.claim_text)
+
+        tf_idf_matrix = tfidf_vectorizer.fit_transform(self.claim_text)
+        print(tf_idf_matrix)
+        idf = tfidf_vectorizer.idf_
+        word_idf_dict = dict(zip(tfidf_vectorizer.get_feature_names(), idf))
+        FrenchVectors.word_idf_dict = word_idf_dict
+        claim_vec_list = []
+        print(len(word_idf_dict))
+        for claim in self.claim_text:
+            for word in claim:
+                try:
+                    FrenchVectors.word_vectors[word] = numpy.multiply(FrenchVectors.word_vectors[word],
+                                                                      word_idf_dict[word])
+                except TypeError:
+                    pass
+                except KeyError:
+                    pass
+        for claim in self.claim_text:
+            claim_vec_list.append(FrenchVectors.vectorize_sent(self.tokenize_only(claim)))
+        return numpy.array(claim_vec_list)
 
     def cluster(self):
         km = KMeans(n_clusters=self.cluster_size, init='k-means++')
@@ -63,17 +83,16 @@ class KMeansWrapper:
         f = open(file_name + ".txt", 'w')
         clusters = self.km.labels_.tolist()
         claim_cluster = [[] for i in range(self.cluster_size)]
-        index = 0
-        for claim in self.claim_text:
-            claim_cluster[clusters[index]].append(claim)
-            index += 1
+        print("cluster size: ",len(clusters))
+        print("claim_text size: ", len(self.claim_text))
+        for i in range(len(clusters)):
+            claim_cluster[clusters[i]].append(self.claim_text[i])
+
         for claim_list in claim_cluster:
             for claim in claim_list:
                 f.write(claim)
                 f.write("\n")
             f.write("\n\n========================================================================\n\n")
-        f.close()
-
 
 if __name__ == '__main__':
-    KMeansWrapper(os.path.normpath(Global.Precedence_Directory), 100, 100)
+    KMeansWrapper(os.path.normpath(Global.Precedence_Directory), 100, 10)
