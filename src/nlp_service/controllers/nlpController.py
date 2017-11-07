@@ -1,4 +1,10 @@
+from flask import jsonify, abort, make_response
+
 def process_user_input(conversation_id, message):
+
+    if conversation_id is None or message is None:
+        abort(make_response(jsonify(message="Must provide conversation_id and message"), 400))
+
     # Retrieve current_fact from conversation
     current_fact = __get_current_fact(conversation_id)
 
@@ -17,7 +23,10 @@ def process_user_input(conversation_id, message):
     question = __generate_question(new_fact)
 
     # Return question to backend
-    pass  # return question
+    response = {
+        "message": question
+    }
+    pass  # return response
 
 
 def __get_current_fact(conversation_id):
