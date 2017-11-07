@@ -37,7 +37,7 @@ def get_stop_words():
             'mon', 'mot', 'même', 'ni', 'nommés', 'notre', 'nous', 'ou',
             'où', 'par', 'parce', 'pas', 'peut', 'peu', 'plupart', 'pour',
             'pourquoi', 'quand', 'que', 'quel', 'quelle', 'quelles', 'quels',
-            'qui', 'sa', 'sans', 'ses', 'seulement', 'si', 'sien','son', 'sont',
+            'qui', 'sa', 'sans', 'ses', 'seulement', 'si', 'sien', 'son', 'sont',
             'sous', 'soyez', 'sur', 'ta', 'tandis', 'tellement', 'tels',
             'tes', 'ton', 'tous', 'tout', 'trop', 'très', 'tu', 'voient',
             'vont', 'votre', 'vous', 'vu', 'ça', 'étaient', 'état', 'étions', 'été', 'être',
