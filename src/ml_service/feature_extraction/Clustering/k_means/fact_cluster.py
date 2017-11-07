@@ -74,5 +74,6 @@ class KMeansWrapper:
             f.write("\n\n========================================================================\n\n")
         f.close()
 
+
 if __name__ == '__main__':
     KMeansWrapper(os.path.normpath(Global.Precedence_Directory), 100, 100)
