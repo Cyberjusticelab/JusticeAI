@@ -1,12 +1,14 @@
 import re
-
 import nltk
+import os
 from nltk.corpus import stopwords
 from nltk.stem.snowball import SnowballStemmer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
 from src.ml_service.feature_extraction.Preprocessing.Taimoor_Parser.fact_extraction import extract_data_from_cases
 from src.ml_service.feature_extraction.Preprocessing.Taimoor_Parser.preprocessing import preprocessing
+from src.ml_service.GlobalVariables.GlobalVariable import Global
+
 
 
 class KMeansWrapper:
@@ -59,7 +61,7 @@ class KMeansWrapper:
         return km
 
     def print(self, file_name):
-        f = open(r'cluster_dir/' + file_name + ".txt", 'w')
+        f = open(file_name + ".txt", 'w')
         clusters = self.km.labels_.tolist()
         claim_cluster = [[] for i in range(self.cluster_size)]
         index = 0
@@ -73,7 +75,5 @@ class KMeansWrapper:
             f.write("\n\n========================================================================\n\n")
         f.close()
 
-
-# insert demo in here
 if __name__ == '__main__':
-    pass
+    KMeansWrapper(os.path.normpath(Global.Precedence_Directory), 100, 100)

@@ -62,6 +62,6 @@ def extract_data_from_cases(cases_directory, total_files_to_process):
     for file_name in os.listdir(cases_directory):
         if count == total_files_to_process:
             break
-        _extract_facts(cases_directory + file_name)
+        _extract_facts(cases_directory + "/" + file_name)
         count += 1
     return claim_text
