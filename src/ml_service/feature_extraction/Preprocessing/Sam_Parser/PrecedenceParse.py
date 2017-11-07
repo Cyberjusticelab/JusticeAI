@@ -154,7 +154,7 @@ class Precedence_Parser:
     file_directory <string>: precedence file directory
     nb_of_files <int>: Number of files to train on
 
-    returns <array, array, array>    
+    returns <array, array, array>
     '''
 
     def parse_topics(self, file_directory, nb_of_files):
