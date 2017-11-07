@@ -7,6 +7,9 @@ coverage.xml
 ./**/*.iml
 .idea/*
 *.bin
-/preprocessing/French/french_data/*
-/preprocessing/train.py
-/preprocessing/French/NerTraining.py
+/feature_extraction/Clustering/HDBSCAN/cluster_dir/*
+/feature_extraction/Clustering/HDBSCAN/metrics.txt
+/feature_extraction/Preprocessing/Arek_Parser/error_words.txt
+/feature_extraction/Clustering/dbscan/cache.pickle
+/feature_extraction/Clustering/dbscan/fact_clustering.log
+/feature_extraction/Clustering/dbscan/cluster_dir/*

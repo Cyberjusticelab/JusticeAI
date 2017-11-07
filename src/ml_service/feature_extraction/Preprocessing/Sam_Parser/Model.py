@@ -3,14 +3,13 @@ import re
 
 from nltk.tokenize import word_tokenize
 
-from src.ml_service.preprocessing.French.GlobalVariable import Global
-from src.ml_service.preprocessing.French.NerMatrix import NamedEntity
-
+from src.ml_service.WordVectors.FrenchVectors import FrenchVectors
 
 # #################################################
 # PRECEDENCE MODEL
+
+
 class PrecedenceModel:
-    ner = NamedEntity()
     extra_parse = re.compile("l'")
 
     # English named entities to french
@@ -21,6 +20,11 @@ class PrecedenceModel:
         'Time_Frequency': "fréquence",
         'Relative_Time': 'relatif',
         'Other': "autre"
+    }
+
+    syn_dict = {
+        'locateur': 'propriétaire',
+        'locatrice': 'propriétaire'
     }
 
     # #################################################
@@ -38,6 +42,10 @@ class PrecedenceModel:
         self.core_facts = []
         self.core_decisions = []
 
+        self.original_topic = []
+        self.original_facts = []
+        self.original_decisions = []
+
     # #################################################
     # FORMAT
     # -------------------------------------------------
@@ -45,19 +53,19 @@ class PrecedenceModel:
     def format(self):
         for topic in self.topics:
             self.topics_str += topic + "\n"
-            lst = self.__ner(topic)
+            lst = self.__replace(topic)
             if len(lst) > 0:
                 self.core_topic.append(lst)
 
         for fact in self.facts:
             self.facts_str += fact + "\n"
-            lst = self.__ner(fact)
+            lst = self.__replace(fact)
             if len(lst) > 0:
                 self.core_facts.append(lst)
 
         for decision in self.decisions:
             self.decisions_str += decision + "\n"
-            lst = self.__ner(decision)
+            lst = self.__replace(decision)
             if len(lst) > 0:
                 self.core_decisions.append(lst)
 
@@ -69,45 +77,23 @@ class PrecedenceModel:
     # that gave good results
     # sentence: String
     # return: list[String]
-    def __ner(self, sentence):
+    def __replace(self, sentence):
         word_list = self.__preprocess(sentence)
-        return_lst = []
-        previous_word = ''
-
         for i in range(len(word_list)):
-            if word_list[i] == 'locateur':
-                word_list[i] = 'propriétaire'
-            kernel = [word_list[i]]
-            if i != 0:
-                kernel.append(word_list[i - 1])
-            if i != (len(word_list) - 1):
-                kernel.append(word_list[i + 1])
-
-            entity = self.ner.map_to_entity(kernel)
-
-            if entity == 'Other':
-                return_lst.append(word_list[i])
-                previous_word = word_list[i]
-
-            elif entity is None:
-                continue
-
-            elif entity == previous_word:
-                continue
-
-            else:
-                return_lst.append(self.entity_2_french[entity])
-                previous_word = entity
-
-        return return_lst
+            try:
+                word_list[i] = self.syn_dict[word_list[i]]
+            except KeyError:
+                pass
+        return word_list
 
     # #################################################
     #
     def __preprocess(self, sentence):
         if self.extra_parse.search(sentence):
             sentence = re.sub("l'", ' ', sentence)
+
         word_list = word_tokenize(sentence, language='french')
-        word_list = [word for word in word_list if word not in Global.custom_stop_words]
+        word_list = [word for word in word_list if word not in FrenchVectors.custom_stop_words]
         return word_list
 
     # #################################################
