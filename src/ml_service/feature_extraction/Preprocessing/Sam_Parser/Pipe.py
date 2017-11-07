@@ -52,7 +52,7 @@ class PipeSent():
     Creates sub sentence from full sentence
     tagged_sent<pattern.parsetree>
     s<string>: original sentence
-    
+
     returns: sub sentence list, original sentence list
     '''
 

@@ -1,0 +1,38 @@
+Number_of_clusters: 145	Number_of_files used: 500	Noise: 86	Learning rate: 200	Perplexity: 20
+Number_of_clusters: 303	Number_of_files used: 1000	Noise: 189	Learning rate: 200	Perplexity: 20
+Number_of_clusters: 670	Number_of_files used: 2000	Noise: 376	Learning rate: 200	Perplexity: 20
+Number_of_clusters: 1137	Number_of_files used: 4000	Noise: 657	Learning rate: 200	Perplexity: 20
+no transform
+Number_of_clusters: 159	Number_of_files used: 500	Noise: 142	Learning rate: 200	Perplexity: 20
+Number_of_clusters: 276	Number_of_files used: 1000	Noise: 288	Learning rate: 200	Perplexity: 20
+Number_of_clusters: 495	Number_of_files used: 2000	Noise: 509	Learning rate: 200	Perplexity: 20
+Number_of_clusters: 856	Number_of_files used: 4000	Noise: 873	Learning rate: 200	Perplexity: 20
+less
+
+Number_of_clusters: 110	Number_of_files used: 500	Noise: 138	Learning rate: 200	Perplexity: 20
+Number_of_clusters: 206	Number_of_files used: 1000	Noise: 299	Learning rate: 200	Perplexity: 20
+Number_of_clusters: 370	Number_of_files used: 2000	Noise: 548	Learning rate: 200	Perplexity: 20
+Number_of_clusters: 636	Number_of_files used: 4000	Noise: 958	Learning rate: 200	Perplexity: 20
+Number_of_clusters: 1110	Number_of_files used: 8000	Noise: 1692	Learning rate: 200	Perplexity: 20
+Number_of_clusters: 3	Number_of_files used: 10	Noise: 5	Learning rate: 200	Perplexity: 20
+Number_of_clusters: 3	Number_of_files used: 10	Noise: 5	Learning rate: 200	Perplexity: 20
+Number_of_clusters: 3	Number_of_files used: 10	Noise: 5	Learning rate: 200	Perplexity: 20
+Number_of_clusters: 3	Number_of_files used: 10	Noise: 5	Learning rate: 200	Perplexity: 20
+Number_of_clusters: 3	Number_of_files used: 10	Noise: 5	Learning rate: 200	Perplexity: 20
+Number_of_clusters: 3	Number_of_files used: 10	Noise: 5	Learning rate: 200	Perplexity: 20
+Number_of_clusters: 3	Number_of_files used: 10	Noise: 5	Learning rate: 200	Perplexity: 20
+Number_of_clusters: 3	Number_of_files used: 10	Noise: 5	Learning rate: 200	Perplexity: 20
+Number_of_clusters: 3	Number_of_files used: 10	Noise: 5	Learning rate: 200	Perplexity: 20
+Number_of_clusters: 6	Number_of_files used: 10	Noise: 9	Learning rate: 200	Perplexity: 20
+Number_of_clusters: 6	Number_of_files used: 10	Noise: 9	Learning rate: 200	Perplexity: 20
+Number_of_clusters: 6	Number_of_files used: 10	Noise: 9	Learning rate: 200	Perplexity: 20
+Number_of_clusters: 988	Number_of_files used: 8000	Noise: 2981	Learning rate: 200	Perplexity: 20
+Number_of_clusters: 723	Number_of_files used: 8000	Noise: 1657	Learning rate: 200	Perplexity: 30
+Number_of_clusters: 718	Number_of_files used: 8000	Noise: 1499	Learning rate: 200	Perplexity: 25
+Number_of_clusters: 722	Number_of_files used: 8000	Noise: 1551	Learning rate: 200	Perplexity: 22
+Number_of_clusters: 703	Number_of_files used: 8000	Noise: 1521	Learning rate: 200	Perplexity: 25
+Number_of_clusters: 0	Number_of_files used: 10	Noise: 41	Learning rate: 200	Perplexity: 25
+Number_of_clusters: 0	Number_of_files used: 10	Noise: 41	Learning rate: 200	Perplexity: 25
+Number_of_clusters: 15	Number_of_files used: 100	Noise: 41	Learning rate: 200	Perplexity: 25
+Number_of_clusters: 17	Number_of_files used: 100	Noise: 41	Learning rate: 200	Perplexity: 25
+Number_of_clusters: 16	Number_of_files used: 100	Noise: 43	Learning rate: 200	Perplexity: 25

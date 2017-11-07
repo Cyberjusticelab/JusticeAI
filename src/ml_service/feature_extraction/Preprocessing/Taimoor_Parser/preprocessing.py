@@ -3,10 +3,9 @@ import re
 
 def preprocessing(facts):
     """
-    Takes a list of strings and removes/replaces words such that they map to a common word. 
+    Takes a list of strings and removes/replaces words such that they map to a common word.
     Also remove unnecessary words/phrases
-
-    :param facts: list of strings 
+    :param facts: list of strings
     :return: sanitized list of strings
     """
     months = "janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre"
@@ -51,10 +50,9 @@ def preprocessing(facts):
         if match is not None:
             facts[i] = facts[i][:match.start()] + ". " + facts[i][match.start() + 1:]
 
-        # map landlord to a commun word
+        # map landlord to a common word
         facts[i] = re.sub("locatrice(s)?", "locateur", facts[i])
 
-        # remove hyphens
         facts[i] = re.sub("pour ces motifs, le tribunal", "", facts[i])
 
     return facts

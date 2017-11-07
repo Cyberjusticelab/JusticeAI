@@ -14,9 +14,9 @@ class HdbscanTrain:
     ------------------------------------------------------
     Train
     ------------------------------------------------------
-    
-    Clustering algorithm using HDBSCAN
-        
+
+    Clustering algorithm using hdbscan
+
     output_directory <string>: output directory of clusters
     tpl <array, array, array>: vetors, transformed sentences, original sentence
     nb_of_files <int>: number of files to train on
@@ -36,14 +36,14 @@ class HdbscanTrain:
         self.__write_clusters(hdb_unique_labels, hdb_labels, output_directory, sent, original_sent)
         self.__write_metrics(output_directory, n_clusters_hdb_, nb_of_files, config)
 
-    '''        
+    '''
     ------------------------------------------------------
     MANIFOLD
     ------------------------------------------------------
-    Preprocessing for HDBSCAN
+    Preprocessing for hdbscan
     Reduces dimension of vectors to yield much better results
     Reduces noise and groups up more similar terms
-    
+
     data_matrix <numpy array>: vectors
     learning_rate <int>
     perplexity <int>
@@ -64,7 +64,7 @@ class HdbscanTrain:
     Every text file has the topics in the forms of:
     1- The sentence which was used to create a vector
     2- The original sentence from the text
-    
+
     hdb_unique_labels <int>: index of vector
     hdb_labels <int>: index of vector
     output_directory <string>: directory
@@ -93,7 +93,7 @@ class HdbscanTrain:
     Write Metrics
     ------------------------------------------------------
     Write metrics to text file and displays output
-    
+
     output_directory <string> : directory output
     n_clusters_hdb_ <int> : number of created clusters
     nb_of_files <int> : number of files used for training
@@ -118,9 +118,9 @@ class HdbscanTrain:
     ------------------------------------------------------
     PLOT
     ------------------------------------------------------
-    
+
     Plots the clusters
-    
+
     matrix <numpy array>: word vectors
     sent <numpy array>: sentences in english
     '''
