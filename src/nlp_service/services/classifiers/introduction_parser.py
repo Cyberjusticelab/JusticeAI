@@ -1,4 +1,4 @@
-from models.introduction import IntroductionOutput
+from models.classifier.introduction import IntroductionOutput
 
 
 class IntroductionParser(object):

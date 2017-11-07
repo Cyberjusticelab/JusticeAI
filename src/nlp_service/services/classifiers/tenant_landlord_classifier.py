@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-from services.gram_classifier import GramClassifier
 import os
+
+from services.classifiers.gram_classifier import GramClassifier
 
 
 class TenantLandlordClassifier(GramClassifier):

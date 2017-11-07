@@ -1,19 +1,20 @@
 # -*- coding: utf-8 -*-
-from services.gram_classifier import GramClassifier
 import os
 
+from services.classifiers.gram_classifier import GramClassifier
 
-class IsHabitableClassifier(GramClassifier):
+
+class IsTenantDeadClassifier(GramClassifier):
     inputFiles = ['true', 'false']
 
-    """docstring for IsHabitableClassifier"""
+    """docstring for IsTenantDeadClassifier"""
 
     def __init__(self, forceTrain=False):
         baseName = os.path.basename(__file__).split(".")[0]
         super().__init__(baseName,
-                         IsHabitableClassifier.inputFiles,
+                         IsTenantDeadClassifier.inputFiles,
                          forceTrain)
 
     def classify(self, questionInput):
         output = super().classify(questionInput)
-        return {'is_habitable': output}
+        return {'is_tenant_dead': output}

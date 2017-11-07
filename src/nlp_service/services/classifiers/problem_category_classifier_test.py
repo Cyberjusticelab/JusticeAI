@@ -1,4 +1,4 @@
-from services.problem_category_classifier import ProblemCategoryClassifier
+from services.classifiers.problem_category_classifier import ProblemCategoryClassifier
 
 
 def test_classify_lease_termination():

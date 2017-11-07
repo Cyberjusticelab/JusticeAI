@@ -1,4 +1,4 @@
-from services.is_tenant_dead_classifier import IsTenantDeadClassifier
+from services.classifiers.is_tenant_dead_classifier import IsTenantDeadClassifier
 
 
 def test_classify_true():

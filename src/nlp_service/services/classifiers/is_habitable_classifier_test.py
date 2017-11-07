@@ -1,4 +1,4 @@
-from services.is_habitable_classifier import IsHabitableClassifier
+from services.classifiers.is_habitable_classifier import IsHabitableClassifier
 
 
 def test_classify_false():

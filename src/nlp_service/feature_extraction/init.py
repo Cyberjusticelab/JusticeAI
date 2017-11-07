@@ -5,8 +5,9 @@
 # and augment the input set with synonyms.
 ##
 
-import nltk
 import os
+
+import nltk
 
 # from bllipparser.ModelFetcher import download_and_install_model
 
@@ -17,13 +18,13 @@ nltk.download('wordnet')
 
 from nltk.corpus import stopwords
 from nltk.corpus import wordnet as wn
-from services.tenant_landlord_classifier import TenantLandlordClassifier
-from services.problem_category_classifier import ProblemCategoryClassifier
-from services.has_lease_expired_classifier import HasLeaseExpiredClassifier
-from services.is_habitable_classifier import IsHabitableClassifier
-from services.is_student_classifier import IsStudentClassifier
-from services.is_tenant_dead_classifier import IsTenantDeadClassifier
-from services.lease_term_type_classifier import LeaseTermTypeClassifier
+from services.classifiers.tenant_landlord_classifier import TenantLandlordClassifier
+from services.classifiers.problem_category_classifier import ProblemCategoryClassifier
+from services.classifiers.has_lease_expired_classifier import HasLeaseExpiredClassifier
+from services.classifiers.is_habitable_classifier import IsHabitableClassifier
+from services.classifiers.is_student_classifier import IsStudentClassifier
+from services.classifiers.is_tenant_dead_classifier import IsTenantDeadClassifier
+from services.classifiers.lease_term_type_classifier import LeaseTermTypeClassifier
 
 
 def expandInputFile(inputFile, outputFile):
