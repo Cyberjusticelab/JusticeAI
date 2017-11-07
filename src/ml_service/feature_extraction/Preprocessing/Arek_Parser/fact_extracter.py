@@ -6,7 +6,7 @@ from pattern3.fr import singularize
 import os
 import re
 import logging
-from src.ml_service.feature_extraction.Preprocessing.Arek_Parser import related_word_fetcher
+from src.ml_service.feature_extraction.Preprocessing.Arek_Parser.related_word_fetcher import find_related
 from src.ml_service.WordVectors.FrenchVectors import FrenchVectors
 from src.ml_service.GlobalVariables.GlobalVariable import Global
 
@@ -27,7 +27,7 @@ def _extract(filename, errorWordSet):
     """
     factDict = {}
     for line in _getFactsLinesFromFile(filename):
-        for sentence in re.split(',;.?!', _clean(line)):
+        for sentence in re.split('(;|\.|\?|\!)', _clean(line)):
             vector = _vectorize(sentence, errorWordSet)
             if vector is not None:
                 factDict[sentence] = vector
@@ -86,7 +86,7 @@ def _vectorize(sentence, errorWordSet):
                     numWords += 1
                     vec = np.add(vec, newWord)
                 except BaseException:
-                    similarWord = related_word_fetcher.find_related(word)
+                    similarWord = find_related(word)
                     try:
                         newWord = word_vectors[similarWord]
                         logger.info("Using similar word: " +
