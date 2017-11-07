@@ -2,7 +2,6 @@
 from sklearn.cluster import DBSCAN
 import os
 import numpy as np
-import time
 import logging
 logger = logging.getLogger('fact_clustering')
 
@@ -15,7 +14,7 @@ def clusterFacts(factDict):
                   and the values are the associated sentence vectors
     """
     X = np.matrix(list(factDict.values()))
-    ms = DBSCAN()
+    ms = DBSCAN(min_samples=2, eps=0.4, n_jobs=-1)
     ms.fit(X)
     labels = ms.labels_
     n_clusters = len(np.unique(labels))
@@ -24,11 +23,10 @@ def clusterFacts(factDict):
 
 
 def writeFactsToFile(factDict, labels):
-    outputDirPath = os.path.join(os.path.dirname(
-        os.path.realpath(__file__)), '../../../outputs/')
+    outputDirPath = r'cluster_dir'
     for i, sent in enumerate(factDict.keys()):
         filePath = os.path.join(outputDirPath, str(labels[i]))
         normalizedFilePath = os.path.normpath(filePath)
-        f = open(normalizedFilePath, 'a', encoding="ISO-8859-1")
+        f = open(normalizedFilePath + '.txt', 'a')
         f.write('{:.140}'.format(sent) + '\n')
         f.close()

@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 import os
 import re
+from sys import stdout
 
 import numpy as np
 
-from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.Vectorize import FrenchVectors
 from src.ml_service.GlobalVariables.GlobalVariable import Global
+from src.ml_service.WordVectors.FrenchVectors import FrenchVectors
 from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.Model import PrecedenceModel
 from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.Pipe import PipeSent
-from sys import stdout
 
 
 # #################################################

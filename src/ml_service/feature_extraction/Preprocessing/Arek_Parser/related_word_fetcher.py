@@ -54,6 +54,14 @@ def _find_conjugation(soup):
 
 
 def find_related(queryWord):
+    """
+    Returns a related word to the given word, using French
+        Wikitionary. Returns the infinitif of verbs, the
+        masculin singulier of nouns, or synonym.
+    queryWord: word to lookup in wikitionary
+    returns: a string containing the similar word, or None
+             if none is found.
+    """
     if queryWord in cache:
         return cache[queryWord]
     requestURL = u"https://fr.wiktionary.org/wiki/" + \
