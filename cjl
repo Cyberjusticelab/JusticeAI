@@ -44,7 +44,7 @@ if [ "$1" == "lint-fix" ]; then
   fi
 
   echo " >> Automatically fixing linting errors <<" && echo ""
-  cd ./src/web_client && npm install && npm run lintfix && cd ../.. && autopep8 -aair . && \
+  cd ./src/web_client && npm install && npm run lintfix && cd ../.. && autopep8 -aair --pep8-passes 2000 . && \
   echo "Done!"
   exit
 fi
