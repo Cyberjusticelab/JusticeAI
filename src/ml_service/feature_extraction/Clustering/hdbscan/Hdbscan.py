@@ -145,7 +145,7 @@ if __name__ == '__main__':
 
     start = time.time()
 
-    tpl = parser.parse_topics(Global.Precedence_Directory, number_of_files)
+    tpl = parser.parse_files(Global.Precedence_Directory, number_of_files)
     clusterer.train(cluster_dir, tpl, number_of_files, config)
 
     elapsed = time.time()

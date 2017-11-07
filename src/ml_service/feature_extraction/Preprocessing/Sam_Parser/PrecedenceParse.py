@@ -2,12 +2,9 @@
 import os
 import re
 from sys import stdout
-
-import numpy as np
-
 from src.ml_service.GlobalVariables.GlobalVariable import Global
 from src.ml_service.WordVectors.FrenchVectors import FrenchVectors
-from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.Model import PrecedenceModel
+from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.Model import PrecedenceModel, FactModel
 from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.Pipe import PipeSent
 
 
@@ -18,7 +15,6 @@ from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.Pipe import Pipe
 # scrape text in this order:
 # topic --> facts --> decision --> topic...
 class State:
-    TOPIC = 0
     FACTS = 1
     DECISION = 2
 
@@ -34,6 +30,8 @@ class Precedence_Parser:
     def __init__(self):
         self.__state = None
         self.__model = None
+        self.__filename = None
+        self.__model = PrecedenceModel()
         self.__pipe = PipeSent()
 
     # #################################################
@@ -42,12 +40,10 @@ class Precedence_Parser:
     # Main method for parsing precedence
     # filename: String
     # return PrecedenceModel
-    def parse(self, filename):
-        self.__model = PrecedenceModel()
-        self.__state = State.TOPIC
+    def __parse(self, filename):
+        self.__filename = filename
+        self.__state = State.FACTS
         self.__extract(filename)
-        self.__model.format()
-        return self.__model
 
     # #################################################
     # EXTRACT
@@ -65,7 +61,7 @@ class Precedence_Parser:
                     lines = file.__next__()
                 sentence = lines.replace(tpl[0], "").lower()
                 sentence = sentence.replace('\n', "")
-                self.__populate_model(sentence)
+                self.__add_key(sentence)
         file.close()
 
     # #################################################
@@ -89,13 +85,11 @@ class Precedence_Parser:
     # #################################################
     # UPDATE STATE
     def __update_state(self, index, lines):
-        if 'POUR CES MOTIFS' in lines:
+        if 'CES MOTIFS' in lines:
             self.__state = State.DECISION
         elif index is None:
             pass
         elif index == 1:
-            self.__state = State.TOPIC
-        elif index == 2:
             self.__state = State.FACTS
 
     # #################################################
@@ -103,26 +97,25 @@ class Precedence_Parser:
     # -------------------------------------------------
     # Apppends topic, fact, decision to model
     # line: String
-    def __populate_model(self, line):
+    def __add_key(self, line):
         sub_sent = self.__split_sub_sentence(line)
 
-        if self.__state == State.TOPIC:
-            for i in range(len(sub_sent[0])):
-                if len(sub_sent[0]) > 1:
-                    self.__model.topics.append(sub_sent[0][i])
-                    self.__model.original_topic.append(sub_sent[1][i])
-
-        elif self.__state == State.FACTS:
-            for i in range(len(sub_sent[0])):
-                if len(sub_sent[0]) > 1:
-                    self.__model.facts.append(sub_sent[0][i])
-                    self.__model.original_facts.append(sub_sent[1][i])
+        if self.__state == State.FACTS:
+            dict = self.__model.dict['facts']
 
         elif self.__state == State.DECISION:
-            for i in range(len(sub_sent[0])):
-                if len(sub_sent[0]) > 1:
-                    self.__model.decisions.append(sub_sent[0][i])
-                    self.__model.original_decisions.append(sub_sent[1][i])
+            dict = self.__model.dict['decisions']
+
+        for i in range(len(sub_sent[0])):
+            if sub_sent[0][i] in self.__model.dict:
+                dict['precedence'].append(self.__filename)
+            else:
+                fact_model = FactModel()
+                new_dict = fact_model.dict
+                new_dict['piped_fact'] = sub_sent[0][i]
+                new_dict['precedence'].append(self.__filename)
+                new_dict['vector'] = FrenchVectors.vectorize_sent(sub_sent[0][i])
+                dict[sub_sent[1][i]] = fact_model
 
     # #################################################
     # SPLIT SUB SENTENCE
@@ -157,28 +150,24 @@ class Precedence_Parser:
     returns <array, array, array>
     '''
 
-    def parse_topics(self, file_directory, nb_of_files):
-        j = 0
-        data = []
-        sent = []
-        original_sent = []
+    def parse_files(self, file_directory, nb_of_files):
+        files_parse = 0
         print("Fetching from precedence")
 
         for i in os.listdir(file_directory):
-            if j >= nb_of_files:
+            if files_parse >= nb_of_files:
                 break
-            j += 1
+            files_parse += 1
 
-            percent = float(j / nb_of_files) * 100
+            percent = float(files_parse / nb_of_files) * 100
             stdout.write("\rData Extraction: %f " % percent)
             stdout.flush()
 
-            model = self.parse(i)
-            for i in range(len(model.core_topic)):
-                if model.topics[i] in sent:
-                    continue
-                vec = FrenchVectors.vectorize_sent(model.core_topic[i])
-                data.append(vec)
-                sent.append(model.topics[i])
-                original_sent.append(model.original_topic[i])
-        return np.array(data), np.array(sent), np.array(original_sent)
+            self.__parse(i)
+        return self.__model
+
+
+if __name__ == '__main__':
+    parser = Precedence_Parser()
+    precedence_dict = parser.parse_files(Global.Precedence_Directory, 10)
+    print(precedence_dict)

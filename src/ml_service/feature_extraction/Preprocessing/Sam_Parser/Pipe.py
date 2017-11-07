@@ -93,7 +93,7 @@ if __name__ == '__main__':
     from src.ml_service.GlobalVariables.GlobalVariable import Global
     p = PipeSent()
     parser = Precedence_Parser()
-    tpl = parser.parse_topics(Global.Precedence_Directory, 50)
+    tpl = parser.parse_files(Global.Precedence_Directory, 50)
     original_sent = tpl[2]
     file = open('sub.txt', 'a')
     for s in original_sent:

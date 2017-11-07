@@ -3,6 +3,8 @@ import numpy
 import os
 from gensim.models.keyedvectors import KeyedVectors
 from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+from src.ml_service.feature_extraction.Preprocessing.Arek_Parser.related_word_fetcher import find_related
 
 
 # #################################################
@@ -34,10 +36,10 @@ def get_stop_words():
             'leur', 'là', 'ma', 'maintenant', 'mais', 'mes', 'mine', 'moins',
             'mon', 'mot', 'même', 'ni', 'nommés', 'notre', 'nous', 'ou',
             'où', 'par', 'parce', 'pas', 'peut', 'peu', 'plupart', 'pour',
-            'pourquoi', 'quand', 'que', 'quel', 'quelle,''quelles', 'quels',
-            'qui', 'sa', 'sans', 'ses', 'seulement', 'si', 'sien,''son', 'sont',
+            'pourquoi', 'quand', 'que', 'quel', 'quelle', 'quelles', 'quels',
+            'qui', 'sa', 'sans', 'ses', 'seulement', 'si', 'sien', 'son', 'sont',
             'sous', 'soyez', 'sur', 'ta', 'tandis', 'tellement', 'tels',
-            'tes', 'ton', 'tous''tout', 'trop', 'très', 'tu', 'voient',
+            'tes', 'ton', 'tous', 'tout', 'trop', 'très', 'tu', 'voient',
             'vont', 'votre', 'vous', 'vu', 'ça', 'étaient', 'état', 'étions', 'été', 'être',
          ]
 
@@ -62,14 +64,21 @@ class FrenchVectors:
     '''
     @staticmethod
     def vectorize_sent(word_list):
+        if type(word_list) is not list:
+            word_list = word_tokenize(word_list, 'french')
         vector = numpy.zeros(FrenchVectors.Word_Vector_Size)
         num = 0
         for word in word_list:
-            try:
-                if word in FrenchVectors.custom_stop_words:
-                    continue
-                vector = numpy.add(vector, FrenchVectors.word_vectors[word])
-                num += 1
-            except KeyError:
-                pass
+            if word in FrenchVectors.custom_stop_words:
+                continue
+            while True:
+                try:
+                    vector = numpy.add(vector, FrenchVectors.word_vectors[word])
+                    num += 1
+                    break
+
+                except KeyError:
+                    word = find_related(word)
+                    if word is None:
+                        break
         return numpy.divide(vector, num)
