@@ -43,7 +43,7 @@ if __name__ == '__main__':
     labels = []
     precedence_files = []
 
-    for fact in precedence_dict['facts']:
+    for fact in precedence_dict['facts']:  # replace this variable with 'decisions' for outcomes
         X.append(precedence_dict['facts'][fact].dict['vector'])
         labels += ([precedence_dict['facts'][fact].dict['fact']])
         precedence_files += (precedence_dict['facts'][fact].dict['precedence'])
