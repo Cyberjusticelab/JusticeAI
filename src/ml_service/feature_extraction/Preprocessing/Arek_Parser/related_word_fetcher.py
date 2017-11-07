@@ -69,7 +69,7 @@ def find_related(queryWord):
     try:
         logger.info("Querying Wikitionary: " + requestURL)
         response = request.urlopen(requestURL)
-    except:
+    except BaseException:
         logger.info(requestURL + " not found.")
         cache[queryWord] = None
         return None

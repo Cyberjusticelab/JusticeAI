@@ -1,4 +1,4 @@
-from feature_extraction.Preprocessing.Taimoor_Parser import case
+from src.ml_service.feature_extraction.Preprocessing.Taimoor_Parser import case
 import os
 
 c = case.Case(os.getcwd() + "/feature_extraction/Preprocessing/"
