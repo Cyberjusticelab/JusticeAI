@@ -2,19 +2,25 @@ version: '3'
 
 services:
   ml_service:
-    build: ./src/ml_service
+    build:
+      context: .
+      dockerfile: ./src/ml_service/Dockerfile
     image: procezeus/ml_service
     restart: always
     networks:
       - procezeus_net
   nlp_service:
-    build: ./src/nlp_service
+    build:
+      context: .
+      dockerfile: ./src/nlp_service/Dockerfile
     image: procezeus/nlp_service
     restart: always
     networks:
       - procezeus_net
   backend_service:
-    build: ./src/backend_service
+    build:
+      context: .
+      dockerfile: ./src/backend_service/Dockerfile
     image: procezeus/backend_service
     restart: always
     depends_on:
@@ -23,7 +29,9 @@ services:
     networks:
       - procezeus_net
   web_client:
-    build: ./src/web_client
+    build:
+      context: .
+      dockerfile: ./src/web_client/Dockerfile
     restart: always
     image: procezeus/web_client
     depends_on:
