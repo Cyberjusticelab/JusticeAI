@@ -16,3 +16,4 @@ coverage.xml
 /feature_extraction/Clustering/k_means/cluster_dir/*
 /feature_extraction/Clustering/hdbscan/cluster_dir/*
 /feature_extraction/Clustering/hdbscan/metrics.txt
+/feature_extraction/Clustering/k_means/unlabeled_clusters.txt
