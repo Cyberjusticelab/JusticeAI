@@ -12,7 +12,7 @@ services:
       - 3002:3002
     volumes:
       - ./src/nlp_service:/usr/src/app
-      - /usr/src/app/data
+      - /usr/src/app/old_data
     command: gunicorn -w 3 --log-level DEBUG --reload -b 0.0.0.0:3002 app:app
   backend_service:
     ports:

@@ -1,12 +1,12 @@
+import os
 import shutil
 from io import BytesIO
 
-import os
 from werkzeug.datastructures import FileStorage
 
-from services import fileService
-from services.factService import FactService
-from services.staticStrings import StaticStrings
+from Archive.services import FactService
+from Archive.services import StaticStrings
+from Archive.services import fileService
 
 
 ################

@@ -1,11 +1,9 @@
-import flask
-from flask import jsonify, abort, make_response
 import json
 
-from models.models import *
-from services import nlpService, fileService
-from services.factService import FactService
-from services.staticStrings import *
+from flask import jsonify, abort, make_response
+
+from Archive.services import FactService
+from Archive.services import nlpService, fileService
 
 
 ########################

@@ -1,5 +1,6 @@
-from feature_extraction import case
 import os
+
+from Archive.feature_extraction import case
 
 c = case.Case(os.getcwd() + "/feature_extraction/dummy_cases/sample_case1.txt")
 

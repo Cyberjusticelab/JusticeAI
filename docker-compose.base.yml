@@ -34,7 +34,7 @@ services:
     image: postgres
     restart: always
     volumes:
-      - procezeus_db:/var/lib/postgresql/data
+      - procezeus_db:/var/lib/postgresql/old_data
     networks:
       - procezeus_net
 volumes:
