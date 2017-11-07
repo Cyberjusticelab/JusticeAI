@@ -54,9 +54,9 @@ class FrenchVectors:
     ----------------------------------------------------------------
     Vectorize Sentence
     ----------------------------------------------------------------
-    
+
     Adds vectors together and divides by number of words
-    
+
     word_list <list[String]>: list of words representing a sentence
     return: numpy array
     '''

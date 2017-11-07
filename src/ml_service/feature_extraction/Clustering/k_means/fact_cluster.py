@@ -10,7 +10,6 @@ from sklearn.cluster import KMeans
 
 class KMeansWrapper:
     def __init__(self, precedent_directory, total_file_to_process, cluster_size):
-
         """
         :param precedent_directory: directory path precedents
         :param total_file_to_process: amount of files to process
@@ -48,8 +47,7 @@ class KMeansWrapper:
                                            strip_accents='ascii',
                                            use_idf=True,
                                            tokenizer=self.tokenize_and_stem,
-                                           min_df=0.01, max_df=0.8
-                                           , norm='l2',
+                                           min_df=0.01, max_df=0.8, norm='l2',
                                            ngram_range={1, 4}
                                            )
         return tfidf_vectorizer.fit_transform(self.claim_text)
