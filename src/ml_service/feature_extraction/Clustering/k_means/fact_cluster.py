@@ -10,7 +10,6 @@ from src.ml_service.feature_extraction.Preprocessing.Taimoor_Parser.preprocessin
 from src.ml_service.GlobalVariables.GlobalVariable import Global
 
 
-
 class KMeansWrapper:
     def __init__(self, precedent_directory, total_file_to_process, cluster_size):
         """
