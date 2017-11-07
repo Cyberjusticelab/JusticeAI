@@ -9,14 +9,19 @@ from sklearn.cluster import KMeans
 
 
 class KMeansWrapper:
-
     def __init__(self, precedent_directory, total_file_to_process, cluster_size):
+
+        """
+        :param precedent_directory: directory path precedents
+        :param total_file_to_process: amount of files to process
+        :param cluster_size: amount of cluster to look for
+        """
         raw_claim_text = extract_data_from_cases(precedent_directory, total_file_to_process)
         self.claim_text = preprocessing(raw_claim_text)
         self.tfidf_matrix = self.init_tfidf()
         self.cluster_size = cluster_size
         self.km = self.cluster()
-        self.print_cluster_to_file()
+        self.print("unlabeled_clusters")
 
     def tokenize_and_stem(self, text):
         stemmer = SnowballStemmer("french")
@@ -54,8 +59,8 @@ class KMeansWrapper:
         km.fit(self.tfidf_matrix)
         return km
 
-    def print_cluster_to_file(self):
-        f = open('clusters.txt', 'w')
+    def print(self, file_name):
+        f = open(file_name + ".txt", 'w')
         clusters = self.km.labels_.tolist()
         claim_cluster = [[] for i in range(self.cluster_size)]
         index = 0
@@ -69,4 +74,3 @@ class KMeansWrapper:
             f.write("\n\n========================================================================\n\n")
         f.close()
 
-km = KMeansWrapper("/Users/taimoorrana/Downloads/text_bk/", 1000, 100)
