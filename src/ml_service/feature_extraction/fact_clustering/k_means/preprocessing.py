@@ -55,7 +55,6 @@ def preprocessing(facts):
         # map landlord to a commun word
         facts[i] = re.sub("locatrice(s)?", "locateur", facts[i])
 
-        # remove hyphens
         facts[i] = re.sub("pour ces motifs, le tribunal", "", facts[i])
 
     return facts

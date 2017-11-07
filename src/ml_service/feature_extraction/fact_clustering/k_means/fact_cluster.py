@@ -5,88 +5,68 @@ from fact_extraction import extract_data_from_cases
 from stop_words import get_stop_words
 from preprocessing import preprocessing
 from sklearn.feature_extraction.text import TfidfVectorizer
-
-stemmer = SnowballStemmer("french")
-
-claim_text = extract_data_from_cases('/Users/taimoorrana/Downloads/text_bk/', 5000)
-claim_text = preprocessing(claim_text)
-print("finished preprocessing")
-f = open('clusters.txt', 'w')
-
-# stem words
-def tokenize_and_stem(text):
-    # first tokenize by sentence, then by word to ensure that punctuation is caught as it's own token
-    tokens = [word for sent in nltk.sent_tokenize(text) for word in nltk.word_tokenize(sent)]
-    filtered_tokens = []
-    # filter out any tokens not containing letters (e.g., numeric tokens, raw punctuation)
-    for token in tokens:
-        if re.search('[a-zA-Z]', token):
-            filtered_tokens.append(token)
-    stems = [stemmer.stem(t) for t in filtered_tokens]
-    return filtered_tokens
-
-
-def tokenize_only(text):
-    # first tokenize by sentence, then by word to ensure that punctuation is caught as it's own token
-    tokens = [word.lower() for sent in nltk.sent_tokenize(text) for word in nltk.word_tokenize(sent)]
-    filtered_tokens = []
-    # filter out any tokens not containing letters (e.g., numeric tokens, raw punctuation)
-    for token in tokens:
-        if re.search('[a-zA-Z]', token):
-            filtered_tokens.append(token)
-    return filtered_tokens
-
-
-totalvocab_stemmed = []
-totalvocab_tokenized = []
-stopwords = get_stop_words('fr')
-stopwords.append('moisDanslannee')
-stopwords.append('pour ces motifs, le tribunal')
-
-for i in claim_text:
-    allwords_stemmed = tokenize_and_stem(i)  # for each item in 'synopses', tokenize/stem
-    allwords_stemmed = [word for word in allwords_stemmed if word not in stopwords]
-    totalvocab_stemmed.extend(allwords_stemmed)  # extend the 'totalvocab_stemmed' list
-
-    allwords_tokenized = tokenize_only(i)
-    allwords_tokenized = [word for word in allwords_tokenized if word not in stopwords]
-    totalvocab_tokenized.extend(allwords_tokenized)
-
-# define vectorizer parameters
-tfidf_vectorizer = TfidfVectorizer(encoding="iso-8859-1",
-                                   stop_words=stopwords,
-                                   strip_accents='ascii',
-                                   use_idf=True,
-                                   tokenizer=tokenize_and_stem,
-                                   min_df=0.01, max_df=0.8
-                                   , norm='l2',
-                                   ngram_range={1, 4}
-                                   )
-
-tfidf_matrix = tfidf_vectorizer.fit_transform(claim_text)  # fit the vectorizer to synopses
-
-f.write(tfidf_vectorizer.get_feature_names().__str__())
-f.write("\n")
 from sklearn.cluster import KMeans
 
-km = KMeans(n_clusters=550, init='k-means++')
-km.fit(tfidf_matrix)
 
-clusters = km.labels_.tolist()
+class KMeansWrapper:
 
-print(clusters)
-print(len(claim_text))
-claim_cluster = [[] for i in range(550)]
-index = 0
+    def __init__(self, precedent_directory, total_file_to_process, cluster_size):
+        raw_claim_text = extract_data_from_cases(precedent_directory, total_file_to_process)
+        self.claim_text = preprocessing(raw_claim_text)
+        self.tfidf_matrix = self.init_tfidf()
+        self.cluster_size = cluster_size
+        self.km = self.cluster()
+        self.print_cluster_to_file()
 
-for claim in claim_text:
-    claim_cluster[clusters[index]].append(claim)
-    index += 1
+    def tokenize_and_stem(self, text):
+        stemmer = SnowballStemmer("french")
+        tokens = [word for sent in nltk.sent_tokenize(text) for word in nltk.word_tokenize(sent)]
+        filtered_tokens = []
+        for token in tokens:
+            if re.search('[a-zA-Z]', token):
+                filtered_tokens.append(token)
+        stems = [stemmer.stem(t) for t in filtered_tokens]
+        return stems
 
-for claimlist in claim_cluster:
-    for claim in claimlist:
-        f.write(claim)
-        f.write("\n")
-    f.write("\n\n========================================================================\n\n")
+    def tokenize_only(self, text):
+        tokens = [word.lower() for sent in nltk.sent_tokenize(text) for word in nltk.word_tokenize(sent)]
+        filtered_tokens = []
+        for token in tokens:
+            if re.search('[a-zA-Z]', token):
+                filtered_tokens.append(token)
+        return filtered_tokens
 
-f.close()
+    def init_tfidf(self):
+        # define vectorizer parameters
+        tfidf_vectorizer = TfidfVectorizer(encoding="iso-8859-1",
+                                           stop_words=get_stop_words('fr'),
+                                           strip_accents='ascii',
+                                           use_idf=True,
+                                           tokenizer=self.tokenize_and_stem,
+                                           min_df=0.01, max_df=0.8
+                                           , norm='l2',
+                                           ngram_range={1, 4}
+                                           )
+        return tfidf_vectorizer.fit_transform(self.claim_text)
+
+    def cluster(self):
+        km = KMeans(n_clusters=self.cluster_size, init='k-means++')
+        km.fit(self.tfidf_matrix)
+        return km
+
+    def print_cluster_to_file(self):
+        f = open('clusters.txt', 'w')
+        clusters = self.km.labels_.tolist()
+        claim_cluster = [[] for i in range(self.cluster_size)]
+        index = 0
+        for claim in self.claim_text:
+            claim_cluster[clusters[index]].append(claim)
+            index += 1
+        for claim_list in claim_cluster:
+            for claim in claim_list:
+                f.write(claim)
+                f.write("\n")
+            f.write("\n\n========================================================================\n\n")
+        f.close()
+
+km = KMeansWrapper("/Users/taimoorrana/Downloads/text_bk/", 1000, 100)
