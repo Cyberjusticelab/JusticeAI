@@ -4,7 +4,6 @@ from src.ml_service.feature_extraction.Clustering.k_means.fact_cluster import KM
 from src.ml_service.feature_extraction.Clustering.hdbscan_wrapper.Hdbscan import HdbscanTrain
 from src.ml_service.feature_extraction.Preprocessing.Arek_Parser import related_word_fetcher
 from src.ml_service.feature_extraction.Clustering.dbscan.dbscan import clusterFacts
-from src.ml_service.WordVectors.FrenchVectors import FrenchVectors
 import time
 import numpy
 
@@ -36,23 +35,26 @@ def cluster_hdbscan(data_tuple):
 
 if __name__ == '__main__':
     parser = Precedence_Parser(tfidf=False)
-    precedence_dict = parser.parse_files(Global.Precedence_Directory, 100)
+    precedence_dict = parser.parse_files(Global.Precedence_Directory, 10)
     related_word_fetcher.save_cache()
 
     X = []
     labels = []
     precedence_files = []
+    piped_fact = []
 
     for fact in precedence_dict['facts']:  # replace this variable with 'decisions' for outcomes
         X.append(precedence_dict['facts'][fact].dict['vector'])
         labels += ([precedence_dict['facts'][fact].dict['fact']])
         precedence_files += (precedence_dict['facts'][fact].dict['precedence'])
+        piped_fact += ([precedence_dict['facts'][fact].dict['piped_fact']])
 
     X = numpy.matrix(X)
     labels = numpy.array(labels)
     precedence_files = numpy.array(precedence_files)
+    piped_fact = numpy.array(piped_fact)
 
-    data_tuple = (X, labels, precedence_files)
+    data_tuple = (X, labels, precedence_files, piped_fact)
 
     cluster_dbscan(data_tuple)
     cluster_hdbscan(data_tuple)

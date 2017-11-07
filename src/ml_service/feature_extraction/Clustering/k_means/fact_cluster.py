@@ -18,8 +18,8 @@ class KMeansWrapper:
         :param cluster_size: amount of cluster to look for
         """
         raw_claim_text = extract_data_from_cases(Global.Precedence_Directory, 100)
-        self.claim_text = data_tuple[1]
-        self.tfidf_matrix = data_tuple[0]
+        self.claim_text = data_tuple[1]  # original sentence
+        self.tfidf_matrix = data_tuple[0]  # sentence vector
         self.cluster_size = 100
         self.km = self.cluster()
         self.print("unlabeled_clusters")

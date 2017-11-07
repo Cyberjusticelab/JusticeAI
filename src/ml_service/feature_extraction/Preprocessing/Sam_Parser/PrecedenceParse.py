@@ -98,6 +98,8 @@ class Precedence_Parser:
     # Apppends topic, fact, decision to model
     # line: String
     def __add_key(self, line):
+        # subsent is a tuple
+        # (list<original sentence>, <processed sub sentence)>
         sub_sent = self.__split_sub_sentence(line)
 
         if self.__state == State.FACTS:

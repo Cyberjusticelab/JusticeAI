@@ -29,15 +29,15 @@ class HdbscanTrain:
     '''
 
     def train(self, data_tuple):
-        data_matrix = data_tuple[0]
-        original_sent = data_tuple[1]
+        data_matrix = data_tuple[0]  # sentence vectors
+        original_sent = data_tuple[1]  # original sentence
         data_matrix = self.manifold(data_matrix, 200, 24)
         print("Clustering")
         hdb = HDBSCAN(min_cluster_size=2).fit(data_matrix)
         hdb_labels = hdb.labels_
         n_clusters_hdb_ = len(set(hdb_labels)) - (1 if -1 in hdb_labels else 0)
         hdb_unique_labels = set(hdb_labels)
-        self.__write_clusters(hdb_unique_labels, hdb_labels, original_sent)
+        self.__write_clusters(hdb_unique_labels, hdb_labels, data_tuple)
 
     '''
     ------------------------------------------------------
@@ -75,12 +75,13 @@ class HdbscanTrain:
     original_sent <numpy array>: original sentences
     '''
 
-    def __write_clusters(self, unique_labels, labels, original_sent):
+    def __write_clusters(self, unique_labels, labels, data_tuple):
         for label in unique_labels:
             file = open(self.output_directory + str(label) + '.txt', 'w')
-            for word in original_sent[labels == label]:
-                file.writelines(word)
-                file.writelines('\n')
+            for i, sent in enumerate(data_tuple[1][labels == label]):
+                file.writelines(sent + '\n')  # original sentence
+                file.writelines(data_tuple[3][i] + '\n')  # processed sentence
+                file.writelines(data_tuple[2][i] + '\n\n')  # filename
             file.close()
 
     '''
