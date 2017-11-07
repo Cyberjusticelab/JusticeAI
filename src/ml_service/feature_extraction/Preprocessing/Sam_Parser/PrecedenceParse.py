@@ -168,6 +168,6 @@ class Precedence_Parser:
 
 
 if __name__ == '__main__':
-    p = Precedence_Parser()
-    m = p.parse_files(Global.Precedence_Directory, 10)
-    print(m)
+    parser = Precedence_Parser()
+    precedence_dict = parser.parse_files(Global.Precedence_Directory, 10)
+    print(precedence_dict)
