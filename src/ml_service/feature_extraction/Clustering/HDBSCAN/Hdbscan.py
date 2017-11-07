@@ -138,7 +138,7 @@ class HdbscanTrain:
 
 if __name__ == '__main__':
     parser = Precedence_Parser()
-    number_of_files = 8000
+    number_of_files = 100
     config = (200, 25)
     cluster_dir = r'cluster_dir/'
     clusterer = HdbscanTrain()
