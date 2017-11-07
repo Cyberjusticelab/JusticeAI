@@ -81,4 +81,6 @@ class FrenchVectors:
                     word = find_related(word)
                     if word is None:
                         break
+        if num == 0:
+            return None
         return numpy.divide(vector, num)

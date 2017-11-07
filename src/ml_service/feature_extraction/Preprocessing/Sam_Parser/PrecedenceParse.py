@@ -27,7 +27,7 @@ class Precedence_Parser:
 
     # #################################################
     # CONSTRUCTOR
-    def __init__(self):
+    def __init__(self, tfidf=False):
         self.__state = None
         self.__model = None
         self.__filename = None
@@ -112,6 +112,7 @@ class Precedence_Parser:
             else:
                 fact_model = FactModel()
                 new_dict = fact_model.dict
+                new_dict['fact'] = sub_sent[1][i]
                 new_dict['piped_fact'] = sub_sent[0][i]
                 new_dict['precedence'].append(self.__filename)
                 new_dict['vector'] = FrenchVectors.vectorize_sent(sub_sent[0][i])
@@ -164,7 +165,7 @@ class Precedence_Parser:
             stdout.flush()
 
             self.__parse(i)
-        return self.__model
+        return self.__model.dict
 
 
 if __name__ == '__main__':

@@ -6,25 +6,29 @@ import logging
 logger = logging.getLogger('fact_clustering')
 
 
-def clusterFacts(factDict):
+def clusterFacts(data_tuple):
     """
         Clusters all given facts using DBSCAN, and writes the resulting
         clusters into different files
         factDict: a Dictionary, where the keys are the sentence strings,
                   and the values are the associated sentence vectors
     """
-    X = np.matrix(list(factDict.values()))
+    X = data_tuple[0]
     ms = DBSCAN(min_samples=2, eps=0.4, n_jobs=-1)
     ms.fit(X)
     labels = ms.labels_
     n_clusters = len(np.unique(labels))
     logger.info("Number of estimated clusters : %d" % n_clusters)
-    writeFactsToFile(factDict, labels)
+    writeFactsToFile(data_tuple, labels)
 
 
-def writeFactsToFile(factDict, labels):
-    outputDirPath = r'cluster_dir'
-    for i, sent in enumerate(factDict.keys()):
+def writeFactsToFile(data_tuple, labels):
+    __script_dir = os.path.abspath(__file__ + "/../")
+    __rel_path = r'cluster_dir/'
+    outputDirPath = os.path.join(__script_dir, __rel_path)
+    if not os.path.exists(outputDirPath):
+        os.makedirs(outputDirPath)
+    for i, sent in enumerate(data_tuple[1]):
         filePath = os.path.join(outputDirPath, str(labels[i]))
         normalizedFilePath = os.path.normpath(filePath)
         f = open(normalizedFilePath + '.txt', 'a')
