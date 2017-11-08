@@ -8,7 +8,7 @@ coverage.xml
 .idea/*
 non-lem.bin
 /src/ml_service/feature_extraction/Clustering/k_means/cluster_dir/*
-/src/ml_service/feature_extraction/Clustering/hdbscan/cluster_dir/*
+/feature_extraction/Clustering/hdbscan_wrapper/cluster_dir/*
 /src/ml_service/feature_extraction/Clustering/hdbscan/metrics.txt
 /feature_extraction/Preprocessing/Arek_Parser/error_words.txt
 /feature_extraction/Clustering/dbscan/cache.pickle
