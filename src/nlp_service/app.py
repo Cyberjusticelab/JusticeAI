@@ -1,19 +1,19 @@
 from flask import Flask
 from flask import request
-from rasa.converters import load_data
-from rasa.config import RasaNLUConfig
-from rasa.model import Trainer
-from rasa.model import Metadata, Interpreter
+from rasa_nlu.config import RasaNLUConfig
+from rasa_nlu.converters import load_data
+from rasa_nlu.model import Trainer
+from rasa_nlu.model import Metadata, Interpreter
 from controllers import nlpController
 
 app = Flask(__name__)
 
 ##This is the RASA Trainer
-training_data = load_data('data/data.json') # Where to fish the data it is being trained
-trainer = Trainer(RasaNLUConfig("config/config_spacy.json")) # Choosing the trainer (in this case spacy, not the default one from rasa)
+training_data = load_data('rasa/data/has_lease_expired.json') # Where to fish the data it is being trained
+trainer = Trainer(RasaNLUConfig("rasa/config/config_spacy.json")) # Choosing the trainer (in this case spacy, not the default one from rasa)
 trainer.train(training_data) # Train the actual data
 model_directory = trainer.persist('./projects/default/')  # Where the models are stored
-interpreter = Interpreter.load(model_directory, RasaNLUConfig("config/config_spacy.json"))     # to use the builder, pass it as an arg when loading the model
+interpreter = Interpreter.load(model_directory, RasaNLUConfig("rasa/config/config_spacy.json"))     # to use the builder, pass it as an arg when loading the model
 
 ##interpreter will parse incoming text to the nlp_service and furnish it back in a Json Format:
 '''

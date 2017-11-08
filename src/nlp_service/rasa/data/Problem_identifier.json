@@ -1,0 +1,1120 @@
+﻿{
+  "rasa_nlu_data": {
+    "common_examples": [
+      {
+        "text": "my landlord is asking me for a deposit",
+        "intent": "ask_deposit",
+        "entities": [
+          {
+            "start": 31,
+            "end": 38,
+            "value": "deposit",
+            "entity": "deposit"
+          },
+          {
+            "start": 3,
+            "end": 11,
+            "value": "landlord",
+            "entity": "person"
+          }
+        ]
+      },
+      {
+        "text": "my landlord wants me to pay for one month in advance",
+        "intent": "ask_deposit",
+        "entities": [
+          {
+            "start": 3,
+            "end": 11,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 24,
+            "end": 52,
+            "value": "pay for one month in advance",
+            "entity": "deposit"
+          }
+        ]
+      },
+      {
+        "text": "i'm being asked for a deposit",
+        "intent": "ask_deposit",
+        "entities": [
+          {
+            "start": 22,
+            "end": 29,
+            "value": "deposit",
+            "entity": "deposit"
+          },
+          {
+            "start": 0,
+            "end": 1,
+            "value": "tenant",
+            "entity": "person"
+          }
+        ]
+      },
+      {
+        "text": "my landlord wants rent in advance",
+        "intent": "ask_deposit",
+        "entities": [
+          {
+            "start": 3,
+            "end": 11,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 18,
+            "end": 33,
+            "value": "rent in advance",
+            "entity": "deposit"
+          }
+        ]
+      },
+      {
+        "text": "my landlord wants payment in advance",
+        "intent": "ask_deposit",
+        "entities": [
+          {
+            "start": 3,
+            "end": 11,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 18,
+            "end": 36,
+            "value": "payment in advance",
+            "entity": "deposit"
+          }
+        ]
+      },
+      {
+        "text": "my landlord is asking me for a security deposit",
+        "intent": "ask_deposit",
+        "entities": [
+          {
+            "start": 3,
+            "end": 11,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 31,
+            "end": 47,
+            "value": "security deposit",
+            "entity": "deposit"
+          }
+        ]
+      },
+      {
+        "text": "my landlord is asking me for a key deposit",
+        "intent": "ask_deposit",
+        "entities": [
+          {
+            "start": 3,
+            "end": 11,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 31,
+            "end": 42,
+            "value": "key deposit",
+            "entity": "deposit"
+          }
+        ]
+      },
+      {
+        "text": "my landlord is asking me for a rent deposit",
+        "intent": "ask_deposit",
+        "entities": [
+          {
+            "start": 3,
+            "end": 11,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 31,
+            "end": 43,
+            "value": "rent deposit",
+            "entity": "deposit"
+          }
+        ]
+      },
+      {
+        "text": "to break my lease",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 3,
+            "end": 8,
+            "value": "break",
+            "entity": "terminate"
+          },
+          {
+            "start": 12,
+            "end": 17,
+            "value": "lease",
+            "entity": "lease"
+          }
+        ]
+      },
+      {
+        "text": "to end my lease",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 3,
+            "end": 6,
+            "value": "end",
+            "entity": "terminate"
+          },
+          {
+            "start": 10,
+            "end": 15,
+            "value": "lease",
+            "entity": "lease"
+          }
+        ]
+      },
+      {
+        "text": "to terminate my lease",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 3,
+            "end": 12,
+            "value": "terminate",
+            "entity": "terminate"
+          },
+          {
+            "start": 16,
+            "end": 21,
+            "value": "lease",
+            "entity": "lease"
+          }
+        ]
+      },
+      {
+        "text": "to resiliate my lease",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 3,
+            "end": 12,
+            "value": "resiliate",
+            "entity": "terminate"
+          },
+          {
+            "start": 16,
+            "end": 21,
+            "value": "lease",
+            "entity": "lease"
+          }
+        ]
+      },
+      {
+        "text": "to break the lease",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 3,
+            "end": 8,
+            "value": "break",
+            "entity": "terminate"
+          },
+          {
+            "start": 13,
+            "end": 18,
+            "value": "lease",
+            "entity": "lease"
+          }
+        ]
+      },
+      {
+        "text": "to end the lease",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 3,
+            "end": 6,
+            "value": "end",
+            "entity": "terminate"
+          },
+          {
+            "start": 11,
+            "end": 16,
+            "value": "lease",
+            "entity": "lease"
+          }
+        ]
+      },
+      {
+        "text": "to terminate the lease",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 3,
+            "end": 12,
+            "value": "terminate",
+            "entity": "terminate"
+          },
+          {
+            "start": 17,
+            "end": 22,
+            "value": "lease",
+            "entity": "lease"
+          }
+        ]
+      },
+      {
+        "text": "to resiliate the lease",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 3,
+            "end": 12,
+            "value": "resiliate",
+            "entity": "terminate"
+          },
+          {
+            "start": 17,
+            "end": 22,
+            "value": "lease",
+            "entity": "lease"
+          }
+        ]
+      },
+      {
+        "text": "i want to move out",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 10,
+            "end": 18,
+            "value": "move out",
+            "entity": "terminate"
+          },
+          {
+            "start": 0,
+            "end": 1,
+            "value": "tenant",
+            "entity": "person"
+          }
+        ]
+      },
+      {
+        "text": "i want to leave",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 0,
+            "end": 1,
+            "value": "tenant",
+            "entity": "person"
+          },
+          {
+            "start": 10,
+            "end": 15,
+            "value": "leave",
+            "entity": "terminate"
+          }
+        ]
+      },
+      {
+        "text": "i want to leave the place",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 0,
+            "end": 1,
+            "value": "tenant",
+            "entity": "person"
+          },
+          {
+            "start": 10,
+            "end": 15,
+            "value": "leave",
+            "entity": "terminate"
+          },
+          {
+            "start": 20,
+            "end": 25,
+            "value": "place",
+            "entity": "location"
+          }
+        ]
+      },
+      {
+        "text": "i want to leave the place",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 10,
+            "end": 15,
+            "value": "leave",
+            "entity": "terminate"
+          },
+          {
+            "start": 20,
+            "end": 25,
+            "value": "place",
+            "entity": "location"
+          },
+          {
+            "start": 0,
+            "end": 1,
+            "value": "tenant",
+            "entity": "person"
+          }
+        ]
+      },
+      {
+        "text": "i want to leave the house",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 0,
+            "end": 1,
+            "value": "tenant",
+            "entity": "person"
+          },
+          {
+            "start": 10,
+            "end": 15,
+            "value": "leave",
+            "entity": "terminate"
+          },
+          {
+            "start": 20,
+            "end": 25,
+            "value": "house",
+            "entity": "location"
+          }
+        ]
+      },
+      {
+        "text": "i want to leave my place",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 0,
+            "end": 1,
+            "value": "tenant",
+            "entity": "person"
+          },
+          {
+            "start": 10,
+            "end": 15,
+            "value": "leave",
+            "entity": "terminate"
+          },
+          {
+            "start": 19,
+            "end": 24,
+            "value": "place",
+            "entity": "location"
+          }
+        ]
+      },
+      {
+        "text": "i want to leave my apartment",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 0,
+            "end": 1,
+            "value": "tenant",
+            "entity": "person"
+          },
+          {
+            "start": 10,
+            "end": 15,
+            "value": "leave",
+            "entity": "terminate"
+          },
+          {
+            "start": 19,
+            "end": 28,
+            "value": "apartment",
+            "entity": "location"
+          }
+        ]
+      },
+      {
+        "text": "i want to leave my house",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 0,
+            "end": 1,
+            "value": "tenant",
+            "entity": "person"
+          },
+          {
+            "start": 10,
+            "end": 15,
+            "value": "leave",
+            "entity": "terminate"
+          },
+          {
+            "start": 19,
+            "end": 24,
+            "value": "house",
+            "entity": "location"
+          }
+        ]
+      },
+      {
+        "text": "my tenant left the apartment",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 0,
+            "end": 9,
+            "value": "my tenant",
+            "entity": "person"
+          },
+          {
+            "start": 10,
+            "end": 14,
+            "value": "left",
+            "entity": "terminate"
+          },
+          {
+            "start": 19,
+            "end": 28,
+            "value": "apartment",
+            "entity": "location"
+          }
+        ]
+      },
+      {
+        "text": "the tenant left the apartment",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 0,
+            "end": 10,
+            "value": "the tenant",
+            "entity": "person"
+          },
+          {
+            "start": 11,
+            "end": 15,
+            "value": "left",
+            "entity": "terminate"
+          },
+          {
+            "start": 20,
+            "end": 29,
+            "value": "apartment",
+            "entity": "location"
+          }
+        ]
+      },
+      {
+        "text": "i'd like to terminate my lease",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 0,
+            "end": 1,
+            "value": "i",
+            "entity": "person"
+          },
+          {
+            "start": 12,
+            "end": 21,
+            "value": "terminate",
+            "entity": "terminate"
+          },
+          {
+            "start": 25,
+            "end": 30,
+            "value": "lease",
+            "entity": "lease"
+          }
+        ]
+      },
+      {
+        "text": "i want to break my lease",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 0,
+            "end": 1,
+            "value": "i",
+            "entity": "person"
+          },
+          {
+            "start": 10,
+            "end": 15,
+            "value": "break",
+            "entity": "terminate"
+          },
+          {
+            "start": 19,
+            "end": 24,
+            "value": "lease",
+            "entity": "lease"
+          }
+        ]
+      },
+      {
+        "text": "tenant hasn't paid his rent",
+        "intent": "ask_nonpayment",
+        "entities": [
+          {
+            "start": 0,
+            "end": 6,
+            "value": "tenant",
+            "entity": "person"
+          },
+          {
+            "start": 7,
+            "end": 18,
+            "value": "hasn't paid",
+            "entity": "action"
+          },
+          {
+            "start": 19,
+            "end": 27,
+            "value": "his rent",
+            "entity": "monthly_payment"
+          }
+        ]
+      },
+      {
+        "text": "tenant hasn't paid their rent",
+        "intent": "ask_nonpayment",
+        "entities": [
+          {
+            "start": 0,
+            "end": 6,
+            "value": "tenant",
+            "entity": "person"
+          },
+          {
+            "start": 7,
+            "end": 18,
+            "value": "hasn't paid",
+            "entity": "action"
+          },
+          {
+            "start": 19,
+            "end": 29,
+            "value": "their rent",
+            "entity": "monthly_payment"
+          }
+        ]
+      },
+      {
+        "text": "tenant hasn't paid her rent",
+        "intent": "ask_nonpayment",
+        "entities": [
+          {
+            "start": 0,
+            "end": 6,
+            "value": "tenant",
+            "entity": "person"
+          },
+          {
+            "start": 7,
+            "end": 18,
+            "value": "hasn't paid",
+            "entity": "action"
+          },
+          {
+            "start": 19,
+            "end": 27,
+            "value": "her rent",
+            "entity": "monthly_payment"
+          }
+        ]
+      },
+      {
+        "text": "tenant hasn't paid rent",
+        "intent": "ask_nonpayment",
+        "entities": [
+          {
+            "start": 0,
+            "end": 6,
+            "value": "tenant",
+            "entity": "person"
+          },
+          {
+            "start": 7,
+            "end": 18,
+            "value": "hasn't paid",
+            "entity": "monthly_payment"
+          },
+          {
+            "start": 14,
+            "end": 23,
+            "value": "paid rent",
+            "entity": "monthly_payment"
+          }
+        ]
+      },
+      {
+        "text": "tenant hasn't paid rent in a while",
+        "intent": "ask_nonpayment",
+        "entities": [
+          {
+            "start": 0,
+            "end": 6,
+            "value": "tenant",
+            "entity": "person"
+          },
+          {
+            "start": 7,
+            "end": 18,
+            "value": "hasn't paid",
+            "entity": "action"
+          },
+          {
+            "start": 14,
+            "end": 23,
+            "value": "paid rent",
+            "entity": "monthly_payment"
+          }
+        ]
+      },
+      {
+        "text": "my tenant isn't paying rent",
+        "intent": "ask_nonpayment",
+        "entities": [
+          {
+            "start": 0,
+            "end": 9,
+            "value": "tenant",
+            "entity": "person"
+          },
+          {
+            "start": 10,
+            "end": 22,
+            "value": "isn't paying",
+            "entity": "action"
+          },
+          {
+            "start": 16,
+            "end": 27,
+            "value": "paying rent",
+            "entity": "monthly_payment"
+          }
+        ]
+      },
+      {
+        "text": "my tenant hasn't paid rent",
+        "intent": "ask_nonpayment",
+        "entities": [
+          {
+            "start": 3,
+            "end": 9,
+            "value": "tenant",
+            "entity": "person"
+          },
+          {
+            "start": 10,
+            "end": 21,
+            "value": "hasn't paid",
+            "entity": "monthly_payment"
+          },
+          {
+            "start": 22,
+            "end": 26,
+            "value": "rent",
+            "entity": "monthly_payment"
+          }
+        ]
+      },
+      {
+        "text": "i haven't received rent from my tenant",
+        "intent": "ask_nonpayment",
+        "entities": [
+          {
+            "start": 0,
+            "end": 1,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 2,
+            "end": 18,
+            "value": "haven't received",
+            "entity": "action"
+          },
+          {
+            "start": 19,
+            "end": 23,
+            "value": "rent",
+            "entity": "monthly_payment"
+          },
+          {
+            "start": 32,
+            "end": 38,
+            "value": "tenant",
+            "entity": "person"
+          }
+        ]
+      },
+      {
+        "text": "i haven't received rent",
+        "intent": "ask_nonpayment",
+        "entities": [
+          {
+            "start": 0,
+            "end": 1,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 2,
+            "end": 18,
+            "value": "haven't received",
+            "entity": "action"
+          },
+          {
+            "start": 19,
+            "end": 23,
+            "value": "rent",
+            "entity": "monthly_payment"
+          }
+        ]
+      },
+      {
+        "text": "i haven't received payment",
+        "intent": "ask_nonpayment",
+        "entities": [
+          {
+            "start": 0,
+            "end": 1,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 2,
+            "end": 18,
+            "value": "haven't received",
+            "entity": "action"
+          },
+          {
+            "start": 19,
+            "end": 26,
+            "value": "payment",
+            "entity": "monthly_payment"
+          }
+        ]
+      },
+      {
+        "text": "I haven't been paid rent",
+        "intent": "ask_nonpayment",
+        "entities": [
+          {
+            "start": 0,
+            "end": 1,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 2,
+            "end": 19,
+            "value": "haven't been paid",
+            "entity": "action"
+          },
+          {
+            "start": 20,
+            "end": 24,
+            "value": "rent",
+            "entity": "monthly_payment"
+          }
+        ]
+      },
+      {
+        "text": "my landlord increased the rent",
+        "intent": "ask_rent_change",
+        "entities": [
+          {
+            "start": 3,
+            "end": 11,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 12,
+            "end": 21,
+            "value": "increased",
+            "entity": "monthly_payment_change"
+          },
+          {
+            "start": 26,
+            "end": 30,
+            "value": "rent",
+            "entity": "monthly_payment"
+          }
+        ]
+      },
+      {
+        "text": "the landlord increased my rent",
+        "intent": "ask_rent_change",
+        "entities": [
+          {
+            "start": 4,
+            "end": 12,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 13,
+            "end": 22,
+            "value": "increased",
+            "entity": "monthly_payment_change"
+          },
+          {
+            "start": 26,
+            "end": 30,
+            "value": "rent",
+            "entity": "monthly_payment"
+          }
+        ]
+      },
+      {
+        "text": "the landlord increased the rent",
+        "intent": "ask_rent_change",
+        "entities": [
+          {
+            "start": 4,
+            "end": 12,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 13,
+            "end": 22,
+            "value": "increased",
+            "entity": "monthly_payment_change"
+          },
+          {
+            "start": 27,
+            "end": 31,
+            "value": "rent",
+            "entity": "monthly_payment"
+          }
+        ]
+      },
+      {
+        "text": "the landlord raised the rent",
+        "intent": "ask_rent_change",
+        "entities": [
+          {
+            "start": 4,
+            "end": 12,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 13,
+            "end": 19,
+            "value": "raised",
+            "entity": "monthly_payment_change"
+          },
+          {
+            "start": 24,
+            "end": 28,
+            "value": "rent",
+            "entity": "monthly_payment"
+          }
+        ]
+      },
+      {
+        "text": "the landlord wants to increase my rent",
+        "intent": "ask_rent_change",
+        "entities": [
+          {
+            "start": 4,
+            "end": 12,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 22,
+            "end": 30,
+            "value": "increase",
+            "entity": "monthly_payment_change"
+          },
+          {
+            "start": 34,
+            "end": 38,
+            "value": "rent",
+            "entity": "monthly_payment"
+          }
+        ]
+      },
+      {
+        "text": "the rent is being increased",
+        "intent": "ask_rent_change",
+        "entities": [
+          {
+            "start": 4,
+            "end": 8,
+            "value": "rent",
+            "entity": "monthly_payment"
+          },
+          {
+            "start": 18,
+            "end": 27,
+            "value": "increased",
+            "entity": "monthly_payment_change"
+          }
+        ]
+      },
+      {
+        "text": "my landlord increased my rent",
+        "intent": "ask_rent_change",
+        "entities": [
+          {
+            "start": 3,
+            "end": 11,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 12,
+            "end": 21,
+            "value": "increased",
+            "entity": "monthly_payment_change"
+          },
+          {
+            "start": 25,
+            "end": 29,
+            "value": "rent",
+            "entity": "monthly_payment"
+          }
+        ]
+      },
+      {
+        "text": "my landlord raised the rent",
+        "intent": "ask_rent_change",
+        "entities": [
+          {
+            "start": 3,
+            "end": 11,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 12,
+            "end": 18,
+            "value": "raised",
+            "entity": "monthly_payment_change"
+          },
+          {
+            "start": 23,
+            "end": 27,
+            "value": "rent",
+            "entity": "monthly_payment"
+          }
+        ]
+      },
+      {
+        "text": "my landlord wants to increase my rent",
+        "intent": "ask_rent_change",
+        "entities": [
+          {
+            "start": 3,
+            "end": 11,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 21,
+            "end": 29,
+            "value": "increase",
+            "entity": "monthly_payment_change"
+          },
+          {
+            "start": 33,
+            "end": 37,
+            "value": "rent",
+            "entity": "monthly_payment"
+          }
+        ]
+      },
+      {
+        "text": "my rent is being increased",
+        "intent": "ask_rent_change",
+        "entities": [
+          {
+            "start": 3,
+            "end": 7,
+            "value": "rent",
+            "entity": "monthly_payment"
+          },
+          {
+            "start": 17,
+            "end": 26,
+            "value": "increased",
+            "entity": "monthly_payment_change"
+          }
+        ]
+      }
+    ],
+    "regex_features": [],
+    "entity_synonyms": [
+      {
+        "value": "deposit"
+        "synonyms": [
+          "deposit",
+          "rent in advance",
+          "payment in advnace",
+          "security deposit",
+          "key deposit",
+          "rent deposit",
+          "pay one month in advance",
+          "advance"
+        ]
+      },
+      {
+        "value": "terminate",
+        "synonyms": [
+          "break",
+          "end",
+          "move out",
+          "leave",
+          "left",
+          "resiliate",
+          "resile"
+        ]
+      },
+      {
+        "value": "increase",
+        "synonyms": [
+          "increased",
+          "raise",
+          "raised"
+        ]
+      },
+      {
+        "value": "hasn't paid",
+        "synonyms": [
+          "hasn't received",
+          "isn't paying",
+          "haven't received"
+        ]
+      },
+      {
+        "value": "apartment",
+        "synonyms": [
+          "place",
+          "apartment",
+          "house"
+        ]
+      }
+    ]
+  }
+}

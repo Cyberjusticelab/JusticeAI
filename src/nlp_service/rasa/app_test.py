@@ -6,11 +6,11 @@ from rasa_nlu.model import Metadata, Interpreter
 
 
 ##This is the RASA Trainer
-training_data = load_data('data/has_lease_expired.json')
+training_data = load_data('data/Problem_identifier.json')
 trainer = Trainer(RasaNLUConfig("config/config_spacy.json"))
 trainer.train(training_data)
 model_directory = trainer.persist('./projects/default/')  # Returns the directory the model is stored in
 interpreter = Interpreter.load(model_directory, RasaNLUConfig("config/config_spacy.json"))     # to use the builder, pass it as an arg when loading the model
 
 #This is what will be outputted from the model.py file
-print(interpreter.parse(u"My lease expired 3 months ago"))
+print(interpreter.parse(u"Oh no this faggot is increasing my fucking rent. Help me. Fuck this guy."))
