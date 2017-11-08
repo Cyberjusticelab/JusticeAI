@@ -84,11 +84,14 @@ class FrenchVectors:
             word_list = word_tokenize(word_list, 'french')
         vector = numpy.zeros(FrenchVectors.Word_Vector_Size)
         num = 0
-
         for word in word_list:
             if word in FrenchVectors.custom_stop_words:
                 continue
+            recursion = 0
             while True:
+                if recursion >= 3:
+                    break
+                recursion += 1
                 try:
                     word_vec = FrenchVectors.word_vectors[word]
                     word_vec = FrenchVectors.tf_idf_scaler(word, word_vec)

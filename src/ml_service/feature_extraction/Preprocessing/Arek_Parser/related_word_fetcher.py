@@ -8,9 +8,11 @@ logger = logging.getLogger('fact_clustering')
 verbeRegex = re.compile("(?<=Conjugaison du verbe )\S+")
 
 cache = {}
-cachePickleFilePath = "cache.pickle"
+__script_dir = os.path.abspath(__file__ + r"/../../../")
+__rel_path = r'Clustering/cache.pickle'
+cachePickleFilePath = os.path.join(__script_dir, __rel_path)
 if os.path.isfile(cachePickleFilePath):
-    logger.info('Loading cached Pickle of words.')
+    print('Loading cached Pickle of words.')
     cacheFile = open(cachePickleFilePath, "rb")
     cache = pickle.load(cacheFile)
 
