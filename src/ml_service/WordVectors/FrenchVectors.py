@@ -87,11 +87,12 @@ class FrenchVectors:
         for word in word_list:
             if word in FrenchVectors.custom_stop_words:
                 continue
-            recursion = 0
+            iteration_count = 0
+            max_iteration = 3
             while True:
-                if recursion >= 3:
+                if iteration_count >= max_iteration:
                     break
-                recursion += 1
+                    iteration_count += 1
                 try:
                     word_vec = FrenchVectors.word_vectors[word]
                     word_vec = FrenchVectors.tf_idf_scaler(word, word_vec)
