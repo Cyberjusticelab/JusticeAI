@@ -11,16 +11,16 @@ from src.ml_service.GlobalVariables.GlobalVariable import Global
 
 
 class KMeansWrapper:
-    def __init__(self, precedent_directory, total_file_to_process, cluster_size):
+    def __init__(self, data_tuple):
         """
         :param precedent_directory: directory path precedents
         :param total_file_to_process: amount of files to process
         :param cluster_size: amount of cluster to look for
         """
-        raw_claim_text = extract_data_from_cases(precedent_directory, total_file_to_process)
-        self.claim_text = preprocessing(raw_claim_text)
-        self.tfidf_matrix = self.init_tfidf()
-        self.cluster_size = cluster_size
+        raw_claim_text = extract_data_from_cases(Global.Precedence_Directory, 100)
+        self.claim_text = data_tuple[1]  # original sentence
+        self.tfidf_matrix = data_tuple[0]  # sentence vector
+        self.cluster_size = 100
         self.km = self.cluster()
         self.print("unlabeled_clusters")
 
@@ -73,7 +73,3 @@ class KMeansWrapper:
                 f.write("\n")
             f.write("\n\n========================================================================\n\n")
         f.close()
-
-
-if __name__ == '__main__':
-    KMeansWrapper(os.path.normpath(Global.Precedence_Directory), 100, 100)

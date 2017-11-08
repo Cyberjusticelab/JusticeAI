@@ -64,7 +64,7 @@ class FrenchVectors:
     '''
     @staticmethod
     def vectorize_sent(word_list):
-        if type(word_list) is not list:
+        if not isinstance(word_list, list):
             word_list = word_tokenize(word_list, 'french')
         vector = numpy.zeros(FrenchVectors.Word_Vector_Size)
         num = 0
@@ -81,4 +81,6 @@ class FrenchVectors:
                     word = find_related(word)
                     if word is None:
                         break
+        if num == 0:
+            return None
         return numpy.divide(vector, num)
