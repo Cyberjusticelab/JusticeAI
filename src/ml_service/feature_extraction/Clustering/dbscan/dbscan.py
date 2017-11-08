@@ -25,14 +25,22 @@ def clusterFacts(data_tuple):
 def writeFactsToFile(data_tuple, labels):
     __script_dir = os.path.abspath(__file__ + "/../")
     __rel_path = r'cluster_dir/'
-    outputDirPath = os.path.join(__script_dir, __rel_path)
-    if not os.path.exists(outputDirPath):
-        os.makedirs(outputDirPath)
-    for i in range(len(data_tuple[1])):
-        filePath = os.path.join(outputDirPath, str(labels[i]))
-        normalizedFilePath = os.path.normpath(filePath)
-        f = open(normalizedFilePath + '.txt', 'w')
-        f.write('{:.140}'.format(data_tuple[1][i]) + '\n')  # original sentence
-        f.writelines(data_tuple[3][i] + '\n')  # processed sentence
-        f.writelines(data_tuple[2][i] + '\n\n')  # filename
-        f.close()
+    output_directory = os.path.join(__script_dir, __rel_path)
+    if not os.path.exists(output_directory):
+        os.makedirs(output_directory)
+    unique_labels = set(labels)
+    for label in unique_labels:
+        file = open(output_directory + str(label) + '.txt', 'w')
+
+        for i, sent in enumerate(data_tuple[1][labels == label]):
+            file.writelines(sent + '\n')  # original sentence
+
+        file.writelines("-------------------------\n")
+        for i, process_sent in enumerate(data_tuple[3][labels == label]):
+            file.writelines(process_sent + '\n')  # processed sentence
+
+        file.writelines("-------------------------\n")
+        for i, filename in enumerate(data_tuple[2][labels == label]):
+            file.writelines(filename + '\n')  # filename
+
+        file.close()

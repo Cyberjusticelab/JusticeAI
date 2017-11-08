@@ -25,20 +25,6 @@ def load_from_bin():
         print("Download French Vector model first")
 
 
-def load_tf_idf_from_bin():
-    try:
-        print("Loading tf-idf file... May take a few seconds")
-        __script_dir = os.path.abspath(__file__ + r"/../../")
-        __rel_path = r'WordVectors/feature_idf.bin'
-        file_path = os.path.join(__script_dir, __rel_path)
-        file = open(file_path, 'rb')
-        model = pickle.load(file)
-        print("Loading complete")
-        return model
-    except BaseException:
-        print("Download tf-idf binary first")
-
-
 def get_stop_words():
     return stopwords.words('french') + \
         [',', ';', '.', '!', '?', 'c', '(', ')', 'ainsi',
@@ -68,6 +54,20 @@ class FrenchVectors:
     def __init__(self):
         pass
 
+    @staticmethod
+    def load_tf_idf_from_bin():
+        try:
+            print("Loading tf-idf file... May take a few seconds")
+            __script_dir = os.path.abspath(__file__ + r"/../../")
+            __rel_path = r'WordVectors/feature_idf.bin'
+            file_path = os.path.join(__script_dir, __rel_path)
+            file = open(file_path, 'rb')
+            model = pickle.load(file)
+            print("Loading complete")
+            return model
+        except BaseException:
+            print("Download tf-idf binary first")
+
     '''
     ----------------------------------------------------------------
     Vectorize Sentence
@@ -84,16 +84,14 @@ class FrenchVectors:
             word_list = word_tokenize(word_list, 'french')
         vector = numpy.zeros(FrenchVectors.Word_Vector_Size)
         num = 0
+
         for word in word_list:
             if word in FrenchVectors.custom_stop_words:
                 continue
             while True:
                 try:
                     word_vec = FrenchVectors.word_vectors[word]
-                    if FrenchVectors.word_idf_dict is not None:
-                        word_idf = FrenchVectors.word_idf_dict[word]
-                        if word_idf is not None:
-                            word_vec = numpy.multiply(word_idf, word_vec)
+                    word_vec = FrenchVectors.tf_idf_scaler(word, word_vec)
                     vector = numpy.add(vector, word_vec)
                     num += 1
                     break
@@ -105,3 +103,14 @@ class FrenchVectors:
         if num == 0:
             return None
         return numpy.divide(vector, num)
+
+    @staticmethod
+    def tf_idf_scaler(word, word_vec):
+        if FrenchVectors.word_idf_dict is not None:
+            try:
+                word_idf = FrenchVectors.word_idf_dict[word]
+                if word_idf is not None:
+                    word_vec = numpy.multiply(word_idf, word_vec)
+            except KeyError:
+                pass
+        return word_vec

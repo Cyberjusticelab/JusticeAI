@@ -79,9 +79,13 @@ class HdbscanTrain:
         for label in unique_labels:
             file = open(self.output_directory + str(label) + '.txt', 'w')
             for i, sent in enumerate(data_tuple[1][labels == label]):
-                file.writelines(sent + '\n')  # original sentence
-                file.writelines(data_tuple[3][i] + '\n')  # processed sentence
-                file.writelines(data_tuple[2][i] + '\n\n')  # filename
+                file.writelines(sent + '\n')
+
+            for i, process_sent in enumerate(data_tuple[3][labels == label]):
+                file.writelines(process_sent + '\n')
+
+            for i, filename in enumerate(data_tuple[2][labels == label]):
+                file.writelines(filename + '\n')
             file.close()
 
     '''

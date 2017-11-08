@@ -1,11 +1,16 @@
 from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.PrecedenceParse import Precedence_Parser
 from src.ml_service.GlobalVariables.GlobalVariable import Global
 from src.ml_service.feature_extraction.Clustering.k_means.fact_cluster import KMeansWrapper
-from src.ml_service.feature_extraction.Clustering.hdbscan_wrapper.Hdbscan import HdbscanTrain
 from src.ml_service.feature_extraction.Preprocessing.Arek_Parser import related_word_fetcher
 from src.ml_service.feature_extraction.Clustering.dbscan.dbscan import clusterFacts
 import time
 import numpy
+hdb_supported = False
+try:
+    from src.ml_service.feature_extraction.Clustering.hdbscan_wrapper.Hdbscan import HdbscanTrain
+    hdb_supported = True
+except:
+    pass
 
 
 def cluster_means(data_tuple):
@@ -34,8 +39,9 @@ def cluster_hdbscan(data_tuple):
 
 
 if __name__ == '__main__':
+    # set tfidf to true if you want to use it
     parser = Precedence_Parser(tfidf=False)
-    precedence_dict = parser.parse_files(Global.Precedence_Directory, 10)
+    precedence_dict = parser.parse_files(Global.Precedence_Directory, 100)
     related_word_fetcher.save_cache()
 
     X = []
@@ -56,6 +62,8 @@ if __name__ == '__main__':
 
     data_tuple = (X, labels, precedence_files, piped_fact)
 
+    # comment out what you don't want to cluster
     cluster_dbscan(data_tuple)
-    cluster_hdbscan(data_tuple)
+    if hdb_supported:
+        cluster_hdbscan(data_tuple)
     cluster_means(data_tuple)
