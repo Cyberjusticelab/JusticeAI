@@ -39,7 +39,7 @@ setup(
     packages=[
         'rasa_nlu',
         'rasa_nlu.utils',
-        'rasa_nlu.classifiers',
+        'rasa_nlu.gram_classify',
         'rasa_nlu.emulators',
         'rasa_nlu.extractors',
         'rasa_nlu.featurizers',

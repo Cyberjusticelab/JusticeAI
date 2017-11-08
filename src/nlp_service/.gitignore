@@ -1,8 +1,8 @@
 __pycache__
 venv
 services/**/*.pyc
-data/**/*.extended.txt
-data/**/*.pickle
+gram_classify/data/**/*.extended.txt
+gram_classify/data/**/*.pickle
 preprocessing/French/*.pickle
 feature_extraction/WordVectors/*.pickle
 .cache

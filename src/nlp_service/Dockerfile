@@ -8,6 +8,9 @@ RUN pip install --no-cache-dir -r requirements_test.txt
 
 COPY . .
 
+# Initialize gram classifiers (needed for tests)
+RUN cd src/nlp_service && python init_gram_classify.py
+
 # Initialize spacy
 RUN python -m spacy download en
 
