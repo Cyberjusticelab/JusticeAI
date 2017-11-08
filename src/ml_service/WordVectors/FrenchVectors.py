@@ -92,7 +92,7 @@ class FrenchVectors:
             while True:
                 if iteration_count >= max_iteration:
                     break
-                    iteration_count += 1
+                iteration_count += 1
                 try:
                     word_vec = FrenchVectors.word_vectors[word]
                     word_vec = FrenchVectors.tf_idf_scaler(word, word_vec)
