@@ -1,9 +1,9 @@
-import flask
-from flask import jsonify
-from glob import glob
+import json
 import os
 import re
-import json
+from glob import glob
+
+from flask import jsonify
 
 
 def get_legal_documents():
