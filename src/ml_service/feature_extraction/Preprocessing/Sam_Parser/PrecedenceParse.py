@@ -28,6 +28,8 @@ class Precedence_Parser:
     # #################################################
     # CONSTRUCTOR
     def __init__(self, tfidf=False):
+        if tfidf:
+            FrenchVectors.word_idf_dict = FrenchVectors.load_tf_idf_from_bin()
         self.__state = None
         self.__model = None
         self.__filename = None
