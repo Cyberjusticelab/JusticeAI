@@ -4,18 +4,23 @@ from sklearn.manifold import TSNE
 import time
 from src.ml_service.GlobalVariables.GlobalVariable import Global
 from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.PrecedenceParse import Precedence_Parser
+import os
 
 
 class HdbscanTrain:
     def __init__(self):
-        pass
+        __script_dir = os.path.abspath(__file__ + "/../")
+        __rel_path = r'cluster_dir/'
+        self.output_directory = os.path.join(__script_dir, __rel_path)
+        if not os.path.exists(self.output_directory):
+            os.makedirs(self.output_directory)
 
     '''
     ------------------------------------------------------
     Train
     ------------------------------------------------------
 
-    Clustering algorithm using hdbscan
+    Clustering algorithm using hdbscan_wrapper
 
     output_directory <string>: output directory of clusters
     tpl <array, array, array>: vetors, transformed sentences, original sentence
@@ -23,24 +28,22 @@ class HdbscanTrain:
     config <int, int>: configuration for TSNE manifold
     '''
 
-    def train(self, output_directory, tpl, nb_of_files, config):
-        data_matrix = tpl[0]
-        sent = tpl[1]
-        original_sent = tpl[2]
-        data_matrix = self.manifold(data_matrix, config[0], config[1])
+    def train(self, data_tuple):
+        data_matrix = data_tuple[0]  # sentence vectors
+        original_sent = data_tuple[1]  # original sentence
+        data_matrix = self.manifold(data_matrix, 200, 24)
         print("Clustering")
         hdb = HDBSCAN(min_cluster_size=2).fit(data_matrix)
         hdb_labels = hdb.labels_
         n_clusters_hdb_ = len(set(hdb_labels)) - (1 if -1 in hdb_labels else 0)
         hdb_unique_labels = set(hdb_labels)
-        self.__write_clusters(hdb_unique_labels, hdb_labels, output_directory, sent, original_sent)
-        self.__write_metrics(output_directory, n_clusters_hdb_, nb_of_files, config)
+        self.__write_clusters(hdb_unique_labels, hdb_labels, data_tuple)
 
     '''
     ------------------------------------------------------
     MANIFOLD
     ------------------------------------------------------
-    Preprocessing for hdbscan
+    Preprocessing for hdbscan_wrapper
     Reduces dimension of vectors to yield much better results
     Reduces noise and groups up more similar terms
 
@@ -72,20 +75,13 @@ class HdbscanTrain:
     original_sent <numpy array>: original sentences
     '''
 
-    def __write_clusters(self, unique_labels, labels, output_directory, sent, original_sent):
+    def __write_clusters(self, unique_labels, labels, data_tuple):
         for label in unique_labels:
-            file = open(output_directory + str(label) + '.txt', 'w')
-
-            for word in sent[labels == label]:
-                file.writelines("[*] " + word)
-                file.writelines('\n')
-
-            file.writelines("-------------------------------\n")
-
-            for word in original_sent[labels == label]:
-                file.writelines("[*] " + word)
-                file.writelines('\n')
-
+            file = open(self.output_directory + str(label) + '.txt', 'w')
+            for i, sent in enumerate(data_tuple[1][labels == label]):
+                file.writelines(sent + '\n')  # original sentence
+                file.writelines(data_tuple[3][i] + '\n')  # processed sentence
+                file.writelines(data_tuple[2][i] + '\n\n')  # filename
             file.close()
 
     '''
@@ -137,17 +133,4 @@ class HdbscanTrain:
 
 
 if __name__ == '__main__':
-    parser = Precedence_Parser()
-    number_of_files = 100
-    config = (200, 25)
-    cluster_dir = r'cluster_dir/'
-    clusterer = HdbscanTrain()
-
-    start = time.time()
-
-    tpl = parser.parse_files(Global.Precedence_Directory, number_of_files)
-    clusterer.train(cluster_dir, tpl, number_of_files, config)
-
-    elapsed = time.time()
-    print('Elapsed:')
-    print(elapsed - start)
+    pass
