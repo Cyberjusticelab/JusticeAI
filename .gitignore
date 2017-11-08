@@ -3,6 +3,7 @@
 
 #PyCharm
 .idea/
+src/__pycache__/
 
 #Data folder
 text_bk/
