@@ -1,9 +1,9 @@
 from flask import Flask
 from flask import request
-from rasa_nlu.converters import load_data
-from rasa_nlu.config import RasaNLUConfig
-from rasa_nlu.model import Trainer
-from rasa_nlu.model import Metadata, Interpreter
+from rasa.converters import load_data
+from rasa.config import RasaNLUConfig
+from rasa.model import Trainer
+from rasa.model import Metadata, Interpreter
 from controllers import nlpController
 
 app = Flask(__name__)
