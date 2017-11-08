@@ -7,4 +7,4 @@
 
 
 class Global:
-    Precedence_Directory = r"/home/charmander/Data/text_bk/"
+    Precedence_Directory = r"/Users/taimoorrana/Downloads/text_bk/"
