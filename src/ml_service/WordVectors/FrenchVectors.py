@@ -38,6 +38,7 @@ def load_tf_idf_from_bin():
     except BaseException:
         print("Download tf-idf binary first")
 
+
 def get_stop_words():
     return stopwords.words('french') + \
         [',', ';', '.', '!', '?', 'c', '(', ')', 'ainsi',
