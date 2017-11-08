@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import numpy
 import os
+import pickle
 from gensim.models.keyedvectors import KeyedVectors
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
@@ -23,6 +24,19 @@ def load_from_bin():
     except BaseException:
         print("Download French Vector model first")
 
+
+def load_tf_idf_from_bin():
+    try:
+        print("Loading tf-idf file... May take a few seconds")
+        __script_dir = os.path.abspath(__file__ + r"/../../")
+        __rel_path = r'WordVectors/feature_idf.bin'
+        file_path = os.path.join(__script_dir, __rel_path)
+        file = open(file_path, 'rb')
+        model = pickle.load(file)
+        print("Loading complete")
+        return model
+    except BaseException:
+        print("Download tf-idf binary first")
 
 def get_stop_words():
     return stopwords.words('french') + \

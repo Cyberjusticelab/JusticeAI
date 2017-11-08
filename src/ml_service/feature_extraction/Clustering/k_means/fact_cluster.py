@@ -2,6 +2,7 @@ import re
 import nltk
 import os
 import numpy
+import pickle
 from nltk.corpus import stopwords
 from nltk.stem.snowball import SnowballStemmer
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -53,14 +54,13 @@ class KMeansWrapper:
                                            tokenizer=self.tokenize_only,
                                            min_df=0.0, max_df=0.8, norm='l2',
                                            )
-
-        tfidf_vectorizer.fit_transform(self.claim_text)
-        word_idf_dict = dict(zip(tfidf_vectorizer.get_feature_names(), tfidf_vectorizer.idf_))
-        FrenchVectors.word_idf_dict = word_idf_dict
         claim_vec_list = []
         for claim in self.claim_text:
-            claim_vec_list.append(FrenchVectors.vectorize_sent(self.tokenize_only(claim)))
-        return numpy.array(claim_vec_list)
+            sentence_vec = FrenchVectors.vectorize_sent(self.tokenize_only(claim))
+            if sentence_vec is not None:
+                claim_vec_list.append(sentence_vec)
+        mat = numpy.array(claim_vec_list)
+        return mat
 
     def cluster(self):
         km = KMeans(n_clusters=self.cluster_size, init='k-means++')
@@ -82,4 +82,4 @@ class KMeansWrapper:
 
 
 if __name__ == '__main__':
-    KMeansWrapper(os.path.normpath(Global.Precedence_Directory), 100, 10)
+    KMeansWrapper(os.path.normpath(Global.Precedence_Directory), 5000, 550)
