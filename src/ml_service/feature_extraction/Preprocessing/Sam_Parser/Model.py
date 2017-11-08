@@ -38,6 +38,7 @@ class PrecedenceModel:
 class FactModel:
     def __init__(self):
         self.dict = {
+            'fact': None,
             'precedence': [],
             'piped_fact': None,
             'vector': None
@@ -45,4 +46,5 @@ class FactModel:
 
     def __str__(self):
         return str(self.dict['precedence']) + '\n' + \
-            str(self.dict['piped_fact']) + '\n'
+            str(self.dict['piped_fact']) + '\n' + \
+            str(self.dict['fact'])
