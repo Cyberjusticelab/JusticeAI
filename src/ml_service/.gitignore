@@ -6,8 +6,9 @@ coverage.xml
 .idea/
 ./**/*.iml
 .idea/*
-*.bin
-/src/ml_service/feature_extraction/Clustering/hdbscan/cluster_dir/*
+non-lem.bin
+/src/ml_service/feature_extraction/Clustering/k_means/cluster_dir/*
+/feature_extraction/Clustering/hdbscan_wrapper/cluster_dir/*
 /src/ml_service/feature_extraction/Clustering/hdbscan/metrics.txt
 /feature_extraction/Preprocessing/Arek_Parser/error_words.txt
 /feature_extraction/Clustering/dbscan/cache.pickle
@@ -17,5 +18,5 @@ coverage.xml
 /src/ml_service/feature_extraction/Clustering/hdbscan_wrapper/cluster_dir/*
 /src/ml_service/feature_extraction/Clustering/hdbscan_wrapper/metrics.txt
 /feature_extraction/Clustering/k_means/unlabeled_clusters.txt
-/feature_extraction/Clustering/cache.pickle
 /feature_extraction/Clustering/unlabeled_clusters.txt
+/precedents/text_bk/*
