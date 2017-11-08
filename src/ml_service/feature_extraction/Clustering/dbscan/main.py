@@ -22,7 +22,7 @@ def execute():
     print(done - start)
 
     start = time.time()
-    dbscan.clusterFacts(facts)
+    dbscan.cluster_facts(facts)
     done = time.time()
 
     print('Clustering time:')

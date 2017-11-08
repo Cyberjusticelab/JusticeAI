@@ -3,15 +3,16 @@ from sklearn.cluster import DBSCAN
 import os
 import numpy as np
 import logging
+from src.ml_service.GlobalVariables.GlobalVariable import InformationType
 logger = logging.getLogger('fact_clustering')
 
 
-def clusterFacts(data_tuple):
+def cluster_facts(data_tuple):
     """
-        Clusters all given facts using DBSCAN, and writes the resulting
-        clusters into different files
-        factDict: a Dictionary, where the keys are the sentence strings,
-                  and the values are the associated sentence vectors
+    Clusters all given facts using DBSCAN, and writes the resulting
+    clusters into different files
+
+    @:param data_tuple <array, array, array>: vectors, transformed sentences, original sentence
     """
     X = data_tuple[0]  # sentence vectors
     ms = DBSCAN(min_samples=2, eps=0.4, n_jobs=-1)
@@ -19,10 +20,10 @@ def clusterFacts(data_tuple):
     labels = ms.labels_
     n_clusters = len(np.unique(labels))
     logger.info("Number of estimated clusters : %d" % n_clusters)
-    writeFactsToFile(data_tuple, labels)
+    write_facts_to_file(data_tuple, labels)
 
 
-def writeFactsToFile(data_tuple, labels):
+def write_facts_to_file(data_tuple, labels):
     __script_dir = os.path.abspath(__file__ + "/../")
     __rel_path = r'cluster_dir/'
     output_directory = os.path.join(__script_dir, __rel_path)
@@ -32,15 +33,15 @@ def writeFactsToFile(data_tuple, labels):
     for label in unique_labels:
         file = open(output_directory + str(label) + '.txt', 'w')
 
-        for i, sent in enumerate(data_tuple[1][labels == label]):
+        for i, sent in enumerate(data_tuple[InformationType.FACTS.value][labels == label]):
             file.writelines(sent + '\n')  # original sentence
 
         file.writelines("-------------------------\n")
-        for i, process_sent in enumerate(data_tuple[3][labels == label]):
+        for i, process_sent in enumerate(data_tuple[InformationType.PROCESSED_FACTS.value][labels == label]):
             file.writelines(process_sent + '\n')  # processed sentence
 
         file.writelines("-------------------------\n")
-        for i, filename in enumerate(data_tuple[2][labels == label]):
+        for i, filename in enumerate(data_tuple[InformationType.PRECEDENTS_FILE_NAMES.value][labels == label]):
             file.writelines(filename + '\n')  # filename
 
         file.close()

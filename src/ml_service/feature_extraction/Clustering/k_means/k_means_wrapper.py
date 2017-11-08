@@ -3,6 +3,7 @@ import nltk
 import os
 from nltk.stem.snowball import SnowballStemmer
 from sklearn.cluster import KMeans
+from src.ml_service.GlobalVariables.GlobalVariable import InformationType
 
 
 class KMeansWrapper:
@@ -19,7 +20,7 @@ class KMeansWrapper:
             os.makedirs(self.output_directory)
         self.claim_text = data_tuple[1]  # original sentence
         self.data_matrix = data_tuple[0]  # sentence vector
-        self.cluster_size = 100
+        self.cluster_size = 100  # numbers of cluster desired
         self.km = self.cluster()
         self.data_tuple = data_tuple
         self.print_cluster()
@@ -52,15 +53,15 @@ class KMeansWrapper:
         unique_labels = set(clusters)
         for label in unique_labels:
             file = open(self.output_directory + str(label) + '.txt', 'w')
-            for i, sent in enumerate(self.data_tuple[1][clusters == label]):
+            for i, sent in enumerate(self.data_tuple[InformationType.FACTS.value][clusters == label]):
                 file.writelines(sent + '\n')  # original sentence
 
             file.writelines("-------------------------\n")
-            for i, process_sent in enumerate(self.data_tuple[3][clusters == label]):
+            for i, process_sent in enumerate(self.data_tuple[InformationType.PROCESSED_FACTS.value][clusters == label]):
                 file.writelines(process_sent + '\n')  # processed sentence
 
             file.writelines("-------------------------\n")
-            for i, filename in enumerate(self.data_tuple[2][clusters == label]):
+            for i, filename in enumerate(self.data_tuple[InformationType.PRECEDENTS_FILE_NAMES.value][clusters == label]):
                 file.writelines(filename + '\n')  # filename
 
             file.close()

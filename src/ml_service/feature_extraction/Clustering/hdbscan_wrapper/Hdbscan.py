@@ -1,10 +1,8 @@
-from hdbscan import HDBSCAN
-import matplotlib.pyplot as plt
-from sklearn.manifold import TSNE
-import time
-from src.ml_service.GlobalVariables.GlobalVariable import Global
-from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.PrecedenceParse import Precedence_Parser
 import os
+import matplotlib.pyplot as plt
+from hdbscan import HDBSCAN
+from sklearn.manifold import TSNE
+from src.ml_service.GlobalVariables.GlobalVariable import InformationType
 
 
 class HdbscanTrain:
@@ -15,20 +13,12 @@ class HdbscanTrain:
         if not os.path.exists(self.output_directory):
             os.makedirs(self.output_directory)
 
-    '''
-    ------------------------------------------------------
-    Train
-    ------------------------------------------------------
-
-    Clustering algorithm using hdbscan_wrapper
-
-    output_directory <string>: output directory of clusters
-    tpl <array, array, array>: vetors, transformed sentences, original sentence
-    nb_of_files <int>: number of files to train on
-    config <int, int>: configuration for TSNE manifold
-    '''
-
     def train(self, data_tuple):
+        """
+        Clustering algorithm using hdbscan_wrapper
+
+        @:param data_tuple <array, array, array>: vectors, transformed sentences, original sentence
+        """
         data_matrix = data_tuple[0]  # sentence vectors
         original_sent = data_tuple[1]  # original sentence
         data_matrix = self.manifold(data_matrix, 200, 24)
@@ -39,20 +29,16 @@ class HdbscanTrain:
         hdb_unique_labels = set(hdb_labels)
         self.__write_clusters(hdb_unique_labels, hdb_labels, data_tuple)
 
-    '''
-    ------------------------------------------------------
-    MANIFOLD
-    ------------------------------------------------------
-    Preprocessing for hdbscan_wrapper
-    Reduces dimension of vectors to yield much better results
-    Reduces noise and groups up more similar terms
-
-    data_matrix <numpy array>: vectors
-    learning_rate <int>
-    perplexity <int>
-    '''
-
     def manifold(self, data_matrix, learning_rate, perplexity):
+        """
+        Preprocessing for hdbscan_wrapper
+        Reduces dimension of vectors to yield much better results
+        Reduces noise and groups up more similar terms
+
+        data_matrix <numpy array>: vectors
+        learning_rate <int>
+        perplexity <int>
+        """
         print("Standardizing matrix")
         print("Very long. please be patient. 10min for 2000 clusters")
         tsne = TSNE(n_components=2,
@@ -60,47 +46,37 @@ class HdbscanTrain:
                     perplexity=perplexity)
         return tsne.fit_transform(data_matrix)
 
-    '''
-    ------------------------------------------------------
-    WRITE CLUSTERS
-    ------------------------------------------------------
-    Writes 1 text file per cluster
-    Every text file has the topics in the forms of:
-    1- The sentence which was used to create a vector
-    2- The original sentence from the text
-
-    hdb_unique_labels <int>: index of vector
-    hdb_labels <int>: index of vector
-    output_directory <string>: directory
-    sent <numpy array>: sentences for vectors
-    original_sent <numpy array>: original sentences
-    '''
-
     def __write_clusters(self, unique_labels, labels, data_tuple):
+        """
+        Writes 1 text file per cluster
+        Every text file has the topics in the forms of:
+        1- The sentence which was used to create a vector
+        2- The original sentence from the text
+
+        @:param unique_labels <int>: index of vector
+        @:param labels <int>: index of vector
+        @:param data_tuple <array, array, array>: vectors, transformed sentences, original sentence
+        """
         for label in unique_labels:
             file = open(self.output_directory + str(label) + '.txt', 'w')
-            for i, sent in enumerate(data_tuple[1][labels == label]):
+            for i, sent in enumerate(data_tuple[InformationType.FACTS.value][labels == label]):
                 file.writelines(sent + '\n')
             file.writelines("-------------------------\n")
-            for i, process_sent in enumerate(data_tuple[3][labels == label]):
+            for i, process_sent in enumerate(data_tuple[InformationType.PROCESSED_FACTS.value][labels == label]):
                 file.writelines(process_sent + '\n')
             file.writelines("-------------------------\n")
-            for i, filename in enumerate(data_tuple[2][labels == label]):
+            for i, filename in enumerate(data_tuple[InformationType.PRECEDENTS_FILE_NAMES.value][labels == label]):
                 file.writelines(filename + '\n')
             file.close()
 
-    '''
-    ------------------------------------------------------
-    Write Metrics
-    ------------------------------------------------------
-    Write metrics to text file and displays output
-
-    output_directory <string> : directory output
-    n_clusters_hdb_ <int> : number of created clusters
-    nb_of_files <int> : number of files used for training
-    '''
-
     def __write_metrics(self, output_directory, n_clusters_hdb_, nb_of_files, config):
+        """
+        Write metrics to text file and displays output
+
+        @:param output_directory <string> : directory output
+        @:param n_clusters_hdb_ <int> : number of created clusters
+        @:param nb_of_files <int> : number of files used for training
+        """
         num_lines = sum(1 for line in open(output_directory + '-1.txt'))
 
         file = open('metrics.txt', 'a')
@@ -115,18 +91,13 @@ class HdbscanTrain:
         print('Number_of_files_used: ' + str(nb_of_files))
         print('Noise: ' + str(num_lines))
 
-    '''
-    ------------------------------------------------------
-    PLOT
-    ------------------------------------------------------
-
-    Plots the clusters
-
-    matrix <numpy array>: word vectors
-    sent <numpy array>: sentences in english
-    '''
-
     def plot(self, matrix, sent):
+        """
+        Plots the clusters
+
+        @:param matrix <numpy array>: word vectors
+        @:param sent <numpy array>: sentences in english
+        """
         tsne = TSNE(n_components=2,
                     learning_rate=300,
                     perplexity=10)
