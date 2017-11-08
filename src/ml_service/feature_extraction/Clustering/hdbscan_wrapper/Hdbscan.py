@@ -54,6 +54,7 @@ class HdbscanTrain:
 
     def manifold(self, data_matrix, learning_rate, perplexity):
         print("Standardizing matrix")
+        print("Very long. please be patient. 10min for 2000 clusters")
         tsne = TSNE(n_components=2,
                     learning_rate=learning_rate,
                     perplexity=perplexity)
@@ -80,10 +81,10 @@ class HdbscanTrain:
             file = open(self.output_directory + str(label) + '.txt', 'w')
             for i, sent in enumerate(data_tuple[1][labels == label]):
                 file.writelines(sent + '\n')
-
+            file.writelines("-------------------------\n")
             for i, process_sent in enumerate(data_tuple[3][labels == label]):
                 file.writelines(process_sent + '\n')
-
+            file.writelines("-------------------------\n")
             for i, filename in enumerate(data_tuple[2][labels == label]):
                 file.writelines(filename + '\n')
             file.close()
