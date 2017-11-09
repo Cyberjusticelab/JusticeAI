@@ -1064,7 +1064,44 @@
         ]
       }
     ],
-    "regex_features": [],
+    "regex_features": [
+      {
+        "name": "rent increase: increas(e/es/ed/ing)",
+        "pattern": "increas[^\s]*"
+      },
+      {
+        "name": "rent increase: rais(e/es/end/ing)",
+        "pattern": "rais[^\s]*"
+      },
+      {
+        "name": "termination of lease:end(s/ed/ing)",
+        "pattern": "end[^\s]*"
+      },
+      {
+        "name": "termination of lease:terminat(ing/e/es/ed)",
+        "pattern": "terminat[^\s]*"
+      },
+      {
+        "name": "termination of lease: kick(s/ed) me out",
+        "pattern": "(kick[^\s]*)(\s)(me)(\s)(out)"
+      },
+      {
+        "name": "deposit: deposit(s/ed)",
+        "pattern": "deposit[^\s]*"
+      },
+      {
+        "name": "deposit: in advance",
+        "pattern": "(in)(\s)(advance)"
+      },
+      {
+        "name": "nonpayment: didn't pay",
+        "pattern": "(didn't)(\s)(pay)"
+      },
+      {
+        "name": "nonpayment: haven't paid",
+        "pattern": "(haven't)(\s)(paid)"
+      }
+    ],
     "entity_synonyms": [
       {
         "value": "deposit",
