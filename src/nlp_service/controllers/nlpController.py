@@ -1,7 +1,22 @@
 from flask import jsonify, abort, make_response
 
-def process_user_input(conversation_id, message):
 
+def classify_claim_category(conversation_id, message):
+    if conversation_id is None or message is None:
+        abort(make_response(jsonify(message="Must provide conversation_id and message"), 400))
+
+    # Classify claim category based on message
+
+    # Set conversation's claim category
+
+    # Return a question
+    response = {
+        "message": ''
+    }
+    pass  # return response
+
+
+def process_user_input(conversation_id, message):
     if conversation_id is None or message is None:
         abort(make_response(jsonify(message="Must provide conversation_id and message"), 400))
 

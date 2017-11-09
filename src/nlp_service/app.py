@@ -9,11 +9,13 @@ from controllers import nlpController
 app = Flask(__name__)
 
 ##This is the RASA Trainer
-training_data = load_data('rasa/data/has_lease_expired.json') # Where to fish the data it is being trained
-trainer = Trainer(RasaNLUConfig("rasa/config/config_spacy.json")) # Choosing the trainer (in this case spacy, not the default one from rasa)
-trainer.train(training_data) # Train the actual data
+training_data = load_data('rasa/data/has_lease_expired.json')  # Where to fish the data it is being trained
+trainer = Trainer(RasaNLUConfig(
+    "rasa/config/config_spacy.json"))  # Choosing the trainer (in this case spacy, not the default one from rasa)
+trainer.train(training_data)  # Train the actual data
 model_directory = trainer.persist('./projects/default/')  # Where the models are stored
-interpreter = Interpreter.load(model_directory, RasaNLUConfig("rasa/config/config_spacy.json"))     # to use the builder, pass it as an arg when loading the model
+interpreter = Interpreter.load(model_directory, RasaNLUConfig(
+    "rasa/config/config_spacy.json"))  # to use the builder, pass it as an arg when loading the model
 
 ##interpreter will parse incoming text to the nlp_service and furnish it back in a Json Format:
 '''
@@ -28,9 +30,16 @@ interpreter = Interpreter.load(model_directory, RasaNLUConfig("rasa/config/confi
     {'name': 'affirm', 'confidence': 0.084778514582872916}], 
 'text': 'hello'}
 '''
-## Results from a simple text interpreter.parse(u"hello")
 
-@app.route("/submit_answer", methods=['POST'])
-def submit_answer():
+
+## Results from a simple text interpreter.parse(u"hello")
+@app.route("/claim_category", methods=['POST'])
+def classify_claim_category():
+    input = request.get_json()
+    return nlpController.process_user_input(input['conversation_id'], input['message'])
+
+
+@app.route("/submit_message", methods=['POST'])
+def submit_message():
     input = request.get_json()
     return nlpController.process_user_input(input['conversation_id'], input['message'])
