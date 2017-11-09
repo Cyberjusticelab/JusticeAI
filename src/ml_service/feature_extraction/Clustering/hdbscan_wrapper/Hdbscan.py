@@ -21,7 +21,6 @@ class HdbscanTrain:
         """
         data_matrix = data_tuple[0]  # sentence vectors
         original_sent = data_tuple[1]  # original sentence
-        data_matrix = self.manifold(data_matrix, 200, 24)
         print("Clustering")
         hdb = HDBSCAN(min_cluster_size=2).fit(data_matrix)
         hdb_labels = hdb.labels_
