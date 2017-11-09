@@ -1067,11 +1067,11 @@
     "regex_features": [],
     "entity_synonyms": [
       {
-        "value": "deposit"
+        "value": "deposit",
         "synonyms": [
           "deposit",
           "rent in advance",
-          "payment in advnace",
+          "payment in advance",
           "security deposit",
           "key deposit",
           "rent deposit",
@@ -1082,6 +1082,7 @@
       {
         "value": "terminate",
         "synonyms": [
+          "kicked out",
           "break",
           "end",
           "move out",
