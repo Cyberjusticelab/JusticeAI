@@ -7,14 +7,14 @@ from rasa_nlu.components import ComponentBuilder
 
 ##This is the RASA Trainer
 start_time = time.localtime(time.time())
-training_data = load_data('data/is_habitable.json')
+training_data = load_data('data/is_student.json')
 trainer = Trainer(RasaNLUConfig("config/config_spacy.json"))
 trainer.train(training_data)
 training_time = time.localtime(time.time())
 model_directory = trainer.persist('./projects/default/')  # Returns the directory the model is stored in
 interpreter = Interpreter.load(model_directory, RasaNLUConfig("config/config_spacy.json"))     # to use the builder, pass it as an arg when loading the model
 #This is what will be outputted from the model.py file
-print(interpreter.parse(u" This place is terrible."))
+print(interpreter.parse(u"I am not a student."))
 
 print(start_time)
 print(training_time)
