@@ -77,7 +77,9 @@
           "terminating",
           "terminates",
           "kick me out",
-          "need him out"
+          "need him out",
+          "needs to go",
+          "wants me gone"
         ]
       },
       {
@@ -2253,6 +2255,186 @@
             "start": 56,
             "end": 61,
             "value": "evict",
+            "entity": "terminate"
+          }
+        ]
+      },
+      {
+        "text": "My tenant brought in a noisy parrot that won't stop singing. I need him gone. This can't continue I keep getting complaints and it's keeping his neighbours up.",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 3,
+            "end": 9,
+            "value": "tenant",
+            "entity": "person"
+          },
+          {
+            "start": 63,
+            "end": 76,
+            "value": "need him gone",
+            "entity": "terminate"
+          },
+          {
+            "start": 145,
+            "end": 155,
+            "value": "neighbours",
+            "entity": "person"
+          }
+        ]
+      },
+      {
+        "text": "I cannot stand my tenant anymore. He's noisy, rude, disrespectful and tardy. He needs to go.",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 0,
+            "end": 1,
+            "value": "I",
+            "entity": "person"
+          },
+          {
+            "start": 18,
+            "end": 24,
+            "value": "tenant",
+            "entity": "person"
+          },
+          {
+            "start": 80,
+            "end": 91,
+            "value": "needs to go",
+            "entity": "terminate"
+          }
+        ]
+      },
+      {
+        "text": "I can't pay my landlord and I'm scared I might get evicted. What can I do?",
+        "intent": "ask_nonpayment",
+        "entities": [
+          {
+            "start": 2,
+            "end": 11,
+            "value": "can't pay",
+            "entity": "action"
+          },
+          {
+            "start": 15,
+            "end": 23,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 41,
+            "end": 58,
+            "value": "might get evicted",
+            "entity": "terminate"
+          }
+        ]
+      },
+      {
+        "text": "I need help with my lease. My landlord is not doing anything about my neighbours and I can't sleep at night. I want to move out.",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 20,
+            "end": 25,
+            "value": "lease",
+            "entity": "lease"
+          },
+          {
+            "start": 30,
+            "end": 38,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 0,
+            "end": 1,
+            "value": "I",
+            "entity": "person"
+          },
+          {
+            "start": 70,
+            "end": 80,
+            "value": "neighbours",
+            "entity": "person"
+          },
+          {
+            "start": 119,
+            "end": 127,
+            "value": "move out",
+            "entity": "terminate"
+          }
+        ]
+      },
+      {
+        "text": "My landlord told me that he'll be increasing rent. I don't know what to do. I think he'll try to evict me if I say no.",
+        "intent": "ask_rent_change",
+        "entities": [
+          {
+            "start": 3,
+            "end": 11,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 45,
+            "end": 49,
+            "value": "rent",
+            "entity": "monthly_payment"
+          },
+          {
+            "start": 34,
+            "end": 44,
+            "value": "increasing",
+            "entity": "monthly_payment_change"
+          },
+          {
+            "start": 97,
+            "end": 102,
+            "value": "evict",
+            "entity": "terminate"
+          }
+        ]
+      },
+      {
+        "text": "The tenant needs to go. He's making a mess of the apartment and I can't have him damage it further.",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 4,
+            "end": 10,
+            "value": "tenant",
+            "entity": "person"
+          },
+          {
+            "start": 11,
+            "end": 22,
+            "value": "needs to go",
+            "entity": "terminate"
+          },
+          {
+            "start": 50,
+            "end": 59,
+            "value": "apartment",
+            "entity": "location"
+          }
+        ]
+      },
+      {
+        "text": "My landlord wants me gone because my dog is too loud and keeps barking. I need help I got no where else to go.",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 3,
+            "end": 11,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 12,
+            "end": 25,
+            "value": "wants me gone",
             "entity": "terminate"
           }
         ]
