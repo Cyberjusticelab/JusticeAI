@@ -1,0 +1,247 @@
+﻿{
+  "rasa_nlu_data": {
+    "regex_features": [
+      {
+        "name": "school",
+        "pattern":"school[^\\s]*"
+      },
+      {
+        "name": "studies",
+        "pattern":"stud[^\\s]*"
+      },
+      {
+        "name": "uni",
+        "pattern":"(university)"
+      },
+      {
+        "name": "CEGEP",
+        "pattern":"(CEGEP)"
+      },
+      {
+        "name": "school",
+        "pattern":"school[^\\s]*"
+      },
+      {
+        "name": "student",
+        "pattern":"student[^\\s]*"
+      },
+      {
+        "name": "negation",
+        "pattern":"not[^\\s]*"
+      }
+    ],
+    "entity_synonyms":[
+      {
+        "value": "school",
+        "synonyms": [
+          "school",
+          "cegep",
+          "CEGEP",
+          "university",
+          "high school",
+          "elementary school",
+          "middle school",
+          "college",
+          "mcgill university",
+          "mcgill",
+          "concordia",
+          "Concordia University",
+          "hec",
+          "hec montreal",
+          "polytechnique",
+          "ecole polytechnique de montreal",
+          "ecole de technologie superieure",
+          "ets",
+          "uqam",
+          "Universite Du Quebec a Montreal",
+          "cegep de saint-laurent",
+          "cegep du vieux montreal",
+          "college de maisonneuve",
+          "college ahunstic",
+          "JAC",
+          "John Abbott",
+          "John Abbott College",
+          "o'sullivan",
+          "vanier",
+          "marianpolos",
+          "tav college",
+          "trebas institute",
+          "udem",
+          "udm",
+          "marianapolis college"
+        ]
+      },
+      {
+        "value":"study",
+        "synonyms":["go"]
+      }
+    ],
+    "common_examples": [
+      {
+        "text": "no, i’m not a student",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text":"I go to school.",
+        "intent":"true",
+        "entities":[]
+      },
+      {
+        "text": "not studying anything",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "out of school for a little",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "done school",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "i’ve graduated",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "i’m certified",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "i’ve completed university",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "i’m done cegep",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "i am not a student",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "I have finished school a while ago.",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "I'm not currently in school.",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "I've graduated in 2014.",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "I've been finished with school for quite a while.",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "I study at Concordia University.",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "yes, i am a student",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "in university",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "i am in school",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "pursuing my studies",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "an exchange student",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "studying at university",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "at a cegep",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "at mcgill university",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "i am a student at university",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "at universite du quebec a montreal",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "mcgill university",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "universite de montreal",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "i study at mcgill university",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "i study at universite de montreal",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "i study at concordia university",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "learning a trade",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "doing a trade school",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "am a student",
+        "intent": "true",
+        "entities": []
+      }
+    ]
+  }
+}
