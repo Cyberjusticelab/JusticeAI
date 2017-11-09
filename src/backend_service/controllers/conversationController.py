@@ -164,7 +164,7 @@ def __generate_response(conversation, message):
         return __determine_claim_category(conversation, message)
     elif conversation.current_fact is not None:
         # Assume it is an answer to the current fact
-        nlp_request = nlpService.fact_extract([conversation.current_fact], message=message)
+        nlp_request = nlpService.submit_message([conversation.current_fact], message=message)
 
         for resolved_fact in nlp_request['facts']:
             for fact_name, fact_value in resolved_fact.items():
@@ -198,7 +198,7 @@ def __ask_initial_question(conversation):
 
 def __determine_claim_category(conversation, message):
     claim_category = None
-    nlp_request = nlpService.problem_category(message)
+    nlp_request = nlpService.claim_category(conversation.id, message)
 
     for fact in nlp_request['facts']:
         claim_category = fact['category']
