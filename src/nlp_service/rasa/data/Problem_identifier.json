@@ -1,5 +1,95 @@
 ﻿{
   "rasa_nlu_data": {
+    "regex_features": [
+      {
+        "name": "rent increase: increas(e/es/ed/ing)",
+        "pattern": "increas[^\\s]*"
+      },
+      {
+        "name": "rent increase: rais(e/es/end/ing)",
+        "pattern": "rais[^\\s]*"
+      },
+      {
+        "name": "termination of lease:end(s/ed/ing)",
+        "pattern": "end[^\\s]*"
+      },
+      {
+        "name": "termination of lease:terminat(ing/e/es/ed)",
+        "pattern": "terminat[^\\s]*"
+      },
+      {
+        "name": "termination of lease: kick(s/ed) me out",
+        "pattern": "(kick[^\\s]*)(\\s)(me)(\\s)(out)"
+      },
+      {
+        "name": "deposit: deposit(s/ed)",
+        "pattern": "deposit[^\\s]*"
+      },
+      {
+        "name": "deposit: in advance",
+        "pattern": "(in)(\\s)(advance)"
+      },
+      {
+        "name": "nonpayment: didn't pay",
+        "pattern": "(didn't)(\\s)(pay)"
+      },
+      {
+        "name": "nonpayment: haven't paid",
+        "pattern": "(haven't)(\\s)(paid)"
+      }
+    ],
+    "entity_synonyms": [
+      {
+        "value": "deposit",
+        "synonyms": [
+          "deposit",
+          "rent in advance",
+          "payment in advance",
+          "security deposit",
+          "key deposit",
+          "rent deposit",
+          "pay one month in advance",
+          "advance"
+        ]
+      },
+      {
+        "value": "terminate",
+        "synonyms": [
+          "kicked out",
+          "break",
+          "end",
+          "move out",
+          "leave",
+          "left",
+          "resiliate",
+          "resile"
+        ]
+      },
+      {
+        "value": "increase",
+        "synonyms": [
+          "increased",
+          "raise",
+          "raised"
+        ]
+      },
+      {
+        "value": "hasn't paid",
+        "synonyms": [
+          "hasn't received",
+          "isn't paying",
+          "haven't received"
+        ]
+      },
+      {
+        "value": "apartment",
+        "synonyms": [
+          "place",
+          "apartment",
+          "house"
+        ]
+      }
+    ],
     "common_examples": [
       {
         "text": "my landlord is asking me for a deposit",
@@ -1061,96 +1151,6 @@
             "value": "increased",
             "entity": "monthly_payment_change"
           }
-        ]
-      }
-    ],
-    "regex_features": [
-      {
-        "name": "rent increase: increas(e/es/ed/ing)",
-        "pattern": "increas[^\s]*"
-      },
-      {
-        "name": "rent increase: rais(e/es/end/ing)",
-        "pattern": "rais[^\s]*"
-      },
-      {
-        "name": "termination of lease:end(s/ed/ing)",
-        "pattern": "end[^\s]*"
-      },
-      {
-        "name": "termination of lease:terminat(ing/e/es/ed)",
-        "pattern": "terminat[^\s]*"
-      },
-      {
-        "name": "termination of lease: kick(s/ed) me out",
-        "pattern": "(kick[^\s]*)(\s)(me)(\s)(out)"
-      },
-      {
-        "name": "deposit: deposit(s/ed)",
-        "pattern": "deposit[^\s]*"
-      },
-      {
-        "name": "deposit: in advance",
-        "pattern": "(in)(\s)(advance)"
-      },
-      {
-        "name": "nonpayment: didn't pay",
-        "pattern": "(didn't)(\s)(pay)"
-      },
-      {
-        "name": "nonpayment: haven't paid",
-        "pattern": "(haven't)(\s)(paid)"
-      }
-    ],
-    "entity_synonyms": [
-      {
-        "value": "deposit",
-        "synonyms": [
-          "deposit",
-          "rent in advance",
-          "payment in advance",
-          "security deposit",
-          "key deposit",
-          "rent deposit",
-          "pay one month in advance",
-          "advance"
-        ]
-      },
-      {
-        "value": "terminate",
-        "synonyms": [
-          "kicked out",
-          "break",
-          "end",
-          "move out",
-          "leave",
-          "left",
-          "resiliate",
-          "resile"
-        ]
-      },
-      {
-        "value": "increase",
-        "synonyms": [
-          "increased",
-          "raise",
-          "raised"
-        ]
-      },
-      {
-        "value": "hasn't paid",
-        "synonyms": [
-          "hasn't received",
-          "isn't paying",
-          "haven't received"
-        ]
-      },
-      {
-        "value": "apartment",
-        "synonyms": [
-          "place",
-          "apartment",
-          "house"
         ]
       }
     ]

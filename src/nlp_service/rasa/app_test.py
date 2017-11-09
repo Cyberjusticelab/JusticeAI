@@ -13,4 +13,4 @@ model_directory = trainer.persist('./projects/default/')  # Returns the director
 interpreter = Interpreter.load(model_directory, RasaNLUConfig("config/config_spacy.json"))     # to use the builder, pass it as an arg when loading the model
 
 #This is what will be outputted from the model.py file
-print(interpreter.parse(u"My landlord is increasing the rent."))
+print(interpreter.parse(u"Help my landlord is increasing rent. I'm not sure what to do."))
