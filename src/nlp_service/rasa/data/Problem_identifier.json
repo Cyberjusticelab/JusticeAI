@@ -49,7 +49,18 @@
           "key deposit",
           "rent deposit",
           "pay one month in advance",
-          "advance"
+          "advance",
+          "pay in advance",
+          "apartment deposit",
+          "pay deposit"
+        ]
+      },
+      {
+        "value":"lease",
+        "synonyms": [
+          "lease",
+          "contract",
+          "agreement"
         ]
       },
       {
@@ -62,7 +73,28 @@
           "leave",
           "left",
           "resiliate",
-          "resile"
+          "resile",
+          "terminating",
+          "terminates",
+          "kick me out",
+          "need him out"
+        ]
+      },
+      {
+        "value": "end",
+        "synonyms":[
+          "kicked out",
+          "break",
+          "end",
+          "move out",
+          "leave",
+          "left",
+          "resiliate",
+          "resile",
+          "evict",
+          "ending",
+          "ends",
+          "ended"
         ]
       },
       {
@@ -70,7 +102,11 @@
         "synonyms": [
           "increased",
           "raise",
-          "raised"
+          "raised",
+          "ask for more",
+          "increasing",
+          "raising",
+          "increases"
         ]
       },
       {
@@ -1150,6 +1186,1074 @@
             "end": 26,
             "value": "increased",
             "entity": "monthly_payment_change"
+          }
+        ]
+      },
+      {
+        "text": "hey my landlord is asking for a deposit and I heard it's illegal can you help me?",
+        "intent": "ask_deposit",
+        "entities": [
+          {
+            "start": 32,
+            "end": 39,
+            "value": "deposit",
+            "entity": "deposit"
+          },
+          {
+            "start": 7,
+            "end": 15,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 44,
+            "end": 45,
+            "value": "I",
+            "entity": "person"
+          }
+        ]
+      },
+      {
+        "text": "My landlord is asking me for a key deposit. I heard it's illegal and I need help.",
+        "intent": "ask_deposit",
+        "entities": [
+          {
+            "start": 3,
+            "end": 11,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 31,
+            "end": 42,
+            "value": "key deposit",
+            "entity": "deposit"
+          }
+        ]
+      },
+      {
+        "text": "I need help my landlord is asking me for a deposit before I sign the lease. It was never mentioned before.",
+        "intent": "ask_deposit",
+        "entities": [
+          {
+            "start": 15,
+            "end": 23,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 43,
+            "end": 50,
+            "value": "deposit",
+            "entity": "deposit"
+          },
+          {
+            "start": 69,
+            "end": 74,
+            "value": "lease",
+            "entity": "lease"
+          },
+          {
+            "start": 0,
+            "end": 1,
+            "value": "I",
+            "entity": "person"
+          },
+          {
+            "start": 58,
+            "end": 59,
+            "value": "I",
+            "entity": "person"
+          }
+        ]
+      },
+      {
+        "text": "hello my landlord is asking me for a security deposit before I sign the contract",
+        "intent": "ask_deposit",
+        "entities": [
+          {
+            "start": 72,
+            "end": 80,
+            "value": "contract",
+            "entity": "lease"
+          },
+          {
+            "start": 9,
+            "end": 17,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 28,
+            "end": 30,
+            "value": "me",
+            "entity": "person"
+          },
+          {
+            "start": 37,
+            "end": 53,
+            "value": "security deposit",
+            "entity": "deposit"
+          },
+          {
+            "start": 61,
+            "end": 62,
+            "value": "I",
+            "entity": "person"
+          }
+        ]
+      },
+      {
+        "text": "I need help my landlord is asking me for a key deposit for me to renew my lease",
+        "intent": "ask_deposit",
+        "entities": [
+          {
+            "start": 15,
+            "end": 23,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 0,
+            "end": 1,
+            "value": "I",
+            "entity": "person"
+          },
+          {
+            "start": 74,
+            "end": 79,
+            "value": "lease",
+            "entity": "lease"
+          },
+          {
+            "start": 43,
+            "end": 54,
+            "value": "key deposit",
+            "entity": "deposit"
+          },
+          {
+            "start": 59,
+            "end": 61,
+            "value": "me",
+            "entity": "person"
+          },
+          {
+            "start": 34,
+            "end": 36,
+            "value": "me",
+            "entity": "person"
+          }
+        ]
+      },
+      {
+        "text": "Hey my landlord is asking me for a key deposit before I get to live in my new apartment",
+        "intent": "ask_deposit",
+        "entities": [
+          {
+            "start": 7,
+            "end": 15,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 35,
+            "end": 46,
+            "value": "key deposit",
+            "entity": "deposit"
+          },
+          {
+            "start": 78,
+            "end": 87,
+            "value": "apartment",
+            "entity": "location"
+          },
+          {
+            "start": 54,
+            "end": 55,
+            "value": "I",
+            "entity": "person"
+          },
+          {
+            "start": 26,
+            "end": 28,
+            "value": "me",
+            "entity": "person"
+          }
+        ]
+      },
+      {
+        "text": "I need help. I need to break my lease and leave my apartment ASAP.",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 0,
+            "end": 1,
+            "value": "I",
+            "entity": "person"
+          },
+          {
+            "start": 12,
+            "end": 14,
+            "value": " I",
+            "entity": "person"
+          },
+          {
+            "start": 32,
+            "end": 37,
+            "value": "lease",
+            "entity": "lease"
+          },
+          {
+            "start": 42,
+            "end": 47,
+            "value": "leave",
+            "entity": "terminate"
+          },
+          {
+            "start": 51,
+            "end": 60,
+            "value": "apartment",
+            "entity": "location"
+          }
+        ]
+      },
+      {
+        "text": "I'm leaving my apartment even though my lease is still ongoing. My landlord won't let me.",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 67,
+            "end": 75,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 40,
+            "end": 45,
+            "value": "lease",
+            "entity": "lease"
+          },
+          {
+            "start": 15,
+            "end": 24,
+            "value": "apartment",
+            "entity": "location"
+          },
+          {
+            "start": 4,
+            "end": 11,
+            "value": "leaving",
+            "entity": "terminate"
+          },
+          {
+            "start": 0,
+            "end": 1,
+            "value": "I",
+            "entity": "person"
+          }
+        ]
+      },
+      {
+        "text": "I want to leave my apartment for another apartment. This one is bad but my lease is still up.",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 19,
+            "end": 28,
+            "value": "apartment",
+            "entity": "location"
+          },
+          {
+            "start": 0,
+            "end": 1,
+            "value": "I",
+            "entity": "person"
+          },
+          {
+            "start": 41,
+            "end": 50,
+            "value": "apartment",
+            "entity": "location"
+          },
+          {
+            "start": 10,
+            "end": 15,
+            "value": "leave",
+            "entity": "terminate"
+          },
+          {
+            "start": 75,
+            "end": 80,
+            "value": "lease",
+            "entity": "lease"
+          }
+        ]
+      },
+      {
+        "text": "Hey I'm getting kicked out of my apartment and I don't know what to do.",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 16,
+            "end": 26,
+            "value": "kicked out",
+            "entity": "terminate"
+          },
+          {
+            "start": 4,
+            "end": 5,
+            "value": "I",
+            "entity": "person"
+          },
+          {
+            "start": 33,
+            "end": 42,
+            "value": "apartment",
+            "entity": "location"
+          }
+        ]
+      },
+      {
+        "text": "I'm injured and I haven't paid rent in 2 months since I got fired from job. I can't afford it.",
+        "intent": "ask_nonpayment",
+        "entities": [
+          {
+            "start": 78,
+            "end": 90,
+            "value": "can't afford",
+            "entity": "action"
+          },
+          {
+            "start": 18,
+            "end": 30,
+            "value": "haven't paid",
+            "entity": "action"
+          },
+          {
+            "start": 0,
+            "end": 1,
+            "value": "I",
+            "entity": "person"
+          },
+          {
+            "start": 31,
+            "end": 35,
+            "value": "rent",
+            "entity": "monthly_payment"
+          }
+        ]
+      },
+      {
+        "text": "My landlord is trying to increase the rent of my apartment during the lease.",
+        "intent": "ask_rent_change",
+        "entities": [
+          {
+            "start": 3,
+            "end": 11,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 25,
+            "end": 33,
+            "value": "increase",
+            "entity": "monthly_payment_change"
+          },
+          {
+            "start": 49,
+            "end": 58,
+            "value": "apartment",
+            "entity": "location"
+          },
+          {
+            "start": 70,
+            "end": 75,
+            "value": "lease",
+            "entity": "lease"
+          },
+          {
+            "start": 38,
+            "end": 42,
+            "value": "rent",
+            "entity": "monthly_payment"
+          }
+        ]
+      },
+      {
+        "text": "My landlord is increasing rent after I have to renew the lease.",
+        "intent": "ask_rent_change",
+        "entities": [
+          {
+            "start": 3,
+            "end": 11,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 15,
+            "end": 25,
+            "value": "increasing",
+            "entity": "monthly_payment_change"
+          },
+          {
+            "start": 26,
+            "end": 30,
+            "value": "rent",
+            "entity": "monthly_payment"
+          },
+          {
+            "start": 37,
+            "end": 38,
+            "value": "I",
+            "entity": "person"
+          },
+          {
+            "start": 57,
+            "end": 62,
+            "value": "lease",
+            "entity": "lease"
+          }
+        ]
+      },
+      {
+        "text": "My landlord is trying to increase rent during the lease. Next month will cost 5$ more!",
+        "intent": "ask_rent_change",
+        "entities": [
+          {
+            "start": 78,
+            "end": 86,
+            "value": "5$ more!",
+            "entity": "monthly_payment_change"
+          },
+          {
+            "start": 25,
+            "end": 33,
+            "value": "increase",
+            "entity": "monthly_payment_change"
+          },
+          {
+            "start": 34,
+            "end": 38,
+            "value": "rent",
+            "entity": "monthly_payment"
+          },
+          {
+            "start": 50,
+            "end": 55,
+            "value": "lease",
+            "entity": "lease"
+          },
+          {
+            "start": 3,
+            "end": 11,
+            "value": "landlord",
+            "entity": "person"
+          }
+        ]
+      },
+      {
+        "text": "My landlord is trying to kick me out since I haven't paid rent.",
+        "intent": "ask_nonpayment",
+        "entities": [
+          {
+            "start": 25,
+            "end": 37,
+            "value": "kick me out ",
+            "entity": "action"
+          },
+          {
+            "start": 45,
+            "end": 57,
+            "value": "haven't paid",
+            "entity": "action"
+          },
+          {
+            "start": 58,
+            "end": 62,
+            "value": "rent",
+            "entity": "monthly_payment"
+          },
+          {
+            "start": 3,
+            "end": 11,
+            "value": "landlord",
+            "entity": "person"
+          }
+        ]
+      },
+      {
+        "text": "My tenant hasn't paid in 2 months, can I evict him?",
+        "intent": "ask_nonpayment",
+        "entities": [
+          {
+            "start": 3,
+            "end": 9,
+            "value": "tenant",
+            "entity": "person"
+          },
+          {
+            "start": 10,
+            "end": 21,
+            "value": "hasn't paid",
+            "entity": "action"
+          },
+          {
+            "start": 41,
+            "end": 46,
+            "value": "evict",
+            "entity": "terminate"
+          },
+          {
+            "start": 22,
+            "end": 33,
+            "value": "in 2 months",
+            "entity": "time"
+          }
+        ]
+      },
+      {
+        "text": "My landlord is trying to add 5$ to my rent next month. Help please",
+        "intent": "ask_rent_change",
+        "entities": [
+          {
+            "start": 3,
+            "end": 11,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 25,
+            "end": 31,
+            "value": "add 5$",
+            "entity": "monthly_payment_change"
+          },
+          {
+            "start": 38,
+            "end": 42,
+            "value": "rent",
+            "entity": "monthly_payment"
+          },
+          {
+            "start": 43,
+            "end": 53,
+            "value": "next month",
+            "entity": "time"
+          }
+        ]
+      },
+      {
+        "text": "My landlord increased the rent by 15$ per month after the end of my lease.",
+        "intent": "ask_rent_change",
+        "entities": [
+          {
+            "start": 68,
+            "end": 73,
+            "value": "lease",
+            "entity": "lease"
+          },
+          {
+            "start": 3,
+            "end": 11,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 12,
+            "end": 21,
+            "value": "increased",
+            "entity": "monthly_payment_change"
+          },
+          {
+            "start": 12,
+            "end": 48,
+            "value": "increased the rent by 15$ per month ",
+            "entity": "monthly_payment_change"
+          },
+          {
+            "start": 26,
+            "end": 30,
+            "value": "rent",
+            "entity": "monthly_payment"
+          }
+        ]
+      },
+      {
+        "text": "My tenant hasn't paid in 3 months. I haven't seen him either and I can never catch him.",
+        "intent": "ask_nonpayment",
+        "entities": [
+          {
+            "start": 3,
+            "end": 9,
+            "value": "tenant",
+            "entity": "person"
+          },
+          {
+            "start": 10,
+            "end": 21,
+            "value": "hasn't paid",
+            "entity": "action"
+          },
+          {
+            "start": 22,
+            "end": 33,
+            "value": "in 3 months",
+            "entity": "time"
+          },
+          {
+            "start": 35,
+            "end": 36,
+            "value": "I",
+            "entity": "person"
+          }
+        ]
+      },
+      {
+        "text": "I'm kicking out my tenant but he won't give me back the key.",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 4,
+            "end": 15,
+            "value": "kicking out",
+            "entity": "terminate"
+          },
+          {
+            "start": 19,
+            "end": 25,
+            "value": "tenant",
+            "entity": "person"
+          }
+        ]
+      },
+      {
+        "text": "My tenant hasn't paid in 2 weeks, what can I do?",
+        "intent": "ask_nonpayment",
+        "entities": [
+          {
+            "start": 10,
+            "end": 21,
+            "value": "hasn't paid",
+            "entity": "action"
+          },
+          {
+            "start": 22,
+            "end": 32,
+            "value": "in 2 weeks",
+            "entity": "time"
+          },
+          {
+            "start": 3,
+            "end": 9,
+            "value": "tenant",
+            "entity": "person"
+          }
+        ]
+      },
+      {
+        "text": "I'm trying to kick my tenant out. He damaged my property and hasn't paid rent in ages.",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 0,
+            "end": 1,
+            "value": "I",
+            "entity": "person"
+          },
+          {
+            "start": 61,
+            "end": 72,
+            "value": "hasn't paid",
+            "entity": "action"
+          },
+          {
+            "start": 73,
+            "end": 77,
+            "value": "rent",
+            "entity": "monthly_payment"
+          },
+          {
+            "start": 14,
+            "end": 32,
+            "value": "kick my tenant out",
+            "entity": "terminate"
+          },
+          {
+            "start": 22,
+            "end": 28,
+            "value": "tenant",
+            "entity": "person"
+          }
+        ]
+      },
+      {
+        "text": "My tenant hasn't paid in 2 days, what can I do?",
+        "intent": "ask_nonpayment",
+        "entities": [
+          {
+            "start": 3,
+            "end": 9,
+            "value": "tenant",
+            "entity": "person"
+          },
+          {
+            "start": 10,
+            "end": 21,
+            "value": "hasn't paid",
+            "entity": "action"
+          },
+          {
+            "start": 22,
+            "end": 31,
+            "value": "in 2 days",
+            "entity": "time"
+          }
+        ]
+      },
+      {
+        "text": "Hey I need help. Can I my future tenants for a deposit?I had bad experiences before.",
+        "intent": "ask_deposit",
+        "entities": [
+          {
+            "start": 33,
+            "end": 40,
+            "value": "tenants",
+            "entity": "person"
+          },
+          {
+            "start": 47,
+            "end": 54,
+            "value": "deposit",
+            "entity": "deposit"
+          }
+        ]
+      },
+      {
+        "text": "Can my landlord ask a security deposit from me? I really like the apartment.",
+        "intent": "ask_deposit",
+        "entities": [
+          {
+            "start": 66,
+            "end": 75,
+            "value": "apartment",
+            "entity": "location"
+          },
+          {
+            "start": 22,
+            "end": 38,
+            "value": "security deposit",
+            "entity": "deposit"
+          },
+          {
+            "start": 7,
+            "end": 15,
+            "value": "landlord",
+            "entity": "person"
+          }
+        ]
+      },
+      {
+        "text": "Hey I saw this advertisement on craigslist and they're asking for a security deposit. Is this allowed?",
+        "intent": "ask_deposit",
+        "entities": [
+          {
+            "start": 68,
+            "end": 84,
+            "value": "security deposit",
+            "entity": "deposit"
+          }
+        ]
+      },
+      {
+        "text": "My landlord is trying to evict me because I'm noisy. I have a lease but he doesn't care.",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 3,
+            "end": 11,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 25,
+            "end": 30,
+            "value": "evict",
+            "entity": "terminate"
+          },
+          {
+            "start": 62,
+            "end": 67,
+            "value": "lease",
+            "entity": "lease"
+          }
+        ]
+      },
+      {
+        "text": "My neighbour complained to my landlord about my cat. My landlord is now trying to evict me.",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 3,
+            "end": 12,
+            "value": "neighbour",
+            "entity": "person"
+          },
+          {
+            "start": 30,
+            "end": 38,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 56,
+            "end": 64,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 82,
+            "end": 87,
+            "value": "evict",
+            "entity": "terminate"
+          }
+        ]
+      },
+      {
+        "text": "My landlord won't fix any of the damages I reported. I want to leave the apartment.",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 3,
+            "end": 11,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 63,
+            "end": 68,
+            "value": "leave",
+            "entity": "terminate"
+          },
+          {
+            "start": 73,
+            "end": 82,
+            "value": "apartment",
+            "entity": "location"
+          }
+        ]
+      },
+      {
+        "text": "There is mold everywhere in the apartment. I need to leave ASAP but I don't want to pay rent.",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 32,
+            "end": 41,
+            "value": "apartment",
+            "entity": "location"
+          },
+          {
+            "start": 53,
+            "end": 58,
+            "value": "leave",
+            "entity": "terminate"
+          },
+          {
+            "start": 88,
+            "end": 92,
+            "value": "rent",
+            "entity": "monthly_payment"
+          }
+        ]
+      },
+      {
+        "text": "The apartment is disgusting. My roommate won't clean and my landlord won't do anything. I need to get out.",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 4,
+            "end": 13,
+            "value": "apartment",
+            "entity": "location"
+          },
+          {
+            "start": 32,
+            "end": 40,
+            "value": "roommate",
+            "entity": "person"
+          },
+          {
+            "start": 60,
+            "end": 68,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 98,
+            "end": 105,
+            "value": "get out",
+            "entity": "terminate"
+          }
+        ]
+      },
+      {
+        "text": "My apartment is not habitable and my landlord won't do anything to fix the issues. I want to break the lease.",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 3,
+            "end": 12,
+            "value": "apartment",
+            "entity": "location"
+          },
+          {
+            "start": 37,
+            "end": 45,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 93,
+            "end": 98,
+            "value": "break",
+            "entity": "terminate"
+          },
+          {
+            "start": 103,
+            "end": 108,
+            "value": "lease",
+            "entity": "lease"
+          }
+        ]
+      },
+      {
+        "text": "My tenant damaged the apartment and he won't pay for the damages. I need him out.",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 3,
+            "end": 9,
+            "value": "tenant",
+            "entity": "person"
+          },
+          {
+            "start": 22,
+            "end": 31,
+            "value": "apartment",
+            "entity": "location"
+          },
+          {
+            "start": 68,
+            "end": 80,
+            "value": "need him out",
+            "entity": "terminate"
+          }
+        ]
+      },
+      {
+        "text": "I want to evict my tenant. He's noisy and I got complaints about him.",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 10,
+            "end": 15,
+            "value": "evict",
+            "entity": "terminate"
+          },
+          {
+            "start": 0,
+            "end": 1,
+            "value": "I",
+            "entity": "person"
+          },
+          {
+            "start": 19,
+            "end": 25,
+            "value": "tenant",
+            "entity": "person"
+          }
+        ]
+      },
+      {
+        "text": "My landlord is not doing any repairs. I want to move out.",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 48,
+            "end": 56,
+            "value": "move out",
+            "entity": "terminate"
+          },
+          {
+            "start": 3,
+            "end": 11,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 38,
+            "end": 39,
+            "value": "I",
+            "entity": "person"
+          }
+        ]
+      },
+      {
+        "text": "My tenant keeps bringing his dog in the apartment. I specified cats only. I need him out.",
+        "intent": "ask_lease_termination",
+        "entities": [
+          {
+            "start": 3,
+            "end": 9,
+            "value": "tenant",
+            "entity": "person"
+          },
+          {
+            "start": 40,
+            "end": 49,
+            "value": "apartment",
+            "entity": "location"
+          },
+          {
+            "start": 76,
+            "end": 88,
+            "value": "need him out",
+            "entity": "terminate"
+          }
+        ]
+      },
+      {
+        "text": "I haven't paid rent in 2 weeks and my landlord wants to evict me",
+        "intent": "ask_nonpayment",
+        "entities": [
+          {
+            "start": 2,
+            "end": 14,
+            "value": "haven't paid",
+            "entity": "action"
+          },
+          {
+            "start": 15,
+            "end": 19,
+            "value": "rent",
+            "entity": "monthly_payment"
+          },
+          {
+            "start": 20,
+            "end": 30,
+            "value": "in 2 weeks",
+            "entity": "time"
+          },
+          {
+            "start": 38,
+            "end": 46,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 56,
+            "end": 61,
+            "value": "evict",
+            "entity": "terminate"
           }
         ]
       }
