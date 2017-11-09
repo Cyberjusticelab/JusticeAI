@@ -48,24 +48,37 @@ SQLAlchemy Models
 
 class Conversation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+
+    # Attributes
     name = db.Column(db.String(40), nullable=False)
     person_type = db.Column(db.Enum(PersonType))
     claim_category = db.Column(db.Enum(ClaimCategory))
-    current_fact = db.Column(db.String(50))
+
+    # One to one
+    current_fact = db.relationship('Fact', uselist=False, backref="conversation")
+
+    # One to many
     messages = db.relationship('Message')
-    facts = db.relationship('Fact')
+    fact_entities = db.relationship('FactEntity')
     files = db.relationship('File')
 
 
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+
+    # Foreign Keys
     conversation_id = db.Column(db.Integer, db.ForeignKey('conversation.id'))
+
+    # Attributes
     sender_type = db.Column(db.Enum(SenderType), nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     text = db.Column(db.Text, nullable=False)
-    file_request = db.relationship('FileRequest', uselist=False, backref='message')
     possible_answers = db.Column(db.Text)
     enforce_possible_answer = db.Column(db.Boolean)
+
+    # One to one
+    relevant_fact = db.relationship('Fact', uselist=False, backref='message')
+    file_request = db.relationship('FileRequest', uselist=False, backref='message')
 
     def request_file(self, document_type):
         file_request = FileRequest(document_type=document_type)
@@ -74,7 +87,11 @@ class Message(db.Model):
 
 class FileRequest(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+
+    # Foreign Keys
     message_id = db.Column(db.Integer, db.ForeignKey('message.id'))
+
+    # Attributes
     document_type = db.Column(db.Enum(DocumentType), nullable=False)
 
     def __init__(self, document_type):
@@ -83,7 +100,8 @@ class FileRequest(db.Model):
 
 class Fact(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    conversation_id = db.Column(db.Integer, db.ForeignKey('conversation.id'))
+
+    # Attributes
     name = db.Column(db.String(50), nullable=False)
     type = db.Column(db.Enum(FactType), nullable=False)
 
@@ -93,13 +111,22 @@ class Fact(db.Model):
 
 class FactEntity(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+
+    # Foreign Keys
+    conversation_id = db.Column(db.Integer, db.ForeignKey('conversation.id'))
     fact_id = db.Column(db.Integer, db.ForeignKey('fact.id'))
+
+    # Attributes
     value = db.Column(db.String(255), nullable=False)
 
 
 class File(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+
+    # Foreign Keys
     conversation_id = db.Column(db.Integer, db.ForeignKey('conversation.id'))
+
+    # Attributes
     name = db.Column(db.String(50), nullable=False)
     type = db.Column(db.String(50), nullable=False)
     path = db.Column(db.String(100))
@@ -125,25 +152,31 @@ class FileRequestSchema(ma.ModelSchema):
         fields = ['document_type']
 
 
-class MessageSchema(ma.ModelSchema):
-    # Enum
-    sender_type = EnumField(SenderType, by_value=True)
-
-    # One to one
-    file_request = ma.Nested(FileRequestSchema)
-
-    class Meta:
-        model = Message
-
-
 class FactSchema(ma.ModelSchema):
     class Meta:
         model = Fact
 
 
+class FactEntitySchema(ma.ModelSchema):
+    class Meta:
+        model = FactEntity
+
+
 class FileSchema(ma.ModelSchema):
     class Meta:
         fields = ('name', 'type', 'timestamp')
+
+
+class MessageSchema(ma.ModelSchema):
+    # Enum
+    sender_type = EnumField(SenderType, by_value=True)
+
+    # One to one
+    relevant_fact = ma.Nested(FactSchema)
+    file_request = ma.Nested(FileRequestSchema)
+
+    class Meta:
+        model = Message
 
 
 class ConversationSchema(ma.ModelSchema):
@@ -156,4 +189,4 @@ class ConversationSchema(ma.ModelSchema):
     facts = ma.Nested(FactSchema, many=True)
 
     class Meta:
-        fields = ('id', 'name', 'person_type', 'messages', 'facts')
+        fields = ('id', 'name', 'person_type', 'messages', 'fact_entities')
