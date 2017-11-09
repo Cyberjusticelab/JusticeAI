@@ -29,6 +29,12 @@ class ClaimCategory(Enum):
     DEPOSITS = "DEPOSITS"
 
 
+class FactType(Enum):
+    BOOLEAN = "BOOLEAN"
+    DATE = "DATE"
+    MONEY = "MONEY"
+
+
 class DocumentType(Enum):
     LEASE = "LEASE"
 
@@ -79,10 +85,16 @@ class Fact(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     conversation_id = db.Column(db.Integer, db.ForeignKey('conversation.id'))
     name = db.Column(db.String(50), nullable=False)
-    value = db.Column(db.String(50), nullable=False)
+    type = db.Column(db.Enum(FactType), nullable=False)
 
     def __repr__(self):
         return "{}:{}".format(self.name, self.value)
+
+
+class FactEntity(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    fact_id = db.Column(db.Integer, db.ForeignKey('fact.id'))
+    value = db.Column(db.String(255), nullable=False)
 
 
 class File(db.Model):

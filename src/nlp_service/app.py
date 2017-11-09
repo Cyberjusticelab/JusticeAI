@@ -36,7 +36,7 @@ interpreter = Interpreter.load(model_directory, RasaNLUConfig(
 @app.route("/claim_category", methods=['POST'])
 def classify_claim_category():
     input = request.get_json()
-    return nlpController.process_user_input(input['conversation_id'], input['message'])
+    return nlpController.classify_claim_category(input['conversation_id'], input['message'])
 
 
 @app.route("/submit_message", methods=['POST'])
