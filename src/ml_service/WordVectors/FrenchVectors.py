@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import numpy
 import os
+import pickle
 from gensim.models.keyedvectors import KeyedVectors
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
@@ -48,9 +49,24 @@ class FrenchVectors:
     word_vectors = load_from_bin()
     custom_stop_words = get_stop_words()
     Word_Vector_Size = 500
+    word_idf_dict = None
 
     def __init__(self):
         pass
+
+    @staticmethod
+    def load_tf_idf_from_bin():
+        try:
+            print("Loading tf-idf file... May take a few seconds")
+            __script_dir = os.path.abspath(__file__ + r"/../../")
+            __rel_path = r'WordVectors/feature_idf.bin'
+            file_path = os.path.join(__script_dir, __rel_path)
+            file = open(file_path, 'rb')
+            model = pickle.load(file)
+            print("Loading complete")
+            return model
+        except BaseException:
+            print("Download tf-idf binary first")
 
     '''
     ----------------------------------------------------------------
@@ -71,9 +87,16 @@ class FrenchVectors:
         for word in word_list:
             if word in FrenchVectors.custom_stop_words:
                 continue
+            iteration_count = 0
+            max_iteration = 3
             while True:
+                if iteration_count >= max_iteration:
+                    break
+                iteration_count += 1
                 try:
-                    vector = numpy.add(vector, FrenchVectors.word_vectors[word])
+                    word_vec = FrenchVectors.word_vectors[word]
+                    word_vec = FrenchVectors.tf_idf_scaler(word, word_vec)
+                    vector = numpy.add(vector, word_vec)
                     num += 1
                     break
 
@@ -82,5 +105,16 @@ class FrenchVectors:
                     if word is None:
                         break
         if num == 0:
-            return None
+            return vector
         return numpy.divide(vector, num)
+
+    @staticmethod
+    def tf_idf_scaler(word, word_vec):
+        if FrenchVectors.word_idf_dict is not None:
+            try:
+                word_idf = FrenchVectors.word_idf_dict[word]
+                if word_idf is not None:
+                    word_vec = numpy.multiply(word_idf, word_vec)
+            except KeyError:
+                pass
+        return word_vec

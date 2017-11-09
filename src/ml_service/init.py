@@ -1,4 +1,3 @@
-
 import nltk
 import urllib
 import os
@@ -21,7 +20,7 @@ def monitorDownload(filename, filesize):
         stdout.write("\r%s - Download percentage: %f%%" % (filename, percentage))
         stdout.flush()
         time.sleep(3)
-    print("[END] Downloading Binary for Word2Vec Model")
+    print("\n[END] Downloading Binary for Word2Vec Model")
 
 
 # Checks if file exists before downloading

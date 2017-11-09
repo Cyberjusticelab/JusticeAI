@@ -9,7 +9,7 @@ from controllers import nlpController
 app = Flask(__name__)
 
 ##This is the RASA Trainer
-training_data = load_data('rasa/data/has_lease_expired.json')  # Where to fish the data it is being trained
+training_data = load_data('rasa/data/Problem_identifier.json')  # Where to fish the data it is being trained
 trainer = Trainer(RasaNLUConfig(
     "rasa/config/config_spacy.json"))  # Choosing the trainer (in this case spacy, not the default one from rasa)
 trainer.train(training_data)  # Train the actual data
@@ -29,6 +29,8 @@ interpreter = Interpreter.load(model_directory, RasaNLUConfig(
     {'name': 'restaurant_search', 'confidence': 0.094058190578983264}, 
     {'name': 'affirm', 'confidence': 0.084778514582872916}], 
 'text': 'hello'}
+
+
 '''
 
 

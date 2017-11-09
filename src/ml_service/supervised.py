@@ -16,7 +16,7 @@ max_words = 100
 batch_size = 32
 epochs = 5
 
-print('Loading old_data...')
+print('Loading data...')
 (x_train, y_train), (x_test, y_test) = reuters.load_data(num_words=max_words,
                                                          test_split=0.2)
 print(len(x_train), 'train sequences')
@@ -25,7 +25,7 @@ print(len(x_test), 'test sequences')
 num_classes = np.max(y_train) + 1
 print(num_classes, 'classes')
 
-print('Vectorizing sequence old_data...')
+print('Vectorizing sequence data...')
 tokenizer = Tokenizer(num_words=max_words)
 x_train = tokenizer.sequences_to_matrix(x_train, mode='binary')
 x_test = tokenizer.sequences_to_matrix(x_test, mode='binary')

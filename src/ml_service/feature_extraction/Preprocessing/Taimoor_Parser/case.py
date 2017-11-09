@@ -60,13 +60,13 @@ class Case:
             self.data["isRectified"] = True
 
 
-# Writes old_data to a given file
+# Writes data to a given file
 def write_to_json_file(path, file_name, data):
     with open(path + '/' + file_name + ".json", "w+") as json_file:
         json.dump(data, json_file)
 
 
-# Reads all cases from a given directory and outputs relevant old_data in the given output directory
+# Reads all cases from a given directory and outputs relevant data in the given output directory
 def extract_data_from_cases(cases_directory, output_directory):
     for file_name in os.listdir(cases_directory):
         case = Case(cases_directory + file_name)
