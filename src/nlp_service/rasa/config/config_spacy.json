@@ -1,8 +1,9 @@
 {
   "pipeline": "spacy_sklearn",
   "path" : "./projects",
-  "data" : "./data/demo-rasa.json",
-  "num_threads" : 2,
+  "data" : "./data/Problem_identifier.json",
+  "num_threads" : 4,
+  "max_training_processes": 1,
   "response_log" : "logs",
   "log_level": "INFO"
 }
