@@ -1,21 +1,19 @@
 # -*- coding: utf-8 -*-
 from nltk.corpus import stopwords
-from nltk.tokenize import ToktokTokenizer, sent_tokenize
+from nltk.tokenize import ToktokTokenizer
 import numpy as np
-from gensim.models.keyedvectors import KeyedVectors
 from pattern3.fr import singularize
 import os
 import re
 import logging
-import related_word_fetcher
+from src.ml_service.feature_extraction.Preprocessing.Arek_Parser.related_word_fetcher import find_related
+from src.ml_service.WordVectors.FrenchVectors import FrenchVectors
+from src.ml_service.GlobalVariables.GlobalVariable import Global
 
 logger = logging.getLogger('fact_clustering')
 np.seterr(all='raise')
 stoppers = stopwords.words('french')
-binaryFilePath = os.path.join(os.path.dirname(
-    os.path.realpath(__file__)), '../../WordVectors/non-lem.bin')
-binaryFilePath = os.path.normpath(binaryFilePath)
-word_vectors = KeyedVectors.load_word2vec_format(binaryFilePath, binary=True)
+word_vectors = FrenchVectors.word_vectors
 tok = ToktokTokenizer()
 
 
@@ -29,7 +27,7 @@ def _extract(filename, errorWordSet):
     """
     factDict = {}
     for line in _getFactsLinesFromFile(filename):
-        for sentence in re.split(',;.?!', _clean(line)):
+        for sentence in re.split('(;|\.|\?|\!)', _clean(line)):
             vector = _vectorize(sentence, errorWordSet)
             if vector is not None:
                 factDict[sentence] = vector
@@ -47,9 +45,7 @@ def _getFactsLinesFromFile(filename):
         filename: name of precedent file
         returns: all facts within that precedent
     """
-    filePath = os.path.join(os.path.dirname(
-        os.path.realpath(__file__)), '../../../../text_bk/' + filename)
-    normalizedFilePath = os.path.normpath(filePath)
+    normalizedFilePath = Global.Precedence_Directory + filename
     file = open(normalizedFilePath, encoding="ISO-8859-1")
     factMatch = re.compile('\[\d+\](.*\n){0,3}?(?=\[\d+\]|POUR CE)', re.M)
     lines = file.read()
@@ -90,7 +86,7 @@ def _vectorize(sentence, errorWordSet):
                     numWords += 1
                     vec = np.add(vec, newWord)
                 except BaseException:
-                    similarWord = related_word_fetcher.find_related(word)
+                    similarWord = find_related(word)
                     try:
                         newWord = word_vectors[similarWord]
                         logger.info("Using similar word: " +
@@ -119,9 +115,7 @@ def extractFactsFromFiles(j):
     """
     errorWordSet = set()
     sentences = {}
-    dirPath = os.path.join(os.path.dirname(
-        os.path.realpath(__file__)), '../../../../text_bk/')
-    normalizedDataDir = os.path.normpath(dirPath)
+    normalizedDataDir = os.path.normpath(Global.Precedence_Directory)
     for i in os.listdir(normalizedDataDir):
         if 'AZ-51' in i and j > 0:
             logger.info("Extracting file: " + i)
@@ -138,7 +132,7 @@ def _saveErrorWords(errorWordSet):
         errorWordSet: set of error words
     """
     filePath = os.path.join(os.path.dirname(
-        os.path.realpath(__file__)), '../../error_words.txt')
+        os.path.realpath(__file__)), 'error_words.txt')
     normalizedFilePath = os.path.normpath(filePath)
 
     errorFile = open(normalizedFilePath, 'w', encoding="ISO-8859-1")

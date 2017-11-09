@@ -8,9 +8,11 @@ logger = logging.getLogger('fact_clustering')
 verbeRegex = re.compile("(?<=Conjugaison du verbe )\S+")
 
 cache = {}
-cachePickleFilePath = "cache.pickle"
+__script_dir = os.path.abspath(__file__ + r"/../../../")
+__rel_path = r'Clustering/cache.pickle'
+cachePickleFilePath = os.path.join(__script_dir, __rel_path)
 if os.path.isfile(cachePickleFilePath):
-    logger.info('Loading cached Pickle of words.')
+    print('Loading cached Pickle of words.')
     cacheFile = open(cachePickleFilePath, "rb")
     cache = pickle.load(cacheFile)
 
@@ -54,6 +56,14 @@ def _find_conjugation(soup):
 
 
 def find_related(queryWord):
+    """
+    Returns a related word to the given word, using French
+        Wikitionary. Returns the infinitif of verbs, the
+        masculin singulier of nouns, or synonym.
+    queryWord: word to lookup in wikitionary
+    returns: a string containing the similar word, or None
+             if none is found.
+    """
     if queryWord in cache:
         return cache[queryWord]
     requestURL = u"https://fr.wiktionary.org/wiki/" + \
@@ -61,7 +71,7 @@ def find_related(queryWord):
     try:
         logger.info("Querying Wikitionary: " + requestURL)
         response = request.urlopen(requestURL)
-    except:
+    except BaseException:
         logger.info(requestURL + " not found.")
         cache[queryWord] = None
         return None
