@@ -35,7 +35,7 @@ describe('Chat.vue', () => {
         Vue.localStorage.remove('zeusId')
     })
 
-    it('should init new chat session if conversation id doesn\t exist', () => {
+    it('should init new chat session if conversation id doesn\'t exist', () => {
     	const spy = sinon.spy(Chat.methods, 'getChatHistory')
         const vm = new Vue(Chat).$mount()
         expect(spy.called).to.be.false
