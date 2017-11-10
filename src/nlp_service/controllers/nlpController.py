@@ -1,14 +1,24 @@
 from flask import jsonify, abort, make_response
 
-#from models.models import Conversation
+# from postgresql_db.models import *
 from rasa.rasa_classifier import RasaClassifier
+from services import mlService
+from services.responseStrings import Responses
 
+# Globals
+minimum_percent_difference = 0.3
+
+# Rasa Classifier
 rasaClassifier = RasaClassifier()
-rasaClassifier.train()
+rasaClassifier.train(force_train=True)
+
 
 def classify_claim_category(conversation_id, message):
     if conversation_id is None or message is None:
         abort(make_response(jsonify(message="Must provide conversation_id and message"), 400))
+
+    # Retrieve conversation
+    conversation = Conversation.query.get(conversation_id)
 
     # Classify claim category based on message
 
@@ -21,12 +31,12 @@ def classify_claim_category(conversation_id, message):
     })
 
 
-def process_user_input(conversation_id, message):
+def classify_fact_value(conversation_id, message):
     if conversation_id is None or message is None:
         abort(make_response(jsonify(message="Must provide conversation_id and message"), 400))
 
     # Retrieve conversation
-    conversation = __get_conversation(conversation_id)
+    conversation = Conversation.query.get(conversation_id)
 
     # Retrieve current_fact from conversation
     current_fact = conversation.current_fact
@@ -37,40 +47,46 @@ def process_user_input(conversation_id, message):
     fact_entity_value = __extract_entity(current_fact, message)
     if fact_entity_value is not None:
         # Pass fact with extracted entity to ML service
-        new_fact = None  # mlService.submit_resolved_fact(conversation_id, current_fact, fact_entity)
+        new_fact = mlService.submit_resolved_fact(conversation_id, current_fact, fact_entity_value)
 
         # Set current_fact to new_fact (returned from ML service)
-        # __set_current_fact(conversation_id, new_fact)
+        conversation.current_fact = new_fact
+        # db.session.commit()
 
         # Generate question for next fact (returned from ML service)
-        question = __generate_question(new_fact)
+        question = Responses.fact_question(new_fact)
     else:
-        question = __generate_clarification_question()
+        question = Responses.chooseFrom(Responses.clarify)
 
     return jsonify({
         "message": question
     })
 
 
-def __get_conversation(conversation_id):
-    pass
-   # return Conversation.query.get(conversation_id)
+def __classify_claim_category(message):
+    classify_dict = rasaClassifier.classify_problem_category(message)
+
+    determined_category = classify_dict['intent']
+    return ''
 
 
 def __extract_entity(current_fact, message):
     classify_dict = rasaClassifier.classify_fact(current_fact, message)
 
-    determined_intent = classify_dict['intent']
-    print("Confidence: {}".format(determined_intent['confidence']))
-    print("Intent: {}".format(determined_intent['name']))
+    # Determine confidence of returned intent
+    answer_insufficient = False
+    if len(classify_dict['intent_ranking']) > 1:
+        percent_difference = RasaClassifier.intent_percent_difference(classify_dict)
+        print("Percent Difference: {}".format(round(percent_difference, 2) * 100))
+        if percent_difference < minimum_percent_difference:
+            answer_insufficient = True
 
-
-    return 'some entity value'
-
-
-def __generate_question(new_fact):
-    return "Please gimmie stuff"
-
-
-def __generate_clarification_question():
-    return "Please clarify stuff"
+    # Return the fact value, or None if the answer was insufficient in determining one
+    if answer_insufficient:
+        return None
+    else:
+        determined_intent = classify_dict['intent']
+        print(classify_dict)
+        print("Confidence: {}%".format(round(determined_intent['confidence'], 2) * 100))
+        print("Intent: {}".format(determined_intent['name']))
+        return determined_intent['name']
