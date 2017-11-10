@@ -28,6 +28,14 @@
       {
         "name": "negation",
         "pattern":"not[^\\s]*"
+      },
+      {
+        "name": "go to",
+        "pattern":"(go)(\\s)(to)"
+      },
+      {
+        "name": "negation extra",
+        "pattern":"(do)(\\s)(not)(\\s)(go)(\\s)(to)"
       }
     ],
     "entity_synonyms":[
@@ -77,6 +85,66 @@
       }
     ],
     "common_examples": [
+      {
+        "text": "I am a student",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I am a poor student with no job",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I study full-time",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I study part-time",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I study law",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I go at trebas institute",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I go to Universite de Montreal",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I study at school",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I go to UdeM",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I go school",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I go to Concordia University",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I study engineering",
+        "intent":"true",
+        "entities": []
+      },
       {
         "text": "no, i’m not a student",
         "intent": "false",
@@ -140,6 +208,31 @@
       {
         "text": "I've graduated in 2014.",
         "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "I don't go to school anymore",
+        "intent":"false",
+        "entities": []
+      },
+      {
+        "text": "I dropped out of school",
+        "intent":"false",
+        "entities": []
+      },
+      {
+        "text": "I initially dropped out of school but came back",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I left school and took a break but came back",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I took a break",
+        "intent":"false",
         "entities": []
       },
       {
@@ -235,6 +328,21 @@
       {
         "text": "doing a trade school",
         "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "I will be going to school soon",
+        "intent":"false",
+        "entities": []
+      },
+      {
+        "text": "I am not at school now",
+        "intent":"false",
+        "entities": []
+      },
+      {
+        "text": "I am done with school",
+        "intent":"false",
         "entities": []
       },
       {
