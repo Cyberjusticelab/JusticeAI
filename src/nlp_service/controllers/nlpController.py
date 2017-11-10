@@ -11,11 +11,11 @@ def classify_claim_category(conversation_id, message):
 
     # Set conversation's claim category
 
-    # Return a question
-    response = {
-        "message": ''
-    }
-    pass  # return response
+    question = None
+    
+    return jsonify({
+        "message": question
+    })
 
 
 def process_user_input(conversation_id, message):
