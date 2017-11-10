@@ -21,6 +21,7 @@ def cluster_facts(data_tuple):
     n_clusters = len(np.unique(labels))
     logger.info("Number of estimated clusters : %d" % n_clusters)
     write_facts_to_file(data_tuple, labels)
+    return ms
 
 
 def write_facts_to_file(data_tuple, labels):

@@ -27,6 +27,7 @@ class HdbscanTrain:
         n_clusters_hdb_ = len(set(hdb_labels)) - (1 if -1 in hdb_labels else 0)
         hdb_unique_labels = set(hdb_labels)
         self.__write_clusters(hdb_unique_labels, hdb_labels, data_tuple)
+        return hdb
 
     def manifold(self, data_matrix, learning_rate, perplexity):
         """

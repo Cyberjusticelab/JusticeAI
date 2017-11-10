@@ -2,6 +2,8 @@ import time
 from src.ml_service.feature_extraction.clustering.k_means.k_means_wrapper import KMeansWrapper
 from src.ml_service.feature_extraction.clustering.dbscan.dbscan import cluster_facts
 from src.ml_service.ml_models.models import load_facts_from_bin
+import joblib
+
 
 hdb_supported = False
 try:
@@ -21,19 +23,21 @@ def cluster_means(data_tuple):
 
 def cluster_dbscan(data_tuple):
     start = time.time()
-    cluster_facts(data_tuple)
+    model = cluster_facts(data_tuple)
     done = time.time()
     print('\nClustering time:')
     print(done - start)
+    return model
 
 
 def cluster_hdbscan(data_tuple):
     hdb = HdbscanTrain()
     start = time.time()
-    hdb.train(data_tuple)
+    model = hdb.train(data_tuple)
     done = time.time()
     print('\nClustering time:')
     print(done - start)
+    return model
 
 
 if __name__ == '__main__':
@@ -41,10 +45,14 @@ if __name__ == '__main__':
 
     print('DBSCAN begin')
     # comment out what you don't want to cluster
-    cluster_dbscan(precedence)
+    model = cluster_dbscan(precedence)
+    joblib.dump(model, 'dscan_model.bin')
 
     if hdb_supported:
         print('HDBSCAN begin')
-        cluster_hdbscan(precedence)
+        model = cluster_hdbscan(precedence)
+        joblib.dump(model, 'hdb_model.bin')
     else:
         print('HDBSCAN not supported')
+
+
