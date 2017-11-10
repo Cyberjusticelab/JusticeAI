@@ -1,23 +1,39 @@
+import os
+
 from rasa_nlu.config import RasaNLUConfig
 from rasa_nlu.converters import load_data
-from rasa_nlu.model import Trainer
+from rasa_nlu.model import Trainer, Interpreter
 
 
 class RasaClassifier(object):
-
-
+    problem_category_interpreters = {}
+    fact_interpreters = {}
 
     def __init__(self):
-        self.trainer = Trainer(RasaNLUConfig("config/config_spacy.json"))
-        pass
+        self.rasa_config = RasaNLUConfig("rasa/config/config_spacy.json")
+        self.trainer = Trainer(self.rasa_config)
 
     def train(self):
-        training_data = load_data('data/is_student.json')
-        self.trainer.train(training_data)
-        pass
+        # Train fact interpreters
+        self.__train_interpreter('rasa/data/fact/', self.fact_interpreters)
+
+        # Train problem classifiers
+        self.__train_interpreter('rasa/data/category/', self.problem_category_interpreters)
 
     def classify_problem_category(self, message):
-        pass
+        classification = self.problem_category_interpreters['claim_category'].parse(message)
+        print(classification)
 
     def classify_fact(self, fact_name, message):
-        pass
+        classification = self.fact_interpreters[fact_name].parse(message)
+        print(classification)
+
+    def __train_interpreter(self, training_data_dir, interpreter_dict):
+        for filename in os.listdir(training_data_dir):
+            fact_key = os.path.splitext(filename)[0]
+
+            training_data = load_data(training_data_dir + filename)
+            self.trainer.train(training_data)
+            model_directory = self.trainer.persist(path='rasa/projects/justiceai/', fixed_model_name=fact_key)
+
+            interpreter_dict[fact_key] = Interpreter.load(model_directory, RasaNLUConfig)

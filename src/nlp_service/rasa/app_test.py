@@ -20,6 +20,6 @@ for filename in os.listdir(trainingDirectory):
     interpreters[fact_key] = Interpreter.load(model_directory, RasaNLUConfig)
 
 print(interpreters['is_student'].parse(u"I am not a student."))
-print(interpreters['is_habitable'].parse(u"It is not habitable"))
+print(interpreters['is_habitable'].parse(u"It smells pretty bad but overall it's a livable place."))
 print(interpreters['has_lease_expired'].parse(u"Yes my lease expired."))
 print(interpreters['lease_type'].parse(u"My lease ends in June."))
