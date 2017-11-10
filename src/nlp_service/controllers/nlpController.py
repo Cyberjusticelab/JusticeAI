@@ -10,7 +10,7 @@ minimum_percent_difference = 0.3
 
 # Rasa Classifier
 rasaClassifier = RasaClassifier()
-rasaClassifier.train(force_train=True)
+rasaClassifier.train(force_train=False)
 
 
 def classify_claim_category(conversation_id, message):
@@ -21,13 +21,21 @@ def classify_claim_category(conversation_id, message):
     conversation = Conversation.query.get(conversation_id)
 
     # Classify claim category based on message
+    claim_category = __classify_claim_category(message)
 
     # Set conversation's claim category
+    conversation.claim_category = {
+        'ask_lease_termination': ClaimCategory.LEASE_TERMINATION,
+        'ask_rent_change': ClaimCategory.RENT_CHANGE,
+        'ask_nonpayment': ClaimCategory.NONPAYMENT,
+        'ask_deposits': ClaimCategory.DEPOSITS
+    }[claim_category]
 
-    question = None
+    # Generate next message
+    message = None
 
     return jsonify({
-        "message": question
+        "message": message
     })
 
 
@@ -77,7 +85,7 @@ def __extract_entity(current_fact, message):
     answer_insufficient = False
     if len(classify_dict['intent_ranking']) > 1:
         percent_difference = RasaClassifier.intent_percent_difference(classify_dict)
-        print("Percent Difference: {}".format(round(percent_difference, 2) * 100))
+        print("Percent Difference: {}%".format(round(percent_difference, 3) * 100))
         if percent_difference < minimum_percent_difference:
             answer_insufficient = True
 
@@ -87,6 +95,6 @@ def __extract_entity(current_fact, message):
     else:
         determined_intent = classify_dict['intent']
         print(classify_dict)
-        print("Confidence: {}%".format(round(determined_intent['confidence'], 2) * 100))
+        print("Confidence: {}%".format(round(determined_intent['confidence'], 3) * 100))
         print("Intent: {}".format(determined_intent['name']))
         return determined_intent['name']
