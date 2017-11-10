@@ -5,6 +5,8 @@ services:
     command: bash -c 'pytest && if ! [ -z "$$(autopep8 -dr .)" ]; then autopep8 -dr .; exit 1; fi; bash <(curl -s https://codecov.io/bash)'
   nlp_service:
     command: bash -c 'pytest && if ! [ -z "$$(autopep8 -dr .)" ]; then autopep8 -dr .; exit 1; fi; bash <(curl -s https://codecov.io/bash)'
+    environment:
+      POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
   backend_service:
     command: bash -c 'pytest && if ! [ -z "$$(autopep8 -dr .)" ]; then autopep8 -dr .; exit 1; fi; bash <(curl -s https://codecov.io/bash)'
     environment:

@@ -14,6 +14,8 @@ services:
       - ./src/nlp_service:/usr/src/app/src/nlp_service
       - /usr/src/app/src/nlp_service/data
     command: gunicorn -w 3 --log-level DEBUG --reload -b 0.0.0.0:3002 app:app
+    environment:
+      POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
   backend_service:
     ports:
       - 3003:3003
