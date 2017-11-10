@@ -10,7 +10,7 @@ minimum_percent_difference = 0.3
 
 # Rasa Classifier
 rasaClassifier = RasaClassifier()
-rasaClassifier.train(force_train=False)
+rasaClassifier.train(force_train=True)
 
 
 def classify_claim_category(conversation_id, message):
@@ -31,8 +31,16 @@ def classify_claim_category(conversation_id, message):
         'ask_deposits': ClaimCategory.DEPOSITS
     }[claim_category]
 
+    # Get first fact based on claim category
+    first_fact = mlService.submit_claim_category(conversation_id, claim_category)
+
+    # Save first fact as current fact
+    conversation.current_fact = first_fact
+
     # Generate next message
-    message = None
+    first_fact_question = Responses.fact_question(first_fact)
+    message = Responses.chooseFrom(Responses.category_acknowledge).format(claim_category=claim_category,
+                                                                          first_question=first_fact_question)
 
     return jsonify({
         "message": message
@@ -74,27 +82,35 @@ def classify_fact_value(conversation_id, message):
 def __classify_claim_category(message):
     classify_dict = rasaClassifier.classify_problem_category(message)
 
-    determined_category = classify_dict['intent']
-    return ''
+    # Return the claim category, or None if the answer was insufficient in determining one
+    if __is_answer_sufficient(classify_dict):
+        determined_problem_category = classify_dict['intent']
+        print("Confidence: {}%".format(round(determined_problem_category['confidence'], 3) * 100))
+        print("Intent: {}".format(determined_problem_category['name']))
+        return determined_problem_category['name']
+    else:
+        return None
 
 
 def __extract_entity(current_fact, message):
     classify_dict = rasaClassifier.classify_fact(current_fact, message)
+    print(classify_dict)
 
-    # Determine confidence of returned intent
-    answer_insufficient = False
+    # Return the fact value, or None if the answer was insufficient in determining one
+    if __is_answer_sufficient(classify_dict):
+        determined_intent = classify_dict['intent']
+        print("Confidence: {}%".format(round(determined_intent['confidence'], 3) * 100))
+        print("Intent: {}".format(determined_intent['name']))
+        return determined_intent['name']
+    else:
+        return None
+
+
+# Determine confidence of returned intent
+def __is_answer_sufficient(classify_dict):
     if len(classify_dict['intent_ranking']) > 1:
         percent_difference = RasaClassifier.intent_percent_difference(classify_dict)
         print("Percent Difference: {}%".format(round(percent_difference, 3) * 100))
         if percent_difference < minimum_percent_difference:
-            answer_insufficient = True
-
-    # Return the fact value, or None if the answer was insufficient in determining one
-    if answer_insufficient:
-        return None
-    else:
-        determined_intent = classify_dict['intent']
-        print(classify_dict)
-        print("Confidence: {}%".format(round(determined_intent['confidence'], 3) * 100))
-        print("Intent: {}".format(determined_intent['name']))
-        return determined_intent['name']
+            return False
+    return True

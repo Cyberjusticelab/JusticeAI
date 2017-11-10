@@ -35,7 +35,7 @@ class RasaClassifier():
     def classify_fact(self, fact_name, message):
         return self.fact_interpreters[fact_name].parse(message)
 
-    def __train_interpreter(self, training_data_dir, interpreter_dict, force_train=True):
+    def __train_interpreter(self, training_data_dir, interpreter_dict, force_train):
         print("~~Starting training with data directory {}~~".format(training_data_dir))
         if force_train is False:
             print("->No force train, using saved models".format(training_data_dir))
