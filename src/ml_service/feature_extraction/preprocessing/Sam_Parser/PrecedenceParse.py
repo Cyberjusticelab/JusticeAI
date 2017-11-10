@@ -2,10 +2,10 @@
 import os
 import re
 from sys import stdout
-from src.ml_service.GlobalVariables.GlobalVariable import Global
-from src.ml_service.WordVectors.FrenchVectors import FrenchVectors
-from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.Model import PrecedenceModel, FactModel
-from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.Pipe import PipeSent
+from src.ml_service.global_variables.global_variable import Global
+from src.ml_service.word_vectors.FrenchVectors import FrenchVectors
+from src.ml_service.feature_extraction.preprocessing.Sam_Parser.Model import PrecedenceModel, FactModel
+from src.ml_service.feature_extraction.preprocessing.Sam_Parser.Pipe import PipeSent
 
 
 # #################################################
@@ -169,6 +169,7 @@ class Precedence_Parser:
             stdout.flush()
 
             self.__parse(i)
+        print()
         return self.__model.dict
 
 

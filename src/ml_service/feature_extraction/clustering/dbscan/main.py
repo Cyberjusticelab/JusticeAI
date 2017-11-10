@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import time
-from src.ml_service.feature_extraction.Clustering.dbscan import dbscan
-from src.ml_service.feature_extraction.Preprocessing.Arek_Parser import fact_extracter
-from src.ml_service.feature_extraction.Preprocessing.Arek_Parser import related_word_fetcher
+from src.ml_service.feature_extraction.clustering.dbscan import dbscan
+from src.ml_service.feature_extraction.preprocessing.Arek_Parser import fact_extracter
+from src.ml_service.feature_extraction.preprocessing.Arek_Parser import related_word_fetcher
 import logging
 
 
@@ -25,7 +25,7 @@ def execute():
     dbscan.cluster_facts(facts)
     done = time.time()
 
-    print('Clustering time:')
+    print('clustering time:')
     print(done - start)
 
 

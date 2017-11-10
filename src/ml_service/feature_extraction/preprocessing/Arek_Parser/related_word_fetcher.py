@@ -8,8 +8,8 @@ logger = logging.getLogger('fact_clustering')
 verbeRegex = re.compile("(?<=Conjugaison du verbe )\S+")
 
 cache = {}
-__script_dir = os.path.abspath(__file__ + r"/../../../")
-__rel_path = r'Clustering/cache.pickle'
+__script_dir = os.path.abspath(__file__ + r"/../../../../")
+__rel_path = r'word_vectors/cache.pickle'
 cachePickleFilePath = os.path.join(__script_dir, __rel_path)
 if os.path.isfile(cachePickleFilePath):
     print('Loading cached Pickle of words.')
@@ -125,6 +125,9 @@ def find_errors():
 
 
 def save_cache():
+    __script_dir = os.path.abspath(__file__ + r"/../../../../")
+    __rel_path = r'word_vectors/cache.pickle'
+    path = os.path.join(__script_dir, __rel_path)
     logger.info('Saving Pickle of cached words.')
-    file = open(cachePickleFilePath, 'wb')
+    file = open(path, 'wb')
     pickle.dump(cache, file)

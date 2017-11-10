@@ -6,9 +6,9 @@ from pattern3.fr import singularize
 import os
 import re
 import logging
-from src.ml_service.feature_extraction.Preprocessing.Arek_Parser.related_word_fetcher import find_related
-from src.ml_service.WordVectors.FrenchVectors import FrenchVectors
-from src.ml_service.GlobalVariables.GlobalVariable import Global
+from src.ml_service.feature_extraction.preprocessing.Arek_Parser.related_word_fetcher import find_related
+from src.ml_service.word_vectors.FrenchVectors import FrenchVectors
+from src.ml_service.global_variables.global_variable import Global
 
 logger = logging.getLogger('fact_clustering')
 np.seterr(all='raise')

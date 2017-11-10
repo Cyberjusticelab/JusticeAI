@@ -1,7 +1,7 @@
 from feature_extraction.Preprocessing.Taimoor_Parser import case
 import os
 
-c = case.Case(os.getcwd() + "/feature_extraction/Preprocessing/"
+c = case.Case(os.getcwd() + "/feature_extraction/preprocessing/"
                             "Taimoor_Parser/dummy_cases/sample_case1.txt")
 
 

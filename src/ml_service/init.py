@@ -25,7 +25,7 @@ def monitorDownload(filename, filesize):
 
 # Checks if file exists before downloading
 script_dir = os.path.dirname(__file__)
-rel_path = r'WordVectors/non-lem.bin'
+rel_path = r'word_vectors/non-lem.bin'
 abs_file_path = os.path.join(script_dir, rel_path)
 
 if not os.path.exists(abs_file_path):

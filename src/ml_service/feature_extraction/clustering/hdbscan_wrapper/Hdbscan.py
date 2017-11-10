@@ -2,7 +2,7 @@ import os
 import matplotlib.pyplot as plt
 from hdbscan import HDBSCAN
 from sklearn.manifold import TSNE
-from src.ml_service.GlobalVariables.GlobalVariable import InformationType
+from src.ml_service.global_variables.global_variable import InformationType
 
 
 class HdbscanTrain:
@@ -15,14 +15,14 @@ class HdbscanTrain:
 
     def train(self, data_tuple):
         """
-        Clustering algorithm using hdbscan_wrapper
+        clustering algorithm using hdbscan_wrapper
 
         @:param data_tuple <array, array, array>: vectors, transformed sentences, original sentence
         """
         data_matrix = data_tuple[0]  # sentence vectors
         original_sent = data_tuple[1]  # original sentence
-        print("Clustering")
-        hdb = HDBSCAN(min_cluster_size=2).fit(data_matrix)
+        print("clustering")
+        hdb = HDBSCAN(min_cluster_size=30).fit(data_matrix)
         hdb_labels = hdb.labels_
         n_clusters_hdb_ = len(set(hdb_labels)) - (1 if -1 in hdb_labels else 0)
         hdb_unique_labels = set(hdb_labels)
@@ -30,7 +30,7 @@ class HdbscanTrain:
 
     def manifold(self, data_matrix, learning_rate, perplexity):
         """
-        Preprocessing for hdbscan_wrapper
+        preprocessing for hdbscan_wrapper
         Reduces dimension of vectors to yield much better results
         Reduces noise and groups up more similar terms
 

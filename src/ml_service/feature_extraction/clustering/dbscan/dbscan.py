@@ -3,7 +3,7 @@ from sklearn.cluster import DBSCAN
 import os
 import numpy as np
 import logging
-from src.ml_service.GlobalVariables.GlobalVariable import InformationType
+from src.ml_service.global_variables.global_variable import InformationType
 logger = logging.getLogger('fact_clustering')
 
 
@@ -15,7 +15,7 @@ def cluster_facts(data_tuple):
     @:param data_tuple <array, array, array>: vectors, transformed sentences, original sentence
     """
     X = data_tuple[0]  # sentence vectors
-    ms = DBSCAN(min_samples=2, eps=0.4, n_jobs=-1)
+    ms = DBSCAN(min_samples=30, eps=1, n_jobs=-1)
     ms.fit(X)
     labels = ms.labels_
     n_clusters = len(np.unique(labels))

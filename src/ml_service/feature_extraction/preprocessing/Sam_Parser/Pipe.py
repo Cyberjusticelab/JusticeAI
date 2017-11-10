@@ -89,8 +89,8 @@ class PipeSent():
 
 
 if __name__ == '__main__':
-    from src.ml_service.feature_extraction.Preprocessing.Sam_Parser.PrecedenceParse import Precedence_Parser
-    from src.ml_service.GlobalVariables.GlobalVariable import Global
+    from src.ml_service.feature_extraction.preprocessing.Sam_Parser.PrecedenceParse import Precedence_Parser
+    from src.ml_service.global_variables.global_variable import Global
     p = PipeSent()
     parser = Precedence_Parser()
     tpl = parser.parse_files(Global.Precedence_Directory, 50)

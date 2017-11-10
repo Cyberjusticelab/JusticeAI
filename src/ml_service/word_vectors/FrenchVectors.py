@@ -5,7 +5,7 @@ import pickle
 from gensim.models.keyedvectors import KeyedVectors
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-from src.ml_service.feature_extraction.Preprocessing.Arek_Parser.related_word_fetcher import find_related
+from src.ml_service.feature_extraction.preprocessing.Arek_Parser.related_word_fetcher import find_related
 
 
 # #################################################
@@ -16,7 +16,7 @@ def load_from_bin():
     try:
         print("Loading word vector file... May take a few seconds")
         __script_dir = os.path.abspath(__file__ + r"/../../")
-        __rel_path = r'WordVectors/non-lem.bin'
+        __rel_path = r'word_vectors/non-lem.bin'
         file = os.path.join(__script_dir, __rel_path)
         model = KeyedVectors.load_word2vec_format(file, binary=True)
         print("Loading complete")
@@ -59,7 +59,7 @@ class FrenchVectors:
         try:
             print("Loading tf-idf file... May take a few seconds")
             __script_dir = os.path.abspath(__file__ + r"/../../")
-            __rel_path = r'WordVectors/feature_idf.bin'
+            __rel_path = r'word_vectors/feature_idf.bin'
             file_path = os.path.join(__script_dir, __rel_path)
             file = open(file_path, 'rb')
             model = pickle.load(file)

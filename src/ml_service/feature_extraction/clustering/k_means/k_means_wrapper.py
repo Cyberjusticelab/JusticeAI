@@ -3,7 +3,7 @@ import nltk
 import os
 from nltk.stem.snowball import SnowballStemmer
 from sklearn.cluster import KMeans
-from src.ml_service.GlobalVariables.GlobalVariable import InformationType
+from src.ml_service.global_variables.global_variable import InformationType
 
 
 class KMeansWrapper:

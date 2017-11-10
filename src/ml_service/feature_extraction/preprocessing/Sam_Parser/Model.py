@@ -3,7 +3,7 @@ import re
 
 from nltk.tokenize import word_tokenize
 
-from src.ml_service.WordVectors.FrenchVectors import FrenchVectors
+from src.ml_service.word_vectors.FrenchVectors import FrenchVectors
 
 # #################################################
 # PRECEDENCE MODEL
