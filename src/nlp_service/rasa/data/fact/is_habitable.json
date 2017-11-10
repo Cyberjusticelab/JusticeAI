@@ -10,8 +10,16 @@
         "pattern": "dirty[^\\s]*"
       },
       {
+        "name":"but",
+        "pattern": "(but)"
+      },
+      {
         "name": "disgusting",
         "pattern": "disgust[^\\s]*"
+      },
+      {
+        "name": "livable",
+        "pattern": "liv[^\\s]*"
       },
       {
         "name": "never cleans",
@@ -73,6 +81,7 @@
           "pleasant",
           "quite pleasant",
           "breathable",
+          "habitable",
           "smoke-free",
           "fine"
         ]
@@ -149,6 +158,16 @@
       {
         "text": "there are holes in the walls",
         "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "It smells but it's livable",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "it's ugly but it's not too bad",
+        "intent": "true",
         "entities": []
       },
       {
@@ -279,6 +298,16 @@
       {
         "text": "the dwelling is acceptable",
         "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "It's pretty but it's not habitable",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "it doesn't smell but it's not habitable",
+        "intent": "false",
         "entities": []
       },
       {
