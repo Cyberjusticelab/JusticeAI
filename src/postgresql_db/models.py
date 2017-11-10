@@ -81,8 +81,7 @@ class Message(db.Model):
     file_request = db.relationship('FileRequest', uselist=False, backref='message')
 
     def request_file(self, document_type):
-        file_request = FileRequest(document_type=document_type)
-        self.file_request = file_request
+        self.file_request = FileRequest(document_type=document_type)
 
 
 class FileRequest(db.Model):
@@ -104,9 +103,6 @@ class Fact(db.Model):
     # Attributes
     name = db.Column(db.String(50), nullable=False)
     type = db.Column(db.Enum(FactType), nullable=False)
-
-    def __repr__(self):
-        return "{}:{}".format(self.name, self.value)
 
 
 class FactEntity(db.Model):
