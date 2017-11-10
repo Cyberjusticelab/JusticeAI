@@ -5,6 +5,7 @@ from rasa_nlu.converters import load_data
 from rasa_nlu.model import Trainer
 from rasa_nlu.model import Metadata, Interpreter
 from controllers import nlpController
+import util
 
 util.load_src_dir_to_sys_path()
 from postgresql_db import database
