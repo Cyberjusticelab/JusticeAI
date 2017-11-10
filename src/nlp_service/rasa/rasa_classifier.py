@@ -14,19 +14,17 @@ class RasaClassifier(object):
         self.trainer = Trainer(self.rasa_config)
 
     def train(self):
-        # Train fact interpreters
+        # Train fact classifiers
         self.__train_interpreter('rasa/data/fact/', self.fact_interpreters)
 
-        # Train problem classifiers
+        # Train problem category classifiers
         self.__train_interpreter('rasa/data/category/', self.problem_category_interpreters)
 
     def classify_problem_category(self, message):
-        classification = self.problem_category_interpreters['claim_category'].parse(message)
-        print(classification)
+        return self.problem_category_interpreters['claim_category'].parse(message)
 
     def classify_fact(self, fact_name, message):
-        classification = self.fact_interpreters[fact_name].parse(message)
-        print(classification)
+        return self.fact_interpreters[fact_name].parse(message)
 
     def __train_interpreter(self, training_data_dir, interpreter_dict):
         for filename in os.listdir(training_data_dir):

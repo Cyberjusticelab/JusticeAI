@@ -1,6 +1,6 @@
 from flask import jsonify, abort, make_response
 
-from models.models import Conversation
+#from models.models import Conversation
 from rasa.rasa_classifier import RasaClassifier
 
 rasaClassifier = RasaClassifier()
@@ -53,11 +53,18 @@ def process_user_input(conversation_id, message):
 
 
 def __get_conversation(conversation_id):
-    return Conversation.query.get(conversation_id)
+    pass
+   # return Conversation.query.get(conversation_id)
 
 
 def __extract_entity(current_fact, message):
-    # Rasa stuff happens here
+    classify_dict = rasaClassifier.classify_fact(current_fact, message)
+
+    determined_intent = classify_dict['intent']
+    print("Confidence: {}".format(determined_intent['confidence']))
+    print("Intent: {}".format(determined_intent['name']))
+
+
     return 'some entity value'
 
 
