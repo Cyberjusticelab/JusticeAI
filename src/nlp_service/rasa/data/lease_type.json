@@ -1,0 +1,216 @@
+﻿{
+  "rasa_nlu_data": {
+    "common_examples": [
+      {
+        "text": "lease doesn’t run out",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "can’t find an end time on my lease",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "lease doesn’t run out",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "no end to my lease",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "no end date mentioned in my lease",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "stay as long as i want",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "the lease was made orally",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "can’t see an end to my lease",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "we didn’t agree on when i’d leave",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "he said i can stay as long as i pay",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "landlord never said when my lease ends",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "nothing is said on the lease",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "nothing is said on my lease",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "can’t find any end date on my lease",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "no date is mentioned on my lease",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "date is not mentioned on the lease",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "not sure when the lease ends",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "can’t find when the lease ends on the contract",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "the contract doesn’t stipulate when my lease ends",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "never received a lease",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "never signed a lease",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "lease expires on the 31st of october",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
+        "text": "lease starts on october 21st and ends the next year on october 21st",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
+        "text": "lease ends in 4 months",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
+        "text": "lease says i’m out in 3 months",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
+        "text": "ends on the 21st of this month",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
+        "text": "ends on the 22nd",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
+        "text": "landlord said my lease ended 2 days ago",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
+        "text": "ended 3 days ago",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
+        "text": "lease was terminated a week ago",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
+        "text": "lease was terminated 5 days ago",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
+        "text": "the deadline of my lease is the 21st of may",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
+        "text": "it says on my lease it terminates on the 3rd",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
+        "text": "my lease is discontinued after the 3rd of january",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
+        "text": "i think my lease ends somewhere in june",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
+        "text": "my lease concludes on the 7th",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
+        "text": "the contract says my lease ends in 3 weeks",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
+        "text": "ending in 2 weeks",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
+        "text": "ending in a few days",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
+        "text": "ending in a couple of days",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
+        "text": "ending in a few months",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
+        "text": "ending in a couple of months",
+        "intent": "fixed",
+        "entities": []
+      }
+    ]
+  }
+}
