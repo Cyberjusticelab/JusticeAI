@@ -1,5 +1,7 @@
 from flask import jsonify, abort, make_response
 
+from models.models import Conversation
+
 
 def classify_claim_category(conversation_id, message):
     if conversation_id is None or message is None:
@@ -20,45 +22,45 @@ def process_user_input(conversation_id, message):
     if conversation_id is None or message is None:
         abort(make_response(jsonify(message="Must provide conversation_id and message"), 400))
 
+    # Retrieve conversation
+    conversation = __get_conversation(conversation_id)
+
     # Retrieve current_fact from conversation
-    current_fact = __get_current_fact(conversation_id)
+    current_fact = conversation.current_fact
 
     # Extract entity from message based on current fact
-    fact_entity = __extract_entity(current_fact, message)
-    if fact_entity is None:
-        return __generate_clarification_question()
+    question = None
 
-    # Pass fact with extracted entity to ML service
-    new_fact = None  # mlService.submit_resolved_fact(conversation_id, current_fact, fact_entity)
+    fact_entity_value = __extract_entity(current_fact, message)
+    if fact_entity_value is not None:
+        # Pass fact with extracted entity to ML service
+        new_fact = None  # mlService.submit_resolved_fact(conversation_id, current_fact, fact_entity)
 
-    # Set current_fact to new_fact (returned from ML service)
-    __set_current_fact(conversation_id, new_fact)
+        # Set current_fact to new_fact (returned from ML service)
+        # __set_current_fact(conversation_id, new_fact)
 
-    # Generate question for next fact (returned from ML service)
-    question = __generate_question(new_fact)
+        # Generate question for next fact (returned from ML service)
+        question = __generate_question(new_fact)
+    else:
+        question = __generate_clarification_question()
 
-    # Return question to backend
-    response = {
+    return jsonify({
         "message": question
-    }
-    pass  # return response
+    })
 
 
-def __get_current_fact(conversation_id):
-    return None
-
-
-def __set_current_fact(conversation_id, new_fact):
-    return None
+def __get_conversation(conversation_id):
+    return Conversation.query.get(conversation_id)
 
 
 def __extract_entity(current_fact, message):
-    return None
+    # Rasa stuff happens here
+    return 'some entity value'
 
 
 def __generate_question(new_fact):
-    return None
+    return "Please gimmie stuff"
 
 
 def __generate_clarification_question():
-    return None
+    return "Please clarify stuff"

@@ -9,6 +9,7 @@ app = Flask(__name__)
 
 # DB Setup
 db = database.connect(app, 'postgres', os.environ['POSTGRES_PASSWORD'], 'postgres')
+#db = database.connect(app, 'postgres', 'postgres', 'postgres', host='127.0.0.1')
 ma = Marshmallow(app)
 
 # Cors Setup
