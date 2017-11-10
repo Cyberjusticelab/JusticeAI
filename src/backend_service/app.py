@@ -2,7 +2,7 @@ from flask import Flask, request, abort, make_response, jsonify
 from flask_cors import CORS
 from flask_marshmallow import Marshmallow
 
-import database
+import ../postgresql_db/database
 import os
 
 app = Flask(__name__)
