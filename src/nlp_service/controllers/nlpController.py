@@ -1,7 +1,10 @@
 from flask import jsonify, abort, make_response
 
 from models.models import Conversation
+from rasa.rasa_classifier import RasaClassifier
 
+rasaClassifier = RasaClassifier()
+rasaClassifier.train()
 
 def classify_claim_category(conversation_id, message):
     if conversation_id is None or message is None:
@@ -12,7 +15,7 @@ def classify_claim_category(conversation_id, message):
     # Set conversation's claim category
 
     question = None
-    
+
     return jsonify({
         "message": question
     })
