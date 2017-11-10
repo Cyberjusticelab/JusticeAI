@@ -6,7 +6,15 @@ from rasa_nlu.model import Trainer
 from rasa_nlu.model import Metadata, Interpreter
 from controllers import nlpController
 
+util.load_src_dir_to_sys_path()
+from postgresql_db import database
+
 app = Flask(__name__)
+
+db = database.connect(app, 'postgres', os.environ['POSTGRES_PASSWORD'], 'postgres')
+ma = Marshmallow(app)
+
+CORS(app)
 
 ##This is the RASA Trainer
 training_data = load_data('rasa/data/Problem_identifier.json')  # Where to fish the data it is being trained

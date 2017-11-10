@@ -2,7 +2,7 @@ import json
 
 from flask import jsonify, abort, make_response
 
-from ../postgresql_db/models import *
+from postgresql_db.models import *
 from services import nlpService, fileService
 from services.factService import FactService
 from services.staticStrings import *
