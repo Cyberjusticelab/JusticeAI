@@ -29,4 +29,5 @@ word_vectors/data_tuple.bin
 /ml_models/processed_facts.bin
 /word_vectors/feature_idf.bin
 /word_vectors/non-lem.bin
-/reporting/password.txt
+/src/ml_service/reporting/credentials.txt
+/reporting/credentials.txt

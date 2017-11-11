@@ -3,17 +3,9 @@ import re
 
 from nltk.tokenize import word_tokenize
 
-from src.ml_service.word_vectors.FrenchVectors import FrenchVectors
-
-# #################################################
-# PRECEDENCE MODEL
-
+from src.ml_service.word_vectors.vectors import FrenchVectors
 
 class PrecedenceModel:
-    extra_parse = re.compile("l'")
-
-    # #################################################
-    # CONSTRUCTOR
     def __init__(self):
         self.dict = {
             'facts': {
@@ -40,11 +32,9 @@ class FactModel:
         self.dict = {
             'fact': None,
             'precedence': [],
-            'piped_fact': None,
             'vector': None
         }
 
     def __str__(self):
         return str(self.dict['precedence']) + '\n' + \
-            str(self.dict['piped_fact']) + '\n' + \
             str(self.dict['fact'])

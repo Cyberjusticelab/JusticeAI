@@ -1,7 +1,5 @@
 import numpy
 import json
-from src.ml_service.ml_models.models import load_facts_from_bin
-import matplotlib.pyplot as plt
 from sys import stdout
 
 
@@ -59,19 +57,3 @@ def cluster_size_histogram(data_matrix, epsilon):
 def save_histogram(array, filename):
     with open(filename, 'w') as fp:
         json.dump(array, fp)
-
-
-if __name__ == '__main__':
-    data_tuple = load_facts_from_bin()
-    matrix = data_tuple[0]
-    numpy.random.shuffle(matrix)
-    #epsilon_hist = epsilon_histogram(matrix[:10000])
-    #X = list(epsilon_hist.keys())
-    #Y = list(epsilon_hist.values())
-    # Only do this after evaluating epsilon
-    cluster_size_hist = cluster_size_histogram(matrix[:5000], 0.3)
-    X = list(cluster_size_hist.keys())
-    Y = list(cluster_size_hist.values())
-
-    plt.bar(X, Y)
-    plt.show()

@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 from urllib import request, parse
 import re
+from src.ml_service.outputs.output import Log
 import logging
 import pickle
 import os
@@ -8,11 +9,11 @@ logger = logging.getLogger('fact_clustering')
 verbeRegex = re.compile("(?<=Conjugaison du verbe )\S+")
 
 cache = {}
-__script_dir = os.path.abspath(__file__ + r"/../../../../")
-__rel_path = r'word_vectors/cache.pickle'
+__script_dir = os.path.abspath(__file__ + r"/../")
+__rel_path = r'cache.pickle'
 cachePickleFilePath = os.path.join(__script_dir, __rel_path)
 if os.path.isfile(cachePickleFilePath):
-    print('Loading cached Pickle of words.')
+    Log.write('Loading cached Pickle of words.')
     cacheFile = open(cachePickleFilePath, "rb")
     cache = pickle.load(cacheFile)
 
@@ -125,9 +126,9 @@ def find_errors():
 
 
 def save_cache():
-    __script_dir = os.path.abspath(__file__ + r"/../../../../")
-    __rel_path = r'word_vectors/cache.pickle'
+    __script_dir = os.path.abspath(__file__ + r"/../")
+    __rel_path = r'cache.pickle'
     path = os.path.join(__script_dir, __rel_path)
-    logger.info('Saving Pickle of cached words.')
+    Log.write('Saving Pickle of cached words.')
     file = open(path, 'wb')
     pickle.dump(cache, file)
