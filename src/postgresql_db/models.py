@@ -36,6 +36,7 @@ class ClaimCategory(Enum):
 
 
 class FactType(Enum):
+    TEXT = "TEXT"
     BOOLEAN = "BOOLEAN"
     DATE = "DATE"
     MONEY = "MONEY"
@@ -138,9 +139,37 @@ class File(db.Model):
     timestamp = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
 
-# Create tables
+'''
+----------------------
+Bootstrapping Database
+----------------------
+'''
 print("Creating database tables from models.py")
 db.create_all()
+
+print("Loading database with pre-defined fact values.")
+
+
+# Function that persists a model to the db if it doesn't already exist
+def get_or_create(session, model, **kwargs):
+    instance = session.query(model).filter_by(**kwargs).first()
+    if instance is None:
+        instance = model(**kwargs)
+        session.add(instance)
+        session.commit()
+        return instance
+
+
+defined_facts = [
+    {'name': 'is_student', 'type': FactType.BOOLEAN},
+    {'name': 'is_habitable', 'type': FactType.BOOLEAN},
+    {'name': 'has_lease_expired', 'type': FactType.BOOLEAN},
+    {'name': 'lease_type', 'type': FactType.TEXT}
+]
+for fact_dict in defined_facts:
+    get_or_create(db.session, Fact, name=fact_dict['name'], type=fact_dict['type'])
+
+print("Finished loading pre-defined fact values.")
 
 '''
 -------------------
