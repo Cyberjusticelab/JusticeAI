@@ -65,11 +65,13 @@ if __name__ == '__main__':
     data_tuple = load_facts_from_bin()
     matrix = data_tuple[0]
     numpy.random.shuffle(matrix)
-    epsilon_hist = epsilon_histogram(matrix)
+    #epsilon_hist = epsilon_histogram(matrix[:10000])
+    #X = list(epsilon_hist.keys())
+    #Y = list(epsilon_hist.values())
     # Only do this after evaluating epsilon
-    #cluster_size_hist = cluster_size_histogram(matrix[:5000], 1)
-    #X = list(cluster_size_hist.keys())
-    #Y = list(cluster_size_hist.values())
+    cluster_size_hist = cluster_size_histogram(matrix[:5000], 0.3)
+    X = list(cluster_size_hist.keys())
+    Y = list(cluster_size_hist.values())
 
-    #plt.bar(X, Y)
-    #plt.show()
+    plt.bar(X, Y)
+    plt.show()

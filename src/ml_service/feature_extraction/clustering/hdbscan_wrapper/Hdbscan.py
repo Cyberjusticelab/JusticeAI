@@ -3,7 +3,8 @@ import matplotlib.pyplot as plt
 from hdbscan import HDBSCAN
 from sklearn.manifold import TSNE
 from src.ml_service.global_variables.global_variable import InformationType
-
+import joblib
+from src.ml_service.ml_models.models import load_decisions_from_bin
 
 class HdbscanTrain:
     def __init__(self):
@@ -109,4 +110,21 @@ class HdbscanTrain:
 
 
 if __name__ == '__main__':
-    pass
+    data_tuple = load_decisions_from_bin()
+    file = open('hdb_model.bin', 'rb')
+    hdb = joblib.load(file)
+    hdb_labels = hdb.labels_
+    n_clusters_hdb_ = len(set(hdb_labels)) - (1 if -1 in hdb_labels else 0)
+    hdb_unique_labels = set(hdb_labels)
+
+    for label in hdb_unique_labels:
+        file = open(r'cluster_dir/' + str(label) + '.txt', 'w')
+        for i, sent in enumerate(data_tuple[InformationType.FACTS.value][hdb_labels == label]):
+            file.writelines(sent + '\n')
+        file.writelines("-------------------------\n")
+        for i, process_sent in enumerate(data_tuple[InformationType.PROCESSED_FACTS.value][hdb_labels == label]):
+            file.writelines(process_sent + '\n')
+        file.writelines("-------------------------\n")
+        for i, filename in enumerate(data_tuple[InformationType.PRECEDENTS_FILE_NAMES.value][hdb_labels == label]):
+            file.writelines(filename + '\n')
+        file.close()

@@ -5,7 +5,7 @@ import numpy as np
 import logging
 from src.ml_service.global_variables.global_variable import InformationType
 logger = logging.getLogger('fact_clustering')
-
+from src.ml_service.reporting.logger import Log
 
 def cluster_facts(data_tuple):
     """
@@ -14,13 +14,14 @@ def cluster_facts(data_tuple):
 
     @:param data_tuple <array, array, array>: vectors, transformed sentences, original sentence
     """
-    X = data_tuple[0]  # sentence vectors
-    ms = DBSCAN(min_samples=30, eps=1, n_jobs=-1)
+    X = data_tuple[0]
+    data_tuple = None
+    ms = DBSCAN(min_samples=5, eps=1, n_jobs=-1)
     ms.fit(X)
     labels = ms.labels_
     n_clusters = len(np.unique(labels))
-    logger.info("Number of estimated clusters : %d" % n_clusters)
-    write_facts_to_file(data_tuple, labels)
+    Log.write("Number of estimated clusters : %d" % n_clusters)
+    #write_facts_to_file(data_tuple, labels)
     return ms
 
 
