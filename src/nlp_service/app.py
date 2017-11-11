@@ -11,10 +11,8 @@ from postgresql_db import database
 app = Flask(__name__)
 
 # DB Setup
-db = database.connect(app, 'postgres', os.environ['POSTGRES_PASSWORD'], 'postgres')
-
-
-# db = database.connect(app, 'postgres', 'postgres', 'postgres', host='127.0.0.1')
+# db = database.connect(app, 'postgres', os.environ['POSTGRES_PASSWORD'], 'postgres')
+db = database.connect(app, 'postgres', 'postgres', 'postgres', host='127.0.0.1')
 
 
 @app.route("/claim_category", methods=['POST'])

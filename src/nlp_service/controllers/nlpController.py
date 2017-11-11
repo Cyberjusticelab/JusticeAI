@@ -1,6 +1,9 @@
 from flask import jsonify, abort, make_response
 
-# from postgresql_db.models import *
+import util
+
+util.load_src_dir_to_sys_path()
+from postgresql_db.models import *
 from rasa.rasa_classifier import RasaClassifier
 from services import mlService
 from services.responseStrings import Responses
@@ -10,7 +13,7 @@ minimum_percent_difference = 0.3
 
 # Rasa Classifier
 rasaClassifier = RasaClassifier()
-rasaClassifier.train(force_train=True)
+rasaClassifier.train(force_train=False)
 
 
 def classify_claim_category(conversation_id, message):

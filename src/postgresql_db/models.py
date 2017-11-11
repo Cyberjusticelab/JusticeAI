@@ -1,9 +1,15 @@
 import datetime
 from enum import Enum
 
+from flask import Flask
+from flask_marshmallow import Marshmallow
 from marshmallow_enum import EnumField
 
-from app import db, ma
+import database
+
+app = Flask(__name__)
+db = database.connect(app, 'postgres', 'postgres', 'postgres', host='127.0.0.1')
+ma = Marshmallow(app)
 
 '''
 -----
@@ -55,7 +61,8 @@ class Conversation(db.Model):
     claim_category = db.Column(db.Enum(ClaimCategory))
 
     # One to one
-    current_fact = db.relationship('Fact', uselist=False, backref="conversation")
+    current_fact_id = db.Column(db.Integer, db.ForeignKey('fact.id'))
+    current_fact = db.relationship('Fact', uselist=False, backref='conversation')
 
     # One to many
     messages = db.relationship('Message')
@@ -77,7 +84,9 @@ class Message(db.Model):
     enforce_possible_answer = db.Column(db.Boolean)
 
     # One to one
+    relevant_fact_id = db.Column(db.Integer, db.ForeignKey('fact.id'))
     relevant_fact = db.relationship('Fact', uselist=False, backref='message')
+
     file_request = db.relationship('FileRequest', uselist=False, backref='message')
 
     def request_file(self, document_type):
