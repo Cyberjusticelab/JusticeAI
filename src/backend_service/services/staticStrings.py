@@ -27,13 +27,6 @@ class StaticStrings:
         "Oh yes, I know all about problems with {claim_category}. {first_question}"
     ]
 
-    # Asking for clarification
-    clarify = [
-        "I'm sorry, I can't understand what you mean.",
-        "I didn't understand that, could you please clarify?",
-        "Huh?"
-    ]
-
     @staticmethod
     def chooseFrom(strings):
         choice = random.choice

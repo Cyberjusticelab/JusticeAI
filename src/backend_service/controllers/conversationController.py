@@ -7,7 +7,6 @@ import util
 util.load_src_dir_to_sys_path()
 from postgresql_db.models import *
 from services import nlpService, fileService
-from services.factService import FactService
 from services.staticStrings import *
 
 from backend_service.app import db
@@ -166,20 +165,13 @@ def __generate_response(conversation, message):
     if __has_just_accepted_disclaimer(conversation):
         return __ask_initial_question(conversation)
     elif conversation.claim_category is None:
-        return __determine_claim_category(conversation, message)
+        print("Claim category is none")
+        nlp_request = nlpService.claim_category(conversation.id, message)
+        return {'response_text': nlp_request['message']}
     elif conversation.current_fact is not None:
         # Assume it is an answer to the current fact
         nlp_request = nlpService.submit_message([conversation.current_fact], message=message)
-
-        for resolved_fact in nlp_request['facts']:
-            for fact_name, fact_value in resolved_fact.items():
-                new_fact = Fact(name=fact_name, value=fact_value)
-                conversation.facts.append(new_fact)
-
-        db.session.commit()
-        question = __probe_facts(conversation)
-
-        return {'response_text': question}
+        return {'response_text': nlp_request['message']}
 
 
 def __ask_initial_question(conversation):
@@ -199,49 +191,6 @@ def __ask_initial_question(conversation):
         response = StaticStrings.chooseFrom(StaticStrings.problem_inquiry_landlord).format(name=conversation.name)
 
     return {'response_text': response, 'file_request': file_request}
-
-
-def __determine_claim_category(conversation, message):
-    claim_category = None
-    nlp_request = nlpService.claim_category(conversation.id, message)
-
-    for fact in nlp_request['facts']:
-        claim_category = fact['category']
-
-    if claim_category is not None:
-        conversation.claim_category = {
-            'lease_termination': ClaimCategory.LEASE_TERMINATION,
-            'rent_change': ClaimCategory.RENT_CHANGE,
-            'nonpayment': ClaimCategory.NONPAYMENT,
-            'deposits': ClaimCategory.DEPOSITS
-        }[claim_category]
-
-        db.session.commit()
-
-        # Generate the first question
-        first_question = __probe_facts(conversation)
-
-        response = StaticStrings.chooseFrom(StaticStrings.category_acknowledge).format(
-            claim_category=conversation.claim_category.value.lower().replace("_", " "), first_question=first_question)
-
-        return {'response_text': response}
-    else:
-        return {'response_text': StaticStrings.chooseFrom(StaticStrings.clarify)}
-
-
-def __probe_facts(conversation):
-    resolved_facts = [fact.name for fact in conversation.facts]
-    fact, question = FactService.get_question(conversation.claim_category.value.lower(), resolved_facts)
-
-    if fact is not None:
-        # Update fact being asked
-        conversation.current_fact = fact
-        db.session.commit()
-    else:
-        fact_dump = ''.join(repr(conversation.facts))
-        question = "FACT DUMP: {}".format(fact_dump)
-
-    return question
 
 
 def __has_just_accepted_disclaimer(conversation):

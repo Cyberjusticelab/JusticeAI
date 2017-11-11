@@ -23,4 +23,4 @@ def classify_claim_category():
 @app.route("/submit_message", methods=['POST'])
 def submit_message():
     input = request.get_json()
-    return nlpController.process_user_input(input['conversation_id'], input['message'])
+    return nlpController.classify_fact_value(input['conversation_id'], input['message'])

@@ -23,7 +23,7 @@ def classify_claim_category(conversation_id, message):
         abort(make_response(jsonify(message="Must provide conversation_id and message"), 400))
 
     # Retrieve conversation
-    conversation = Conversation.query.get(conversation_id)
+    conversation = db.session.query(Conversation).get(conversation_id)
 
     # Classify claim category based on message
     claim_category = __classify_claim_category(message)
@@ -37,13 +37,20 @@ def classify_claim_category(conversation_id, message):
     }[claim_category]
 
     # Get first fact based on claim category
-    first_fact = mlService.submit_claim_category(conversation_id, claim_category)
+    ml_request = mlService.submit_claim_category(conversation_id, conversation.claim_category.value)
+    first_fact_id = ml_request['fact_id']
+
+    # Retrieve the Fact from DB
+    first_fact = db.session.query(Fact).get(first_fact_id)
 
     # Save first fact as current fact
     conversation.current_fact = first_fact
 
+    # Commit
+    db.session.commit()
+
     # Generate next message
-    first_fact_question = Responses.fact_question(first_fact)
+    first_fact_question = Responses.fact_question(first_fact.name)
     message = Responses.chooseFrom(Responses.category_acknowledge).format(claim_category=claim_category,
                                                                           first_question=first_fact_question)
 
@@ -57,7 +64,7 @@ def classify_fact_value(conversation_id, message):
         abort(make_response(jsonify(message="Must provide conversation_id and message"), 400))
 
     # Retrieve conversation
-    conversation = Conversation.query.get(conversation_id)
+    conversation = db.session.query(Conversation).get(conversation_id)
 
     # Retrieve current_fact from conversation
     current_fact = conversation.current_fact
@@ -65,17 +72,23 @@ def classify_fact_value(conversation_id, message):
     # Extract entity from message based on current fact
     question = None
 
-    fact_entity_value = __extract_entity(current_fact, message)
+    fact_entity_value = __extract_entity(current_fact.name, message)
     if fact_entity_value is not None:
         # Pass fact with extracted entity to ML service
-        new_fact = mlService.submit_resolved_fact(conversation_id, current_fact, fact_entity_value)
+        ml_request = mlService.submit_resolved_fact(conversation_id, current_fact, fact_entity_value)
+        new_fact_id = ml_request['fact_id']
+
+        # Retrieve the Fact from DB
+        new_fact = db.session.query(Fact).get(new_fact_id)
 
         # Set current_fact to new_fact (returned from ML service)
         conversation.current_fact = new_fact
-        # db.session.commit()
+
+        # Commit
+        db.session.commit()
 
         # Generate question for next fact (returned from ML service)
-        question = Responses.fact_question(new_fact)
+        question = Responses.fact_question(new_fact.name)
     else:
         question = Responses.chooseFrom(Responses.clarify)
 
@@ -97,8 +110,8 @@ def __classify_claim_category(message):
         return None
 
 
-def __extract_entity(current_fact, message):
-    classify_dict = rasaClassifier.classify_fact(current_fact, message)
+def __extract_entity(current_fact_name, message):
+    classify_dict = rasaClassifier.classify_fact(current_fact_name, message)
     print(classify_dict)
 
     # Return the fact value, or None if the answer was insufficient in determining one

@@ -120,7 +120,10 @@ class FactEntity(db.Model):
 
     # Foreign Keys
     conversation_id = db.Column(db.Integer, db.ForeignKey('conversation.id'))
+
+    # One to one
     fact_id = db.Column(db.Integer, db.ForeignKey('fact.id'))
+    fact = db.relationship('Fact', uselist=False, backref='factentity')
 
     # Attributes
     value = db.Column(db.String(255), nullable=False)
