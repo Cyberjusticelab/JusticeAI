@@ -153,7 +153,7 @@ def upload_file(conversation_id, file):
 ##################
 
 def __get_conversation(conversation_id):
-    conversation = Conversation.query.get(conversation_id)
+    conversation = db.session.query(Conversation).get(conversation_id)
 
     if conversation:
         return conversation
@@ -169,8 +169,7 @@ def __generate_response(conversation, message):
         nlp_request = nlpService.claim_category(conversation.id, message)
         return {'response_text': nlp_request['message']}
     elif conversation.current_fact is not None:
-        # Assume it is an answer to the current fact
-        nlp_request = nlpService.submit_message([conversation.current_fact], message=message)
+        nlp_request = nlpService.submit_message(conversation.id, message)
         return {'response_text': nlp_request['message']}
 
 

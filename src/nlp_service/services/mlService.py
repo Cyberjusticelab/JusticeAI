@@ -7,7 +7,7 @@ ML_URL = "http://ml_service:3001"
 
 # This is a placeholder until the interface for the ML service is defined.
 # Returns first fact to ask
-def submit_claim_category(conversation, claim_category):
+def submit_claim_category(claim_category):
     return {
         'fact_id': dummy_next_fact(claim_category, [])
     }
@@ -20,8 +20,8 @@ def submit_resolved_fact(conversation, current_fact, entity_value):
     fact_entity = FactEntity(fact=current_fact, value=entity_value)
     conversation.fact_entities.append(fact_entity)
 
-    # Get the next fact
-    facts_resolved = [fact_entity_row.name for fact_entity_row in conversation.fact_entities]
+    # Get all resolved facts for Conversation
+    facts_resolved = [fact_entity_row.fact.name for fact_entity_row in conversation.fact_entities]
 
     return {
         'fact_id': dummy_next_fact(conversation.claim_category, facts_resolved)
@@ -48,7 +48,7 @@ def dummy_next_fact(claim_category, facts_resolved):
         ]
     }
 
-    all_category_facts = fact_dict[claim_category.lower()]
+    all_category_facts = fact_dict[claim_category.value.lower()]
     facts_unresolved = [fact for fact in all_category_facts if fact not in facts_resolved]
 
     # Pick the first unresolved fact, return None if none remain

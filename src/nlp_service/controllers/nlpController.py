@@ -37,7 +37,7 @@ def classify_claim_category(conversation_id, message):
     }[claim_category]
 
     # Get first fact based on claim category
-    ml_request = mlService.submit_claim_category(conversation_id, conversation.claim_category.value)
+    ml_request = mlService.submit_claim_category(conversation.claim_category)
     first_fact_id = ml_request['fact_id']
 
     # Retrieve the Fact from DB
@@ -75,22 +75,27 @@ def classify_fact_value(conversation_id, message):
     fact_entity_value = __extract_entity(current_fact.name, message)
     if fact_entity_value is not None:
         # Pass fact with extracted entity to ML service
-        ml_request = mlService.submit_resolved_fact(conversation_id, current_fact, fact_entity_value)
+        ml_request = mlService.submit_resolved_fact(conversation, current_fact, fact_entity_value)
         new_fact_id = ml_request['fact_id']
 
         # Retrieve the Fact from DB
-        new_fact = db.session.query(Fact).get(new_fact_id)
+        if new_fact_id:
+            new_fact = db.session.query(Fact).get(new_fact_id)
 
-        # Set current_fact to new_fact (returned from ML service)
-        conversation.current_fact = new_fact
+            # Set current_fact to new_fact (returned from ML service)
+            conversation.current_fact = new_fact
 
-        # Commit
-        db.session.commit()
-
-        # Generate question for next fact (returned from ML service)
-        question = Responses.fact_question(new_fact.name)
+            # Generate question for next fact (returned from ML service)
+            question = Responses.fact_question(new_fact.name)
+        else:
+            question = "FACT DUMP: "
+            for fact_entity in conversation.fact_entities:
+                question += "{}:{}, ".format(fact_entity.fact.name, fact_entity.value)
     else:
         question = Responses.chooseFrom(Responses.clarify)
+
+    # Commit
+    db.session.commit()
 
     return jsonify({
         "message": question
