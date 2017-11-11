@@ -1,5 +1,6 @@
 import numpy
-from src.ml_service.feature_extraction.preprocessing.pipe.precedence_parse import Precedence_Parser
+
+from src.ml_service.feature_extraction.preprocessing.precedence_parse import Precedence_Parser
 from src.ml_service.global_variables.global_variable import Global
 from src.ml_service.outputs.output import Save
 
@@ -12,7 +13,7 @@ def save(data_to_extract):
     :return: None
     """
     parser = Precedence_Parser()
-    precedence_dict = parser.parse_files(Global.Precedence_Directory)
+    precedence_dict = parser.parse_files(Global.Precedence_Directory, 1000)
 
     X = []
     labels = []
@@ -34,3 +35,5 @@ def save(data_to_extract):
 
     s = Save(directory=r'preprocess_model/')
     s.binarize_model(data_to_extract + '.bin', data_tuple)
+
+save('facts')

@@ -11,7 +11,7 @@ from src.ml_service.outputs.output import Log
 class FrenchVectors:
     word_vectors = None
     custom_stop_words = None
-    Word_Vector_Size = 500
+    Word_Vector_Size = 200
 
     def __init__(self):
         pass

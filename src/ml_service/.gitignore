@@ -32,3 +32,4 @@ word_vectors/data_tuple.bin
 /src/ml_service/reporting/credentials.txt
 /reporting/credentials.txt
 /outputs/server.log
+/outputs/test/*
