@@ -106,24 +106,6 @@ def find_related(queryWord):
     return None
 
 
-def find_errors():
-    f = open('error_words.txt', 'r', encoding="ISO-8859-1")
-
-    notFound = 0
-    found = 0
-    for i in f:
-        i = i.strip('\n')
-        related = find_related(i)
-        if related is not None:
-            logger.info(i + " : " + related)
-            found += 1
-        else:
-            notFound += 1
-
-    logger.info("Found: " + str(found))
-    logger.info("Not Found: " + str(notFound))
-
-
 def save_cache():
     logger.info('Saving Pickle of cached words.')
     file = open(cachePickleFilePath, 'wb')
