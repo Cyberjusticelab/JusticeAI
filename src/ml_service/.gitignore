@@ -31,3 +31,4 @@ word_vectors/data_tuple.bin
 /word_vectors/non-lem.bin
 /src/ml_service/reporting/credentials.txt
 /reporting/credentials.txt
+/outputs/server.log

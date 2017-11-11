@@ -12,6 +12,9 @@ class HdbscanTrain:
         clustering algorithm using hdbscan
         @:param data_tuple (vectors, sentences, filenames)
         """
+        Log.write('Starting HDBSCAN')
+        Log.write('Min Cluster Size: ' + str(min_cluster_size))
+        Log.write('Min Sample: ' + str(min_sample))
         hdb = HDBSCAN(min_cluster_size=min_cluster_size, min_samples=min_sample).fit(data_tuple[0])
         s = Save(r'hdb_model/')
         s.binarize_model('hdbscan.bin', hdb)

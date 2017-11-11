@@ -4,7 +4,7 @@ from src.ml_service.global_variables.global_variable import Global
 from src.ml_service.outputs.output import Save
 
 
-def save(data_to_extract, nb_of_files=-1):
+def save(data_to_extract):
     """
     Gets all information from precedence and saves binary model
     :param data_to_extract: decision or facts
@@ -12,7 +12,7 @@ def save(data_to_extract, nb_of_files=-1):
     :return: None
     """
     parser = Precedence_Parser()
-    precedence_dict = parser.parse_files(Global.Precedence_Directory, nb_of_files)
+    precedence_dict = parser.parse_files(Global.Precedence_Directory)
 
     X = []
     labels = []

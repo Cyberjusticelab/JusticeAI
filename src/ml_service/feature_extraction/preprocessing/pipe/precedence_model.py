@@ -1,10 +1,4 @@
 # -*- coding: utf-8 -*-
-import re
-
-from nltk.tokenize import word_tokenize
-
-from src.ml_service.word_vectors.vectors import FrenchVectors
-
 class PrecedenceModel:
     def __init__(self):
         self.dict = {

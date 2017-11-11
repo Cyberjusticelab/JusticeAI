@@ -6,6 +6,7 @@ import math
 import joblib
 import os
 from src.ml_service.reporting.logger import Log
+from src.ml_service.outputs.output import Log, Save
 
 def optimal_feature_size(matrix, evaluate_percent, plot=False):
     numpy.random.shuffle(matrix)
@@ -28,21 +29,11 @@ def decompose(matrix, size):
     result = pca.fit_transform(matrix)
     return result
 
-def save_model(model):
-    __script_dir = os.path.abspath(__file__ + "/../../../../")
-    __rel_path = r'ml_models/updated_processed_facts.bin'
-    output_directory = os.path.join(__script_dir, __rel_path)
-    joblib.dump(model, output_directory)
-
 def execute():
-    print("Matrix decomposition")
-    Log.initialize(header='Matrix Decomposition', verbose=True)
-    Log.report_start()
     model = load_facts_from_bin()
     matrix = model[0]
     sentence = model[1]
-    processed_sentence = model[2]
-    files = model[3]
+    files = model[2]
     model = None
     Log.write("Computing optimal dimension reduction")
     size = optimal_feature_size(matrix, 1)
@@ -50,10 +41,9 @@ def execute():
     Log.write("Decomposing matrix")
     new_matrix = decompose(matrix, size)
     Log.write('Saving Model')
-    model = (new_matrix, sentence, processed_sentence, files)
-    save_model(model)
-    Log.report_end()
-    Log.email()
+    model = (new_matrix, sentence, files)
+    s = Save('decomposed_model')
+    s.binarize_model('decomposed_model.bin', model)
 
 
 if __name__ == '__main__':
