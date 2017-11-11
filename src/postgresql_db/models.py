@@ -5,7 +5,7 @@ from flask import Flask
 from flask_marshmallow import Marshmallow
 from marshmallow_enum import EnumField
 
-import database
+import postgresql_db.database as database
 
 app = Flask(__name__)
 db = database.connect(app, 'postgres', 'postgres', 'postgres', host='127.0.0.1')
@@ -50,6 +50,14 @@ class DocumentType(Enum):
 SQLAlchemy Models
 -----------------
 '''
+
+
+class Fact(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
+    # Attributes
+    name = db.Column(db.String(50), nullable=False)
+    type = db.Column(db.Enum(FactType), nullable=False)
 
 
 class Conversation(db.Model):
@@ -104,14 +112,6 @@ class FileRequest(db.Model):
 
     def __init__(self, document_type):
         self.document_type = document_type
-
-
-class Fact(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-
-    # Attributes
-    name = db.Column(db.String(50), nullable=False)
-    type = db.Column(db.Enum(FactType), nullable=False)
 
 
 class FactEntity(db.Model):

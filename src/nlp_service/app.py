@@ -1,9 +1,8 @@
-import os
-
 from flask import Flask
 from flask import request
-from controllers import nlpController
+
 import util
+from controllers import nlpController
 
 util.load_src_dir_to_sys_path()
 from postgresql_db import database

@@ -8,6 +8,8 @@ from rasa.rasa_classifier import RasaClassifier
 from services import mlService
 from services.responseStrings import Responses
 
+from nlp_service.app import db
+
 # Globals
 minimum_percent_difference = 0.3
 
