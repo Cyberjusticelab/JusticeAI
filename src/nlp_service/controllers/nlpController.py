@@ -6,6 +6,8 @@ from services import mlService
 from services.responseStrings import Responses
 
 # Globals
+from src.postgresql_db.models import Conversation, ClaimCategory
+
 minimum_percent_difference = 0.3
 
 # Rasa Classifier
