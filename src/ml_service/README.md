@@ -4,6 +4,10 @@
 
 1. Add Cyberjustice Lab username as environment variables: <code>export CJL_USER={USERNAME}</code> either to your .bashrc or run it as a command
 2. Add Cyberjustice Lab password as environment variables: <code>export CJL_PASS={PASSWORD}</code> either to your .bashrc or run it as a command
+3. Run <code>pip install -r requirements.txt</code>
+4. Run <code>pip install -r requirements_test.txt</code>
+
+
 
 ## Extract Facts from Data
 
