@@ -1,5 +1,10 @@
 # Machine Learning Service
 
+## Installation Instructions
+
+1. Add Cyberjustice Lab username as environment variables: <code>export CJL_USER={USERNAME}</code> either to your .bashrc or run it as a command
+2. Add Cyberjustice Lab password as environment variables: <code>export CJL_PASS={PASSWORD}</code> either to your .bashrc or run it as a command
+
 ## Extract Facts from Data
 
 1. Download the precedent data

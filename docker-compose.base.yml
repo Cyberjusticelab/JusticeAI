@@ -5,6 +5,9 @@ services:
     build:
       context: .
       dockerfile: ./src/ml_service/Dockerfile
+      args:
+      - CJL_USER
+      - CJL_PASS
     image: procezeus/ml_service
     restart: always
     networks:
