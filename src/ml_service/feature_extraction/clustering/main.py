@@ -1,7 +1,7 @@
 import time
 from src.ml_service.feature_extraction.clustering.k_means.k_means_wrapper import KMeansWrapper
 from src.ml_service.feature_extraction.clustering.dbscan.dbscan import cluster_facts
-from src.ml_service.ml_models.models import load_facts_from_bin
+from src.ml_service.ml_models.models import load_updated_facts_from_bin
 import joblib
 from src.ml_service.reporting.logger import Log
 
@@ -45,7 +45,7 @@ if __name__ == '__main__':
     Log.initialize('log.txt', header='DBSCAN', verbose=True)
     Log.report_start()
     Log.write('Loading precedence')
-    precedence = load_facts_from_bin()
+    precedence = load_updated_facts_from_bin()
     Log.write('Begin DBSCAN')
     # comment out what you don't want to cluster
     model = cluster_dbscan(precedence)
@@ -53,3 +53,4 @@ if __name__ == '__main__':
     Log.write('Saving Model')
     joblib.dump(model, 'dbscan_model.bin')
     Log.report_end()
+    Log.email()

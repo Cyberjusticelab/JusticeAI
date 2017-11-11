@@ -1,6 +1,7 @@
 import datetime
 import time
 import os
+from src.ml_service.reporting.mail import send_email
 
 class Log():
     __script_dir = os.path.abspath(__file__ + "/../")
@@ -47,3 +48,7 @@ class Log():
     @staticmethod
     def clear_log():
         Log.complete_log = ''
+
+    @staticmethod
+    def email():
+        send_email(Log.complete_log)

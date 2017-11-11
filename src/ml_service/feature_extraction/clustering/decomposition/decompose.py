@@ -30,7 +30,7 @@ def decompose(matrix, size):
 
 def save_model(model):
     __script_dir = os.path.abspath(__file__ + "/../../../../")
-    __rel_path = r'ml_models/updated_processed_facts'
+    __rel_path = r'ml_models/updated_processed_facts.bin'
     output_directory = os.path.join(__script_dir, __rel_path)
     joblib.dump(model, output_directory)
 
@@ -53,6 +53,7 @@ def execute():
     model = (new_matrix, sentence, processed_sentence, files)
     save_model(model)
     Log.report_end()
+    Log.email()
 
 
 if __name__ == '__main__':

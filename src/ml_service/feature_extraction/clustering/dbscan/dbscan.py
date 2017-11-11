@@ -15,8 +15,11 @@ def cluster_facts(data_tuple):
     @:param data_tuple <array, array, array>: vectors, transformed sentences, original sentence
     """
     X = data_tuple[0]
+    Log.write('Amount of Data: ' + str(len(X)))
+    Log.write('Matrix Dimension: ' + str(len(X[0])))
     data_tuple = None
     ms = DBSCAN(min_samples=5, eps=1, n_jobs=-1)
+    Log.write('Min Sample: 5, Epsilon: 1')
     ms.fit(X)
     labels = ms.labels_
     n_clusters = len(np.unique(labels))
