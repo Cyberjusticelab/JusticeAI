@@ -2,12 +2,10 @@
 import os
 import re
 from sys import stdout
-
-from src.ml_service.feature_extraction.preprocessing.precedence_model import PrecedenceModel, FactModel
-from src.ml_service.global_variables.global_variable import Global
-from src.ml_service.outputs.output import Log
-from src.ml_service.word_vectors.vectors import FrenchVectors
-
+from feature_extraction.preprocessing.precedent_model import PrecedentModel, FactModel
+from global_variables.global_variable import Global
+from outputs.output import Log
+from word_vectors.vectors import FrenchVectors
 
 class State:
     """
@@ -21,14 +19,14 @@ class State:
 
 # #################################################
 # PARSER
-class Precedence_Parser:
+class PrecedentParser:
     __factMatch = re.compile('\[\d+\]\s')
     __minimum_line_length = 6
 
     def __init__(self):
         self.__state = None
         self.__filename = None
-        self.__model = PrecedenceModel()
+        self.__model = PrecedentModel()
 
     def __parse(self, filename):
         """
@@ -47,7 +45,7 @@ class Precedence_Parser:
         :param filename: String
         :return: None
         """
-        file = open(Global.Precedence_Directory + filename, 'r', encoding="ISO-8859-1")
+        file = open(Global.precedence_directory + filename, 'r', encoding="ISO-8859-1")
         for lines in file:
             tpl = self.__statement_index(lines)
             self.__update_state(tpl[1], lines)

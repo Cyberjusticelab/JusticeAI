@@ -1,15 +1,15 @@
 import unittest
-from src.ml_service.feature_extraction.preprocessing.precedence_parse import Precedence_Parser
-from src.ml_service.word_vectors.vectors import FrenchVectors
+from feature_extraction.preprocessing.precedent_parse import PrecedentParser
+from word_vectors.vectors import FrenchVectors
 import os
-from src.ml_service.global_variables.global_variable import Global
+from global_variables.global_variable import Global
 
 class TestStringMethods(unittest.TestCase):
 
     def test_parse_files(self):
         self.assertIsNone(FrenchVectors.word_vectors)
         __script_dir = os.path.abspath(__file__ + r"/../")
-        __relative_dir = r'test\\'
+        __relative_dir = r'test/'
         __full_path = os.path.join(__script_dir, __relative_dir)
         if not os.path.exists(__full_path):
             os.makedirs(__full_path)
@@ -27,8 +27,8 @@ class TestStringMethods(unittest.TestCase):
         file.writelines('[10] Le chat veut me tuer.\n')
         file.close()
 
-        Global.Precedence_Directory = __full_path
-        parser = Precedence_Parser()
+        Global.precedence_directory = __full_path
+        parser = PrecedentParser()
         model = parser.parse_files(__full_path, 1)
         self.assertIsNone(FrenchVectors.word_vectors)
         self.assertEqual(dict, type(model))

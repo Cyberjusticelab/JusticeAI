@@ -1,13 +1,11 @@
 import sys
 import time
-
-from src.ml_service.ml_models.models import Load
-
-from src.ml_service.feature_extraction.clustering.dbscan.dbscan_wrapper import cluster_facts
-from src.ml_service.feature_extraction.clustering.hdbscan.hdbscan_wrapper import HdbscanTrain
-from src.ml_service.feature_extraction.clustering.k_means.k_means_wrapper import KMeansWrapper
-from src.ml_service.feature_extraction.preprocessing import save_model
-from src.ml_service.outputs.output import Log
+from ml_models.models import Load
+from feature_extraction.clustering.dbscan.dbscan_wrapper import cluster_facts
+from feature_extraction.clustering.hdbscan.hdbscan_wrapper import HdbscanTrain
+from feature_extraction.clustering.k_means.k_means_wrapper import KMeansWrapper
+from feature_extraction.preprocessing import save_model
+from outputs.output import Log
 
 '''
 Improvement: 
@@ -20,7 +18,7 @@ def cluster_means(arguments):
     :param arguments: list[Strings]
     :return: None
     """
-    data_tuple = get_precendece_model(arguments[0])
+    data_tuple = get_precendent_model(arguments[0])
     start = time.time()
     KMeansWrapper(data_tuple)
     done = time.time()
@@ -34,7 +32,7 @@ def cluster_dbscan(arguments):
     :param arguments: list[strings]
     :return: None
     """
-    data_tuple = get_precendece_model(arguments[0])
+    data_tuple = get_precendent_model(arguments[0])
     start = time.time()
     cluster_facts(data_tuple, int(arguments[1]), float(arguments[2]))
     done = time.time()
@@ -48,7 +46,7 @@ def cluster_hdbscan(arguments):
     :param arguments: list[String]
     :return: None
     """
-    data_tuple = get_precendece_model(arguments[0])
+    data_tuple = get_precendent_model(arguments[0])
     hdb = HdbscanTrain()
     start = time.time()
     hdb.cluster(data_tuple, int(arguments[1]), int(arguments[2]))
@@ -57,19 +55,7 @@ def cluster_hdbscan(arguments):
     Log.write(done - start)
 
 
-def get_precendece_model(command):
-    """
-    Selects precedence model based on command
-    :param command: string
-    :return: None
-    """
-    if command == '-facts':
-        return Load.load_facts_from_bin()
-    elif command == '-decisions':
-        return Load.load_decisions_from_bin()
-
-
-def parse_precedence(command):
+def parse_precedent(command):
     """
     Creates a model of the precedence as binary
     :param command: String
@@ -84,6 +70,17 @@ def parse_precedence(command):
         Log.write('Command not recognized:' + command)
         sys.exit(1)
     save_model.save(data)
+
+def get_precendent_model(command):
+    """
+    Selects precedence model based on command
+    :param command: string
+    :return: None
+    """
+    if command == '-facts':
+        return Load.load_facts_from_bin()
+    elif command == '-decisions':
+        return Load.load_decisions_from_bin()
 
 
 def process_command(command, arguments):
@@ -100,7 +97,7 @@ def process_command(command, arguments):
     elif command == '--kmeans':
         cluster_means(arguments)
     elif command == '--parse':
-        parse_precedence(arguments[0])
+        parse_precedent(arguments[0])
     else:
         Log.write('Command not recognized:' + command)
         sys.exit(1)

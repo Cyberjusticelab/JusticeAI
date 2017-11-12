@@ -1,9 +1,10 @@
 import unittest
-from src.ml_service.feature_extraction.preprocessing.save_model import save
 import joblib
 import os
-from src.ml_service.global_variables.global_variable import Global
 import numpy
+from feature_extraction.preprocessing.save_model import save
+from global_variables.global_variable import Global
+
 
 class TestStringMethods(unittest.TestCase):
 
@@ -16,7 +17,7 @@ class TestStringMethods(unittest.TestCase):
             os.makedirs(__full_path)
         facts = 'test_facts'
 
-        Global.Precedence_Directory = __full_path
+        Global.precedence_directory = __full_path
         file = open(__full_path + 'garbage.txt', 'w')
         file.writelines('[1] Le locateur est faible.\n')
         file.writelines('[2] Le locateur est faible.\n')

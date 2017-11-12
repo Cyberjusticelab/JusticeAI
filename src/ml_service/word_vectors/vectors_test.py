@@ -1,4 +1,4 @@
-from src.ml_service.word_vectors import vectors
+from word_vectors import vectors
 import numpy
 import unittest
 
@@ -22,7 +22,7 @@ class TestStringMethods(unittest.TestCase):
         stop_words = ['dehors', 'depuis', 'devrait', 'doit', 'donc', 'dos', 'début']
         all_words_found = True
         for words in stop_words:
-            all_words_found = words in vectors.FrenchVectors.get_stop_words()
+            all_words_found = words in vectors.FrenchVectors.get_stop_tokens()
         self.assertTrue(all_words_found)
 
     def test_vectorize_sent(self):

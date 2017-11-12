@@ -1,10 +1,11 @@
 from bs4 import BeautifulSoup
 from urllib import request, parse
 import re
-from src.ml_service.outputs.output import Log
 import logging
 import pickle
 import os
+from outputs.output import Log
+
 logger = logging.getLogger('fact_clustering')
 verbeRegex = re.compile("(?<=Conjugaison du verbe )\S+")
 
