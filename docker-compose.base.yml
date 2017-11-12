@@ -18,6 +18,8 @@ services:
       dockerfile: ./src/nlp_service/Dockerfile
     image: procezeus/nlp_service
     restart: always
+    depends_on:
+      - db_state_service
     networks:
       - procezeus_net
   backend_service:
@@ -27,7 +29,7 @@ services:
     image: procezeus/backend_service
     restart: always
     depends_on:
-      - postgresql_db
+      - db_state_service
       - nlp_service
     networks:
       - procezeus_net
