@@ -1,18 +1,22 @@
 sudo: required
 services:
   - docker
+matrix:
+  fast_finish: true
 env:
-  - 
-  - SERVICE=web_client
-  - SERVICE=backend_service
-  - SERVICE=ml_service
-  - SERVICE=nlp_service
+  global:
+    - CI_ENV=`bash <(curl -s https://codecov.io/env)`
+  matrix:
+    - SERVICE=ml_service
+    - SERVICE=nlp_service
+    - SERVICE=web_client
+    - SERVICE=backend_service
 install:
   - BRANCH=$(echo $TRAVIS_BRANCH | egrep  "([0-9]+/|master)"); if [ ! $BRANCH ]; then exit 1; fi;
   - COMMIT=$(echo $TRAVIS_COMMIT_MESSAGE | egrep "^(\[#[0-9]+\]|Merge)"); if [ ! $COMMIT ]; then exit 1; fi;
 before_script: echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 script:
-  - "bash <(curl -s https://codecov.io/env) && COMPOSE_FILE=ci ./cjl run -d postgresql_db && ./cjl build $SERVICE && COMPOSE_FILE=ci ./cjl run $CI_ENV $SERVICE"
+  - "COMPOSE_FILE=ci ./cjl run -d postgresql_db && ./cjl build $SERVICE && COMPOSE_FILE=ci ./cjl run $CI_ENV $SERVICE"
 after_success:
   - if [ $TRAVIS_BRANCH == "master" ]; then sudo apt-get update -y && sudo apt-get install software-properties-common -y && sudo apt-get install sshpass ansible -y && sudo bash -c "echo \"capstone.cyberjustice.ca ansible_user=$CAPSTONE_SSH_USER ansible_ssh_pass=$CAPSTONE_SSH_PASS\" >> /etc/ansible/hosts" && ansible all -m shell -a "cd /home/$CAPSTONE_SSH_USER/JusticeAI && git pull && ./cjl down && ./cjl build --no-cache && ./cjl up -d"; fi;
 
