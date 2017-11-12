@@ -1,4 +1,4 @@
-from src.ml_service.word_vectors import vectors
+from word_vectors import vectors
 import numpy
 import unittest
 

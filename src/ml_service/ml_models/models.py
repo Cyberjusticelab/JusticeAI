@@ -1,6 +1,9 @@
 import os
 import joblib
-from src.ml_service.outputs.output import Log
+try:
+    from src.ml_service.outputs.output import Log
+except ImportError:
+    from outputs.output import Log
 
 """
 Only store models that are good for use in this directory

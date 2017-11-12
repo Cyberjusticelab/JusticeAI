@@ -1,13 +1,19 @@
 import sys
 import time
-
-from src.ml_service.ml_models.models import Load
-
-from src.ml_service.feature_extraction.clustering.dbscan.dbscan_wrapper import cluster_facts
-from src.ml_service.feature_extraction.clustering.hdbscan.hdbscan_wrapper import HdbscanTrain
-from src.ml_service.feature_extraction.clustering.k_means.k_means_wrapper import KMeansWrapper
-from src.ml_service.feature_extraction.preprocessing import save_model
-from src.ml_service.outputs.output import Log
+try:
+    from src.ml_service.ml_models.models import Load
+    from src.ml_service.feature_extraction.clustering.dbscan.dbscan_wrapper import cluster_facts
+    from src.ml_service.feature_extraction.clustering.hdbscan.hdbscan_wrapper import HdbscanTrain
+    from src.ml_service.feature_extraction.clustering.k_means.k_means_wrapper import KMeansWrapper
+    from src.ml_service.feature_extraction.preprocessing import save_model
+    from src.ml_service.outputs.output import Log
+except ImportError:
+    from ml_models.models import Load
+    from feature_extraction.clustering.dbscan.dbscan_wrapper import cluster_facts
+    from feature_extraction.clustering.hdbscan.hdbscan_wrapper import HdbscanTrain
+    from feature_extraction.clustering.k_means.k_means_wrapper import KMeansWrapper
+    from feature_extraction.preprocessing import save_model
+    from outputs.output import Log
 
 '''
 Improvement: 

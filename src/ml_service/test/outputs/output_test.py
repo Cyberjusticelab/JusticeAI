@@ -1,8 +1,8 @@
-from src.ml_service.outputs.output import Log, Save
 import unittest
 import os
 import joblib
-from src.ml_service.global_variables.global_variable import Global
+from global_variables.global_variable import Global
+from outputs.output import Log, Save
 
 
 class TestStringMethods(unittest.TestCase):

@@ -1,9 +1,10 @@
 import unittest
-from src.ml_service.feature_extraction.preprocessing.save_model import save
 import joblib
 import os
-from src.ml_service.global_variables.global_variable import Global
 import numpy
+from feature_extraction.preprocessing.save_model import save
+from global_variables.global_variable import Global
+
 
 class TestStringMethods(unittest.TestCase):
 

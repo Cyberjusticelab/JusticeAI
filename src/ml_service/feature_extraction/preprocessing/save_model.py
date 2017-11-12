@@ -1,8 +1,13 @@
 import numpy
 
-from src.ml_service.feature_extraction.preprocessing.precedence_parse import Precedence_Parser
-from src.ml_service.global_variables.global_variable import Global
-from src.ml_service.outputs.output import Save
+try:
+    from src.ml_service.feature_extraction.preprocessing.precedence_parse import Precedence_Parser
+    from src.ml_service.global_variables.global_variable import Global
+    from src.ml_service.outputs.output import Save
+except ImportError:
+    from feature_extraction.preprocessing.precedence_parse import Precedence_Parser
+    from global_variables.global_variable import Global
+    from outputs.output import Save
 
 
 def save(data_to_extract, filename=None, nb_of_files=-1):

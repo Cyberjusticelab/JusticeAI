@@ -3,11 +3,16 @@ import os
 import re
 from sys import stdout
 
-from src.ml_service.feature_extraction.preprocessing.precedence_model import PrecedenceModel, FactModel
-from src.ml_service.global_variables.global_variable import Global
-from src.ml_service.outputs.output import Log
-from src.ml_service.word_vectors.vectors import FrenchVectors
-
+try:
+    from src.ml_service.feature_extraction.preprocessing.precedence_model import PrecedenceModel, FactModel
+    from src.ml_service.global_variables.global_variable import Global
+    from src.ml_service.outputs.output import Log
+    from src.ml_service.word_vectors.vectors import FrenchVectors
+except ImportError:
+    from feature_extraction.preprocessing.precedence_model import PrecedenceModel, FactModel
+    from global_variables.global_variable import Global
+    from outputs.output import Log
+    from word_vectors.vectors import FrenchVectors
 
 class State:
     """

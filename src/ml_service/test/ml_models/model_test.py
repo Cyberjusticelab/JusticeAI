@@ -1,8 +1,8 @@
 import unittest
-from src.ml_service.ml_models.models import Load
+from ml_models.models import Load
 import joblib
 import os
-from src.ml_service.global_variables.global_variable import Global
+from global_variables.global_variable import Global
 
 
 class TestStringMethods(unittest.TestCase):

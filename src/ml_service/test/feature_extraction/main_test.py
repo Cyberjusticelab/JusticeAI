@@ -1,5 +1,5 @@
 import unittest
-from src.ml_service.feature_extraction import main
+from feature_extraction import main
 
 
 class TestStringMethods(unittest.TestCase):

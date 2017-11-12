@@ -4,8 +4,12 @@ import numpy
 from gensim.models.keyedvectors import KeyedVectors
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-from src.ml_service.word_vectors.related_word_fetcher import find_related, save_cache
-from src.ml_service.outputs.output import Log
+try:
+    from src.ml_service.word_vectors.related_word_fetcher import find_related, save_cache
+    from src.ml_service.outputs.output import Log
+except ImportError:
+    from word_vectors.related_word_fetcher import find_related, save_cache
+    from outputs.output import Log
 
 
 class FrenchVectors:

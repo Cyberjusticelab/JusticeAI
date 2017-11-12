@@ -2,10 +2,12 @@
 from sklearn.cluster import DBSCAN
 import numpy as np
 import logging
-from src.ml_service.global_variables.global_variable import InformationType
-from src.ml_service.outputs.output import Log
-from src.ml_service.outputs.output import Save
-
+try:
+    from src.ml_service.global_variables.global_variable import InformationType
+    from src.ml_service.outputs.output import Log, Save
+except:
+    from global_variables.global_variable import InformationType
+    from outputs.output import Log, Save
 
 def cluster_facts(data_tuple, min_sample, eps):
     """

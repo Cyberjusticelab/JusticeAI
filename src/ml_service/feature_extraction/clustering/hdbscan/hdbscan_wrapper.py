@@ -1,7 +1,12 @@
 from hdbscan import HDBSCAN
-from src.ml_service.global_variables.global_variable import InformationType
-from src.ml_service.outputs.output import Save
-from src.ml_service.outputs.output import Log
+try:
+    from src.ml_service.global_variables.global_variable import InformationType
+    from src.ml_service.outputs.output import Save
+    from src.ml_service.outputs.output import Log
+except ImportError:
+    from global_variables.global_variable import InformationType
+    from outputs.output import Save
+    from outputs.output import Log
 
 
 class HdbscanTrain:
