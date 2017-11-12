@@ -8,6 +8,11 @@ class File:
 
 
 def epsilon_histogram(data_matrix):
+    """
+    Creates a histogram of epsilon values
+    :param data_matrix: numpy matrix
+    :return: dictionary. Key --> epsilon values values --> density
+    """
     epsilon_hist = {}
     for i in range(len(data_matrix)):
         percent = float(i / len(data_matrix)) * 100
@@ -33,6 +38,12 @@ def epsilon_histogram(data_matrix):
 
 
 def cluster_size_histogram(data_matrix, epsilon):
+    """
+    Compute cluster size of histogrtam based on epsilon value
+    :param data_matrix: numpy matrix of vectors
+    :param epsilon: Epsilon value to compute with. Float
+    :return:
+    """
     cluster_size_hist = {}
     for i in range(len(data_matrix)):
         percent = float(i / len(data_matrix)) * 100
