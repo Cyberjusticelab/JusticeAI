@@ -3,12 +3,8 @@ import nltk
 import os
 from nltk.stem.snowball import SnowballStemmer
 from sklearn.cluster import KMeans
-try:
-    from src.ml_service.global_variables.global_variable import InformationType
-    from src.ml_service.outputs.output import Save
-except ImportError:
-    from global_variables.global_variable import InformationType
-    from outputs.output import Save
+from global_variables.global_variable import InformationType
+from outputs.output import Save
 
 class KMeansWrapper:
     def __init__(self, data_tuple):

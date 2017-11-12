@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-class PrecedenceModel:
+class PrecedentModel:
     def __init__(self):
         self.dict = {
             'facts': {

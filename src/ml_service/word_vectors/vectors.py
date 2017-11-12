@@ -4,12 +4,8 @@ import numpy
 from gensim.models.keyedvectors import KeyedVectors
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-try:
-    from src.ml_service.word_vectors.related_word_fetcher import find_related, save_cache
-    from src.ml_service.outputs.output import Log
-except ImportError:
-    from word_vectors.related_word_fetcher import find_related, save_cache
-    from outputs.output import Log
+from word_vectors.related_word_fetcher import find_related, save_cache
+from outputs.output import Log
 
 
 class FrenchVectors:
@@ -31,7 +27,7 @@ class FrenchVectors:
             __rel_path = r'word_vectors/non-lem.bin'
             file = os.path.join(__script_dir, __rel_path)
             FrenchVectors.word_vectors = KeyedVectors.load_word2vec_format(file, binary=True)
-            FrenchVectors.custom_stop_words = FrenchVectors.get_stop_words()
+            FrenchVectors.custom_stop_words = FrenchVectors.get_stop_tokens()
             Log.write("Loading complete")
 
         except BaseException:
@@ -49,7 +45,7 @@ class FrenchVectors:
         save_cache()
 
     @staticmethod
-    def get_stop_words():
+    def get_stop_tokens():
         """
         :return: list of stopwords
         """

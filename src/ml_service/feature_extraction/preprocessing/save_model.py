@@ -1,13 +1,7 @@
 import numpy
-
-try:
-    from src.ml_service.feature_extraction.preprocessing.precedence_parse import Precedence_Parser
-    from src.ml_service.global_variables.global_variable import Global
-    from src.ml_service.outputs.output import Save
-except ImportError:
-    from feature_extraction.preprocessing.precedence_parse import Precedence_Parser
-    from global_variables.global_variable import Global
-    from outputs.output import Save
+from feature_extraction.preprocessing.precedent_parse import PrecedentParser
+from global_variables.global_variable import Global
+from outputs.output import Save
 
 
 def save(data_to_extract, filename=None, nb_of_files=-1):
@@ -17,8 +11,8 @@ def save(data_to_extract, filename=None, nb_of_files=-1):
     :param nb_of_files: -1 reads all directory
     :return: None
     """
-    parser = Precedence_Parser()
-    precedence_dict = parser.parse_files(Global.Precedence_Directory, nb_of_files)
+    parser = PrecedentParser()
+    precedence_dict = parser.parse_files(Global.precedence_directory, nb_of_files)
 
     X = []
     labels = []

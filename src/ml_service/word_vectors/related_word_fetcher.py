@@ -4,10 +4,7 @@ import re
 import logging
 import pickle
 import os
-try:
-    from src.ml_service.outputs.output import Log
-except ImportError:
-    from outputs.output import Log
+from outputs.output import Log
 
 logger = logging.getLogger('fact_clustering')
 verbeRegex = re.compile("(?<=Conjugaison du verbe )\S+")

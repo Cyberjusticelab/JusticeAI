@@ -1,19 +1,11 @@
 import sys
 import time
-try:
-    from src.ml_service.ml_models.models import Load
-    from src.ml_service.feature_extraction.clustering.dbscan.dbscan_wrapper import cluster_facts
-    from src.ml_service.feature_extraction.clustering.hdbscan.hdbscan_wrapper import HdbscanTrain
-    from src.ml_service.feature_extraction.clustering.k_means.k_means_wrapper import KMeansWrapper
-    from src.ml_service.feature_extraction.preprocessing import save_model
-    from src.ml_service.outputs.output import Log
-except ImportError:
-    from ml_models.models import Load
-    from feature_extraction.clustering.dbscan.dbscan_wrapper import cluster_facts
-    from feature_extraction.clustering.hdbscan.hdbscan_wrapper import HdbscanTrain
-    from feature_extraction.clustering.k_means.k_means_wrapper import KMeansWrapper
-    from feature_extraction.preprocessing import save_model
-    from outputs.output import Log
+from ml_models.models import Load
+from feature_extraction.clustering.dbscan.dbscan_wrapper import cluster_facts
+from feature_extraction.clustering.hdbscan.hdbscan_wrapper import HdbscanTrain
+from feature_extraction.clustering.k_means.k_means_wrapper import KMeansWrapper
+from feature_extraction.preprocessing import save_model
+from outputs.output import Log
 
 '''
 Improvement: 
@@ -63,18 +55,6 @@ def cluster_hdbscan(arguments):
     Log.write(done - start)
 
 
-def get_precendece_model(command):
-    """
-    Selects precedence model based on command
-    :param command: string
-    :return: None
-    """
-    if command == '-facts':
-        return Load.load_facts_from_bin()
-    elif command == '-decisions':
-        return Load.load_decisions_from_bin()
-
-
 def parse_precedence(command):
     """
     Creates a model of the precedence as binary
@@ -90,6 +70,17 @@ def parse_precedence(command):
         Log.write('Command not recognized:' + command)
         sys.exit(1)
     save_model.save(data)
+
+def get_precendece_model(command):
+    """
+    Selects precedence model based on command
+    :param command: string
+    :return: None
+    """
+    if command == '-facts':
+        return Load.load_facts_from_bin()
+    elif command == '-decisions':
+        return Load.load_decisions_from_bin()
 
 
 def process_command(command, arguments):

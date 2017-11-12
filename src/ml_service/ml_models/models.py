@@ -1,9 +1,6 @@
 import os
 import joblib
-try:
-    from src.ml_service.outputs.output import Log
-except ImportError:
-    from outputs.output import Log
+from outputs.output import Log
 
 """
 Only store models that are good for use in this directory
@@ -27,7 +24,7 @@ class Load():
     def load_facts_from_bin(filename=None):
         """
         Loads binarized facts
-        :return: (matrix, list[strings], list[strings], list[[string])
+        :return: (matrix(sent vectors), list[sentences], list[filenames])
         """
         try:
             Log.write("Loading Preprocessed facts... May take a few seconds")

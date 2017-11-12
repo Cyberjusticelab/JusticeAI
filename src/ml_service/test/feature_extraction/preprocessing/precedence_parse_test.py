@@ -1,5 +1,5 @@
 import unittest
-from feature_extraction.preprocessing.precedence_parse import Precedence_Parser
+from feature_extraction.preprocessing.precedent_parse import PrecedentParser
 from word_vectors.vectors import FrenchVectors
 import os
 from global_variables.global_variable import Global
@@ -27,8 +27,8 @@ class TestStringMethods(unittest.TestCase):
         file.writelines('[10] Le chat veut me tuer.\n')
         file.close()
 
-        Global.Precedence_Directory = __full_path
-        parser = Precedence_Parser()
+        Global.precedence_directory = __full_path
+        parser = PrecedentParser()
         model = parser.parse_files(__full_path, 1)
         self.assertIsNone(FrenchVectors.word_vectors)
         self.assertEqual(dict, type(model))
