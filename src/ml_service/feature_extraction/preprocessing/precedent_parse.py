@@ -11,7 +11,7 @@ class State:
     """
     Used for state machine
     scrape text in this order:
-    topic --> facts --> decision --> topic...
+    facts --> decision --> facts...
     """
     FACTS = 1
     DECISION = 2
@@ -89,7 +89,7 @@ class PrecedentParser:
 
     def __add_key(self, line):
         """
-        Apppends topic, fact, decision to model
+        Apppends fact<strings> and decision<strings> to model
         1 - Splits sentence where it finds a '.'
         2 - Fetch dictionary based on state machine
         3 - If key already exist in dictionary then simply append filename
