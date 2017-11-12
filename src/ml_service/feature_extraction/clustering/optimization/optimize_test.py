@@ -11,10 +11,9 @@ class TestStringMethods(unittest.TestCase):
         epsilon = list(hist.keys())
         density = list(hist.values())
         epsilon_list = ['3.5', '54.7']
-        print(epsilon)
-        print(epsilon_list)
         density_list = [2, 1]
-        self.assertEqual(epsilon, epsilon_list)
+        self.assertTrue(epsilon[0] in epsilon_list)
+        self.assertTrue(epsilon[1] in epsilon_list)
         self.assertEqual(density, density_list)
 
     def test_cluster_size_histogram(self):
