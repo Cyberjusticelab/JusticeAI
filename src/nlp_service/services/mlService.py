@@ -4,17 +4,18 @@ from postgresql_db.models import Fact, FactEntity
 
 ML_URL = "http://ml_service:3001"
 
+'''
+    Placeholder until the interface of the ML service is defined
+    :returns first fact to ask
+'''
 
-# This is a placeholder until the interface for the ML service is defined.
-# Returns first fact to ask
+
 def submit_claim_category(claim_category):
     return {
         'fact_id': dummy_next_fact(claim_category, [])
     }
 
 
-#
-#
 '''
     This is a placeholder until the interface for the ML service is defined.
     conversation: the current conversation
