@@ -16,6 +16,9 @@ RUN cd src/nlp_service && python init_gram_classify.py
 # Initialize spacy
 RUN python -m spacy download en
 
+# Train RASA classifier
+RUN python init_gram_classify.py
+
 WORKDIR /usr/src/app/src/nlp_service
 
 ENV FLASK_APP=app.py

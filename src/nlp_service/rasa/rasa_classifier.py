@@ -22,12 +22,14 @@ class RasaClassifier():
         self.rasa_config = RasaNLUConfig(self.config_file)
         self.trainer = Trainer(self.rasa_config)
 
-    def train(self, force_train=False):
+    def train(self, force_train=False, initialize_interpreters=True):
         # Train fact classifiers
-        self.__train_interpreter(self.fact_data_dir, self.fact_interpreters, force_train=force_train)
+        self.__train_interpreter(self.fact_data_dir, self.fact_interpreters, force_train=force_train,
+                                 initialize_interpreters=initialize_interpreters)
 
         # Train problem category classifiers
-        self.__train_interpreter(self.category_data_dir, self.problem_category_interpreters, force_train=force_train)
+        self.__train_interpreter(self.category_data_dir, self.problem_category_interpreters, force_train=force_train,
+                                 initialize_interpreters=initialize_interpreters)
 
     def classify_problem_category(self, message):
         return self.problem_category_interpreters['claim_category'].parse(message)
@@ -35,10 +37,13 @@ class RasaClassifier():
     def classify_fact(self, fact_name, message):
         return self.fact_interpreters[fact_name].parse(message)
 
-    def __train_interpreter(self, training_data_dir, interpreter_dict, force_train):
+    def __train_interpreter(self, training_data_dir, interpreter_dict, force_train, initialize_interpreters):
         print("~~Starting training with data directory {}~~".format(training_data_dir))
         if force_train is False:
-            print("->No force train, using saved models".format(training_data_dir))
+            print("->No force train, using saved models.".format(training_data_dir))
+
+        if initialize_interpreters is False:
+            print("->No interpreter initialization. Will only create model data.".format(training_data_dir))
 
         training_start = timeit.default_timer()
 
@@ -54,7 +59,8 @@ class RasaClassifier():
                 model_directory = self.model_dir + "default/" + fact_key
 
             print("Model data directory for fact {}: {}".format(fact_key, model_directory))
-            interpreter_dict[fact_key] = Interpreter.load(model_directory, self.rasa_config)
+            if initialize_interpreters:
+                interpreter_dict[fact_key] = Interpreter.load(model_directory, self.rasa_config)
 
         training_end = timeit.default_timer()
         total_training_time = round(training_end - training_start, 2)
