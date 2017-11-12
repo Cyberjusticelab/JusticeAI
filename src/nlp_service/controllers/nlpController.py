@@ -10,8 +10,9 @@ from services.responseStrings import Responses
 
 from nlp_service.app import db
 
-# Globals
-from src.postgresql_db.models import Conversation, ClaimCategory, Fact
+from postgresql_db.models import Conversation, ClaimCategory, Fact
+
+# Global Variables
 
 # Decided value of 30% percent difference (which is used for the reprompt and calculated from the percent difference: |First-Second|/[1/2(First+Second)]
 # The first and the second are described by the the #1 and #2 intent returned by the Rasa's SVM intent calculation
