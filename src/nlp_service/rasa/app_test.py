@@ -4,7 +4,8 @@ from rasa_nlu.converters import load_data
 from rasa_nlu.model import Interpreter
 from rasa_nlu.model import Trainer
 
-##This is the RASA Trainer
+# This is the RASA Trainer, just here for experiemntal training of the models with the parsing of the interpreter
+
 interpreters = {}
 RasaNLUConfig = RasaNLUConfig("config/config_spacy.json")
 trainer = Trainer(RasaNLUConfig)

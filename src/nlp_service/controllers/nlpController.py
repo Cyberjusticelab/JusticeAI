@@ -165,11 +165,14 @@ def __extract_entity(current_fact_name, message):
     else:
         return None
 
+
 '''
     Method which verifies the accuracy of the classification with a percentage difference between the intent with the largest confidence and the intent with the 2nd largest confidence
     classify_dict: the dict holding the intents, classification %, entities
     :returns False if percentage difference is below 30%
 '''
+
+
 # Determine confidence of returned intent
 def __is_answer_sufficient(classify_dict):
     if len(classify_dict['intent_ranking']) > 1:
