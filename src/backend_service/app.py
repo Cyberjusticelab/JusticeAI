@@ -7,7 +7,7 @@ import util
 from controllers import conversationController, legalController
 
 util.load_src_dir_to_sys_path()
-from db_state_service import database
+from shared_modules import database
 
 # Flask Setup
 app = Flask(__name__)

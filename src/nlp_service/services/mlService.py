@@ -1,6 +1,6 @@
 import requests
 
-from db_state_service.models import Fact, FactEntity
+from shared_modules.models import Fact, FactEntity
 
 ML_URL = "http://ml_service:3001"
 

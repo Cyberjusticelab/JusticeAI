@@ -6,7 +6,7 @@ from flask import Flask
 from flask_marshmallow import Marshmallow
 from marshmallow_enum import EnumField
 
-import db_state_service.database as database
+import shared_modules.database as database
 
 app = Flask(__name__)
 db = database.connect(app, 'postgres', os.environ['POSTGRES_PASSWORD'], 'postgres')
