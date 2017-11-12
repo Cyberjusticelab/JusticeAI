@@ -29,6 +29,7 @@ class RasaClassifier():
               initialize_interpreters=True so the interpreters get initialized due to the models already being present 
           result: creates models on trained data
       '''
+
     def train(self, force_train=False, initialize_interpreters=True):
         # Train fact classifiers
         self.__train_interpreter(self.fact_data_dir, self.fact_interpreters, force_train=force_train,
@@ -64,6 +65,7 @@ class RasaClassifier():
         initialized_interpreters: won't attempt to initialize interpreters if there are no models
         :returns dict of the fact with intent and entities
     '''
+
     def __train_interpreter(self, training_data_dir, interpreter_dict, force_train, initialize_interpreters):
         print("~~Starting training with data directory {}~~".format(training_data_dir))
         if force_train is False:
