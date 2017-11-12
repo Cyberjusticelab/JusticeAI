@@ -12,3 +12,4 @@ coverage.xml
 /outputs/test/*
 /outputs/*log
 /ml_models/*.bin
+/feature_extraction/clustering/optimization/*.txt
