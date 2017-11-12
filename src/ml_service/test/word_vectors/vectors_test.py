@@ -2,6 +2,7 @@ from src.ml_service.word_vectors import vectors
 import numpy
 import unittest
 
+
 class TestStringMethods(unittest.TestCase):
 
     def test_load_vector(self):

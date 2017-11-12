@@ -3,6 +3,7 @@ import unittest
 import os
 import joblib
 
+
 class TestStringMethods(unittest.TestCase):
     def test_write(self):
         output_dir = os.path.abspath(__file__ + r"/../../../")

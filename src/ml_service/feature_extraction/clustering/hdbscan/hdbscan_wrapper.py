@@ -3,6 +3,7 @@ from src.ml_service.global_variables.global_variable import InformationType
 from src.ml_service.outputs.output import Save
 from src.ml_service.outputs.output import Log
 
+
 class HdbscanTrain:
     def __init__(self):
         pass
@@ -23,7 +24,6 @@ class HdbscanTrain:
         self.__write_clusters(hdb_unique_labels, hdb.labels_, data_tuple)
         Log.write('Estimated clusters:' + str(n_clusters_hdb_))
         return hdb
-
 
     def __write_clusters(self, unique_labels, labels, data_tuple):
         """

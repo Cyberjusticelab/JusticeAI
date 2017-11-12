@@ -50,8 +50,8 @@ class FrenchVectors:
         :return: list of stopwords
         """
         return stopwords.words('french') + \
-               [',', ';', '.', '!', '?', 'c', '(', ')', 'ainsi',
-                'alors', 'au', 'aucuns', 'aussi', 'autre', 'avant', 'avec',
+            [',', ';', '.', '!', '?', 'c', '(', ')', 'ainsi',
+             'alors', 'au', 'aucuns', 'aussi', 'autre', 'avant', 'avec',
                 'avoir', 'bon', 'car', 'ce', 'cela', 'ces', 'ceux',
                 'chaque', 'ci', 'comme', 'comment', 'dans', 'des', 'du', 'dedans',
                 'dehors', 'depuis', 'devrait', 'doit', 'donc', 'dos', 'début',
@@ -65,7 +65,7 @@ class FrenchVectors:
                 'sous', 'soyez', 'sur', 'ta', 'tandis', 'tellement', 'tels',
                 'tes', 'ton', 'tous', 'tout', 'trop', 'très', 'tu', 'voient',
                 'vont', 'votre', 'vous', 'vu', 'ça', 'étaient', 'état', 'étions', 'été', 'être',
-                ]
+             ]
 
     @staticmethod
     def vectorize_sent(word_list):
@@ -100,4 +100,3 @@ class FrenchVectors:
         if num == 0:
             return vector
         return numpy.divide(vector, num)
-

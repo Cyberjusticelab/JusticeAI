@@ -8,6 +8,7 @@ import os
 from src.ml_service.reporting.logger import Log
 from src.ml_service.outputs.output import Log, Save
 
+
 def optimal_feature_size(matrix, evaluate_percent, plot=False):
     numpy.random.shuffle(matrix)
     pca = decomposition.PCA()
@@ -24,10 +25,12 @@ def optimal_feature_size(matrix, evaluate_percent, plot=False):
         plt.show()
     return index
 
+
 def decompose(matrix, size):
     pca = decomposition.PCA(n_components=size)
     result = pca.fit_transform(matrix)
     return result
+
 
 def execute():
     model = load_facts_from_bin()

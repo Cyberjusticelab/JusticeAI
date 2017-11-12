@@ -2,6 +2,7 @@ import joblib
 import logging
 import os
 
+
 class Log:
     __output_dir = os.path.abspath(__file__ + r"/../")
     __rel_path = 'server.log'
@@ -23,6 +24,7 @@ class Log:
     def write(text):
         Log.logger.info(text)
 
+
 class Save():
 
     def __init__(self, directory=''):
@@ -38,8 +40,6 @@ class Save():
                 os.makedirs(dir_path)
             self.__output_dir = os.path.abspath(__file__ + r"/../" + directory + '/')
 
-
-
     def binarize_model(self, filename, model):
         """
         Uses joblib implementation over pickle for performance
@@ -53,8 +53,7 @@ class Save():
         joblib.dump(model, file_path)
         Log.write('Model saved to: ' + file_path)
 
-
-    def save_text_file(self, filename, text,protocol='a'):
+    def save_text_file(self, filename, text, protocol='a'):
         """
         Save text file to new directory
         :param filename: String

@@ -76,7 +76,6 @@ class Precedence_Parser:
             return num, int(index)
         return None, None
 
-
     def __update_state(self, index, lines):
         """
         Attempts to update state machine
@@ -131,7 +130,6 @@ class Precedence_Parser:
         """
         sub_sent_list = sentence.split('.')
         return sub_sent_list
-
 
     def parse_files(self, file_directory, nb_of_files=-1):
         """
