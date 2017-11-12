@@ -27,7 +27,6 @@ class Precedence_Parser:
 
     def __init__(self):
         self.__state = None
-        self.__model = None
         self.__filename = None
         self.__model = PrecedenceModel()
 
