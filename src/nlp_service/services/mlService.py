@@ -13,8 +13,17 @@ def submit_claim_category(claim_category):
     }
 
 
-# This is a placeholder until the interface for the ML service is defined.
-# Returns next fact to ask
+#
+#
+'''
+    This is a placeholder until the interface for the ML service is defined.
+    conversation: the current conversation
+    current_fact: the current fact
+    entity_value: value of the fact
+    :returns next fact to ask
+'''
+
+
 def submit_resolved_fact(conversation, current_fact, entity_value):
     # Create new FactEntity and attach to conversation
     fact_entity = FactEntity(fact=current_fact, value=entity_value)
