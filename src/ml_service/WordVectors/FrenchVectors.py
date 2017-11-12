@@ -48,7 +48,7 @@ def get_stop_words():
 class FrenchVectors:
     word_vectors = load_from_bin()
     custom_stop_words = get_stop_words()
-    Word_Vector_Size = 500
+    Word_Vector_Size = 200
     word_idf_dict = None
 
     def __init__(self):
