@@ -14,4 +14,3 @@ class TestResponse(unittest.TestCase):
     def test_responses_service_empty(self):
         question = Responses.fact_question("does_not_exist")
         self.assertTrue(question in self.responseInstance.fact_questions["missing_response"])
-
