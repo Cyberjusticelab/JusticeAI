@@ -20,7 +20,7 @@ minimum_percent_difference = 0.3
 
 # Rasa Classifier - Initialization of Rasa Classifier to train the data and produce the required models per facts
 rasaClassifier = RasaClassifier()
-rasaClassifier.train(force_train=False)
+rasaClassifier.train(force_train=True)
 
 """
        Classify the claim and bring back a category between rent change, lease termination, nonpayment and deposits
