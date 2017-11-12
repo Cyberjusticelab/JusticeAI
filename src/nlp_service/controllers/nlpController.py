@@ -25,7 +25,7 @@ def classify_claim_category(conversation_id, message):
         abort(make_response(jsonify(message="Must provide conversation_id and message"), 400))
 
     # Retrieve conversation
-    conversation = Conversation.query.get(conversation_id)
+    conversation = db.session.query(Conversation).get(conversation_id)
 
     # Classify claim category based on message
     claim_category = __classify_claim_category(message)
@@ -35,19 +35,27 @@ def classify_claim_category(conversation_id, message):
         'ask_lease_termination': ClaimCategory.LEASE_TERMINATION,
         'ask_rent_change': ClaimCategory.RENT_CHANGE,
         'ask_nonpayment': ClaimCategory.NONPAYMENT,
-        'ask_deposits': ClaimCategory.DEPOSITS
+        'ask_deposit': ClaimCategory.DEPOSITS
     }[claim_category]
 
     # Get first fact based on claim category
-    first_fact = mlService.submit_claim_category(conversation_id, claim_category)
+    ml_request = mlService.submit_claim_category(conversation.claim_category)
+    first_fact_id = ml_request['fact_id']
+
+    # Retrieve the Fact from DB
+    first_fact = db.session.query(Fact).get(first_fact_id)
 
     # Save first fact as current fact
     conversation.current_fact = first_fact
 
+    # Commit
+    db.session.commit()
+
     # Generate next message
-    first_fact_question = Responses.fact_question(first_fact)
-    message = Responses.chooseFrom(Responses.category_acknowledge).format(claim_category=claim_category,
-                                                                          first_question=first_fact_question)
+    first_fact_question = Responses.fact_question(first_fact.name)
+    message = Responses.chooseFrom(Responses.category_acknowledge).format(
+        claim_category=conversation.claim_category.value.lower().replace("_", " "),
+        first_question=first_fact_question)
 
     return jsonify({
         "message": message
@@ -59,7 +67,7 @@ def classify_fact_value(conversation_id, message):
         abort(make_response(jsonify(message="Must provide conversation_id and message"), 400))
 
     # Retrieve conversation
-    conversation = Conversation.query.get(conversation_id)
+    conversation = db.session.query(Conversation).get(conversation_id)
 
     # Retrieve current_fact from conversation
     current_fact = conversation.current_fact
@@ -67,19 +75,30 @@ def classify_fact_value(conversation_id, message):
     # Extract entity from message based on current fact
     question = None
 
-    fact_entity_value = __extract_entity(current_fact, message)
+    fact_entity_value = __extract_entity(current_fact.name, message)
     if fact_entity_value is not None:
         # Pass fact with extracted entity to ML service
-        new_fact = mlService.submit_resolved_fact(conversation_id, current_fact, fact_entity_value)
+        ml_request = mlService.submit_resolved_fact(conversation, current_fact, fact_entity_value)
+        new_fact_id = ml_request['fact_id']
 
-        # Set current_fact to new_fact (returned from ML service)
-        conversation.current_fact = new_fact
-        # db.session.commit()
+        # Retrieve the Fact from DB
+        if new_fact_id:
+            new_fact = db.session.query(Fact).get(new_fact_id)
 
-        # Generate question for next fact (returned from ML service)
-        question = Responses.fact_question(new_fact)
+            # Set current_fact to new_fact (returned from ML service)
+            conversation.current_fact = new_fact
+
+            # Generate question for next fact (returned from ML service)
+            question = Responses.fact_question(new_fact.name)
+        else:
+            question = "FACT DUMP: "
+            for fact_entity in conversation.fact_entities:
+                question += "{}:{}, ".format(fact_entity.fact.name, fact_entity.value)
     else:
         question = Responses.chooseFrom(Responses.clarify)
+
+    # Commit
+    db.session.commit()
 
     return jsonify({
         "message": question
@@ -88,6 +107,7 @@ def classify_fact_value(conversation_id, message):
 
 def __classify_claim_category(message):
     classify_dict = rasaClassifier.classify_problem_category(message)
+    print(classify_dict)
 
     # Return the claim category, or None if the answer was insufficient in determining one
     if __is_answer_sufficient(classify_dict):
@@ -99,8 +119,8 @@ def __classify_claim_category(message):
         return None
 
 
-def __extract_entity(current_fact, message):
-    classify_dict = rasaClassifier.classify_fact(current_fact, message)
+def __extract_entity(current_fact_name, message):
+    classify_dict = rasaClassifier.classify_fact(current_fact_name, message)
     print(classify_dict)
 
     # Return the fact value, or None if the answer was insufficient in determining one

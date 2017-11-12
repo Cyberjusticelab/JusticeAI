@@ -120,7 +120,10 @@ class FactEntity(db.Model):
 
     # Foreign Keys
     conversation_id = db.Column(db.Integer, db.ForeignKey('conversation.id'))
+
+    # One to one
     fact_id = db.Column(db.Integer, db.ForeignKey('fact.id'))
+    fact = db.relationship('Fact', uselist=False, backref='factentity')
 
     # Attributes
     value = db.Column(db.String(255), nullable=False)
@@ -144,6 +147,7 @@ class File(db.Model):
 Bootstrapping Database
 ----------------------
 '''
+
 print("Creating database tables from models.py")
 db.create_all()
 
@@ -187,13 +191,19 @@ class FileRequestSchema(ma.ModelSchema):
 
 
 class FactSchema(ma.ModelSchema):
+    # Enum
+    type = EnumField(FactType, by_value=True)
+
     class Meta:
-        model = Fact
+        fields = ('name', 'type')
 
 
 class FactEntitySchema(ma.ModelSchema):
+    # One to one
+    fact = ma.Nested(FactSchema)
+
     class Meta:
-        model = FactEntity
+        fields = ('value', 'fact')
 
 
 class FileSchema(ma.ModelSchema):
@@ -218,9 +228,12 @@ class ConversationSchema(ma.ModelSchema):
     person_type = EnumField(PersonType, by_value=True)
     claim_category = EnumField(ClaimCategory, by_value=True)
 
+    # One to one
+    current_fact = ma.Nested(FactSchema)
+
     # One to many
     messages = ma.Nested(MessageSchema, many=True)
-    facts = ma.Nested(FactSchema, many=True)
+    fact_entities = ma.Nested(FactEntitySchema, many=True)
 
     class Meta:
-        fields = ('id', 'name', 'person_type', 'messages', 'fact_entities')
+        model = Conversation

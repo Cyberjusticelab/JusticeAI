@@ -35,10 +35,9 @@ class Responses:
     ]
 
     # Fact Questions
-    fact_responses = {
-        "lease_term_type": ["Is there a specified end date to your lease?"],
+    fact_questions = {
+        "lease_type": ["Is there a specified end date to your lease?"],
         "has_lease_expired": ["Has the lease expired already?"],
-        "is_tenant_dead": ["Is the tenant dead?"],
         "is_student": ["Are you a student?"],
         "is_habitable": ["How would you describe your dwelling? Is it habitable?"],
         "is_rent_in_lease": ["Is the rent specified in the lease?"],
@@ -54,10 +53,10 @@ class Responses:
 
     @staticmethod
     def fact_question(fact_key):
-        if fact_key in Responses.fact_responses:
-            return Responses.chooseFrom(Responses.fact_responses[fact_key])
+        if fact_key in Responses.fact_questions:
+            return Responses.chooseFrom(Responses.fact_questions[fact_key])
 
-        return Responses.chooseFrom(Responses.fact_responses["missing_response"])
+        return Responses.chooseFrom(Responses.fact_questions["missing_response"])
 
     @staticmethod
     def chooseFrom(strings):

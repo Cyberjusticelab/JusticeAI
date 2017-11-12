@@ -7,15 +7,6 @@ As a user, I would like the system to see/[insert verb]+[insert object]
 - [ ] Task n-1 
 - [ ] Task n 
 
-*Story Points*
-- [1, 2, 3, 5, 8, 13, 20, 40]
-
-*Priority*
-- [Low, Medium, High]
-
-*Risk*
-- [Low, Medium, High]
-
 *Demo requirement*
 1. The user does x
 2. The system does y
