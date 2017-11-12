@@ -16,7 +16,7 @@ def cluster_facts(data_tuple, min_sample, eps):
     """
     X = data_tuple[0]
     ms = DBSCAN(min_samples=min_sample, eps=eps, n_jobs=-1)
-    Log.write('Starting HDBSCAN')
+    Log.write('Starting DBSCAN')
     Log.write('Min Epsilon: ' + str(eps))
     Log.write('Min Sample: ' + str(min_sample))
     ms.fit(X)

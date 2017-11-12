@@ -36,6 +36,7 @@ class Save():
         if directory != '':
             __rel_path = directory
             dir_path = os.path.join(self.__output_dir, __rel_path)
+            # Create directory if it doesn't exist
             if not os.path.exists(dir_path):
                 os.makedirs(dir_path)
             self.__output_dir = os.path.abspath(__file__ + r"/../" + directory + '/')
@@ -56,6 +57,7 @@ class Save():
     def save_text_file(self, filename, text, protocol='a'):
         """
         Save text file to new directory
+        Mainly used for cluster to text
         :param filename: String
         :param text: String or List
         :param protocol: String --> 'a', 'wb', 'w', 'a+', 'w+'

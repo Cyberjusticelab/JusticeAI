@@ -2,6 +2,18 @@ import os
 import joblib
 from src.ml_service.outputs.output import Log
 
+"""
+Only store models that are good for use in this directory
+"""
+
+'''
+Can't be bothered with this now
+but refactor Load with only 1 load method that uses enums of 
+.bin files
+'''
+class ModelNames():
+    processed_facts = 'processed_facts.bin'
+    processed_decisions = 'processed_decisions.bin'
 
 class Load():
     __script_dir = os.path.abspath(__file__ + r"/../")

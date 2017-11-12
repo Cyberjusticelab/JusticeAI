@@ -1,7 +1,6 @@
 FROM python:3
-
-ARGS CJL_USER
-ARGS CJL_PASS
+ARG CJL_USER
+ARG CJL_PASS
 WORKDIR /usr/src/app
 
 RUN mkdir -p /usr/src/app/src/ml_service
@@ -9,6 +8,9 @@ RUN mkdir -p /usr/src/app/src/ml_service
 COPY ./src/ml_service/requirements.txt ./src/ml_service/
 COPY ./src/ml_service/requirements_test.txt ./src/ml_service/
 RUN pip install -r ./src/ml_service/requirements_test.txt
+
+RUN pip install hdbscan
+RUN python3 -c "import nltk; nltk.download('all')"
 
 COPY . .
 

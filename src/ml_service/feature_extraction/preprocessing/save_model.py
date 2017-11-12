@@ -33,8 +33,17 @@ def save(data_to_extract, filename=None, nb_of_files=-1):
 
     data_tuple = (X, labels, precedence_files)
 
+    '''
+    Refactor those with enums which can be used in ml_models directory
+    '''
+    if data_to_extract == 'facts':
+        model_name = 'processed_facts.bin'
+    else:
+        model_name = 'processed_decisions.bin'
+
     s = Save(directory=r'preprocess_model/')
     if filename is None:
-        s.binarize_model(data_to_extract + '.bin', data_tuple)
+        s.binarize_model(model_name + '.bin', data_tuple)
     else:
+        # this only exists to allow unittests
         s.binarize_model(filename + '.bin', data_tuple)
