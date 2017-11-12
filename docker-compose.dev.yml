@@ -14,8 +14,7 @@ services:
     volumes:
       - ./src/nlp_service:/usr/src/app/src/nlp_service
       - /usr/src/app/src/nlp_service/data
-    # command: gunicorn -w 3 --log-level DEBUG --reload -b 0.0.0.0:3002 app:app
-    command: pwd
+    command: python -m flask run --host 0.0.0.0 -p 3002
     environment:
       POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
   backend_service:

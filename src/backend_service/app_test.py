@@ -4,8 +4,10 @@ from io import BytesIO
 
 from werkzeug.datastructures import FileStorage
 
+import util
+
+util.load_src_dir_to_sys_path()
 from services import fileService
-from services.factService import FactService
 from services.staticStrings import StaticStrings
 
 
@@ -14,25 +16,8 @@ from services.staticStrings import StaticStrings
 ################
 
 def test_static_strings():
-    string = StaticStrings.chooseFrom(StaticStrings.category_acknowledge)
-    assert string in StaticStrings.category_acknowledge
-
-
-###############
-# factService
-###############
-
-def test_fact_service():
-    fact, question = FactService.get_question('rent_change', [])
-    assert fact == 'lease_term_type'
-    assert question == "Is there a specified end date to your lease?"
-
-
-def test_fact_service_empty():
-    fact, question = FactService.get_question('rent_change',
-                                              ['lease_term_type', 'is_rent_in_lease', 'rent_in_lease_amount'])
-    assert fact is None
-    assert question is None
+    string = StaticStrings.chooseFrom(StaticStrings.problem_inquiry_landlord)
+    assert string in StaticStrings.problem_inquiry_landlord
 
 
 ###############

@@ -55,8 +55,11 @@ def receive_message(conversation_id, message):
         enforce_possible_answer = True
     else:
         # Add user's message
-        user_message = Message(sender_type=SenderType.USER, text=message)
+        user_message = Message(sender_type=SenderType.USER, text=message, relevant_fact=conversation.current_fact)
         conversation.messages.append(user_message)
+
+        # Commit user's message
+        db.session.commit()
 
         # Generate response text & optional parameters
         response = __generate_response(conversation, user_message.text)
@@ -70,14 +73,16 @@ def receive_message(conversation_id, message):
             sender_type=SenderType.BOT,
             text=response_text,
             possible_answers=possible_answers,
-            enforce_possible_answer=enforce_possible_answer
+            enforce_possible_answer=enforce_possible_answer,
+            relevant_fact=conversation.current_fact
         )
     elif response_html is not None:
         response = Message(
             sender_type=SenderType.BOT,
             text=response_html,
             possible_answers=possible_answers,
-            enforce_possible_answer=enforce_possible_answer
+            enforce_possible_answer=enforce_possible_answer,
+            relevant_fact=conversation.current_fact
         )
     else:
         return abort(make_response(jsonify(message="Response text not generated"), 400))
@@ -88,7 +93,7 @@ def receive_message(conversation_id, message):
 
     conversation.messages.append(response)
 
-    # Commit
+    # Commit bot's message
     db.session.commit()
 
     # Build response dict
@@ -166,9 +171,17 @@ def __generate_response(conversation, message):
         return __ask_initial_question(conversation)
     elif conversation.claim_category is None:
         nlp_request = nlpService.claim_category(conversation.id, message)
+
+        # Refresh the session, since nlpService may have modified conversation
+        db.session.refresh(conversation)
+
         return {'response_text': nlp_request['message']}
     elif conversation.current_fact is not None:
         nlp_request = nlpService.submit_message(conversation.id, message)
+
+        # Refresh the session, since nlpService may have modified conversation
+        db.session.refresh(conversation)
+
         return {'response_text': nlp_request['message']}
 
 
