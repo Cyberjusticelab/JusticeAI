@@ -1,7 +1,6 @@
 FROM python:3
-
-ARGS CJL_USER
-ARGS CJL_PASS
+ARG CJL_USER
+ARG CJL_PASS
 WORKDIR /usr/src/app
 
 RUN mkdir -p /usr/src/app/src/ml_service
