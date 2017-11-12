@@ -9,7 +9,7 @@ services:
       - CJL_USER
       - CJL_PASS
     image: procezeus/ml_service
-    # restart: always
+    restart: always
     networks:
       - procezeus_net
   nlp_service:
@@ -17,7 +17,7 @@ services:
       context: .
       dockerfile: ./src/nlp_service/Dockerfile
     image: procezeus/nlp_service
-    # restart: always
+    restart: always
     depends_on:
       - db_state_service
     networks:
@@ -27,7 +27,7 @@ services:
       context: .
       dockerfile: ./src/backend_service/Dockerfile
     image: procezeus/backend_service
-    # restart: always
+    restart: always
     depends_on:
       - db_state_service
       - nlp_service
@@ -37,7 +37,7 @@ services:
     build:
       context: .
       dockerfile: ./src/web_client/Dockerfile
-    # restart: always
+    restart: always
     image: procezeus/web_client
     depends_on:
       - backend_service

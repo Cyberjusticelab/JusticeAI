@@ -12,7 +12,7 @@ services:
     environment:
       POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
   db_state_service:
-    command: echo "Currently no migrations to run."
+    command: python3 -m flask db migrate && python3 -m flask db upgrade
     environment:
       POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
   web_client:

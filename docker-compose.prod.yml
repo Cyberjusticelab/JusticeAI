@@ -21,6 +21,7 @@ services:
     environment:
       NODE_ENV: production
   db_state_service:
+    command: python3 -m flask db upgrade
     environment:
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
   postgresql_db:
