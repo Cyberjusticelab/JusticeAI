@@ -55,7 +55,9 @@ class RasaClassifier():
     '''
 
     def classify_fact(self, fact_name, message):
-        return self.fact_interpreters[fact_name].parse(message)
+        if fact_name in self.fact_interpreters:
+            return self.fact_interpreters[fact_name].parse(message)
+        return None
 
     '''
         Training the interpreters one by one
