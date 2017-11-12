@@ -1,5 +1,5 @@
-__pycache__
-venv
+**/__pycache__
+**/venv
 .cache
 .coverage
 coverage.xml
@@ -13,3 +13,4 @@ coverage.xml
 /outputs/*log
 /ml_models/*.bin
 /feature_extraction/clustering/optimization/*.txt
+

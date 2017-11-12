@@ -1,4 +1,5 @@
 FROM python:3
+
 ARGS CJL_USER
 ARGS CJL_PASS
 WORKDIR /usr/src/app
