@@ -6,15 +6,6 @@ from src.ml_service.outputs.output import Log
 Only store models that are good for use in this directory
 """
 
-'''
-Can't be bothered with this now
-but refactor Load with only 1 load method that uses enums of 
-.bin files
-'''
-class ModelNames():
-    processed_facts = 'processed_facts.bin'
-    processed_decisions = 'processed_decisions.bin'
-
 class Load():
     __script_dir = os.path.abspath(__file__ + r"/../")
     __processed_facts = 'processed_facts.bin'
@@ -24,7 +15,8 @@ class Load():
     def load_facts_from_bin(filename=None):
         """
         Loads binarized facts
-        :return: (matrix, list[strings], list[strings], list[[string])
+        :param: filename: String
+        :return: (matrix, list[strings], list[strings], list[string])
         """
         try:
             Log.write("Loading Preprocessed facts... May take a few seconds")
@@ -44,6 +36,7 @@ class Load():
     def load_decisions_from_bin(filename=None):
         """
         Loads binarized facts
+        :param: filename: String
         :return: (matrix, list[strings], list[strings], list[[string])
         """
         try:
