@@ -6,14 +6,16 @@ services:
       - 3001:3001
     volumes:
       - ./src/ml_service:/usr/src/app/src/ml_service
-    command: gunicorn -w 3 --log-level DEBUG --reload -b 0.0.0.0:3001 app:app
+    # command: gunicorn -w 3 --log-level DEBUG --reload -b 0.0.0.0:3001 app:app
+    command: pwd
   nlp_service:
     ports:
       - 3002:3002
     volumes:
       - ./src/nlp_service:/usr/src/app/src/nlp_service
       - /usr/src/app/src/nlp_service/data
-    command: gunicorn -w 3 --log-level DEBUG --reload -b 0.0.0.0:3002 app:app
+    # command: gunicorn -w 3 --log-level DEBUG --reload -b 0.0.0.0:3002 app:app
+    command: pwd
     environment:
       POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
   backend_service:
@@ -21,11 +23,12 @@ services:
       - 3003:3003
     volumes:
       - ./src/backend_service:/usr/src/app/src/backend_service
-    command: gunicorn -w 3 --log-level DEBUG --reload -b 0.0.0.0:3003 app:app
+    # command: gunicorn -w 3 --log-level DEBUG --reload -b 0.0.0.0:3003 app:app
+    command: pwd
     environment:
       POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
   db_state_service:
-    command: echo "Currently no migrations to run."
+    command: python3 -m flask db migrate
     environment:
       POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
   web_client:

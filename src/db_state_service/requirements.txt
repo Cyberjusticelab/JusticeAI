@@ -3,5 +3,5 @@ Flask-SQLAlchemy==2.3.1
 flask-marshmallow==0.8.0
 marshmallow-sqlalchemy==0.13.1
 marshmallow_enum==1.4.1
-psycopg2==2.7
+--no-binary :all: psycopg2==2.7
 Flask-Migrate==2.1.1

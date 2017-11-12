@@ -15,5 +15,5 @@ WORKDIR /usr/src/app/src/db_state_service
 ENV FLASK_APP=app.py
 
 # TODO: This service to be responsible for DB init & migrations
-CMD [ "flask db init" ]
+CMD [ "python3", "-m", "flask", "db", "migrate" ]
 
