@@ -7,7 +7,7 @@ import util
 from controllers import conversationController, legalController
 
 util.load_src_dir_to_sys_path()
-from postgresql_db import database
+from db_state_service import database
 
 # Flask Setup
 app = Flask(__name__)

@@ -41,6 +41,15 @@ services:
       - backend_service
     networks:
       - procezeus_net
+  db_state_service:
+    build:
+      context: .
+      dockerfile: ./src/db_state_service/Dockerfile
+    image: procezeus/db_state_service
+    depends_on:
+      - postgresql_db
+    networks:
+      - procezeus_net
   postgresql_db:
     image: postgres
     restart: always

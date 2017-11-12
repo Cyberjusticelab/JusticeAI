@@ -14,6 +14,10 @@ This module is responsible for all things related to predicting outcomes and cla
 
 This module contains the Web UI that users will interact with
 
+## DB State Service
+
+This module is responsible for database initialization and application of database migration. It also contains shared database libraries across services
+
 ## Postgresql
 
 This module contains the data persistence layer of our system

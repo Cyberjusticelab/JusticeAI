@@ -5,7 +5,7 @@ from flask import jsonify, abort, make_response
 import util
 
 util.load_src_dir_to_sys_path()
-from postgresql_db.models import *
+from db_state_service.models import *
 from services import nlpService, fileService
 from services.staticStrings import *
 

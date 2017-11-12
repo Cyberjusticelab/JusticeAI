@@ -24,6 +24,10 @@ services:
     command: gunicorn -w 3 --log-level DEBUG --reload -b 0.0.0.0:3003 app:app
     environment:
       POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
+  db_state_service:
+    command: echo "Currently no migrations to run."
+    environment:
+      POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
   web_client:
     command: npm start
     ports:

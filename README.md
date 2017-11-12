@@ -68,6 +68,7 @@ The following services can run individually or tested against:
 - [Backend Service](src/backend_service/README.md)
 - [Machine Learning Service](src/ml_service/README.md)
 - [Natural Language Processing Service](src/nlp_service/README.md)
+- [Database State Service](src/db_state_service/README.md)
 - [PostgreSQL Database](src/postgresql_db/README.md)
 
 ## Deployment

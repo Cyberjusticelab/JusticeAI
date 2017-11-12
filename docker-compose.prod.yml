@@ -20,6 +20,9 @@ services:
       - 3039:3039
     environment:
       NODE_ENV: production
+  db_state_service:
+    environment:
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
   postgresql_db:
     environment:
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
