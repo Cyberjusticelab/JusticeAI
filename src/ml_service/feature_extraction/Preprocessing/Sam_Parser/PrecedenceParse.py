@@ -165,7 +165,7 @@ class Precedence_Parser:
             files_parse += 1
 
             percent = float(files_parse / nb_of_files) * 100
-            stdout.write("\rData Extraction: %f " % percent)
+            stdout.write("\rData Extraction: %.2f%%" % percent)
             stdout.flush()
 
             self.__parse(i)
