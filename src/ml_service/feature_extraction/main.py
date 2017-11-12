@@ -18,7 +18,7 @@ def cluster_means(arguments):
     :param arguments: list[Strings]
     :return: None
     """
-    data_tuple = get_precendece_model(arguments[0])
+    data_tuple = get_precendent_model(arguments[0])
     start = time.time()
     KMeansWrapper(data_tuple)
     done = time.time()
@@ -32,7 +32,7 @@ def cluster_dbscan(arguments):
     :param arguments: list[strings]
     :return: None
     """
-    data_tuple = get_precendece_model(arguments[0])
+    data_tuple = get_precendent_model(arguments[0])
     start = time.time()
     cluster_facts(data_tuple, int(arguments[1]), float(arguments[2]))
     done = time.time()
@@ -46,7 +46,7 @@ def cluster_hdbscan(arguments):
     :param arguments: list[String]
     :return: None
     """
-    data_tuple = get_precendece_model(arguments[0])
+    data_tuple = get_precendent_model(arguments[0])
     hdb = HdbscanTrain()
     start = time.time()
     hdb.cluster(data_tuple, int(arguments[1]), int(arguments[2]))
@@ -55,7 +55,7 @@ def cluster_hdbscan(arguments):
     Log.write(done - start)
 
 
-def parse_precedence(command):
+def parse_precedent(command):
     """
     Creates a model of the precedence as binary
     :param command: String
@@ -71,7 +71,7 @@ def parse_precedence(command):
         sys.exit(1)
     save_model.save(data)
 
-def get_precendece_model(command):
+def get_precendent_model(command):
     """
     Selects precedence model based on command
     :param command: string
@@ -97,7 +97,7 @@ def process_command(command, arguments):
     elif command == '--kmeans':
         cluster_means(arguments)
     elif command == '--parse':
-        parse_precedence(arguments[0])
+        parse_precedent(arguments[0])
     else:
         Log.write('Command not recognized:' + command)
         sys.exit(1)

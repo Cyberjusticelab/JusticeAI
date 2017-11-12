@@ -11,5 +11,5 @@ class TestStringMethods(unittest.TestCase):
 
     def test_parse_precedence(self):
         with self.assertRaises(SystemExit) as cm:
-            main.parse_precedence('random')
+            main.parse_precedent('random')
         self.assertEqual(cm.exception.code, 1)
