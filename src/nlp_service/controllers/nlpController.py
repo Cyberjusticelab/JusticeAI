@@ -11,13 +11,22 @@ from services.responseStrings import Responses
 from nlp_service.app import db
 
 # Globals
-from src.postgresql_db.models import Conversation, ClaimCategory
+from src.postgresql_db.models import Conversation, ClaimCategory, Fact
 
+# Decided value of 30% percent difference (which is used for the reprompt and calculated from the percent difference: |First-Second|/[1/2(First+Second)]
+# The first and the second are described by the the #1 and #2 intent returned by the Rasa's SVM intent calculation
 minimum_percent_difference = 0.3
 
-# Rasa Classifier
+# Rasa Classifier - Initialization of Rasa Classifier to train the data and produce the required models per facts
 rasaClassifier = RasaClassifier()
 rasaClassifier.train(force_train=False)
+
+"""
+       Classify the claim and bring back a category between rent change, lease termination, nonpayment and deposits
+        conversation_id: The id of the conversation inside of the database (i-->i++ on a new conversation)
+        message: message given to classify between the previously mentionned categories
+        returns: return a jsonified formatted message holding the category and the first question to be shown to the user
+"""
 
 
 def classify_claim_category(conversation_id, message):
@@ -60,6 +69,14 @@ def classify_claim_category(conversation_id, message):
     return jsonify({
         "message": message
     })
+
+
+'''
+    This service chooses the next question to be asked to the client after the category is chosen in classify_claim_category
+        conversation_id: ID of the conversation
+        message: message given by the user to the system
+        :returns back the next question in the flow of the conversation with the user
+'''
 
 
 def classify_fact_value(conversation_id, message):
@@ -105,6 +122,13 @@ def classify_fact_value(conversation_id, message):
     })
 
 
+'''
+        Extracting method that will return the claim category by name if the intent percentage difference is satisfactory
+        message: message inputted by the user
+        :returns the name of a problem category 
+'''
+
+
 def __classify_claim_category(message):
     classify_dict = rasaClassifier.classify_problem_category(message)
     print(classify_dict)
@@ -117,6 +141,15 @@ def __classify_claim_category(message):
         return determined_problem_category['name']
     else:
         return None
+
+
+'''
+    Method which extracts the intent of the message that was inputted by the user
+    current_fact_name: which fact we are checking for i.e. is_student
+    message: the message given by the user
+    :returns the name of the intent
+
+'''
 
 
 def __extract_entity(current_fact_name, message):
@@ -132,7 +165,11 @@ def __extract_entity(current_fact_name, message):
     else:
         return None
 
-
+'''
+    Method which verifies the accuracy of the classification with a percentage difference between the intent with the largest confidence and the intent with the 2nd largest confidence
+    classify_dict: the dict holding the intents, classification %, entities
+    :returns False if percentage difference is below 30%
+'''
 # Determine confidence of returned intent
 def __is_answer_sufficient(classify_dict):
     if len(classify_dict['intent_ranking']) > 1:
