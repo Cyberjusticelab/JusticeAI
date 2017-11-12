@@ -67,7 +67,7 @@ if __name__ == '__main__':
     model = None
     numpy.random.shuffle(matrix)
     #hist = epsilon_histogram(matrix[:6000])
-    hist = cluster_size_histogram(matrix[:3000], 1.5)
+    hist = cluster_size_histogram(matrix[:3000], 1.0)
     X = list(hist.keys())
     Y = list(hist.values())
     plt.bar(X, Y)
