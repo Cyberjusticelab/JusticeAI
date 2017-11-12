@@ -17,7 +17,7 @@ RUN cd src/nlp_service && python init_gram_classify.py
 RUN python -m spacy download en
 
 # Train RASA classifier
-RUN python init_gram_classify.py
+RUN cd src/nlp_service && python init_rasa.py
 
 WORKDIR /usr/src/app/src/nlp_service
 
