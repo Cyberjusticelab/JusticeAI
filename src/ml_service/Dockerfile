@@ -9,6 +9,8 @@ COPY ./src/ml_service/requirements.txt ./src/ml_service/
 COPY ./src/ml_service/requirements_test.txt ./src/ml_service/
 RUN pip install -r ./src/ml_service/requirements_test.txt
 
+RUN pip install hdbscan
+
 COPY . .
 
 ENV CJL_USER ${CJL_USER}
