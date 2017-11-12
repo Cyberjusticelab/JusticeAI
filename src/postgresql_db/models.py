@@ -1,4 +1,5 @@
 import datetime
+import os
 from enum import Enum
 
 from flask import Flask
@@ -8,7 +9,7 @@ from marshmallow_enum import EnumField
 import postgresql_db.database as database
 
 app = Flask(__name__)
-db = database.connect(app, 'postgres', 'postgres', 'postgres', host='127.0.0.1')
+db = database.connect(app, 'postgres', os.environ['POSTGRES_PASSWORD'], 'postgres')
 ma = Marshmallow(app)
 
 '''

@@ -9,6 +9,7 @@ from controllers import nlpController
 util.load_src_dir_to_sys_path()
 from postgresql_db import database
 
+# Flask Setup
 app = Flask(__name__)
 
 # DB Setup

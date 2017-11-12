@@ -24,17 +24,18 @@ class RasaClassifier():
         self.trainer = Trainer(self.rasa_config)
 
     '''
-        Training method that trains the data sets from facts and problem categories separately
-            force_train=False will ensure the saved models are used
-        result: creates models on trained data
-    '''
-
-    def train(self, force_train=False):
+          Training method that trains the data sets from facts and problem categories separately
+              force_train=False will ensure the saved models are used
+          result: creates models on trained data
+      '''
+    def train(self, force_train=False, initialize_interpreters=True):
         # Train fact classifiers
-        self.__train_interpreter(self.fact_data_dir, self.fact_interpreters, force_train=force_train)
+        self.__train_interpreter(self.fact_data_dir, self.fact_interpreters, force_train=force_train,
+                                 initialize_interpreters=initialize_interpreters)
 
         # Train problem category classifiers
-        self.__train_interpreter(self.category_data_dir, self.problem_category_interpreters, force_train=force_train)
+        self.__train_interpreter(self.category_data_dir, self.problem_category_interpreters, force_train=force_train,
+                                 initialize_interpreters=initialize_interpreters)
 
     '''
         The parsing of the message given by the user to determine the category of the claim i.e. lease_termination
@@ -61,11 +62,13 @@ class RasaClassifier():
         force_train: set ti either true or false so it knows if it should train new models (if empty dir) or use the old ones already present 
         :returns dict of the fact with intent and entities
     '''
-
-    def __train_interpreter(self, training_data_dir, interpreter_dict, force_train):
+    def __train_interpreter(self, training_data_dir, interpreter_dict, force_train, initialize_interpreters):
         print("~~Starting training with data directory {}~~".format(training_data_dir))
         if force_train is False:
-            print("->No force train, using saved models".format(training_data_dir))
+            print("->No force train, using saved models.".format(training_data_dir))
+
+        if initialize_interpreters is False:
+            print("->No interpreter initialization. Will only create model data.".format(training_data_dir))
 
         training_start = timeit.default_timer()
 
@@ -81,7 +84,8 @@ class RasaClassifier():
                 model_directory = self.model_dir + "default/" + fact_key
 
             print("Model data directory for fact {}: {}".format(fact_key, model_directory))
-            interpreter_dict[fact_key] = Interpreter.load(model_directory, self.rasa_config)
+            if initialize_interpreters:
+                interpreter_dict[fact_key] = Interpreter.load(model_directory, self.rasa_config)
 
         training_end = timeit.default_timer()
         total_training_time = round(training_end - training_start, 2)
