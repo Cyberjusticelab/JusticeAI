@@ -147,6 +147,7 @@ class File(db.Model):
 Bootstrapping Database
 ----------------------
 '''
+
 print("Creating database tables from models.py")
 db.create_all()
 

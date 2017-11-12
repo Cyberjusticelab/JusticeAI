@@ -165,7 +165,6 @@ def __generate_response(conversation, message):
     if __has_just_accepted_disclaimer(conversation):
         return __ask_initial_question(conversation)
     elif conversation.claim_category is None:
-        print("Claim category is none")
         nlp_request = nlpService.claim_category(conversation.id, message)
         return {'response_text': nlp_request['message']}
     elif conversation.current_fact is not None:

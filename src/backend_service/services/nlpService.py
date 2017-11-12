@@ -1,7 +1,7 @@
 import requests
 
-#NLP_URL = "http://nlp_service:3002"
-NLP_URL = "http://127.0.0.1:3002"
+NLP_URL = "http://nlp_service:3002"
+
 
 def claim_category(conversation_id, message):
     req_dict = {

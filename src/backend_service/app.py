@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, request, abort, make_response, jsonify
 from flask_cors import CORS
 
@@ -11,11 +13,11 @@ from postgresql_db import database
 app = Flask(__name__)
 
 # DB Setup
-# db = database.connect(app, 'postgres', os.environ['POSTGRES_PASSWORD'], 'postgres')
-db = database.connect(app, 'postgres', 'postgres', 'postgres', host='127.0.0.1')
+db = database.connect(app, 'postgres', os.environ['POSTGRES_PASSWORD'], 'postgres')
 
 # Cors Setup
 CORS(app)
+
 
 @app.route("/new", methods=['POST'])
 def init_conversation():

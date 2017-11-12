@@ -20,13 +20,6 @@ class StaticStrings:
         "I can help you with all sorts of tenant issues, {name}! Describe your problem to me and upload your lease if available."
     ]
 
-    # Acknowledge claim category resolution
-    category_acknowledge = [
-        "I see, you're having issues with {claim_category}. {first_question}",
-        "As I understand it, your problems have to do with {claim_category}. {first_question}",
-        "Oh yes, I know all about problems with {claim_category}. {first_question}"
-    ]
-
     @staticmethod
     def chooseFrom(strings):
         choice = random.choice

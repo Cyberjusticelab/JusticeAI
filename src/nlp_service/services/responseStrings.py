@@ -36,7 +36,7 @@ class Responses:
 
     # Fact Questions
     fact_questions = {
-        "lease_term_type": ["Is there a specified end date to your lease?"],
+        "lease_type": ["Is there a specified end date to your lease?"],
         "has_lease_expired": ["Has the lease expired already?"],
         "is_student": ["Are you a student?"],
         "is_habitable": ["How would you describe your dwelling? Is it habitable?"],

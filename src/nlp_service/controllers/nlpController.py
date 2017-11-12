@@ -33,7 +33,7 @@ def classify_claim_category(conversation_id, message):
         'ask_lease_termination': ClaimCategory.LEASE_TERMINATION,
         'ask_rent_change': ClaimCategory.RENT_CHANGE,
         'ask_nonpayment': ClaimCategory.NONPAYMENT,
-        'ask_deposits': ClaimCategory.DEPOSITS
+        'ask_deposit': ClaimCategory.DEPOSITS
     }[claim_category]
 
     # Get first fact based on claim category
@@ -51,8 +51,9 @@ def classify_claim_category(conversation_id, message):
 
     # Generate next message
     first_fact_question = Responses.fact_question(first_fact.name)
-    message = Responses.chooseFrom(Responses.category_acknowledge).format(claim_category=claim_category,
-                                                                          first_question=first_fact_question)
+    message = Responses.chooseFrom(Responses.category_acknowledge).format(
+        claim_category=conversation.claim_category.value.lower().replace("_", " "),
+        first_question=first_fact_question)
 
     return jsonify({
         "message": message
@@ -104,6 +105,7 @@ def classify_fact_value(conversation_id, message):
 
 def __classify_claim_category(message):
     classify_dict = rasaClassifier.classify_problem_category(message)
+    print(classify_dict)
 
     # Return the claim category, or None if the answer was insufficient in determining one
     if __is_answer_sufficient(classify_dict):
