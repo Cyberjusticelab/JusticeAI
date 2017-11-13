@@ -2,13 +2,13 @@ version: '3'
 
 services:
   ml_service:
-    command: bash -c 'pytest; autopep8 -dr .; bash <(curl -s https://codecov.io/bash)'
+    command: bash -c 'pytest && autopep8 -dr . && bash <(curl -s https://codecov.io/bash)'
   nlp_service:
-    command: bash -c 'pytest;  autopep8 -dr .; bash <(curl -s https://codecov.io/bash)'
+    command: bash -c 'pytest &&  autopep8 -dr . && bash <(curl -s https://codecov.io/bash)'
     environment:
       POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
   backend_service:
-    command: bash -c 'pytest; autopep8 -dr .; bash <(curl -s https://codecov.io/bash)'
+    command: bash -c 'pytest && autopep8 -dr . && bash <(curl -s https://codecov.io/bash)'
     environment:
       POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
   web_client:
