@@ -2,17 +2,17 @@ version: '3'
 
 services:
   ml_service:
-    command: bash -c 'pytest && if ! [ -z "$$(autopep8 -dr .)" ]; then autopep8 -dr .; exit 1; fi; bash <(curl -s https://codecov.io/bash)'
+    command: bash -c 'pytest; autopep8 -dr .; bash <(curl -s https://codecov.io/bash)'
   nlp_service:
-    command: bash -c 'pytest && if ! [ -z "$$(autopep8 -dr .)" ]; then autopep8 -dr .; exit 1; fi; bash <(curl -s https://codecov.io/bash)'
+    command: bash -c 'pytest;  autopep8 -dr .; bash <(curl -s https://codecov.io/bash)'
     environment:
       POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
   backend_service:
-    command: bash -c 'pytest && if ! [ -z "$$(autopep8 -dr .)" ]; then autopep8 -dr .; exit 1; fi; bash <(curl -s https://codecov.io/bash)'
+    command: bash -c 'pytest; then autopep8 -dr .; bash <(curl -s https://codecov.io/bash)'
     environment:
       POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
   web_client:
-    command: bash -c "npm run test && npm run lint && bash <(curl -s https://codecov.io/bash)"
+    command: bash -c "npm run test && bash <(curl -s https://codecov.io/bash)"
   postgresql_db:
     environment:
       POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
