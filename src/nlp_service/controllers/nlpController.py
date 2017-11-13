@@ -177,6 +177,6 @@ def __is_answer_sufficient(classify_dict):
     if len(classify_dict['intent_ranking']) > 1:
         percent_difference = RasaClassifier.intent_percent_difference(classify_dict)
         highest_intent_confidence = classify_dict['intent']['confidence']
-        if highest_intent_confidence < minimum_intent_confidence_threshold and percent_difference < minimum_percent_difference:
+        if highest_intent_confidence < minimum_intent_confidence_threshold or percent_difference < minimum_percent_difference:
             return False
     return True
