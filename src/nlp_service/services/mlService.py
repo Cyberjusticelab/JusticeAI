@@ -4,10 +4,10 @@ from postgresql_db.models import Fact, FactEntity
 
 ML_URL = "http://ml_service:3001"
 
-'''
+"""
     Placeholder until the interface of the ML service is defined
     :returns first fact to ask
-'''
+"""
 
 
 def submit_claim_category(claim_category):
@@ -16,13 +16,13 @@ def submit_claim_category(claim_category):
     }
 
 
-'''
+"""
     This is a placeholder until the interface for the ML service is defined.
     conversation: the current conversation
     current_fact: the current fact
     entity_value: value of the fact
     :returns next fact to ask
-'''
+"""
 
 
 def submit_resolved_fact(conversation, current_fact, entity_value):

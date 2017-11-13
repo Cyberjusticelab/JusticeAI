@@ -72,12 +72,12 @@ def classify_claim_category(conversation_id, message):
     })
 
 
-'''
+"""
     This service chooses the next question to be asked to the client after the category is chosen in classify_claim_category
         conversation_id: ID of the conversation
         message: message given by the user to the system
         :returns back the next question in the flow of the conversation with the user
-'''
+"""
 
 
 def classify_fact_value(conversation_id, message):
@@ -123,11 +123,11 @@ def classify_fact_value(conversation_id, message):
     })
 
 
-'''
+"""
         Extracting method that will return the claim category by name if the intent percentage difference is satisfactory
         message: message inputted by the user
         :returns the name of a problem category 
-'''
+"""
 
 
 def __classify_claim_category(message):
@@ -144,13 +144,13 @@ def __classify_claim_category(message):
         return None
 
 
-'''
+"""
     Method which extracts the intent of the message that was inputted by the user
     current_fact_name: which fact we are checking for i.e. is_student
     message: the message given by the user
     :returns the name of the intent
 
-'''
+"""
 
 
 def __extract_entity(current_fact_name, message):
@@ -167,11 +167,11 @@ def __extract_entity(current_fact_name, message):
         return None
 
 
-'''
+"""
     Method which verifies the accuracy of the classification with a percentage difference between the intent with the largest confidence and the intent with the 2nd largest confidence
     classify_dict: the dict holding the intents, classification %, entities
     :returns False if percentage difference is below 30%
-'''
+"""
 
 
 # Determine confidence of returned intent
