@@ -4,9 +4,9 @@ from flask import Flask, request, abort, make_response, jsonify
 from flask_cors import CORS
 
 import util
-from controllers import conversationController, legalController
-
 util.load_src_dir_to_sys_path()
+
+from controllers import conversationController, legalController
 from postgresql_db import database
 
 # Flask Setup
