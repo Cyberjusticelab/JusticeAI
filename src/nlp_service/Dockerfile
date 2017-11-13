@@ -1,6 +1,6 @@
 FROM python:3
 
-ENV PYTHONPATH /usr/src/app/src/nlp_service
+ENV PYTHONPATH /usr/src/app/src:/usr/src/app/src/nlp_service
 WORKDIR /usr/src/app
 
 RUN mkdir -p /usr/src/app/src/nlp_service

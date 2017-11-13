@@ -3,7 +3,7 @@ ARG CJL_USER
 ARG CJL_PASS
 ENV CJL_USER ${CJL_USER}
 ENV CJL_PASS ${CJL_PASS}
-ENV PYTHONPATH /usr/src/app/src/ml_service
+ENV PYTHONPATH /usr/src/app/src:/usr/src/app/src/ml_service
 
 
 WORKDIR /usr/src/app
