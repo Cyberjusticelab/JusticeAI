@@ -9,7 +9,7 @@ from postgresql_db.models import *
 from services import nlpService, fileService
 from services.staticStrings import *
 
-from backend_service.app import db
+from app import db
 
 ########################
 # Conversation Handling
