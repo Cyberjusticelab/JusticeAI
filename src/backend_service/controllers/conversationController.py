@@ -11,21 +11,29 @@ from services.staticStrings import *
 
 from backend_service.app import db
 
-
 ########################
 # Conversation Handling
 ########################
 
 """
-This method attempts to get the conversation
+Returns a json representation of the Conversation
 conversation_id: ID of the conversation
-:return conversation if conversation exists, else, 404
+:return JSON representation of the conversation
 """
+
 
 def get_conversation(conversation_id):
     conversation = __get_conversation(conversation_id)
 
     return ConversationSchema().jsonify(conversation)
+
+
+"""
+Initializes a new Conversation
+name: Person's name
+person_type: Either LANDLORD or TENANT
+:return JSON with id of newly created Conversation
+"""
 
 
 def init_conversation(name, person_type):
@@ -43,6 +51,13 @@ def init_conversation(name, person_type):
             'conversation_id': conversation.id
         }
     )
+
+
+"""
+Process an incoming message from the user
+conversation_id: ID of the conversation
+:return JSON object with data for the front end, including response text and file requests.
+"""
 
 
 def receive_message(conversation_id, message):
@@ -123,6 +138,13 @@ def receive_message(conversation_id, message):
 # File Handling
 ################
 
+"""
+Retrieves a list of data about files the user has uploaded
+conversation_id: ID of the conversation
+:return JSON object with file data
+"""
+
+
 def get_file_list(conversation_id):
     conversation = __get_conversation(conversation_id)
 
@@ -131,6 +153,14 @@ def get_file_list(conversation_id):
             'files': [FileSchema().dump(file).data for file in conversation.files]
         }
     )
+
+
+"""
+Uploads a file and creates a database entry for the File linked to the Conversation
+conversation_id: ID of the conversation
+file: Werkzeug file data received from front end
+:return JSON object with file data
+"""
 
 
 def upload_file(conversation_id, file):
@@ -163,6 +193,13 @@ def upload_file(conversation_id, file):
 # Private Methods
 ##################
 
+"""
+Retrieves the conversation by id, returning 404 if not found.
+conversation_id: ID of the conversation
+:return Conversaion if exists, else aborts with 404
+"""
+
+
 def __get_conversation(conversation_id):
     conversation = db.session.query(Conversation).get(conversation_id)
 
@@ -170,6 +207,14 @@ def __get_conversation(conversation_id):
         return conversation
 
     abort(make_response(jsonify(message="Conversation does not exist"), 404))
+
+
+"""
+Generates the next response for the bot, based on conversation's state
+conversation: Conversation
+message: User's message
+:return Next response for bot
+"""
 
 
 def __generate_response(conversation, message):
@@ -189,6 +234,13 @@ def __generate_response(conversation, message):
         db.session.refresh(conversation)
 
         return {'response_text': nlp_request['message']}
+
+
+"""
+Returns the initial question to ask, and optionally a file request
+conversation: Conversation
+:return Next response for bot
+"""
 
 
 def __ask_initial_question(conversation):

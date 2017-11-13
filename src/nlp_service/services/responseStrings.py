@@ -33,12 +33,24 @@ class Responses:
         "missing_response": ["Oops, something went wrong finding a response. Sorry about that."]
     }
 
+    """
+    Gets a question to ask for a particular fact
+    fact_key: The fact's key
+    :returns A question to ask to attempt to resolve the fact value
+    """
+
     @staticmethod
     def fact_question(fact_key):
         if fact_key in Responses.fact_questions:
             return Responses.chooseFrom(Responses.fact_questions[fact_key])
 
         return Responses.chooseFrom(Responses.fact_questions["missing_response"])
+
+    """
+    Chooses a random string from a list of strings
+    string: list of strings
+    :returns A random string from the list
+    """
 
     @staticmethod
     def chooseFrom(strings):

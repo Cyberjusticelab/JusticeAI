@@ -10,10 +10,6 @@ util.load_src_dir_to_sys_path()
 from services import fileService
 from services.staticStrings import StaticStrings
 
-################
-# staticStrings
-################
-
 """
     Test for static response strings
     asserts that the proper static string of introduction is returned when "landlord" is selected by the user
@@ -24,10 +20,6 @@ def test_static_strings():
     string = StaticStrings.chooseFrom(StaticStrings.problem_inquiry_landlord)
     assert string in StaticStrings.problem_inquiry_landlord
 
-
-###############
-# fileService
-###############
 
 """
     Test for file services

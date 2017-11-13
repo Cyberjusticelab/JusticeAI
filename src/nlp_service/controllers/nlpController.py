@@ -14,19 +14,19 @@ from postgresql_db.models import Conversation, ClaimCategory, Fact
 
 # Global Variables
 
-# Decided value of 30% percent difference (which is used for the reprompt and calculated from the percent difference: |First-Second|/[1/2(First+Second)]
-# The first and the second are described by the the #1 and #2 intent returned by the Rasa's SVM intent calculation
+# Decided value of 30% percent difference which is used to determine if a clarification is needed.
+# Based on percent difference of two highest intents determined.
 minimum_percent_difference = 0.3
 
-# Rasa Classifier - Initialization of Rasa Classifier to train the data and produce the required models per facts
+# Rasa Classifier - Initialization of RasaClassifier, used for claim category determination and fact value classification
 rasaClassifier = RasaClassifier()
 rasaClassifier.train(force_train=True)
 
 """
-       Classify the claim and bring back a category between rent change, lease termination, nonpayment and deposits
-        conversation_id: The id of the conversation inside of the database (i-->i++ on a new conversation)
-        message: message given to classify between the previously mentionned categories
-        returns: return a jsonified formatted message holding the category and the first question to be shown to the user
+Classifies the claim category from the user's message, set the Conversation's claim cateogry, and returns the first question to ask.
+conversation_id: ID of the Conversation
+message: message from the user
+:return JSON containing the next message the user should be given
 """
 
 
@@ -73,10 +73,10 @@ def classify_claim_category(conversation_id, message):
 
 
 """
-    This service chooses the next question to be asked to the client after the category is chosen in classify_claim_category
-        conversation_id: ID of the conversation
-        message: message given by the user to the system
-        :returns back the next question in the flow of the conversation with the user
+Classifies the value of the Conversation's current fact, based on the user's message.
+conversation_id: ID of the conversation
+message: message from the user
+:return JSON containing the next message the user should be given
 """
 
 
@@ -124,9 +124,9 @@ def classify_fact_value(conversation_id, message):
 
 
 """
-        Extracting method that will return the claim category by name if the intent percentage difference is satisfactory
-        message: message inputted by the user
-        :returns the name of a problem category 
+Classifies the claim category based on a message.
+message: message from user
+:returns problem category key
 """
 
 
@@ -137,19 +137,16 @@ def __classify_claim_category(message):
     # Return the claim category, or None if the answer was insufficient in determining one
     if __is_answer_sufficient(classify_dict):
         determined_problem_category = classify_dict['intent']
-        print("Confidence: {}%".format(round(determined_problem_category['confidence'], 3) * 100))
-        print("Intent: {}".format(determined_problem_category['name']))
         return determined_problem_category['name']
     else:
         return None
 
 
 """
-    Method which extracts the intent of the message that was inputted by the user
-    current_fact_name: which fact we are checking for i.e. is_student
-    message: the message given by the user
-    :returns the name of the intent
-
+Extracts the value of a fact, based on the current fact
+current_fact_name: which fact we are checking for i.e. is_student
+message: the message given by the user
+:returns the determined value for the fact specified
 """
 
 
@@ -160,17 +157,15 @@ def __extract_entity(current_fact_name, message):
     # Return the fact value, or None if the answer was insufficient in determining one
     if __is_answer_sufficient(classify_dict):
         determined_intent = classify_dict['intent']
-        print("Confidence: {}%".format(round(determined_intent['confidence'], 3) * 100))
-        print("Intent: {}".format(determined_intent['name']))
         return determined_intent['name']
     else:
         return None
 
 
 """
-    Method which verifies the accuracy of the classification with a percentage difference between the intent with the largest confidence and the intent with the 2nd largest confidence
-    classify_dict: the dict holding the intents, classification %, entities
-    :returns False if percentage difference is below 30%
+Method which verifies the accuracy of the classification with a percentage difference between the intent with the largest confidence and the intent with the 2nd largest confidence
+classify_dict: the dict holding the intents, classification %, entities
+:returns False if percentage difference is below minimum_percent_difference
 """
 
 
@@ -178,7 +173,6 @@ def __extract_entity(current_fact_name, message):
 def __is_answer_sufficient(classify_dict):
     if len(classify_dict['intent_ranking']) > 1:
         percent_difference = RasaClassifier.intent_percent_difference(classify_dict)
-        print("Percent Difference: {}%".format(round(percent_difference, 3) * 100))
         if percent_difference < minimum_percent_difference:
             return False
     return True

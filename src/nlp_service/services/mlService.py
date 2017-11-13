@@ -1,12 +1,12 @@
-import requests
-
 from postgresql_db.models import Fact, FactEntity
 
 ML_URL = "http://ml_service:3001"
 
 """
-    Placeholder until the interface of the ML service is defined
-    :returns first fact to ask
+Simulates the return values of the proposed ML service.
+Returns the first fact to ask a question for, based on claim category.
+claim_category: The claim category determined from user input
+:returns First fact to ask a question for
 """
 
 
@@ -17,11 +17,12 @@ def submit_claim_category(claim_category):
 
 
 """
-    This is a placeholder until the interface for the ML service is defined.
-    conversation: the current conversation
-    current_fact: the current fact
-    entity_value: value of the fact
-    :returns next fact to ask
+Simulates the return values of the proposed ML service.
+Returns the next fact to ask a question for
+conversation: the current conversation
+current_fact: the current fact
+entity_value: value of the fact
+:returns Next fact to ask a question for
 """
 
 
