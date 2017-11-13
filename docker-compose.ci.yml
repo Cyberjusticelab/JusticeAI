@@ -18,7 +18,8 @@ services:
   web_client:
     command: bash -c "npm run test && bash <(curl -s https://codecov.io/bash)"
     environment:
-      CI: "true"  postgresql_db:
+      CI: "true"
+      postgresql_db:
   postgresql_db:
     environment:
       POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
