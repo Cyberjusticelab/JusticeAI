@@ -16,6 +16,12 @@ from backend_service.app import db
 # Conversation Handling
 ########################
 
+"""
+This method attempts to get the conversation
+conversation_id: ID of the conversation
+:return conversation if conversation exists, else, 404
+"""
+
 def get_conversation(conversation_id):
     conversation = __get_conversation(conversation_id)
 
