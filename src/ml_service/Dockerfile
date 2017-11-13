@@ -1,6 +1,11 @@
 FROM python:3
 ARG CJL_USER
 ARG CJL_PASS
+ENV CJL_USER ${CJL_USER}
+ENV CJL_PASS ${CJL_PASS}
+ENV PYTHONPATH /usr/src/app/src/ml_service
+
+
 WORKDIR /usr/src/app
 
 RUN mkdir -p /usr/src/app/src/ml_service
@@ -13,8 +18,6 @@ RUN pip install hdbscan
 
 COPY . .
 
-ENV CJL_USER ${CJL_USER}
-ENV CJL_PASS ${CJL_PASS}
 RUN cd src/ml_service && python init.py
 
 WORKDIR /usr/src/app/src/ml_service

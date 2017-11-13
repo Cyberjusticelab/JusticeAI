@@ -1,5 +1,7 @@
 FROM python:3
 
+ENV PYTHONPATH /usr/src/app/src/backend_service
+
 WORKDIR /usr/src/app
 
 RUN mkdir -p /usr/src/app/src/backend_service
