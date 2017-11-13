@@ -18,6 +18,9 @@ from postgresql_db.models import Conversation, ClaimCategory, Fact
 # Based on percent difference of two highest intents determined.
 minimum_percent_difference = 0.3
 
+# Intents will not be considered acceptable unless they have a confidence of at least 60%
+minimum_intent_confidence_threshold = 0.6
+
 # Rasa Classifier - Initialization of RasaClassifier, used for claim category determination and fact value classification
 rasaClassifier = RasaClassifier()
 rasaClassifier.train(force_train=True)
@@ -173,6 +176,7 @@ classify_dict: the dict holding the intents, classification %, entities
 def __is_answer_sufficient(classify_dict):
     if len(classify_dict['intent_ranking']) > 1:
         percent_difference = RasaClassifier.intent_percent_difference(classify_dict)
-        if percent_difference < minimum_percent_difference:
+        highest_intent_confidence = classify_dict['intent']['confidence']
+        if highest_intent_confidence < minimum_intent_confidence_threshold and percent_difference < minimum_percent_difference:
             return False
     return True
