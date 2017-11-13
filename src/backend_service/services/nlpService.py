@@ -3,18 +3,19 @@ import requests
 NLP_URL = "http://nlp_service:3002"
 
 
-def problem_category(message):
+def claim_category(conversation_id, message):
     req_dict = {
-        "answer": message
+        "conversation_id": conversation_id,
+        "message": message
     }
-    res = requests.post("{}/{}".format(NLP_URL, "problem_category"), json=req_dict)
+    res = requests.post("{}/{}".format(NLP_URL, "claim_category"), json=req_dict)
     return res.json()
 
 
-def fact_extract(facts, message):
+def submit_message(conversation_id, message):
     req_dict = {
-        "answer": message,
-        "facts": facts
+        "conversation_id": conversation_id,
+        "message": message
     }
-    res = requests.post("{}/{}".format(NLP_URL, "fact_extract"), json=req_dict)
+    res = requests.post("{}/{}".format(NLP_URL, "submit_message"), json=req_dict)
     return res.json()

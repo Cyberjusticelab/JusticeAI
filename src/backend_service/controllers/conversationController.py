@@ -1,21 +1,39 @@
-import flask
-from flask import jsonify, abort, make_response
 import json
 
-from models.models import *
+from flask import jsonify, abort, make_response
+
+import util
+
+util.load_src_dir_to_sys_path()
+from postgresql_db.models import *
 from services import nlpService, fileService
-from services.factService import FactService
 from services.staticStrings import *
 
+from backend_service.app import db
 
 ########################
 # Conversation Handling
 ########################
 
+"""
+Returns a json representation of the Conversation
+conversation_id: ID of the conversation
+:return JSON representation of the conversation
+"""
+
+
 def get_conversation(conversation_id):
     conversation = __get_conversation(conversation_id)
 
     return ConversationSchema().jsonify(conversation)
+
+
+"""
+Initializes a new Conversation
+name: Person's name
+person_type: Either LANDLORD or TENANT
+:return JSON with id of newly created Conversation
+"""
 
 
 def init_conversation(name, person_type):
@@ -35,6 +53,13 @@ def init_conversation(name, person_type):
     )
 
 
+"""
+Process an incoming message from the user
+conversation_id: ID of the conversation
+:return JSON object with data for the front end, including response text and file requests.
+"""
+
+
 def receive_message(conversation_id, message):
     conversation = __get_conversation(conversation_id)
 
@@ -51,8 +76,11 @@ def receive_message(conversation_id, message):
         enforce_possible_answer = True
     else:
         # Add user's message
-        user_message = Message(sender_type=SenderType.USER, text=message)
+        user_message = Message(sender_type=SenderType.USER, text=message, relevant_fact=conversation.current_fact)
         conversation.messages.append(user_message)
+
+        # Commit user's message
+        db.session.commit()
 
         # Generate response text & optional parameters
         response = __generate_response(conversation, user_message.text)
@@ -66,14 +94,16 @@ def receive_message(conversation_id, message):
             sender_type=SenderType.BOT,
             text=response_text,
             possible_answers=possible_answers,
-            enforce_possible_answer=enforce_possible_answer
+            enforce_possible_answer=enforce_possible_answer,
+            relevant_fact=conversation.current_fact
         )
     elif response_html is not None:
         response = Message(
             sender_type=SenderType.BOT,
             text=response_html,
             possible_answers=possible_answers,
-            enforce_possible_answer=enforce_possible_answer
+            enforce_possible_answer=enforce_possible_answer,
+            relevant_fact=conversation.current_fact
         )
     else:
         return abort(make_response(jsonify(message="Response text not generated"), 400))
@@ -84,7 +114,7 @@ def receive_message(conversation_id, message):
 
     conversation.messages.append(response)
 
-    # Commit
+    # Commit bot's message
     db.session.commit()
 
     # Build response dict
@@ -108,6 +138,13 @@ def receive_message(conversation_id, message):
 # File Handling
 ################
 
+"""
+Retrieves a list of data about files the user has uploaded
+conversation_id: ID of the conversation
+:return JSON object with file data
+"""
+
+
 def get_file_list(conversation_id):
     conversation = __get_conversation(conversation_id)
 
@@ -116,6 +153,14 @@ def get_file_list(conversation_id):
             'files': [FileSchema().dump(file).data for file in conversation.files]
         }
     )
+
+
+"""
+Uploads a file and creates a database entry for the File linked to the Conversation
+conversation_id: ID of the conversation
+file: Werkzeug file data received from front end
+:return JSON object with file data
+"""
 
 
 def upload_file(conversation_id, file):
@@ -148,8 +193,15 @@ def upload_file(conversation_id, file):
 # Private Methods
 ##################
 
+"""
+Retrieves the conversation by id, returning 404 if not found.
+conversation_id: ID of the conversation
+:return Conversaion if exists, else aborts with 404
+"""
+
+
 def __get_conversation(conversation_id):
-    conversation = Conversation.query.get(conversation_id)
+    conversation = db.session.query(Conversation).get(conversation_id)
 
     if conversation:
         return conversation
@@ -157,24 +209,38 @@ def __get_conversation(conversation_id):
     abort(make_response(jsonify(message="Conversation does not exist"), 404))
 
 
+"""
+Generates the next response for the bot, based on conversation's state
+conversation: Conversation
+message: User's message
+:return Next response for bot
+"""
+
+
 def __generate_response(conversation, message):
     if __has_just_accepted_disclaimer(conversation):
         return __ask_initial_question(conversation)
     elif conversation.claim_category is None:
-        return __determine_claim_category(conversation, message)
+        nlp_request = nlpService.claim_category(conversation.id, message)
+
+        # Refresh the session, since nlpService may have modified conversation
+        db.session.refresh(conversation)
+
+        return {'response_text': nlp_request['message']}
     elif conversation.current_fact is not None:
-        # Assume it is an answer to the current fact
-        nlp_request = nlpService.fact_extract([conversation.current_fact], message=message)
+        nlp_request = nlpService.submit_message(conversation.id, message)
 
-        for resolved_fact in nlp_request['facts']:
-            for fact_name, fact_value in resolved_fact.items():
-                new_fact = Fact(name=fact_name, value=fact_value)
-                conversation.facts.append(new_fact)
+        # Refresh the session, since nlpService may have modified conversation
+        db.session.refresh(conversation)
 
-        db.session.commit()
-        question = __probe_facts(conversation)
+        return {'response_text': nlp_request['message']}
 
-        return {'response_text': question}
+
+"""
+Returns the initial question to ask, and optionally a file request
+conversation: Conversation
+:return Next response for bot
+"""
 
 
 def __ask_initial_question(conversation):
@@ -194,49 +260,6 @@ def __ask_initial_question(conversation):
         response = StaticStrings.chooseFrom(StaticStrings.problem_inquiry_landlord).format(name=conversation.name)
 
     return {'response_text': response, 'file_request': file_request}
-
-
-def __determine_claim_category(conversation, message):
-    claim_category = None
-    nlp_request = nlpService.problem_category(message)
-
-    for fact in nlp_request['facts']:
-        claim_category = fact['category']
-
-    if claim_category is not None:
-        conversation.claim_category = {
-            'lease_termination': ClaimCategory.LEASE_TERMINATION,
-            'rent_change': ClaimCategory.RENT_CHANGE,
-            'nonpayment': ClaimCategory.NONPAYMENT,
-            'deposits': ClaimCategory.DEPOSITS
-        }[claim_category]
-
-        db.session.commit()
-
-        # Generate the first question
-        first_question = __probe_facts(conversation)
-
-        response = StaticStrings.chooseFrom(StaticStrings.category_acknowledge).format(
-            claim_category=conversation.claim_category.value.lower().replace("_", " "), first_question=first_question)
-
-        return {'response_text': response}
-    else:
-        return {'response_text': StaticStrings.chooseFrom(StaticStrings.clarify)}
-
-
-def __probe_facts(conversation):
-    resolved_facts = [fact.name for fact in conversation.facts]
-    fact, question = FactService.get_question(conversation.claim_category.value.lower(), resolved_facts)
-
-    if fact is not None:
-        # Update fact being asked
-        conversation.current_fact = fact
-        db.session.commit()
-    else:
-        fact_dump = ''.join(repr(conversation.facts))
-        question = "FACT DUMP: {}".format(fact_dump)
-
-    return question
 
 
 def __has_just_accepted_disclaimer(conversation):

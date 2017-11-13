@@ -1,0 +1,7 @@
+{
+  "pipeline": "spacy_sklearn",
+  "path" : "./projects",
+  "max_training_processes": 1,
+  "response_log" : "logs",
+  "log_level": "INFO"
+}

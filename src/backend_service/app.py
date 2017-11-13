@@ -1,20 +1,22 @@
-from flask import Flask, request, abort, make_response, jsonify
-from flask_cors import CORS
-from flask_marshmallow import Marshmallow
-
-import database
 import os
 
+from flask import Flask, request, abort, make_response, jsonify
+from flask_cors import CORS
+
+import util
+from controllers import conversationController, legalController
+
+util.load_src_dir_to_sys_path()
+from postgresql_db import database
+
+# Flask Setup
 app = Flask(__name__)
 
 # DB Setup
 db = database.connect(app, 'postgres', os.environ['POSTGRES_PASSWORD'], 'postgres')
-ma = Marshmallow(app)
 
 # Cors Setup
 CORS(app)
-
-from controllers import conversationController, legalController
 
 
 @app.route("/new", methods=['POST'])

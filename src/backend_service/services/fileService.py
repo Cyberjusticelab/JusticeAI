@@ -2,7 +2,7 @@ import os
 
 from werkzeug.utils import secure_filename
 
-from app import app
+from backend_service.app import app
 
 UPLOAD_FOLDER = 'uploads'
 UPLOAD_FOLDER_TEST = 'uploadsTest'

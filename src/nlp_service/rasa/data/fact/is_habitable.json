@@ -1,0 +1,330 @@
+﻿{
+  "rasa_nlu_data": {
+    "regex_features": [
+      {
+        "name": "noisy",
+        "pattern": "nois[^\\s]*"
+      },
+      {
+        "name": "dirty",
+        "pattern": "dirty[^\\s]*"
+      },
+      {
+        "name":"but",
+        "pattern": "(but)"
+      },
+      {
+        "name": "disgusting",
+        "pattern": "disgust[^\\s]*"
+      },
+      {
+        "name": "livable",
+        "pattern": "liv[^\\s]*"
+      },
+      {
+        "name": "never cleans",
+        "pattern": "(never)(\\s)(nois[^\\s]*)"
+      },
+      {
+        "name": "disgusting",
+        "pattern": "disgust[^\\s]*"
+      },
+      {
+        "name": "greasy",
+        "pattern": "greas[^\\s]*"
+      },
+      {
+        "name": "nasty",
+        "pattern": "nast[^\\s]*"
+      },
+      {
+        "name": "rats",
+        "pattern": "rats[^\\s]*"
+      },
+      {
+        "name": "smell",
+        "pattern": "smell[^\\s]*"
+      },
+      {
+        "name": "odor",
+        "pattern": "odor[^\\s]*"
+      },
+      {
+        "name": "smoke",
+        "pattern": "smok[^\\s]*"
+      },
+      {
+        "name": "nice",
+        "pattern": "(nice)"
+      },
+      {
+        "name": "acceptable",
+        "pattern": "accept[^\\s]*"
+      },
+      {
+        "name": "lock",
+        "pattern": "(lock)"
+      },
+      {
+        "name": "electricity",
+        "pattern": "(no)(\\s)(electricty)"
+      }
+    ],
+    "entity_synonyms": [
+      {
+        "value": "good",
+        "synonyms":[
+          "nice",
+          "acceptable",
+          "okay",
+          "livable",
+          "pleasant",
+          "quite pleasant",
+          "breathable",
+          "habitable",
+          "smoke-free",
+          "fine"
+        ]
+      },
+      {
+        "value": "apartment",
+        "synonyms":[
+          "dwelling",
+          "location",
+          "home",
+          "house",
+          "place",
+          "lodging"
+        ]
+      },
+      {
+        "value": "bad",
+        "synonyms":[
+          "rats",
+          "no heating",
+          "no electricity",
+          "odors",
+          "stench",
+          "odor",
+          "no lock",
+          "greasy",
+          "disgusting",
+          "inhabitable",
+          "infestation",
+          "unbreathable",
+          "smoke",
+          "nasty",
+          "no cleaning",
+          "dirty"
+        ]
+      }
+    ],
+    "common_examples": [
+      {
+        "text": "The apartment is noisy.",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "The apartment is bad",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "The hallways are dirty.",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "The janitor never cleans.",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "there is no electricity",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "there is no heating",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "there are no locks",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "there are holes in the walls",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "It smells but it's livable",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "it's ugly but it's not too bad",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "there are rats in the building",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "there are odors",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "there is a stench",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "my landlord changed the lock without telling me",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "my landlord replace the lock without advising me",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "i’m locked outside of my apartment",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "the dwelling is disgusting",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "the apartment is greasy",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "the lodging is nasty",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "there is an infestation in my apartment",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "there are rats in my dwelling",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "there is a stench in my apartment",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "it smells bad in my place",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "i can’t live there anymore it’s disgusting",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "the air is unbreathable",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "there is smoke everywhere",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "my dwelling is quite pleasant",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "it’s livable and the air is nice in my lodging",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "i can live in the apartment",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "i like my dwelling",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "i can access and live in my apartment",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "the place is habitable",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "my apartment is okay",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "the lodging is fine",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "the lodging is acceptable",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "the dwelling is acceptable",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "It's pretty but it's not habitable",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "it doesn't smell but it's not habitable",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "the dwelling is okay",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "the house is nice",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "my house is nice",
+        "intent": "true",
+        "entities": []
+      }
+    ]
+  }
+}

@@ -1,43 +1,31 @@
+import os
 import shutil
 from io import BytesIO
 
-import os
 from werkzeug.datastructures import FileStorage
 
+import util
+
+util.load_src_dir_to_sys_path()
 from services import fileService
-from services.factService import FactService
 from services.staticStrings import StaticStrings
 
+"""
+    Test for static response strings
+    asserts that the proper static string of introduction is returned when "landlord" is selected by the user
+"""
 
-################
-# staticStrings
-################
 
 def test_static_strings():
-    string = StaticStrings.chooseFrom(StaticStrings.category_acknowledge)
-    assert string in StaticStrings.category_acknowledge
+    string = StaticStrings.chooseFrom(StaticStrings.problem_inquiry_landlord)
+    assert string in StaticStrings.problem_inquiry_landlord
 
 
-###############
-# factService
-###############
+"""
+    Test for file services
+    asserts the functionality of the system for the upload of various files (zip, pdf, png images)
+"""
 
-def test_fact_service():
-    fact, question = FactService.get_question('rent_change', [])
-    assert fact == 'lease_term_type'
-    assert question == "Is there a specified end date to your lease?"
-
-
-def test_fact_service_empty():
-    fact, question = FactService.get_question('rent_change',
-                                              ['lease_term_type', 'is_rent_in_lease', 'rent_in_lease_amount'])
-    assert fact is None
-    assert question is None
-
-
-###############
-# fileService
-###############
 
 def test_file_service_path():
     path = fileService.generate_path(1, 1)

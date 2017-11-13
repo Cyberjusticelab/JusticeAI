@@ -1,0 +1,747 @@
+﻿{
+  "rasa_nlu_data": {
+    "regex_features": [
+      {
+        "name": "termination: end",
+        "pattern": "end[^\\s]*"
+      },
+      {
+        "name": "termination: expires",
+        "pattern": "expire[^\\s]*"
+      },
+      {
+        "name": "termination: finishe",
+        "pattern": "finishe[^\\s]*"
+      },
+      {
+        "name": "termination: expires",
+        "pattern": "expire[^\\s]*"
+      },
+      {
+        "name": "termination: concludes",
+        "pattern": "conclude[^\\s]*"
+      }
+    ],
+    "entity_synonyms": [
+      {
+        "value": "ended",
+        "synonyms": [
+          "finished",
+          "concluded",
+          "ended",
+          "expired",
+          "terminated"
+        ]
+      },
+      {
+        "value": "lease",
+        "synonyms": [
+          "contract",
+          "deal",
+          "lease"
+        ]
+      },
+      {
+        "value": "ends",
+        "synonyms": [
+          "finishes",
+          "concludes",
+          "ends",
+          "expires",
+          "terminates"
+        ]
+      }
+    ],
+    "common_examples": [
+      {
+        "text": "my lease ends in 2 months",
+        "intent": "false",
+        "entities": [
+          {
+            "start": 3,
+            "end": 8,
+            "value": "lease",
+            "entity": "lease"
+          },
+          {
+            "start": 9,
+            "end": 13,
+            "value": "ends",
+            "entity": "termination"
+          },
+          {
+            "start": 14,
+            "end": 25,
+            "value": "in 2 months",
+            "entity": "time"
+          }
+        ]
+      },
+      {
+        "text": "my lease ends in 2 days",
+        "intent": "false",
+        "entities": [
+          {
+            "start": 14,
+            "end": 23,
+            "value": "in 2 days",
+            "entity": "time"
+          },
+          {
+            "start": 9,
+            "end": 13,
+            "value": "ends",
+            "entity": "termination"
+          },
+          {
+            "start": 3,
+            "end": 8,
+            "value": "lease",
+            "entity": "lease"
+          }
+        ]
+      },
+      {
+        "text": "my lease ends in 2 weeks",
+        "intent": "false",
+        "entities": [
+          {
+            "start": 3,
+            "end": 8,
+            "value": "lease",
+            "entity": "lease"
+          },
+          {
+            "start": 9,
+            "end": 13,
+            "value": "ends",
+            "entity": "termination"
+          },
+          {
+            "start": 14,
+            "end": 24,
+            "value": "in 2 weeks",
+            "entity": "time"
+          }
+        ]
+      },
+      {
+        "text": "my lease expires in 2 days",
+        "intent": "false",
+        "entities": [
+          {
+            "start": 3,
+            "end": 8,
+            "value": "lease",
+            "entity": "lease"
+          },
+          {
+            "start": 9,
+            "end": 16,
+            "value": "expires",
+            "entity": "termination"
+          },
+          {
+            "start": 17,
+            "end": 26,
+            "value": "in 2 days",
+            "entity": "time"
+          }
+        ]
+      },
+      {
+        "text": "my lease expires in 2 months",
+        "intent": "false",
+        "entities": [
+          {
+            "start": 9,
+            "end": 16,
+            "value": "expires",
+            "entity": "termination"
+          },
+          {
+            "start": 3,
+            "end": 8,
+            "value": "lease",
+            "entity": "lease"
+          },
+          {
+            "start": 17,
+            "end": 28,
+            "value": "in 2 months",
+            "entity": "time"
+          }
+        ]
+      },
+      {
+        "text": "my lease expires in 2 weeks",
+        "intent": "false",
+        "entities": [
+          {
+            "start": 9,
+            "end": 16,
+            "value": "expires",
+            "entity": "termination"
+          },
+          {
+            "start": 3,
+            "end": 8,
+            "value": "lease",
+            "entity": "lease"
+          },
+          {
+            "start": 17,
+            "end": 27,
+            "value": "in 2 weeks",
+            "entity": "time"
+          }
+        ]
+      },
+      {
+        "text": "my lease finishes in 2 days",
+        "intent": "false",
+        "entities": [
+          {
+            "start": 9,
+            "end": 17,
+            "value": "finishes",
+            "entity": "termination"
+          },
+          {
+            "start": 18,
+            "end": 27,
+            "value": "in 2 days",
+            "entity": "time"
+          },
+          {
+            "start": 3,
+            "end": 8,
+            "value": "lease",
+            "entity": "lease"
+          }
+        ]
+      },
+      {
+        "text": "my lease expires on the 31st of november",
+        "intent": "false",
+        "entities": [
+          {
+            "start": 20,
+            "end": 40,
+            "value": "the 31st of november",
+            "entity": "time"
+          },
+          {
+            "start": 9,
+            "end": 16,
+            "value": "expires",
+            "entity": "termination"
+          },
+          {
+            "start": 3,
+            "end": 8,
+            "value": "lease",
+            "entity": "lease"
+          }
+        ]
+      },
+      {
+        "text": "my lease starts on october 21st and ends the next year on october 21st",
+        "intent": "false",
+        "entities": [
+          {
+            "start": 3,
+            "end": 8,
+            "value": "lease",
+            "entity": "lease"
+          },
+          {
+            "start": 19,
+            "end": 31,
+            "value": "october 21st",
+            "entity": "time"
+          },
+          {
+            "start": 36,
+            "end": 40,
+            "value": "ends",
+            "entity": "termination"
+          },
+          {
+            "start": 9,
+            "end": 15,
+            "value": "starts",
+            "entity": "creation"
+          },
+          {
+            "start": 45,
+            "end": 54,
+            "value": "next year",
+            "entity": "time"
+          }
+        ]
+      },
+      {
+        "text": "my lease ends in 4 months",
+        "intent": "false",
+        "entities": [
+          {
+            "start": 3,
+            "end": 8,
+            "value": "lease",
+            "entity": "lease"
+          },
+          {
+            "start": 9,
+            "end": 13,
+            "value": "ends",
+            "entity": "termination"
+          },
+          {
+            "start": 14,
+            "end": 25,
+            "value": "in 4 months",
+            "entity": "time"
+          }
+        ]
+      },
+      {
+        "text": "my lease says i’m out in 3 months",
+        "intent": "false",
+        "entities": [
+          {
+            "start": 3,
+            "end": 8,
+            "value": "lease",
+            "entity": "lease"
+          },
+          {
+            "start": 18,
+            "end": 21,
+            "value": "out",
+            "entity": "termination"
+          },
+          {
+            "start": 22,
+            "end": 33,
+            "value": "in 3 months",
+            "entity": "time"
+          }
+        ]
+      },
+      {
+        "text": "it says on my lease that it ends on the 31st of the next month",
+        "intent": "false",
+        "entities": [
+          {
+            "start": 14,
+            "end": 19,
+            "value": "lease",
+            "entity": "lease"
+          },
+          {
+            "start": 28,
+            "end": 32,
+            "value": "ends",
+            "entity": "termination"
+          },
+          {
+            "start": 40,
+            "end": 62,
+            "value": "31st of the next month",
+            "entity": "time"
+          }
+        ]
+      },
+      {
+        "text": "my landlord said my lease ends in 2 days",
+        "intent": "false",
+        "entities": [
+          {
+            "start": 3,
+            "end": 11,
+            "value": "landlord",
+            "entity": "person"
+          },
+          {
+            "start": 26,
+            "end": 30,
+            "value": "ends",
+            "entity": "termination"
+          },
+          {
+            "start": 20,
+            "end": 25,
+            "value": "lease",
+            "entity": "lease"
+          },
+          {
+            "start": 31,
+            "end": 40,
+            "value": "in 2 days",
+            "entity": "time"
+          }
+        ]
+      },
+      {
+        "text": "it ends in 3 days",
+        "intent": "false",
+        "entities": [
+          {
+            "start": 8,
+            "end": 17,
+            "value": "in 3 days",
+            "entity": "time"
+          },
+          {
+            "start": 3,
+            "end": 7,
+            "value": "ends",
+            "entity": "termination"
+          },
+          {
+            "start": 0,
+            "end": 2,
+            "value": "it",
+            "entity": "lease"
+          }
+        ]
+      },
+      {
+        "text": "my lease terminates in a week",
+        "intent": "false",
+        "entities": [
+          {
+            "start": 3,
+            "end": 8,
+            "value": "lease",
+            "entity": "lease"
+          },
+          {
+            "start": 9,
+            "end": 19,
+            "value": "terminates",
+            "entity": "termination"
+          },
+          {
+            "start": 20,
+            "end": 29,
+            "value": "in a week",
+            "entity": "time"
+          }
+        ]
+      },
+      {
+        "text": "the deadline of my lease is the 21st of may",
+        "intent": "false",
+        "entities": [
+          {
+            "start": 19,
+            "end": 24,
+            "value": "lease",
+            "entity": "lease"
+          },
+          {
+            "start": 28,
+            "end": 43,
+            "value": "the 21st of may",
+            "entity": "time"
+          }
+        ]
+      },
+      {
+        "text": "it says on my lease it terminates on the 3rd, next week",
+        "intent": "false",
+        "entities": [
+          {
+            "start": 14,
+            "end": 19,
+            "value": "lease",
+            "entity": "lease"
+          },
+          {
+            "start": 23,
+            "end": 33,
+            "value": "terminates",
+            "entity": "termination"
+          },
+          {
+            "start": 41,
+            "end": 55,
+            "value": "3rd, next week",
+            "entity": "time"
+          }
+        ]
+      },
+      {
+        "text": "my lease is discontinued after the 3rd of january",
+        "intent": "false",
+        "entities": [
+          {
+            "start": 3,
+            "end": 8,
+            "value": "lease",
+            "entity": "lease"
+          },
+          {
+            "start": 9,
+            "end": 24,
+            "value": "is discontinued",
+            "entity": "termination"
+          },
+          {
+            "start": 25,
+            "end": 49,
+            "value": "after the 3rd of january",
+            "entity": "time"
+          }
+        ]
+      },
+      {
+        "text": "i think my lease ends somewhere next june",
+        "intent": "false",
+        "entities": [
+          {
+            "start": 11,
+            "end": 16,
+            "value": "lease",
+            "entity": "lease"
+          },
+          {
+            "start": 17,
+            "end": 21,
+            "value": "ends",
+            "entity": "termination"
+          },
+          {
+            "start": 32,
+            "end": 41,
+            "value": "next june",
+            "entity": "time"
+          }
+        ]
+      },
+      {
+        "text": "my lease concludes on the 7th",
+        "intent": "false",
+        "entities": [
+          {
+            "start": 3,
+            "end": 8,
+            "value": "lease",
+            "entity": "lease"
+          },
+          {
+            "start": 9,
+            "end": 18,
+            "value": "concludes",
+            "entity": "termination"
+          },
+          {
+            "start": 19,
+            "end": 29,
+            "value": "on the 7th",
+            "entity": "time"
+          }
+        ]
+      },
+      {
+        "text": "my lease ends soon",
+        "intent": "false",
+        "entities": [
+          {
+            "start": 3,
+            "end": 8,
+            "value": "lease",
+            "entity": "lease"
+          },
+          {
+            "start": 9,
+            "end": 13,
+            "value": "ends",
+            "entity": "termination"
+          },
+          {
+            "start": 14,
+            "end": 18,
+            "value": "soon",
+            "entity": "time"
+          }
+        ]
+      },
+      {
+        "text": "my lease ended",
+        "intent": "true",
+        "entities": [
+          {
+            "start": 3,
+            "end": 8,
+            "value": "lease",
+            "entity": "lease"
+          },
+          {
+            "start": 9,
+            "end": 14,
+            "value": "ended",
+            "entity": "termination"
+          }
+        ]
+      },
+      {
+        "text": "my lease expired",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "my lease finished",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "my lease ended 2 months ago",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "my lease ended 2 days ago",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "my lease expired 2 days ago",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "my lease expired 2 months ago",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "my lease expired 2 weeks ago",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "my lease finished 2 weeks ago",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "my lease finished 2 months ago",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "my lease finished 2 days ago",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "my lease expired on the 31st of september",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "my lease ended on october 1st",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "my lease ended 4 months ago",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "my lease says i’ve been out for 3 months",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "it says on my lease that it ends on the 2nd of this month",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "it ended on the 22nd of september",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "my landlord said my lease ended 2 days ago",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "it ended 3 days ago",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "my lease was terminated a week ago",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "the deadline of my lease was on the 21st of september",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "it says on my lease it terminated on the 3rd",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "i think my lease ended somewhere last week",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "my lease ended last month",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "my lease concluded on the 7th",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "it has ended",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "i think it has ended",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "according to the lease, it ended a few days ago",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "according to the landlord, it has ended",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "my lease has terminated 5 days ago",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "my lease has terminated 5 weeks ago",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "my lease has terminated 5 months ago",
+        "intent": "true",
+        "entities": []
+      }
+    ]
+  }
+}

@@ -9,10 +9,15 @@ COPY ./src/nlp_service/requirements_test.txt ./src/nlp_service/
 RUN pip install -r ./src/nlp_service/requirements_test.txt
 
 COPY . .
-RUN cd src/nlp_service && python init.py
+
+# Initialize spacy
+RUN python -m spacy download en
+
+# Train RASA classifier
+RUN cd src/nlp_service && python init_rasa.py
 
 WORKDIR /usr/src/app/src/nlp_service
 
 ENV FLASK_APP=app.py
 EXPOSE 3002
-CMD [ "gunicorn", "-w 3", "-b 0.0.0.0:3002", "app:app" ]
+CMD [ "python", "-m flask run", "--host 0.0.0.0", "-p 3002" ]
