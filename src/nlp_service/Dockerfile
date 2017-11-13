@@ -21,4 +21,4 @@ WORKDIR /usr/src/app/src/nlp_service
 
 ENV FLASK_APP=app.py
 EXPOSE 3002
-CMD [ "python", "-m flask run", "--host 0.0.0.0", "-p 3002" ]
+CMD [ "python", "-m", "flask", "run", "--host", "0.0.0.0", "-p", "3002" ]
