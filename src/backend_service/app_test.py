@@ -15,6 +15,11 @@ from services.staticStrings import StaticStrings
 # staticStrings
 ################
 
+"""
+    Test for static response strings
+    asserts that the proper static string of introduction is returned when "landlord" is selected by the user
+"""
+
 def test_static_strings():
     string = StaticStrings.chooseFrom(StaticStrings.problem_inquiry_landlord)
     assert string in StaticStrings.problem_inquiry_landlord
@@ -23,6 +28,11 @@ def test_static_strings():
 ###############
 # fileService
 ###############
+
+"""
+    Test for file services
+    asserts the functionality of the system for the upload of various files (zip, pdf, png images)
+"""
 
 def test_file_service_path():
     path = fileService.generate_path(1, 1)
