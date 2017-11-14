@@ -42,6 +42,10 @@
         "pattern":"(yes)"
       },
       {
+        "name":"I was never too good at school",
+        "pattern":"(never)"
+      },
+      {
         "name": "no",
         "pattern":"(no)"
       }
@@ -421,6 +425,66 @@
       {
         "text": "I am done with school",
         "intent":"false",
+        "entities": []
+      },
+      {
+        "text": "I was never really into school",
+        "intent":"false",
+        "entities": []
+      },
+      {
+        "text": "I used to study at Concordia but I graduated",
+        "intent":"false",
+        "entities": []
+      },
+      {
+        "text": "I'm thinking about doing a masters",
+        "intent":"false",
+        "entities": []
+      },
+      {
+        "text": "I'll be going for a masters soon",
+        "intent":"false",
+        "entities": []
+      },
+      {
+        "text": "I go to a technique school",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I go to a beauty school",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I hate studying but I go to school",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I have exams soon",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I am at an institute of technology",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I'm learning graphic design",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I'm taking an internship during summer between courses",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I'm in COOP at Concordia",
+        "intent":"true",
         "entities": []
       },
       {
