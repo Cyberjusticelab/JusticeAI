@@ -4,7 +4,7 @@
       {
           "name": "termination: end",
           "pattern": "end[^\\s]*"
-          },
+      },
       {
         "name": "termination: expires",
         "pattern": "expire[^\\s]*"
@@ -39,14 +39,11 @@
       },
       {
         "name": "months: January to December",
-        "pattern": "([S|s]eptember|[O|o]ctober|[N|n]ovember|[D|d]ecember|[J|j]anuary|[F|f]ebruary|[M|m]arch|[A|a]pril|[M|m]ay|[J|j]une|[J|j]uly|[A|a]ugust)"
+        "pattern": "[S|s]eptember|[O|o]ctober|[N|n]ovember|[D|d]ecember|[J|j]anuary|[F|f]ebruary|[M|m]arch|[A|a]pril|[M|m]ay|[J|j]une|[J|j]uly|[A|a]ugust"
       },
       {
         "name": "year: 4 digit numbers",
         "pattern": "[1-2][0-9]{3}"
-      },
-      {
-
       }
     ],
     "common_examples": [
