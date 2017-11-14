@@ -116,7 +116,8 @@ def classify_fact_value(conversation_id, message):
             for fact_entity in conversation.fact_entities:
                 question += "{}:{}, ".format(fact_entity.fact.name, fact_entity.value)
     else:
-        question = Responses.chooseFrom(Responses.clarify)
+        question = Responses.chooseFrom(Responses.clarify).format(
+            previous_question=Responses.fact_question(current_fact.name))
 
     # Commit
     db.session.commit()
