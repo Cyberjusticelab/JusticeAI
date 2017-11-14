@@ -122,7 +122,7 @@ class PrecedentParser:
         Splits sentence where a '.' is found.
         This method can be enhanced for better classification
         This is just a proof of concept for now
-        :param sentence:
+        :param sentence: String
         :return: list[Strings]
         """
         sub_sent_list = sentence.split('.')

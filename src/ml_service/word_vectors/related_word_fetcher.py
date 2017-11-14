@@ -6,13 +6,27 @@ import pickle
 import os
 from outputs.output import Log
 
+"""
+This python module is used to fill in missing keys from the 
+word vector model. This script attempts to find the closest
+similar word to the one given. The end goal will enable every
+word to be vectorized.
+"""
+
 logger = logging.getLogger('fact_clustering')
 verbeRegex = re.compile("(?<=Conjugaison du verbe )\S+")
+
+"""
+Cache is a dictionary which stores keys<words not found>
+and maps them to values<words found> 
+"""
 
 cache = {}
 __script_dir = os.path.abspath(__file__ + r"/../")
 __rel_path = r'cache.pickle'
 cachePickleFilePath = os.path.join(__script_dir, __rel_path)
+
+# load pickle if it exists
 if os.path.isfile(cachePickleFilePath):
     Log.write('Loading cached Pickle of words.')
     cacheFile = open(cachePickleFilePath, "rb")
@@ -20,6 +34,11 @@ if os.path.isfile(cachePickleFilePath):
 
 
 def _find_synonym(soup):
+    """
+    Finds a synonym to a word
+    :param soup: BeautifulSoup
+    :return: String if word found else None
+    """
     node = soup.find(id="Synonymes")
     if node is None:
         return None
@@ -30,6 +49,11 @@ def _find_synonym(soup):
 
 
 def _find_plural(soup):
+    """
+    Finds plural of given word
+    :param soup: BeautifulSoup
+    :return: String if word found else None
+    """
     node = soup.find('i', string="Pluriel de")
     if node is None:
         return None
@@ -37,6 +61,11 @@ def _find_plural(soup):
 
 
 def _find_fem_plural(soup):
+    """
+    Finds feminine plural of word
+    :param soup: BeautifulSoup
+    :return: String if word found else None
+    """
     node = soup.find('i', string="Féminin pluriel de")
     if node is None:
         return None
@@ -44,6 +73,11 @@ def _find_fem_plural(soup):
 
 
 def _find_feminin(soup):
+    """
+    Finds feminine of word
+    :param soup: BeautifulSoup
+    :return: String if word found else None
+    """
     node = soup.find('i', string="Féminin de")
     if node is None:
         return None
@@ -51,6 +85,11 @@ def _find_feminin(soup):
 
 
 def _find_conjugation(soup):
+    """
+    Finds conjugation of verb
+    :param soup: BeautifulSoup
+    :return: String if word found else None
+    """
     verbText = verbeRegex.search(soup.text)
     if verbText is None:
         return None
@@ -109,6 +148,11 @@ def find_related(queryWord):
 
 
 def save_cache():
+    """
+    Save cache of replaced words. This speeds up the process
+    whenever a previously found word needs to be found again.
+    :return: None
+    """
     __script_dir = os.path.abspath(__file__ + r"/../")
     __rel_path = r'cache.pickle'
     path = os.path.join(__script_dir, __rel_path)

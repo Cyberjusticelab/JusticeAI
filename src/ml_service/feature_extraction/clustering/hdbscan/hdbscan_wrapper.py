@@ -11,7 +11,7 @@ class HdbscanTrain:
     def cluster(self, data_tuple, min_cluster_size, min_sample):
         """
         clustering algorithm using hdbscan
-        @:param data_tuple (vectors, sentences, filenames)
+        @:param data_tuple (matrix<vectors>, List<String: sentences>, List<String: filenames>)
         """
         Log.write('Starting HDBSCAN')
         Log.write('Min Cluster Size: ' + str(min_cluster_size))
@@ -28,13 +28,13 @@ class HdbscanTrain:
     def __write_clusters(self, unique_labels, labels, data_tuple):
         """
         Writes 1 text file per cluster
-        Every text file has the topics in the forms of:
-        1- The sentence which was used to create a vector
-        2- The original sentence from the text
+        The sentences from the files are enumerated in the file
+        followed by the cases in which they appear (filenames)
 
         @:param unique_labels <int>: index of vector
         @:param labels <int>: index of vector
-        @:param data_tuple <array, array, array>: vectors, transformed sentences, original sentence
+        @:param data_tuple <matrix, array, array>:
+                Sentence vectors, String sentences, String filenames
         """
         s = Save('hdb_cluster_dir')
         for label in unique_labels:

@@ -5,6 +5,12 @@ import unittest
 
 class TestStringMethods(unittest.TestCase):
 
+    """
+    the most crucial aspect of this unittest is to make sure
+    that the words get vectorized and that the word vector's
+    memory allocation is deallocated when it is not needed anymore
+    """
+
     def test_load_vector(self):
         self.assertIsNone(FrenchVectors.word_vectors)
         FrenchVectors.load_french_vector_bin()
@@ -26,6 +32,10 @@ class TestStringMethods(unittest.TestCase):
         self.assertTrue(all_words_found)
 
     def test_vectorize_sent(self):
+        """
+        The actual values of the vector are not tested because
+        they are arbitrary from one model to another.
+        """
         FrenchVectors.load_french_vector_bin()
         sentence = "Je suis trop beau."
         vec = FrenchVectors.vectorize_sent(sentence)
