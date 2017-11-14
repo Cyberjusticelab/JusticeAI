@@ -1,21 +1,24 @@
 import re
 import string
+from word_vectors.vectors import FrenchVectors
+from nltk.tokenize import word_tokenize
+from nltk.tokenize.moses import MosesDetokenizer
 
 
 class RegexReplacer():
     money_match = re.compile('[\d*\s*,*]*\$')
-    date_match = re.compile('[1er]*[\d*\s*]*janvier\s*\d*|'
-                            '[1er]*[\d*\s*]*février\s*\d*|'
-                            '[1er]*[\d*\s*]*mars\s*\d*|'
-                            '[1er]*[\d*\s*]*avril\s*\d*|'
-                            '[1er]*[\d*\s*]*mai\s*\d*|'
-                            '[1er]*[\d*\s*]*juin\s*\d*|'
-                            '[1er]*[\d*\s*]*juillet\s*\d*|'
-                            '[1er]*[\d*\s*]*août\s*\d*|'
-                            '[1er]*[\d*\s*]*septembre\s*\d*|'
-                            '[1er]*[\d*\s*]*octobre\s*\d*|'
-                            '[1er]*[\d*\s*]*novembre\s*\d*|'
-                            '[1er]*[\d*\s*]*décembre\s*\d*')
+    date_match = re.compile('[\d[a-zA-Z]+\s]*[\d*\s*]*janvier\s*\d*|'
+                            '[\d[a-zA-Z]+\s]*[\d*\s*]*février\s*\d*|'
+                            '[\d[a-zA-Z]+\s]*[\d*\s*]*mars\s*\d*|'
+                            '[\d[a-zA-Z]+\s]*[\d*\s*]*avril\s*\d*|'
+                            '[\d[a-zA-Z]+\s]*[\d*\s*]*mai\s*\d*|'
+                            '[\d[a-zA-Z]+\s]*[\d*\s*]*juin\s*\d*|'
+                            '[\d[a-zA-Z]+\s]*[\d*\s*]*juillet\s*\d*|'
+                            '[\d[a-zA-Z]+\s]*[\d*\s*]*août\s*\d*|'
+                            '[\d[a-zA-Z]+\s]*[\d*\s*]*septembre\s*\d*|'
+                            '[\d[a-zA-Z]+\s]*[\d*\s*]*octobre\s*\d*|'
+                            '[\d[a-zA-Z]+\s]*[\d*\s*]*novembre\s*\d*|'
+                            '[\d[a-zA-Z]+\s]*[\d*\s*]*décembre\s*\d*')
     apostrophe_match = re.compile('\w\'')
     unnecessary_white_space_match = re.compile("\s\s+")
     translator = str.maketrans('', '', string.punctuation)
@@ -34,6 +37,7 @@ class RegexReplacer():
            and was therefore creating weird strings
         4- Remove punctuation
         5- Removes unnecessary white spaces
+        6- Tokenzie string and remove stop words
         :param line: String
         :return: String
         """
@@ -47,4 +51,24 @@ class RegexReplacer():
                 new_str = new_str[1:]
         except IndexError:
             return None
+        new_str = RegexReplacer.__remove_stop_words(new_str)
         return new_str
+
+    @staticmethod
+    def __remove_stop_words(line):
+        """
+        Remove stop words and order the list
+        This creates even less dissimilarities between statements
+        :param line: String
+        :return: String
+        """
+        word_list = word_tokenize(line, 'french')
+        filtered_words = []
+        for word in word_list:
+            if word in FrenchVectors.get_stop_tokens():
+                continue
+            else:
+                filtered_words.append(word)
+        filtered_words.sort()
+        detokenizer = MosesDetokenizer()
+        return detokenizer.detokenize(filtered_words, return_str=True)

@@ -29,7 +29,7 @@ class TestStringMethods(unittest.TestCase):
         file.writelines('[9] Le chat veut me tuer.\n')
         file.writelines('[10] Le chat veut me tuer.\n')
         file.close()
-        save('facts', facts, 1)
+        save(facts, 1)
 
         binary_model_path = Global.output_directory + 'preprocess_model/test_facts.bin'
         self.assertTrue(os.path.isfile(binary_model_path))

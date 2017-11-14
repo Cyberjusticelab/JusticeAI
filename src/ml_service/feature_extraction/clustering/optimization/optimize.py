@@ -1,6 +1,7 @@
 import numpy
 from sys import stdout
-
+import matplotlib.pyplot as plt
+from ml_models.models import Load
 
 class File:
     Epsilon = 'epsilon.txt'
@@ -60,3 +61,16 @@ def cluster_size_histogram(data_matrix, epsilon):
         else:
             cluster_size_hist[cluster_size] = 1
     return cluster_size_hist
+
+
+if __name__ == '__main__':
+    model = Load.load_decisions_from_bin()
+    matrix = model[0]
+    numpy.random.shuffle(matrix)
+    hist = cluster_size_histogram(matrix[:3000], 0.2)
+    X = list(hist.keys())
+    Y = list(hist.values())
+    plt.bar(X, Y)
+    for i in range(len(X)):
+        print(X[i], Y[i])
+    plt.show()

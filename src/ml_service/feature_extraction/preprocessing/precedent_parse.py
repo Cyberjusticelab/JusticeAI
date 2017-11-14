@@ -102,25 +102,26 @@ class PrecedentParser:
         sub_sent_list = self.__split_sub_sentence(line)
 
         if self.__state == State.FACTS:
-            dict = self.__model.dict['facts']
+            dictionary = self.__model.dict['facts']
 
         elif self.__state == State.DECISION:
-            dict = self.__model.dict['decisions']
+            dictionary = self.__model.dict['decisions']
 
         for sub_sent in sub_sent_list:
             norm_sent = RegexReplacer.normalize_string(sub_sent)
             if norm_sent is None:
                 continue
-            if norm_sent in self.__model.dict:
-                if self.__filename not in dict['precedence']:
-                    dict['precedence'].append(self.__filename)
+
+            if norm_sent in dictionary:
+                if self.__filename not in dictionary[norm_sent].dict['precedence']:
+                    dictionary[norm_sent].dict['precedence'].append(self.__filename)
             else:
                 fact_model = FactModel()
                 new_dict = fact_model.dict
                 new_dict['fact'] = sub_sent
                 new_dict['precedence'].append(self.__filename)
                 new_dict['vector'] = FrenchVectors.vectorize_sent(norm_sent)
-                dict[norm_sent] = fact_model
+                dictionary[norm_sent] = fact_model
 
     def __split_sub_sentence(self, sentence):
         """
