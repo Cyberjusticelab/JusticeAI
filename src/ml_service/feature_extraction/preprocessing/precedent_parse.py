@@ -158,6 +158,7 @@ class PrecedentParser:
             stdout.write("\rData Extraction: %f " % percent)
             stdout.flush()
             self.__parse(i)
+
         print()
         # deallocate memory
         FrenchVectors.unload_vector()
