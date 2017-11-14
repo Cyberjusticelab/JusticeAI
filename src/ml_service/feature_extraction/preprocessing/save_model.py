@@ -42,7 +42,7 @@ def save(data_to_extract, filename=None, nb_of_files=-1):
 
     s = Save(directory=r'preprocess_model/')
     if filename is None:
-        s.binarize_model(model_name + '.bin', data_tuple)
+        s.binarize_model(model_name, data_tuple)
     else:
         # this only exists to allow unittests
         s.binarize_model(filename + '.bin', data_tuple)
