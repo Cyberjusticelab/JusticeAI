@@ -68,10 +68,12 @@ if __name__ == '__main__':
     model = Load.load_decisions_from_bin()
     matrix = model[0]
     numpy.random.shuffle(matrix)
-    hist = cluster_size_histogram(matrix[:3000], 0.2)
+    print(len(matrix))    
+    hist = cluster_size_histogram(matrix[:2000], 0.5)
     X = list(hist.keys())
     Y = list(hist.values())
     plt.bar(X, Y)
     for i in range(len(X)):
         print(X[i], Y[i])
     plt.show()
+    

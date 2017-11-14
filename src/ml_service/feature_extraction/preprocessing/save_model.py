@@ -18,7 +18,7 @@ def __get_tuple(precedence_dict, data_to_extract):
     for fact in precedence_dict[data_to_extract]:
         X.append(precedence_dict[data_to_extract][fact].dict['vector'])
         labels += ([precedence_dict[data_to_extract][fact].dict['fact']])
-        precedence_files += (precedence_dict[data_to_extract][fact].dict['precedence'])
+        precedence_files.append(precedence_dict[data_to_extract][fact].dict['precedence'])
 
     X = numpy.matrix(X)
     labels = numpy.array(labels)
@@ -46,7 +46,7 @@ def save(filename=None, nb_of_files=-1):
     s = Save(directory=r'preprocess_model/')
     if filename is None:
         s.binarize_model('processed_facts.bin', fact_model)
-        s.binarize_model('processed_decision.bin', decision_model)
+        s.binarize_model('processed_decisions.bin', decision_model)
     else:
         # this only exists to allow unittests
         s.binarize_model(filename + '.bin', fact_model)
