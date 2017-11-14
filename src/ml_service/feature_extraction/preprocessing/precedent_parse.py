@@ -146,11 +146,15 @@ class PrecedentParser:
         FrenchVectors.load_french_vector_bin()
         files_parse = 0
         Log.write("Fetching from precedence")
+
         for i in os.listdir(file_directory):
             if (files_parse >= nb_of_files) and (nb_of_files > -1):
                 break
             files_parse += 1
-            percent = float(files_parse / nb_of_files) * 100
+            if nb_of_files == -1:
+                percent = float(files_parse / len(os.listdir(file_directory))) * 100
+            else:
+                percent = float(files_parse / nb_of_files) * 100
             stdout.write("\rData Extraction: %f " % percent)
             stdout.flush()
             self.__parse(i)
