@@ -4,9 +4,6 @@ from io import BytesIO
 
 from werkzeug.datastructures import FileStorage
 
-import util
-
-util.load_src_dir_to_sys_path()
 from services import fileService
 from services.staticStrings import StaticStrings
 

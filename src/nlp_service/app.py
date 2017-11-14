@@ -3,10 +3,8 @@ import os
 from flask import Flask
 from flask import request
 
-import util
 from controllers import nlpController
 
-util.load_src_dir_to_sys_path()
 from postgresql_db import database
 
 # Flask Setup
@@ -18,7 +16,7 @@ db = database.connect(app, 'postgres', os.environ['POSTGRES_PASSWORD'], 'postgre
 """
   These functions establishes HTTP routes for the core functionality of the src/nlp_service/controllers/nlpController.py
   The core functionality of classify_claim_category and classify_fact_value are explained further in the file mentioned above
-  
+
 """
 
 

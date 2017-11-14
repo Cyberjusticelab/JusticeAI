@@ -7,7 +7,7 @@ import os
 from outputs.output import Log
 
 """
-This python module is used to fill in missing keys from the 
+This python module is used to fill in missing keys from the
 word vector model. This script attempts to find the closest
 similar word to the one given. The end goal will enable every
 word to be vectorized.
@@ -18,7 +18,7 @@ verbeRegex = re.compile("(?<=Conjugaison du verbe )\S+")
 
 """
 Cache is a dictionary which stores keys<words not found>
-and maps them to values<words found> 
+and maps them to values<words found>
 """
 
 cache = {}
