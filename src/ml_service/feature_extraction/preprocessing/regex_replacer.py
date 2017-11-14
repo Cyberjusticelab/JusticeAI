@@ -17,6 +17,7 @@ class RegexReplacer():
                             '[1er]*[\d*\s*]*novembre\s*\d*|'
                             '[1er]*[\d*\s*]*décembre\s*\d*')
     apostrophe_match = re.compile('\w\'')
+    unnecessary_white_space_match = re.compile("\s\s+")
     translator = str.maketrans('', '', string.punctuation)
 
     def __init__(self):
@@ -39,7 +40,7 @@ class RegexReplacer():
         new_str = re.sub(RegexReplacer.money_match, ' argent', line)
         new_str = re.sub(RegexReplacer.date_match, ' date', new_str)
         new_str = re.sub(RegexReplacer.apostrophe_match, ' ', new_str)
-        new_str = re.sub("\s\s+", " ", new_str)
+        new_str = re.sub(RegexReplacer.unnecessary_white_space_match, " ", new_str)
         new_str = new_str.translate(RegexReplacer.translator)
         try:
             if new_str[0] == " ":
