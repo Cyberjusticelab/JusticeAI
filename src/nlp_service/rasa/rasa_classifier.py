@@ -26,7 +26,7 @@ class RasaClassifier():
     """
           Training method that trains the data sets from facts and problem categories separately
               force_train=False will ensure the saved models are used
-              initialize_interpreters=True so the interpreters get initialized due to the models already being present 
+              initialize_interpreters=True so the interpreters get initialized due to the models already being present
           result: creates models on trained data
     """
 
@@ -63,7 +63,7 @@ class RasaClassifier():
         Training the interpreters one by one
         training_data_dir: Directory where data is held on our project
         interpreter_dict: dictionary of interpreters that will hold the interpreters
-        force_train: set ti either true or false so it knows if it should train new models (if empty dir) or use the old ones already present 
+        force_train: set ti either true or false so it knows if it should train new models (if empty dir) or use the old ones already present
         initialized_interpreters: won't attempt to initialize interpreters if there are no models
         :returns dict of the fact with intent and entities
     """

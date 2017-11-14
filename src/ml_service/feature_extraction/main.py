@@ -8,7 +8,7 @@ from feature_extraction.preprocessing import save_model
 from outputs.output import Log
 
 '''
-Improvement: 
+Improvement:
 1 - Commands can be imporoved for this class. Now a little basic
 2 - Perhaps clear previous output directories of the models etc.
 '''
