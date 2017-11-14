@@ -6,6 +6,7 @@ from sklearn.cluster import KMeans
 from global_variables.global_variable import InformationType
 from outputs.output import Save
 
+
 class KMeansWrapper:
     def __init__(self, data_tuple):
         """
