@@ -1,5 +1,54 @@
 ﻿{
   "rasa_nlu_data": {
+    "regex_features": [
+      {
+          "name": "termination: end",
+          "pattern": "end[^\\s]*"
+          },
+      {
+        "name": "termination: expires",
+        "pattern": "expire[^\\s]*"
+      },
+      {
+        "name": "termination: finish",
+        "pattern": "finish[^\\s]*"
+      },
+      {
+        "name": "termination: expires",
+        "pattern": "expire[^\\s]*"
+      },
+      {
+        "name": "termination: concludes",
+        "pattern": "conclude[^\\s]*"
+      },
+      {
+        "name": "termination: out",
+        "pattern": "out[^\\s]*"
+      },
+      {
+        "name": "lease: lease",
+        "pattern": "lease[^\\s]*"
+      },
+      {
+        "name": "termination: terminat",
+        "pattern": "terminat[^\\s]*"
+      },
+      {
+        "name": "number: number 1 to 31 with -st, -nd, -rd, -th",
+        "pattern": "[0-3]*[0-9](st)*(nd)*(rd)*(th)*"
+      },
+      {
+        "name": "months: January to December",
+        "pattern": "([S|s]eptember|[O|o]ctober|[N|n]ovember|[D|d]ecember|[J|j]anuary|[F|f]ebruary|[M|m]arch|[A|a]pril|[M|m]ay|[J|j]une|[J|j]uly|[A|a]ugust)"
+      },
+      {
+        "name": "year: 4 digit numbers",
+        "pattern": "[1-2][0-9]{3}"
+      },
+      {
+
+      }
+    ],
     "common_examples": [
       {
         "text": "lease doesn’t run out",
@@ -208,6 +257,16 @@
       },
       {
         "text": "ending in a couple of months",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
+        "text": "My lease ends in 3 to 4 weeks",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
+        "text": "My lease ends on January 2nd 2018",
         "intent": "fixed",
         "entities": []
       }

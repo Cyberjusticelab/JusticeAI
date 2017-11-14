@@ -2,9 +2,9 @@
   "rasa_nlu_data": {
     "regex_features": [
       {
-        "name": "termination: end",
-        "pattern": "end[^\\s]*"
-      },
+          "name": "termination: end",
+          "pattern": "end[^\\s]*"
+          },
       {
         "name": "termination: expires",
         "pattern": "expire[^\\s]*"
