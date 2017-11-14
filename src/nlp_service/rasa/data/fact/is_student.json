@@ -36,6 +36,14 @@
       {
         "name": "negation extra",
         "pattern":"(do)(\\s)(not)(\\s)(go)(\\s)(to)"
+      },
+      {
+        "name": "yes",
+        "pattern":"(yes)"
+      },
+      {
+        "name": "no",
+        "pattern":"(no)"
       }
     ],
     "entity_synonyms":[
@@ -141,14 +149,69 @@
         "entities": []
       },
       {
+        "text": "yes",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I'm currently a student",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I'm studying now",
+        "intent":"true",
+        "entities": []
+      },
+      {
         "text": "I study engineering",
         "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I am",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "Yes, I'm going to school right now ",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "no",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "I am not",
+        "intent": "false",
         "entities": []
       },
       {
         "text": "no, i’m not a student",
         "intent": "false",
         "entities": []
+      },
+      {
+        "text": "I dropped out",
+        "intent":"false",
+        "entities":[]
+      },
+      {
+        "text": "I am working now",
+        "intent":"false",
+        "entities":[]
+      },
+      {
+        "text": "I don't like school",
+        "intent":"false",
+        "entities":[]
+      },
+      {
+        "text":"I was a student but I am not anymore.",
+        "intent":"false",
+        "entities":[]
       },
       {
         "text":"I go to school.",
@@ -336,7 +399,22 @@
         "entities": []
       },
       {
+        "text": "I once was a student",
+        "intent":"false",
+        "entities": []
+      },
+      {
+        "text": "I previously went to school",
+        "intent":"false",
+        "entities": []
+      },
+      {
         "text": "I am not at school now",
+        "intent":"false",
+        "entities": []
+      },
+      {
+        "text": "I can't go to school anymore",
         "intent":"false",
         "entities": []
       },
