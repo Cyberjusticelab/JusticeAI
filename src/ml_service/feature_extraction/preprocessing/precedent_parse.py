@@ -7,6 +7,7 @@ from global_variables.global_variable import Global
 from outputs.output import Log
 from word_vectors.vectors import FrenchVectors
 
+
 class State:
     """
     Used for state machine
