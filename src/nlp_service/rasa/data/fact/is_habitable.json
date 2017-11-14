@@ -23,7 +23,7 @@
       },
       {
         "name": "never cleans",
-        "pattern": "(never)(\\s)(nois[^\\s]*)"
+        "pattern": "(never)(\\s)(clean[^\\s]*)"
       },
       {
         "name": "disgusting",
@@ -39,7 +39,7 @@
       },
       {
         "name": "rats",
-        "pattern": "rats[^\\s]*"
+        "pattern": "rat[^\\s]*"
       },
       {
         "name": "smell",
@@ -63,11 +63,31 @@
       },
       {
         "name": "lock",
-        "pattern": "(lock)"
+        "pattern": "lock[^\\s]"
       },
       {
         "name": "electricity",
-        "pattern": "(no)(\\s)(electricty)"
+        "pattern": "(no)(\\s)(electricity)"
+      },
+      {
+        "name": "hesitation",
+        "pattern": "(but)"
+      },
+      {
+        "name": "habitable",
+        "pattern": "(habitable)"
+      },
+      {
+        "name": "good",
+        "pattern": "(good)"
+      },
+      {
+        "name": "lack of repairs, repairing, disrepairs",
+        "pattern": "[a-z]*(repair)[^\\s]*"
+      },
+      {
+        "name": "infestation",
+        "pattern": "(ant[^\\s]*)|(infest[^\\s]*)|(bug[^\\s]*)|(termite[^\\s]*)|(mice)|(mouse)|(poop)|(fece[^\\s]*)|(rat[^\\s]*)"
       }
     ],
     "entity_synonyms": [
@@ -231,6 +251,11 @@
         "entities": []
       },
       {
+        "text": "This apartment is infested with rats and ants",
+        "intent": "false",
+        "entities": []
+      },
+      {
         "text": "it smells bad in my place",
         "intent": "false",
         "entities": []
@@ -322,6 +347,82 @@
       },
       {
         "text": "my house is nice",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "but it's fine",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "but it's habitable",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "but it's good",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "but it's fine",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "it's excellent",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "I love it",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "My landlord won't fix anything and there's holes everywhere",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "There's feces on the ground everywhere",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "I can't take my landlord anymore but it's a nice apartment",
+        "intent": "true",
+        "entities": []
+      },
+
+      {
+        "text": "It's amazing",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "It's great",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "I have no complaints",
+        "intent": "true",
+        "entities": []
+      },
+      {
+      "text": "Everything is terrible",
+      "intent": "false",
+      "entities": []
+      },
+      {
+      "text": "I hate it",
+      "intent": "false",
+      "entities": []
+      },
+      {
+        "text": "I've had several complaints",
         "intent": "true",
         "entities": []
       }
