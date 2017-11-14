@@ -11,9 +11,9 @@ class Responses:
 
     # Asking for clarification
     clarify = [
-        "I'm sorry, I can't understand what you mean. Could you please clarify?",
-        "I didn't understand that, could you please clarify?",
-        "I'm afraid I dont understand. Could you please rephrase?"
+        "I'm sorry, I can't understand what you mean. Could you please clarify? {previous_question}",
+        "I didn't understand that, could you please clarify? {previous_question}",
+        "I'm afraid I don't understand. Could you please rephrase? {previous_question}"
     ]
 
     # Fact Questions
