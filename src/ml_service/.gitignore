@@ -17,3 +17,4 @@ coverage.xml
 /test/feature_extraction/preprocessing/test/*txt
 /outputs/**/*.txt
 /outputs/**/*.bin
+/word_vectors/cache.pickle

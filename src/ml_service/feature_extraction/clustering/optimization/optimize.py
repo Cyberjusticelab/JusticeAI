@@ -3,6 +3,7 @@ from sys import stdout
 import matplotlib.pyplot as plt
 from ml_models.models import Load
 
+
 class File:
     Epsilon = 'epsilon.txt'
     ClusterSize = 'cluster_size.txt'

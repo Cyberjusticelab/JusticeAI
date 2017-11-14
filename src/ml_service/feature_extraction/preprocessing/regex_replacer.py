@@ -38,6 +38,7 @@ class RegexReplacer():
         4- Remove punctuation
         5- Removes unnecessary white spaces
         6- Tokenzie string and remove stop words
+        7- remove remaining digits
         :param line: String
         :return: String
         """
@@ -46,12 +47,13 @@ class RegexReplacer():
         new_str = re.sub(RegexReplacer.apostrophe_match, ' ', new_str)
         new_str = re.sub(RegexReplacer.unnecessary_white_space_match, " ", new_str)
         new_str = new_str.translate(RegexReplacer.translator)
+        new_str = RegexReplacer.__remove_stop_words(new_str)
+        new_str = ''.join([i for i in new_str if not i.isdigit()])
         try:
             if new_str[0] == " ":
                 new_str = new_str[1:]
         except IndexError:
             return None
-        new_str = RegexReplacer.__remove_stop_words(new_str)
         return new_str
 
     @staticmethod
