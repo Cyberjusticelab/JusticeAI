@@ -6,6 +6,7 @@ from feature_extraction.preprocessing.precedent_model import PrecedentModel, Fac
 from global_variables.global_variable import Global
 from outputs.output import Log
 from word_vectors.vectors import FrenchVectors
+from feature_extraction.preprocessing.regex_replacer import RegexReplacer
 
 
 class State:
@@ -107,7 +108,8 @@ class PrecedentParser:
             dict = self.__model.dict['decisions']
 
         for sub_sent in sub_sent_list:
-            if sub_sent in self.__model.dict:
+            norm_sent = RegexReplacer.normalize_string(sub_sent)
+            if norm_sent in self.__model.dict:
                 if self.__filename not in dict['precedence']:
                     dict['precedence'].append(self.__filename)
             else:
@@ -115,8 +117,8 @@ class PrecedentParser:
                 new_dict = fact_model.dict
                 new_dict['fact'] = sub_sent
                 new_dict['precedence'].append(self.__filename)
-                new_dict['vector'] = FrenchVectors.vectorize_sent(sub_sent)
-                dict[sub_sent] = fact_model
+                new_dict['vector'] = FrenchVectors.vectorize_sent(norm_sent)
+                dict[norm_sent] = fact_model
 
     def __split_sub_sentence(self, sentence):
         """
