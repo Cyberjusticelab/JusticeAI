@@ -39,6 +39,9 @@ class RegexReplacer():
         new_str = re.sub(RegexReplacer.apostrophe_match, ' ', new_str)
         new_str = re.sub("\s\s+" , " ", new_str)
         new_str = new_str.translate(RegexReplacer.translator)
-        if new_str[0] == " ":
-            new_str = new_str[1:]
+        try:
+            if new_str[0] == " ":
+                new_str = new_str[1:]
+        except IndexError:
+            return None
         return new_str

@@ -109,6 +109,8 @@ class PrecedentParser:
 
         for sub_sent in sub_sent_list:
             norm_sent = RegexReplacer.normalize_string(sub_sent)
+            if norm_sent is None:
+                continue
             if norm_sent in self.__model.dict:
                 if self.__filename not in dict['precedence']:
                     dict['precedence'].append(self.__filename)
