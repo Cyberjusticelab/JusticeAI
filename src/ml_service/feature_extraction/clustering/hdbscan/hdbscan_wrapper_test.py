@@ -3,6 +3,7 @@ import numpy
 from feature_extraction.clustering.hdbscan.hdbscan_wrapper import HdbscanTrain
 from global_variables.global_variable import Global
 
+
 class TestStringMethods(unittest.TestCase):
     def test_hdbscan(self):
         matrix = numpy.matrix([[2, 3, 4, 5], [2, 1, 6, 7], [2, 54, 12, 23]])
@@ -16,8 +17,6 @@ class TestStringMethods(unittest.TestCase):
         text = ''
         file = open(file, 'r')
         for lines in file:
-            text  += lines
+            text += lines
         file.close()
         self.assertEqual(text, expected_cluster)
-
-

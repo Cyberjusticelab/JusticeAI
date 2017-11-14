@@ -6,6 +6,7 @@ from outputs.output import Log
 Only store models that are good for use in this directory
 """
 
+
 class Load():
     __script_dir = os.path.abspath(__file__ + r"/../")
     __processed_facts = 'processed_facts.bin'

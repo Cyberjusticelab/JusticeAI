@@ -66,7 +66,7 @@ class Save():
         __rel_path = filename
         file_path = os.path.join(self.__output_dir, __rel_path)
         file = open(file_path, protocol)
-        if not type(text) == list:
+        if not isinstance(text, list):
             text = [text]
         for lines in text:
             file.writelines(lines)

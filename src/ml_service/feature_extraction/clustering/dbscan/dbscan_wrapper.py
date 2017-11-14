@@ -5,6 +5,7 @@ import logging
 from global_variables.global_variable import InformationType
 from outputs.output import Log, Save
 
+
 def cluster_facts(data_tuple, min_sample, eps):
     """
     Clusters all given facts using DBSCAN, and writes the resulting

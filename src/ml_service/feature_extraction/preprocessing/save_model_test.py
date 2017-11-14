@@ -8,7 +8,6 @@ from global_variables.global_variable import Global
 
 class TestStringMethods(unittest.TestCase):
 
-
     def test_save(self):
         __script_dir = os.path.abspath(__file__ + r"/../")
         __relative_dir = r'test/'
