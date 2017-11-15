@@ -6,7 +6,7 @@ from nltk.tokenize.moses import MosesDetokenizer
 
 
 class RegexReplacer():
-    money_match = re.compile('[\d*\s*,*]*\$')
+    money_match = re.compile('\d+\s*?\$')
     date_match = re.compile('[\d[a-zA-Z]+\s]*[\d*\s*]*janvier\s*\d*|'
                             '[\d[a-zA-Z]+\s]*[\d*\s*]*février\s*\d*|'
                             '[\d[a-zA-Z]+\s]*[\d*\s*]*mars\s*\d*|'
