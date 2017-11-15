@@ -7,18 +7,7 @@ from nltk.tokenize.moses import MosesDetokenizer
 
 class RegexReplacer():
     money_match = re.compile('[\d*\s*,*]*\$')
-    date_match = re.compile('[\d[a-zA-Z]+\s]*[\d*\s*]*janvier\s*\d*|'
-                            '[\d[a-zA-Z]+\s]*[\d*\s*]*février\s*\d*|'
-                            '[\d[a-zA-Z]+\s]*[\d*\s*]*mars\s*\d*|'
-                            '[\d[a-zA-Z]+\s]*[\d*\s*]*avril\s*\d*|'
-                            '[\d[a-zA-Z]+\s]*[\d*\s*]*mai\s*\d*|'
-                            '[\d[a-zA-Z]+\s]*[\d*\s*]*juin\s*\d*|'
-                            '[\d[a-zA-Z]+\s]*[\d*\s*]*juillet\s*\d*|'
-                            '[\d[a-zA-Z]+\s]*[\d*\s*]*août\s*\d*|'
-                            '[\d[a-zA-Z]+\s]*[\d*\s*]*septembre\s*\d*|'
-                            '[\d[a-zA-Z]+\s]*[\d*\s*]*octobre\s*\d*|'
-                            '[\d[a-zA-Z]+\s]*[\d*\s*]*novembre\s*\d*|'
-                            '[\d[a-zA-Z]+\s]*[\d*\s*]*décembre\s*\d*')
+    date_match = re.compile('(\d+?\w*?\s+?|)(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)(\s+\d{2,4}|)')
     apostrophe_match = re.compile('\w\'')
     unnecessary_white_space_match = re.compile("\s\s+")
     translator = str.maketrans('', '', string.punctuation)
