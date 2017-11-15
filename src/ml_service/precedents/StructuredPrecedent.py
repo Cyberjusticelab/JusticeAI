@@ -1,9 +1,9 @@
-from src.ml_service.GlobalVariables.GlobalVariable import InformationType
+from src.ml_service.global_variables.global_variable import InformationType
 
 
 class StructuredPrecedent:
 
-    FACT_LABEL = 0
+    FACT_CATEGORY = 0
     FACT_VECTOR = 0
     FACT_TUPLE = 1
 
@@ -22,15 +22,18 @@ class StructuredPrecedent:
                                               The second element contains all the facts, with their category number
         """
         precedents = {}
-        for label in set(self.fact_labels):
+        unique_labels = set(self.fact_labels)
+        for label in unique_labels:
             for raw_fact_tuple, file_name_tuple in zip(enumerate(self.data_tuple[InformationType.FACTS.value][self.fact_labels == label]),
                                                        enumerate(self.data_tuple[InformationType.PRECEDENTS_FILE_NAMES.value][self.fact_labels == label])):
 
                 file_name = file_name_tuple[1].replace(".txt", "")
                 if file_name not in precedents:
-                    precedents[file_name] = [[None]*len(self.fact_labels), [raw_fact_tuple]]
+                    # Create new entry with file name
+                    precedents[file_name] = [[None]*len(unique_labels), [raw_fact_tuple]]
                 else:
+                    # add fact to existing entry
                     precedents[file_name][self.FACT_TUPLE].append(raw_fact_tuple)
 
-                precedents[file_name][self.FACT_VECTOR][raw_fact_tuple[self.FACT_LABEL]] = 1
+                precedents[file_name][self.FACT_VECTOR][raw_fact_tuple[self.FACT_CATEGORY]] = 1  # 1 signifies that the fact exists
         return precedents
