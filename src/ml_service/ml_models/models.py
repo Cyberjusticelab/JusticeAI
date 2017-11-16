@@ -1,6 +1,6 @@
 import os
 import joblib
-from src.ml_service.outputs.output import Log
+from outputs.output import Log
 
 """
 Only store models that are good for use in this directory
