@@ -21,10 +21,10 @@ class StructuredPrecedent:
         :param Decisions_data_tuple ([int], [string], [string]): vectors, transformed sentences, original sentence
         """
         self.precedents = {}
-        self.create_vector_from_data_tuple(fact_labels, fact_data_tuple, self.FACTS)
-        self.create_vector_from_data_tuple(decisions_labels, decisions_data_tuple, self.DECISIONS_VECTOR)
+        self.create_structure_from_data_tuple(fact_labels, fact_data_tuple, self.FACTS)
+        self.create_structure_from_data_tuple(decisions_labels, decisions_data_tuple, self.DECISIONS_VECTOR)
 
-    def create_vector_from_data_tuple(self, labels, data_tuple, data_type):
+    def create_structure_from_data_tuple(self, labels, data_tuple, data_type):
         """
         Creates a fact or decisions vector for all precedents
         :param labels (int): Cluster labels
@@ -60,7 +60,7 @@ class StructuredPrecedent:
                     self.precedents[file_name][self.DECISIONS_VECTOR][label] = 1  # 1 signifies that the fact exists
                     self.precedents[file_name][self.DECISIONS].append(raw_fact)
 
-    def create_vectors_from_files(self, directory, data_type):
+    def create_structure_from_cluster_files(self, directory, data_type):
         """
         Creates a fact or decisions vector for all precedents
         :param directory (string): directory path where the cluster are located
