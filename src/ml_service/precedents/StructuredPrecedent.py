@@ -10,8 +10,11 @@ class StructuredPrecedent:
 
     def __init__(self, fact_labels, fact_data_tuple, outcome_labels, outcome_data_tuple):
         """
-        :param fact_labels [int]: fact labels/categories for each sentence in the data_tuple
-        :param data_tuple <[int], [string], [string]>: vectors, transformed sentences, original sentence
+        
+        :param fact_labels: Facts cluster labels
+        :param fact_data_tuple ([int], [string], [string]): vectors, transformed sentences, original sentence 
+        :param outcome_labels: Outcomes cluster labels
+        :param outcome_data_tuple ([int], [string], [string]): vectors, transformed sentences, original sentence  
         """
         self.precedents = {}
         self.create_vector(fact_labels, fact_data_tuple, self.FACTS)
@@ -19,9 +22,11 @@ class StructuredPrecedent:
 
     def create_vector(self, labels, data_tuple, data_type):
         """
-        Recreates precedents from fact clusters
-        :return [[int or None],(int,string)]: Structured precedents where the first element represents the fact vector
-                                              The second element contains all the facts, with their category number
+        Creates a fact or outcome vector for all precedents
+        :param labels (int): Cluster labels
+        :param data_tuple ([int], [string], [string]): vectors, transformed sentences, original sentence
+        :param data_type (string): "facts" or "outcomes"
+        :return: Void
         """
         unique_labels = set(labels)
         for label in (temp_label for temp_label in unique_labels if temp_label >= 0):
