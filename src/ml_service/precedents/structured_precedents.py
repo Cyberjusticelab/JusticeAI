@@ -43,12 +43,10 @@ class StructuredPrecedent:
                     self.precedents[file_name] = dict.fromkeys([self.FACTS, self.FACTS_VECTOR, self.OUTCOMES, self.OUTCOMES_VECTOR, self.LEASE_TERMINATED])
 
                     # initialize fields
-                    if data_type == self.FACTS:
-                        self.precedents[file_name][self.FACTS_VECTOR] = [0] * len(unique_labels)
-                        self.precedents[file_name][self.FACTS] = []
-                    else:
-                        self.precedents[file_name][self.OUTCOMES_VECTOR] = [0] * len(unique_labels)
-                        self.precedents[file_name][self.OUTCOMES] = []
+                    self.precedents[file_name][self.FACTS_VECTOR] = [0] * len(unique_labels)
+                    self.precedents[file_name][self.FACTS] = []
+                    self.precedents[file_name][self.OUTCOMES_VECTOR] = [0] * len(unique_labels)
+                    self.precedents[file_name][self.OUTCOMES] = []
 
                 # populate fields
                 if data_type == self.FACTS:
