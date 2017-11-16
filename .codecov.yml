@@ -1,4 +1,0 @@
-comment:
-  behavior: default
-  layout: header, diff
-  require_changes: false

@@ -10,7 +10,6 @@
 course-admin/
 images/
 meta-documents/
-.git/
 **/.gitignore
 **/.dockerignore
 **/*.md
