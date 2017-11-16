@@ -20,7 +20,6 @@ class StructuredPrecedent:
         """
         self.precedents = {}
         self.create_vector(fact_labels, fact_data_tuple, self.FACTS)
-        self.write_data_to_output_dir()
         self.create_vector(outcome_labels, outcome_data_tuple, self.OUTCOMES_VECTOR)
 
     def create_vector(self, labels, data_tuple, data_type):
@@ -37,6 +36,7 @@ class StructuredPrecedent:
                                                        enumerate(data_tuple[InformationType.PRECEDENTS_FILE_NAMES.value][labels == label])):
 
                 file_name = file_name_tuple[1].replace(".txt", "")
+
                 if file_name not in self.precedents:
 
                     # Create new entry with file name
