@@ -32,7 +32,7 @@ class StructuredPrecedent:
         :param data_type (string): "facts" or "decisions"
         :return: Void
         """
-        unique_labels_size = len(set(labels)) - 1  # size is reduces by one because we need to ignore label -1
+        unique_labels_size = len(set(labels)) - 1  # size is reduces by one because we need to ignore "-1" label
         for index, label in enumerate(labels):
             if label < 0:
                 continue
