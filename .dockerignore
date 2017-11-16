@@ -1,0 +1,19 @@
+# Generated files
+**/node_modules
+**/.cache
+**/__pycache__
+**/.idea
+**/npm-debug.log
+**/DS_Store
+
+# Files that should not be sent to Docker daemon
+course-admin/
+images/
+meta-documents/
+**/.gitignore
+**/.dockerignore
+**/*.md
+**/Dockerfile
+cjl
+
+
