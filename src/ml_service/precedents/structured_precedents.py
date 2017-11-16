@@ -7,30 +7,29 @@ from ml_models.models import Load
 
 class StructuredPrecedent:
 
-    CATEGORY_INDEX = 0
     FACTS = "facts"
     FACTS_VECTOR = "facts_vector"
-    OUTCOMES = "outcomes"
-    OUTCOMES_VECTOR = "outcomes_vector"
+    DECISIONS = "decisions"
+    DECISIONS_VECTOR = "decisions_vector"
 
-    def __init__(self, fact_labels, fact_data_tuple, outcome_labels, outcome_data_tuple):
+    def __init__(self, fact_labels, fact_data_tuple, decisions_labels, decisions_data_tuple):
         """
         :param fact_labels: Facts cluster labels
         :param fact_data_tuple ([int], [string], [string]): vectors, transformed sentences, original sentence 
-        :param outcome_labels: Outcomes cluster labels
-        :param outcome_data_tuple ([int], [string], [string]): vectors, transformed sentences, original sentence  
+        :param decisions_labels: Decisions cluster labels
+        :param Decisions_data_tuple ([int], [string], [string]): vectors, transformed sentences, original sentence  
         """
         self.precedents = {}
         self.create_vector(fact_labels, fact_data_tuple, self.FACTS)
-        self.create_vector(outcome_labels, outcome_data_tuple, self.OUTCOMES_VECTOR)
+        self.create_vector(decisions_labels, decisions_data_tuple, self.DECISIONS_VECTOR)
         self.write_data_as_bin()
 
     def create_vector(self, labels, data_tuple, data_type):
         """
-        Creates a fact or outcome vector for all precedents
+        Creates a fact or decisions vector for all precedents
         :param labels (int): Cluster labels
         :param data_tuple ([int], [string], [string]): vectors, transformed sentences, original sentence
-        :param data_type (string): "facts" or "outcomes"
+        :param data_type (string): "facts" or "decisions"
         :return: Void
         """
         unique_labels_size = len(set(labels)) - 1  # size is reduces by one because we need to ignore label -1
@@ -45,21 +44,21 @@ class StructuredPrecedent:
                 if file_name not in self.precedents:
 
                     # Create new entry with file name
-                    self.precedents[file_name] = dict.fromkeys([self.FACTS, self.FACTS_VECTOR, self.OUTCOMES, self.OUTCOMES_VECTOR])
+                    self.precedents[file_name] = dict.fromkeys([self.FACTS, self.FACTS_VECTOR, self.DECISIONS, self.DECISIONS_VECTOR])
 
                     # initialize fields
                     self.precedents[file_name][self.FACTS_VECTOR] = numpy.zeros(unique_labels_size, dtype=numpy.int)
                     self.precedents[file_name][self.FACTS] = []
-                    self.precedents[file_name][self.OUTCOMES_VECTOR] = numpy.zeros(unique_labels_size, dtype=numpy.int)
-                    self.precedents[file_name][self.OUTCOMES] = []
+                    self.precedents[file_name][self.DECISIONS_VECTOR] = numpy.zeros(unique_labels_size, dtype=numpy.int)
+                    self.precedents[file_name][self.DECISIONS] = []
 
                 # populate fields
                 if data_type == self.FACTS:
                     self.precedents[file_name][self.FACTS_VECTOR][label] = 1  # 1 signifies that the fact exists
                     self.precedents[file_name][self.FACTS].append(raw_fact)
                 else:
-                    self.precedents[file_name][self.OUTCOMES_VECTOR][label] = 1  # 1 signifies that the fact exists
-                    self.precedents[file_name][self.OUTCOMES].append(raw_fact)
+                    self.precedents[file_name][self.DECISIONS_VECTOR][label] = 1  # 1 signifies that the fact exists
+                    self.precedents[file_name][self.DECISIONS].append(raw_fact)
 
     def write_data_as_bin(self, dicrectory):
         joblib.dump(self.precedents, dicrectory + "structured_precedent.bin")
