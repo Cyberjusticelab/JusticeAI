@@ -1,6 +1,6 @@
 import os
 import joblib
-from outputs.output import Log
+from src.ml_service.outputs.output import Log
 
 """
 Only store models that are good for use in this directory
@@ -50,6 +50,21 @@ class Load():
                 file = open(filename, 'rb')
                 model = joblib.load(file)
             Log.write("Loading complete")
+            return model
+        except BaseException:
+            Log.write("Download model binary first")
+
+    @staticmethod
+    def load_model_from_bin(file_path):
+        """
+        Loads binarized models
+        :param: file_path: String
+        :return: model
+        """
+        try:
+            Log.write("Loading model... May take a few seconds")
+            file = open(file_path, 'rb')
+            model = joblib.load(file)
             return model
         except BaseException:
             Log.write("Download model binary first")
