@@ -2,6 +2,8 @@ import numpy
 import joblib
 from global_variables.global_variable import InformationType
 from global_variables.global_variable import Global
+from ml_models.models import Load
+
 
 class StructuredPrecedent:
 
@@ -59,5 +61,17 @@ class StructuredPrecedent:
                     self.precedents[file_name][self.OUTCOMES_VECTOR][label] = 1  # 1 signifies that the fact exists
                     self.precedents[file_name][self.OUTCOMES].append(raw_fact)
 
-    def write_data_as_bin(self):
-        joblib.dump(self.precedents, Global.output_directory + "structured_precedent.bin")
+    def write_data_as_bin(self, dicrectory):
+        joblib.dump(self.precedents, dicrectory + "structured_precedent.bin")
+
+if __name__ == '__main__':
+
+    # add paths for fact and decision models
+    hdb_facts_model = Load.load_model_from_bin("")
+    hdb_decision_model = Load.load_model_from_bin("")
+    fact_data_tuple = Load.load_facts_from_bin()
+    decision_data_tuple = Load.load_decisions_from_bin()
+
+    precedents = StructuredPrecedent(hdb_facts_model, fact_data_tuple, hdb_decision_model, decision_data_tuple)
+    precedents.write_data_as_bin(Global.output_directory)
+
