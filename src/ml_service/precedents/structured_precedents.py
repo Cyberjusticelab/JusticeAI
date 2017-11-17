@@ -3,7 +3,7 @@ import joblib
 import os
 from global_variables.global_variable import InformationType
 from global_variables.global_variable import Global
-from ml_models.models import Load
+from .ml_models.models import Load
 
 
 class StructuredPrecedent:
@@ -22,8 +22,8 @@ class StructuredPrecedent:
         :param decision_cluster_directory (string): directory path to decision clusters
         :return: 
         """
-        self.__create_structure_from_cluster_files(fact_cluster_directory,self.FACTS)
-        self.__create_structure_from_cluster_files(decision_cluster_directory,self.DECISIONS)
+        self.__create_structure_from_cluster_files(fact_cluster_directory, self.FACTS)
+        self.__create_structure_from_cluster_files(decision_cluster_directory ,self.DECISIONS)
 
     def create_structure_from_data_tuple(self, fact_labels, fact_data_tuple, decisions_labels, decisions_data_tuple):
         """
@@ -49,34 +49,29 @@ class StructuredPrecedent:
             if label < 0:
                 continue
 
-            raw_fact = data_tuple[InformationType.FACTS.value][index]
-
             for file_name in data_tuple[InformationType.PRECEDENTS_FILE_NAMES.value][index]:
-                file_name = file_name.replace(".txt", "")
-                if file_name == "AZ-51165767":
-                    test = 0
+                file_name = file_name.strip().replace(".txt", "")
                 if file_name not in self.precedents:
 
                     # Create new entry with file name
-                    self.precedents[file_name] = dict.fromkeys([self.FACTS, self.FACTS_VECTOR, self.DECISIONS, self.DECISIONS_VECTOR])
+                    self.precedents[file_name] = dict.fromkeys([self.FACTS_VECTOR, self.DECISIONS_VECTOR])
 
-                # initialize fields
                 if data_type == self.FACTS:
+
+                    # initialize fields
                     if self.precedents[file_name][self.FACTS_VECTOR] is None:
                         self.precedents[file_name][self.FACTS_VECTOR] = numpy.zeros(unique_labels_size, dtype=numpy.int)
-                        self.precedents[file_name][self.FACTS] = []
 
                     # populate fields
                     self.precedents[file_name][self.FACTS_VECTOR][label] = 1  # 1 signifies that the fact exists
-                    self.precedents[file_name][self.FACTS].append(raw_fact)
                 else:
+
+                    # initialize fields
                     if self.precedents[file_name][self.DECISIONS_VECTOR] is None:
                         self.precedents[file_name][self.DECISIONS_VECTOR] = numpy.zeros(unique_labels_size, dtype=numpy.int)
-                        self.precedents[file_name][self.DECISIONS] = []
 
                     # populate fields
                     self.precedents[file_name][self.DECISIONS_VECTOR][label] = 1  # 1 signifies that the fact exists
-                    self.precedents[file_name][self.DECISIONS].append(raw_fact)
 
     def __create_structure_from_cluster_files(self, directory, data_type):
         """
@@ -109,22 +104,31 @@ class StructuredPrecedent:
             while line:
                 file_name = line.strip().replace(".txt", "")
                 if file_name not in self.precedents:
+
                     # Create new entry with file name
                     self.precedents[file_name] = dict.fromkeys([self.FACTS_VECTOR, self.DECISIONS_VECTOR])
-
                 if data_type == self.FACTS:
+
+                    # initialize fields
                     if self.precedents[file_name][self.FACTS_VECTOR] is None:
                         self.precedents[file_name][self.FACTS_VECTOR] = numpy.zeros(vector_size, dtype=numpy.int)
+
+                    # populate fields
                     self.precedents[file_name][self.FACTS_VECTOR][int(label)] = 1  # 1 signifies that the fact exists
                 else:
+
+                    # initialize fields
                     if self.precedents[file_name][self.DECISIONS_VECTOR] is None:
                         self.precedents[file_name][self.DECISIONS_VECTOR] = numpy.zeros(vector_size, dtype=numpy.int)
+
+                    # populate fields
                     self.precedents[file_name][self.DECISIONS_VECTOR][int(label)] = 1  # 1 signifies that the fact exists
 
                 line = file.readline()
 
     def write_data_as_bin(self, dicrectory):
         joblib.dump(self.precedents, dicrectory + "structured_precedent.bin")
+
 
 if __name__ == '__main__':
 
