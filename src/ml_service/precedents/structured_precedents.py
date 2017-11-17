@@ -3,7 +3,7 @@ import joblib
 import os
 from global_variables.global_variable import InformationType
 from global_variables.global_variable import Global
-from .ml_models.models import Load
+from ml_models.models import Load
 
 
 class StructuredPrecedent:
