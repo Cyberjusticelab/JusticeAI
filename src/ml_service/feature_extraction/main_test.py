@@ -8,8 +8,3 @@ class TestStringMethods(unittest.TestCase):
         with self.assertRaises(SystemExit) as cm:
             main.process_command('random', [])
         self.assertEqual(cm.exception.code, 1)
-
-    def test_parse_precedence(self):
-        with self.assertRaises(SystemExit) as cm:
-            main.parse_precedent('random')
-        self.assertEqual(cm.exception.code, 1)

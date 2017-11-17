@@ -69,6 +69,12 @@ class Save():
         if not isinstance(text, list):
             text = [text]
         for lines in text:
-            file.writelines(lines)
-            file.writelines('\n')
+            # Specific case when writing list of precedent filenames
+            if type(lines) == list:
+                for line in lines:
+                    file.writelines(line)
+                    file.writelines('\n')
+            else:
+                file.writelines(lines)
+                file.writelines('\n')
         file.close()
