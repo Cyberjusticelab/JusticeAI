@@ -54,8 +54,10 @@ def load_data():
     valid_values = [precedent for precedent in model.values() if precedent[
         'facts_vector'] is not None and precedent['decisions_vector'] is not None]
     for val in valid_values:
-        del val['decisions']
-        del val['facts']
+        if 'decisions' in val.keys():
+            del val['decisions']
+        if 'facts' in val.keys():
+            del val['facts']
         resiliation_values = [val['decisions_vector'][x]
                               for x in resiliation_custers]
         if np.sum(resiliation_values) > 0:
