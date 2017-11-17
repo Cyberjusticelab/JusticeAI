@@ -15,9 +15,7 @@ class BasicNeuralNet(object):
     def train(self):
         """
             Trains the neural network.
-            Current config: input vector shape (Vector size: 3486) ->
-                            intermediate vector  (Vector size: 64) ->
-                            output vector (Vector size: 2 (isResiliated, isNotResiliated))
+            Current config: Input -> 64 Nodes -> Outputs
         """
         vals = self.dictionary.values()
         vals = [precedent for precedent in self.dictionary.values() if precedent[
