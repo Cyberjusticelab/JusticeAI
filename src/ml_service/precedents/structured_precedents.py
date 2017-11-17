@@ -1,9 +1,9 @@
 import numpy
 import joblib
 import os
-from src.ml_service.global_variables.global_variable import InformationType
-from src.ml_service.global_variables.global_variable import Global
-from src.ml_service.ml_models.models import Load
+from global_variables.global_variable import InformationType
+from global_variables.global_variable import Global
+from ml_models.models import Load
 
 
 class StructuredPrecedent:
