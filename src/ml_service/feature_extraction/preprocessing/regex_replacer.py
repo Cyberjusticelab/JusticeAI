@@ -54,6 +54,7 @@ class RegexReplacer():
         :return: String
         """
         word_list = word_tokenize(line, 'french')
+        word_list = set(word_list)
         filtered_words = []
         for word in word_list:
             if word in FrenchVectors.get_stop_tokens():
