@@ -46,7 +46,7 @@ class PrecedentParser:
         :param filename: String
         :return: None
         """
-        file = open(Global.precedence_directory + filename, 'r', encoding="ISO-8859-1")
+        file = open(Global.precedent_directory + filename, 'r', encoding="ISO-8859-1")
         for lines in file:
             tpl = self.__statement_index(lines)
             self.__update_state(tpl[1], lines)

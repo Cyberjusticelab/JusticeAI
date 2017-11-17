@@ -15,7 +15,7 @@ class Global:
 
     __script_dir = os.path.abspath(__file__ + "/../../")
     __rel_path = r'precedents/text_bk/'
-    precedence_directory = os.path.join(__script_dir, __rel_path)
+    precedent_directory = os.path.join(__script_dir, __rel_path)
 
     __rel_path = r'ml_models/'
     ml_models_directory = os.path.join(__script_dir, __rel_path)

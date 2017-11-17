@@ -12,7 +12,7 @@ def save(data_to_extract, filename=None, nb_of_files=-1):
     :return: None
     """
     parser = PrecedentParser()
-    precedence_dict = parser.parse_files(Global.precedence_directory, nb_of_files)
+    precedence_dict = parser.parse_files(Global.precedent_directory, nb_of_files)
 
     X = []
     labels = []
