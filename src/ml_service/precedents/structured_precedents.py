@@ -1,9 +1,9 @@
 import numpy
 import joblib
 import os
-from global_variables.global_variable import InformationType
-from global_variables.global_variable import Global
-from ml_models.models import Load
+from src.ml_service.global_variables.global_variable import InformationType
+from src.ml_service.global_variables.global_variable import Global
+from src.ml_service.ml_models.models import Load
 
 
 class StructuredPrecedent:
@@ -13,18 +13,30 @@ class StructuredPrecedent:
     DECISIONS = "decisions"
     DECISIONS_VECTOR = "decisions_vector"
 
-    def __init__(self, fact_labels, fact_data_tuple, decisions_labels, decisions_data_tuple):
+    def __init__(self):
+        self.precedents = {}
+
+    def create_structure_from_cluster_files(self, fact_cluster_directory, decision_cluster_directory):
+        """
+        :param fact_cluster_directory (string): directory path to fact clusters
+        :param decision_cluster_directory (string): directory path to decision clusters
+        :return: 
+        """
+        self.__create_structure_from_cluster_files(fact_cluster_directory,self.FACTS)
+        self.__create_structure_from_cluster_files(decision_cluster_directory,self.DECISIONS)
+
+    def create_structure_from_data_tuple(self, fact_labels, fact_data_tuple, decisions_labels, decisions_data_tuple):
         """
         :param fact_labels: Facts cluster labels
         :param fact_data_tuple ([int], [string], [string]): vectors, transformed sentences, original sentence
         :param decisions_labels: Decisions cluster labels
         :param Decisions_data_tuple ([int], [string], [string]): vectors, transformed sentences, original sentence
         """
-        self.precedents = {}
-        self.create_structure_from_data_tuple(fact_labels, fact_data_tuple, self.FACTS)
-        self.create_structure_from_data_tuple(decisions_labels, decisions_data_tuple, self.DECISIONS_VECTOR)
 
-    def create_structure_from_data_tuple(self, labels, data_tuple, data_type):
+        self.__create_structure_from_data_tuple(fact_labels, fact_data_tuple, self.FACTS)
+        self.__create_structure_from_data_tuple(decisions_labels, decisions_data_tuple, self.DECISIONS)
+
+    def __create_structure_from_data_tuple(self, labels, data_tuple, data_type):
         """
         Creates a fact or decisions vector for all precedents
         :param labels (int): Cluster labels
@@ -41,26 +53,32 @@ class StructuredPrecedent:
 
             for file_name in data_tuple[InformationType.PRECEDENTS_FILE_NAMES.value][index]:
                 file_name = file_name.replace(".txt", "")
+                if file_name == "AZ-51165767":
+                    test = 0
                 if file_name not in self.precedents:
 
                     # Create new entry with file name
                     self.precedents[file_name] = dict.fromkeys([self.FACTS, self.FACTS_VECTOR, self.DECISIONS, self.DECISIONS_VECTOR])
 
-                    # initialize fields
-                    self.precedents[file_name][self.FACTS_VECTOR] = numpy.zeros(unique_labels_size, dtype=numpy.int)
-                    self.precedents[file_name][self.FACTS] = []
-                    self.precedents[file_name][self.DECISIONS_VECTOR] = numpy.zeros(unique_labels_size, dtype=numpy.int)
-                    self.precedents[file_name][self.DECISIONS] = []
-
-                # populate fields
+                # initialize fields
                 if data_type == self.FACTS:
+                    if self.precedents[file_name][self.FACTS_VECTOR] is None:
+                        self.precedents[file_name][self.FACTS_VECTOR] = numpy.zeros(unique_labels_size, dtype=numpy.int)
+                        self.precedents[file_name][self.FACTS] = []
+
+                    # populate fields
                     self.precedents[file_name][self.FACTS_VECTOR][label] = 1  # 1 signifies that the fact exists
                     self.precedents[file_name][self.FACTS].append(raw_fact)
                 else:
+                    if self.precedents[file_name][self.DECISIONS_VECTOR] is None:
+                        self.precedents[file_name][self.DECISIONS_VECTOR] = numpy.zeros(unique_labels_size, dtype=numpy.int)
+                        self.precedents[file_name][self.DECISIONS] = []
+
+                    # populate fields
                     self.precedents[file_name][self.DECISIONS_VECTOR][label] = 1  # 1 signifies that the fact exists
                     self.precedents[file_name][self.DECISIONS].append(raw_fact)
 
-    def create_structure_from_cluster_files(self, directory, data_type):
+    def __create_structure_from_cluster_files(self, directory, data_type):
         """
         Creates a fact or decisions vector for all precedents
         :param directory (string): directory path where the cluster are located
@@ -94,15 +112,15 @@ class StructuredPrecedent:
                     # Create new entry with file name
                     self.precedents[file_name] = dict.fromkeys([self.FACTS_VECTOR, self.DECISIONS_VECTOR])
 
-                    # initialize fields
-                    self.precedents[file_name][self.FACTS_VECTOR] = numpy.zeros(vector_size, dtype=numpy.int)
-                    self.precedents[file_name][self.DECISIONS_VECTOR] = numpy.zeros(vector_size, dtype=numpy.int)
-
-                    # populate fields
                 if data_type == self.FACTS:
+                    if self.precedents[file_name][self.FACTS_VECTOR] is None:
+                        self.precedents[file_name][self.FACTS_VECTOR] = numpy.zeros(vector_size, dtype=numpy.int)
                     self.precedents[file_name][self.FACTS_VECTOR][int(label)] = 1  # 1 signifies that the fact exists
                 else:
+                    if self.precedents[file_name][self.DECISIONS_VECTOR] is None:
+                        self.precedents[file_name][self.DECISIONS_VECTOR] = numpy.zeros(vector_size, dtype=numpy.int)
                     self.precedents[file_name][self.DECISIONS_VECTOR][int(label)] = 1  # 1 signifies that the fact exists
+
                 line = file.readline()
 
     def write_data_as_bin(self, dicrectory):
@@ -116,7 +134,7 @@ if __name__ == '__main__':
     fact_data_tuple = Load.load_facts_from_bin()
     decision_data_tuple = Load.load_decisions_from_bin()
 
-    precedents = StructuredPrecedent(hdb_facts_model.labels_, fact_data_tuple, hdb_decision_model.labels_, decision_data_tuple)
-    precedents.write_data_as_bin(Global.output_directory)
+    structured_precedent = StructuredPrecedent()
+    structured_precedent.create_structure_from_data_tuple(hdb_facts_model.labels_, fact_data_tuple, hdb_decision_model.labels_, decision_data_tuple)
 
-
+    structured_precedent.write_data_as_bin(Global.output_directory)
