@@ -26,9 +26,9 @@ class BasicNeuralNet(object):
         # Prep data
         print('splitting data')
         x_total = np.array(
-            [np.reshape(precedent['facts_vector'], (3486,)) for precedent in vals])
+            [np.reshape(precedent['facts_vector'], (len(precedent['facts_vector']),)) for precedent in vals])
         y_total = np.array(
-            [np.reshape(precedent['decisions_vector'], (1,)) for precedent in vals])
+            [np.reshape(precedent['decisions_vector'], (len(precedent['decisions_vector']),)) for precedent in vals])
         y_total = to_categorical(y_total)
         x_train, x_test, y_train, y_test = train_test_split(
             x_total, y_total, test_size=0.20, random_state=42)
@@ -36,8 +36,10 @@ class BasicNeuralNet(object):
         # Setup Model
         print('Creating model')
         model = Sequential()
-        model.add(Dense(units=64, activation='relu', input_dim=3486))
-        model.add(Dense(units=2, activation='softmax'))
+        model.add(Dense(units=64, activation='relu',
+                        input_dim=len(x_total[0])))
+        model.add(
+            Dense(units=len(y_total[0]), activation='softmax'))
         model.compile(loss='categorical_crossentropy',
                       optimizer='sgd',
                       metrics=['accuracy'])
