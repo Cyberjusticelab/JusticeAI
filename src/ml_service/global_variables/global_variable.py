@@ -25,3 +25,6 @@ class Global:
 
     __rel_path = r'word_vectors/'
     word_vector_directory = os.path.join(__script_dir, __rel_path)
+
+    __rel_path = r'test_data/'
+    test_data_directory = os.path.join(__script_dir, __rel_path)
