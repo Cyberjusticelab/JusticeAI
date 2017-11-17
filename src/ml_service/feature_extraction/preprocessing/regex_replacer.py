@@ -6,7 +6,7 @@ from nltk.tokenize.moses import MosesDetokenizer
 
 
 class RegexReplacer():
-    money_match = re.compile('[\d*\s*,*]*\$')
+    money_match = re.compile(r'\b(\d{1,3}(\s\d{3}|,\d{2})*)+(\$|\s\$)')
     date_match = re.compile('(\d+?\w*?\s+?|)(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)(\s+\d{2,4}|)')
     apostrophe_match = re.compile('\w\'')
     unnecessary_white_space_match = re.compile("\s\s+")
