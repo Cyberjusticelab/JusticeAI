@@ -60,5 +60,3 @@ def cluster_size_histogram(data_matrix, epsilon):
         else:
             cluster_size_hist[cluster_size] = 1
     return cluster_size_hist
-
-    
