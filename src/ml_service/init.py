@@ -7,6 +7,7 @@ from sys import stdout
 
 nltk.download('punkt')
 nltk.download('stopwords')
+nltk.download('perluniprops')
 
 
 def monitorDownload(filename, filesize):
