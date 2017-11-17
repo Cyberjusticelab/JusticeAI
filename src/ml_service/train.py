@@ -18,7 +18,6 @@ def load_data():
             for line in f:
                 if "RÉSILIE" in line and isFound is False:
                     val['decisions_vector'] = np.array([1])
-                    resilie += 1
                     isFound = True
     return model
 
