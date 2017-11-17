@@ -5,30 +5,66 @@ import joblib
 import pdb
 import numpy as np
 
+# I ran a crude regex to see which clusters have resiliation
+resiliation_custers = [1,
+                       2,
+                       12,
+                       17,
+                       23,
+                       25,
+                       63,
+                       78,
+                       84,
+                       96,
+                       97,
+                       98,
+                       119,
+                       138,
+                       140,
+                       143,
+                       190,
+                       197,
+                       199,
+                       253,
+                       284,
+                       306,
+                       346,
+                       381,
+                       384,
+                       393,
+                       395,
+                       423,
+                       442,
+                       445,
+                       451,
+                       463,
+                       468,
+                       506,
+                       510,
+                       512,
+                       543,
+                       560
+                       ]
 
-def load_data(useCached=False):
-    if useCached:
-        file = open('structured_precedent_updated.bin', 'rb')
-        return joblib.load(file)
+
+def load_data():
     file = open('structured_precedent.bin', 'rb')
     model = joblib.load(file)
     file.close()
-    resilie = 0
-    for (key, val) in model.items():
-        with open(Global.precedent_directory + key + '.txt', 'r', encoding="ISO-8859-1") as f:
-            isFound = False
+    valid_values = [precedent for precedent in model.values() if precedent[
+        'facts_vector'] is not None and precedent['decisions_vector'] is not None]
+    for val in valid_values:
+        del val['decisions']
+        del val['facts']
+        resiliation_values = [val['decisions_vector'][x]
+                              for x in resiliation_custers]
+        if np.sum(resiliation_values) > 0:
+            val['decisions_vector'] = np.array([1])
+        else:
             val['decisions_vector'] = np.array([0])
-            del val['decisions']
-            del val['facts']
-            for line in f:
-                if "RÉSILIE" in line and isFound is False:
-                    val['decisions_vector'] = np.array([1])
-                    isFound = True
-    print('save update')
-    joblib.dump(model, 'structured_precedent_updated.bin')
-    return model
+    return valid_values
 
 print('loading data')
-model = load_data(True)
-neuralNet = BasicNeuralNet(model)
+precedent_data = load_data()
+neuralNet = BasicNeuralNet(precedent_data)
 neuralNet.train()

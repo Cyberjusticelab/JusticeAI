@@ -9,24 +9,22 @@ import joblib
 
 class BasicNeuralNet(object):
 
-    def __init__(self, dictionary):
-        self.dictionary = dictionary
+    def __init__(self, values):
+        self.values = values
 
     def train(self):
         """
             Trains the neural network.
             Current config: Input -> 64 Nodes -> Outputs
         """
-        vals = self.dictionary.values()
-        vals = [precedent for precedent in self.dictionary.values() if precedent[
-            'facts_vector'] is not None]
 
+        # import pdb;pdb.set_trace()
         # Prep data
         print('splitting data')
         x_total = np.array(
-            [np.reshape(precedent['facts_vector'], (len(precedent['facts_vector']),)) for precedent in vals])
+            [np.reshape(precedent['facts_vector'], (len(precedent['facts_vector'],))) for precedent in self.values])
         y_total = np.array(
-            [np.reshape(precedent['decisions_vector'], (len(precedent['decisions_vector']),)) for precedent in vals])
+            [np.reshape(precedent['decisions_vector'], (len(precedent['decisions_vector'],))) for precedent in self.values])
         y_total = to_categorical(y_total)
         x_train, x_test, y_train, y_test = train_test_split(
             x_total, y_total, test_size=0.20, random_state=42)
