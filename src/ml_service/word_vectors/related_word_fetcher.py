@@ -110,10 +110,8 @@ def find_related(queryWord):
     requestURL = u"https://fr.wiktionary.org/wiki/" + \
         parse.quote(queryWord)
     try:
-        logger.info("Querying Wikitionary: " + requestURL)
         response = request.urlopen(requestURL)
     except BaseException:
-        logger.info(requestURL + " not found.")
         cache[queryWord] = None
         return None
     soup = BeautifulSoup(response, 'html.parser')

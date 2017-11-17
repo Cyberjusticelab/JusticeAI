@@ -57,23 +57,6 @@ def cluster_hdbscan(arguments):
     Log.write(done - start)
 
 
-def parse_precedent(command):
-    """
-    Creates a model of the precedence as binary
-    :param command: String
-    :return: None
-    """
-    data = ''
-    if command == '-facts':
-        data = 'facts'
-    elif command == '-decisions':
-        data = 'decisions'
-    else:
-        Log.write('Command not recognized:' + command)
-        sys.exit(1)
-    save_model.save(data)
-
-
 def get_precendent_model(command):
     """
     Selects precedence model based on command
@@ -100,7 +83,7 @@ def process_command(command, arguments):
     elif command == '--kmeans':
         cluster_means(arguments)
     elif command == '--parse':
-        parse_precedent(arguments[0])
+        save_model.save()
     else:
         Log.write('Command not recognized:' + command)
         sys.exit(1)

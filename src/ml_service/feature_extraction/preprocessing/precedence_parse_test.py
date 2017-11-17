@@ -52,13 +52,13 @@ class TestStringMethods(unittest.TestCase):
         decisions_dict = model['decisions']
 
         # 3
-        self.assertTrue('le locateur est faible' in fact_dict)
-        self.assertTrue('le chat veut me tuer' in decisions_dict)
+        self.assertTrue('faible locateur' in fact_dict)
+        self.assertTrue('chat tuer veut' in decisions_dict)
 
         # 4
-        vector = decisions_dict['le chat veut me tuer'].dict['vector']
-        sentence = decisions_dict['le chat veut me tuer'].dict['fact']
-        filename = decisions_dict['le chat veut me tuer'].dict['precedence']
+        vector = decisions_dict['chat tuer veut'].dict['vector']
+        sentence = decisions_dict['chat tuer veut'].dict['fact']
+        filename = decisions_dict['chat tuer veut'].dict['precedence']
 
         self.assertEqual(len(vector), FrenchVectors.Word_Vector_Size)
         sample_array = numpy.zeros(2)
