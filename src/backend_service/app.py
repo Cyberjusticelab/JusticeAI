@@ -2,8 +2,6 @@ import os
 
 from flask import Flask, request, abort, make_response, jsonify
 from flask_cors import CORS
-
-from controllers import conversationController, legalController
 from postgresql_db import database
 
 # Flask Setup
@@ -15,6 +13,7 @@ db = database.connect(app, 'postgres', os.environ['POSTGRES_PASSWORD'], 'postgre
 # Cors Setup
 CORS(app)
 
+from controllers import conversationController, legalController
 
 @app.route("/new", methods=['POST'])
 def init_conversation():
