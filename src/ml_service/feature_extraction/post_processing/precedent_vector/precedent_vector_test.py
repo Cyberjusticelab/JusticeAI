@@ -3,7 +3,7 @@ import unittest
 import numpy
 from hdbscan import HDBSCAN
 
-from feature_extraction.post_processing.structured_precedents import PrecedentVector
+from feature_extraction.post_processing.precedent_vector import PrecedentVector
 from util.constant import Global
 
 

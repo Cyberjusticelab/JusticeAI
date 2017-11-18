@@ -128,7 +128,6 @@ class PrecedentVector:
     def write_data_as_bin(self, dicrectory):
         joblib.dump(self.precedents, dicrectory + "structured_precedent.bin")
 
-
 if __name__ == '__main__':
 
     # add paths to fact and decision models
