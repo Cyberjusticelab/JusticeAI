@@ -1,11 +1,12 @@
 import sys
 import time
-from ml_models.models import Load
+
 from feature_extraction.clustering.dbscan.dbscan_wrapper import cluster_facts
 from feature_extraction.clustering.hdbscan.hdbscan_wrapper import HdbscanTrain
 from feature_extraction.clustering.k_means.k_means_wrapper import KMeansWrapper
-from feature_extraction.preprocessing import save_model
-from outputs.output import Log
+from feature_extraction.post_processing.models import Load
+from feature_extraction.pre_processing import save_model
+from util.file import Log
 
 '''
 Improvement:

@@ -1,9 +1,7 @@
-from global_variables.global_variable import Global
-from outcome_predictor.basic_neural_net import BasicNeuralNet
-import os
 import joblib
-import pdb
 import numpy as np
+
+from model.basic_neural_net import BasicNeuralNet
 
 # I ran a crude regex to see which clusters have resiliation
 resiliation_custers = [1,
