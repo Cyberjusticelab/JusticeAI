@@ -21,10 +21,10 @@ class HDBSCANWrapper:
         X = self.data_tuple[0]
         hdb = hdbscan.HDBSCAN(min_cluster_size=self.min_cluster_size, min_samples=self.min_sample)
         hdb.fit(X)
-        s = Save(r"hdbscan_clusters")
+        s = Save(self.data_type)
         s.save_binary(self.data_type + "s_cluster_model.bin", hdb)
         labels = set(hdb.labels_)
         n_clusters = len(labels) - (1 if -1 in hdb.labels_ else 0)
-        s.save_text(self.data_tuple, labels, "w")
+        s.save_text(self.data_tuple, labels, "w", 1)
         Log.write("Number of estimated clusters : %d" % n_clusters)
         return hdb
