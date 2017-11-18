@@ -19,7 +19,7 @@ def pre_processing(filename=None, nb_of_files=-1):
     # deallocate memory
     precedent_dict = None
 
-    s = Save(directory=r"pre_processing")
+    s = Save(r"pre_processing")
     if filename is None:
         s.save_binary("pre_processed_facts.bin", fact)
         s.save_binary("pre_processed_decisions.bin", decision)
@@ -31,18 +31,18 @@ def pre_processing(filename=None, nb_of_files=-1):
 def __get_tuple(precedent_dict, data_to_extract):
     """
     Creates a tuple from the dictionary values
-    :param precedent_dict: dict["facts"/"decisions"] : dict["vectors"]["sentence"]["filenames"]
+    :param precedent_dict: dict["facts"/"decisions"] : dict["vectors"]["fact"]["filenames"]
     :param data_to_extract: String
-    :return:tupple(vectors, sentence, filenames)
+    :return:tupple(vectors, fact, filenames)
     """
     X = []
     labels = []
     precedent_files = []
 
-    for sentence in precedent_dict[data_to_extract]:
-        X.append(precedent_dict[data_to_extract][sentence].dict["vector"])
-        labels += ([precedent_dict[data_to_extract][sentence].dict["sentence"]])
-        precedent_files.append(precedent_dict[data_to_extract][sentence].dict["precedent"])
+    for fact in precedent_dict[data_to_extract]:
+        X.append(precedent_dict[data_to_extract][fact].dict["vector"])
+        labels += ([precedent_dict[data_to_extract][fact].dict["fact"]])
+        precedent_files.append(precedent_dict[data_to_extract][fact].dict["precedence"])
 
     X = numpy.matrix(X)
     labels = numpy.array(labels)

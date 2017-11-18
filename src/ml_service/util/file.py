@@ -24,13 +24,12 @@ class Save():
                 os.makedirs(dir_path)
             self.__output_dir = os.path.abspath(dir_path + "/")
 
-    @staticmethod
     def save_binary(self, filename, content):
         """
         Uses joblib implementation over pickle for performance
-        and memory. Saves model to binary format
+        and memory. Saves content to binary format
         :param filename: String
-        :param model: Object
+        :param content: Object
         :return: None
         """
         file_path = os.path.join(Path.binary_directory, filename)
@@ -38,7 +37,6 @@ class Save():
         joblib.dump(content, file_path)
         Log.write(filename + " saved to: " + file_path)
 
-    @staticmethod
     def save_text(self, data_tuple, labels, protocol="a"):
         """
         Save text file to new directory
