@@ -1,26 +1,32 @@
 from feature_extraction.pre_processing import pre_processing
 from feature_extraction.clustering import clustering
+from feature_extraction.post_processing import post_processing
 from util.log import Log
 
-def feature_extraction(action="all", cluster_method="hdbscan", data_type="all"):
+def feature_extraction(action="all", fact_cluster_method="hdbscan", decision_cluster_method="dbscan", data_type="all"):
     """
     feature_extraction drive
     :param action: String
     :param cluster_type: String
     """
-    Log.write("Running feature extraction: (pipleline=" + action + " cluter_algorithm=" + cluster_method + " data_type=" + data_type)
+    Log.write("Running feature extraction: (pipleline=" + action + " fact_cluster_algorithm=" + fact_cluster_method +
+              " decision_cluster_algorithm=" + decision_cluster_method)
     if action=="pre":
-        pre_processing.pre_processing()
+        pre_processing.run()
     elif action=="cluster":
-        if data_type=="all":
-            clustering.clustering(cluster_method, "fact")
-            clustering.clustering(cluster_method, "decision")
+        if data_type=="fact":
+            clustering.run(fact_cluster_method, data_type)
+        elif data_type=="decision":
+            clustering.run(decision_cluster_method, data_type)
         else:
-            clustering.clustering(cluster_method, data_type)
+            clustering.run(fact_cluster_method, "fact")
+            clustering.run(decision_cluster_method, "decision")
     elif action=="post":
-        pass
+        post_processing.run()
     else:
-        pre_processing.pre_processing()
-        clustering.clustering(cluster_method, data_type)
+        pre_processing.run()
+        clustering.run(fact_cluster_method, "fact")
+        clustering.run(decision_cluster_method, "decision")
+        post_processing.run()
 
-feature_extraction("cluster", "dbscan", "decision")
+feature_extraction("all")
