@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from sklearn.cluster import DBSCAN
 import numpy as np
-import logging
-from global_variables.global_variable import InformationType
-from outputs.output import Log, Save
+from sklearn.cluster import DBSCAN
+
+from feature_extraction.clustering.constant import InformationType
+from util.file import Log, Save
 
 
 def cluster_facts(data_tuple, min_sample, eps):

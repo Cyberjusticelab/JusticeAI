@@ -1,7 +1,9 @@
 import unittest
+
 import numpy
+
 from feature_extraction.clustering.hdbscan.hdbscan_wrapper import HdbscanTrain
-from global_variables.global_variable import Global
+from util.constant import Global
 
 
 class TestStringMethods(unittest.TestCase):

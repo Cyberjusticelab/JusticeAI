@@ -1,6 +1,7 @@
-import unittest
-from global_variables.global_variable import Global
 import os
+import unittest
+
+from util.constant import Global
 
 
 class TestStringMethods(unittest.TestCase):

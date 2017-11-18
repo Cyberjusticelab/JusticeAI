@@ -1,7 +1,8 @@
 from hdbscan import HDBSCAN
-from global_variables.global_variable import InformationType
-from outputs.output import Save
-from outputs.output import Log
+
+from util.file import Log
+from util.file import Save
+from util.constant import InformationType
 
 
 class HdbscanTrain:

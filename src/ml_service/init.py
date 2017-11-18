@@ -1,9 +1,12 @@
-import nltk
 import os
 import time
-import requests
-from threading import Thread
 from sys import stdout
+from threading import Thread
+
+import nltk
+import requests
+
+from util.constant import Path
 
 nltk.download('punkt')
 nltk.download('stopwords')
@@ -26,9 +29,8 @@ def monitorDownload(filename, filesize):
 
 
 # Checks if file exists before downloading
-script_dir = os.path.dirname(__file__)
-rel_path = r'word_vectors/non-lem.bin'
-abs_file_path = os.path.join(script_dir, rel_path)
+rel_path = r'non-lem.bin'
+abs_file_path = os.path.join(Path.binary_directory, rel_path)
 
 if not os.path.exists(abs_file_path):
     print("[START] Downloading Binary for Word2Vec Model")

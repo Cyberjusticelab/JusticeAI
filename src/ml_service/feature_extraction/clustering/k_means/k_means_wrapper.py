@@ -1,10 +1,11 @@
 import re
+
 import nltk
-import os
 from nltk.stem.snowball import SnowballStemmer
 from sklearn.cluster import KMeans
-from global_variables.global_variable import InformationType
-from outputs.output import Save
+
+from util.file import Save
+from util.constant import InformationType
 
 
 class KMeansWrapper:
