@@ -50,7 +50,7 @@ class RegexFacts:
         :param filename:
         :return: numpy vector of facts
         """
-        fact_vector = numpy.full(len(RegexLib.regex_list), -1)
+        fact_vector = numpy.zeros(len(RegexLib.regex_list))
         file = open(Global.precedent_directory + "/" + filename, 'r', encoding="ISO-8859-1")
         text_tagged = False
         for line in file:

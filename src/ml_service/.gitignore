@@ -18,3 +18,4 @@ coverage.xml
 /outputs/**/*.txt
 /outputs/**/*.bin
 /word_vectors/cache.pickle
+/outputs/fact_matrix_dir/
