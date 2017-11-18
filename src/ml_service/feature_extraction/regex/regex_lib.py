@@ -2,4 +2,6 @@ import re
 
 
 class RegexLib:
-    pass
+    regex_list =[
+
+    ]
