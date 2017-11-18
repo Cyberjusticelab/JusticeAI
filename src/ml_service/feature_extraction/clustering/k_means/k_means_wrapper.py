@@ -1,11 +1,11 @@
 import re
-
 import nltk
 from nltk.stem.snowball import SnowballStemmer
 from sklearn.cluster import KMeans
 
+from feature_extraction.clustering.constant import InformationType
 from util.file import Save
-from util.constant import InformationType
+from util.log import Log
 
 
 class KMeansWrapper:
