@@ -153,7 +153,7 @@ class PreProcessor:
                 percent = float(files_parse / len(os.listdir(file_directory))) * 100
             else:
                 percent = float(files_parse / nb_of_files) * 100
-            stdout.write("\rData Extraction: %f " % percent)
+            stdout.write("\rINFO: Data Extraction: %f " % percent + "%")
             stdout.flush()
             self.__parse(i)
 
