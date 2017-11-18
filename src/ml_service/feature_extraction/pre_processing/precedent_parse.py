@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 import os
 import re
 from sys import stdout
 
 from feature_extraction.pre_processing.precedent_model import PrecedentModel, FactModel
 from feature_extraction.pre_processing.regex_replacer import RegexReplacer
-from feature_extraction.pre_processing.word_vectors.vectors import FrenchVectors
+from feature_extraction.pre_processing.word_vectors.french_vector import FrenchVectors
 from util.file import Log
 from util.constant import Global
 

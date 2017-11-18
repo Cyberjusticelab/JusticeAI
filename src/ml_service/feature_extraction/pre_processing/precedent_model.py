@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class PrecedentModel:
     def __init__(self):
         self.dict = {
