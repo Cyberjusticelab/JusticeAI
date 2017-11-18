@@ -19,7 +19,7 @@ class State:
 
 class PreProcessor:
     
-    __factMatch = re.compile('\[\d+\]\s')
+    __factMatch = re.compile("\[\d+\]\s")
     __minimum_line_length = 6
 
     def __init__(self):
@@ -44,7 +44,7 @@ class PreProcessor:
         :param filename: String
         :return: None
         """
-        file = open(Path.raw_data_directory + filename, 'r', encoding="ISO-8859-1")
+        file = open(Path.raw_data_directory + filename, "r", encoding="ISO-8859-1")
         for lines in file:
             tpl = self.__statement_index(lines)
             self.__update_state(tpl[1], lines)
@@ -52,7 +52,7 @@ class PreProcessor:
                 if len(lines) < self.__minimum_line_length:
                     lines = file.__next__()
                 sentence = lines.replace(tpl[0], "").lower()
-                sentence = sentence.replace('\n', "")
+                sentence = sentence.replace("\n", "")
                 self.__add_key(sentence)
         file.close()
 
@@ -67,8 +67,8 @@ class PreProcessor:
         num = self.__factMatch.match(line)
         if num is not None:
             num = num.group(0)
-            index = num.replace('[', "")
-            index = index.replace(']', "")
+            index = num.replace("[", "")
+            index = index.replace("]", "")
             return num, int(index)
         return None, None
 
@@ -79,7 +79,7 @@ class PreProcessor:
         :param lines: String
         :return: None
         """
-        if 'CES MOTIFS' in lines:
+        if "CES MOTIFS" in lines:
             self.__state = State.DECISION
         elif index is None:
             pass
@@ -89,20 +89,20 @@ class PreProcessor:
     def __add_key(self, line):
         """
         Apppends fact<strings> and decision<strings> to model
-        1 - Splits sentence where it finds a '.'
+        1 - Splits sentence where it finds a "."
         2 - Fetch dictionary based on state machine
         3 - If key already exist in dictionary then simply append filename
-        4 - If key doesn't exist then create a new model and insert it
+        4 - If key doesn"t exist then create a new model and insert it
         :param line: String
         :return: None
         """
         sub_sent_list = self.__split_sub_sentence(line)
 
         if self.__state == State.FACTS:
-            dictionary = self.__model.dict['facts']
+            dictionary = self.__model.dict["facts"]
 
         elif self.__state == State.DECISION:
-            dictionary = self.__model.dict['decisions']
+            dictionary = self.__model.dict["decisions"]
 
         for sub_sent in sub_sent_list:
             norm_sent = RegexParse.normalize_string(sub_sent)
@@ -110,25 +110,25 @@ class PreProcessor:
                 continue
 
             if norm_sent in dictionary:
-                if self.__filename not in dictionary[norm_sent].dict['precedence']:
-                    dictionary[norm_sent].dict['precedence'].append(self.__filename)
+                if self.__filename not in dictionary[norm_sent].dict["precedence"]:
+                    dictionary[norm_sent].dict["precedence"].append(self.__filename)
             else:
                 fact_model = FactModel()
                 new_dict = fact_model.dict
-                new_dict['fact'] = sub_sent
-                new_dict['precedence'].append(self.__filename)
-                new_dict['vector'] = FrenchVector.vectorize_sent(norm_sent)
+                new_dict["fact"] = sub_sent
+                new_dict["precedence"].append(self.__filename)
+                new_dict["vector"] = FrenchVector.vectorize_sent(norm_sent)
                 dictionary[norm_sent] = fact_model
 
     def __split_sub_sentence(self, sentence):
         """
-        Splits sentence where a '.' is found.
+        Splits sentence where a "." is found.
         This method can be enhanced for better classification
         This is just a proof of concept for now
         :param sentence: String
         :return: list[Strings]
         """
-        sub_sent_list = sentence.split('.')
+        sub_sent_list = sentence.split(".")
         return sub_sent_list
 
     def parse_files(self, file_directory, nb_of_files=-1):

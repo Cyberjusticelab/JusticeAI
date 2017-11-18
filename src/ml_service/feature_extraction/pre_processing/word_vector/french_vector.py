@@ -24,7 +24,7 @@ class FrenchVector:
         """
         try:
             Log.write("Loading word vector file")
-            file = os.path.join(Path.binary_directory, r'non-lem.bin')
+            file = os.path.join(Path.binary_directory, r"non-lem.bin")
             FrenchVector.word_vectors = KeyedVectors.load_word2vec_format(file, binary=True)
             FrenchVector.custom_stop_words = FrenchVector.get_stop_tokens()
             Log.write("word vector file is successfully loaded")
@@ -48,22 +48,22 @@ class FrenchVector:
         """
         :return: list of stopwords
         """
-        return stopwords.words('french') + \
-            [',', ';', '.', '!', '?', 'c', '(', ')', 'ainsi',
-             'alors', 'au', 'aucuns', 'aussi', 'autre', 'avant', 'avec',
-                'avoir', 'bon', 'car', 'ce', 'cela', 'ces', 'ceux',
-                'chaque', 'ci', 'comme', 'comment', 'dans', 'des', 'du', 'dedans',
-                'dehors', 'depuis', 'devrait', 'doit', 'donc', 'dos', 'début',
-                'elle', 'elles', 'en', 'encore', 'essai', 'est', 'et', 'eu', 'fait',
-                'faites', 'fois', 'font', 'hors', 'ici', 'il', 'ils', 'la', 'le', 'les',
-                'leur', 'là', 'ma', 'maintenant', 'mais', 'mes', 'mine', 'moins',
-                'mon', 'mot', 'même', 'ni', 'nommés', 'notre', 'nous', 'ou',
-                'où', 'par', 'parce', 'pas', 'peut', 'peu', 'plupart', 'pour',
-                'pourquoi', 'quand', 'que', 'quel', 'quelle', 'quelles', 'quels',
-                'qui', 'sa', 'sans', 'ses', 'seulement', 'si', 'sien', 'son', 'sont',
-                'sous', 'soyez', 'sur', 'ta', 'tandis', 'tellement', 'tels',
-                'tes', 'ton', 'tous', 'tout', 'trop', 'très', 'tu', 'voient',
-                'vont', 'votre', 'vous', 'vu', 'ça', 'étaient', 'état', 'étions', 'été', 'être',
+        return stopwords.words("french") + \
+            [",", ";", ".", "!", "?", "c", "(", ")", "ainsi",
+             "alors", "au", "aucuns", "aussi", "autre", "avant", "avec",
+                "avoir", "bon", "car", "ce", "cela", "ces", "ceux",
+                "chaque", "ci", "comme", "comment", "dans", "des", "du", "dedans",
+                "dehors", "depuis", "devrait", "doit", "donc", "dos", "début",
+                "elle", "elles", "en", "encore", "essai", "est", "et", "eu", "fait",
+                "faites", "fois", "font", "hors", "ici", "il", "ils", "la", "le", "les",
+                "leur", "là", "ma", "maintenant", "mais", "mes", "mine", "moins",
+                "mon", "mot", "même", "ni", "nommés", "notre", "nous", "ou",
+                "où", "par", "parce", "pas", "peut", "peu", "plupart", "pour",
+                "pourquoi", "quand", "que", "quel", "quelle", "quelles", "quels",
+                "qui", "sa", "sans", "ses", "seulement", "si", "sien", "son", "sont",
+                "sous", "soyez", "sur", "ta", "tandis", "tellement", "tels",
+                "tes", "ton", "tous", "tout", "trop", "très", "tu", "voient",
+                "vont", "votre", "vous", "vu", "ça", "étaient", "état", "étions", "été", "être",
              ]
 
     @staticmethod
@@ -74,7 +74,7 @@ class FrenchVector:
         :return: Sentence vector
         """
         if not isinstance(word_list, list):
-            word_list = word_tokenize(word_list, 'french')
+            word_list = word_tokenize(word_list, "french")
         vector = numpy.zeros(FrenchVector.Word_Vector_Size)
         num = 0
         for word in word_list:

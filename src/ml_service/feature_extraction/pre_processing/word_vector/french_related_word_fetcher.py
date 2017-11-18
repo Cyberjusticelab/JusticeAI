@@ -22,14 +22,14 @@ and maps them to values<words found>
 """
 
 cache = {}
-cachePickleFilePath = os.path.join(Path.cache_directory, r'cache.pickle')
+cachePickleFilePath = os.path.join(Path.cache_directory, r"cache.pickle")
 
 # load pickle if it exists
 if os.path.isfile(cachePickleFilePath):
-    Log.write('Loading cached Pickle of words')
+    Log.write("Loading cached Pickle of words")
     cacheFile = open(cachePickleFilePath, "rb")
     cache = pickle.load(cacheFile)
-    Log.write('cached Pickle of words is successfully loaded')
+    Log.write("cached Pickle of words is successfully loaded")
 
 def find_related(queryWord):
     """
@@ -49,7 +49,7 @@ def find_related(queryWord):
     except BaseException:
         cache[queryWord] = None
         return None
-    soup = BeautifulSoup(response, 'html.parser')
+    soup = BeautifulSoup(response, "html.parser")
 
     relatedWord = _find_synonym(soup)
     if relatedWord is not None:
@@ -85,10 +85,10 @@ def save_cache():
     whenever a previously found word needs to be found again.
     :return: None
     """
-    Log.write('Saving Pickle of cached words')
-    file = open(cachePickleFilePath, 'wb')
+    Log.write("Saving Pickle of cached words")
+    file = open(cachePickleFilePath, "wb")
     pickle.dump(cache, file)
-    Log.write('cached Pickle of words is successfully saved')
+    Log.write("cached Pickle of words is successfully saved")
 
 def _find_synonym(soup):
     """
@@ -99,9 +99,9 @@ def _find_synonym(soup):
     node = soup.find(id="Synonymes")
     if node is None:
         return None
-    synonyms = node.parent.next_sibling.next_sibling.text.split('\n')
+    synonyms = node.parent.next_sibling.next_sibling.text.split("\n")
 
-    synonyms = [word for word in synonyms if word != '']
+    synonyms = [word for word in synonyms if word != ""]
     return synonyms[0]
 
 def _find_plural(soup):
@@ -110,7 +110,7 @@ def _find_plural(soup):
     :param soup: BeautifulSoup
     :return: String if word found else None
     """
-    node = soup.find('i', string="Pluriel de")
+    node = soup.find("i", string="Pluriel de")
     if node is None:
         return None
     return node.next_sibling.next_sibling.text
@@ -121,7 +121,7 @@ def _find_fem_plural(soup):
     :param soup: BeautifulSoup
     :return: String if word found else None
     """
-    node = soup.find('i', string="Féminin pluriel de")
+    node = soup.find("i", string="Féminin pluriel de")
     if node is None:
         return None
     return node.next_sibling.next_sibling.text
@@ -132,7 +132,7 @@ def _find_feminin(soup):
     :param soup: BeautifulSoup
     :return: String if word found else None
     """
-    node = soup.find('i', string="Féminin de")
+    node = soup.find("i", string="Féminin de")
     if node is None:
         return None
     return node.next_sibling.next_sibling.text

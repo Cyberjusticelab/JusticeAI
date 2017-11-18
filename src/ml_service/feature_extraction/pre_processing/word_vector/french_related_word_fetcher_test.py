@@ -17,13 +17,13 @@ def test__find_feminin():
           <li><i>Féminin de</i> <a href="/wiki/locateur#fr" title="locateur">locateur</a>.</li>
         </ol>
     """
-    soup = BeautifulSoup(data, 'html.parser')
+    soup = BeautifulSoup(data, "html.parser")
 
     # Execute
     result = _find_feminin(soup)
 
     # Verify
-    assert result == 'locateur'
+    assert result == "locateur"
 
 
 def test__find_plural():
@@ -41,13 +41,13 @@ def test__find_plural():
           <i>Pluriel de</i> <a href="/wiki/locateur#fr" title="locateur">locateur</a>.</li>
         </ol>
     """
-    soup = BeautifulSoup(data, 'html.parser')
+    soup = BeautifulSoup(data, "html.parser")
 
     # Execute
     result = _find_plural(soup)
 
     # Verify
-    assert result == 'locateur'
+    assert result == "locateur"
 
 
 def test__find_fem_plural():
@@ -64,13 +64,13 @@ def test__find_fem_plural():
           </li>
         </ol>
     """
-    soup = BeautifulSoup(data, 'html.parser')
+    soup = BeautifulSoup(data, "html.parser")
 
     # Execute
     result = _find_fem_plural(soup)
 
     # Verify
-    assert result == 'locateur'
+    assert result == "locateur"
 
 
 def test__find_synonym():
@@ -95,13 +95,13 @@ def test__find_synonym():
           </li>
         </ul>
     """
-    soup = BeautifulSoup(data, 'html.parser')
+    soup = BeautifulSoup(data, "html.parser")
 
     # Execute
     result = _find_synonym(soup)
 
     # Verify
-    assert result == 'loueur'
+    assert result == "loueur"
 
 
 def test__find_conjugation():
@@ -120,10 +120,10 @@ def test__find_conjugation():
           </tbody>
         </table>
     """
-    soup = BeautifulSoup(data, 'html.parser')
+    soup = BeautifulSoup(data, "html.parser")
 
     # Execute
     result = _find_conjugation(soup)
 
     # Verify
-    assert result == 'louer'
+    assert result == "louer"

@@ -10,7 +10,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(dict, type(hist))
         epsilon = list(hist.keys())
         density = list(hist.values())
-        epsilon_list = ['3.5', '54.7']
+        epsilon_list = ["3.5", "54.7"]
         density_list = [2, 1]
         self.assertTrue(epsilon[0] in epsilon_list)
         self.assertTrue(epsilon[1] in epsilon_list)

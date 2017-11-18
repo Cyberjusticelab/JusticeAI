@@ -87,7 +87,7 @@ class PrecedentVector:
             if label == "-1":
                 continue
 
-            file = open(directory+file, mode='r')
+            file = open(directory+file, mode="r")
             line = file.readline()
 
             # Skip each line until the separator is found
@@ -128,7 +128,7 @@ class PrecedentVector:
     def write_data_as_bin(self, dicrectory):
         joblib.dump(self.precedents, dicrectory + "structured_precedent.bin")
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     # add paths to fact and decision models
     hdb_facts_model = Load.load_model_from_bin("")

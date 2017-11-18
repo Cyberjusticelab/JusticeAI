@@ -1,4 +1,4 @@
-from hdbscan import HDBSCAN
+import hdbscan
 
 from util.file import Save
 from util.log import Log
@@ -19,7 +19,7 @@ class HDBSCANWrapper:
         Log.write("Min Cluster Size: " + str(self.min_cluster_size))
         Log.write("Min Sample: " + str(self.min_sample))
         X = self.data_tuple[0]
-        hdb = HDBSCAN(min_cluster_size=self.min_cluster_size, min_samples=self.min_sample)
+        hdb = hdbscan.HDBSCAN(min_cluster_size=self.min_cluster_size, min_samples=self.min_sample)
         hdb.fit(X)
         s = Save(r"hdbscan_clusters")
         s.save_binary(self.data_type + "_clusters.bin", hdb)
