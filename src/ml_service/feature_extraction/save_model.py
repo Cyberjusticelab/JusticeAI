@@ -1,6 +1,6 @@
 import numpy
 
-from feature_extraction.pre_processing.precedent_parse import PrecedentParser
+from feature_extraction.pre_processing.pre_processing import PreProcessor
 from util.file import Save
 from util.constant import Global
 
@@ -37,7 +37,7 @@ def save(filename=None, nb_of_files=-1):
     :return: None
     """
 
-    parser = PrecedentParser()
+    parser = PreProcessor()
     precedent_dict = parser.parse_files(Global.precedent_directory, nb_of_files)
     fact_model = __get_tuple(precedent_dict, 'facts')
     decision_model = __get_tuple(precedent_dict, 'decisions')

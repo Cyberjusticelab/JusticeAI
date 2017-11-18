@@ -1,14 +1,11 @@
 import os
-
 import joblib
 import numpy
 
-from feature_extraction.post_processing.models import Load
-from util.constant import Global
-from util.constant import InformationType
+from util.file import Load, InformationType
+from util.constant import Path
 
-
-class StructuredPrecedent:
+class PrecedentVector:
 
     FACTS = "facts"
     FACTS_VECTOR = "facts_vector"
@@ -51,7 +48,7 @@ class StructuredPrecedent:
             if label < 0:
                 continue
 
-            for file_name in data_tuple[InformationType.PRECEDENTS_FILE_NAMES.value][index]:
+            for file_name in data_tuple[InformationType.FILE_NAME.value][index]:
                 file_name = file_name.strip().replace(".txt", "")
                 if file_name not in self.precedents:
 
@@ -140,7 +137,7 @@ if __name__ == '__main__':
     fact_data_tuple = Load.load_facts_from_bin()
     decision_data_tuple = Load.load_decisions_from_bin()
 
-    structured_precedent = StructuredPrecedent()
+    structured_precedent = PrecedentVector()
     structured_precedent.create_structure_from_data_tuple(hdb_facts_model.labels_, fact_data_tuple, hdb_decision_model.labels_, decision_data_tuple)
 
-    structured_precedent.write_data_as_bin(Global.output_directory)
+    structured_precedent.write_data_as_bin(Path.output_directory)

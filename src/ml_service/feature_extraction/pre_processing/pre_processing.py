@@ -2,11 +2,11 @@ import os
 import re
 from sys import stdout
 
-from feature_extraction.pre_processing.precedent_model import PrecedentModel, FactModel
-from feature_extraction.pre_processing.regex_replacer import RegexReplacer
-from feature_extraction.pre_processing.word_vectors.french_vector import FrenchVectors
+from feature_extraction.pre_processing.precedent_model.precedent_model import PrecedentModel, FactModel
+from feature_extraction.pre_processing.regex_parse.regex_replacer import RegexReplacer
+from feature_extraction.pre_processing.word_vector.french_vector import FrenchVector
+from util.constant import Path
 from util.file import Log
-from util.constant import Global
 
 
 class State:
@@ -21,7 +21,7 @@ class State:
 
 # #################################################
 # PARSER
-class PrecedentParser:
+class PreProcessor:
     __factMatch = re.compile('\[\d+\]\s')
     __minimum_line_length = 6
 
@@ -47,7 +47,7 @@ class PrecedentParser:
         :param filename: String
         :return: None
         """
-        file = open(Global.precedent_directory + filename, 'r', encoding="ISO-8859-1")
+        file = open(Path.raw_data_directory + filename, 'r', encoding="ISO-8859-1")
         for lines in file:
             tpl = self.__statement_index(lines)
             self.__update_state(tpl[1], lines)
@@ -120,7 +120,7 @@ class PrecedentParser:
                 new_dict = fact_model.dict
                 new_dict['fact'] = sub_sent
                 new_dict['precedence'].append(self.__filename)
-                new_dict['vector'] = FrenchVectors.vectorize_sent(norm_sent)
+                new_dict['vector'] = FrenchVector.vectorize_sent(norm_sent)
                 dictionary[norm_sent] = fact_model
 
     def __split_sub_sentence(self, sentence):
@@ -144,7 +144,7 @@ class PrecedentParser:
                -1 indicates to read entire directory
         :return: Dictionary
         """
-        FrenchVectors.load_french_vector_bin()
+        FrenchVector.load_french_vector_bin()
         files_parse = 0
         Log.write("Fetching from precedence")
 
@@ -162,5 +162,5 @@ class PrecedentParser:
 
         print()
         # deallocate memory
-        FrenchVectors.unload_vector()
+        FrenchVector.unload_vector()
         return self.__model.dict
