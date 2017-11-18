@@ -17,12 +17,7 @@ class Save():
         Constructor saves models, files
         :param new_directory: String
         """
-        if directory != "":
-            dir_path = os.path.join(Path.cache_directory, directory)
-            # Create directory if it doesn't exist
-            if not os.path.exists(dir_path):
-                os.makedirs(dir_path)
-            self.__output_dir = os.path.abspath(dir_path + "/")
+        self.directory = directory
 
     def save_binary(self, filename, content):
         """
@@ -37,7 +32,7 @@ class Save():
         joblib.dump(content, file_path)
         Log.write(filename + " saved to: " + file_path)
 
-    def save_text(self, data_tuple, labels, protocol="a"):
+    def save_text(self, data_tuple, labels, protocol="a", isCluster=0):
         """
         Save text file to new directory
         Mainly used for cluster to text
@@ -54,7 +49,10 @@ class Save():
             for i, filename in enumerate(data_tuple[InformationType.FILE_NAME.value][labels == label]):
                 text.append(filename)
             target_file_name = str(label) + ".txt"
-            file_path = os.path.join(self.__output_dir, target_file_name)
+            if isCluster==1:
+                file_path = os.path.join(Path.cluster_directory + self.directory + "/", target_file_name)
+            else:
+                file_path = os.path.join(Path.cache_directory, target_file_name)
             Log.write("saving" + target_file_name + " to: " + file_path)
             file = open(file_path, protocol)
             if not isinstance(text, list):

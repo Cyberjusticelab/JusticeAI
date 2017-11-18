@@ -13,5 +13,8 @@ class Path:
     __rel_path = r'data/binary/'
     binary_directory = os.path.join(root_directory, __rel_path)
 
+    __rel_path = r'data/cluster/'
+    cluster_directory = os.path.join(root_directory, __rel_path)
+
     __rel_path = r'data/cache/'
     cache_directory = os.path.join(root_directory, __rel_path)
