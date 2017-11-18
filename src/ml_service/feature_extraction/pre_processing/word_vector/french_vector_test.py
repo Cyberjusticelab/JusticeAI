@@ -1,18 +1,14 @@
 import unittest
-
 import numpy
 
 from feature_extraction.pre_processing.word_vector.french_vector import FrenchVector
 
-
 class TestStringMethods(unittest.TestCase):
-
     """
     the most crucial aspect of this unittest is to make sure
     that the words get vectorized and that the word vector's
     memory allocation is deallocated when it is not needed anymore
     """
-
     def test_load_vector(self):
         self.assertIsNone(FrenchVector.word_vectors)
         FrenchVector.load_french_vector_bin()

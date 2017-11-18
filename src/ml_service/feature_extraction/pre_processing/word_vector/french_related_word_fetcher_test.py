@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 
-from feature_extraction.pre_processing.word_vector.french_related_word_fetcher import _find_plural, _find_fem_plural, \
+from feature_extraction.pre_processing.word_vector import _find_plural, _find_fem_plural, \
     _find_feminin, _find_conjugation, _find_synonym
 
 

@@ -5,8 +5,9 @@ from util.log import Log
 
 class KMeansWrapper:
 
-    def __init__(self, data_tuple, cluster_size=100, method="k-means++"):
+    def __init__(self, data_tuple, data_type, cluster_size=100, method="k-means++"):
         self.data_tuple = data_tuple
+        self.data_type = data_type
         self.cluster_size = cluster_size
         self.method = method
 
@@ -21,7 +22,7 @@ class KMeansWrapper:
         km = KMeans(n_clusters=self.cluster_size, init=self.method)
         km.fit(X)
         s = Save(r"kmean_model")
-        s.save_binary(self.type + ".bin", hdb)
+        s.save_binary(self.data_type + "_clusters.bin", km)
         labels = set(km.labels_)
         s.save_text(self.data_tuple, labels, "w")
         Log.write("Number of estimated clusters : %d" % self.cluster_size)
