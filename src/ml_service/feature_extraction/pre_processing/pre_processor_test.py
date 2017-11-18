@@ -10,7 +10,7 @@ from util.constant import Path
 class TestStringMethods(unittest.TestCase):
 
     """
-    1- The key to this unittest is to make sure the Word Vector model
+    1- The key to this unittest is to make sure the Word Vector model_learning
     gets its memory deallocated once we are done with it.
     2- We are also interested in separating facts from outcomes where
     we meet the string "CES MOTIFS" which appears in all the cases

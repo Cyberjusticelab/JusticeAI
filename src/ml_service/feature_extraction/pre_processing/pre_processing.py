@@ -6,7 +6,7 @@ from util.constant import Path
 
 def run(filename=None, nb_of_files=-1):
     """
-        Gets all information from precedent and saves binary model
+        Gets all information from precedent and saves binary model_learning
         :param data_to_extract: decision or facts
         :param nb_of_files: -1 reads all directory
         :return: None

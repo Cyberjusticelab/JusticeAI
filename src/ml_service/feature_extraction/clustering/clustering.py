@@ -20,7 +20,7 @@ def run(cluster_method="hdbscan", data_type="fact"):
 
 def get_precendent_model(data_type):
     """
-    Selects precedence model based on command
+    Selects precedence model_learning based on command
     :param command: string
     :return: None
     """

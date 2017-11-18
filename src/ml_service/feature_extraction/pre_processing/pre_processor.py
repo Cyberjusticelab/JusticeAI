@@ -88,11 +88,11 @@ class PreProcessor:
 
     def __add_key(self, line):
         """
-        Apppends fact<strings> and decision<strings> to model
+        Apppends fact<strings> and decision<strings> to model_learning
         1 - Splits sentence where it finds a "."
         2 - Fetch dictionary based on state machine
         3 - If key already exist in dictionary then simply append filename
-        4 - If key doesn"t exist then create a new model and insert it
+        4 - If key doesn"t exist then create a new model_learning and insert it
         :param line: String
         :return: None
         """
