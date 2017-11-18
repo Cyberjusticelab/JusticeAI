@@ -16,7 +16,7 @@ def clustering(cluster_method, data_type):
     else:
         HDBSCANWrapper(data_tuple, data_type, 20, 5).cluster()
     done = time.time()
-    Log.write('Clustering time: ' + (done - start))
+    Log.write("Clustering time: " + (done - start))
 
 def get_precendent_model(data_type):
     """
@@ -24,7 +24,7 @@ def get_precendent_model(data_type):
     :param command: string
     :return: None
     """
-    if data_type == 'fact':
-        return Load.load_binary('pre_processed_facts.bin')
-    elif data_type == 'decision':
-        return Load.load_binary('pre_processed_decisions')
+    if data_type == "fact":
+        return Load.load_binary("pre_processed_facts.bin")
+    elif data_type == "decision":
+        return Load.load_binary("pre_processed_decisions")

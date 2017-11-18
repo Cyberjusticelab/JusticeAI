@@ -5,7 +5,7 @@ class Path:
     """
     Super annoying relative imports done here
     """
-    root_directory = os.path.abspath(__file__ + "r/../")
+    root_directory = os.path.abspath(__file__ + "r/../../")
 
     __rel_path = r'data/raw/'
     raw_data_directory = os.path.join(root_directory, __rel_path)

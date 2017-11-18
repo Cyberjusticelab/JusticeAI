@@ -10,11 +10,13 @@ def feature_extraction(action="all", cluster_method="hdbscan", data_type="fact")
     """
     Log.write("Running feature extraction\naction=" + action)
     if action=="pre":
-        pre_processing.save()
+        pre_processing.pre_processing()
     elif action=="cluster":
         clustering.clustering(cluster_method, data_type)
     elif action=="post":
         pass
     else:
-        pre_processing.save()
+        pre_processing.pre_processing()
         clustering.clustering(cluster_method, data_type)
+
+feature_extraction("pre")

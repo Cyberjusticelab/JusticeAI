@@ -7,11 +7,11 @@ from feature_extraction.pre_processing.word_vector.french_vector import FrenchVe
 
 class RegexParse():
 
-    money_match = re.compile(r'\b(\d{1,3}(\s\d{3}|,\d{2})*)+(\$|\s\$)')
-    date_match = re.compile('(\d+?\w*?\s+?|)(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)(\s+\d{2,4}|)')
-    apostrophe_match = re.compile('\w\'')
+    money_match = re.compile(r"\b(\d{1,3}(\s\d{3}|,\d{2})*)+(\$|\s\$)")
+    date_match = re.compile("(\d+?\w*?\s+?|)(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)(\s+\d{2,4}|)")
+    apostrophe_match = re.compile("\w\"")
     unnecessary_white_space_match = re.compile("\s\s+")
-    translator = str.maketrans('', '', string.punctuation)
+    translator = str.maketrans("", "", string.punctuation)
 
     def __init__(self):
         pass
@@ -23,7 +23,7 @@ class RegexParse():
         between sentences that have the same contextual information
         1- Find and replace dates
         2- Find and replace money
-        3- removes l', j', d' because python considers ['] as punctuation
+        3- removes l", j", d" because python considers ["] as punctuation
            and was therefore creating weird strings
         4- Remove punctuation
         5- Removes unnecessary white spaces
@@ -32,13 +32,13 @@ class RegexParse():
         :param line: String
         :return: String
         """
-        new_str = re.sub(RegexParse.money_match, ' argent', line)
-        new_str = re.sub(RegexParse.date_match, ' date', new_str)
-        new_str = re.sub(RegexParse.apostrophe_match, ' ', new_str)
+        new_str = re.sub(RegexParse.money_match, " argent", line)
+        new_str = re.sub(RegexParse.date_match, " date", new_str)
+        new_str = re.sub(RegexParse.apostrophe_match, " ", new_str)
         new_str = re.sub(RegexParse.unnecessary_white_space_match, " ", new_str)
         new_str = new_str.translate(RegexParse.translator)
         new_str = RegexParse.__remove_stop_words(new_str)
-        new_str = ''.join([i for i in new_str if not i.isdigit()])
+        new_str = "".join([i for i in new_str if not i.isdigit()])
         try:
             if new_str[0] == " ":
                 new_str = new_str[1:]
@@ -54,7 +54,7 @@ class RegexParse():
         :param line: String
         :return: String
         """
-        word_list = word_tokenize(line, 'french')
+        word_list = word_tokenize(line, "french")
         word_list = set(word_list)
         filtered_words = []
         for word in word_list:
