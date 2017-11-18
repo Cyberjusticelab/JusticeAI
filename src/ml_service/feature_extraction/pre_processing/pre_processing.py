@@ -4,7 +4,7 @@ from feature_extraction.pre_processing.pre_processor import PreProcessor
 from util.file import Save
 from util.constant import Path
 
-def pre_processing(filename=None, nb_of_files=-1):
+def run(filename=None, nb_of_files=-1):
     """
         Gets all information from precedent and saves binary model
         :param data_to_extract: decision or facts
@@ -21,8 +21,8 @@ def pre_processing(filename=None, nb_of_files=-1):
 
     s = Save(r"pre_processing")
     if filename is None:
-        s.save_binary("pre_processed_facts.bin", fact)
-        s.save_binary("pre_processed_decisions.bin", decision)
+        s.save_binary("facts_pre_processed.bin", fact)
+        s.save_binary("decisions_pre_processed.bin", decision)
     else:
         # this only exists to allow unittests
         s.save_binary(filename + ".bin", fact)

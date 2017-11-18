@@ -6,7 +6,7 @@ from feature_extraction.clustering.k_means.k_means_wrapper import KMeansWrapper
 from util.file import Load
 from util.log import Log
 
-def clustering(cluster_method="hdbscan", data_type="fact"):
+def run(cluster_method="hdbscan", data_type="fact"):
     start = time.time()
     data_tuple = get_precendent_model(data_type)
     if cluster_method == "dbscan":
@@ -25,6 +25,6 @@ def get_precendent_model(data_type):
     :return: None
     """
     if data_type == "fact":
-        return Load.load_binary("pre_processed_facts.bin")
+        return Load.load_binary("facts_pre_processed.bin")
     elif data_type == "decision":
-        return Load.load_binary("pre_processed_decisions.bin")
+        return Load.load_binary("decisions_pre_processed.bin")

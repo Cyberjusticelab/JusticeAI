@@ -124,19 +124,4 @@ class PrecedentVector:
                     self.precedents[file_name][self.DECISIONS_VECTOR][int(label)] = 1  # 1 signifies that the fact exists
 
                 line = file.readline()
-
-    def write_data_as_bin(self, dicrectory):
-        joblib.dump(self.precedents, dicrectory + "structured_precedent.bin")
-
-if __name__ == "__main__":
-
-    # add paths to fact and decision models
-    hdb_facts_model = Load.load_model_from_bin("")
-    hdb_decision_model = Load.load_model_from_bin("")
-    fact_data_tuple = Load.load_facts_from_bin()
-    decision_data_tuple = Load.load_decisions_from_bin()
-
-    structured_precedent = PrecedentVector()
-    structured_precedent.create_structure_from_data_tuple(hdb_facts_model.labels_, fact_data_tuple, hdb_decision_model.labels_, decision_data_tuple)
-
-    structured_precedent.write_data_as_bin(Path.output_directory)
+        return self.precedents
