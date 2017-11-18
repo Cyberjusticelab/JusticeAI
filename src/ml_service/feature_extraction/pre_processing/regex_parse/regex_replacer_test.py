@@ -1,5 +1,6 @@
 import unittest
-from feature_extraction.pre_processing.regex_replacer import RegexReplacer
+
+from feature_extraction.pre_processing.regex_parse.regex_replacer import RegexReplacer
 
 
 class RegexTest(unittest.TestCase):

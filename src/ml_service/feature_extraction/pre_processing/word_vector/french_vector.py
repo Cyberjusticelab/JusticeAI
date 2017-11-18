@@ -4,11 +4,11 @@ from gensim.models.keyedvectors import KeyedVectors
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 
-from feature_extraction.pre_processing.word_vectors.related_word_fetcher import find_related, save_cache
+from feature_extraction.pre_processing.word_vector.french_related_word_fetcher import find_related, save_cache
 from util.file import Log
 from util.constant import Path
 
-class FrenchVectors:
+class FrenchVector:
 
     word_vectors = None
     custom_stop_words = None
@@ -25,8 +25,8 @@ class FrenchVectors:
         try:
             Log.write("Loading word vector file")
             file = os.path.join(Path.binary_directory, r'non-lem.bin')
-            FrenchVectors.word_vectors = KeyedVectors.load_word2vec_format(file, binary=True)
-            FrenchVectors.custom_stop_words = FrenchVectors.get_stop_tokens()
+            FrenchVector.word_vectors = KeyedVectors.load_word2vec_format(file, binary=True)
+            FrenchVector.custom_stop_words = FrenchVector.get_stop_tokens()
             Log.write("word vector file is successfully loaded")
         except BaseException:
             Log.write("word vector file is not found")
@@ -38,8 +38,8 @@ class FrenchVectors:
         :return: None
         """
         Log.write("De-allocating memory of word vector")
-        FrenchVectors.word_vectors = None
-        FrenchVectors.custom_stop_words = None
+        FrenchVector.word_vectors = None
+        FrenchVector.custom_stop_words = None
         save_cache()
         Log.write("De-allocation memory complete")
 
@@ -75,10 +75,10 @@ class FrenchVectors:
         """
         if not isinstance(word_list, list):
             word_list = word_tokenize(word_list, 'french')
-        vector = numpy.zeros(FrenchVectors.Word_Vector_Size)
+        vector = numpy.zeros(FrenchVector.Word_Vector_Size)
         num = 0
         for word in word_list:
-            if word in FrenchVectors.custom_stop_words:
+            if word in FrenchVector.custom_stop_words:
                 continue
             iteration_count = 0
             max_iteration = 5
@@ -87,7 +87,7 @@ class FrenchVectors:
                     break
                 iteration_count += 1
                 try:
-                    word_vec = FrenchVectors.word_vectors[word]
+                    word_vec = FrenchVector.word_vectors[word]
                     vector = numpy.add(vector, word_vec)
                     num += 1
                     break

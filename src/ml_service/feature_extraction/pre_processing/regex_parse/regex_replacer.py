@@ -1,13 +1,12 @@
 import re
 import string
-
 from nltk.tokenize import word_tokenize
 from nltk.tokenize.moses import MosesDetokenizer
 
-from feature_extraction.pre_processing.word_vectors.french_vector import FrenchVectors
-
+from feature_extraction.pre_processing.word_vector.french_vector import FrenchVector
 
 class RegexReplacer():
+
     money_match = re.compile(r'\b(\d{1,3}(\s\d{3}|,\d{2})*)+(\$|\s\$)')
     date_match = re.compile('(\d+?\w*?\s+?|)(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)(\s+\d{2,4}|)')
     apostrophe_match = re.compile('\w\'')
@@ -59,7 +58,7 @@ class RegexReplacer():
         word_list = set(word_list)
         filtered_words = []
         for word in word_list:
-            if word in FrenchVectors.get_stop_tokens():
+            if word in FrenchVector.get_stop_tokens():
                 continue
             else:
                 filtered_words.append(word)

@@ -1,4 +1,5 @@
-class PrecedentModel:
+class PrecedentModel():
+
     def __init__(self):
         self.dict = {
             'facts': {
@@ -19,8 +20,8 @@ class PrecedentModel:
             return_str += f + "\n\n"
         return return_str
 
+class FactModel():
 
-class FactModel:
     def __init__(self):
         self.dict = {
             'fact': None,

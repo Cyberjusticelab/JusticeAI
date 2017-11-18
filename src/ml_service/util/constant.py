@@ -15,12 +15,3 @@ class Path:
 
     __rel_path = r'data/cache/'
     cache_directory = os.path.join(root_directory, __rel_path)
-
-    __rel_path = r'model/'
-    model_directory = os.path.join(root_directory, __rel_path)
-
-    __rel_path = r'util/'
-    util_directory = os.path.join(root_directory, __rel_path)
-
-    __rel_path = r'word_vectors/'
-    word_vector_directory = os.path.join(root_directory, __rel_path)

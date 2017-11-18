@@ -3,8 +3,8 @@ import unittest
 
 import numpy
 
-from feature_extraction.pre_processing.precedent_parse import PrecedentParser
-from feature_extraction.pre_processing.word_vectors.french_vector import FrenchVectors
+from feature_extraction.pre_processing.pre_processing import PreProcessor
+from feature_extraction.pre_processing.word_vector.french_vector import FrenchVector
 from util.constant import Global
 
 
@@ -20,7 +20,7 @@ class TestStringMethods(unittest.TestCase):
     """
 
     def test_parse_files(self):
-        self.assertIsNone(FrenchVectors.word_vectors)
+        self.assertIsNone(FrenchVector.word_vectors)
         __script_dir = os.path.abspath(__file__ + r"/../")
         __relative_dir = r'test/'
         __full_path = os.path.join(__script_dir, __relative_dir)
@@ -41,11 +41,11 @@ class TestStringMethods(unittest.TestCase):
         file.close()
 
         Global.precedent_directory = __full_path
-        parser = PrecedentParser()
+        parser = PreProcessor()
         model = parser.parse_files(__full_path, 1)
 
         # 1
-        self.assertIsNone(FrenchVectors.word_vectors)
+        self.assertIsNone(FrenchVector.word_vectors)
 
         # 2
         self.assertEqual(dict, type(model))
@@ -62,7 +62,7 @@ class TestStringMethods(unittest.TestCase):
         sentence = decisions_dict['chat tuer veut'].dict['fact']
         filename = decisions_dict['chat tuer veut'].dict['precedence']
 
-        self.assertEqual(len(vector), FrenchVectors.Word_Vector_Size)
+        self.assertEqual(len(vector), FrenchVector.Word_Vector_Size)
         sample_array = numpy.zeros(2)
         self.assertEqual(type(vector), type(sample_array))
 

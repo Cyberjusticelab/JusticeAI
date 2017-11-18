@@ -4,7 +4,7 @@ import unittest
 import joblib
 import numpy
 
-from feature_extraction.pre_processing.save_model import save
+from feature_extraction.save_model import save
 from util.constant import Global
 
 
