@@ -38,7 +38,7 @@ class TestStringMethods(unittest.TestCase):
         file.writelines('[10] Le chat veut me tuer.\n')
         file.close()
 
-        Global.precedence_directory = __full_path
+        Global.precedent_directory = __full_path
         parser = PrecedentParser()
         model = parser.parse_files(__full_path, 1)
 

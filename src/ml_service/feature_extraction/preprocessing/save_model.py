@@ -4,21 +4,22 @@ from global_variables.global_variable import Global
 from outputs.output import Save
 
 
-def __get_tuple(precedence_dict, data_to_extract):
+def __get_tuple(precedent_dict, data_to_extract):
     """
     Creates a tuple from the dictionary values
-    :param precedence_dict: dict['facts'/'decisions'] : dict['vectors']['sentence']['filenames']
+    :param precedent_dict: dict['facts'/'decisions'] : dict['vectors']['sentence']['filenames']
     :param data_to_extract: String
     :return:tupple(vectors, sentence, filenames)
     """
+
     X = []
     labels = []
     precedence_files = []
 
-    for fact in precedence_dict[data_to_extract]:
-        X.append(precedence_dict[data_to_extract][fact].dict['vector'])
-        labels += ([precedence_dict[data_to_extract][fact].dict['fact']])
-        precedence_files.append(precedence_dict[data_to_extract][fact].dict['precedence'])
+    for fact in precedent_dict[data_to_extract]:
+        X.append(precedent_dict[data_to_extract][fact].dict['vector'])
+        labels += ([precedent_dict[data_to_extract][fact].dict['fact']])
+        precedence_files.append(precedent_dict[data_to_extract][fact].dict['precedence'])
 
     X = numpy.matrix(X)
     labels = numpy.array(labels)
@@ -36,12 +37,12 @@ def save(filename=None, nb_of_files=-1):
     """
 
     parser = PrecedentParser()
-    precedence_dict = parser.parse_files(Global.precedence_directory, nb_of_files)
-    fact_model = __get_tuple(precedence_dict, 'facts')
-    decision_model = __get_tuple(precedence_dict, 'decisions')
+    precedent_dict = parser.parse_files(Global.precedent_directory, nb_of_files)
+    fact_model = __get_tuple(precedent_dict, 'facts')
+    decision_model = __get_tuple(precedent_dict, 'decisions')
 
     # deallocate memory
-    precedence_dict = None
+    precedent_dict = None
 
     s = Save(directory=r'preprocess_model/')
     if filename is None:
