@@ -5,8 +5,8 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 
 from feature_extraction.pre_processing.word_vector.french_related_word_fetcher import find_related, save_cache
-from util.file import Log
 from util.constant import Path
+from util.file import Log
 
 class FrenchVector:
 

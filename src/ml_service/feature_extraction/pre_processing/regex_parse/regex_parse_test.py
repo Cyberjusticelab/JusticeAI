@@ -1,7 +1,6 @@
 import unittest
 
-from feature_extraction.pre_processing.regex_parse.regex_replacer import RegexReplacer
-
+from feature_extraction.pre_processing.regex_parse.regex_parse import RegexParse
 
 class RegexTest(unittest.TestCase):
 
@@ -12,6 +11,6 @@ class RegexTest(unittest.TestCase):
         expected_1 = 'compter date'
         expected_2 = 'après argent arrondissement comprenant coût date dollar espace fixe loyer mois plus près stationnement'
         expected_3 = 'argent compter date frais judiciaires plus'
-        self.assertEqual(RegexReplacer.normalize_string(sent_1), expected_1)
-        self.assertEqual(RegexReplacer.normalize_string(sent_2), expected_2)
-        self.assertEqual(RegexReplacer.normalize_string(sent_3), expected_3)
+        self.assertEqual(RegexParse.normalize_string(sent_1), expected_1)
+        self.assertEqual(RegexParse.normalize_string(sent_2), expected_2)
+        self.assertEqual(RegexParse.normalize_string(sent_3), expected_3)

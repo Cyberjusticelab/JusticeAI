@@ -5,7 +5,7 @@ from nltk.tokenize.moses import MosesDetokenizer
 
 from feature_extraction.pre_processing.word_vector.french_vector import FrenchVector
 
-class RegexReplacer():
+class RegexParse():
 
     money_match = re.compile(r'\b(\d{1,3}(\s\d{3}|,\d{2})*)+(\$|\s\$)')
     date_match = re.compile('(\d+?\w*?\s+?|)(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)(\s+\d{2,4}|)')
@@ -32,12 +32,12 @@ class RegexReplacer():
         :param line: String
         :return: String
         """
-        new_str = re.sub(RegexReplacer.money_match, ' argent', line)
-        new_str = re.sub(RegexReplacer.date_match, ' date', new_str)
-        new_str = re.sub(RegexReplacer.apostrophe_match, ' ', new_str)
-        new_str = re.sub(RegexReplacer.unnecessary_white_space_match, " ", new_str)
-        new_str = new_str.translate(RegexReplacer.translator)
-        new_str = RegexReplacer.__remove_stop_words(new_str)
+        new_str = re.sub(RegexParse.money_match, ' argent', line)
+        new_str = re.sub(RegexParse.date_match, ' date', new_str)
+        new_str = re.sub(RegexParse.apostrophe_match, ' ', new_str)
+        new_str = re.sub(RegexParse.unnecessary_white_space_match, " ", new_str)
+        new_str = new_str.translate(RegexParse.translator)
+        new_str = RegexParse.__remove_stop_words(new_str)
         new_str = ''.join([i for i in new_str if not i.isdigit()])
         try:
             if new_str[0] == " ":

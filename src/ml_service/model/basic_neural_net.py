@@ -4,7 +4,6 @@ from keras.models import Sequential
 from keras.utils import to_categorical
 from sklearn.model_selection import train_test_split
 
-
 class BasicNeuralNet(object):
 
     def __init__(self, values):

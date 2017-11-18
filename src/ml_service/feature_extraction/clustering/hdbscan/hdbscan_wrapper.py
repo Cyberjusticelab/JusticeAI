@@ -5,11 +5,11 @@ from util.log import Log
 
 class HDBSCANWrapper:
 
-    def __init__(self, data_tuple, min_cluster_size, min_sample, type):
+    def __init__(self, data_tuple, data_type, min_cluster_size, min_sample):
         self.data_tuple = data_tuple
         self.min_cluster_size = min_cluster_size
         self.min_sample = min_sample
-        self.type = type
+        self.data_type = data_type
 
     def cluster(self):
         """
@@ -22,7 +22,7 @@ class HDBSCANWrapper:
         hdb = HDBSCAN(min_cluster_size=self.min_cluster_size, min_samples=self.min_sample)
         hdb.fit(X)
         s = Save(r"hdbscan_clusters")
-        s.save_binary(self.type + ".bin", hdb)
+        s.save_binary(self.data_type + "_clusters.bin", hdb)
         labels = set(hdb.labels_)
         n_clusters = len(labels) - (1 if -1 in hdb.labels_ else 0)
         s.save_text(self.data_tuple, labels, "w")

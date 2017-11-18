@@ -5,11 +5,11 @@ from util.log import Log
 
 class DBSCANWrapper:
 
-    def __init__(self, data_tuple, min_sample, eps, type):
+    def __init__(self, data_tuple, data_type, min_sample, eps):
         self.data_tuple = data_tuple
         self.min_sample = min_sample
         self.eps = eps
-        self.type = type
+        self.data_type = data_type
 
     def cluster(self):
         """
@@ -22,7 +22,7 @@ class DBSCANWrapper:
         db = DBSCAN(min_samples=self.min_sample, eps=self.eps, n_jobs=-1)
         db.fit(X)
         s = Save(r"dbscan_clusters")
-        s.save_binary("dbscan_" + self.type + ".bin", db)
+        s.save_binary(self.data_type + "_clusters.bin", db)
         labels = set(db.labels_)
         n_clusters = len(labels) - (1 if -1 in db.labels_ else 0)
         s.save_text(self.data_tuple, labels, "w")
