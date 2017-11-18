@@ -4,7 +4,7 @@ import unittest
 import numpy
 
 from feature_extraction.pre_processing.precedent_parse import PrecedentParser
-from feature_extraction.pre_processing.word_vectors.vectors import FrenchVectors
+from feature_extraction.pre_processing.word_vectors.french_vector import FrenchVectors
 from util.constant import Global
 
 

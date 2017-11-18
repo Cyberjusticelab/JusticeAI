@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
 import os
-
 import numpy
 from gensim.models.keyedvectors import KeyedVectors
 from nltk.corpus import stopwords
@@ -9,7 +7,6 @@ from nltk.tokenize import word_tokenize
 from feature_extraction.pre_processing.word_vectors.related_word_fetcher import find_related, save_cache
 from util.file import Log
 from util.constant import Path
-
 
 class FrenchVectors:
 
@@ -26,14 +23,13 @@ class FrenchVectors:
         :return: word2vec
         """
         try:
-            Log.write("Loading word vector file... May take a few seconds")
+            Log.write("Loading word vector file")
             file = os.path.join(Path.binary_directory, r'non-lem.bin')
             FrenchVectors.word_vectors = KeyedVectors.load_word2vec_format(file, binary=True)
             FrenchVectors.custom_stop_words = FrenchVectors.get_stop_tokens()
-            Log.write("Loading complete")
-
+            Log.write("word vector file is successfully loaded")
         except BaseException:
-            Log.write("Download French Vector model first")
+            Log.write("word vector file is not found")
 
     @staticmethod
     def unload_vector():
@@ -41,10 +37,11 @@ class FrenchVectors:
         Deallocate memory
         :return: None
         """
-        Log.write("Deallocating memory of word vector")
+        Log.write("De-allocating memory of word vector")
         FrenchVectors.word_vectors = None
         FrenchVectors.custom_stop_words = None
         save_cache()
+        Log.write("De-allocation memory complete")
 
     @staticmethod
     def get_stop_tokens():

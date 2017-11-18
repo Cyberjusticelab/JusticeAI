@@ -3,7 +3,6 @@ import os
 import pickle
 import re
 from urllib import request, parse
-
 from bs4 import BeautifulSoup
 
 from util.file import Log
@@ -16,7 +15,6 @@ similar word to the one given. The end goal will enable every
 word to be vectorized.
 """
 
-logger = logging.getLogger('fact_clustering')
 verbeRegex = re.compile("(?<=Conjugaison du verbe )\S+")
 
 """
@@ -29,73 +27,10 @@ cachePickleFilePath = os.path.join(Path.cache_directory, r'cache.pickle')
 
 # load pickle if it exists
 if os.path.isfile(cachePickleFilePath):
-    Log.write('Loading cached Pickle of words.')
+    Log.write('Loading cached Pickle of words')
     cacheFile = open(cachePickleFilePath, "rb")
     cache = pickle.load(cacheFile)
-
-
-def _find_synonym(soup):
-    """
-    Finds a synonym to a word
-    :param soup: BeautifulSoup
-    :return: String if word found else None
-    """
-    node = soup.find(id="Synonymes")
-    if node is None:
-        return None
-    synonyms = node.parent.next_sibling.next_sibling.text.split('\n')
-
-    synonyms = [word for word in synonyms if word != '']
-    return synonyms[0]
-
-
-def _find_plural(soup):
-    """
-    Finds plural of given word
-    :param soup: BeautifulSoup
-    :return: String if word found else None
-    """
-    node = soup.find('i', string="Pluriel de")
-    if node is None:
-        return None
-    return node.next_sibling.next_sibling.text
-
-
-def _find_fem_plural(soup):
-    """
-    Finds feminine plural of word
-    :param soup: BeautifulSoup
-    :return: String if word found else None
-    """
-    node = soup.find('i', string="Féminin pluriel de")
-    if node is None:
-        return None
-    return node.next_sibling.next_sibling.text
-
-
-def _find_feminin(soup):
-    """
-    Finds feminine of word
-    :param soup: BeautifulSoup
-    :return: String if word found else None
-    """
-    node = soup.find('i', string="Féminin de")
-    if node is None:
-        return None
-    return node.next_sibling.next_sibling.text
-
-
-def _find_conjugation(soup):
-    """
-    Finds conjugation of verb
-    :param soup: BeautifulSoup
-    :return: String if word found else None
-    """
-    verbText = verbeRegex.search(soup.text)
-    if verbText is None:
-        return None
-    return verbeRegex.search(soup.text).group()
-
+    Log.write('cached Pickle of words is successfully loaded')
 
 def find_related(queryWord):
     """
@@ -145,14 +80,71 @@ def find_related(queryWord):
     cache[queryWord] = None
     return None
 
-
 def save_cache():
     """
     Save cache of replaced words. This speeds up the process
     whenever a previously found word needs to be found again.
     :return: None
     """
-
-    Log.write('Saving Pickle of cached words.')
+    Log.write('Saving Pickle of cached words')
     file = open(cachePickleFilePath, 'wb')
     pickle.dump(cache, file)
+    Log.write('cached Pickle of words is successfully saved')
+
+def _find_synonym(soup):
+    """
+    Finds a synonym to a word
+    :param soup: BeautifulSoup
+    :return: String if word found else None
+    """
+    node = soup.find(id="Synonymes")
+    if node is None:
+        return None
+    synonyms = node.parent.next_sibling.next_sibling.text.split('\n')
+
+    synonyms = [word for word in synonyms if word != '']
+    return synonyms[0]
+
+def _find_plural(soup):
+    """
+    Finds plural of given word
+    :param soup: BeautifulSoup
+    :return: String if word found else None
+    """
+    node = soup.find('i', string="Pluriel de")
+    if node is None:
+        return None
+    return node.next_sibling.next_sibling.text
+
+def _find_fem_plural(soup):
+    """
+    Finds feminine plural of word
+    :param soup: BeautifulSoup
+    :return: String if word found else None
+    """
+    node = soup.find('i', string="Féminin pluriel de")
+    if node is None:
+        return None
+    return node.next_sibling.next_sibling.text
+
+def _find_feminin(soup):
+    """
+    Finds feminine of word
+    :param soup: BeautifulSoup
+    :return: String if word found else None
+    """
+    node = soup.find('i', string="Féminin de")
+    if node is None:
+        return None
+    return node.next_sibling.next_sibling.text
+
+def _find_conjugation(soup):
+    """
+    Finds conjugation of verb
+    :param soup: BeautifulSoup
+    :return: String if word found else None
+    """
+    verbText = verbeRegex.search(soup.text)
+    if verbText is None:
+        return None
+    return verbeRegex.search(soup.text).group()

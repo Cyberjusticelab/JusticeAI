@@ -2,7 +2,7 @@ import unittest
 
 import numpy
 
-from feature_extraction.pre_processing.word_vectors.vectors import FrenchVectors
+from feature_extraction.pre_processing.word_vectors.french_vector import FrenchVectors
 
 
 class TestStringMethods(unittest.TestCase):
