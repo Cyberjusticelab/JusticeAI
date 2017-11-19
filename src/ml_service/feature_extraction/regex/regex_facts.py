@@ -7,6 +7,7 @@ from outputs.output import Save, Log
 from sys import stdout
 import re
 
+
 class TagEnum:
     DEMAND = 0
     FACT = 1
@@ -29,8 +30,16 @@ class TagPrecedents:
 
         if enum == TagEnum.DEMAND:
             self.tagger = RegexLib.regex_demands
+            self.model_name = 'demand_matrix'
         else:
             self.tagger = RegexLib.regex_facts
+            self.model_name = 'fact_matrix'
+
+    def get_intent_indice(self):
+        return_list = []
+        for i in range(len(self.tagger)):
+            return_list.append((i, self.tagger[i][0]))
+        return return_list
 
     def tag_precedents(self, nb_files=-1):
         """
@@ -51,11 +60,10 @@ class TagPrecedents:
             stdout.flush()
             self.fact_dict[file] = self.__tag_file(file)
             self.nb_text += 1
-        print()
-        Log.write('Precedent coverage: ' + str(float(self.text_tagged / self.nb_text)))
-        Log.write('Line Coverage: ' + str(float(self.lines_tagged / self.nb_lines)))
-        save = Save('fact_matrix_dir')
-        save.binarize_model('fact_matrix', self.fact_dict)
+        Log.write('Precedent coverage: ' + str(self.text_tagged / self.nb_text))
+        Log.write('Line Coverage: ' + str(self.lines_tagged / self.nb_lines))
+        save = Save('tag_matrix_dir')
+        save.binarize_model(self.model_name, self.fact_dict)
         return self.fact_dict
 
     def __tag_file(self, filename):
@@ -68,7 +76,7 @@ class TagPrecedents:
         :return: numpy vector of facts
         """
         fact_vector = numpy.zeros(len(self.tagger))
-        file = open(Global.precedent_directory + "/" + filename, 'r', encoding="utf-8")
+        file = open(Global.precedent_directory + "/" + filename, 'r', encoding="ISO-8859-1")
         text_tagged = False
         for line in file:
             if self.__ignore_line(line):
@@ -99,3 +107,11 @@ class TagPrecedents:
         elif 'No dossier' in line:
             return True
         return False
+
+
+if __name__ == '__main__':
+    # Models saved to ml_service/output/tag_matrix_dir/
+    tag = TagPrecedents(TagEnum.FACT)
+    dict = tag.tag_precedents()
+    tag = TagPrecedents(TagEnum.DEMAND)
+    dict = tag.tag_precedents()
