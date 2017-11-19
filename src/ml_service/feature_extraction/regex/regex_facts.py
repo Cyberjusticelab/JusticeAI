@@ -36,6 +36,9 @@ class TagPrecedents:
             self.model_name = 'fact_matrix'
 
     def get_intent_indice(self):
+        """
+        :return: primary key of every intent in a tuple (int, string)
+        """
         return_list = []
         for i in range(len(self.tagger)):
             return_list.append((i, self.tagger[i][0]))
@@ -113,5 +116,9 @@ if __name__ == '__main__':
     # Models saved to ml_service/output/tag_matrix_dir/
     tag = TagPrecedents(TagEnum.FACT)
     dict = tag.tag_precedents()
+    # prints fact intents
+    print(tag.get_intent_indice())
     tag = TagPrecedents(TagEnum.DEMAND)
     dict = tag.tag_precedents()
+    # prints demand intents
+    print(tag.get_intent_indice())
