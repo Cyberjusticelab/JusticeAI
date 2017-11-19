@@ -6,13 +6,13 @@ import numpy as np
 
 class LinearSVM:
 
-    def __init__(self, values):
+    def __init__(self, data_set):
         """
             LinearSVM constructor
-            param: values: entire dataset that the classifier
-                           will user to train
+            param: data_set: entire dataset that the classifier
+                             will use to train
         """
-        self.values = values
+        self.data_set = data_set
 
     def train(self):
         """
@@ -93,7 +93,7 @@ class LinearSVM:
             ML algorithm.
         """
         x_total = np.array(
-            [np.reshape(precedent['facts_vector'], (len(precedent['facts_vector'],))) for precedent in self.values])
+            [np.reshape(precedent['facts_vector'], (len(precedent['facts_vector'],))) for precedent in self.data_set])
         y_total = np.array(
-            [precedent['decisions_vector'][0] for precedent in self.values])
+            [precedent['decisions_vector'][0] for precedent in self.data_set])
         return (x_total, y_total)
