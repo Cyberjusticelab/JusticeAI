@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from global_variables.global_variable import Global
+from src.ml_service.global_variables.global_variable import Global
 import os
-from feature_extraction.regex.regex_lib import RegexLib
+from src.ml_service.feature_extraction.regex.regex_lib import RegexLib
 import numpy
-from outputs.output import Save, Log
+from src.ml_service.outputs.output import Save, Log
 from sys import stdout
 import re
 
@@ -51,8 +51,11 @@ class TagPrecedents:
         :return: numpy matrix of facts
         """
         Log.write('Tagging precedents')
-
+        count = 0
         for file in os.listdir(Global.precedent_directory):
+            if count > 20:
+                break
+            count += 1
             if nb_files == -1:
                 percent = float(self.nb_text / len(os.listdir(Global.precedent_directory))) * 100
             else:
@@ -87,11 +90,12 @@ class TagPrecedents:
             line_tagged = False
             self.nb_lines += 1
             for i in range(len(self.tagger)):
-                regex_value = self.tagger[i][1]
-                if regex_value.match(line):
-                    fact_vector[i] = 1
-                    line_tagged = True
-                    text_tagged = True
+                for regex_value in self.tagger[i][1]:
+                    if regex_value.match(line):
+                        fact_vector[i] = 1
+                        line_tagged = True
+                        text_tagged = True
+
             if line_tagged:
                 self.lines_tagged += 1
         if text_tagged:

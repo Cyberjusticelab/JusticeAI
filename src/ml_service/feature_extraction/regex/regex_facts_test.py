@@ -14,7 +14,6 @@ class RegexTest(unittest.TestCase):
         binary_model_path = Global.output_directory + r'tag_matrix_dir/fact_matrix'
         self.assertTrue(os.path.isfile(binary_model_path))
 
-
     def test_regex_demands(self):
         directory = Global.regex_data_directory + 'demands'
         for filename in os.listdir(directory):
@@ -24,7 +23,6 @@ class RegexTest(unittest.TestCase):
                 if regex[0] == intent:
                     file = Global.regex_data_directory + 'demands/' +filename
                     self.assertTrue(self.regex_file(file, regex[1]))
-
 
     def test_regex_facts(self):
         directory = Global.regex_data_directory + 'facts'

@@ -1,6 +1,7 @@
 import os
 import re
 import joblib
+import src.ml_service.feature_extraction.regex.regex_lib
 
 
 def get_asker_landlord():
@@ -80,14 +81,14 @@ def get_ask_damages():
             '\[[123]\].+(demande|réclame)(nt|) ((\d+(\s|,)){0,3}(\$ |)){0,1}(en|de|des|pour des|pour de) dommage', re.IGNORECASE)
     ])
 
-
+#done
 def get_lease():
     return meta_regex("lease", [
         re.compile(
             '\[\d+\].+un bail (\w+(\s|\'|,\s)){0,8}au loyer (\w+(\s|\'|,\s)){0,8}mensuel de (\d+(\s|\,)){1,2}\$', re.IGNORECASE)
     ])
 
-
+#done
 def get_money_owed():
     return meta_regex("money owed", [
         re.compile(
@@ -102,7 +103,7 @@ def get_money_owed():
             '\[\d+\].+admet devoir la somme de (\d+(\s|\,)){1,2}\$ à titre de loyer', re.IGNORECASE)
     ])
 
-
+#done
 def get_non_respect_of_judgement():
     return meta_regex("disrespect previous judgement", [
         re.compile(
@@ -115,7 +116,7 @@ def get_non_respect_of_judgement():
             '\[\d+\].+locataire(s|) (\w+(\s|\'|,\s)){0,3}pas respecté l\'ordonnance', re.IGNORECASE)
     ])
 
-
+# done
 def get_menacing():
     return meta_regex("menacing", [
         re.compile(
@@ -130,7 +131,8 @@ def get_serious_prejudice():
         re.compile(
             '\[\d+\].+locat(eur|rice)(s|) (\w+(\s|\'|,\s)){0,10}un préjudice sérieux', re.IGNORECASE),
         re.compile(
-            '\[\d+\].+préjudice subi justifie', re.IGNORECASE),  re.compile(
+            '\[\d+\].+préjudice subi justifie', re.IGNORECASE),
+        re.compile(
             '\[\d+\].+le préjudice causé au locateur justifie', re.IGNORECASE),
         re.compile(
             '\[\d+\].+suffise.*locataire.*article 1863', re.IGNORECASE)
@@ -292,17 +294,15 @@ def get_bad_incorrect_facts():
     ])
 
 
-def meta_regex(name, regexes):
+def meta_regex(name, regex):
     returnlist = set()
     precfiles = os.listdir('precedents/text_bk')
     for file in precfiles:
         with open('precedents/text_bk/' + file, 'r', encoding="iso-8859-1") as f:
             s = f.read()
-            for reg in regexes:
-                if reg.search(s):
-                    returnlist.add(file)
-    print("Percent of precedents with {} : {}".format(name,
-                                                len(returnlist) * 100.0 / len(precfiles)))
+            if regex[0].search(s):
+                returnlist.add(file)
+    print("Percent of precedents with {} : {}".format(name, len(returnlist) * 100.0 / len(precfiles)))
     return returnlist
 
 
@@ -382,6 +382,7 @@ bad_precedents = bad_mutual_agreement.union(
 good_precedents = all_precedents - bad_precedents
 precedent_vector = dict((el, {}) for el in good_precedents)
 
+
 fill_dict(precedent_vector, lease, 'lease')
 fill_dict(precedent_vector, asker_landlord, 'asker_landlord')
 fill_dict(precedent_vector, asker_tenant, 'asker_tenant')
@@ -406,8 +407,7 @@ fill_dict(precedent_vector, money_owed, 'money_owed')
 fill_dict(precedent_vector, no_rent_owed, 'no_rent_owed')
 fill_dict(precedent_vector, proof_of_revenu, 'proof_of_revenu')
 fill_dict(precedent_vector, bothers_others, 'bothers_others')
-fill_dict(precedent_vector, non_respect_of_judgement,
-          'non_respect_of_judgement')
+fill_dict(precedent_vector, non_respect_of_judgement,'non_respect_of_judgement')
 fill_dict(precedent_vector, tenant_died, 'tenant_died')
 fill_dict(precedent_vector, tenant_damaged_rental, 'tenant_damaged_rental')
 fill_dict(precedent_vector, tenant_negligence, 'tenant_negligence')
