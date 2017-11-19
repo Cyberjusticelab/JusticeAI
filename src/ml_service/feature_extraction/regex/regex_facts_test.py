@@ -34,7 +34,7 @@ class RegexTest(unittest.TestCase):
         for filename in os.listdir(directory):
             intent = filename.split('-')[1]
             intent = intent.replace('.txt', '')
-            for regex in RegexLib.regex_demands:
+            for regex in RegexLib.regex_facts:
                 if regex[0] == intent:
                     file = Global.regex_data_directory + 'facts/' +filename
                     self.assertTrue(self.regex_file(file, regex[1]))
