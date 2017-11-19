@@ -6,7 +6,7 @@ ENV PYTHONPATH /usr/src/app/src:/usr/src/app/src/nlp_service
 
 WORKDIR /usr/src/app
 
-RUN mkdir -p /usr/src/app/src/nlp_service
+RUN mkdir -p /usr/src/app/src/nlp_service/outlier
 
 COPY ./src/nlp_service/requirements.txt ./src/nlp_service/
 COPY ./src/nlp_service/requirements_test.txt ./src/nlp_service/
@@ -17,6 +17,7 @@ RUN pip install http://initd.org/psycopg/upload/psycopg2-2.7.3.1.dev0/psycopg2-2
 RUN python -m spacy download en
 
 COPY ./src/nlp_service/init_rasa.py ./src/nlp_service
+COPY ./src/nlp_service/outlier ./src/nlp_service/outlier
 COPY ./src/nlp_service/rasa ./src/nlp_service/rasa
 
 # Train RASA classifier
