@@ -1,6 +1,6 @@
 import os
 import re
-import collections
+import joblib
 
 
 def get_asker_landlord():
@@ -301,20 +301,29 @@ def meta_regex(name, regexes):
             for reg in regexes:
                 if reg.search(s):
                     returnlist.add(file)
-    print("% of precedents with {} : {}".format(name,
+    print("Percent of precedents with {} : {}".format(name,
                                                 len(returnlist) * 100.0 / len(precfiles)))
     return returnlist
 
-get_lease()
-get_asker_landlord()
-get_asker_tenant()
-get_ask_lease_modification()
-get_ask_retake_rental()
-get_ask_lower_rent()
-get_ask_damages()
-get_ask_fixation_of_rent()
-get_asking_rent_payment()
-get_ask_access_rental()
+
+def fill_dict(precedentDict, fileSet, fact):
+    for precedent in precedentDict.keys():
+        if precedent in fileSet:
+            precedentDict[precedent][fact] = 1
+        else:
+            precedentDict[precedent][fact] = 0
+
+
+lease = get_lease()
+asker_landlord = get_asker_landlord()
+asker_tenant = get_asker_tenant()
+ask_lease_modification = get_ask_lease_modification()
+ask_retake_rental = get_ask_retake_rental()
+ask_lower_rent = get_ask_lower_rent()
+ask_damages = get_ask_damages()
+ask_fixation_of_rent = get_ask_fixation_of_rent()
+asking_rent_payment = get_asking_rent_payment()
+ask_access_rental = get_ask_access_rental()
 
 ask_resiliation = get_ask_resiliation()
 tenant_left = get_tenant_left()
@@ -365,6 +374,47 @@ meta = money_owed.union(
 rem = ask_resiliation - bad_mutual_agreement - \
     bad_paid_before_audience - bad_absent - bad_incorrect_facts
 inter = rem - meta.intersection(ask_resiliation)
+
+
+all_precedents = set(os.listdir('precedents/text_bk'))
+bad_precedents = bad_mutual_agreement.union(
+    bad_paid_before_audience).union(bad_absent).union(bad_incorrect_facts)
+good_precedents = all_precedents - bad_precedents
+precedent_vector = dict((el, {}) for el in good_precedents)
+
+fill_dict(precedent_vector, lease, 'lease')
+fill_dict(precedent_vector, asker_landlord, 'asker_landlord')
+fill_dict(precedent_vector, asker_tenant, 'asker_tenant')
+fill_dict(precedent_vector, ask_lease_modification, 'ask_lease_modification')
+fill_dict(precedent_vector, ask_retake_rental, 'ask_retake_rental')
+fill_dict(precedent_vector, ask_lower_rent, 'ask_lower_rent')
+fill_dict(precedent_vector, ask_damages, 'ask_damages')
+fill_dict(precedent_vector, ask_fixation_of_rent, 'ask_fixation_of_rent')
+fill_dict(precedent_vector, asking_rent_payment, 'asking_rent_payment')
+fill_dict(precedent_vector, ask_access_rental, 'ask_access_rental')
+fill_dict(precedent_vector, ask_resiliation, 'ask_resiliation')
+fill_dict(precedent_vector, tenant_left, 'tenant_left')
+fill_dict(precedent_vector, late_payment, 'late_payment')
+fill_dict(precedent_vector, menacing, 'menacing')
+fill_dict(precedent_vector, three_weeks_late, 'three_weeks_late')
+fill_dict(precedent_vector, proof_of_late, 'proof_of_late')
+fill_dict(precedent_vector, increased_rent, 'increased_rent')
+fill_dict(precedent_vector, not_three_weeks_late, 'not_three_weeks_late')
+fill_dict(precedent_vector, lack_of_proof, 'lack_of_proof')
+fill_dict(precedent_vector, serious_prejudice, 'serious_prejudice')
+fill_dict(precedent_vector, money_owed, 'money_owed')
+fill_dict(precedent_vector, no_rent_owed, 'no_rent_owed')
+fill_dict(precedent_vector, proof_of_revenu, 'proof_of_revenu')
+fill_dict(precedent_vector, bothers_others, 'bothers_others')
+fill_dict(precedent_vector, non_respect_of_judgement,
+          'non_respect_of_judgement')
+fill_dict(precedent_vector, tenant_died, 'tenant_died')
+fill_dict(precedent_vector, tenant_damaged_rental, 'tenant_damaged_rental')
+fill_dict(precedent_vector, tenant_negligence, 'tenant_negligence')
+fill_dict(precedent_vector, tenant_is_bothered, 'tenant_is_bothered')
+fill_dict(precedent_vector, is_not_habitable, 'is_not_habitable')
+
+joblib.dump(precedent_vector, 'prec.bin')
 
 print("diff total:")
 print(len(inter))

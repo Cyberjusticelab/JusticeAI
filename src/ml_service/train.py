@@ -1,5 +1,5 @@
 from global_variables.global_variable import Global
-from outcome_predictor.basic_neural_net import BasicNeuralNet
+# from outcome_predictor.basic_neural_net import BasicNeuralNet
 import os
 import joblib
 import pdb
@@ -68,6 +68,9 @@ def load_data():
             val['decisions_vector'] = np.array([0])
     return valid_values
 
+def load_new_data():
+    file = open('prec.bin', 'rb')
+    return joblib.load(file)
 # print('loading data')
 # precedent_data = load_data()
 # neuralNet = BasicNeuralNet(precedent_data)
