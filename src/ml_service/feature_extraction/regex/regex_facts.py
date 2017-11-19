@@ -68,7 +68,7 @@ class RegexPrecedents:
             line_tagged = False
             self.nb_lines += 1
             for i in range(len(RegexLib.regex_facts)):
-                regex_value = list(RegexLib.regex_facts[i].values())[0]
+                regex_value = RegexLib.regex_facts[i][1]
                 if regex_value.match(line):
                     fact_vector[i] = 1
                     line_tagged = True
