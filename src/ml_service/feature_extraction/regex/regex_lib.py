@@ -31,7 +31,7 @@ class RegexLib:
         ("tenant_lease_indeterminate", re.compile(r".*bail.+(durée\sindéterminée).*")),
         ("tenant_lease_fixed", re.compile(r".*((bail.*(reconduit.*)?(terminant.*)?((\d+?\w*?\s+?|)(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)(\s+\d{2,4}|))((.+au|.*terminant).*(\d+?\w*?\s+?|)(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)(\s+\d{2,4}|))?)|(fixation\sde\sloyer))")),
         ("tenant_monthly_payment", re.compile(r"..*loyer\smensuel.*\b(\d{1,3}(\s\d{3}|,\d{2})*)+(\$|\s\$).*")),
-        ("tenant_owes_rent", re.compile(r".*(locataire(s)?.+(doi(vent|t))(.+somme\sde)?([\d\s,]+)(\$|\s\$)|locateur.+créance.+\b(\d{1,3}(\s\d{3}|,\d{2})*)+(\$|\s\$).+loyers\simpayés)|(.*paiement.*arriérés.+loyer.+\b(\d{1,3}(\s\d{3}|,\d{2})*))")),
+        ("tenant_owes_rent", re.compile(r"(.*preuve.+locateur(s)?.+non-paiement.+loyer)?.*(locataire(s)?.+(doi(vent|t))((.+somme\sde)|(total))?.+([\d\s,]+)(\$|\s\$)|locateur.+créance.+\b(\d{1,3}(\s\d{3}|,\d{2})*)+(\$|\s\$).+loyers\simpayés)|(.*paiement.*arriérés.+loyer.+\b(\d{1,3}(\s\d{3}|,\d{2})*))")),
         ("tenant_rent_not_paid_more_3_weeks", re.compile(r".*locataire(s)?.+retard.+plus.+((trois semaines)|(trois \(3\) semaines)).+(paiement\sdu\sloyer)")),
         ("tenant_violence", re.compile(r".*(raison.+)?.*(viol(ent|ence))")),
         #("tenant_request_cancel_lease", re.compile(r"")),
