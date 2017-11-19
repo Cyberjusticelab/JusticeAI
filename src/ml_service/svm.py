@@ -1,6 +1,7 @@
 from sklearn import svm
 from train import load_data, load_new_data
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import precision_recall_fscore_support
 import numpy as np
 
 
@@ -10,7 +11,7 @@ print("loading data")
 values = load_data()
 print("loading regex data")
 prec = load_new_data()
-values = values[1:20000]
+values = values[1:1000]
 
 print("merging data")
 new_val = []
@@ -37,5 +38,8 @@ clf.fit(x_train, y_train)
 print("Testing Classifier")
 y_predict = clf.predict(x_test)
 num_correct = np.sum(y_predict == y_test)
-
+(precision, recall, f1, _) = precision_recall_fscore_support(y_test, y_predict)
 print('Test accuracy: {}%'.format(num_correct * 100.0/len(y_test)))
+print('Precision: {}'.format(precision))
+print('Recall: {}'.format(recall))
+print('F1: {}'.format(f1))
