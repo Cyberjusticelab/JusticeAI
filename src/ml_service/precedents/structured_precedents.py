@@ -27,7 +27,7 @@ class StructuredPrecedent:
 
     def create_structure_from_data_tuple(self, fact_labels, fact_data_tuple, decisions_labels, decisions_data_tuple):
         """
-        :param fact_labels: Facts cluster labels
+        :param fact_labels: facts cluster labels
         :param fact_data_tuple ([int], [string], [string]): vectors, transformed sentences, original sentence
         :param decisions_labels: Decisions cluster labels
         :param Decisions_data_tuple ([int], [string], [string]): vectors, transformed sentences, original sentence
