@@ -1,5 +1,5 @@
 from sklearn import svm
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.metrics import precision_recall_fscore_support
 import numpy as np
 
@@ -18,10 +18,7 @@ class LinearSVM:
         """
             Trains the Linear Support Vector Machine.
         """
-        x_total = np.array(
-            [np.reshape(precedent['facts_vector'], (len(precedent['facts_vector'],))) for precedent in self.values])
-        y_total = np.array(
-            [precedent['decisions_vector'][0] for precedent in self.values])
+        (x_total, y_total) = self._reshape_dataset()
         x_train, x_test, y_train, y_test = train_test_split(
             x_total, y_total, test_size=0.20, random_state=42)
         print("Sample size: {}".format(len(x_total)))
@@ -29,7 +26,7 @@ class LinearSVM:
         print("Test size: {}".format(len(x_test)))
 
         print("Training Classifier")
-        clf = svm.SVC(kernel='linear')
+        clf = svm.SVC(kernel='linear', random_state=42)
         clf.fit(x_train, y_train)
 
         # Test
@@ -44,7 +41,6 @@ class LinearSVM:
 
         self.model = clf
 
-
     def predict(self, facts_vector):
         """
           Predicts the outcome, based on the given
@@ -54,7 +50,7 @@ class LinearSVM:
           returns: the predicted outcome vector
         """
         if hasattr(self, 'model'):
-            return self.model.predict(facts_vector)
+            return self.model.predict([facts_vector])
         print('Please train the classifier first')
         return None
 
@@ -68,3 +64,36 @@ class LinearSVM:
             return self.model.coef_[0]
         print('Please train the classifier first')
         return None
+
+    def evaluate_best_parameters(self):
+        """
+            Evaluate several different parameter combinations and
+            returns the best combination.
+            returns: a dict containing the most optimal parameter
+                     combination
+        """
+        (x_total, y_total) = self._reshape_dataset()
+        x_train, x_test, y_train, y_test = train_test_split(
+            x_total, y_total, test_size=0.20, random_state=42)
+
+        parameters = {'kernel': ('linear', 'poly', 'sigmoid',
+                                 'rbf'),
+                      'C': [0.5, 0.7, 1, 1.5, 2, 3, 5]
+
+                      }
+
+        svc = svm.SVC()
+        clf = GridSearchCV(svc, parameters)
+        clf.fit(x_train, y_train)
+        return clf.best_params_
+
+    def _reshape_dataset(self):
+        """
+            Reshapes the given dataset to acommodate
+            ML algorithm.
+        """
+        x_total = np.array(
+            [np.reshape(precedent['facts_vector'], (len(precedent['facts_vector'],))) for precedent in self.values])
+        y_total = np.array(
+            [precedent['decisions_vector'][0] for precedent in self.values])
+        return (x_total, y_total)

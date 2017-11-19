@@ -87,11 +87,10 @@ def load_new_data(data_set):
     return new_val
 
 
-data_set = load_data()
-# Taking a subset since I don't want to wait forever
-data_set = data_set[1:10000]
-data_set = load_new_data(data_set)
-
-
-svm = LinearSVM(data_set)
-svm.train()
+if __name__ == "__main__":
+    data_set = load_data()
+    # Taking a subset since I don't want to wait forever
+    data_set = data_set[1:10000]
+    data_set = load_new_data(data_set)
+    linear_svm = LinearSVM(data_set)
+    linear_svm.train()
