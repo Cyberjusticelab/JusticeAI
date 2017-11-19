@@ -5,21 +5,37 @@ from feature_extraction.regex.regex_lib import RegexLib
 import numpy
 from outputs.output import Save, Log
 from sys import stdout
+import re
+
+class TagEnum:
+    DEMAND = 0
+    FACT = 1
 
 
-class RegexPrecedents:
+class TagPrecedents:
     empty_line_length = 6
+    __factMatch = re.compile('\[\d+\]\s')
 
-    def __init__(self):
+    def __init__(self, enum):
+        """
+        Constructor.
+        :param enum: TagEnum --> Init default tagger
+        """
         self.fact_dict = {}
         self.lines_tagged = 0
         self.text_tagged = 0
         self.nb_lines = 0
         self.nb_text = 0
 
+        if enum == TagEnum.DEMAND:
+            self.tagger = RegexLib.regex_demands
+        else:
+            self.tagger = RegexLib.regex_facts
+
     def tag_precedents(self, nb_files=-1):
         """
         Reads all precedents in a directory
+        :param nb_files when -1 then read all directory
         :return: numpy matrix of facts
         """
         Log.write('Tagging precedents')
@@ -48,27 +64,19 @@ class RegexPrecedents:
         When fact is found then its index is set to 1
         increments text tagged, line tagges to get a percentage
         of coverage at the end of the process
-        :param filename:
+        :param filename: string
         :return: numpy vector of facts
         """
-        fact_vector = numpy.zeros(len(RegexLib.regex_facts))
-        file = open(Global.precedent_directory + "/" + filename, 'r', encoding="ISO-8859-1")
+        fact_vector = numpy.zeros(len(self.tagger))
+        file = open(Global.precedent_directory + "/" + filename, 'r', encoding="utf-8")
         text_tagged = False
-        first_line_found = False
         for line in file:
-            if '[1]' in line:
-                first_line_found = True
-            elif len(line) < self.empty_line_length:
+            if self.__ignore_line(line):
                 continue
-            elif not first_line_found:
-                continue
-            elif 'No dossier' in line:
-                continue
-
             line_tagged = False
             self.nb_lines += 1
-            for i in range(len(RegexLib.regex_facts)):
-                regex_value = RegexLib.regex_facts[i][1]
+            for i in range(len(self.tagger)):
+                regex_value = self.tagger[i][1]
                 if regex_value.match(line):
                     fact_vector[i] = 1
                     line_tagged = True
@@ -79,10 +87,15 @@ class RegexPrecedents:
             self.text_tagged += 1
         return fact_vector
 
-
-if __name__ == '__main__':
-    reg = RegexPrecedents()
-    dict = reg.tag_precedents(10)
-    for e in dict:
-        print(dict[e])
-        print(e)
+    def __ignore_line(self, line):
+        """
+        Verifies if we should ignore line from total count
+        Add constraints to make covered lines more realistic
+        :param line: String
+        :return: Boolean
+        """
+        if len(line) < self.empty_line_length:
+            return True
+        elif 'No dossier' in line:
+            return True
+        return False

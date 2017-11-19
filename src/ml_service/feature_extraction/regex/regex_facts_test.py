@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
-from feature_extraction.regex.regex_facts import RegexPrecedents
+from feature_extraction.regex.regex_facts import TagPrecedents
 from feature_extraction.regex.regex_lib import RegexLib
 import os
 from global_variables.global_variable import Global
@@ -8,15 +8,12 @@ from global_variables.global_variable import Global
 
 class RegexTest(unittest.TestCase):
 
-    # incomplete unittest now. Just a skeleton
     def test_regex_model(self):
-        pass
-        '''
-        re_tag = RegexPrecedents()
+        re_tag = TagPrecedents()
         re_tag.tag_precedents(10)
         binary_model_path = Global.output_directory + r'fact_matrix_dir/fact_matrix'
         self.assertTrue(os.path.isfile(binary_model_path))
-        '''
+
 
     def test_regex_demands(self):
         directory = Global.regex_data_directory + 'demands'
