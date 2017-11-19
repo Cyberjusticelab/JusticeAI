@@ -54,15 +54,21 @@ class RegexPrecedents:
         fact_vector = numpy.zeros(len(RegexLib.regex_facts))
         file = open(Global.precedent_directory + "/" + filename, 'r', encoding="ISO-8859-1")
         text_tagged = False
+        first_line_found = False
         for line in file:
-            if len(line) < self.empty_line_length:
+            if '[1]' in line:
+                first_line_found = True
+            elif len(line) < self.empty_line_length:
                 continue
+            elif not first_line_found:
+                continue
+            elif 'No dossier' in line:
+                continue
+
             line_tagged = False
             self.nb_lines += 1
             for i in range(len(RegexLib.regex_facts)):
                 regex_value = list(RegexLib.regex_facts[i].values())[0]
-                # we will assume a NOT(fact) will be it's own column for now
-                # so no 0 in vector as of yet only -1 and 1
                 if regex_value.match(line):
                     fact_vector[i] = 1
                     line_tagged = True
@@ -76,6 +82,7 @@ class RegexPrecedents:
 
 if __name__ == '__main__':
     reg = RegexPrecedents()
-    dict = reg.tag_precedents(1)
+    dict = reg.tag_precedents(10)
     for e in dict:
         print(dict[e])
+        print(e)

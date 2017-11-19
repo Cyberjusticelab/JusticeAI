@@ -9,7 +9,7 @@ class PrecedentModel:
         }
 
     def __str__(self):
-        return_str = "Facts:\n"
+        return_str = "facts:\n"
         for f in self.dict['facts']:
             return_str += str(self.dict['facts'][f])
             return_str += f + '\n\n'
