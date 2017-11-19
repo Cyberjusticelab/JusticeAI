@@ -24,7 +24,7 @@ class OutlierDetection:
             with open(fact_path, 'r') as f:
                 file_json = json.loads(f.read().encode('utf-8'))
             for example in file_json['rasa_nlu_data']['common_examples']:
-                all_sentences.append(example['text'])
+                all_sentences.append(example['text'].lower())
 
 
         # TF-ID model

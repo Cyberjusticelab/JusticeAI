@@ -159,7 +159,7 @@ message: the message given by the user
 
 def __extract_entity(current_fact_name, message):
     # First pass: outlier detection
-    result = outlier_detector.predict_if_outlier([message])
+    result = outlier_detector.predict_if_outlier([message.lower()])
     if result[0] == -1:
         return None
 
