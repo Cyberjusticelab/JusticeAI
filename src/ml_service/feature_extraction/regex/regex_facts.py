@@ -76,7 +76,6 @@ class RegexPrecedents:
 
 if __name__ == '__main__':
     reg = RegexPrecedents()
-    dict = reg.tag_precedents(10)
+    dict = reg.tag_precedents(1)
     for e in dict:
-        print(e)
         print(dict[e])
