@@ -1,10 +1,6 @@
-from global_variables.global_variable import Global
-# from outcome_predictor.basic_neural_net import BasicNeuralNet
-import os
 import joblib
-import pdb
 import numpy as np
-
+from outcome_predictor.svm import LinearSVM
 # I ran a crude regex to see which clusters have resiliation
 resiliation_custers = [1,
                        2,
@@ -48,6 +44,10 @@ resiliation_custers = [1,
 
 
 def load_data():
+    """
+        Loads a binarized version of our precedents
+    """
+    print("loading data")
     file = open('structured_precedent.bin', 'rb')
     model = joblib.load(file)
     file.close()
@@ -68,10 +68,30 @@ def load_data():
             val['decisions_vector'] = np.array([0])
     return valid_values
 
-def load_new_data():
+
+def load_new_data(data_set):
+    """
+        Loads a binarized version of regexed facts
+        and merges it with the existing data set
+        params: data_set: initial data_set
+    """
+    print("loading regex data")
     file = open('prec.bin', 'rb')
-    return joblib.load(file)
-# print('loading data')
-# precedent_data = load_data()
-# neuralNet = BasicNeuralNet(precedent_data)
-# neuralNet.train()
+    prec = joblib.load(file)
+    print("merging data")
+    new_val = []
+    for val in data_set:
+        if val['name'] + '.txt' in prec.keys():
+            new_val.append({'name': val['name'], 'facts_vector': np.fromiter(prec[val[
+                           'name'] + '.txt'].values(), dtype=np.int32), 'decisions_vector': val['decisions_vector']})
+    return new_val
+
+
+data_set = load_data()
+# Taking a subset since I don't want to wait forever
+data_set = data_set[1:10000]
+data_set = load_new_data(data_set)
+
+
+svm = LinearSVM(data_set)
+svm.train()

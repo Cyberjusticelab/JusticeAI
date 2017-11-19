@@ -1,10 +1,8 @@
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.utils import to_categorical
-from global_variables.global_variable import Global
 from sklearn.model_selection import train_test_split
 import numpy as np
-import joblib
 
 
 class BasicNeuralNet(object):
@@ -18,7 +16,6 @@ class BasicNeuralNet(object):
             Current config: Input -> 64 Nodes -> Outputs
         """
 
-        # import pdb;pdb.set_trace()
         # Prep data
         print('splitting data')
         x_total = np.array(
@@ -49,4 +46,4 @@ class BasicNeuralNet(object):
         print('Test loss:', score[0])
         print('Test accuracy:', score[1])
         self.model = model
-        self.score = score
+
