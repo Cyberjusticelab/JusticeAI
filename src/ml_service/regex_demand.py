@@ -3,200 +3,318 @@ import re
 import collections
 
 
+def get_asker_landlord():
+    return meta_regex("asker is landlord", [
+        re.compile(
+            '\[[123]\].+l(es|e|a) locat(eur|rice)(s|) (demande|réclame)(nt|)', re.IGNORECASE)
+    ])
+
+
+def get_asker_tenant():
+    return meta_regex("asker is tenant", [
+        re.compile(
+            '\[[123]\].+l(es|e|a) locataire(s|) (demande|réclame)(nt|)', re.IGNORECASE)
+    ])
+
+
+def get_asking_rent_payment():
+    return meta_regex("ask for rent payment", [
+        re.compile(
+            '\[[123]\].+recouvrement (de loyer|du loyer|d\'une somme)', re.IGNORECASE),
+        re.compile(
+            '\[[123]\].+(demande|réclame)(nt|) ((\d+(\s|,)){0,3}(\$ |))de loyer', re.IGNORECASE),
+        re.compile(
+            '\[[123]\].+(demande|réclame)(nt|) du loyer impayé', re.IGNORECASE)
+    ])
+
+
+def get_ask_access_rental():
+    return meta_regex("ask for access to rental", [
+        re.compile('\[[123]\].+accès au logement')
+    ])
+
+
+def get_ask_fixation_of_rent():
+    return meta_regex("ask fixing rent", [
+        re.compile('\[[123]\].+fixation (du|de) loyer', re.IGNORECASE),
+        re.compile(
+            '\[[123]\].+fixer le loyer', re.IGNORECASE)
+    ])
+
+
 def get_ask_resiliation():
-    reg = re.compile('\[[123]\].+demande(nt|) la résiliation du bail')
-    reg2 = re.compile('\[[123]\].+une demande en résiliation de bail')
-    return meta_regex("Ask Resiliation", [reg, reg2])
+    return meta_regex("ask resiliation", [
+        re.compile(
+            '\[[123]\].+(demande|réclame)(nt|) la résiliation du bail', re.IGNORECASE),
+        re.compile(
+            '\[[123]\].+une demande en résiliation de bail', re.IGNORECASE)
+    ])
+
+
+def get_ask_lease_modification():
+    return meta_regex("ask modification of lease", [
+        re.compile(
+            '\[[123]\].+produit une demande en modifications du bail', re.IGNORECASE)
+    ])
+
+
+def get_ask_lower_rent():
+    return meta_regex("ask lower rent", [
+        re.compile(
+            '\[[123]\].+(demande|réclame)(nt|) (une|de|en) diminution de loyer', re.IGNORECASE)
+    ])
+
+
+def get_ask_retake_rental():
+    return meta_regex("ask retake rental", [
+        re.compile(
+            '\[[123]\].+autorisation de reprendre le logement occupé par (le|la|les) locataire(s|)', re.IGNORECASE),
+        re.compile(
+            '\[[123]\].+autorisation de reprendre le logement (du locataire |de la locataire )pour (s\'|)y loger', re.IGNORECASE)
+    ])
+
+
+def get_ask_damages():
+    return meta_regex("ask damages", [
+        re.compile(
+            '\[[123]\].+(demande|réclame)(nt|) ((\d+(\s|,)){0,3}(\$ |)){0,1}(en|de|des|pour des|pour de) dommage', re.IGNORECASE)
+    ])
 
 
 def get_lease():
-    reg = re.compile(
-        '\[\d+\].+un bail (\w+(\s|\'|,\s)){0,8}au loyer (\w+(\s|\'|,\s)){0,8}mensuel de (\d+(\s|\,)){1,2}\$')
-    return meta_regex("Lease", [reg])
+    return meta_regex("lease", [
+        re.compile(
+            '\[\d+\].+un bail (\w+(\s|\'|,\s)){0,8}au loyer (\w+(\s|\'|,\s)){0,8}mensuel de (\d+(\s|\,)){1,2}\$', re.IGNORECASE)
+    ])
 
 
 def get_money_owed():
-    reg = re.compile(
-        '\[\d+\].+doi(ven|)t la somme de (\d+(\s|\,)){1,2}\$(, soit le loyer| à titre de loyer)')
-    reg2 = re.compile(
-        '\[\d+\].+locataire(s|) doi(ven|)t (\w+(\s|\'|,\s)){0,6}(\d+(\s|\,)){1,2}\$')
-    reg3 = re.compile(
-        '\[\d+\].+locat(eur|rice)(s|) réclame(nt|) (\w+(\s|\'|,\s)){0,6}(\d+(\s|\,)){1,2}\$(, soit le loyer| à titre de loyer)')
-    reg4 = re.compile(
-        '\[\d+\].+(il|elle)(s|) doi(ven)t toujours une somme de (\d+(\s|\,)){1,2}\$')
-    reg5 = re.compile(
-        '\[\d+\].+admet devoir la somme de (\d+(\s|\,)){1,2}\$ à titre de loyer')
-    return meta_regex("Money Owed", [reg, reg2, reg3, reg4, reg5])
+    return meta_regex("money owed", [
+        re.compile(
+            '\[\d+\].+doi(ven|)t la somme de (\d+(\s|\,)){1,2}\$(, soit le loyer| à titre de loyer)', re.IGNORECASE),
+        re.compile(
+            '\[\d+\].+locataire(s|) doi(ven|)t (\w+(\s|\'|,\s)){0,6}(\d+(\s|\,)){1,2}\$', re.IGNORECASE),
+        re.compile(
+            '\[\d+\].+locat(eur|rice)(s|) réclame(nt|) (\w+(\s|\'|,\s)){0,6}(\d+(\s|\,)){1,2}\$(, soit le loyer| à titre de loyer)', re.IGNORECASE),
+        re.compile(
+            '\[\d+\].+(il|elle)(s|) doi(ven)t toujours une somme de (\d+(\s|\,)){1,2}\$', re.IGNORECASE),
+        re.compile(
+            '\[\d+\].+admet devoir la somme de (\d+(\s|\,)){1,2}\$ à titre de loyer', re.IGNORECASE)
+    ])
 
 
 def get_non_respect_of_judgement():
-    reg = re.compile(
-        '\[\d+\].+non-respect d\'une ordonnance émise antérieurement')
-    reg2 = re.compile(
-        '\[\d+\].+pas respecté l\'ordonnance de payer (\w+(\s|\'|,\s)){0,4}loyer')
-    reg3 = re.compile(
-        '\[\d+\].+non-respect de l\'ordonnance de payer le loyer')
-    reg4 = re.compile(
-        '\[\d+\].+locataire(s|) (\w+(\s|\'|,\s)){0,3}pas respecté l\'ordonnance')
-    return meta_regex("Disrespect previous judgement", [reg, reg2, reg3, reg4])
+    return meta_regex("disrespect previous judgement", [
+        re.compile(
+            '\[\d+\].+non-respect d\'une ordonnance émise antérieurement', re.IGNORECASE),
+        re.compile(
+            '\[\d+\].+pas respecté l\'ordonnance de payer (\w+(\s|\'|,\s)){0,4}loyer', re.IGNORECASE),
+        re.compile(
+            '\[\d+\].+non-respect de l\'ordonnance de payer le loyer', re.IGNORECASE),
+        re.compile(
+            '\[\d+\].+locataire(s|) (\w+(\s|\'|,\s)){0,3}pas respecté l\'ordonnance', re.IGNORECASE)
+    ])
 
 
 def get_menacing():
-    reg = re.compile(
-        '\[\d+\].+menace (\w+(\s|\'|,\s)){0,6}(sécurité des occupants|l\'intégrité du logement)')
-    return meta_regex("Menacing", [reg])
+    return meta_regex("menacing", [
+        re.compile(
+            '\[\d+\].+menace (\w+(\s|\'|,\s)){0,6}(sécurité des occupants|l\'intégrité du logement)', re.IGNORECASE)
+    ])
 
 
 def get_serious_prejudice():
-    reg = re.compile(
-        '\[\d+\].+cause un préjudice sérieux au(x|) locat(eur|rice)(s|)')
-    reg2 = re.compile(
-        '\[\d+\].+locat(eur|rice)(s|) (\w+(\s|\'|,\s)){0,10}un préjudice sérieux')
-    reg3 = re.compile(
-        '\[\d+\].+préjudice subi justifie')
-    reg4 = re.compile(
-        '\[\d+\].+Le préjudice causé au locateur justifie')
-    return meta_regex("Landlord serious prejudice", [reg, reg2, reg3, reg4])
+    return meta_regex("landlord serious prejudice", [
+        re.compile(
+            '\[\d+\].+cause un préjudice sérieux au(x|) locat(eur|rice)(s|)', re.IGNORECASE),
+        re.compile(
+            '\[\d+\].+locat(eur|rice)(s|) (\w+(\s|\'|,\s)){0,10}un préjudice sérieux', re.IGNORECASE),
+        re.compile(
+            '\[\d+\].+préjudice subi justifie', re.IGNORECASE),  re.compile(
+            '\[\d+\].+le préjudice causé au locateur justifie', re.IGNORECASE),
+        re.compile(
+            '\[\d+\].+suffise.*locataire.*article 1863', re.IGNORECASE)
+    ])
 
 
 def get_late_payment():
-    reg = re.compile(
-        '\[\d+\].+locataire(s|) paie(nt|) (\w+\s){0,4}loyer(s|) (\w+\s){0,4}en retard')
-    reg2 = re.compile(
-        '\[\d+\].+preuve de retards fréquents dans le paiement du loyer')
-    reg3 = re.compile(
-        '\[\d+\].+CONSIDÉRANT la preuve des retards fréquents')
-
-    return meta_regex("Often Late Payment", [reg, reg2, reg3])
+    return meta_regex("often late payment", [
+        re.compile(
+            '\[\d+\].+locataire(s|) paie(nt|) (\w+\s){0,4}loyer(s|) (\w+\s){0,4}en retard', re.IGNORECASE),
+        re.compile(
+            '\[\d+\].+preuve de retards fréquents dans le paiement du loyer', re.IGNORECASE),
+        re.compile(
+            '\[\d+\].+considérant la preuve des retards fréquents', re.IGNORECASE)
+    ])
 
 
 def get_tenant_died():
-    reg = re.compile('\[\d+\].+locataire(s|) (est|sont) décédé(e|s|es)')
-    return meta_regex("Tenant dead", [reg])
+    return meta_regex("tenant dead", [
+        re.compile(
+            '\[\d+\].+locataire(s|) (est|sont) décédé(e|s|es)', re.IGNORECASE)
+    ])
 
 
 def get_three_weeks_late():
-    reg = re.compile(
-        '\[\d+\].+locataire(s|) (est|sont) en retard (\w+(\s|\'|,\s)){1,8}(trois|3) semaines')
-    return meta_regex("Is 3 week late", [reg])
+    return meta_regex("is 3 week late", [
+        re.compile(
+            '\[\d+\].+locataire(s|) (est|sont) en retard (\w+(\s|\'|,\s)){1,8}(trois|3) semaines', re.IGNORECASE)
+    ])
 
 
 def get_tenant_left():
-    reg = re.compile(
-        '\[\d+\].+locataire(s|) (\w+(\s|\'|,\s)){0,6}(a|ont|aurait|auraient) quitté le logement')
-    reg2 = re.compile(
-        '\[\d+\].+locataire(s|) (a|ont) quitté les lieux loué')
-    reg3 = re.compile(
-        '\[\d+\].+locataire(s|) (a|ont) déguerpi (du logement|des lieux loué)')
-    return meta_regex("Tenant Left", [reg, reg2, reg3])
+    return meta_regex("tenant left", [
+        re.compile(
+            '\[\d+\].+locataire(s|) (\w+(\s|\'|,\s)){0,6}(a|ont|aurait|auraient) quitté le logement', re.IGNORECASE),
+        re.compile(
+            '\[\d+\].+locataire(s|) (a|ont) quitté les lieux loué', re.IGNORECASE),
+        re.compile(
+            '\[\d+\].+locataire(s|) (a|ont) déguerpi (du logement|des lieux loué)',
+            re.IGNORECASE),
+        re.compile(
+            '\[\d+\].+l\'article 1975', re.IGNORECASE)
+    ])
 
 
 def get_tenant_negligence():
-    reg = re.compile(
-        '(causé par la|dû à la|vu la|en raison de la|à cause de la) négligence de la locataire')
-    return meta_regex("Tenant Negligence", [reg])
+    return meta_regex("tenant negligence", [
+        re.compile(
+            '(causé par la|dû à la|vu la|en raison de la|à cause de la) négligence de la locataire', re.IGNORECASE)
+    ])
 
 
 def get_increased_rent():
-    reg = re.compile(
-        '\[\d+\].+preuve démontre la réception de l\'avis d\'augmentation')
-    return meta_regex("Rent increase", [reg])
+    return meta_regex("rent increase", [
+        re.compile(
+            '\[\d+\].+preuve démontre la réception de l\'avis d\'augmentation', re.IGNORECASE)
+    ])
 
 
 def get_proof_of_late():
-    reg = re.compile('\[\d+\].+une reconnaissance de dette')
-    return meta_regex("Proof of debt", [reg])
+    return meta_regex("proof of debt", [
+        re.compile('\[\d+\].+une reconnaissance de dette', re.IGNORECASE)
+    ])
 
 
 def get_no_rent_owed():
-    reg = re.compile('aucun loyer n\'est dû')
-    return meta_regex("No money owed", [reg])
+    return meta_regex("no money owed", [
+        re.compile('\[\d+\].+aucun loyer n\'est dû', re.IGNORECASE)
+    ])
 
 
 def get_lack_of_proof():
-    reg = re.compile('\[\d+\].+absence de preuve')
-    reg2 = re.compile('\[\d+\].+aucune preuve au soutien de la demande')
-
-    return meta_regex("Lack of proof", [reg, reg2])
+    return meta_regex("lack of proof", [
+        re.compile('\[\d+\].+absence de preuve', re.IGNORECASE),
+        re.compile(
+            '\[\d+\].+aucune preuve au soutien de la demande', re.IGNORECASE)
+    ])
 
 
 def get_bothers_others():
-    reg = re.compile(
-        '\[\d+\].+locataire(s|) trouble(nt|) la jouissance normale des lieux loués')
-    reg = re.compile(
-        '\[\d+\].+dérange la jouissance paisible')
-    return meta_regex("Tenant Bothers", [reg])
+    return meta_regex("tenant bothers", [
+        re.compile(
+            '\[\d+\].+locataire(s|) trouble(nt|) la jouissance normale des lieux loués', re.IGNORECASE),
+        re.compile(
+            '\[\d+\].+dérange la jouissance paisible', re.IGNORECASE)
+    ])
 
 
-def get_tenat_is_bothered():
-    reg = re.compile(
-        '\[\d+\].+(le|la|les) locataire(s|) (a|ont) subi(ent|) une perte de jouissance')
-    return meta_regex('Tenant is bothered', [reg])
+def get_is_not_habitable():
+    return meta_regex('Is not habitable', [
+        re.compile(
+            '\[\d+\].+preuve.*logement.*locataire.*est.*mauvais.*état', re.IGNORECASE)
+    ])
+
+
+def get_tenant_is_bothered():
+    return meta_regex('tenant is bothered', [
+        re.compile(
+            '\[\d+\].+(le|la|les) locataire(s|) (a|ont) subi(ent|) une perte de jouissance', re.IGNORECASE)
+    ])
 
 
 def get_not_three_weeks_late():
-    reg = re.compile(
-        '\[\d+\].+locataire(s|) (n\'est|ne sont) pas en retard (\w+(\s|\'|,\s)){1,8}trois semaines')
-    return meta_regex("Is Not 3 week late", [reg])
+    return meta_regex("is not 3 week late", [
+        re.compile(
+            '\[\d+\].+locataire(s|) (n\'est|ne sont) pas en retard (\w+(\s|\'|,\s)){1,8}trois semaines', re.IGNORECASE)
+    ])
 
 
 def get_tenant_damaged_rental():
-    reg = re.compile('\[\d+\].+locataire (a|ont) causé des dommages')
-    return meta_regex("Rental Damage", [reg])
+    return meta_regex("rental damage", [
+        re.compile(
+            '\[\d+\].+locataire (a|ont) causé des dommages', re.IGNORECASE)
+    ])
 
 
 def get_bad_mutual_agreement():
-    reg = re.compile('\[\d+\].+ENTÉRINE (l\'|cette\s)entente')
-    reg2 = re.compile('\[\d+\].+l\'entente intervenue entre les parties')
-    reg3 = re.compile('\[\d+\].+HOMOLOGUE cette entente')
-    reg4 = re.compile('\[\d+\].+HOMOLOGUE (\w+(\s|\'|,\s)){0,3}transaction')
-    return meta_regex("BAD: Mutual Agreement", [reg, reg2, reg3, reg4])
+    return meta_regex("bad: mutual agreement", [
+        re.compile('\[\d+\].+entérine (l\'|cette\s)entente', re.IGNORECASE),
+        re.compile(
+            '\[\d+\].+l\'entente intervenue entre les parties', re.IGNORECASE),
+        re.compile('\[\d+\].+homologue cette entente', re.IGNORECASE),
+        re.compile(
+            '\[\d+\].+homologue (\w+(\s|\'|,\s)){0,3}transaction', re.IGNORECASE)
+    ])
 
 
 def get_proof_of_revenu():
-    reg = re.compile(
-        '\[\d+\].+a fourni (\w+\s){0,10}l\'attestation de ses revenu')
-    return meta_regex("Proof of revenu", [reg])
+    return meta_regex("proof of revenu", [
+        re.compile(
+            '\[\d+\].+a fourni (\w+\s){0,10}l\'attestation de ses revenu')
+    ])
 
 
 def get_bad_paid_before_audience():
-    reg = re.compile(
-        '\[\d+\].+(ont|a|ayant) payé (le|tous les) loyer(s|) (dû|du)')
-    reg2 = re.compile('\[\d+\].+(ont|a) payé les loyers réclamés')
-    reg3 = re.compile(
-        '\[\d+\].+les loyers ont été payés')
-    reg4 = re.compile(
-        '\[\d+\].+à la date de l\'audience, tous les loyers réclamés ont été payés')
-
-    return meta_regex("BAD: Paid Before Hearing", [reg, reg2, reg3, reg4])
+    return meta_regex("bad: paid before hearing", [
+        re.compile(
+            '\[\d+\].+(ont|a|ayant) payé (le|tous les) loyer(s|) (dû|du)', re.IGNORECASE),
+        re.compile(
+            '\[\d+\].+(ont|a) payé les loyers réclamés', re.IGNORECASE),
+        re.compile(
+            '\[\d+\].+les loyers ont été payés', re.IGNORECASE),
+        re.compile(
+            '\[\d+\].+à la date de l\'audience, tous les loyers réclamés ont été payés', re.IGNORECASE)
+    ])
 
 
 def get_bad_absent():
-    reg = re.compile(
-        '\[\d+\].+CONSIDÉRANT l\'absence (du|de la|des) locat(eur|rice|aire)(s|)')
-    return meta_regex("BAD: Absent", [reg])
+    return meta_regex("bad: absent", [
+        re.compile(
+            '\[\d+\].+considérant l\'absence (du|de la|des) locat(eur|rice|aire)(s|)', re.IGNORECASE)
+    ])
 
 
 def get_bad_incorrect_facts():
-    reg = re.compile(
-        '\[\d+\].+demande (de la|des) locataire(s|) est mal fondée')
-    return meta_regex("BAD: Incorrect Facts", [reg])
+    return meta_regex("bad: incorrect facts", [
+        re.compile(
+            '\[\d+\].+demande (de la|des) locataire(s|) est mal fondée', re.IGNORECASE)
+    ])
 
 
 def meta_regex(name, regexes):
-    returnList = set()
-    precFiles = os.listdir('precedents/text_bk')
-    for file in precFiles:
-        with open('precedents/text_bk/' + file, 'r', encoding="ISO-8859-1") as f:
+    returnlist = set()
+    precfiles = os.listdir('precedents/text_bk')
+    for file in precfiles:
+        with open('precedents/text_bk/' + file, 'r', encoding="iso-8859-1") as f:
             s = f.read()
             for reg in regexes:
                 if reg.search(s):
-                    returnList.add(file)
+                    returnlist.add(file)
     print("% of precedents with {} : {}".format(name,
-                                                len(returnList) * 100.0 / len(precFiles)))
-    return returnList
+                                                len(returnlist) * 100.0 / len(precfiles)))
+    return returnlist
 
 get_lease()
+get_asker_landlord()
+get_asker_tenant()
+get_ask_lease_modification()
+get_ask_retake_rental()
+get_ask_lower_rent()
+get_ask_damages()
+get_ask_fixation_of_rent()
+get_asking_rent_payment()
+get_ask_access_rental()
 
 ask_resiliation = get_ask_resiliation()
 tenant_left = get_tenant_left()
@@ -216,7 +334,7 @@ non_respect_of_judgement = get_non_respect_of_judgement()
 tenant_died = get_tenant_died()
 tenant_damaged_rental = get_tenant_damaged_rental()
 tenant_negligence = get_tenant_negligence()
-tenant_is_bothered = get_tenat_is_bothered()
+tenant_is_bothered = get_tenant_is_bothered()
 
 bad_mutual_agreement = get_bad_mutual_agreement()
 bad_paid_before_audience = get_bad_paid_before_audience()
@@ -246,10 +364,10 @@ rem = ask_resiliation - bad_mutual_agreement - \
     bad_paid_before_audience - bad_absent - bad_incorrect_facts
 inter = rem - meta.intersection(ask_resiliation)
 
-print("Diff total:")
+print("diff total:")
 print(len(inter))
 
-print("Diff %:")
+print("diff %:")
 print(len(inter) * 100.0 / len(rem))
 
 with open('diff.txt', 'w') as file:
