@@ -2,10 +2,6 @@ import re
 
 
 class RegexLib:
-    regex_list = [
-
-    ]
-
     regex_demands = [
         {"tenant_eviction": re.compile(
             r"(locateur|locatrice).+demande.+résiliation.+bail(.+(expulsion|éviction).+locataires)?")},

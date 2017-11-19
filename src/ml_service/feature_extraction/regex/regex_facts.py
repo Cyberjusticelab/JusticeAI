@@ -7,11 +7,11 @@ from outputs.output import Save, Log
 from sys import stdout
 
 
-class RegexFacts:
+class RegexPrecedents:
     empty_line_length = 6
 
     def __init__(self):
-        self.fact_matrix = []
+        self.fact_dict = {}
         self.lines_tagged = 0
         self.text_tagged = 0
         self.nb_lines = 0
@@ -33,13 +33,14 @@ class RegexFacts:
                     break
             stdout.write("\rPrecedents taged: %f " % percent)
             stdout.flush()
-            self.fact_matrix.append(self.__tag_file(file))
+            self.fact_dict[file] = self.__tag_file(file)
             self.nb_text += 1
         print()
         Log.write('Precedent coverage: ' + str(float(self.text_tagged / self.nb_text)))
         Log.write('Line Coverage: ' + str(float(self.lines_tagged / self.nb_lines)))
         save = Save('fact_matrix_dir')
-        save.binarize_model('fact_matrix', self.fact_matrix)
+        save.binarize_model('fact_matrix', self.fact_dict)
+        return self.fact_dict
 
     def __tag_file(self, filename):
         """
@@ -50,7 +51,7 @@ class RegexFacts:
         :param filename:
         :return: numpy vector of facts
         """
-        fact_vector = numpy.zeros(len(RegexLib.regex_list))
+        fact_vector = numpy.zeros(len(RegexLib.regex_facts))
         file = open(Global.precedent_directory + "/" + filename, 'r', encoding="ISO-8859-1")
         text_tagged = False
         for line in file:
@@ -58,10 +59,11 @@ class RegexFacts:
                 continue
             line_tagged = False
             self.nb_lines += 1
-            for i in range(len(RegexLib.regex_list)):
+            for i in range(len(RegexLib.regex_facts)):
+                regex_value = list(RegexLib.regex_facts[i].values())[0]
                 # we will assume a NOT(fact) will be it's own column for now
                 # so no 0 in vector as of yet only -1 and 1
-                if RegexLib.regex_list[i].match(line):
+                if regex_value.match(line):
                     fact_vector[i] = 1
                     line_tagged = True
                     text_tagged = True
@@ -73,5 +75,8 @@ class RegexFacts:
 
 
 if __name__ == '__main__':
-    re_facts = RegexFacts()
-    re_facts.tag_precedents()
+    reg = RegexPrecedents()
+    dict = reg.tag_precedents(10)
+    for e in dict:
+        print(e)
+        print(dict[e])
