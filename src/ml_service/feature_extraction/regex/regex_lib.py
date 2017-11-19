@@ -9,16 +9,25 @@ class RegexLib:
     regex_demands = {
         "tenant_eviction": re.compile(r"(locateur|locatrice).+demande.+résiliation.+bail(.+(expulsion|éviction).+locataires)?"),
         "landlord_lease_termination": re.compile(r"(demande.+)?(locateur|locatrice).+résiliation.+bail"),
-        "tenant_cover_rent": re.compile(r"(demande.+)?locateur(.+demande)?.+recouvrement\s(du|de)\sloyer"),
+        "tenant_cover_rent": re.compile(r"(demande.+)?(locateur|locatrice)(s)?(.+demande)?.+recouvrement\s(du|de)\sloyer"),
         "paid_judicial_fees": re.compile(r"(locateur|locatrice)\sdemande.+(frais\sjudiciaires)"),
-        "landlord_money_cover_rent": re.compile(r"(locateur|locatrice)\sdemande.+recouvrement\s(du|de)\sloyer"),
-        "landlord_fix_rent": re.compile(r"(locateur|locatrice)(s)?.+(demandent).+fixer.+loyer"),
-        "tenant_demands_money": re.compile(r"locataire.+(demand(ait|ent)).+([\d\s]+)(\$|\s\$)"),
+        "landlord_money_cover_rent": re.compile(r"(locateur|locatrice)(s)?.+(demand(e|ent))?.+recouvrement.+\sloyer"),
+        "landlord_fix_rent": re.compile(r"(locateur|locatrice)(s)?.+(demand(e|ent)).+(fix(er|ation)).+loyer"),
+        "tenant_demands_money": re.compile(r"locataire.+(demand(ait|ent)).+([\d\s,]+)(\$|\s\$)"),
         "tenant_claims_harassment": re.compile(r"locataire.+(demand(ait|ent)).+dommages.+harcèlement"),
         "landlord_demand_utility_fee": re.compile(r"recouvrement(.+frais.+(énergie|électricité))+"),
         "landlord_demand_legal_fees": re.compile(r"remboursement.+(frais)?judiciaires"),
-        "landlord_demand_bank_fee": re.compile(r"recouvrement.+frais\sbancaires"),
-        "landlord_demand_retake_apartment": re.compile(r"(locateur|locatrice)(s)?.+demand(e|ent).+(autoris(er|ation)).+reprendre.+logement")
+        "landlord_demand_bank_fee": re.compile(r"recouvrement.+frais\sbancair"),
+        "landlord_demand_retake_apartment": re.compile(r"(locateur|locatrice)(s)?.+demand(e|ent).+(autoris(er|ation)).+reprendre.+logement"),
+        "landlord_claim_interest_damage": re.compile(r"(locateur|locatrice)(s)?(.+([\d\s,]+)(\$|\s\$)).+(dommages-intérêts)"),
+        "tenant_demand_rent_decrease": re.compile(r"locataire(s)?.+diminution.+loyer"),
+        "tenant_demand_interest_damage": re.compile(r"locataire(s)?.+(dommages-intérêts)"),
+        "tenant_demand_indemnity_damage": re.compile(r"locataire(s)?.+(l'indemnité\sadditionnelle)"),
+        "tenant_respect_of_contract": re.compile(r"locataire(s)?.+(l'exécution\sen\snature\sd'une\sobligation)"),
+        "tenant_demand_indemnity_judicial_fee": re.compile(r"locataire(s)?.+(recouvrement\sdes\sfrais\sjudiciaires)"),
+        "tenant_demand_indemnity_Code_Civil": re.compile(r"locataire(s)?.+(Code\scivil\sdu\sQuébec)"),
+        "landlord_demand_damage": re.compile(r"(locateur|locatrice)(s)?.+(demand(ent|e)).+dommage(s)?"),
+        "tenant_demands_decision_retraction": re.compile(r"locataire(s)?.+demande.+rétractation.+décision")
     }
 
     regex_facts = {
