@@ -51,6 +51,8 @@ def load_data():
     file = open('structured_precedent.bin', 'rb')
     model = joblib.load(file)
     file.close()
+    for (key, val) in model.items():
+        val['name'] = key
     valid_values = [precedent for precedent in model.values() if precedent[
         'facts_vector'] is not None and precedent['decisions_vector'] is not None]
     for val in valid_values:
@@ -66,7 +68,7 @@ def load_data():
             val['decisions_vector'] = np.array([0])
     return valid_values
 
-print('loading data')
-precedent_data = load_data()
-neuralNet = BasicNeuralNet(precedent_data)
-neuralNet.train()
+# print('loading data')
+# precedent_data = load_data()
+# neuralNet = BasicNeuralNet(precedent_data)
+# neuralNet.train()

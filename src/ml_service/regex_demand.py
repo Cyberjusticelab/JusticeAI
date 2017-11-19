@@ -335,6 +335,7 @@ tenant_died = get_tenant_died()
 tenant_damaged_rental = get_tenant_damaged_rental()
 tenant_negligence = get_tenant_negligence()
 tenant_is_bothered = get_tenant_is_bothered()
+is_not_habitable = get_is_not_habitable()
 
 bad_mutual_agreement = get_bad_mutual_agreement()
 bad_paid_before_audience = get_bad_paid_before_audience()
@@ -343,6 +344,7 @@ bad_incorrect_facts = get_bad_incorrect_facts()
 
 meta = money_owed.union(
     tenant_left).union(
+    is_not_habitable).union(
     proof_of_revenu).union(
     late_payment).union(
     tenant_negligence).union(
