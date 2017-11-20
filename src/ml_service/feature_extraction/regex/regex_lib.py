@@ -79,6 +79,7 @@ class RegexLib:
         ("tenant_damaged_rental", [re.compile(r"\[\d+\].+locataire (a|ont) causé des dommages")], re.IGNORECASE),
         ("tenant_dead", [re.compile(r"\[\d+\].+locataire(s|) (est|sont) décédé(e|s|es)")], re.IGNORECASE),
         ("tenant_declare_insalubre", [re.compile(r".*(locataire(s).+)?(apartment.+)?insalubre.*")], re.IGNORECASE),
+        ("tenant_do_not_owe_rent",[re.compile(r"\[\d+\].+aucun loyer n\'est dû")],re.IGNORECASE),
         ("tenant_financial_problem", [re.compile(r".*(locataire(s)?.+)?difficultés.+financières(.+locataire(s)?)?.*")], re.IGNORECASE),
         ("tenant_group_responsability", [re.compile(r".*bail.+(prévoit\spas).+locataire(s)?.+(solidairement\sresponsables).+(locat(eur(s)?|rice(s)?)).*")], re.IGNORECASE),
         ("tenant_incorrect_facts", [re.compile(r"\[\d+\].+demande (de la|des) locataire(s|) est mal fondée")], re.IGNORECASE),
