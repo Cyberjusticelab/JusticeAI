@@ -127,14 +127,14 @@ class StructuredPrecedent:
                 line = file.readline()
 
     def write_data_as_bin(self, dicrectory):
-        joblib.dump(self.precedents, dicrectory + "structured_precedent.bin")
+        joblib.dump(self.precedents, dicrectory + "precedent_vector.bin")
 
 
 if __name__ == '__main__':
 
     # add paths to fact and decision models
-    hdb_facts_model = Load.load_model_from_bin("")
-    hdb_decision_model = Load.load_model_from_bin("")
+    hdb_facts_model = Load.load_model_from_bin(Load.fact_cluster_model)
+    hdb_decision_model = Load.load_model_from_bin(Load.decision_cluster_model)
     fact_data_tuple = Load.load_facts_from_bin()
     decision_data_tuple = Load.load_decisions_from_bin()
 
