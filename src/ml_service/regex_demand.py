@@ -33,7 +33,7 @@ def get_matching_precedent_file_names(fact):
 lease = get_matching_precedent_file_names("lease")
 asker_landlord = get_matching_precedent_file_names("asker_is_landlord")
 asker_tenant = get_matching_precedent_file_names("asker_is_tenant")
-ask_lease_modification = get_matching_precedent_file_names("landlord_demand_lease_modification")
+landlord_demand_lease_modification = get_matching_precedent_file_names("landlord_demand_lease_modification")
 ask_retake_rental = get_matching_precedent_file_names("landlord_demand_retake_apartment")
 ask_lower_rent = get_matching_precedent_file_names("tenant_demand_rent_decrease")
 ask_damages = get_matching_precedent_file_names("landlord_demand_damage")
@@ -45,8 +45,7 @@ ask_resiliation = get_matching_precedent_file_names("demand_resiliation")
 tenant_left = get_matching_precedent_file_names("tenant_left_without_paying")
 late_payment = get_matching_precedent_file_names("tenant_continuous_late_payment")
 menacing = get_matching_precedent_file_names("violent")
-three_weeks_late = get_matching_precedent_file_names("three_weeks_late")
-proof_of_late = get_matching_precedent_file_names("proof_of_late")
+three_weeks_late = get_matching_precedent_file_names("tenant_rent_not_paid_exactly_3_weeks")
 increased_rent = get_matching_precedent_file_names("rent_increased")
 not_three_weeks_late = get_matching_precedent_file_names("tenant_rent_late_less_than_3_weeks")
 lack_of_proof = get_matching_precedent_file_names("tenant_lacks_proof")
@@ -65,7 +64,7 @@ is_not_habitable = get_matching_precedent_file_names("apartment_impropre")
 bad_mutual_agreement = get_matching_precedent_file_names("tenant_landlord_agreement")
 bad_paid_before_audience = get_matching_precedent_file_names("tenant_rent_paid_before_hearing")
 bad_absent = get_matching_precedent_file_names("absent")
-bad_incorrect_facts = get_matching_precedent_file_names("incorrect_facts")
+bad_incorrect_facts = get_matching_precedent_file_names("tenant_incorrect_facts")
 
 meta = money_owed.union(
     tenant_left).union(
@@ -77,7 +76,6 @@ meta = money_owed.union(
     three_weeks_late).union(
     tenant_is_bothered).union(
     increased_rent).union(
-    proof_of_late).union(
     not_three_weeks_late).union(
     lack_of_proof).union(
     serious_prejudice).union(
@@ -102,7 +100,7 @@ precedent_vector = dict((el, {}) for el in good_precedents)
 fill_dict(precedent_vector, lease, 'lease')
 fill_dict(precedent_vector, asker_landlord, 'asker_landlord')
 fill_dict(precedent_vector, asker_tenant, 'asker_tenant')
-fill_dict(precedent_vector, ask_lease_modification, 'ask_lease_modification')
+fill_dict(precedent_vector, landlord_demand_lease_modification, 'landlord_demand_lease_modification')
 fill_dict(precedent_vector, ask_retake_rental, 'ask_retake_rental')
 fill_dict(precedent_vector, ask_lower_rent, 'ask_lower_rent')
 fill_dict(precedent_vector, ask_damages, 'ask_damages')
@@ -113,8 +111,7 @@ fill_dict(precedent_vector, ask_resiliation, 'ask_resiliation')
 fill_dict(precedent_vector, tenant_left, 'tenant_left')
 fill_dict(precedent_vector, late_payment, 'late_payment')
 fill_dict(precedent_vector, menacing, 'menacing')
-fill_dict(precedent_vector, three_weeks_late, 'three_weeks_late')
-fill_dict(precedent_vector, proof_of_late, 'proof_of_late')
+fill_dict(precedent_vector, three_weeks_late, 'tenant_rent_not_paid_exactly_3_weeks')
 fill_dict(precedent_vector, increased_rent, 'increased_rent')
 fill_dict(precedent_vector, not_three_weeks_late, 'not_three_weeks_late')
 fill_dict(precedent_vector, lack_of_proof, 'lack_of_proof')
