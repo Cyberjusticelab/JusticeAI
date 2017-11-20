@@ -1,7 +1,7 @@
 import os
 import joblib
 from feature_extraction.regex.regex_lib import RegexLib
-from src.ml_service.ml_models.models import Load
+from ml_models.models import Load
 
 regex_lib = RegexLib()
 
