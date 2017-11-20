@@ -28,7 +28,7 @@ def test_predict_if_outlier_positive():
 def test_predict_if_outlier_positive():
     outlier_detector = OutlierDetection()
     outlier_detector.initialize_fact_model()
-    result = outlier_detector.predict_if_outlier(['my landlord changed the lock without telling me'])
+    result = outlier_detector.predict_if_outlier(['it says on my lease that it ends on the 2nd of this month'])
     assert result[0] == 1
 
 
