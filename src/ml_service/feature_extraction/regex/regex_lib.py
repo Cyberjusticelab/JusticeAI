@@ -35,16 +35,18 @@ class RegexLib:
         ("landlord_demand_damage", [re.compile(r".*(locat(eur(s)?|rice(s)?)).+(demand(ent|e)).+dommage(s)?")], re.IGNORECASE),
         ("tenant_demands_decision_retraction", [re.compile(r".*locataire(s)?.+demande.+rétractation.+décision")], re.IGNORECASE)
     ]
-    
+
     # TODO "tenant_request_cancel_lease", "tenant_pay_before_judgment", "landlord_not_prejudice_justified", "tenant_claims_harm", "tenant_is_asshole"
     regex_facts = [
         ("lease", [re.compile(r"\[\d+\].+un bail (\w+(\s|\'|,\s)){0,8}au loyer (\w+(\s|\'|,\s)){0,8}mensuel de (\d+(\s|\,)){1,2}\$")], re.IGNORECASE),
         ("asker_is_landlord", [re.compile(r"\[[123]\].+l(es|e|a) locat(eur|rice)(s|) (demande|réclame)(nt|)")], re.IGNORECASE),
         ("asker_is_tenant", [re.compile(r"\[[123]\].+l(es|e|a) locataire(s|) (demande|réclame)(nt|)")], re.IGNORECASE),
+
         ("disrespect previous judgement", [re.compile(r"\[\d+\].+non-respect d\'une ordonnance émise antérieurement"),
                                            re.compile(r"\[\d+\].+pas respecté l\'ordonnance de payer (\w+(\s|\'|,\s)){0,4}loyer"),
                                            re.compile(r"\[\d+\].+non-respect de l\'ordonnance de payer le loyer"),
                                            re.compile(r"\[\d+\].+locataire(s|) (\w+(\s|\'|,\s)){0,3}pas respecté l\'ordonnance")], re.IGNORECASE),
+
         ("tenant_dead", [re.compile(r"\[\d+\].+locataire(s|) (est|sont) décédé(e|s|es)")], re.IGNORECASE),
         ("tenant_negligence", [re.compile(r"(causé par la|dû à la|vu la|en raison de la|à cause de la) négligence de la locataire")], re.IGNORECASE),
         ("rent_increased", [re.compile(r"\[\d+\].+preuve démontre la réception de l\'avis d\'augmentation")], re.IGNORECASE),
@@ -57,10 +59,6 @@ class RegexLib:
         ("proof_of_revenu", [re.compile(r"\[\d+\].+a fourni (\w+\s){0,10}l\'attestation de ses revenu")], re.IGNORECASE),
         ("absent", [re.compile(r"\[\d+\].+considérant l\'absence (du|de la|des) locat(eur|rice|aire)(s|)")], re.IGNORECASE),
         ("incorrect_facts", [re.compile(r"\[\d+\].+demande (de la|des) locataire(s|) est mal fondée")], re.IGNORECASE),
-        ("asker_is_landlord", [re.compile(r"")], re.IGNORECASE),
-        ("asker_is_landlord", [re.compile(r"")], re.IGNORECASE),
-        ("asker_is_landlord", [re.compile(r"")], re.IGNORECASE),
-
         ("tenant_lease_indeterminate", [re.compile(r".*bail.+(durée\sindéterminée).*")], re.IGNORECASE),
         ("tenant_lease_fixed", [re.compile(r".*((bail.*(reconduit.*)?(terminant.*)?((\d+?\w*?\s+?|)(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)(\s+\d{2,4}|))((.+au|.*terminant).*(\d+?\w*?\s+?|)(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)(\s+\d{2,4}|))?)|(fixation\sde\sloyer))")], re.IGNORECASE),
         ("tenant_monthly_payment", [re.compile(r"..*loyer\smensuel.*\b(\d{1,3}(\s\d{3}|,\d{2})*)+(\$|\s\$).*")], re.IGNORECASE),
