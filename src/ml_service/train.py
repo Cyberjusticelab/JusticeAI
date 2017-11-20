@@ -1,6 +1,7 @@
 import joblib
 import numpy as np
 from outcome_predictor.svm import LinearSVM
+from src.ml_service.ml_models.models import Load
 # I ran a crude regex to see which clusters have resiliation
 resiliation_custers = [1,
                        2,
@@ -43,14 +44,12 @@ resiliation_custers = [1,
                        ]
 
 
-def load_data():
+def get_valid_cluster_precedent_vector():
     """
         Loads a binarized version of our precedents
     """
     print("loading data")
-    file = open('structured_precedent.bin', 'rb')
-    model = joblib.load(file)
-    file.close()
+    model = Load.load_model_from_bin(Load.precedent_vector_from_clusters)
     for (key, val) in model.items():
         val['name'] = key
     valid_values = [precedent for precedent in model.values() if precedent[
@@ -69,15 +68,14 @@ def load_data():
     return valid_values
 
 
-def load_new_data(data_set):
+def merge_regex_and_cluster_precedent_vector(data_set):
     """
         Loads a binarized version of regexed facts
         and merges it with the existing data set
         params: data_set: initial data_set
     """
     print("loading regex data")
-    file = open('prec.bin', 'rb')
-    prec = joblib.load(file)
+    prec = Load.load_model_from_bin(Load.precedent_vector_from_regexes)
     print("merging data")
     new_val = []
     for val in data_set:
@@ -88,9 +86,9 @@ def load_new_data(data_set):
 
 
 if __name__ == "__main__":
-    data_set = load_data()
+    valid_cluster_precedent_vector = get_valid_cluster_precedent_vector()
     # Taking a subset since I don't want to wait forever
-    data_set = data_set[1:10000]
-    data_set = load_new_data(data_set)
-    linear_svm = LinearSVM(data_set)
+    valid_cluster_precedent_vector = valid_cluster_precedent_vector[1:10000]
+    new_precedent_vector = merge_regex_and_cluster_precedent_vector(valid_cluster_precedent_vector)
+    linear_svm = LinearSVM(new_precedent_vector)
     linear_svm.train()
