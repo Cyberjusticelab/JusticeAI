@@ -11,6 +11,8 @@ class Load():
     __script_dir = os.path.abspath(__file__ + r"/../")
     __processed_facts = 'processed_facts.bin'
     __processed_decisions = 'processed_decisions.bin'
+    fact_cluster_model = 'fact_cluster_model.bin'
+    decision_cluster_model = 'decision_cluster_model.bin'
     precedent_vector_from_clusters = 'precedent_vector_from_clusters.bin'
     precedent_vector_from_regexes = 'precedent_fact_vector_from_regexes.bin'
 
