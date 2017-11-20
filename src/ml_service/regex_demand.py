@@ -1,23 +1,8 @@
 import os
-import re
 import joblib
 from feature_extraction.regex.regex_lib import RegexLib
 
 regex_lib = RegexLib()
-
-
-def get_ask_lease_modification():
-    return meta_regex("ask modification of lease", [
-        re.compile(
-            '\[[123]\].+produit une demande en modifications du bail', re.IGNORECASE)
-    ])
-
-
-def get_not_three_weeks_late():
-    return meta_regex("is not 3 week late", [
-        re.compile(
-            '\[\d+\].+locataire(s|) (n\'est|ne sont) pas en retard (\w+(\s|\'|,\s)){1,8}trois semaines', re.IGNORECASE)
-    ])
 
 
 def meta_regex(name, regexes):
@@ -48,7 +33,7 @@ def get_matching_precedent_file_names(fact):
 lease = get_matching_precedent_file_names("lease")
 asker_landlord = get_matching_precedent_file_names("asker_is_landlord")
 asker_tenant = get_matching_precedent_file_names("asker_is_tenant")
-ask_lease_modification = get_ask_lease_modification()
+ask_lease_modification = get_matching_precedent_file_names("landlord_demand_lease_modification")
 ask_retake_rental = get_matching_precedent_file_names("landlord_demand_retake_apartment")
 ask_lower_rent = get_matching_precedent_file_names("tenant_demand_rent_decrease")
 ask_damages = get_matching_precedent_file_names("landlord_demand_damage")
@@ -63,7 +48,7 @@ menacing = get_matching_precedent_file_names("violent")
 three_weeks_late = get_matching_precedent_file_names("three_weeks_late")
 proof_of_late = get_matching_precedent_file_names("proof_of_late")
 increased_rent = get_matching_precedent_file_names("rent_increased")
-not_three_weeks_late = get_not_three_weeks_late()
+not_three_weeks_late = get_matching_precedent_file_names("tenant_rent_late_less_than_3_weeks")
 lack_of_proof = get_matching_precedent_file_names("tenant_lacks_proof")
 serious_prejudice = get_matching_precedent_file_names("landlord_serious_prejudice")
 money_owed = get_matching_precedent_file_names("tenant_owes_rent")
