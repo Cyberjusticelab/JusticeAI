@@ -1,4 +1,3 @@
-import joblib
 import numpy as np
 from outcome_predictor.svm import LinearSVM
 from src.ml_service.ml_models.models import Load
