@@ -2,6 +2,51 @@
   "rasa_nlu_data": {
     "common_examples": [
       {
+        "text": "There is no date written on our agreement",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "I never had a lease",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "No one ever told me when I have to leave",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "We had never agreed on a time for me to leave",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "I don't know when I'm supposed to be moving out",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "We never agreed on a date",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "no",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "no, my lease does not end",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
+        "text": "my lease does not have an end date",
+        "intent": "indeterminate",
+        "entities": []
+      },
+      {
         "text": "lease doesn’t run out",
         "intent": "indeterminate",
         "entities": []
@@ -117,6 +162,16 @@
         "entities": []
       },
       {
+        "text": "yes",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
+        "text": "yes, my lease ends in july",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
         "text": "lease ends in 4 months",
         "intent": "fixed",
         "entities": []
@@ -143,6 +198,11 @@
       },
       {
         "text": "ended 3 days ago",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
+        "text": "the lease is ending soon",
         "intent": "fixed",
         "entities": []
       },
@@ -188,6 +248,21 @@
       },
       {
         "text": "ending in 2 weeks",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
+        "text": "I'm pretty sure it ends next month",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
+        "text": "My lease term is fixed",
+        "intent": "fixed",
+        "entities": []
+      },
+      {
+        "text": "I think that the lease is ending very soon",
         "intent": "fixed",
         "entities": []
       },

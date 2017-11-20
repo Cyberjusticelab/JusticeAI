@@ -121,6 +121,91 @@
     ],
     "common_examples": [
       {
+        "text": "I find puddles of water after a heavy rain",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "The kitchen is flooded every time it rains",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "There is mold",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "The walls are moldy",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "I have never had living conditions this bad before",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "The balcony is infested with pigeons",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "The balcony is infested with pigeons",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "I saw a cockroach on the floor once",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "The tenant never cleans and does not maintain the apartment",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "My landlord never cleans up",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "It smells like garbage in my apartment building",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "My apartment is never heated",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "The apartment is cold",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "I just cant live here anymore",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "It is extremely unsanitary",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "It is unlivable",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "My apartment is dirty.",
+        "intent": "false",
+        "entities": []
+      },
+      {
         "text": "The apartment is noisy.",
         "intent": "false",
         "entities": []
@@ -257,6 +342,61 @@
       },
       {
         "text": "it’s livable and the air is nice in my lodging",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "Everything is okay",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "It's ok",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "The living conditions are fine",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "Everything is fine",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "I am not having any issues",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "My apartment is not particularly dirty",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "There is nothing wrong with the apartment's cleanliness",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "I am staying in a clean place",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "It is clean",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "It's okay",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "The apartment is fine",
         "intent": "true",
         "entities": []
       },
