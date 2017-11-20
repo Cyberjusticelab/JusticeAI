@@ -1,3 +1,4 @@
+import os
 from flask import jsonify, abort, make_response
 
 from postgresql_db.models import *
@@ -10,7 +11,6 @@ from nlp_service.app import db
 from postgresql_db.models import Conversation, ClaimCategory, Fact
 
 from outlier.outlier_detection import OutlierDetection
-
 # Global Variables
 
 # Decided value of 30% percent difference which is used to determine if a clarification is needed.
@@ -160,7 +160,7 @@ message: the message given by the user
 def __extract_entity(current_fact_name, message):
     # First pass: outlier detection
     # TODO: For now, this is disabled while we are gathering data from beta users
-    if False:
+    if 'OUTLIER_DETECTION' in os.environ:
         result = outlier_detector.predict_if_outlier([message.lower()])
         if result[0] == -1:
             return None
