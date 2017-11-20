@@ -8,7 +8,7 @@ Only store models that are good for use in this directory
 
 
 class Load():
-    __script_dir = os.path.abspath(__file__ + r"/../")
+    script_dir = os.path.abspath(__file__ + r"/../")
     __processed_facts = 'processed_facts.bin'
     __processed_decisions = 'processed_decisions.bin'
     fact_cluster_model = 'fact_cluster_model.bin'
@@ -25,7 +25,7 @@ class Load():
         """
         try:
             Log.write("Loading Preprocessed facts... May take a few seconds")
-            file_path = os.path.join(Load.__script_dir, Load.__processed_facts)
+            file_path = os.path.join(Load.script_dir, Load.__processed_facts)
             if filename is None:
                 file = open(file_path, 'rb')
                 model = joblib.load(file)
@@ -46,7 +46,7 @@ class Load():
         """
         try:
             Log.write("Loading Preprocessed decisions... May take a few seconds")
-            file_path = os.path.join(Load.__script_dir, Load.__processed_decisions)
+            file_path = os.path.join(Load.script_dir, Load.__processed_decisions)
             if filename is None:
                 file = open(file_path, 'rb')
                 model = joblib.load(file)
@@ -68,7 +68,7 @@ class Load():
         """
         try:
             Log.write("Loading model... May take a few seconds")
-            file_path = os.path.join(Load.__script_dir, file_name)
+            file_path = os.path.join(Load.script_dir, file_name)
             file = open(file_path, 'rb')
             model = joblib.load(file)
             return model
