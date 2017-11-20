@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from src.ml_service.global_variables.global_variable import Global
+from global_variables.global_variable import Global
 import os
-from src.ml_service.feature_extraction.regex.regex_lib import RegexLib
+from feature_extraction.regex.regex_lib import RegexLib
 import numpy
-from src.ml_service.outputs.output import Save, Log
+from outputs.output import Save, Log
 from sys import stdout
 import re
 
@@ -41,7 +41,7 @@ class TagPrecedents:
         """
         return_list = []
         for i in range(len(self.tagger)):
-            return_list.append((i, self.tagger[i][0]))
+            return_list.append((i, self.tagger.keys()[i]))
         return return_list
 
     def tag_precedents(self, nb_files=-1):
@@ -90,11 +90,12 @@ class TagPrecedents:
             line_tagged = False
             self.nb_lines += 1
             for i in range(len(self.tagger)):
-                for regex_value in self.tagger[i][1]:
-                    if regex_value.match(line):
-                        fact_vector[i] = 1
-                        line_tagged = True
-                        text_tagged = True
+                for regex_list in self.tagger.values():
+                    for regex_value in regex_list:
+                        if regex_value.match(line):
+                            fact_vector[i] = 1
+                            line_tagged = True
+                            text_tagged = True
 
             if line_tagged:
                 self.lines_tagged += 1
@@ -118,7 +119,7 @@ class TagPrecedents:
 
 if __name__ == '__main__':
     # Models saved to ml_service/output/tag_matrix_dir/
-    tag = TagPrecedents(TagEnum.FACT)
+    tag = TagPrecedents(TagEnum.DEMAND)
     dict = tag.tag_precedents()
     # prints fact intents
     print(tag.get_intent_indice())

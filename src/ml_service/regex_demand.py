@@ -1,7 +1,7 @@
 import os
 import re
 import joblib
-import src.ml_service.feature_extraction.regex.regex_lib
+from feature_extraction.regex.regex_lib import RegexLib
 
 
 def get_asker_landlord():
@@ -58,7 +58,6 @@ def get_ask_lease_modification():
             '\[[123]\].+produit une demande en modifications du bail', re.IGNORECASE)
     ])
 
-
 def get_ask_lower_rent():
     return meta_regex("ask lower rent", [
         re.compile(
@@ -78,17 +77,18 @@ def get_ask_retake_rental():
 def get_ask_damages():
     return meta_regex("ask damages", [
         re.compile(
+
             '\[[123]\].+(demande|réclame)(nt|) ((\d+(\s|,)){0,3}(\$ |)){0,1}(en|de|des|pour des|pour de) dommage', re.IGNORECASE)
     ])
 
-#done
+
 def get_lease():
     return meta_regex("lease", [
         re.compile(
             '\[\d+\].+un bail (\w+(\s|\'|,\s)){0,8}au loyer (\w+(\s|\'|,\s)){0,8}mensuel de (\d+(\s|\,)){1,2}\$', re.IGNORECASE)
     ])
 
-#done
+
 def get_money_owed():
     return meta_regex("money owed", [
         re.compile(
@@ -103,7 +103,7 @@ def get_money_owed():
             '\[\d+\].+admet devoir la somme de (\d+(\s|\,)){1,2}\$ à titre de loyer', re.IGNORECASE)
     ])
 
-#done
+
 def get_non_respect_of_judgement():
     return meta_regex("disrespect previous judgement", [
         re.compile(
@@ -116,7 +116,7 @@ def get_non_respect_of_judgement():
             '\[\d+\].+locataire(s|) (\w+(\s|\'|,\s)){0,3}pas respecté l\'ordonnance', re.IGNORECASE)
     ])
 
-# done
+
 def get_menacing():
     return meta_regex("menacing", [
         re.compile(
@@ -314,7 +314,7 @@ def fill_dict(precedentDict, fileSet, fact):
             precedentDict[precedent][fact] = 0
 
 
-lease = get_lease()
+lease = RegexLib.regex_facts["lease"]
 asker_landlord = get_asker_landlord()
 asker_tenant = get_asker_tenant()
 ask_lease_modification = get_ask_lease_modification()
