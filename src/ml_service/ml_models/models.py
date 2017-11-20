@@ -11,6 +11,8 @@ class Load():
     __script_dir = os.path.abspath(__file__ + r"/../")
     __processed_facts = 'processed_facts.bin'
     __processed_decisions = 'processed_decisions.bin'
+    precedent_vector_from_clusters = 'precedent_vector_from_clusters.bin'
+    precedent_vector_from_regexes = 'precedent_fact_vector_from_regexes.bin'
 
     @staticmethod
     def load_facts_from_bin(filename=None):
@@ -54,15 +56,17 @@ class Load():
         except BaseException:
             Log.write("Download model binary first")
 
+
     @staticmethod
-    def load_model_from_bin(file_path):
+    def load_model_from_bin(file_name):
         """
-        Loads binarized models
+        Loads model which matches the file name
         :param: file_path: String
         :return: model
         """
         try:
             Log.write("Loading model... May take a few seconds")
+            file_path = os.path.join(Load.__script_dir, file_name)
             file = open(file_path, 'rb')
             model = joblib.load(file)
             return model
