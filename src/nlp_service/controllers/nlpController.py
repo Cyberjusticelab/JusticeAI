@@ -159,9 +159,11 @@ message: the message given by the user
 
 def __extract_entity(current_fact_name, message):
     # First pass: outlier detection
-    result = outlier_detector.predict_if_outlier([message.lower()])
-    if result[0] == -1:
-        return None
+    # TODO: For now, this is disabled while we are gathering data from beta users
+    if False:
+        result = outlier_detector.predict_if_outlier([message.lower()])
+        if result[0] == -1:
+            return None
 
     classify_dict = rasaClassifier.classify_fact(current_fact_name, message)
     print(classify_dict)

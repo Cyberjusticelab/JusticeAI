@@ -27,7 +27,7 @@ class OutlierDetection:
                 all_sentences.append(example['text'].lower())
 
 
-        # TF-ID model
+        # TF-IDF model
         from sklearn.feature_extraction.text import TfidfVectorizer
         tfidf_vectorizer = TfidfVectorizer(ngram_range=self.NGRAM_RANGE, strip_accents='ascii')
         X_tfidf = tfidf_vectorizer.fit_transform(all_sentences)
