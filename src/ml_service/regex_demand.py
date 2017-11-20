@@ -34,65 +34,65 @@ lease = get_matching_precedent_file_names("lease")
 asker_landlord = get_matching_precedent_file_names("asker_is_landlord")
 asker_tenant = get_matching_precedent_file_names("asker_is_tenant")
 landlord_demand_lease_modification = get_matching_precedent_file_names("landlord_demand_lease_modification")
-ask_retake_rental = get_matching_precedent_file_names("landlord_demand_retake_apartment")
-ask_lower_rent = get_matching_precedent_file_names("tenant_demand_rent_decrease")
-ask_damages = get_matching_precedent_file_names("landlord_demand_damage")
-ask_fixation_of_rent = get_matching_precedent_file_names("landlord_fix_rent")
-asking_rent_payment = get_matching_precedent_file_names("landlord_money_cover_rent")
-ask_access_rental = get_matching_precedent_file_names("landlord_demand_access_rental")
+landlord_demand_retake_apartment = get_matching_precedent_file_names("landlord_demand_retake_apartment")
+tenant_demand_rent_decrease = get_matching_precedent_file_names("tenant_demand_rent_decrease")
+landlord_demand_damage = get_matching_precedent_file_names("landlord_demand_damage")
+landlord_fix_rent = get_matching_precedent_file_names("landlord_fix_rent")
+landlord_money_cover_rent = get_matching_precedent_file_names("landlord_money_cover_rent")
+landlord_demand_access_rental = get_matching_precedent_file_names("landlord_demand_access_rental")
 
-ask_resiliation = get_matching_precedent_file_names("demand_resiliation")
-tenant_left = get_matching_precedent_file_names("tenant_left_without_paying")
-late_payment = get_matching_precedent_file_names("tenant_continuous_late_payment")
-menacing = get_matching_precedent_file_names("violent")
-three_weeks_late = get_matching_precedent_file_names("tenant_rent_not_paid_exactly_3_weeks")
-increased_rent = get_matching_precedent_file_names("rent_increased")
-not_three_weeks_late = get_matching_precedent_file_names("tenant_rent_late_less_than_3_weeks")
-lack_of_proof = get_matching_precedent_file_names("tenant_lacks_proof")
-serious_prejudice = get_matching_precedent_file_names("landlord_serious_prejudice")
-money_owed = get_matching_precedent_file_names("tenant_owes_rent")
-no_rent_owed = get_matching_precedent_file_names("no_rent_owed")
+demand_resiliation = get_matching_precedent_file_names("demand_resiliation")
+tenant_left_without_paying = get_matching_precedent_file_names("tenant_left_without_paying")
+tenant_continuous_late_payment = get_matching_precedent_file_names("tenant_continuous_late_payment")
+violent = get_matching_precedent_file_names("violent")
+tenant_rent_not_paid_exactly_3_weeks = get_matching_precedent_file_names("tenant_rent_not_paid_exactly_3_weeks")
+rent_increased = get_matching_precedent_file_names("rent_increased")
+tenant_rent_late_less_than_3_weeks = get_matching_precedent_file_names("tenant_rent_late_less_than_3_weeks")
+tenant_lacks_proof = get_matching_precedent_file_names("tenant_lacks_proof")
+landlord_serious_prejudice = get_matching_precedent_file_names("landlord_serious_prejudice")
+tenant_owes_rent = get_matching_precedent_file_names("tenant_owes_rent")
+tenant_do_not_owe_rent = get_matching_precedent_file_names("tenant_do_not_owe_rent")
 proof_of_revenu = get_matching_precedent_file_names("proof_of_revenu")
 bothers_others = get_matching_precedent_file_names("bothers_others")
-non_respect_of_judgement = get_matching_precedent_file_names("disrespect_previous_judgement")
-tenant_died = get_matching_precedent_file_names("tenant_dead")
+disrespect_previous_judgement = get_matching_precedent_file_names("disrespect_previous_judgement")
+tenant_dead = get_matching_precedent_file_names("tenant_dead")
 tenant_damaged_rental = get_matching_precedent_file_names("tenant_damaged_rental")
 tenant_negligence = get_matching_precedent_file_names("tenant_negligence")
 tenant_is_bothered = get_matching_precedent_file_names("tenant_is_bothered")
-is_not_habitable = get_matching_precedent_file_names("apartment_impropre")
+apartment_impropre = get_matching_precedent_file_names("apartment_impropre")
 
-bad_mutual_agreement = get_matching_precedent_file_names("tenant_landlord_agreement")
-bad_paid_before_audience = get_matching_precedent_file_names("tenant_rent_paid_before_hearing")
+bad_tenant_landlord_agreement = get_matching_precedent_file_names("tenant_landlord_agreement")
+bad_tenant_rent_paid_before_hearing = get_matching_precedent_file_names("tenant_rent_paid_before_hearing")
 bad_absent = get_matching_precedent_file_names("absent")
-bad_incorrect_facts = get_matching_precedent_file_names("tenant_incorrect_facts")
+bad_tenant_incorrect_facts = get_matching_precedent_file_names("tenant_incorrect_facts")
 
-meta = money_owed.union(
-    tenant_left).union(
-    is_not_habitable).union(
+meta = tenant_owes_rent.union(
+    tenant_left_without_paying).union(
+    apartment_impropre).union(
     proof_of_revenu).union(
-    late_payment).union(
+    tenant_continuous_late_payment).union(
     tenant_negligence).union(
-    menacing).union(
-    three_weeks_late).union(
+    violent).union(
+    tenant_rent_not_paid_exactly_3_weeks).union(
     tenant_is_bothered).union(
-    increased_rent).union(
-    not_three_weeks_late).union(
-    lack_of_proof).union(
-    serious_prejudice).union(
+    rent_increased).union(
+    tenant_rent_late_less_than_3_weeks).union(
+    tenant_lacks_proof).union(
+    landlord_serious_prejudice).union(
     tenant_damaged_rental).union(
-    tenant_died).union(
-    no_rent_owed).union(
-    non_respect_of_judgement).union(
+    tenant_dead).union(
+    tenant_do_not_owe_rent).union(
+    disrespect_previous_judgement).union(
     bothers_others)
 
-rem = ask_resiliation - bad_mutual_agreement - \
-    bad_paid_before_audience - bad_absent - bad_incorrect_facts
-inter = rem - meta.intersection(ask_resiliation)
+rem = demand_resiliation - bad_tenant_landlord_agreement - \
+      bad_tenant_rent_paid_before_hearing - bad_absent - bad_tenant_incorrect_facts
+inter = rem - meta.intersection(demand_resiliation)
 
 
 all_precedents = set(os.listdir('precedents/text_bk'))
-bad_precedents = bad_mutual_agreement.union(
-    bad_paid_before_audience).union(bad_absent).union(bad_incorrect_facts)
+bad_precedents = bad_tenant_landlord_agreement.union(
+    bad_tenant_rent_paid_before_hearing).union(bad_absent).union(bad_tenant_incorrect_facts)
 good_precedents = all_precedents - bad_precedents
 precedent_vector = dict((el, {}) for el in good_precedents)
 
@@ -101,31 +101,31 @@ fill_dict(precedent_vector, lease, 'lease')
 fill_dict(precedent_vector, asker_landlord, 'asker_landlord')
 fill_dict(precedent_vector, asker_tenant, 'asker_tenant')
 fill_dict(precedent_vector, landlord_demand_lease_modification, 'landlord_demand_lease_modification')
-fill_dict(precedent_vector, ask_retake_rental, 'ask_retake_rental')
-fill_dict(precedent_vector, ask_lower_rent, 'ask_lower_rent')
-fill_dict(precedent_vector, ask_damages, 'ask_damages')
-fill_dict(precedent_vector, ask_fixation_of_rent, 'ask_fixation_of_rent')
-fill_dict(precedent_vector, asking_rent_payment, 'asking_rent_payment')
-fill_dict(precedent_vector, ask_access_rental, 'ask_access_rental')
-fill_dict(precedent_vector, ask_resiliation, 'ask_resiliation')
-fill_dict(precedent_vector, tenant_left, 'tenant_left')
-fill_dict(precedent_vector, late_payment, 'late_payment')
-fill_dict(precedent_vector, menacing, 'menacing')
-fill_dict(precedent_vector, three_weeks_late, 'tenant_rent_not_paid_exactly_3_weeks')
-fill_dict(precedent_vector, increased_rent, 'increased_rent')
-fill_dict(precedent_vector, not_three_weeks_late, 'not_three_weeks_late')
-fill_dict(precedent_vector, lack_of_proof, 'lack_of_proof')
-fill_dict(precedent_vector, serious_prejudice, 'serious_prejudice')
-fill_dict(precedent_vector, money_owed, 'money_owed')
-fill_dict(precedent_vector, no_rent_owed, 'no_rent_owed')
+fill_dict(precedent_vector, landlord_demand_retake_apartment, 'ask_retake_rental')
+fill_dict(precedent_vector, tenant_demand_rent_decrease, 'ask_lower_rent')
+fill_dict(precedent_vector, landlord_demand_damage, 'ask_damages')
+fill_dict(precedent_vector, landlord_fix_rent, 'ask_fixation_of_rent')
+fill_dict(precedent_vector, landlord_money_cover_rent, 'asking_rent_payment')
+fill_dict(precedent_vector, landlord_demand_access_rental, 'ask_access_rental')
+fill_dict(precedent_vector, demand_resiliation, 'ask_resiliation')
+fill_dict(precedent_vector, tenant_left_without_paying, 'tenant_left')
+fill_dict(precedent_vector, tenant_continuous_late_payment, 'late_payment')
+fill_dict(precedent_vector, violent, 'menacing')
+fill_dict(precedent_vector, tenant_rent_not_paid_exactly_3_weeks, 'tenant_rent_not_paid_exactly_3_weeks')
+fill_dict(precedent_vector, rent_increased, 'increased_rent')
+fill_dict(precedent_vector, tenant_rent_late_less_than_3_weeks, 'not_three_weeks_late')
+fill_dict(precedent_vector, tenant_lacks_proof, 'lack_of_proof')
+fill_dict(precedent_vector, landlord_serious_prejudice, 'serious_prejudice')
+fill_dict(precedent_vector, tenant_owes_rent, 'money_owed')
+fill_dict(precedent_vector, tenant_do_not_owe_rent, 'no_rent_owed')
 fill_dict(precedent_vector, proof_of_revenu, 'proof_of_revenu')
 fill_dict(precedent_vector, bothers_others, 'bothers_others')
-fill_dict(precedent_vector, non_respect_of_judgement,'non_respect_of_judgement')
-fill_dict(precedent_vector, tenant_died, 'tenant_died')
+fill_dict(precedent_vector, disrespect_previous_judgement, 'non_respect_of_judgement')
+fill_dict(precedent_vector, tenant_dead, 'tenant_died')
 fill_dict(precedent_vector, tenant_damaged_rental, 'tenant_damaged_rental')
 fill_dict(precedent_vector, tenant_negligence, 'tenant_negligence')
 fill_dict(precedent_vector, tenant_is_bothered, 'tenant_is_bothered')
-fill_dict(precedent_vector, is_not_habitable, 'is_not_habitable')
+fill_dict(precedent_vector, apartment_impropre, 'is_not_habitable')
 
 joblib.dump(precedent_vector, 'prec.bin')
 
