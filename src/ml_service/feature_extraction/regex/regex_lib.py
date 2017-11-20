@@ -4,24 +4,27 @@ import re
 
 class RegexLib:
     regex_demands = [
-        ("asker_is_landlord", [re.compile(r"")], re.IGNORECASE),
-        ("asker_is_landlord", [re.compile(r"")], re.IGNORECASE),
-        ("asker_is_landlord", [re.compile(r"")], re.IGNORECASE),
-        ("asker_is_landlord", [re.compile(r"")], re.IGNORECASE),
-        ("asker_is_landlord", [re.compile(r"")], re.IGNORECASE),
-        ("asker_is_landlord", [re.compile(r"")], re.IGNORECASE),
+        ("demand_lease_modification", [re.compile(r"\[[123]\].+produit une demande en modifications du bail")], re.IGNORECASE),
+        ("demand_resiliation", [re.compile(r"\[[123]\].+(demande|réclame)(nt|) la résiliation du bail"),
+                                re.compile(r"\[[123]\].+une demande en résiliation de bail")], re.IGNORECASE),
+        ("landlord_demand_access_rental", [re.compile(r"\[[123]\].+accès au logement")], re.IGNORECASE),
         ("tenant_eviction", [re.compile(r".*(locat(eur(s)?|rice(s)?)).*(expulsion|éviction).*locataire(s)?")], re.IGNORECASE),
         ("landlord_lease_termination", [re.compile(r".*(locat(eur(s)?|rice(s)?)).*.+résiliation.+bail")], re.IGNORECASE),
-        ("tenant_cover_rent", [re.compile(r".*(demande(nt)?.+)?(locat(eur(s)?|rice(s)?))(s)?(.+demande(nt)?)?.+recouvrement\s(du|de)\sloyer")], re.IGNORECASE),
+        ("tenant_cover_rent", [re.compile(r".*(demande(nt)?.+)?(locat(eur(s)?|rice(s)?))(s)?(.+demande(nt)?)?.+recouvrement\s(du|de)\sloyer"),], re.IGNORECASE),
         ("paid_judicial_fees", [re.compile(r".*(locat(eur(s)?|rice(s)?))\sdemande(nt)?.+(frais\sjudiciaires)")], re.IGNORECASE),
-        ("landlord_money_cover_rent", [re.compile(r".*(locat(eur(s)?|rice(s)?)).+(demand(e|ent))?.+recouvrement.+\sloyer")], re.IGNORECASE),
+        ("landlord_money_cover_rent", [re.compile(r".*(locat(eur(s)?|rice(s)?)).+(demand(e|ent))?.+recouvrement.+\sloyer"),
+                                       re.compile(r"\[[123]\].+recouvrement (de loyer|du loyer|d\'une somme)"),
+                                       re.compile(r"\[[123]\].+(demande|réclame)(nt|) ((\d+(\s|,)){0,3}(\$ |))de loyer"),
+                                       re.compile(r"\[[123]\].+(demande|réclame)(nt|) du loyer impayé")], re.IGNORECASE),
         ("landlord_fix_rent", [re.compile(r".*(locat(eur(s)?|rice(s)?)).+(demand(e|ent)).+(fix(er|ation)).+loyer")]),
         ("tenant_demands_money", [re.compile(r".*locataire(s)?.+(demand(ait|ent|e)).+\b(\d{1,3}(\s\d{3}|,\d{2})*)+(\$|\s\$)")], re.IGNORECASE),
         ("tenant_claims_harassment", [re.compile(r".*locataire(s)?.+(demand(ait|ent|e)).+dommages.+harcèlement")], re.IGNORECASE),
         ("landlord_demand_utility_fee", [re.compile(r".*recouvrement(.+frais.+(énergie|électricité))+")], re.IGNORECASE),
         ("landlord_demand_legal_fees", [re.compile(r".*demande(nt)?.*remboursement.+(frais)?judiciaires")], re.IGNORECASE),
         ("landlord_demand_bank_fee", [re.compile(r".*recouvrement.*frais\sbancaire(s)?")], re.IGNORECASE),
-        ("landlord_demand_retake_apartment", [re.compile(r".*(locat(eur(s)?|rice(s)?)).*demand(e|ent).+(autoris(er|ation)).+reprendre.+logement")], re.IGNORECASE),
+        ("landlord_demand_retake_apartment", [re.compile(r".*(locat(eur(s)?|rice(s)?)).*demand(e|ent).+(autoris(er|ation)).+reprendre.+logement"),
+                                              re.compile(r"\[[123]\].+autorisation de reprendre le logement occupé par (le|la|les) locataire(s|)"),
+                                              re.compile(r"\[[123]\].+autorisation de reprendre le logement (du locataire |de la locataire )pour (s\'|)y loger")], re.IGNORECASE),
         ("landlord_claim_interest_damage", [re.compile(r".*(locat(eur(s)?|rice(s)?)).*\b(\d{1,3}(\s\d{3}|,\d{2})*)+(\$|\s\$).*(dommages-intérêts)")], re.IGNORECASE),
         ("tenant_demand_rent_decrease", [re.compile(r".*(locataire(s)?).*demande.*diminution.*loyer")], re.IGNORECASE),
         ("tenant_demand_interest_damage", [re.compile(r".*(locataire(s)?).*demande(nt)?.*(dommages-intérêts)")], re.IGNORECASE),
@@ -32,7 +35,7 @@ class RegexLib:
         ("landlord_demand_damage", [re.compile(r".*(locat(eur(s)?|rice(s)?)).+(demand(ent|e)).+dommage(s)?")], re.IGNORECASE),
         ("tenant_demands_decision_retraction", [re.compile(r".*locataire(s)?.+demande.+rétractation.+décision")], re.IGNORECASE)
     ]
-    # re.compile(r""),
+    
     # TODO "tenant_request_cancel_lease", "tenant_pay_before_judgment", "landlord_not_prejudice_justified", "tenant_claims_harm", "tenant_is_asshole"
     regex_facts = [
         ("lease", [re.compile(r"\[\d+\].+un bail (\w+(\s|\'|,\s)){0,8}au loyer (\w+(\s|\'|,\s)){0,8}mensuel de (\d+(\s|\,)){1,2}\$")], re.IGNORECASE),
