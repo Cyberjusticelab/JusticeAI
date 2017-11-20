@@ -1,6 +1,7 @@
 import os
 import joblib
 from feature_extraction.regex.regex_lib import RegexLib
+from src.ml_service.ml_models.models import Load
 
 regex_lib = RegexLib()
 
@@ -127,7 +128,7 @@ fill_dict(precedent_vector, tenant_negligence, 'tenant_negligence')
 fill_dict(precedent_vector, tenant_is_bothered, 'tenant_is_bothered')
 fill_dict(precedent_vector, apartment_impropre, 'apartment_impropre')
 
-joblib.dump(precedent_vector, 'precedent_fact_vector_from_regexes.bin')
+joblib.dump(precedent_vector, Load.script_dir + 'precedent_fact_vector_from_regexes.bin')
 
 print("diff total:")
 print(len(inter))
