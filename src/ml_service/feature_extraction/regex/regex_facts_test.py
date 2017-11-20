@@ -22,7 +22,11 @@ class RegexTest(unittest.TestCase):
             for regex in RegexLib.regex_demands:
                 if regex[0] == intent:
                     file = Global.regex_data_directory + 'demands/' +filename
-                    self.assertTrue(self.regex_file(file, regex[1]))
+                    found_one_match = False
+                    for regex_value in regex[1]:
+                        if self.regex_file(file, regex_value):
+                            found_one_match = True
+                    self.assertTrue(found_one_match)
 
     def test_regex_facts(self):
         directory = Global.regex_data_directory + 'facts'
@@ -32,7 +36,11 @@ class RegexTest(unittest.TestCase):
             for regex in RegexLib.regex_facts:
                 if regex[0] == intent:
                     file = Global.regex_data_directory + 'facts/' +filename
-                    self.assertTrue(self.regex_file(file, regex[1]))
+                    found_one_match = False
+                    for regex_value in regex[1]:
+                        if self.regex_file(file, regex_value):
+                            found_one_match = True
+                    self.assertTrue(found_one_match)
 
     def regex_file(self, filename, regex):
         file = open(filename, 'r', encoding="utf-8")
