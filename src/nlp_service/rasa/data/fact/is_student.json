@@ -96,6 +96,11 @@
         "entities": []
       },
       {
+        "text": "I am a full-time student",
+        "intent":"true",
+        "entities": []
+      },
+      {
         "text": "I study full-time",
         "intent":"true",
         "entities": []
@@ -117,6 +122,21 @@
       },
       {
         "text": "I go to Universite de Montreal",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I'll be in school for another year",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I am almost done studying",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I am currently studying",
         "intent":"true",
         "entities": []
       },
@@ -201,13 +221,33 @@
         "entities": []
       },
       {
+        "text": "I am not currently studying.",
+        "intent": "false",
+        "entities": []
+      },
+      {
         "text": "I'm not currently in school.",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "I graduated last year",
         "intent": "false",
         "entities": []
       },
       {
         "text": "I've graduated in 2014.",
         "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "I don't study anymore",
+        "intent":"false",
+        "entities": []
+      },
+      {
+        "text": "I haven't studied in years",
+        "intent":"false",
         "entities": []
       },
       {
@@ -243,6 +283,26 @@
       {
         "text": "I study at Concordia University.",
         "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "Yes",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "Yes, I am a student",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I am now studying",
+        "intent":"true",
+        "entities": []
+      },
+      {
+        "text": "I am at school now",
+        "intent":"true",
         "entities": []
       },
       {
@@ -342,6 +402,21 @@
       },
       {
         "text": "I am done with school",
+        "intent":"false",
+        "entities": []
+      },
+      {
+        "text": "No, I am not studying at the moment",
+        "intent":"false",
+        "entities": []
+      },
+      {
+        "text": "No, I am not a student",
+        "intent":"false",
+        "entities": []
+      },
+      {
+        "text": "No",
         "intent":"false",
         "entities": []
       },

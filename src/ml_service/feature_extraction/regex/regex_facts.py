@@ -51,11 +51,7 @@ class TagPrecedents:
         :return: numpy matrix of facts
         """
         Log.write('Tagging precedents')
-        count = 0
         for file in os.listdir(Global.precedent_directory):
-            if count > 20:
-                break
-            count += 1
             if nb_files == -1:
                 percent = float(
                     self.nb_text / len(os.listdir(Global.precedent_directory))) * 100

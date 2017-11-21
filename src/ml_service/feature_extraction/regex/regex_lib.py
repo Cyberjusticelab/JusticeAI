@@ -138,7 +138,7 @@ class RegexLib:
         ], re.IGNORECASE),
         ("tenant_demand_indemnity_judicial_fee", [
             re.compile(
-                r"locataire(s)?.+(recouvrement\sdes\sfrais\sjudiciaires)",
+                r"\[\d+\].+locataire(s)?.+(recouvrement\sdes\sfrais\sjudiciaires)",
                 re.IGNORECASE
             )
         ], re.IGNORECASE),
@@ -270,15 +270,15 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
-                r"préjudice subi justifie",
+                r"\[\d+\].+préjudice subi justifie",
                 re.IGNORECASE
             ),
             re.compile(
-                r"le préjudice causé au locateur justifie",
+                r"\[\d+\].+le préjudice causé au locateur justifie",
                 re.IGNORECASE
             ),
             re.compile(
-                r"suffise.*locataire.*article 1863",
+                r"\[\d+\].+suffise.*locataire.*article 1863",
                 re.IGNORECASE
             )
         ], re.IGNORECASE),
@@ -332,11 +332,11 @@ class RegexLib:
         ], re.IGNORECASE),
         ("landlord_serious_prejudice", [
             re.compile(
-                r"cause un préjudice sérieux au(x|) locat(eur|rice)(s|)",
+                r"\[\d+\].+cause un préjudice sérieux au(x|) locat(eur|rice)(s|)",
                 re.IGNORECASE
             ),
             re.compile(
-                r"locat(eur|rice)(s|) (\w+(\s|\'|,\s)){0,10}un préjudice sérieux",
+                r"\[\d+\].+locat(eur|rice)(s|) (\w+(\s|\'|,\s)){0,10}un préjudice sérieux",
                 re.IGNORECASE
             )
         ], re.IGNORECASE),
@@ -380,11 +380,11 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
-                r"preuve de retards fréquents dans le paiement du loyer",
+                r"\[\d+\].+preuve de retards fréquents dans le paiement du loyer",
                 re.IGNORECASE
             ),
             re.compile(
-                r"considérant la preuve des retards fréquents",
+                r"\[\d+\].+considérant la preuve des retards fréquents",
                 re.IGNORECASE
             )
         ], re.IGNORECASE),
@@ -502,13 +502,13 @@ class RegexLib:
         ], re.IGNORECASE),
         ("tenant_monthly_payment", [
             re.compile(
-                r"..*loyer\smensuel.*\b(\d{1,3}(\s\d{3}|,\d{2})*)+(\$|\s\$).*",
+                r"\[\d+\].+loyer\smensuel.*\b(\d{1,3}(\s\d{3}|,\d{2})*)+(\$|\s\$).*",
                 re.IGNORECASE
             )
         ], re.IGNORECASE),
         ("tenant_negligence", [
             re.compile(
-                r"(causé par la|dû à la|vu la|en raison de la|à cause de la) négligence de la locataire",
+                r"\[\d+\].+(causé par la|dû à la|vu la|en raison de la|à cause de la) négligence de la locataire",
                 re.IGNORECASE
             )
         ], re.IGNORECASE),
@@ -520,7 +520,7 @@ class RegexLib:
          ], re.IGNORECASE),
         ("tenant_owes_rent", [
             re.compile(
-                r"(.*preuve.+locateur(s)?.+non-paiement.+loyer)?.*(locataire(s)?.+(doi(vent|t))((.+somme\sde)|(total))?.+([\d\s,]+)(\$|\s\$)|locateur.+créance.+\b(\d{1,3}(\s\d{3}|,\d{2})*)+(\$|\s\$).+loyers\simpayés)|(.*paiement.*arriérés.+loyer.+\b(\d{1,3}(\s\d{3}|,\d{2})*))",
+                r"\[\d+\].+(.*preuve.+locateur(s)?.+non-paiement.+loyer)?.*(locataire(s)?.+(doi(vent|t))((.+somme\sde)|(total))?.+([\d\s,]+)(\$|\s\$)|locateur.+créance.+\b(\d{1,3}(\s\d{3}|,\d{2})*)+(\$|\s\$).+loyers\simpayés)|(.*paiement.*arriérés.+loyer.+\b(\d{1,3}(\s\d{3}|,\d{2})*))",
                 re.IGNORECASE
             ),
             re.compile(
@@ -607,7 +607,7 @@ class RegexLib:
                 r"\[\d+\].+menace (\w+(\s|\'|,\s)){0,6}(sécurité des occupants|l\'intégrité du logement)",
                 re.IGNORECASE
             )
-        ], re.IGNORECASE),
+        ], re.IGNORECASE)
     ]
 
     def get_regexes(self, name):

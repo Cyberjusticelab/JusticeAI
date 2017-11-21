@@ -8,9 +8,14 @@ Only store models that are good for use in this directory
 
 
 class Load():
-    __script_dir = os.path.abspath(__file__ + r"/../")
+    script_dir = os.path.abspath(__file__ + r"/../")
     __processed_facts = 'processed_facts.bin'
     __processed_decisions = 'processed_decisions.bin'
+    fact_cluster_model = 'fact_cluster_model.bin'
+    decision_cluster_model = 'decision_cluster_model.bin'
+    precedent_vector_from_clusters = 'precedent_vector_from_clusters.bin'
+    fact_vector_regex_lib = 'fact_matrix'
+    demand_vector_regex_lib = 'demand_matrix'
 
     @staticmethod
     def load_facts_from_bin(filename=None):
@@ -21,7 +26,7 @@ class Load():
         """
         try:
             Log.write("Loading Preprocessed facts... May take a few seconds")
-            file_path = os.path.join(Load.__script_dir, Load.__processed_facts)
+            file_path = os.path.join(Load.script_dir, Load.__processed_facts)
             if filename is None:
                 file = open(file_path, 'rb')
                 model = joblib.load(file)
@@ -42,7 +47,7 @@ class Load():
         """
         try:
             Log.write("Loading Preprocessed decisions... May take a few seconds")
-            file_path = os.path.join(Load.__script_dir, Load.__processed_decisions)
+            file_path = os.path.join(Load.script_dir, Load.__processed_decisions)
             if filename is None:
                 file = open(file_path, 'rb')
                 model = joblib.load(file)
@@ -54,15 +59,17 @@ class Load():
         except BaseException:
             Log.write("Download model binary first")
 
+
     @staticmethod
-    def load_model_from_bin(file_path):
+    def load_model_from_bin(file_name):
         """
-        Loads binarized models
+        Loads model which matches the file name
         :param: file_path: String
         :return: model
         """
         try:
             Log.write("Loading model... May take a few seconds")
+            file_path = os.path.join(Load.script_dir, file_name)
             file = open(file_path, 'rb')
             model = joblib.load(file)
             return model

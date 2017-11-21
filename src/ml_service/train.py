@@ -1,6 +1,6 @@
-import joblib
 import numpy as np
 from outcome_predictor.svm import LinearSVM
+from ml_models.models import Load
 # I ran a crude regex to see which clusters have resiliation
 resiliation_custers = [1,
                        2,
@@ -43,14 +43,12 @@ resiliation_custers = [1,
                        ]
 
 
-def load_data():
+def get_valid_cluster_precedent_vector():
     """
         Loads a binarized version of our precedents
     """
     print("loading data")
-    file = open('structured_precedent.bin', 'rb')
-    model = joblib.load(file)
-    file.close()
+    model = Load.load_model_from_bin(Load.precedent_vector_from_clusters)
     for (key, val) in model.items():
         val['name'] = key
     valid_values = [precedent for precedent in model.values() if precedent[
@@ -69,28 +67,34 @@ def load_data():
     return valid_values
 
 
-def load_new_data(data_set):
+def merge_regex_and_cluster_precedent_vector(data_set):
     """
         Loads a binarized version of regexed facts
         and merges it with the existing data set
         params: data_set: initial data_set
     """
     print("loading regex data")
-    file = open('prec.bin', 'rb')
-    prec = joblib.load(file)
+    fact_vectors = Load.load_model_from_bin(Load.fact_vector_regex_lib)
+    demand_vectors = Load.load_model_from_bin(Load.demand_vector_regex_lib)
+
+    # creates new fact vector where file have has facts and demands
+    new_fact_vectors = {}
+    for file_name in fact_vectors.keys():
+        if file_name in demand_vectors:
+            new_fact_vectors[file_name] = np.append(fact_vectors[file_name], demand_vectors[file_name], axis=0)
+
     print("merging data")
     new_val = []
     for val in data_set:
-        if val['name'] + '.txt' in prec.keys():
-            new_val.append({'name': val['name'], 'facts_vector': np.fromiter(prec[val[
-                           'name'] + '.txt'].values(), dtype=np.int32), 'decisions_vector': val['decisions_vector']})
+        if val['name'] + '.txt' in new_fact_vectors.keys():
+            new_val.append({'name': val['name'], 'facts_vector': new_fact_vectors[val['name'] + '.txt'], 'decisions_vector': val['decisions_vector']})
     return new_val
 
 
 if __name__ == "__main__":
-    data_set = load_data()
+    valid_cluster_precedent_vector = get_valid_cluster_precedent_vector()
     # Taking a subset since I don't want to wait forever
-    data_set = data_set[1:10000]
-    data_set = load_new_data(data_set)
-    linear_svm = LinearSVM(data_set)
+    valid_cluster_precedent_vector = valid_cluster_precedent_vector[1:10000]
+    new_precedent_vector = merge_regex_and_cluster_precedent_vector(valid_cluster_precedent_vector)
+    linear_svm = LinearSVM(new_precedent_vector)
     linear_svm.train()
