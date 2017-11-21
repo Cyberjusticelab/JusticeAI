@@ -14,7 +14,8 @@ class Load():
     fact_cluster_model = 'fact_cluster_model.bin'
     decision_cluster_model = 'decision_cluster_model.bin'
     precedent_vector_from_clusters = 'precedent_vector_from_clusters.bin'
-    precedent_vector_from_regexes = 'precedent_fact_vector_from_regexes.bin'
+    fact_vector_regex_lib = 'fact_matrix'
+    demand_vector_regex_lib = 'demand_matrix'
 
     @staticmethod
     def load_facts_from_bin(filename=None):
