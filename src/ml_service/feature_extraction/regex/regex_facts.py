@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from src.ml_service.global_variables.global_variable import Global
+from global_variables.global_variable import Global
 import os
-from src.ml_service.feature_extraction.regex.regex_lib import RegexLib
+from feature_extraction.regex.regex_lib import RegexLib
 import numpy
-from src.ml_service.outputs.output import Save, Log
+from outputs.output import Save, Log
 from sys import stdout
 import re
 
