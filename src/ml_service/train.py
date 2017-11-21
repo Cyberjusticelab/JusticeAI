@@ -1,6 +1,6 @@
 import numpy as np
 from outcome_predictor.svm import LinearSVM
-from src.ml_service.ml_models.models import Load
+from ml_models.models import Load
 # I ran a crude regex to see which clusters have resiliation
 resiliation_custers = [1,
                        2,
@@ -74,13 +74,20 @@ def merge_regex_and_cluster_precedent_vector(data_set):
         params: data_set: initial data_set
     """
     print("loading regex data")
-    prec = Load.load_model_from_bin(Load.precedent_vector_from_regexes)
+    fact_vectors = Load.load_model_from_bin(Load.fact_vector_regex_lib)
+    demand_vectors = Load.load_model_from_bin(Load.demand_vector_regex_lib)
+
+    # creates new fact vector where file have has facts and demands
+    new_fact_vectors = {}
+    for file_name in fact_vectors.keys():
+        if file_name in demand_vectors:
+            new_fact_vectors[file_name] = np.append(fact_vectors[file_name], demand_vectors[file_name], axis=0)
+
     print("merging data")
     new_val = []
     for val in data_set:
-        if val['name'] + '.txt' in prec.keys():
-            new_val.append({'name': val['name'], 'facts_vector': np.fromiter(prec[val[
-                           'name'] + '.txt'].values(), dtype=np.int32), 'decisions_vector': val['decisions_vector']})
+        if val['name'] + '.txt' in new_fact_vectors.keys():
+            new_val.append({'name': val['name'], 'facts_vector': new_fact_vectors[val['name'] + '.txt'], 'decisions_vector': val['decisions_vector']})
     return new_val
 
 
