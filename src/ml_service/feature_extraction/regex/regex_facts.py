@@ -91,14 +91,14 @@ class TagPrecedents:
             for i in range(len(self.tagger)):
                 matchFound = False
                 for regex_value in self.tagger[i][1]:
-                    if not matchFound and regex_value.search(line):
+                    if regex_value.search(line):
                         fact_vector[i] = 1
                         line_tagged = True
                         text_tagged = True
-                        matchFound = True
-        file.close()
+                        break
             if line_tagged:
                 self.lines_tagged += 1
+        file.close()
         if text_tagged:
             self.text_tagged += 1
         return fact_vector
