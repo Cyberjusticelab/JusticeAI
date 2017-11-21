@@ -96,7 +96,7 @@ class TagPrecedents:
                         line_tagged = True
                         text_tagged = True
                         matchFound = True
-
+        file.close()
             if line_tagged:
                 self.lines_tagged += 1
         if text_tagged:
