@@ -17,7 +17,7 @@ class TagPrecedents:
     empty_line_length = 6
     __factMatch = re.compile('\[\d+\]\s')
 
-    def __init__(self, enum):
+    def __init__(self):
         """
         Constructor.
         :param enum: TagEnum --> Init default tagger
@@ -28,23 +28,21 @@ class TagPrecedents:
         self.nb_lines = 0
         self.nb_text = 0
 
-        if enum == TagEnum.DEMAND:
-            self.tagger = RegexLib.regex_demands
-            self.model_name = 'demand_matrix'
-        else:
-            self.tagger = RegexLib.regex_facts
-            self.model_name = 'fact_matrix'
-
     def get_intent_indice(self):
         """
         :return: primary key of every intent in a tuple (int, string)
         """
-        return_list = []
-        for i in range(len(self.tagger)):
-            return_list.append((i, self.tagger[i][0]))
-        return return_list
+        fact_list = []
+        demand_list = []
+        for i in range(len(RegexLib.regex_facts)):
+            fact_list.append((i, RegexLib.regex_facts[i][0]))
+        fact_list = []
+        for i in range(len(RegexLib.regex_demands)):
+            demand_list.append((i, RegexLib.regex_demands[i][0]))
 
-    def tag_precedents(self, nb_files=-1):
+        return {'fact_list' : fact_list, 'demand_list' : demand_list}
+
+    def tag_precedents(self, nb_files=100):
         """
         Reads all precedents in a directory
         :param nb_files when -1 then read all directory
@@ -67,7 +65,7 @@ class TagPrecedents:
                   str(self.text_tagged / self.nb_text))
         Log.write('Line Coverage: ' + str(self.lines_tagged / self.nb_lines))
         save = Save('tag_matrix_dir')
-        save.binarize_model(self.model_name, self.fact_dict)
+        save.binarize_model('precedent_dict', self.fact_dict)
         return self.fact_dict
 
     def __tag_file(self, filename):
@@ -79,18 +77,27 @@ class TagPrecedents:
         :param filename: string
         :return: numpy vector of facts
         """
-        fact_vector = numpy.zeros(len(self.tagger))
+        fact_vector = numpy.zeros(len(RegexLib.regex_facts))
+        demand_vector = numpy.zeros(len(RegexLib.regex_demands))
         file = open(Global.precedent_directory + "/" +
                     filename, 'r', encoding="ISO-8859-1")
         text_tagged = False
+
         for line in file:
             if self.__ignore_line(line):
                 continue
             line_tagged = False
             self.nb_lines += 1
-            for i in range(len(self.tagger)):
-                matchFound = False
-                for regex_value in self.tagger[i][1]:
+            for i, (_, regex_array) in enumerate(RegexLib.regex_facts):
+                for regex_value in regex_array:
+                    if regex_value.search(line):
+                        fact_vector[i] = 1
+                        line_tagged = True
+                        text_tagged = True
+                        print(self.lines_tagged)
+                        break
+            for i, (_, regex_array) in enumerate(RegexLib.regex_demands):
+                for regex_value in regex_array:
                     if regex_value.search(line):
                         fact_vector[i] = 1
                         line_tagged = True
@@ -101,7 +108,7 @@ class TagPrecedents:
         file.close()
         if text_tagged:
             self.text_tagged += 1
-        return fact_vector
+        return {'fact_vector' : fact_vector, 'demand_vector' : demand_vector}
 
     def __ignore_line(self, line):
         """
@@ -119,11 +126,7 @@ class TagPrecedents:
 
 if __name__ == '__main__':
     # Models saved to ml_service/output/tag_matrix_dir/
-    tag = TagPrecedents(TagEnum.FACT)
+    tag = TagPrecedents()
     dict = tag.tag_precedents()
     # prints fact intents
-    print(tag.get_intent_indice())
-    tag = TagPrecedents(TagEnum.DEMAND)
-    dict = tag.tag_precedents()
-    # prints demand intents
     print(tag.get_intent_indice())
