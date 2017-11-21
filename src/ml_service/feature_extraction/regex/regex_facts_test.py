@@ -45,7 +45,7 @@ class RegexTest(unittest.TestCase):
     def regex_file(self, filename, regex):
         file = open(filename, 'r', encoding="utf-8")
         for line in file:
-            if not regex.match(line):
+            if not regex.search(line):
                 file.close()
                 print(regex)
                 print(line)
