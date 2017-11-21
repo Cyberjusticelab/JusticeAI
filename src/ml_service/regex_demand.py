@@ -30,7 +30,7 @@ def meta_regex(name, regexes):
                 if reg.search(s):
                     returnlist.add(file)
     print("Percent of precedents with {} : {}".format(name,
-                                                len(returnlist) * 100.0 / len(precfiles)))
+                                                      len(returnlist) * 100.0 / len(precfiles)))
     return returnlist
 
 
@@ -49,36 +49,46 @@ lease = get_matching_precedent_file_names("lease")
 asker_landlord = get_matching_precedent_file_names("asker_is_landlord")
 asker_tenant = get_matching_precedent_file_names("asker_is_tenant")
 ask_lease_modification = get_ask_lease_modification()
-ask_retake_rental = get_matching_precedent_file_names("landlord_demand_retake_apartment")
-ask_lower_rent = get_matching_precedent_file_names("tenant_demand_rent_decrease")
+ask_retake_rental = get_matching_precedent_file_names(
+    "landlord_demand_retake_apartment")
+ask_lower_rent = get_matching_precedent_file_names(
+    "tenant_demand_rent_decrease")
 ask_damages = get_matching_precedent_file_names("landlord_demand_damage")
 ask_fixation_of_rent = get_matching_precedent_file_names("landlord_fix_rent")
-asking_rent_payment = get_matching_precedent_file_names("landlord_money_cover_rent")
-ask_access_rental = get_matching_precedent_file_names("landlord_demand_access_rental")
+asking_rent_payment = get_matching_precedent_file_names(
+    "landlord_money_cover_rent")
+ask_access_rental = get_matching_precedent_file_names(
+    "landlord_demand_access_rental")
 
 ask_resiliation = get_matching_precedent_file_names("demand_resiliation")
 tenant_left = get_matching_precedent_file_names("tenant_left_without_paying")
-late_payment = get_matching_precedent_file_names("tenant_continuous_late_payment")
+late_payment = get_matching_precedent_file_names(
+    "tenant_continuous_late_payment")
 menacing = get_matching_precedent_file_names("violent")
 three_weeks_late = get_matching_precedent_file_names("three_weeks_late")
 proof_of_late = get_matching_precedent_file_names("proof_of_late")
 increased_rent = get_matching_precedent_file_names("rent_increased")
 not_three_weeks_late = get_not_three_weeks_late()
 lack_of_proof = get_matching_precedent_file_names("tenant_lacks_proof")
-serious_prejudice = get_matching_precedent_file_names("landlord_serious_prejudice")
+serious_prejudice = get_matching_precedent_file_names(
+    "landlord_serious_prejudice")
 money_owed = get_matching_precedent_file_names("tenant_owes_rent")
 no_rent_owed = get_matching_precedent_file_names("no_rent_owed")
 proof_of_revenu = get_matching_precedent_file_names("proof_of_revenu")
 bothers_others = get_matching_precedent_file_names("bothers_others")
-non_respect_of_judgement = get_matching_precedent_file_names("disrespect_previous_judgement")
+non_respect_of_judgement = get_matching_precedent_file_names(
+    "disrespect_previous_judgement")
 tenant_died = get_matching_precedent_file_names("tenant_dead")
-tenant_damaged_rental = get_matching_precedent_file_names("tenant_damaged_rental")
+tenant_damaged_rental = get_matching_precedent_file_names(
+    "tenant_damaged_rental")
 tenant_negligence = get_matching_precedent_file_names("tenant_negligence")
 tenant_is_bothered = get_matching_precedent_file_names("tenant_is_bothered")
 is_not_habitable = get_matching_precedent_file_names("apartment_impropre")
 
-bad_mutual_agreement = get_matching_precedent_file_names("tenant_landlord_agreement")
-bad_paid_before_audience = get_matching_precedent_file_names("tenant_rent_paid_before_hearing")
+bad_mutual_agreement = get_matching_precedent_file_names(
+    "tenant_landlord_agreement")
+bad_paid_before_audience = get_matching_precedent_file_names(
+    "tenant_rent_paid_before_hearing")
 bad_absent = get_matching_precedent_file_names("absent")
 bad_incorrect_facts = get_matching_precedent_file_names("incorrect_facts")
 
@@ -114,7 +124,7 @@ good_precedents = all_precedents - bad_precedents
 precedent_vector = dict((el, {}) for el in good_precedents)
 
 
-fill_dict(precedent_vector, lease, 'lease')
+# fill_dict(precedent_vector, lease, 'lease')
 fill_dict(precedent_vector, asker_landlord, 'asker_landlord')
 fill_dict(precedent_vector, asker_tenant, 'asker_tenant')
 fill_dict(precedent_vector, ask_lease_modification, 'ask_lease_modification')
@@ -138,7 +148,8 @@ fill_dict(precedent_vector, money_owed, 'money_owed')
 fill_dict(precedent_vector, no_rent_owed, 'no_rent_owed')
 fill_dict(precedent_vector, proof_of_revenu, 'proof_of_revenu')
 fill_dict(precedent_vector, bothers_others, 'bothers_others')
-fill_dict(precedent_vector, non_respect_of_judgement,'non_respect_of_judgement')
+fill_dict(precedent_vector, non_respect_of_judgement,
+          'non_respect_of_judgement')
 fill_dict(precedent_vector, tenant_died, 'tenant_died')
 fill_dict(precedent_vector, tenant_damaged_rental, 'tenant_damaged_rental')
 fill_dict(precedent_vector, tenant_negligence, 'tenant_negligence')

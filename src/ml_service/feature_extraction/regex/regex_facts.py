@@ -57,7 +57,8 @@ class TagPrecedents:
                 break
             count += 1
             if nb_files == -1:
-                percent = float(self.nb_text / len(os.listdir(Global.precedent_directory))) * 100
+                percent = float(
+                    self.nb_text / len(os.listdir(Global.precedent_directory))) * 100
             else:
                 percent = float(self.nb_text / nb_files) * 100
                 if self.nb_text > nb_files:
@@ -66,7 +67,8 @@ class TagPrecedents:
             stdout.flush()
             self.fact_dict[file] = self.__tag_file(file)
             self.nb_text += 1
-        Log.write('Precedent coverage: ' + str(self.text_tagged / self.nb_text))
+        Log.write('Precedent coverage: ' +
+                  str(self.text_tagged / self.nb_text))
         Log.write('Line Coverage: ' + str(self.lines_tagged / self.nb_lines))
         save = Save('tag_matrix_dir')
         save.binarize_model(self.model_name, self.fact_dict)
@@ -82,7 +84,8 @@ class TagPrecedents:
         :return: numpy vector of facts
         """
         fact_vector = numpy.zeros(len(self.tagger))
-        file = open(Global.precedent_directory + "/" + filename, 'r', encoding="ISO-8859-1")
+        file = open(Global.precedent_directory + "/" +
+                    filename, 'r', encoding="ISO-8859-1")
         text_tagged = False
         for line in file:
             if self.__ignore_line(line):
@@ -91,7 +94,7 @@ class TagPrecedents:
             self.nb_lines += 1
             for i in range(len(self.tagger)):
                 for regex_value in self.tagger[i][1]:
-                    if regex_value.match(line):
+                    if regex_value.search(line):
                         fact_vector[i] = 1
                         line_tagged = True
                         text_tagged = True
