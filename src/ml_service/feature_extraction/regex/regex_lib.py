@@ -22,7 +22,7 @@ class RegexLib:
         ], re.IGNORECASE),
         ("landlord_claim_interest_damage", [
             re.compile(
-                r"\[[123]\].+(locat(eur(s)?|rice(s)?)).*\b(\d{1,3}(\s\d{3}|,\d{2})*)+(\$|\s\$).*(dommages-intérêts)",
+                r"\[[123]\].+locat(eur|rice)(s)?.*\b(\d{1,3}(\s\d{3}|,\d{2})*)+(\$|\s\$).*dommages-intérêts",
                 re.IGNORECASE
             )
         ], re.IGNORECASE),
@@ -40,7 +40,7 @@ class RegexLib:
          ], re.IGNORECASE),
         ("landlord_demand_damage", [
             re.compile(
-                r"\[[123]\].+(locat(eur(s)?|rice(s)?)).+(demand(ent|e)).+dommage(s)?",
+                r"\[[123]\].+locat(eur|rice)(s)?.+(demand(ent|e)).+dommage(s)?",
                 re.IGNORECASE
             )
         ], re.IGNORECASE),
@@ -52,7 +52,7 @@ class RegexLib:
         ], re.IGNORECASE),
         ("landlord_demand_retake_apartment", [
             re.compile(
-                r"\[[123]\].+(locat(eur(s)?|rice(s)?)).*demand(e|ent).+(autoris(er|ation)).+reprendre.+logement",
+                r"\[[123]\].+locat(eur|rice)(s)?.*demand(e|ent).+(autoris(er|ation)).+reprendre.+logement",
                 re.IGNORECASE
             ),
             re.compile(
@@ -72,19 +72,19 @@ class RegexLib:
         ], re.IGNORECASE),
         ("landlord_fix_rent", [
             re.compile(
-                r"\[[123]\].+(locat(eur(s)?|rice(s)?)).+(demand(e|ent)).+(fix(er|ation)).+loyer",
+                r"\[[123]\].+locat(eur|rice)(s)?.+(demand(e|ent)).+(fix(er|ation)).+loyer",
                 re.IGNORECASE
             )
         ]),
         ("landlord_lease_termination", [
             re.compile(
-                r"\[[123]\].+(locat(eur(s)?|rice(s)?)).*.+résiliation.+bail",
+                r"\[[123]\].+locat(eur|rice)(s)?.*.+résiliation.+bail",
                 re.IGNORECASE
             )
         ], re.IGNORECASE),
         ("landlord_money_cover_rent", [
             re.compile(
-                r"\[[123]\].+(locat(eur(s)?|rice(s)?)).+(demand(e|ent))?.+recouvrement.+\sloyer",
+                r"\[[123]\].+locat(eur|rice)(s)?.+(demand(e|ent))?.+recouvrement.+\sloyer",
                 re.IGNORECASE
             ),
             re.compile(
@@ -102,7 +102,7 @@ class RegexLib:
         ], re.IGNORECASE),
         ("paid_judicial_fees", [
             re.compile(
-                r"\[[123]\].+(locat(eur(s)?|rice(s)?))\sdemande(nt)?.+(frais\sjudiciaires)",
+                r"\[[123]\].+locat(eur|rice)(s)?\sdemande(nt)?.+(frais\sjudiciaires)",
                 re.IGNORECASE
             )
         ], re.IGNORECASE),
@@ -114,7 +114,7 @@ class RegexLib:
         ], re.IGNORECASE),
         ("tenant_cover_rent", [
             re.compile(
-                r"\[[123]\].+(demande(nt)?.+)?(locat(eur(s)?|rice(s)?))(s)?(.+demande(nt)?)?.+recouvrement\s(du|de)\sloyer",
+                r"\[[123]\].+(demande(nt)?.+)?locat(eur|rice)(s)?(s)?(.+demande(nt)?)?.+recouvrement\s(du|de)\sloyer",
                 re.IGNORECASE
             )
         ], re.IGNORECASE),
@@ -168,7 +168,7 @@ class RegexLib:
         ], re.IGNORECASE),
         ("tenant_eviction", [
             re.compile(
-                r"\[[123]\].+(locat(eur(s)?|rice(s)?)).*(expulsion|éviction).*locataire(s)?",
+                r"\[[123]\].+locat(eur|rice)(s)?.*(expulsion|éviction).*locataire(s)?",
                 re.IGNORECASE
             )
         ], re.IGNORECASE)
@@ -186,7 +186,7 @@ class RegexLib:
         ], re.IGNORECASE),
         ("apartment_impropre", [
             re.compile(
-                r"\[\d+\].+(logement(était\s)?(.+impropre|infesté).+l'habitation|(bon\sétat.+propreté)).*",
+                r"\[\d+\].+(logement(était\s)?(.+impropre|infesté).+l'habitation|(bon\sétat.+propreté))",
                 re.IGNORECASE
             ),
             re.compile(
@@ -196,7 +196,7 @@ class RegexLib:
         ], re.IGNORECASE),
         ("apartment_infestation", [
             re.compile(
-                r"\[\d+\].+infestation(s)?|rat(s)?|fourmi(s)?|coquerelle(s)?|souri(s)?|excrément(s)?.*",
+                r"\[\d+\].+infestation(s)?|rat(s)?|fourmi(s)?|coquerelle(s)?|souri(s)?|excrément(s)?",
                 re.IGNORECASE
             )
         ], re.IGNORECASE),
@@ -248,25 +248,25 @@ class RegexLib:
         ], re.IGNORECASE),
         ("landlord_inspector_fees", [
             re.compile(
-                r"\[\d+\].+(locat(eur(s)?|rice(s)?)).+(frais\sde\sdépistage).*",
+                r"\[\d+\].+locat(eur|rice)(s)?.+(frais\sde\sdépistage)",
                 re.IGNORECASE
             )
         ], re.IGNORECASE),
         ("landlord_notifies_tenant_retake_apartment", [
             re.compile(
-                r"\[\d+\].+(locat(eur(s)?|rice(s)?)).+locataire(s)?.+(reprendre|reprise).+logement.*",
+                r"\[\d+\].+locat(eur|rice)(s)?.+locataire(s)?.+(reprendre|reprise).+logement",
                 re.IGNORECASE
             )
         ], re.IGNORECASE),
         ("landlord_pays_indemnity", [
          re.compile(
-             r"\[\d+\].+dédommage.+locataire(s)?.*",
+             r"\[\d+\].+dédommage.+locataire(s)?",
              re.IGNORECASE
          )
          ], re.IGNORECASE),
         ("landlord_prejudice_justified", [
             re.compile(
-                r"\[\d+\].+(cause.+)?préjudice(causé)?.+((locat(eur(s)?|rice(s)?))|demanderesse)?(justifie.+décision|sérieux).*",
+                r"\[\d+\].+(cause.+)?préjudice(causé)?.+(locat(eur|rice)(s)?|demanderesse)?(justifie.+décision|sérieux)",
                 re.IGNORECASE
             ),
             re.compile(
@@ -284,49 +284,49 @@ class RegexLib:
         ], re.IGNORECASE),
         ("landlord_relocation_indemnity_fees", [
             re.compile(
-                r"\[\d+\].+(locat(eur|rice)(s))?.+réclame.+indemnité.*\b(\d{1,3}(\s\d{3}|,\d{2})*)+(\$|\s\$).*",
+                r"\[\d+\].+(locat(eur|rice)(s))?.+réclame.+indemnité.*\b(\d{1,3}(\s\d{3}|,\d{2})*)+(\$|\s\$)",
                 re.IGNORECASE
             )
         ], re.IGNORECASE),
         ("landlord_rent_change", [
          re.compile(
-             r"\[\d+\].+l'ajustement.+loyer.*",
+             r"\[\d+\].+l'ajustement.+loyer",
              re.IGNORECASE
          )
          ], re.IGNORECASE),
         ("landlord_rent_change_doc_renseignements", [
          re.compile(
-             r"\[\d+\].+formulaire\s(r|R)enseignements.+loyer.*",
+             r"\[\d+\].+formulaire\s(r|R)enseignements.+loyer",
              re.IGNORECASE
          )
          ], re.IGNORECASE),
         ("landlord_rent_change_piece_justification", [
             re.compile(
-                r"\[\d+\].+formulaire\s(r|R)enseignements.+loyer.+(pièces\sjustificatives).*",
+                r"\[\d+\].+formulaire\s(r|R)enseignements.+loyer.+(pièces\sjustificatives)",
                 re.IGNORECASE
             )
         ], re.IGNORECASE),
         ("landlord_rent_change_receipts", [
             re.compile(
-                r"\[\d+\].+formulaire\s(r|R)enseignements.+loyer.+(pièces\sjustificatives).+factures.*",
+                r"\[\d+\].+formulaire\s(r|R)enseignements.+loyer.+(pièces\sjustificatives).+factures",
                 re.IGNORECASE
             )
         ], re.IGNORECASE),
         ("landlord_retakes_apartment", [
             re.compile(
-                r"\[\d+\].+(locat(eur(s)?|rice(s)?)).+(reprendre|reprise)(.+logement)?.*",
+                r"\[\d+\].+locat(eur|rice)(s)?.+(reprendre|reprise)(.+logement)?",
                 re.IGNORECASE
             )
         ], re.IGNORECASE),
         ("landlord_retakes_apartment_indemnity", [
          re.compile(
-             r"\[\d+\].+compenser.+frais.+déménagement.*",
+             r"\[\d+\].+compenser.+frais.+déménagement",
              re.IGNORECASE
          )
          ], re.IGNORECASE),
         ("landlord_sends_demand_regie_logement", [
             re.compile(
-                r"\[\d+\].+(locat(eur(s)?|rice(s)?)).+demande.+(Régie\sdu\slogement).*",
+                r"\[\d+\].+locat(eur|rice)(s)?.+demande.+(Régie\sdu\slogement)",
                 re.IGNORECASE
             )
         ], re.IGNORECASE),
@@ -366,7 +366,7 @@ class RegexLib:
         ], re.IGNORECASE),
         ("tenant_bad_payment_habits", [
             re.compile(
-                r"\[\d+\].+(retard(s)?.+)?(loyer.+)?(payé|paient|paiement)(.+loyer)?(.+retard(s)?)?.*",
+                r"\[\d+\].+(retard(s)?.+)?(loyer.+)?(payé|paient|paiement)(.+loyer)?(.+retard(s)?)?",
                 re.IGNORECASE
             )
         ], re.IGNORECASE),
@@ -402,25 +402,25 @@ class RegexLib:
         ], re.IGNORECASE),
         ("tenant_declare_insalubre", [
          re.compile(
-             r"\[\d+\].+(locataire(s).+)?(apartment.+)?insalubre.*",
+             r"\[\d+\].+(locataire(s).+)?(apartment.+)?insalubre",
              re.IGNORECASE
          )
          ], re.IGNORECASE),
         ("tenant_financial_problem", [
             re.compile(
-                r"\[\d+\].+(locataire(s)?.+)?difficultés.+financières(.+locataire(s)?)?.*",
+                r"\[\d+\].+(locataire(s)?.+)?difficultés.+financières(.+locataire(s)?)?",
                 re.IGNORECASE
             )
         ], re.IGNORECASE),
         ("tenant_group_responsability", [
             re.compile(
-                r"\[\d+\].+bail.+(prévoit\spas).+locataire(s)?.+(solidairement\sresponsables).+(locat(eur(s)?|rice(s)?)).*",
+                r"\[\d+\].+bail.+(prévoit\spas).+locataire(s)?.+(solidairement\sresponsables).+locat(eur|rice)(s)?",
                 re.IGNORECASE
             )
         ], re.IGNORECASE),
         ("tenant_individual_responsability", [
             re.compile(
-                r"\[\d+\].+bail.+(prévoit).+locataire(s)?.+(solidairement\sresponsables).+(locat(eur(s)?|rice(s)?)).*",
+                r"\[\d+\].+bail.+(prévoit).+locataire(s)?.+(solidairement\sresponsables).+locat(eur|rice)(s)?",
                 re.IGNORECASE
             )
         ], re.IGNORECASE),
@@ -430,9 +430,9 @@ class RegexLib:
                 re.IGNORECASE
             )
         ], re.IGNORECASE),
-        ("tenant_lacks_proof", [
+        ("lack_of_proof", [
             re.compile(
-                r"\[\d+\].+considérant\sl'absence.+\;.*",
+                r"\[\d+\].+considérant\sl'absence de preuve",
                 re.IGNORECASE
             ),
             re.compile(
@@ -446,7 +446,7 @@ class RegexLib:
         ], re.IGNORECASE),
         ("tenant_landlord_agreement", [
             re.compile(
-                r"\[\d+\].+entente.+(entre\sles\sdeux\sparties).*",
+                r"\[\d+\].+entente.+(entre\sles\sdeux\sparties)",
                 re.IGNORECASE
             ),
             re.compile(
@@ -467,20 +467,21 @@ class RegexLib:
             )
         ], re.IGNORECASE),
         ("tenant_lease_fixed", [
-            re.compile(
-                r"\[\d+\].+((bail.*(reconduit.*)?(terminant.*)?((\d+?\w*?\s+?|)(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)(\s+\d{2,4}|))((.+au|.*terminant).*(\d+?\w*?\s+?|)(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)(\s+\d{2,4}|))?)|(fixation\sde\sloyer))",
-                re.IGNORECASE
-            )
+            # FIXME
+            # re.compile(
+            #     r"\[\d+\].+((bail.*(reconduit.*)?(terminant.*)?((\d+?\w*?\s+?|)(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)(\s+\d{2,4}|))((.+au|.*terminant).*(\d+?\w*?\s+?|)(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)(\s+\d{2,4}|))?)|(fixation\sde\sloyer))",
+            #     re.IGNORECASE
+            # )
         ], re.IGNORECASE),
         ("tenant_lease_indeterminate", [
          re.compile(
-             r"\[\d+\].+bail.+(durée\sindéterminée).*",
+             r"\[\d+\].+bail.+durée\sindéterminée",
              re.IGNORECASE
          )
          ], re.IGNORECASE),
         ("tenant_left_without_paying", [
             re.compile(
-                r"\[\d+\].+(((départ.+|défaut.+|déguerpissement.+).*locataire(s)?)|(locataire(s)?.*quitté?))",
+                r"\[\d+\].+suite au déguerpissement (des|de la|du) locataire(s)?",
                 re.IGNORECASE
             ),
             re.compile(
@@ -502,7 +503,7 @@ class RegexLib:
         ], re.IGNORECASE),
         ("tenant_monthly_payment", [
             re.compile(
-                r"\[\d+\].+loyer\smensuel.*\b(\d{1,3}(\s\d{3}|,\d{2})*)+(\$|\s\$).*",
+                r"\[\d+\].+loyer\smensuel.*\b(\d{1,3}(\s\d{3}|,\d{2})*)+(\$|\s\$)",
                 re.IGNORECASE
             )
         ], re.IGNORECASE),
@@ -514,15 +515,16 @@ class RegexLib:
         ], re.IGNORECASE),
         ("tenant_not_request_cancel_lease", [
          re.compile(
-             r"\[\d+\].+jamais.+(résiliation\sde\sbail).*",
+             r"\[\d+\].+jamais.+(résiliation\sde\sbail)",
              re.IGNORECASE
          )
          ], re.IGNORECASE),
         ("tenant_owes_rent", [
-            re.compile(
-                r"\[\d+\].+(.*preuve.+locateur(s)?.+non-paiement.+loyer)?.*(locataire(s)?.+(doi(vent|t))((.+somme\sde)|(total))?.+([\d\s,]+)(\$|\s\$)|locateur.+créance.+\b(\d{1,3}(\s\d{3}|,\d{2})*)+(\$|\s\$).+loyers\simpayés)|(.*paiement.*arriérés.+loyer.+\b(\d{1,3}(\s\d{3}|,\d{2})*))",
-                re.IGNORECASE
-            ),
+            # FIXME or SPLIT
+            # re.compile(
+            #     r"\[\d+\].+(.*preuve.+locateur(s)?.+non-paiement.+loyer)?.*(locataire(s)?.+(doi(vent|t))((.+somme\sde)|(total))?.+([\d\s,]+)(\$|\s\$)|locateur.+créance.+\b(\d{1,3}(\s\d{3}|,\d{2})*)+(\$|\s\$).+loyers\simpayés)|(.*paiement.*arriérés.+loyer.+\b(\d{1,3}(\s\d{3}|,\d{2})*))",
+            #     re.IGNORECASE
+            # ),
             re.compile(
                 r"\[\d+\].+locataire(s|) doi(ven|)t (\w+(\s|\'|,\s)){0,6}(\d+(\s|\,)){1,2}\$",
                 re.IGNORECASE
@@ -542,13 +544,13 @@ class RegexLib:
         ], re.IGNORECASE),
         ("tenant_refuses_retake_apartment", [
          re.compile(
-             r"\[\d+\].+locataire(s)?.+refus(e|ait|aient).+quitter.*",
+             r"\[\d+\].+locataire(s)?.+refus(e|ait|aient).+quitter",
              re.IGNORECASE
          )
          ], re.IGNORECASE),
         ("tenant_rent_not_paid_less_3_weeks", [
             re.compile(
-                r"\[\d+\].+locataire(s)?.+pas.+retard.+(trois\ssemaines).+paiement.+loyer.*",
+                r"\[\d+\].+locataire(s)?.+pas.+retard.+(trois\ssemaines).+paiement.+loyer",
                 re.IGNORECASE
             )
         ], re.IGNORECASE),
@@ -556,11 +558,16 @@ class RegexLib:
             re.compile(
                 r"\[\d+\].+locataire(s)?.+retard.+plus.+((trois semaines)|(trois \(3\) semaines)).+(paiement\sdu\sloyer)",
                 re.IGNORECASE
+            ),
+            re.compile(
+                r"\[\d+\].+locataire(s|) (est|sont) en retard (\w+(\s|\'|,\s)){1,8}(trois|3) semaines",
+                re.IGNORECASE
             )
+
         ], re.IGNORECASE),
         ("tenant_rent_paid_before_hearing", [
             re.compile(
-                r"\[\d+\].+locataire(s)?.*payé.*loyer.*(dû le jour|avant).+(audience).*",
+                r"\[\d+\].+locataire(s)?.*payé.*loyer.*(dû le jour|avant).+(audience)",
                 re.IGNORECASE
             ),
             re.compile(
@@ -582,25 +589,20 @@ class RegexLib:
         ], re.IGNORECASE),
         ("tenant_violence", [
          re.compile(
+             # FIXME
              r"\[\d+\].+(raison.+)?.*(viol(ent|ence))",
              re.IGNORECASE
          )
          ], re.IGNORECASE),
         ("tenant_withold_rent_without_permission", [
             re.compile(
-                r"\[\d+\].+locataire(s)?.+(ne\speut).+(faire\sjustice).+retenir.+loyer.+(sans.+Tribunal)?.*",
-                re.IGNORECASE
-            )
-        ], re.IGNORECASE),
-        ("three_weeks_late", [
-            re.compile(
-                r"\[\d+\].+locataire(s|) (est|sont) en retard (\w+(\s|\'|,\s)){1,8}(trois|3) semaines",
+                r"\[\d+\].+locataire(s)?.+ne peut.+faire justice.+retenir.+loyer.+(sans.+Tribunal)?",
                 re.IGNORECASE
             )
         ], re.IGNORECASE),
         ("violent", [
             re.compile(
-                r"\[\d+\].+violentée|violent(e)?|menaçant(e)?.*",
+                r"\[\d+\].+violentée|violent(e)?|menaçant(e)?",
                 re.IGNORECASE
             ),
             re.compile(
