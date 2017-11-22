@@ -75,13 +75,6 @@ def merge_regex_and_cluster_precedent_vector(data_set):
     """
     print("loading regex data")
     fact_vectors = Load.load_model_from_bin(Load.regex_vectors)
-    # demand_vectors = Load.load_model_from_bin(Load.demand_vector_regex_lib)
-
-    # # creates new fact vector where file have has facts and demands
-    # new_fact_vectors = {}
-    # for file_name in fact_vectors.keys():
-    #     if file_name in demand_vectors:
-    #         new_fact_vectors[file_name] = np.append(fact_vectors[file_name], demand_vectors[file_name], axis=0)
     print("merging data")
     new_val = []
     for val in data_set:
