@@ -1,14 +1,15 @@
 import os
 import joblib
 from enum import Enum
-
 from util.log import Log
 from util.constant import Path
+
 
 class InformationType(Enum):
     SENTENCE = 1
     FILE_NAME = 2
     PROCESSED_SENTENCE = 3
+
 
 class Save():
 
@@ -32,7 +33,7 @@ class Save():
         joblib.dump(content, file_path)
         Log.write(filename + " saved to: " + file_path)
 
-    def save_text(self, data_tuple, labels, protocol="a", isCluster=0):
+    def save_text(self, data_tuple, labels, protocol="a"):
         """
         Save text file to new directory
         Mainly used for cluster to text
@@ -41,33 +42,29 @@ class Save():
         :param protocol: String --> "a", "wb", "w", "a+", "w+"
         :return: None
         """
-        for label in labels:
+        unique_labels = set(labels)
+        for label in unique_labels:
             text = []
             for i, sent in enumerate(data_tuple[InformationType.SENTENCE.value][labels == label]):
                 text.append(sent)
             text.append("\n------------------------------------------\n")
+
             for i, filename in enumerate(data_tuple[InformationType.FILE_NAME.value][labels == label]):
                 text.append(filename)
+
             target_file_name = str(label) + ".txt"
-            if isCluster==1:
-                file_path = os.path.join(Path.cluster_directory + self.directory + "/", target_file_name)
-            else:
-                file_path = os.path.join(Path.cache_directory, target_file_name)
+            file_path = os.path.join(Path.cluster_directory + self.directory + "/", target_file_name)
             Log.write("saving" + target_file_name + " to: " + file_path)
             file = open(file_path, protocol)
-            if not isinstance(text, list):
-                text = [text]
+
             for lines in text:
                 # Specific case when writing list of precedent filenames
-                if type(lines) == list:
-                    for line in lines:
-                        file.writelines(line)
-                        file.writelines("\n")
-                else:
-                    file.writelines(lines)
+                for line in lines:
+                    file.writelines(line)
                     file.writelines("\n")
             file.close()
             Log.write(target_file_name + " saved to: " + file_path)
+
 
 class Load():
 
