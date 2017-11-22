@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from global_variables.global_variable import Global
 import os
-from feature_extraction.regex.regex_lib import RegexLib
 import numpy
 from outputs.output import Save, Log
 from sys import stdout
+from ml_models.models import Load
 
 
 class TagPrecedents:
@@ -16,18 +16,19 @@ class TagPrecedents:
         self.text_tagged = 0
         self.nb_lines = 0
         self.nb_text = 0
+        self.regexes = Load.load_model_from_bin(Load.regexes)
 
     def get_intent_indice(self):
         """
         :return: primary key of every intent in a tuple (int, string)
         """
         facts_vector = []
-        for i in range(len(RegexLib.regex_facts)):
-            facts_vector.append((i, RegexLib.regex_facts[i][0]))
+        for i in range(len(self.regexes["regex_facts"])):
+            facts_vector.append((i, self.regexes["regex_facts"][i][0]))
 
         demands_vector = []
-        for i in range(len(RegexLib.regex_demands)):
-            demands_vector.append((i, RegexLib.regex_demands[i][0]))
+        for i in range(len(self.regexes["regex_demands"])):
+            demands_vector.append((i, self.regexes["regex_demands"][i][0]))
 
         return {'facts_vector': facts_vector, 'demands_vector': demands_vector}
 
@@ -67,20 +68,20 @@ class TagPrecedents:
         :param filename: string
         :return: numpy vector of facts
         """
-        facts_vector = numpy.zeros(len(RegexLib.regex_facts))
-        demands_vector = numpy.zeros(len(RegexLib.regex_demands))
+        facts_vector = numpy.zeros(len(self.regexes["regex_facts"]))
+        demands_vector = numpy.zeros(len(self.regexes["regex_demands"]))
         file = open(Global.precedent_directory + "/" +
                     filename, 'r', encoding="ISO-8859-1")
         text_tagged = False
         file_contents = file.read()
         statement_tagged = False
         self.nb_lines += len(file_contents.split('\n'))
-        for i, (_, regex_array) in enumerate(RegexLib.regex_facts):
+        for i, (_, regex_array) in enumerate(self.regexes["regex_facts"]):
             if self.__match_any_regex(file_contents, regex_array):
                 facts_vector[i] = 1
                 statement_tagged = True
                 text_tagged = True
-        for i, (_, regex_array) in enumerate(RegexLib.regex_demands):
+        for i, (_, regex_array) in enumerate(self.regexes["regex_demands"]):
             if self.__match_any_regex(file_contents, regex_array):
                 demands_vector[i] = 1
                 statement_tagged = True
@@ -118,7 +119,7 @@ class TagPrecedents:
 if __name__ == '__main__':
     # Models saved to ml_service/output/tag_matrix_dir/
     tag = TagPrecedents()
-    dict = tag.tag_precedents(1000)
+    dict = tag.tag_precedents()
     # prints fact intents
     indices = tag.get_intent_indice()
 
