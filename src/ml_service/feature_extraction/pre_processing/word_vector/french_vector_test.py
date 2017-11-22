@@ -1,9 +1,8 @@
 import unittest
 import numpy
-
 from feature_extraction.pre_processing.word_vector.french_vector import FrenchVector
 
-class TestStringMethods(unittest.TestCase):
+class TestFrenchWordVector(unittest.TestCase):
     """
     the most crucial aspect of this unittest is to make sure
     that the words get vectorized and that the word vector"s
@@ -39,9 +38,9 @@ class TestStringMethods(unittest.TestCase):
         vec = FrenchVector.vectorize_sent(sentence)
         test_array = numpy.zeros(1)
         self.assertEqual(type(test_array), type(vec))
-        self.assertEqual(len(vec), FrenchVector.Word_Vector_Size)
+        self.assertEqual(len(vec), FrenchVector.word_vector_size)
         sentence = ["Je", "suis", "trop", "beau", "."]
         vec = FrenchVector.vectorize_sent(sentence)
         self.assertEqual(type(test_array), type(vec))
-        self.assertEqual(len(vec), FrenchVector.Word_Vector_Size)
+        self.assertEqual(len(vec), FrenchVector.word_vector_size)
         FrenchVector.unload_vector()

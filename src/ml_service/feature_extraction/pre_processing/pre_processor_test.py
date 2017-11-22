@@ -1,7 +1,7 @@
 import os
 import unittest
 import numpy
-
+import shutil
 from feature_extraction.pre_processing.pre_processor import PreProcessor
 from feature_extraction.pre_processing.word_vector.french_vector import FrenchVector
 from util.constant import Path
@@ -20,7 +20,7 @@ class TestStringMethods(unittest.TestCase):
 
     def test_parse_files(self):
         self.assertIsNone(FrenchVector.word_vectors)
-        __script_dir = os.path.abspath(__file__ + r"/../")
+        __script_dir = os.path.abspath(Path.cache_directory)
         __relative_dir = r"test/"
         __full_path = os.path.join(__script_dir, __relative_dir)
         if not os.path.exists(__full_path):
@@ -61,9 +61,11 @@ class TestStringMethods(unittest.TestCase):
         sentence = decisions_dict["chat tuer veut"].dict["fact"]
         filename = decisions_dict["chat tuer veut"].dict["precedence"]
 
-        self.assertEqual(len(vector), FrenchVector.Word_Vector_Size)
+        self.assertEqual(len(vector), FrenchVector.word_vector_size)
         sample_array = numpy.zeros(2)
         self.assertEqual(type(vector), type(sample_array))
 
         self.assertEqual("le chat veut me tuer", sentence)
         self.assertEqual(["garbage.txt"], filename)
+
+        shutil.rmtree(__full_path)

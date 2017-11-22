@@ -23,7 +23,6 @@ class KMeansWrapper:
         km.fit(X)
         s = Save(self.data_type)
         s.save_binary(self.data_type + "s_cluster_model.bin", km)
-        labels = set(km.labels_)
-        s.save_text(self.data_tuple, labels, "w", 1)
+        s.save_text(self.data_tuple, km.labels_, "w")
         Log.write("Number of estimated clusters : %d" % self.cluster_size)
         return km

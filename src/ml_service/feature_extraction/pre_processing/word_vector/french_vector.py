@@ -12,7 +12,7 @@ class FrenchVector:
 
     word_vectors = None
     custom_stop_words = None
-    Word_Vector_Size = 200
+    word_vector_size = 200
 
     def __init__(self):
         pass
@@ -75,7 +75,7 @@ class FrenchVector:
         """
         if not isinstance(word_list, list):
             word_list = word_tokenize(word_list, "french")
-        vector = numpy.zeros(FrenchVector.Word_Vector_Size)
+        vector = numpy.zeros(FrenchVector.word_vector_size)
         num = 0
         for word in word_list:
             if word in FrenchVector.custom_stop_words:
