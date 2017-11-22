@@ -21,10 +21,11 @@ RUN pip install hdbscan
 COPY ./src/ml_service/init.py ./src/ml_service/
 COPY ./src/ml_service/util/* ./src/ml_service/util/
 COPY ./src/ml_service/data/binary/* ./src/ml_service/data/binary/
-
-WORKDIR /usr/src/app/src/ml_service
+RUN cd src/ml_service && python init.py
 
 COPY . .
-RUN python init.py
+
+
+WORKDIR /usr/src/app/src/ml_service
 
 CMD [ "gunicorn", "-w 3", "-b 0.0.0.0:3001", "app:app" ]
