@@ -1,6 +1,6 @@
 import os
 import joblib
-from outputs.output import Log
+from src.ml_service.outputs.output import Log
 
 """
 Only store models that are good for use in this directory
@@ -15,6 +15,7 @@ class Load():
     decision_cluster_model = 'decision_cluster_model.bin'
     precedent_vector_from_clusters = 'precedent_vector_from_clusters.bin'
     regex_vectors = 'regex_precedent_dict.bin'
+    regexes = 'regexes.bin'
 
     @staticmethod
     def load_facts_from_bin(filename=None):
