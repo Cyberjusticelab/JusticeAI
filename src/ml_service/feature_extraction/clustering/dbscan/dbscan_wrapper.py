@@ -23,8 +23,7 @@ class DBSCANWrapper:
         db.fit(X)
         s = Save(self.data_type)
         s.save_binary(self.data_type + "s_cluster_model.bin", db)
-        labels = set(db.labels_)
-        n_clusters = len(labels) - (1 if -1 in db.labels_ else 0)
-        s.save_text(self.data_tuple, labels, "w", 1)
+        n_clusters = len(set(db.labels_)) - (1 if -1 in db.labels_ else 0)
+        s.save_text(self.data_tuple, db.labels_, "w")
         Log.write("Number of estimated clusters : %d" % n_clusters)
         return db

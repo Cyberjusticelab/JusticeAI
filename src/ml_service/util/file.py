@@ -47,7 +47,7 @@ class Save():
             text = []
             for i, sent in enumerate(data_tuple[InformationType.SENTENCE.value][labels == label]):
                 text.append(sent)
-            text.append("\n------------------------------------------\n")
+            text.append(["\n------------------------------------------\n"])
 
             for i, filename in enumerate(data_tuple[InformationType.FILE_NAME.value][labels == label]):
                 text.append(filename)
