@@ -46,7 +46,20 @@
             <div id="chat-message-zeus">
               <img v-if="!zeus.input" alt="" src="../assets/chatting.gif">
               <transition name="fade">
-                <p v-if="zeus.input" v-html="zeus.input"></p>
+                <div>
+                  <div v-if="zeus.enableUserConfirmation">
+                    <p>Please confirm whether our bot's prediction was correct</p>
+                    <div v-if="factType === 'boolean'">
+                      <button v-on:click="confirmBotResponse(true)">Yes</button>
+                      <button v-on:click="confirmBotResponse(false)">No</button>
+                    </div>
+                    <div v-if="factType !== 'boolean'">
+                      <input type="text" v-model="userConfirmationText" />
+                      <button v-on:click="confirmBotResponse(userConfirmationText)">OK</button>
+                    </div>
+                  </div>
+                  <p v-if="zeus.input" v-html="zeus.input"></p>
+                </div>
               </transition>
               <transition name="fade">
                 <file-upload
@@ -117,11 +130,14 @@ export default {
       uploadUrl: new String,
       connectionError: false,
       chatHistory: new Array,
+      numMessageSinceChatHistory: 0,
       isLoggedIn: false, //TODO: account feature
+      factType: 'boolean',
       zeus: {
         input: null,
         file: new Array,
         filePrompt: false,
+        enableUserConfirmation: false,
         suggestion: new Array
       },
       user: {
@@ -166,6 +182,7 @@ export default {
           this.zeus.input = null
           this.user.isSent = this.user.input != ''
           this.zeus.filePrompt = false;
+          this.numMessageSinceChatHistory += 1
           setTimeout(() => {
             this.configChat(response.body)
           }, 1100)
@@ -180,11 +197,13 @@ export default {
       this.$http.get(this.api_url + 'conversation/' + zeusId).then(
         response => {
           this.chatHistory = response.body.messages
+          this.numMessageSinceChatHistory = 0
           this.user.name = response.body.name
           if (!this.zeus.input) {
             this.configChat(this.chatHistory[this.chatHistory.length-1])
           }
           this.uploadUrl = this.api_url + 'conversation/' + zeusId + '/files'
+          this.setEnableUserConfirmation()
         },
         response => {
           this.connectionError = true
@@ -199,9 +218,27 @@ export default {
       } else {
         this.zeus.suggestion = JSON.parse(conversation.possible_answers) || []
       }
+      this.numMessageSinceChatHistory += 1
+      this.setEnableUserConfirmation()
+      this.factType = conversation.fact_type || 'boolean'
       this.user.input = null
       this.user.isSent = false
       this.user.disableInput = conversation.enforce_possible_answer
+    },
+    confirmBotResponse(confirmation) {
+      this.$http.post(this.api_url + 'nlp-response', {
+        conversation_id: this.$localStorage.get('zeusId'),
+        confirmation: confirmation || false
+      }).then(response => {
+        this.zeus.enableUserConfirmation = false
+      }, response => {
+        this.zeus.enableUserConfirmation = true
+        this.connectionError = true
+      })
+    },
+    setEnableUserConfirmation() {
+      // Only start prompting once user has start responding to questions
+      this.zeus.enableUserConfirmation = this.numMessageSinceChatHistory + this.chatHistory.length > 4
     },
     resetChat () {
       if (this.isLoggedIn) {
