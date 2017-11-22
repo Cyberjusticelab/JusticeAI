@@ -5,17 +5,12 @@ from feature_extraction.regex.regex_lib import RegexLib
 import numpy
 from outputs.output import Save, Log
 from sys import stdout
-import re
 
 
 class TagPrecedents:
     empty_line_length = 6
 
     def __init__(self):
-        """
-        Constructor.
-        :param enum: TagEnum --> Init default tagger
-        """
         self.fact_dict = {}
         self.statements_tagged = 0
         self.text_tagged = 0
@@ -27,9 +22,9 @@ class TagPrecedents:
         :return: primary key of every intent in a tuple (int, string)
         """
         facts_vector = []
-        demands_vector = []
         for i in range(len(RegexLib.regex_facts)):
             facts_vector.append((i, RegexLib.regex_facts[i][0]))
+
         demands_vector = []
         for i in range(len(RegexLib.regex_demands)):
             demands_vector.append((i, RegexLib.regex_demands[i][0]))
