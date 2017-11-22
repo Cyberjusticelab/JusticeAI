@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
-from feature_extraction.regex.regex_facts import TagPrecedents, TagEnum
+from feature_extraction.regex.regex_facts import TagPrecedents
 from feature_extraction.regex.regex_lib import RegexLib
 import os
 from global_variables.global_variable import Global
@@ -9,7 +9,7 @@ from global_variables.global_variable import Global
 class RegexTest(unittest.TestCase):
 
     def test_regex_model(self):
-        re_tag = TagPrecedents(TagEnum.FACT)
+        re_tag = TagPrecedents()
         re_tag.tag_precedents(10)
         binary_model_path = Global.output_directory + r'tag_matrix_dir/fact_matrix'
         self.assertTrue(os.path.isfile(binary_model_path))
