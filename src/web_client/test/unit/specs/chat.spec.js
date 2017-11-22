@@ -26,6 +26,30 @@ test
 
 describe('Chat.vue', () => {
 
+    it('should enable user confirmation prompt once chat contains questions regarding facts', () => {
+        const vm = new Vue(Chat).$mount()
+        expect(vm.zeus.enableUserConfirmation).to.be.false
+
+        vm.numMessageSinceChatHistory = 10
+        vm.chatHistory = []
+        vm.setEnableUserConfirmation()
+        expect(vm.zeus.enableUserConfirmation).to.be.true
+
+        vm.numMessageSinceChatHistory = 0
+        vm.chatHistory = [{}, {}, {}, {}, {}]
+        vm.setEnableUserConfirmation()
+        expect(vm.zeus.enableUserConfirmation).to.be.true
+    })
+
+    it('should disable user confirmation prompt before chat contains questions regarding facts', () => {
+        const vm = new Vue(Chat).$mount()
+        expect(vm.zeus.enableUserConfirmation).to.be.false
+        vm.numMessageSinceChatHistory = 0
+        vm.chatHistory = []
+        vm.setEnableUserConfirmation()
+        expect(vm.zeus.enableUserConfirmation).to.be.false
+    })
+
     it('should resume chat session if conversation id exists', () => {
     	Vue.localStorage.set('zeusId', 1)
     	const spy = sinon.spy(Chat.methods, 'getChatHistory')
@@ -70,6 +94,26 @@ describe('Chat.vue', () => {
         expect(vm.connectionError).to.be.true
         Vue.http.post.restore()
     })
+
+    it('should successfully send user confirmation of bot repsonse ', () => {
+    	const promiseCall = sinon.stub(Vue.http, 'post').returnsPromise()
+    	promiseCall.resolves({})
+    	const vm = new Vue(Chat).$mount()
+    	vm.confirmBotResponse(true)
+        expect(vm.zeus.enableUserConfirmation).to.be.false
+        Vue.http.post.restore()
+    })
+
+    it('should handle the failure of sending of user confirmation of bot repsonse ', () => {
+    	const promiseCall = sinon.stub(Vue.http, 'post').returnsPromise()
+    	promiseCall.rejects()
+    	const vm = new Vue(Chat).$mount()
+    	vm.confirmBotResponse(true)
+        expect(vm.connectionError).to.be.true
+        Vue.http.post.restore()
+    })
+
+
 
     it('should successfully send message and config chat (1)', () => {
     	const promiseCall = sinon.stub(Vue.http, 'post').returnsPromise()
