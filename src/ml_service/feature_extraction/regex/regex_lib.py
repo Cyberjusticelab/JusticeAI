@@ -626,11 +626,11 @@ class RegexLib:
         ])
     ]
 
-    def get_regexes(self, name):
-        for fact in self.regex_facts:
+    def get_regexes(name):
+        for fact in RegexLib.regex_facts:
             if fact[0] == name:
                 return fact[1]
-        for demand in self.regex_demands:
+        for demand in RegexLib.regex_demands:
             if demand[0] == name:
                 return demand[1]
 

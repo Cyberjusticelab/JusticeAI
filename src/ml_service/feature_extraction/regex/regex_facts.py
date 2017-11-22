@@ -8,14 +8,8 @@ from sys import stdout
 import re
 
 
-class TagEnum:
-    DEMAND = 0
-    FACT = 1
-
-
 class TagPrecedents:
     empty_line_length = 6
-    __factMatch = re.compile('\[\d+\]\s')
 
     def __init__(self):
         """
@@ -23,7 +17,7 @@ class TagPrecedents:
         :param enum: TagEnum --> Init default tagger
         """
         self.fact_dict = {}
-        self.lines_tagged = 0
+        self.statements_tagged = 0
         self.text_tagged = 0
         self.nb_lines = 0
         self.nb_text = 0
@@ -32,17 +26,17 @@ class TagPrecedents:
         """
         :return: primary key of every intent in a tuple (int, string)
         """
-        fact_list = []
-        demand_list = []
+        fact_vector = []
+        demand_vector = []
         for i in range(len(RegexLib.regex_facts)):
-            fact_list.append((i, RegexLib.regex_facts[i][0]))
+            fact_vector.append((i, RegexLib.regex_facts[i][0]))
         fact_list = []
         for i in range(len(RegexLib.regex_demands)):
-            demand_list.append((i, RegexLib.regex_demands[i][0]))
+            demand_vector.append((i, RegexLib.regex_demands[i][0]))
 
-        return {'fact_list' : fact_list, 'demand_list' : demand_list}
+        return {'fact_vector': fact_vector, 'demand_vector': demand_vector}
 
-    def tag_precedents(self, nb_files=100):
+    def tag_precedents(self, nb_files=-1):
         """
         Reads all precedents in a directory
         :param nb_files when -1 then read all directory
@@ -63,7 +57,8 @@ class TagPrecedents:
             self.nb_text += 1
         Log.write('Precedent coverage: ' +
                   str(self.text_tagged / self.nb_text))
-        Log.write('Line Coverage: ' + str(self.lines_tagged / self.nb_lines))
+        Log.write('Line Coverage: ' +
+                  str(self.statements_tagged / self.nb_lines))
         save = Save('tag_matrix_dir')
         save.binarize_model('precedent_dict', self.fact_dict)
         return self.fact_dict
@@ -82,33 +77,34 @@ class TagPrecedents:
         file = open(Global.precedent_directory + "/" +
                     filename, 'r', encoding="ISO-8859-1")
         text_tagged = False
-
-        for line in file:
-            if self.__ignore_line(line):
-                continue
-            line_tagged = False
-            self.nb_lines += 1
-            for i, (_, regex_array) in enumerate(RegexLib.regex_facts):
-                for regex_value in regex_array:
-                    if regex_value.search(line):
-                        fact_vector[i] = 1
-                        line_tagged = True
-                        text_tagged = True
-                        print(self.lines_tagged)
-                        break
-            for i, (_, regex_array) in enumerate(RegexLib.regex_demands):
-                for regex_value in regex_array:
-                    if regex_value.search(line):
-                        fact_vector[i] = 1
-                        line_tagged = True
-                        text_tagged = True
-                        break
-            if line_tagged:
-                self.lines_tagged += 1
+        file_contents = file.read()
+        statement_tagged = False
+        self.nb_lines += len(file_contents.split('\n'))
+        for i, (_, regex_array) in enumerate(RegexLib.regex_facts):
+            if self.__match_any_regex(file_contents, regex_array):
+                fact_vector[i] = 1
+                statement_tagged = True
+                text_tagged = True
+        for i, (_, regex_array) in enumerate(RegexLib.regex_demands):
+            if self.__match_any_regex(file_contents, regex_array):
+                demand_vector[i] = 1
+                statement_tagged = True
+                text_tagged = True
+        if statement_tagged:
+            self.statements_tagged += 1
         file.close()
         if text_tagged:
             self.text_tagged += 1
-        return {'fact_vector' : fact_vector, 'demand_vector' : demand_vector}
+        return {'fact_vector': fact_vector, 'demand_vector': demand_vector}
+
+    def __match_any_regex(self, text, regex_array):
+        """
+            Returns True if any of the regex in regex_array
+            are found in the given text string
+        """
+        for regex_value in regex_array:
+            if regex_value.search(text):
+                return True
 
     def __ignore_line(self, line):
         """
@@ -129,4 +125,16 @@ if __name__ == '__main__':
     tag = TagPrecedents()
     dict = tag.tag_precedents()
     # prints fact intents
-    print(tag.get_intent_indice())
+    indices = tag.get_intent_indice()
+
+    print("Total precedents parsed: {}".format(len(tag.fact_dict)))
+    for i in range(len(next(iter(tag.fact_dict.values()))['fact_vector'])):
+        total_fact = len([1 for val in tag.fact_dict.values()
+                          if val['fact_vector'][i] == 1])
+        print("Total precedents with {:41} : {}".format(
+            indices['fact_vector'][i][1], total_fact))
+    for i in range(len(next(iter(tag.fact_dict.values()))['demand_vector'])):
+        total_fact = len([1 for val in tag.fact_dict.values()
+                          if val['demand_vector'][i] == 1])
+        print("Total precedents with {:41} : {}".format(
+            indices['demand_vector'][i][1], total_fact))
