@@ -708,6 +708,16 @@
         "entities": []
       },
       {
+        "text": "I am supposed to be gone already",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "it ended recently",
+        "intent": "true",
+        "entities": []
+      },
+      {
         "text": "it has ended",
         "intent": "true",
         "entities": []
@@ -733,8 +743,33 @@
         "entities": []
       },
       {
+        "text": "My lease ended last month",
+        "intent": "true",
+        "entities": []
+      },
+      {
         "text": "my lease has terminated 5 weeks ago",
         "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "The date on my lease is in the future",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "I am allowed to stay for another few months",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "my lease is not over yet",
+        "intent": "false",
+        "entities": []
+      },
+      {
+        "text": "my lease ends soon",
+        "intent": "false",
         "entities": []
       },
       {
