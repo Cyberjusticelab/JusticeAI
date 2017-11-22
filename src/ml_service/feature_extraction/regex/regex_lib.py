@@ -11,7 +11,7 @@ class RegexLib:
     DEMAND_REGEX = r"(demand|réclam)(ait|e|ent|aient)"
 
     def multiple_words(min, max):
-        return r"(\w+(\s|'|,\s)){"+ str(min) + ","+ str(max) +"}"
+        return r"(\w+(\s|'|,\s)){" + str(min) + "," + str(max) + "}"
 
     regex_demands = [
         ("demand_lease_modification", [
@@ -32,7 +32,8 @@ class RegexLib:
         ]),
         ("landlord_claim_interest_damage", [
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+" + LANDLORD_REGEX + r".*" + MONEY_REGEX + r".*dommages-intérêts",
+                DEMAND_DIGIT_REGEX + r".+" + LANDLORD_REGEX +
+                r".*" + MONEY_REGEX + r".*dommages-intérêts",
                 re.IGNORECASE
             )
         ]),
@@ -50,39 +51,48 @@ class RegexLib:
          ]),
         ("landlord_demand_damage", [
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+" + LANDLORD_REGEX + r".+" + DEMAND_REGEX + r".+dommage(s)?",
+                DEMAND_DIGIT_REGEX + r".+" + LANDLORD_REGEX +
+                r".+" + DEMAND_REGEX + r".+dommage(s)?",
                 re.IGNORECASE
             )
         ]),
         ("landlord_demand_legal_fees", [
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+" + DEMAND_REGEX + r"+.*remboursement.+(frais)?judiciaires",
+                DEMAND_DIGIT_REGEX + r".+" + DEMAND_REGEX +
+                r"+.*remboursement.+(frais)?judiciaires",
                 re.IGNORECASE
             )
         ]),
         ("landlord_demand_retake_apartment", [
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+" + LANDLORD_REGEX + r".*" + DEMAND_REGEX + r".+(autoris(er|ation)).+reprendre.+logement",
+                DEMAND_DIGIT_REGEX + r".+" + LANDLORD_REGEX + r".*" +
+                DEMAND_REGEX + r".+(autoris(er|ation)).+reprendre.+logement",
                 re.IGNORECASE
             ),
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+autorisation de reprendre le logement occupé par (le|la|les) " + TENANT_REGEX + r"",
+                DEMAND_DIGIT_REGEX +
+                r".+autorisation de reprendre le logement occupé par (le|la|les) " +
+                TENANT_REGEX + r"",
                 re.IGNORECASE
             ),
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+autorisation de reprendre le logement (du |de la |des )?(" + TENANT_REGEX + r" )?pour (s'|)y loger",
+                DEMAND_DIGIT_REGEX +
+                r".+autorisation de reprendre le logement (du |de la |des )?(" +
+                TENANT_REGEX + r" )?pour (s'|)y loger",
                 re.IGNORECASE
             )
         ]),
         ("landlord_demand_utility_fee", [
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+recouvrement(.+frais.+(énergie|électricité))+",
+                DEMAND_DIGIT_REGEX +
+                r".+recouvrement(.+frais.+(énergie|électricité))+",
                 re.IGNORECASE
             )
         ]),
         ("landlord_fix_rent", [
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+" + LANDLORD_REGEX + r".+" + DEMAND_REGEX + r".+(fix(er|ation)).+loyer",
+                DEMAND_DIGIT_REGEX + r".+" + LANDLORD_REGEX +
+                r".+" + DEMAND_REGEX + r".+(fix(er|ation)).+loyer",
                 re.IGNORECASE
             )
         ]),
@@ -94,11 +104,13 @@ class RegexLib:
         ]),
         ("landlord_money_cover_rent", [
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+" + LANDLORD_REGEX + r".+" + DEMAND_REGEX + r"?.+recouvrement.+\sloyer",
+                DEMAND_DIGIT_REGEX + r".+" + LANDLORD_REGEX +
+                r".+" + DEMAND_REGEX + r"?.+recouvrement.+\sloyer",
                 re.IGNORECASE
             ),
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+recouvrement (de loyer|du loyer|d'une somme)",
+                DEMAND_DIGIT_REGEX +
+                r".+recouvrement (de loyer|du loyer|d'une somme)",
                 re.IGNORECASE
             ),
             re.compile(
@@ -112,73 +124,87 @@ class RegexLib:
         ]),
         ("paid_judicial_fees", [
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+" + LANDLORD_REGEX + r"\s" + DEMAND_REGEX + r"+.+(frais\sjudiciaires)",
+                DEMAND_DIGIT_REGEX + r".+" + LANDLORD_REGEX +
+                r"\s" + DEMAND_REGEX + r"+.+(frais\sjudiciaires)",
                 re.IGNORECASE
             )
         ]),
         ("tenant_claims_harassment", [
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+" + TENANT_REGEX + r".+(" + DEMAND_REGEX + r").+dommages.+harcèlement",
+                DEMAND_DIGIT_REGEX + r".+" + TENANT_REGEX +
+                r".+(" + DEMAND_REGEX + r").+dommages.+harcèlement",
                 re.IGNORECASE
             )
         ]),
         ("tenant_cover_rent", [
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+(" + DEMAND_REGEX + r"+.+)?" + LANDLORD_REGEX + r"(s)?(.+" + DEMAND_REGEX + r"+)?.+recouvrement\s(du|de)\sloyer",
+                DEMAND_DIGIT_REGEX + r".+(" + DEMAND_REGEX + r"+.+)?" + LANDLORD_REGEX +
+                r"(s)?(.+" + DEMAND_REGEX + r"+)?.+recouvrement\s(du|de)\sloyer",
                 re.IGNORECASE
             )
         ]),
         ("tenant_demands_decision_retraction", [
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+" + TENANT_REGEX + r".+" + DEMAND_REGEX + r".+rétractation.+décision",
+                DEMAND_DIGIT_REGEX + r".+" + TENANT_REGEX + r".+" +
+                DEMAND_REGEX + r".+rétractation.+décision",
                 re.IGNORECASE
             )
         ]),
         ("tenant_demand_indemnity_Code_Civil", [
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+" + TENANT_REGEX + r".*demande.*(Code\scivil\sdu\sQuébec)",
+                DEMAND_DIGIT_REGEX + r".+" + TENANT_REGEX +
+                r".*demande.*(Code\scivil\sdu\sQuébec)",
                 re.IGNORECASE
             )
         ]),
         ("tenant_demand_indemnity_damage", [
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+" + TENANT_REGEX + r".*(l'indemnité\sadditionnelle)",
+                DEMAND_DIGIT_REGEX + r".+" + TENANT_REGEX +
+                r".*(l'indemnité\sadditionnelle)",
                 re.IGNORECASE
             )
         ]),
         ("tenant_demand_indemnity_judicial_fee", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + r".+(recouvrement\sdes\sfrais\sjudiciaires)",
+                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX +
+                r".+(recouvrement\sdes\sfrais\sjudiciaires)",
                 re.IGNORECASE
             )
         ]),
         ("tenant_demand_interest_damage", [
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+(" + TENANT_REGEX + r").*" + DEMAND_REGEX + r"+.*(dommages-intérêts)",
+                DEMAND_DIGIT_REGEX +
+                r".+(" + TENANT_REGEX + r").*" +
+                DEMAND_REGEX + r"+.*(dommages-intérêts)",
                 re.IGNORECASE
             )
         ]),
         ("tenant_demands_money", [
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+" + TENANT_REGEX + r".+(" + DEMAND_REGEX + r").+" + MONEY_REGEX,
+                DEMAND_DIGIT_REGEX + r".+" + TENANT_REGEX +
+                r".+(" + DEMAND_REGEX + r").+" + MONEY_REGEX,
                 re.IGNORECASE
             )
         ]),
         ("tenant_demand_rent_decrease", [
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+(" + TENANT_REGEX + r").*" + DEMAND_REGEX + r".*diminution.*loyer",
+                DEMAND_DIGIT_REGEX +
+                r".+(" + TENANT_REGEX + r").*" +
+                DEMAND_REGEX + r".*diminution.*loyer",
                 re.IGNORECASE
             )
         ]),
         ("tenant_respect_of_contract", [
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+" + TENANT_REGEX + r".*(exécution\sen\snature\sd'une\sobligation)",
+                DEMAND_DIGIT_REGEX + r".+" + TENANT_REGEX +
+                r".*(exécution\sen\snature\sd'une\sobligation)",
                 re.IGNORECASE
             )
         ]),
         ("tenant_eviction", [
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+" + LANDLORD_REGEX + r".*(expulsion|éviction).*" + TENANT_REGEX + r"",
+                DEMAND_DIGIT_REGEX + r".+" + LANDLORD_REGEX +
+                r".*(expulsion|éviction).*" + TENANT_REGEX + r"",
                 re.IGNORECASE
             )
         ])
@@ -190,41 +216,49 @@ class RegexLib:
     regex_facts = [
         ("absent", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+considérant l'absence (du|de la|des) (" + LANDLORD_REGEX + r"|" + TENANT_REGEX + r")",
+                FACT_DIGIT_REGEX +
+                r".+considérant l'absence (du|de la|des) (" +
+                LANDLORD_REGEX + r"|" + TENANT_REGEX + r")",
                 re.IGNORECASE
             )
         ]),
         ("apartment_impropre", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+(logement(était\s)?(.+impropre|infesté).+l'habitation|(bon\sétat.+propreté))",
+                FACT_DIGIT_REGEX +
+                r".+(logement(était\s)?(.+impropre|infesté).+l'habitation|(bon\sétat.+propreté))",
                 re.IGNORECASE
             ),
             re.compile(
-                FACT_DIGIT_REGEX + r".+preuve.*logement.*" + TENANT_REGEX + r".*est.*mauvais.*état",
+                FACT_DIGIT_REGEX + r".+preuve.*logement.*" +
+                TENANT_REGEX + r".*est.*mauvais.*état",
                 re.IGNORECASE
             )
         ]),
         ("apartment_infestation", [
-            re.compile(
-                FACT_DIGIT_REGEX + r".+infestation(s)?|rat(s)?|fourmi(s)?|coquerelle(s)?|souri(s)?|excrément(s)?",
-                re.IGNORECASE
-            )
+            # FIXME
+            # re.compile(
+            #     FACT_DIGIT_REGEX + r".+infestation(s)?|\brat(s)?|fourmi(s)?|coquerelle(s)?|souri(s)?|excrément(s)?",
+            #     re.IGNORECASE
+            # )
         ]),
         ("asker_is_landlord", [
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+l(es|e|a) " + LANDLORD_REGEX + r" " + DEMAND_REGEX + r"",
+                DEMAND_DIGIT_REGEX + \
+                r".+l(es|e|a) " + LANDLORD_REGEX + r" " + DEMAND_REGEX + r"",
                 re.IGNORECASE
             )
         ]),
         ("asker_is_tenant", [
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+l(es|e|a) " + TENANT_REGEX + r" " + DEMAND_REGEX + r"",
+                DEMAND_DIGIT_REGEX + \
+                r".+l(es|e|a) " + TENANT_REGEX + r" " + DEMAND_REGEX + r"",
                 re.IGNORECASE
             )
         ]),
         ("bothers_others", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + r" trouble(nt|) la jouissance normale des lieux loués",
+                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + \
+                r" trouble(nt|) la jouissance normale des lieux loués",
                 re.IGNORECASE
             ),
             re.compile(
@@ -238,7 +272,8 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
-                FACT_DIGIT_REGEX + r".+pas respecté l'ordonnance de payer " + multiple_words(0,4) + r"loyer",
+                FACT_DIGIT_REGEX + r".+pas respecté l'ordonnance de payer " + \
+                multiple_words(0, 4) + r"loyer",
                 re.IGNORECASE
             ),
             re.compile(
@@ -246,25 +281,29 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
-                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + r" " + multiple_words(0,3) + r"pas respecté l'ordonnance",
+                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + r" " + \
+                multiple_words(0, 3) + r"pas respecté l'ordonnance",
                 re.IGNORECASE
             )
         ]),
         ("incorrect_facts", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+demande (de la|des) " + TENANT_REGEX + r" est mal fondée",
+                FACT_DIGIT_REGEX + \
+                r".+demande (de la|des) " + TENANT_REGEX + r" est mal fondée",
                 re.IGNORECASE
             )
         ]),
         ("landlord_inspector_fees", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+" + LANDLORD_REGEX + r".+(frais\sde\sdépistage)",
+                FACT_DIGIT_REGEX + r".+" + LANDLORD_REGEX + \
+                r".+(frais\sde\sdépistage)",
                 re.IGNORECASE
             )
         ]),
         ("landlord_notifies_tenant_retake_apartment", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+" + LANDLORD_REGEX + r".+" + TENANT_REGEX + r".+(reprendre|reprise).+logement",
+                FACT_DIGIT_REGEX + r".+" + LANDLORD_REGEX + r".+" + \
+                TENANT_REGEX + r".+(reprendre|reprise).+logement",
                 re.IGNORECASE
             )
         ]),
@@ -276,7 +315,9 @@ class RegexLib:
          ]),
         ("landlord_prejudice_justified", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+(cause.+)?préjudice(causé)?.+(" + LANDLORD_REGEX + r"|demanderesse)?(justifie.+décision|sérieux)",
+                FACT_DIGIT_REGEX + r".+(cause.+)?préjudice(causé)?.+(" + \
+                LANDLORD_REGEX + \
+                r"|demanderesse)?(justifie.+décision|sérieux)",
                 re.IGNORECASE
             ),
             re.compile(
@@ -294,7 +335,8 @@ class RegexLib:
         ]),
         ("landlord_relocation_indemnity_fees", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+(" + LANDLORD_REGEX + r")?.+réclame.+indemnité.*" + MONEY_REGEX,
+                FACT_DIGIT_REGEX + \
+                r".+(" + LANDLORD_REGEX + r")?.+réclame.+indemnité.*" + MONEY_REGEX,
                 re.IGNORECASE
             )
         ]),
@@ -312,19 +354,22 @@ class RegexLib:
          ]),
         ("landlord_rent_change_piece_justification", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+formulaire\s(r|R)enseignements.+loyer.+(pièces\sjustificatives)",
+                FACT_DIGIT_REGEX + \
+                r".+formulaire\s(r|R)enseignements.+loyer.+(pièces\sjustificatives)",
                 re.IGNORECASE
             )
         ]),
         ("landlord_rent_change_receipts", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+formulaire\s(r|R)enseignements.+loyer.+(pièces\sjustificatives).+factures",
+                FACT_DIGIT_REGEX + \
+                r".+formulaire\s(r|R)enseignements.+loyer.+(pièces\sjustificatives).+factures",
                 re.IGNORECASE
             )
         ]),
         ("landlord_retakes_apartment", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+" + LANDLORD_REGEX + r".+(reprendre|reprise)(.+logement)?",
+                FACT_DIGIT_REGEX + r".+" + LANDLORD_REGEX + \
+                r".+(reprendre|reprise)(.+logement)?",
                 re.IGNORECASE
             )
         ]),
@@ -336,23 +381,28 @@ class RegexLib:
          ]),
         ("landlord_sends_demand_regie_logement", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+" + LANDLORD_REGEX + r".+demande.+(Régie\sdu\slogement)",
+                FACT_DIGIT_REGEX + r".+" + LANDLORD_REGEX + \
+                r".+demande.+(Régie\sdu\slogement)",
                 re.IGNORECASE
             )
         ]),
         ("landlord_serious_prejudice", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+cause un préjudice sérieux au(x|) " + LANDLORD_REGEX + r"",
+                FACT_DIGIT_REGEX + \
+                r".+cause un préjudice sérieux au(x|) " + LANDLORD_REGEX + r"",
                 re.IGNORECASE
             ),
             re.compile(
-                FACT_DIGIT_REGEX + r".+" + LANDLORD_REGEX + r" " + multiple_words(0,1) + r"}un préjudice sérieux",
+                FACT_DIGIT_REGEX + r".+" + LANDLORD_REGEX + r" " + \
+                multiple_words(0, 1) + r"}un préjudice sérieux",
                 re.IGNORECASE
             )
         ]),
         ("lease", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+un bail " + multiple_words(0,8) + r"au loyer " + multiple_words(0,8) + r"mensuel de " + MONEY_REGEX,
+                FACT_DIGIT_REGEX + r".+un bail " + \
+                multiple_words(0, 8) + r"au loyer " + \
+                multiple_words(0, 8) + r"mensuel de " + MONEY_REGEX,
                 re.IGNORECASE
             )
         ]),
@@ -364,7 +414,8 @@ class RegexLib:
          ]),
         ("proof_of_revenu", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+a fourni (\w+\s){0,10}l'attestation de ses revenu",
+                FACT_DIGIT_REGEX + \
+                r".+a fourni (\w+\s){0,10}l'attestation de ses revenu",
                 re.IGNORECASE
             )
         ]),
@@ -376,17 +427,20 @@ class RegexLib:
         ]),
         ("tenant_bad_payment_habits", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+(retard(s)?.+)?(loyer.+)?(payé|paient|paiement)(.+loyer)?(.+retard(s)?)?",
+                FACT_DIGIT_REGEX + \
+                r".+(retard(s)?.+)?(loyer.+)?(payé|paient|paiement)(.+loyer)?(.+retard(s)?)?",
                 re.IGNORECASE
             )
         ]),
         ("tenant_continuous_late_payment", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+(fréquen(ce|ts)).*(retard(s)?)?.*(article\s1971)?",
+                FACT_DIGIT_REGEX + \
+                r".+(fréquen(ce|ts)).*(retard(s)?)?.*(article\s1971)?",
                 re.IGNORECASE
             ),
             re.compile(
-                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + r" paie(nt|) (\w+\s){0,4}loyer(s|) (\w+\s){0,4}en retard",
+                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + \
+                r" paie(nt|) (\w+\s){0,4}loyer(s|) (\w+\s){0,4}en retard",
                 re.IGNORECASE
             ),
             re.compile(
@@ -400,43 +454,52 @@ class RegexLib:
         ]),
         ("tenant_damaged_rental", [
          re.compile(
-             FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + r" (a|ont) causé des dommages",
+             FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + \
+             r" (a|ont) causé des dommages",
              re.IGNORECASE
          )
          ]),
         ("tenant_dead", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + r" (est|sont) décédé(e|s|es)",
+                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + \
+                r" (est|sont) décédé(e|s|es)",
                 re.IGNORECASE
             )
         ]),
         ("tenant_declare_insalubre", [
          re.compile(
-             FACT_DIGIT_REGEX + r".+(" + TENANT_REGEX + r".+)?(apartment.+)?insalubre",
+             FACT_DIGIT_REGEX + \
+             r".+(" + TENANT_REGEX + r".+)?(apartment.+)?insalubre",
              re.IGNORECASE
          )
          ]),
         ("tenant_financial_problem", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+(" + TENANT_REGEX + r".+)?difficultés.+financières(.+" + TENANT_REGEX + r")?",
+                FACT_DIGIT_REGEX + \
+                r".+(" + TENANT_REGEX + \
+                r".+)?difficultés.+financières(.+" + TENANT_REGEX + r")?",
                 re.IGNORECASE
             )
         ]),
         ("tenant_group_responsability", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+bail.+(prévoit\spas).+" + TENANT_REGEX + r".+(solidairement\sresponsables).+" + LANDLORD_REGEX + r"",
+                FACT_DIGIT_REGEX + r".+bail.+(prévoit\spas).+" + TENANT_REGEX + \
+                r".+(solidairement\sresponsables).+" + LANDLORD_REGEX + r"",
                 re.IGNORECASE
             )
         ]),
         ("tenant_individual_responsability", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+bail.+(prévoit).+" + TENANT_REGEX + r".+(solidairement\sresponsables).+" + LANDLORD_REGEX + r"",
+                FACT_DIGIT_REGEX + r".+bail.+(prévoit).+" + TENANT_REGEX + \
+                r".+(solidairement\sresponsables).+" + LANDLORD_REGEX + r"",
                 re.IGNORECASE
             )
         ]),
         ("tenant_is_bothered", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+(le|la|les) " + TENANT_REGEX + r" (a|ont) subi(ent|) une perte de jouissance",
+                FACT_DIGIT_REGEX + \
+                r".+(le|la|les) " + TENANT_REGEX + \
+                r" (a|ont) subi(ent|) une perte de jouissance",
                 re.IGNORECASE
             )
         ]),
@@ -472,7 +535,8 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
-                FACT_DIGIT_REGEX + r".+homologue " + multiple_words(0,3) + r"transaction",
+                FACT_DIGIT_REGEX + r".+homologue " + \
+                multiple_words(0, 3) + r"transaction",
                 re.IGNORECASE
             )
         ]),
@@ -491,19 +555,25 @@ class RegexLib:
          ]),
         ("tenant_left_without_paying", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+suite au déguerpissement (des|de la|du) " + TENANT_REGEX + r"",
+                FACT_DIGIT_REGEX + \
+                r".+suite au déguerpissement (des|de la|du) " + \
+                TENANT_REGEX + r"",
                 re.IGNORECASE
             ),
             re.compile(
-                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + r" " + multiple_words(0,6) + r"(a|ont|aurait|auraient) quitté le logement",
+                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + r" " + \
+                multiple_words(0, 6) + \
+                r"(a|ont|aurait|auraient) quitté le logement",
                 re.IGNORECASE
             ),
             re.compile(
-                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + r" (a|ont|aurait|auraient) quitté les lieux loué",
+                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + \
+                r" (a|ont|aurait|auraient) quitté les lieux loué",
                 re.IGNORECASE
             ),
             re.compile(
-                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + r" (a|ont) déguerpi (du logement|des lieux loué)",
+                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + \
+                r" (a|ont) déguerpi (du logement|des lieux loué)",
                 re.IGNORECASE
             ),
             re.compile(
@@ -511,7 +581,9 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
-                FACT_DIGIT_REGEX + r".+suite du (départ|déguerpissement) (de la|du|des) " + TENANT_REGEX,
+                FACT_DIGIT_REGEX + \
+                r".+suite du (départ|déguerpissement) (de la|du|des) " + \
+                TENANT_REGEX,
                 re.IGNORECASE
             )
         ]),
@@ -523,7 +595,8 @@ class RegexLib:
         ]),
         ("tenant_negligence", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+(causé par la|dû à la|vu la|en raison de la|à cause de la) négligence de la " + TENANT_REGEX,
+                FACT_DIGIT_REGEX + \
+                r".+(causé par la|dû à la|vu la|en raison de la|à cause de la) négligence de la " + TENANT_REGEX,
                 re.IGNORECASE
             )
         ]),
@@ -540,52 +613,63 @@ class RegexLib:
             #     re.IGNORECASE
             # ),
             re.compile(
-                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + r" doi(ven|)t " + multiple_words(0,6) + r"" + MONEY_REGEX,
+                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + \
+                r" doi(ven|)t " + multiple_words(0, 6) + r"" + MONEY_REGEX,
                 re.IGNORECASE
             ),
             re.compile(
-                FACT_DIGIT_REGEX + r".+" + LANDLORD_REGEX + r" réclame(nt|) " + multiple_words(0,6) + r"" + MONEY_REGEX + r"(, soit le loyer| à titre de loyer)",
+                FACT_DIGIT_REGEX + r".+" + LANDLORD_REGEX + r" réclame(nt|) " + multiple_words(
+                    0, 6) + r"" + MONEY_REGEX + r"(, soit le loyer| à titre de loyer)",
                 re.IGNORECASE
             ),
             re.compile(
-                FACT_DIGIT_REGEX + r".+(il|elle)(s|) doi(ven)t toujours une somme de " + MONEY_REGEX,
+                FACT_DIGIT_REGEX + \
+                r".+(il|elle)(s|) doi(ven)t toujours une somme de " + MONEY_REGEX,
                 re.IGNORECASE
             ),
             re.compile(
-                FACT_DIGIT_REGEX + r".+admet devoir la somme de " + MONEY_REGEX + r" à titre de loyer",
+                FACT_DIGIT_REGEX + r".+admet devoir la somme de " + \
+                MONEY_REGEX + r" à titre de loyer",
                 re.IGNORECASE
             )
         ]),
         ("tenant_refuses_retake_apartment", [
          re.compile(
-             FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + r".+refus(e|ait|aient).+quitter",
+             FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + \
+             r".+refus(e|ait|aient).+quitter",
              re.IGNORECASE
          )
          ]),
         ("tenant_rent_not_paid_less_3_weeks", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + r".+pas.+retard.+(trois\ssemaines).+paiement.+loyer",
+                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + \
+                r".+pas.+retard.+(trois\ssemaines).+paiement.+loyer",
                 re.IGNORECASE
             )
         ]),
         ("tenant_rent_not_paid_more_3_weeks", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + r".+retard.+plus.+((trois semaines)|(trois \(3\) semaines)).+(paiement\sdu\sloyer)",
+                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + \
+                r".+retard.+plus.+((trois semaines)|(trois \(3\) semaines)).+(paiement\sdu\sloyer)",
                 re.IGNORECASE
             ),
             re.compile(
-                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + r" (est|sont) en retard " + multiple_words(1,8) + r"(trois|3) semaines",
+                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + \
+                r" (est|sont) en retard " + \
+                multiple_words(1, 8) + r"(trois|3) semaines",
                 re.IGNORECASE
             )
 
         ]),
         ("tenant_rent_paid_before_hearing", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + r".*payé.*loyer.*(dû le jour|avant).+(audience)",
+                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + \
+                r".*payé.*loyer.*(dû le jour|avant).+(audience)",
                 re.IGNORECASE
             ),
             re.compile(
-                FACT_DIGIT_REGEX + r".+(ont|a|ayant) payé (le|tous les) loyer(s|) (dû|du)",
+                FACT_DIGIT_REGEX + \
+                r".+(ont|a|ayant) payé (le|tous les) loyer(s|) (dû|du)",
                 re.IGNORECASE
             ),
             re.compile(
@@ -610,7 +694,8 @@ class RegexLib:
          ]),
         ("tenant_withold_rent_without_permission", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + r".+ne peut.+faire justice.+retenir.+loyer.+(sans.+Tribunal)?",
+                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + \
+                r".+ne peut.+faire justice.+retenir.+loyer.+(sans.+Tribunal)?",
                 re.IGNORECASE
             )
         ]),
@@ -620,7 +705,9 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
-                FACT_DIGIT_REGEX + r".+menace " + multiple_words(0,6) + r"(sécurité des occupants|l'intégrité du logement)",
+                FACT_DIGIT_REGEX + r".+menace " + \
+                multiple_words(
+                    0, 6) + r"(sécurité des occupants|l'intégrité du logement)",
                 re.IGNORECASE
             )
         ])
