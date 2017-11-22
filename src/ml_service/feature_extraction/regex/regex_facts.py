@@ -55,8 +55,8 @@ class TagPrecedents:
                   str(self.text_tagged / self.nb_text))
         Log.write('Line Coverage: ' +
                   str(self.statements_tagged / self.nb_lines))
-        save = Save('precedent_vectors')
-        save.binarize_model('precedents_dict.bin', self.fact_dict)
+        save = Save('fact_dict')
+        save.binarize_model('fact_dict.bin', self.fact_dict)
         return self.fact_dict
 
     def __tag_file(self, filename):
