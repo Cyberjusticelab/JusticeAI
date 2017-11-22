@@ -26,15 +26,15 @@ class TagPrecedents:
         """
         :return: primary key of every intent in a tuple (int, string)
         """
-        fact_vector = []
-        demand_vector = []
+        facts_vector = []
+        demands_vector = []
         for i in range(len(RegexLib.regex_facts)):
-            fact_vector.append((i, RegexLib.regex_facts[i][0]))
-        fact_list = []
+            facts_vector.append((i, RegexLib.regex_facts[i][0]))
+        demands_vector = []
         for i in range(len(RegexLib.regex_demands)):
-            demand_vector.append((i, RegexLib.regex_demands[i][0]))
+            demands_vector.append((i, RegexLib.regex_demands[i][0]))
 
-        return {'fact_vector': fact_vector, 'demand_vector': demand_vector}
+        return {'facts_vector': facts_vector, 'demands_vector': demands_vector}
 
     def tag_precedents(self, nb_files=-1):
         """
@@ -59,8 +59,8 @@ class TagPrecedents:
                   str(self.text_tagged / self.nb_text))
         Log.write('Line Coverage: ' +
                   str(self.statements_tagged / self.nb_lines))
-        save = Save('tag_matrix_dir')
-        save.binarize_model('precedent_dict', self.fact_dict)
+        save = Save('precedent_vectors')
+        save.binarize_model('precedents_dict.bin', self.fact_dict)
         return self.fact_dict
 
     def __tag_file(self, filename):
@@ -72,8 +72,8 @@ class TagPrecedents:
         :param filename: string
         :return: numpy vector of facts
         """
-        fact_vector = numpy.zeros(len(RegexLib.regex_facts))
-        demand_vector = numpy.zeros(len(RegexLib.regex_demands))
+        facts_vector = numpy.zeros(len(RegexLib.regex_facts))
+        demands_vector = numpy.zeros(len(RegexLib.regex_demands))
         file = open(Global.precedent_directory + "/" +
                     filename, 'r', encoding="ISO-8859-1")
         text_tagged = False
@@ -82,12 +82,12 @@ class TagPrecedents:
         self.nb_lines += len(file_contents.split('\n'))
         for i, (_, regex_array) in enumerate(RegexLib.regex_facts):
             if self.__match_any_regex(file_contents, regex_array):
-                fact_vector[i] = 1
+                facts_vector[i] = 1
                 statement_tagged = True
                 text_tagged = True
         for i, (_, regex_array) in enumerate(RegexLib.regex_demands):
             if self.__match_any_regex(file_contents, regex_array):
-                demand_vector[i] = 1
+                demands_vector[i] = 1
                 statement_tagged = True
                 text_tagged = True
         if statement_tagged:
@@ -95,7 +95,7 @@ class TagPrecedents:
         file.close()
         if text_tagged:
             self.text_tagged += 1
-        return {'fact_vector': fact_vector, 'demand_vector': demand_vector}
+        return {'facts_vector': facts_vector, 'demands_vector': demands_vector}
 
     def __match_any_regex(self, text, regex_array):
         """
@@ -123,18 +123,18 @@ class TagPrecedents:
 if __name__ == '__main__':
     # Models saved to ml_service/output/tag_matrix_dir/
     tag = TagPrecedents()
-    dict = tag.tag_precedents()
+    dict = tag.tag_precedents(1000)
     # prints fact intents
     indices = tag.get_intent_indice()
 
     print("Total precedents parsed: {}".format(len(tag.fact_dict)))
-    for i in range(len(next(iter(tag.fact_dict.values()))['fact_vector'])):
+    for i in range(len(next(iter(tag.fact_dict.values()))['facts_vector'])):
         total_fact = len([1 for val in tag.fact_dict.values()
-                          if val['fact_vector'][i] == 1])
+                          if val['facts_vector'][i] == 1])
         print("Total precedents with {:41} : {}".format(
-            indices['fact_vector'][i][1], total_fact))
-    for i in range(len(next(iter(tag.fact_dict.values()))['demand_vector'])):
+            indices['facts_vector'][i][1], total_fact))
+    for i in range(len(next(iter(tag.fact_dict.values()))['demands_vector'])):
         total_fact = len([1 for val in tag.fact_dict.values()
-                          if val['demand_vector'][i] == 1])
+                          if val['demands_vector'][i] == 1])
         print("Total precedents with {:41} : {}".format(
-            indices['demand_vector'][i][1], total_fact))
+            indices['demands_vector'][i][1], total_fact))

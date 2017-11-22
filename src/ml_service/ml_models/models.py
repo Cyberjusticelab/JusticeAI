@@ -8,14 +8,13 @@ Only store models that are good for use in this directory
 
 
 class Load():
-    script_dir = os.path.abspath(__file__ + r"/../")
+    script_dir = os.path.abspath(__file__ + "/../")
     __processed_facts = 'processed_facts.bin'
     __processed_decisions = 'processed_decisions.bin'
     fact_cluster_model = 'fact_cluster_model.bin'
     decision_cluster_model = 'decision_cluster_model.bin'
     precedent_vector_from_clusters = 'precedent_vector_from_clusters.bin'
-    fact_vector_regex_lib = 'fact_matrix'
-    demand_vector_regex_lib = 'demand_matrix'
+    regex_vectors = 'regex_precedent_dict.bin'
 
     @staticmethod
     def load_facts_from_bin(filename=None):
@@ -74,4 +73,4 @@ class Load():
             model = joblib.load(file)
             return model
         except BaseException:
-            Log.write("Download model binary first")
+            Log.write("Download the {} model binary first".format(file_name))
