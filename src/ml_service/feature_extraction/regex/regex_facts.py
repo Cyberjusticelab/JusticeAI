@@ -117,20 +117,20 @@ class TagPrecedents:
 
 
 if __name__ == '__main__':
-    # Models saved to ml_service/output/tag_matrix_dir/
+    # Models saved to ml_service/output/fact_dict/
     tag = TagPrecedents()
-    dict = tag.tag_precedents()
+    fact_dict = tag.tag_precedents()
     # prints fact intents
     indices = tag.get_intent_indice()
 
-    print("Total precedents parsed: {}".format(len(tag.fact_dict)))
-    for i in range(len(next(iter(tag.fact_dict.values()))['facts_vector'])):
-        total_fact = len([1 for val in tag.fact_dict.values()
+    print("Total precedents parsed: {}".format(len(fact_dict)))
+    for i in range(len(next(iter(fact_dict.values()))['facts_vector'])):
+        total_fact = len([1 for val in fact_dict.values()
                           if val['facts_vector'][i] == 1])
         print("Total precedents with {:41} : {}".format(
             indices['facts_vector'][i][1], total_fact))
-    for i in range(len(next(iter(tag.fact_dict.values()))['demands_vector'])):
-        total_fact = len([1 for val in tag.fact_dict.values()
+    for i in range(len(next(iter(fact_dict.values()))['demands_vector'])):
+        total_fact = len([1 for val in fact_dict.values()
                           if val['demands_vector'][i] == 1])
         print("Total precedents with {:41} : {}".format(
             indices['demands_vector'][i][1], total_fact))
