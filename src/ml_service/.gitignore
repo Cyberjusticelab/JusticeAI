@@ -10,3 +10,4 @@ coverage.xml
 /data/**/*.bin
 /data/**/*.pickle
 server.log
+*.pyc
