@@ -4,9 +4,7 @@ from sys import stdout
 from threading import Thread
 import nltk
 import requests
-
 from util.constant import Path
-
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('perluniprops')
