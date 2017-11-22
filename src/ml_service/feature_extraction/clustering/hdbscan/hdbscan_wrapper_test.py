@@ -9,7 +9,7 @@ from util.constant import Path
 class TestHdbscan(unittest.TestCase):
     def test_hdbscan(self):
         matrix = numpy.matrix([[2, 3, 4, 5], [2, 1, 6, 7], [2, 54, 12, 23]])
-        sentence = numpy.array([["I shot the supremacist."], ["Over 9000"], ["Bruce lee"]])
+        sentence = numpy.array(["I shot the supremacist.", "Over 9000", "Bruce lee"])
         files = numpy.array([["1"], ["2"], ["3"]])
         data_tuple = (matrix, sentence, files)
         hdb = HDBSCANWrapper(data_tuple, 'fact', 2, 1)

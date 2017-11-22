@@ -47,7 +47,7 @@ class Save():
             text = []
             for i, sent in enumerate(data_tuple[InformationType.SENTENCE.value][labels == label]):
                 text.append(sent)
-            text.append(["\n------------------------------------------\n"])
+            text.append("\n------------------------------------------\n")
 
             for i, filename in enumerate(data_tuple[InformationType.FILE_NAME.value][labels == label]):
                 text.append(filename)
@@ -59,9 +59,8 @@ class Save():
 
             for lines in text:
                 # Specific case when writing list of precedent filenames
-                for line in lines:
-                    file.writelines(line)
-                    file.writelines("\n")
+                file.writelines(lines)
+                file.writelines("\n")
             file.close()
             Log.write(target_file_name + " saved to: " + file_path)
 
