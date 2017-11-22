@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-from global_variables.global_variable import Global
+from src.ml_service.global_variables.global_variable import Global
 import os
 import numpy
-from outputs.output import Save, Log
+from src.ml_service.outputs.output import Save, Log
 from sys import stdout
-from ml_models.models import Load
+from src.ml_service.ml_models.models import Load
 
 
 class TagPrecedents:
@@ -17,6 +17,7 @@ class TagPrecedents:
         self.nb_lines = 0
         self.nb_text = 0
         self.regexes = Load.load_model_from_bin(Load.regexes)
+        self.precedents_directory_path = Global.precedent_directory
 
     def get_intent_indice(self):
         """
@@ -39,10 +40,10 @@ class TagPrecedents:
         :return: numpy matrix of facts
         """
         Log.write('Tagging precedents')
-        for file in os.listdir(Global.precedent_directory):
+        for file in os.listdir(self.precedents_directory_path):
             if nb_files == -1:
                 percent = float(
-                    self.nb_text / len(os.listdir(Global.precedent_directory))) * 100
+                    self.nb_text / len(os.listdir(self.precedents_directory_path))) * 100
             else:
                 percent = float(self.nb_text / nb_files) * 100
                 if self.nb_text > nb_files:
@@ -70,17 +71,19 @@ class TagPrecedents:
         """
         facts_vector = numpy.zeros(len(self.regexes["regex_facts"]))
         demands_vector = numpy.zeros(len(self.regexes["regex_demands"]))
-        file = open(Global.precedent_directory + "/" +
+        file = open(self.precedents_directory_path + "/" +
                     filename, 'r', encoding="ISO-8859-1")
         text_tagged = False
         file_contents = file.read()
         statement_tagged = False
         self.nb_lines += len(file_contents.split('\n'))
+        test = enumerate(self.regexes["regex_demands"])
         for i, (_, regex_array) in enumerate(self.regexes["regex_facts"]):
             if self.__match_any_regex(file_contents, regex_array):
                 facts_vector[i] = 1
                 statement_tagged = True
                 text_tagged = True
+
         for i, (_, regex_array) in enumerate(self.regexes["regex_demands"]):
             if self.__match_any_regex(file_contents, regex_array):
                 demands_vector[i] = 1
@@ -126,7 +129,7 @@ if __name__ == '__main__':
     print("Total precedents parsed: {}".format(len(fact_dict)))
     for i in range(len(next(iter(fact_dict.values()))['facts_vector'])):
         total_fact = len([1 for val in fact_dict.values()
-                          if val['facts_vector'][i] == 1])
+                if val['facts_vector'][i] == 1])
         print("Total precedents with {:41} : {}".format(
             indices['facts_vector'][i][1], total_fact))
     for i in range(len(next(iter(fact_dict.values()))['demands_vector'])):
