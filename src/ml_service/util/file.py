@@ -1,8 +1,8 @@
 import os
 import joblib
 from enum import Enum
-from util.log import Log
-from util.constant import Path
+from src.ml_service.util.log import Log
+from src.ml_service.util.constant import Path
 
 
 class InformationType(Enum):

@@ -1,6 +1,6 @@
 import logging
 import os
-from util import constant
+from src.ml_service.util import constant
 
 
 class Log:
