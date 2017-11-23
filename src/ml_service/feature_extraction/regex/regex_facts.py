@@ -5,7 +5,7 @@ from util.file import Save
 from util.log import Log
 from util.constant import Path
 from sys import stdout
-from file import Load
+from util.file import Load
 
 
 class TagPrecedents:
@@ -17,8 +17,8 @@ class TagPrecedents:
         self.text_tagged = 0
         self.nb_lines = 0
         self.nb_text = 0
-        self.regexes = Load.load_binary("/Users/taimoorrana/Documents/JusticeAI/src/ml_service/ml_models/regexes.bin")
-        self.precedents_directory_path = Path.raw_data_directory
+        self.regexes = Load.load_binary(Path.binary_directory + "regexes.bin")
+        self.precedents_directory_path = Path.precedent_directory
 
     def get_intent_indice(self):
         """
