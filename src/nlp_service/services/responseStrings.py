@@ -28,7 +28,7 @@ class Responses:
             ],
         "apartment_infestation":
             [
-                ""
+                "Is your apartment infested with any sort of pest?"
             ],
         "asker_is_landlord":
             [
@@ -52,11 +52,11 @@ class Responses:
             ],
         "landlord_inspector_fees":
             [
-                ""
+                "Have you at any point hired an inspector to track down the fleeing tenant?"
             ],
         "landlord_notifies_tenant_retake_apartment":
             [
-                ""
+                "Did you notify your tenant in advance about your intentions to "
             ],
         "landlord_pays_indemnity":
             [
@@ -124,7 +124,9 @@ class Responses:
             ],
         "tenant_continuous_late_payment":
             [
-                ""
+                "Does the tenant often pay their rent after it’s due?",
+                "Is the tenant often paying their rent late?",
+                "Has the tenant continually been late with their rent payments?"
             ],
         "tenant_damaged_rental":
             [
@@ -172,7 +174,8 @@ class Responses:
             ],
         "tenant_left_without_paying":
             [
-                ""
+                "Has the tenant left the apartment?",
+                "Has the tenant abandoned the apartment?"
             ],
         "tenant_monthly_payment":
             [
