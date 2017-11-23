@@ -6,8 +6,13 @@ coverage.xml
 .idea/
 ./**/*.iml
 .idea/*
-/data/**/*.txt
+/data/binary/*.txt
+/data/cache/*.txt
+/data/cluster/*.txt
+/data/raw/*.txt
 /data/**/*.bin
 /data/**/*.pickle
+!regexes.bin
 server.log
 *.pyc
+
