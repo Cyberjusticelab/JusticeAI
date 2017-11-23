@@ -6,7 +6,6 @@ coverage.xml
 .idea/
 ./**/*.iml
 .idea/*
-<<<<<<< HEAD
 /src/ml_ser
 /precedents/text_bk/*
 /word_vectors/*.bin
