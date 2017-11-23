@@ -102,6 +102,16 @@ class Message(db.Model):
     def request_file(self, document_type):
         self.file_request = FileRequest(document_type=document_type)
 
+class UserConfirmation(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
+    # Foreign Keys
+    fact_id = db.Column(db.Integer, db.ForeignKey('fact.id'))
+    message_id = db.Column(db.Integer, db.ForeignKey('message.id'))
+
+    # Attributes
+    text = db.Column(db.Text, nullable=False)
+
 
 class FileRequest(db.Model):
     id = db.Column(db.Integer, primary_key=True)
