@@ -2,19 +2,25 @@ from sklearn import svm
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.metrics import precision_recall_fscore_support
 from util.log import Log
-from util.file import Save
+from util.file import Save, Load
 import numpy as np
 
 
 class LinearSVM:
 
-    def __init__(self, data_set):
+    def __init__(self, data_set=[]):
         """
             LinearSVM constructor
             param: data_set: entire dataset that the classifier
                              will use to train
         """
         self.data_set = data_set
+
+    def load(self):
+        """
+            Loads the classifier from its binary
+        """
+        self.model = Load.load_binary("svm_model.bin")
 
     def train(self):
         """
@@ -36,14 +42,14 @@ class LinearSVM:
         y_predict = clf.predict(x_test)
         num_correct = np.sum(y_predict == y_test)
         (precision, recall, f1, _) = precision_recall_fscore_support(y_test, y_predict)
-        Log.write('Test accuracy: {}%'.format(num_correct * 100.0/len(y_test)))
+        Log.write('Test accuracy: {}%'.format(
+            num_correct * 100.0 / len(y_test)))
         Log.write('Precision: {}'.format(precision))
         Log.write('Recall: {}'.format(recall))
         Log.write('F1: {}'.format(f1))
         self.model = clf
         save = Save()
         save.save_binary("svm_model.bin", self.model)
-
 
     def predict(self, facts_vector):
         """
@@ -55,7 +61,7 @@ class LinearSVM:
         """
         if hasattr(self, 'model'):
             return self.model.predict([facts_vector])
-        Log.write('Please train the classifier first')
+        Log.write('Please train or load the classifier first')
         return None
 
     def get_weights(self):
@@ -66,7 +72,7 @@ class LinearSVM:
         """
         if hasattr(self, 'model'):
             return self.model.coef_[0]
-        Log.write('Please train the classifier first')
+        Log.write('Please train or load the classifier first')
         return None
 
     def evaluate_best_parameters(self):
