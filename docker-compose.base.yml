@@ -16,6 +16,9 @@ services:
     build:
       context: .
       dockerfile: ./src/nlp_service/Dockerfile
+      args:
+      - CJL_USER
+      - CJL_PASS
     image: procezeus/nlp_service
     restart: always
     networks:
