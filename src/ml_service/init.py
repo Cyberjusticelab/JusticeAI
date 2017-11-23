@@ -30,7 +30,7 @@ def monitor_download(filename, filesize):
                      (filename, percentage))
         stdout.flush()
         time.sleep(3)
-    Log.write("\n[END] Downloading Binary for {}".format(filename))
+    Log.write("\n[END] Downloaded {} Binary".format(filename))
 
 
 for binary_name in binary_names_dict:
