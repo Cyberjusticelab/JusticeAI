@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 import os
 import numpy
-from src.ml_service.util.file import Save
-from src.ml_service.util.log import Log
-from src.ml_service.util.constant import Path
+from util.file import Save
+from util.log import Log
+from util.constant import Path
 from sys import stdout
-from src.ml_service.util.file import Load
+from util.file import Load
 
 
 class TagPrecedents:
@@ -122,7 +122,7 @@ class TagPrecedents:
 if __name__ == '__main__':
     # Models saved to ml_service//data/binary/
     tag = TagPrecedents()
-    fact_dict = tag.tag_precedents(100)
+    fact_dict = tag.tag_precedents()
     # prints fact intents
     indices = tag.get_intent_indice()
 
