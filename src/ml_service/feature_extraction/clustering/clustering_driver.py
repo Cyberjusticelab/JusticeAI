@@ -16,6 +16,13 @@ class CommandEnum:
 
 
 def dbscan(data_tuple, data_type, command_list):
+    """
+    Run dbscan
+    :param data_tuple: matrix[sent vectors], array[string sentences], array[string filename]
+    :param data_type: String -> fact/decision
+    :param command_list: command line argument
+    :return: None
+    """
     try:
         min_cluster_size = int(command_list[0])
         epsilon = float(command_list[1])
@@ -27,6 +34,13 @@ def dbscan(data_tuple, data_type, command_list):
 
 
 def hdbscan(data_tuple, data_type, command_list):
+    """
+    run hdbscan
+    :param data_tuple: matrix[sent vectors], array[string sentences], array[string filename]
+    :param data_type: String -> fact/decision
+    :param command_list: command line argument
+    :return: None
+    """
     try:
         min_cluster_size = int(command_list[0])
         min_sample_size = int(command_list[1])
@@ -38,6 +52,13 @@ def hdbscan(data_tuple, data_type, command_list):
 
 
 def kmeans(data_tuple, data_type, command_list):
+    """
+    run k-means
+    :param data_tuple: matrix[sent vectors], array[string sentences], array[string filename]
+    :param data_type: String -> fact/decision
+    :param command_list: command line argument
+    :return: None
+    """
     try:
         cluster_size = int(command_list[0])
         KMeansWrapper(data_tuple, data_type, cluster_size=cluster_size).cluster()
@@ -48,6 +69,11 @@ def kmeans(data_tuple, data_type, command_list):
 
 
 def get_data_tuple(data_type):
+    """
+    get data tuple
+    :param data_type: String --> fact/decision
+    :return: None
+    """
     if data_type == CommandEnum.FACTS:
         return Load.load_binary("facts_pre_processed.bin")
     elif data_type == CommandEnum.OUTCOMES:
@@ -57,6 +83,11 @@ def get_data_tuple(data_type):
 
 
 def run(command_list):
+    """
+    main method
+    :param command_list: command line arguments
+    :return: None
+    """
     if len(command_list) < 2:
         return False
 
