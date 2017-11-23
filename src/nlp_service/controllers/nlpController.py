@@ -1,3 +1,4 @@
+import os
 from flask import jsonify, abort, make_response
 
 from postgresql_db.models import *
@@ -9,6 +10,7 @@ from nlp_service.app import db
 
 from postgresql_db.models import Conversation, ClaimCategory, Fact
 
+from outlier.outlier_detection import OutlierDetection
 # Global Variables
 
 # Decided value of 30% percent difference which is used to determine if a clarification is needed.
@@ -21,6 +23,10 @@ minimum_intent_confidence_threshold = 0.6
 # Rasa Classifier - Initialization of RasaClassifier, used for claim category determination and fact value classification
 rasaClassifier = RasaClassifier()
 rasaClassifier.train(force_train=True)
+
+# Outlier detector - Predicts if the new message is a clear outlier based on a model trained with fact messages
+outlier_detector = OutlierDetection()
+
 
 """
 Classifies the claim category from the user's message, set the Conversation's claim cateogry, and returns the first question to ask.
@@ -152,6 +158,13 @@ message: the message given by the user
 
 
 def __extract_entity(current_fact_name, message):
+    # First pass: outlier detection
+    # TODO: For now, this is disabled while we are gathering data from beta users
+    if 'OUTLIER_DETECTION' in os.environ:
+        result = outlier_detector.predict_if_outlier([message.lower()])
+        if result[0] == -1:
+            return None
+
     classify_dict = rasaClassifier.classify_fact(current_fact_name, message)
     print(classify_dict)
 
