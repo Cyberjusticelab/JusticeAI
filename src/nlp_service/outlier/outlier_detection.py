@@ -18,6 +18,8 @@ class OutlierDetection:
         self.CONTAMINATION = 0.2
         self.NGRAM_RANGE = (1, 2)
 
+        self.ensure_models_loaded()
+
     def initialize_fact_model(self):
         # Extract all RASA training sentences for all facts
         rasa_fact_paths = glob.glob(self.RASA_FACT_DIR + '*.json')

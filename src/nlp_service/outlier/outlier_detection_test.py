@@ -13,7 +13,6 @@ def test_default_arguments():
 
 def test_initialize_fact_model():
     outlier_detector = OutlierDetection()
-    outlier_detector.initialize_fact_model()
     assert os.path.isfile(outlier_detector.TFIFD_PICKLE_FILE)
     assert os.stat(outlier_detector.TFIFD_PICKLE_FILE).st_size > 0
     assert os.path.isfile(outlier_detector.OUTLIER_PICKLE_FILE)
@@ -21,13 +20,11 @@ def test_initialize_fact_model():
 
 def test_predict_if_outlier_positive():
     outlier_detector = OutlierDetection()
-    outlier_detector.initialize_fact_model()
     result = outlier_detector.predict_if_outlier(['iuwerw8734234234 uywier68732468234'])
     assert result[0] == -1
 
 def test_predict_if_outlier_positive():
     outlier_detector = OutlierDetection()
-    outlier_detector.initialize_fact_model()
     result = outlier_detector.predict_if_outlier(['it says on my lease that it ends on the 2nd of this month'])
     assert result[0] == 1
 
