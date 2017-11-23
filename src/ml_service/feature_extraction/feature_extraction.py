@@ -3,6 +3,7 @@ from feature_extraction.clustering import clustering
 from feature_extraction.post_processing import post_processing
 from util.log import Log
 
+
 def run(action="all", fact_cluster_method="hdbscan", decision_cluster_method="dbscan", data_type="all"):
     """
     feature_extraction drive

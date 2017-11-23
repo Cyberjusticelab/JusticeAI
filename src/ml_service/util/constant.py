@@ -1,5 +1,5 @@
 import os
-from enum import Enum
+
 
 class Path:
     """
@@ -18,3 +18,6 @@ class Path:
 
     __rel_path = r'data/cache/'
     cache_directory = os.path.join(root_directory, __rel_path)
+
+    __rel_path = r'data/test_data/'
+    test_data_directory = os.path.join(root_directory, __rel_path)
