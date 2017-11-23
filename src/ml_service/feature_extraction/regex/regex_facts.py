@@ -77,7 +77,6 @@ class TagPrecedents:
         file_contents = file.read()
         statement_tagged = False
         self.nb_lines += len(file_contents.split('\n'))
-        test = enumerate(self.regexes["regex_demands"])
         for i, (_, regex_array) in enumerate(self.regexes["regex_facts"]):
             if self.__match_any_regex(file_contents, regex_array):
                 facts_vector[i] = 1
@@ -128,12 +127,9 @@ if __name__ == '__main__':
 
     print("Total precedents parsed: {}".format(len(fact_dict)))
     for i in range(len(next(iter(fact_dict.values()))['facts_vector'])):
-        total_fact = len([1 for val in fact_dict.values()
-                if val['facts_vector'][i] == 1])
-        print("Total precedents with {:41} : {}".format(
-            indices['facts_vector'][i][1], total_fact))
+        total_fact = len([1 for val in fact_dict.values() if val['facts_vector'][i] == 1])
+        print("Total precedents with {:41} : {}".format(indices['facts_vector'][i][1], total_fact))
+
     for i in range(len(next(iter(fact_dict.values()))['demands_vector'])):
-        total_fact = len([1 for val in fact_dict.values()
-                          if val['demands_vector'][i] == 1])
-        print("Total precedents with {:41} : {}".format(
-            indices['demands_vector'][i][1], total_fact))
+        total_fact = len([1 for val in fact_dict.values() if val['demands_vector'][i] == 1])
+        print("Total precedents with {:41} : {}".format(indices['demands_vector'][i][1], total_fact))
