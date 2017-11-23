@@ -1,4 +1,4 @@
-from outcome_predictor.svm import LinearSVM
+from src.ml_service.model_learning.svm import LinearSVM
 from numpy.testing import assert_array_equal
 
 
