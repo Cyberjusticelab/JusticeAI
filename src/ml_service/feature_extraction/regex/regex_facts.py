@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-from global_variables.global_variable import Global
 import os
 import numpy
-from outputs.output import Save, Log
+from util.file import Save
+from util.log import Log
+from util.constant import Path
 from sys import stdout
-from ml_models.models import Load
+from file import Load
 
 
 class TagPrecedents:
@@ -16,8 +17,8 @@ class TagPrecedents:
         self.text_tagged = 0
         self.nb_lines = 0
         self.nb_text = 0
-        self.regexes = Load.load_model_from_bin(Load.regexes)
-        self.precedents_directory_path = Global.precedent_directory
+        self.regexes = Load.load_binary("/Users/taimoorrana/Documents/JusticeAI/src/ml_service/ml_models/regexes.bin")
+        self.precedents_directory_path = Path.raw_data_directory
 
     def get_intent_indice(self):
         """
@@ -57,7 +58,7 @@ class TagPrecedents:
         Log.write('Line Coverage: ' +
                   str(self.statements_tagged / self.nb_lines))
         save = Save('fact_dict')
-        save.binarize_model('fact_dict.bin', self.fact_dict)
+        save.save_binary('fact_dict.bin', self.fact_dict)
         return self.fact_dict
 
     def __tag_file(self, filename):

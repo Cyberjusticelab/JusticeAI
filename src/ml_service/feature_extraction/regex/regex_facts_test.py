@@ -2,8 +2,8 @@
 import unittest
 import re
 import os
-from src.ml_service.global_variables.global_variable import Global
-from src.ml_service.feature_extraction.regex.regex_facts import TagPrecedents
+from util.constant import Path
+from feature_extraction.regex.regex_facts import TagPrecedents
 
 
 class RegexFactsTest(unittest.TestCase):
@@ -14,13 +14,13 @@ class RegexFactsTest(unittest.TestCase):
 
     def test_regex_model(self):
         self.precedent_tagger.tag_precedents(10)
-        binary_model_path = Global.output_directory + r'fact_dict/fact_dict.bin'
+        binary_model_path = Path.binary_directory + r'fact_dict.bin'
         self.assertTrue(os.path.isfile(binary_model_path))
 
     def test_tag_precedents(self):
-        self.precedent_tagger.precedents_directory_path = Global.test_data_directory + "sample_precedent/"
+        self.precedent_tagger.precedents_directory_path = Path.test_data_directory + "sample_precedent/"
 
-        facts_found = self.precedent_tagger.tag_precedents(1)
+        facts_found = self.precedent_tagger.tag_precedents(2)
         self.assertEqual(facts_found["1.txt"]["facts_vector"], [1])
         self.assertEqual(facts_found["2.txt"]["demands_vector"], [0])
 
