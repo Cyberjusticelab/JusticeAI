@@ -19,6 +19,8 @@ RUN pip install -r ./src/ml_service/requirements_test.txt
 RUN pip install hdbscan
 
 COPY ./src/ml_service/init.py ./src/ml_service/
+COPY ./src/ml_service/util/* ./src/ml_service/util/
+COPY ./src/ml_service/data/binary/* ./src/ml_service/data/binary/
 RUN cd src/ml_service && python init.py
 
 COPY . .
