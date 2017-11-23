@@ -1,6 +1,5 @@
 import os
 import unittest
-import shutil
 import joblib
 import numpy
 
@@ -8,7 +7,7 @@ from feature_extraction.pre_processing.pre_processing import run
 from util.constant import Path
 
 
-class TestStringMethods(unittest.TestCase):
+class TestPreProcessingMethods(unittest.TestCase):
 
     def test_save(self):
         __script_dir = os.path.abspath(Path.cache_directory)
@@ -31,7 +30,7 @@ class TestStringMethods(unittest.TestCase):
         file.writelines("[9] Le chat veut me tuer.\n")
         file.writelines("[10] Le chat veut me tuer.\n")
         file.close()
-        run(facts, 1)
+        run([1], facts)
 
         binary_model_path = Path.binary_directory + "test_facts.bin"
         self.assertTrue(os.path.isfile(binary_model_path))

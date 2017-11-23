@@ -9,7 +9,7 @@ from util.constant import Path
 
 """
 This python module is used to fill in missing keys from the
-word vector model_learning. This script attempts to find the closest
+word vector model_training. This script attempts to find the closest
 similar word to the one given. The end goal will enable every
 word to be vectorized.
 """

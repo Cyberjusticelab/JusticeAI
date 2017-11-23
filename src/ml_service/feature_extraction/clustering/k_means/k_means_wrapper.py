@@ -3,9 +3,18 @@ from sklearn.cluster import KMeans
 from util.file import Save
 from util.log import Log
 
+
 class KMeansWrapper:
 
     def __init__(self, data_tuple, data_type, cluster_size=100, method="k-means++"):
+        """
+        Contructor.
+        Initialize settings for k-means
+        :param data_tuple: matrix[sentence word2vec], list[raw sentences], list[filenames]
+        :param data_type: string --> facts/decisions
+        :param cluster_size: int
+        :param method: string
+        """
         self.data_tuple = data_tuple
         self.data_type = data_type
         self.cluster_size = cluster_size
@@ -14,6 +23,7 @@ class KMeansWrapper:
     def cluster(self):
         """
         Clusters all given facts using K-Mean, and writes the resulting
+        :return: None
         """
         Log.write("Starting K-Mean clustering")
         Log.write("Cluster Size: " + str(self.cluster_size))

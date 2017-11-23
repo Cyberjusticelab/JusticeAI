@@ -3,14 +3,22 @@ import numpy
 from feature_extraction.pre_processing.pre_processor import PreProcessor
 from util.file import Save
 from util.constant import Path
+from util.log import Log
 
-def run(filename=None, nb_of_files=-1):
+
+def run(command_list, filename=None):
     """
-        Gets all information from precedent and saves binary model_learning
-        :param data_to_extract: decision or facts
-        :param nb_of_files: -1 reads all directory
-        :return: None
-        """
+    Gets all information from precedent and saves binary model_training
+    :param data_to_extract: decision or facts
+    :param command_list: command line arguments
+    :return: None
+    """
+    nb_of_files = -1
+    try:
+        nb_of_files = int(command_list[0])
+    except ValueError:
+        Log.write("Excepted numerical value")
+
     parser = PreProcessor()
     precedent_dict = parser.parse_files(Path.raw_data_directory, nb_of_files)
     fact = __get_tuple(precedent_dict, "facts")

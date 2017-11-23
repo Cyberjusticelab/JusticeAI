@@ -4,28 +4,26 @@ from feature_extraction.post_processing import post_processing
 from util.log import Log
 
 
-def run(action="all", fact_cluster_method="hdbscan", decision_cluster_method="dbscan", data_type="all"):
+class CommandEnum:
+    PRE_PROCESSING = "-pre"
+    POST_PROCESSING = "-post"
+    CLUSTERING = "-cluster"
+
+
+def run(command_list):
     """
-    feature_extraction drive
-    :param action: String
-    :param cluster_type: String
+    Driver for feature extraction subsystem
+    :param command_list: Command line arguments
+    :return: None
     """
-    Log.write("Running feature extraction: (pipleline=" + action + " fact_cluster_algorithm=" + fact_cluster_method +
-              " decision_cluster_algorithm=" + decision_cluster_method)
-    if action=="pre":
-        pre_processing.run()
-    elif action=="cluster":
-        if data_type=="fact":
-            clustering.run(fact_cluster_method, data_type)
-        elif data_type=="decision":
-            clustering.run(decision_cluster_method, data_type)
-        else:
-            clustering.run(fact_cluster_method, "fact")
-            clustering.run(decision_cluster_method, "decision")
-    elif action=="post":
-        post_processing.run()
+    command = command_list[0]
+    if command == CommandEnum.PRE_PROCESSING:
+        pre_processing.run(command_list)
+
+    elif command == CommandEnum.CLUSTERING:
+        clustering.run(command_list[1:])
+
+    elif command == CommandEnum.POST_PROCESSING:
+        post_processing.run(command_list)
     else:
-        pre_processing.run()
-        clustering.run(fact_cluster_method, "fact")
-        clustering.run(decision_cluster_method, "decision")
-        post_processing.run()
+        Log.write("Command not recognized: " + command_list[0])

@@ -31,7 +31,7 @@ class TestFrenchWordVector(unittest.TestCase):
     def test_vectorize_sent(self):
         """
         The actual values of the vector are not tested because
-        they are arbitrary from one model_learning to another.
+        they are arbitrary from one model_training to another.
         """
         FrenchVector.load_french_vector_bin()
         sentence = "Je suis trop beau."
