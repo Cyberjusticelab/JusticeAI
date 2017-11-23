@@ -8,7 +8,7 @@ coverage.xml
 .idea/*
 /data/**/*.bin
 /data/**/*.pickle
-/regexes.bin
+!regexes.bin
 server.log
 *.pyc
 /data/raw/**/*.txt
