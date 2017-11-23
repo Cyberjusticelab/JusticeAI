@@ -31,6 +31,7 @@ if os.path.isfile(cachePickleFilePath):
     cache = pickle.load(cacheFile)
     Log.write("cached Pickle of words is successfully loaded")
 
+
 def find_related(queryWord):
     """
     Returns a related word to the given word, using French
@@ -79,6 +80,7 @@ def find_related(queryWord):
     cache[queryWord] = None
     return None
 
+
 def save_cache():
     """
     Save cache of replaced words. This speeds up the process
@@ -89,6 +91,8 @@ def save_cache():
     file = open(cachePickleFilePath, "wb")
     pickle.dump(cache, file)
     Log.write("cached Pickle of words is successfully saved")
+    file.close()
+
 
 def _find_synonym(soup):
     """
@@ -104,6 +108,7 @@ def _find_synonym(soup):
     synonyms = [word for word in synonyms if word != ""]
     return synonyms[0]
 
+
 def _find_plural(soup):
     """
     Finds plural of given word
@@ -114,6 +119,7 @@ def _find_plural(soup):
     if node is None:
         return None
     return node.next_sibling.next_sibling.text
+
 
 def _find_fem_plural(soup):
     """
@@ -126,6 +132,7 @@ def _find_fem_plural(soup):
         return None
     return node.next_sibling.next_sibling.text
 
+
 def _find_feminin(soup):
     """
     Finds feminine of word
@@ -136,6 +143,7 @@ def _find_feminin(soup):
     if node is None:
         return None
     return node.next_sibling.next_sibling.text
+
 
 def _find_conjugation(soup):
     """

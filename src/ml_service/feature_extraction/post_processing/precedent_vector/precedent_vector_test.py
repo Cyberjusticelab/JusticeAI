@@ -9,8 +9,8 @@ from util.constant import Path
 
 class StructuredPrecedentsTest(unittest.TestCase):
     def test_create_structure_from_data_tuple(self):
-        matrix = numpy.matrix([[2, 3, 4, 5], [2, 1, 6, 7], [2, 54, 12, 23],[2, 3, 4, 5], [2, 1, 6, 7], [2, 54, 12, 23],[2, 3, 4, 5], [2, 1, 6, 7], [2, 54, 12, 23]])
-        sentence = numpy.array([["I shot the supremacist."], ["Over 9000"], ["Bruce lee"],["I shot the supremacist."],["Over 9000"], ["Bruce lee"], ["I shot the supremacist."], ["Over 9000"], ["Bruce lee"]])
+        matrix = numpy.matrix([[2, 3, 4, 5], [2, 1, 6, 7], [2, 54, 12, 23], [2, 3, 4, 5], [2, 1, 6, 7], [2, 54, 12, 23], [2, 3, 4, 5], [2, 1, 6, 7], [2, 54, 12, 23]])
+        sentence = numpy.array([["I shot the supremacist."], ["Over 9000"], ["Bruce lee"], ["I shot the supremacist."], ["Over 9000"], ["Bruce lee"], ["I shot the supremacist."], ["Over 9000"], ["Bruce lee"]])
         files = numpy.array([["1"], ["2"], ["3"], ["1"], ["2"], ["3"], ["1"], ["2"], ["3"]])
         data_tuple = (matrix, sentence, files)
         hdb = HDBSCAN(min_cluster_size=2, min_samples=1).fit(data_tuple[0])

@@ -3,7 +3,7 @@ import unittest
 import joblib
 import numpy
 
-from feature_extraction.pre_processing.pre_processing import run
+from feature_extraction.pre_processing.pre_processing_driver import run
 from util.constant import Path
 
 

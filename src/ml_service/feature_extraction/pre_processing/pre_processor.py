@@ -8,6 +8,7 @@ from feature_extraction.pre_processing.word_vector.french_vector import FrenchVe
 from util.constant import Path
 from util.file import Log
 
+
 class State:
     """
     Used for state machine
@@ -17,8 +18,9 @@ class State:
     FACTS = 1
     DECISION = 2
 
+
 class PreProcessor:
-    
+
     __factMatch = re.compile("\[\d+\]\s")
     __minimum_line_length = 6
 

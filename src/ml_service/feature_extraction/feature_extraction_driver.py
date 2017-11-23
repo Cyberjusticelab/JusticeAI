@@ -1,6 +1,6 @@
-from feature_extraction.pre_processing import pre_processing
-from feature_extraction.clustering import clustering
-from feature_extraction.post_processing import post_processing
+from feature_extraction.pre_processing import pre_processing_driver
+from feature_extraction.clustering import clustering_driver
+from feature_extraction.post_processing import post_processing_driver
 from util.log import Log
 
 
@@ -18,12 +18,14 @@ def run(command_list):
     """
     command = command_list[0]
     if command == CommandEnum.PRE_PROCESSING:
-        pre_processing.run(command_list)
+        pre_processing_driver.run(command_list[1:])
 
     elif command == CommandEnum.CLUSTERING:
-        clustering.run(command_list[1:])
+        clustering_driver.run(command_list[1:])
 
     elif command == CommandEnum.POST_PROCESSING:
-        post_processing.run(command_list)
+        post_processing_driver.run(command_list)
     else:
         Log.write("Command not recognized: " + command_list[0])
+        return False
+    return True

@@ -18,7 +18,7 @@ class RegexFactTest(unittest.TestCase):
         self.assertTrue(os.path.isfile(binary_model_path))
 
     def test_tag_precedents(self):
-        self.precedent_tagger.precedents_directory_path = Path.test_data_directory + "sample_precedent/"
+        self.precedent_tagger.precedents_directory_path = Path.test_data_directory
 
         facts_found = self.precedent_tagger.tag_precedents(2)
         self.assertEqual(facts_found["1.txt"]["facts_vector"], [1])
@@ -28,4 +28,3 @@ class RegexFactTest(unittest.TestCase):
         regex_list = self.precedent_tagger.get_intent_indice()
         self.assertEqual(regex_list["facts_vector"][0], (0, "some_fact"))
         self.assertEqual(regex_list["demands_vector"][0], (0, "some_demand"))
-

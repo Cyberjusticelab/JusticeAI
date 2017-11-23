@@ -27,7 +27,6 @@ class TestRelatedWordFetcher(unittest.TestCase):
         # Verify
         self.assertEqual(result, "locateur")
 
-
     def test_find_plural(self):
         # Test Data
         data = """
@@ -51,7 +50,6 @@ class TestRelatedWordFetcher(unittest.TestCase):
         # Verify
         self.assertEqual(result, "locateur")
 
-
     def test_find_fem_plural(self):
         # Test Data
         data = """
@@ -73,7 +71,6 @@ class TestRelatedWordFetcher(unittest.TestCase):
 
         # Verify
         self.assertEqual(result, "locateur")
-
 
     def test_find_synonym(self):
         # Test Data
@@ -104,7 +101,6 @@ class TestRelatedWordFetcher(unittest.TestCase):
 
         # Verify
         self.assertEqual(result, "loueur")
-
 
     def test_find_conjugation(self):
         # Test Data

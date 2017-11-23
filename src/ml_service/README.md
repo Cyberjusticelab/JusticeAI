@@ -186,9 +186,13 @@ export COMPOSE_FILE=ci
 ```
 
 ## Using Azure
-1- cd JusticeAi
-2- Run python3 -m src.ml_service.main to start
-3- All outputs will be sotred in JusticeAi/src/ml_service/data/cluster
-   cd to this directory to view, get, move them
-4- Running the algorithm will overrite any existing files in the output folder.
-5- Outputs are saved as text files and as binary models. The text files represent the clusters while the binary file is the model itself.
+1- Use machine learning through commands. Improvment from always updating python files with vim.
+2-  python main.py -cluster -hdbscan -fact|decision -[min cluster size] -[min sample size]
+    python main.py -cluster -kmeans -fact|decision -[cluster number]
+    python main.py -cluster -hdbscan -fact|decision -[min cluster size] -[epsilon]
+    python main.py -train
+    python main.py -pre -[number of files | empty for all]
+    python main.py -post
+3- all binary files saved to data/binary
+4- all text files to data/cluster
+5- all raw_data to data/raw

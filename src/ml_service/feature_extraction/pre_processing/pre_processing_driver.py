@@ -18,9 +18,8 @@ def run(command_list, filename=None):
         nb_of_files = int(command_list[0])
     except ValueError:
         Log.write("Excepted numerical value")
-
     parser = PreProcessor()
-    precedent_dict = parser.parse_files(Path.raw_data_directory, nb_of_files)
+    precedent_dict = parser.parse_files(Path.raw_data_directory, nb_of_files=nb_of_files)
     fact = __get_tuple(precedent_dict, "facts")
     decision = __get_tuple(precedent_dict, "decisions")
 

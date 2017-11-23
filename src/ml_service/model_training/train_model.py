@@ -1,5 +1,5 @@
 import numpy as np
-from model_training.svm import LinearSVM
+from model_training.svm.svm import LinearSVM
 from util.file import Load
 from util.log import Log
 
@@ -50,7 +50,6 @@ def get_valid_cluster_precedent_vector():
     """
         Loads a binarized version of our precedents
     """
-    print("loading data")
     model = Load.load_binary("precedent_vector.bin")
     for (key, val) in model.items():
         val['name'] = key

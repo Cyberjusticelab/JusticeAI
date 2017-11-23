@@ -20,7 +20,7 @@ class PrecedentVector:
         :return: 
         """
         self.__create_structure_from_cluster_files(fact_cluster_directory, self.FACTS)
-        self.__create_structure_from_cluster_files(decision_cluster_directory ,self.DECISIONS)
+        self.__create_structure_from_cluster_files(decision_cluster_directory, self.DECISIONS)
 
     def create_structure_from_data_tuple(self, fact_labels, fact_data_tuple, decisions_labels, decisions_data_tuple):
         """
@@ -32,6 +32,7 @@ class PrecedentVector:
 
         self.__create_structure_from_data_tuple(fact_labels, fact_data_tuple, self.FACTS)
         self.__create_structure_from_data_tuple(decisions_labels, decisions_data_tuple, self.DECISIONS)
+        return self.precedents
 
     def __create_structure_from_data_tuple(self, labels, data_tuple, data_type):
         """
@@ -85,7 +86,7 @@ class PrecedentVector:
             if label == "-1":
                 continue
 
-            file = open(directory+file, mode="r")
+            file = open(directory + file, mode="r")
             line = file.readline()
 
             # Skip each line until the separator is found

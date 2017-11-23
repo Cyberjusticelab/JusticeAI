@@ -1,4 +1,4 @@
-from model_training.svm import LinearSVM
+from model_training.svm.svm import LinearSVM
 from numpy.testing import assert_array_equal
 
 
