@@ -1,7 +1,7 @@
 from sklearn import svm
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.metrics import precision_recall_fscore_support
-from src.ml_service.util.log import Log
+from util.log import Log
 import numpy as np
 
 
