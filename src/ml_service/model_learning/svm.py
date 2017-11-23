@@ -1,6 +1,7 @@
 from sklearn import svm
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.metrics import precision_recall_fscore_support
+from src.ml_service.util.log import Log
 import numpy as np
 
 
@@ -21,23 +22,23 @@ class LinearSVM:
         (x_total, y_total) = self._reshape_dataset()
         x_train, x_test, y_train, y_test = train_test_split(
             x_total, y_total, test_size=0.20, random_state=42)
-        print("Sample size: {}".format(len(x_total)))
-        print("Train size: {}".format(len(x_train)))
-        print("Test size: {}".format(len(x_test)))
+        Log.write("Sample size: {}".format(len(x_total)))
+        Log.write("Train size: {}".format(len(x_train)))
+        Log.write("Test size: {}".format(len(x_test)))
 
-        print("Training Classifier")
+        Log.write("Training Classifier")
         clf = svm.SVC(kernel='linear', random_state=42)
         clf.fit(x_train, y_train)
 
         # Test
-        print("Testing Classifier")
+        Log.write("Testing Classifier")
         y_predict = clf.predict(x_test)
         num_correct = np.sum(y_predict == y_test)
         (precision, recall, f1, _) = precision_recall_fscore_support(y_test, y_predict)
-        print('Test accuracy: {}%'.format(num_correct * 100.0/len(y_test)))
-        print('Precision: {}'.format(precision))
-        print('Recall: {}'.format(recall))
-        print('F1: {}'.format(f1))
+        Log.write('Test accuracy: {}%'.format(num_correct * 100.0/len(y_test)))
+        Log.write('Precision: {}'.format(precision))
+        Log.write('Recall: {}'.format(recall))
+        Log.write('F1: {}'.format(f1))
 
         self.model = clf
 
@@ -51,7 +52,7 @@ class LinearSVM:
         """
         if hasattr(self, 'model'):
             return self.model.predict([facts_vector])
-        print('Please train the classifier first')
+        Log.write('Please train the classifier first')
         return None
 
     def get_weights(self):
