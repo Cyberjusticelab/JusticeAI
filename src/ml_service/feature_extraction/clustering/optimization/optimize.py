@@ -3,8 +3,8 @@ from sys import stdout
 
 
 class File:
-    Epsilon = 'epsilon.txt'
-    ClusterSize = 'cluster_size.txt'
+    Epsilon = "epsilon.txt"
+    ClusterSize = "cluster_size.txt"
 
 
 def epsilon_histogram(data_matrix):

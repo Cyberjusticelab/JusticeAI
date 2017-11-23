@@ -6,6 +6,7 @@ coverage.xml
 .idea/
 ./**/*.iml
 .idea/*
+<<<<<<< HEAD
 /src/ml_ser
 /precedents/text_bk/*
 /word_vectors/*.bin
@@ -19,3 +20,8 @@ coverage.xml
 /outputs/**/*.bin
 /word_vectors/cache.pickle
 /outputs/fact_dict/
+/data/**/*.txt
+/data/**/*.bin
+/data/**/*.pickle
+server.log
+*.pyc
