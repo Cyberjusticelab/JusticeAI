@@ -138,10 +138,6 @@ conversation_id: The message provided by the user as confirmation (True/False/'$
 
 def store_user_confirmation(conversation_id, confirmation):
     conversation = __get_conversation(conversation_id)
-    print(conversation)
-    print(conversation.current_fact)
-    print(conversation.messages)
-
     messages = conversation.messages[::-1]
     for message in messages:
         if message.sender_type == SenderType.USER:
