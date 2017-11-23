@@ -157,9 +157,8 @@ class Responses:
             ],
         "tenant_withold_rent_without_permission":
             [
-                "Is the tenant witholding rent without having received permission from the Regie?"
+                "Is the tenant withholding rent without having received permission from the Regie du logement?"
             ],
-
         "missing_response":
             [
                 "Oops, something went wrong finding a response. Sorry about that."
