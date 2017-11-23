@@ -66,7 +66,7 @@ class LinearSVM:
         """
         if hasattr(self, 'model'):
             return self.model.coef_[0]
-        Log.writet('Please train the classifier first')
+        Log.write('Please train the classifier first')
         return None
 
     def evaluate_best_parameters(self):
