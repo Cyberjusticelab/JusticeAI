@@ -12,5 +12,5 @@ coverage.xml
 server.log
 *.pyc
 /data/raw/**/*.txt
-/data/cluster/fact/*
-/data/cluster/decision/*
+/data/cluster/fact/*.txt
+/data/cluster/decision/*.txt
