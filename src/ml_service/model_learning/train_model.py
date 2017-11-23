@@ -1,6 +1,6 @@
 import numpy as np
-from outcome_predictor.svm import LinearSVM
-from ml_models.models import Load
+from model_learning.svm import LinearSVM
+from util.file  import Load
 # I ran a crude regex to see which clusters have resiliation
 resiliation_custers = [1,
                        2,
@@ -48,7 +48,7 @@ def get_valid_cluster_precedent_vector():
         Loads a binarized version of our precedents
     """
     print("loading data")
-    model = Load.load_model_from_bin(Load.precedent_vector_from_clusters)
+    model = Load.load_binary("precedent_vector_from_clusters.bin")
     for (key, val) in model.items():
         val['name'] = key
     valid_values = [precedent for precedent in model.values() if precedent[
@@ -74,7 +74,7 @@ def merge_regex_and_cluster_precedent_vector(data_set):
         params: data_set: initial data_set
     """
     print("loading regex data")
-    fact_vectors = Load.load_model_from_bin(Load.regex_vectors)
+    fact_vectors = Load.load_binary("fact_dict.bin")
     print("merging data")
     new_val = []
     for val in data_set:
