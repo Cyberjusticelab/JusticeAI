@@ -43,7 +43,7 @@ class LinearSVM:
         Log.write('F1: {}'.format(f1))
         self.model = clf
         save = Save()
-        save.save_binary("svm_model", self.model)
+        save.save_binary("svm_model.bin", self.model)
 
 
     def predict(self, facts_vector):
