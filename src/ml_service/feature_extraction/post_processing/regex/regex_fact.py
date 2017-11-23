@@ -17,7 +17,7 @@ class TagPrecedents:
         self.text_tagged = 0
         self.nb_lines = 0
         self.nb_text = 0
-        self.regexes = Load.load_binary(Path.binary_directory + "regexes.bin")
+        self.regexes = Load.load_binary("regexes.bin")
         self.precedents_directory_path = Path.raw_data_directory
 
     def get_intent_indice(self):
