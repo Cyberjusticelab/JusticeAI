@@ -11,14 +11,14 @@ class OutlierDetection:
         self.RASA_FACT_DIR = os.getcwd() + '/rasa/data/fact/'
         self.TFIFD_PICKLE_FILE = os.getcwd() + '/outlier/tfidf_vectorizer.bin.z'
         self.OUTLIER_PICKLE_FILE = os.getcwd() + '/outlier/outlier_estimator.bin.z'
-        self.TFIFD_VECTORIZER = None
-        self.OUTLIER_ESTIMATOR = None
+        with open(self.TFIFD_PICKLE_FILE, 'rb') as f:
+            self.TFIFD_VECTORIZER = joblib.load(f)
+        with open(self.OUTLIER_PICKLE_FILE, 'rb') as f:
+            self.OUTLIER_ESTIMATOR = joblib.load(f)
 
         # The proportion of the data set that is considered as an outlier
         self.CONTAMINATION = 0.2
         self.NGRAM_RANGE = (1, 2)
-
-        self.ensure_models_loaded()
 
     def initialize_fact_model(self):
         # Extract all RASA training sentences for all facts
@@ -46,18 +46,6 @@ class OutlierDetection:
             joblib.dump(outlier_estimator, f, compress=True)
 
     def predict_if_outlier(self, sentences):
-        self.ensure_models_loaded()
-
-        # Predit whether new sentences are outliers
+        # Predict whether new sentences are outliers
         results = self.TFIFD_VECTORIZER.transform(sentences)
         return self.OUTLIER_ESTIMATOR.predict(results.toarray())
-
-
-    def ensure_models_loaded(self):
-        if not self.TFIFD_VECTORIZER:
-            with open(self.TFIFD_PICKLE_FILE, 'rb') as f:
-                self.TFIFD_VECTORIZER = joblib.load(f)
-        if not self.OUTLIER_ESTIMATOR:
-            with open(self.OUTLIER_PICKLE_FILE, 'rb') as f:
-                self.OUTLIER_ESTIMATOR = joblib.load(f)
-

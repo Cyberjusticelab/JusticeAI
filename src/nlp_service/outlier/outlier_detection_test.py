@@ -6,8 +6,8 @@ def test_default_arguments():
     assert os.path.isdir(outlier_detector.RASA_FACT_DIR)
     assert isinstance(outlier_detector.TFIFD_PICKLE_FILE, str)
     assert isinstance(outlier_detector.OUTLIER_PICKLE_FILE, str)
-    assert outlier_detector.TFIFD_VECTORIZER is None
-    assert outlier_detector.OUTLIER_ESTIMATOR is None
+    assert outlier_detector.TFIFD_VECTORIZER is not None
+    assert outlier_detector.OUTLIER_ESTIMATOR is not None
     assert isinstance(outlier_detector.CONTAMINATION, float)
     assert isinstance(outlier_detector.NGRAM_RANGE, tuple)
 
