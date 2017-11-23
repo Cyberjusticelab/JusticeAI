@@ -18,37 +18,22 @@ class Responses:
 
     # Fact Questions
     fact_questions = {
-        "absent":
-            [
-                ""
-            ],
         "apartment_impropre":
             [
-                ""
+                "Would you deem the apartment unfit for habitation?"
             ],
         "apartment_infestation":
             [
                 "Is your apartment infested with any sort of pest?"
             ],
-        "asker_is_landlord":
-            [
-                ""
-            ],
-        "asker_is_tenant":
-            [
-                ""
-            ],
         "bothers_others":
             [
-                ""
+                "Have you received any complaints of the tenant acting in a disruptive manner?",
+                "Has the tenant's behaviour been disruptive?"
             ],
         "disrespect_previous_judgement":
             [
-                ""
-            ],
-        "incorrect_facts":
-            [
-                ""
+                "Has the tenant failed to abide by a previous Regie judgement?"
             ],
         "landlord_inspector_fees":
             [
@@ -58,119 +43,81 @@ class Responses:
             [
                 "Did you notify your tenant in advance about your intentions to "
             ],
-        "landlord_pays_indemnity":
-            [
-                ""
-            ],
-        "landlord_prejudice_justified":
-            [
-                ""
-            ],
         "landlord_relocation_indemnity_fees":
             [
-                ""
+                "Have moving expenses been compensated when the apartment was deemed inhabitable?"
             ],
         "landlord_rent_change":
             [
-                ""
+                "Has there been an attempt to change the rent during the term of the lease?"
             ],
         "landlord_rent_change_doc_renseignements":
             [
-                ""
-            ],
-        "landlord_rent_change_piece_justification":
-            [
-                ""
-            ],
-        "landlord_rent_change_receipts":
-            [
-                ""
+                "Are there any supporting documents justifying an increase in rent?"
             ],
         "landlord_retakes_apartment":
             [
-                ""
+                "Is the apartment being taken back to lodge the landlord or their family member?"
             ],
         "landlord_retakes_apartment_indemnity":
             [
-                ""
+                "Have moving expenses been compensated when the apartment was to be retaken?"
             ],
         "landlord_sends_demand_regie_logement":
             [
-                ""
-            ],
-        "landlord_serious_prejudice":
-            [
-                ""
-            ],
-        "lease":
-            [
-                ""
+                "Has an inquiry been made with the Regie du logement?"
             ],
         "proof_of_late":
             [
-                ""
+                "Has a debt acknowledgment been signed by the tenant?"
             ],
         "proof_of_revenu":
             [
-                ""
+                "Has proof of ability to pay for the rented property been provided?"
             ],
         "rent_increased":
             [
-                ""
+                "Has the rent been increased during the term of the lease?"
             ],
         "tenant_bad_payment_habits":
             [
-                ""
+                "Has the tenant continually been late with their rent payments?"
             ],
         "tenant_continuous_late_payment":
             [
                 "Does the tenant often pay their rent after it’s due?",
-                "Is the tenant often paying their rent late?",
-                "Has the tenant continually been late with their rent payments?"
             ],
         "tenant_damaged_rental":
             [
-                ""
+                "Was there any damage done to the rented property?"
             ],
         "tenant_dead":
             [
-                ""
+                "Is the tenant dead?"
             ],
         "tenant_declare_insalubre":
             [
-                ""
+                "Is the apartment dirty?"
             ],
         "tenant_financial_problem":
             [
-                ""
+                "Are there any financial issues preventing the payment of rent?"
             ],
         "tenant_group_responsability":
             [
-                ""
+                "If there are multiple tenants inside of the apartment, "
             ],
         "tenant_individual_responsability":
             [
-                ""
-            ],
-        "tenant_is_bothered":
-            [
-                ""
-            ],
-        "lack_of_proof":
-            [
-                ""
+                "If there are multiple tenants inside of the apartment, does each possess their own lease?"
             ],
         "tenant_landlord_agreement":
             [
-                ""
+                "Was there a mutually beneficial agreement set by both parties?"
             ],
         "tenant_lease_fixed":
             [
-                ""
-            ],
-        "tenant_lease_indeterminate":
-            [
-                ""
+                "Is there a specified end date to the lease?"
             ],
         "tenant_left_without_paying":
             [
@@ -179,47 +126,38 @@ class Responses:
             ],
         "tenant_monthly_payment":
             [
-                ""
+                "Is there a monthly rent payment?"
             ],
         "tenant_negligence":
             [
-                ""
+                "Has the tenant displayed any negligence with the rental?"
             ],
         "tenant_not_request_cancel_lease":
             [
-                ""
+                "Has a request for cancellation of the lease been given by any of the parties?"
             ],
         "tenant_owes_rent":
             [
-                ""
+                "Does the tenant owe rent?",
+                "Does the tenant currently owe you an overdue rent payment?"
             ],
         "tenant_refuses_retake_apartment":
             [
-                ""
-            ],
-        "tenant_rent_not_paid_less_3_weeks":
-            [
-                ""
+                "Has the tenant refused the takeover of the apartment?"
             ],
         "tenant_rent_not_paid_more_3_weeks":
             [
-                ""
-            ],
-        "tenant_rent_paid_before_hearing":
-            [
-                ""
+                "Has the tenant not paid rent for over 3 weeks?",
+                "Has rent not been paid by the tenant for over 3 weeks?"
             ],
         "tenant_violence":
             [
-                ""
+                "Has the tenant demonstrated violent behavior?",
+                "Has the tenant ever been violent?"
             ],
         "tenant_withold_rent_without_permission":
             [
-                ""
-            ],
-        "violent":
-            [
-                ""
+                "Is the tenant witholding rent without having received permission from the Regie?"
             ],
 
         "missing_response":
