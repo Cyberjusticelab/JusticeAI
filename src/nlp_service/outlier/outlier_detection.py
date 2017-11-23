@@ -1,14 +1,16 @@
 import glob
 import os
 import json
-import pickle
+import joblib
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.covariance import EllipticEnvelope
 
 
 class OutlierDetection:
     def __init__(self):
         self.RASA_FACT_DIR = os.getcwd() + '/rasa/data/fact/'
-        self.TFIFD_PICKLE_FILE = os.getcwd() + '/outlier/tfidf_vectorizer'
-        self.OUTLIER_PICKLE_FILE = os.getcwd() + '/outlier/outlier_estimator'
+        self.TFIFD_PICKLE_FILE = os.getcwd() + '/outlier/tfidf_vectorizer.bin.z'
+        self.OUTLIER_PICKLE_FILE = os.getcwd() + '/outlier/outlier_estimator.bin.z'
         self.TFIFD_VECTORIZER = None
         self.OUTLIER_ESTIMATOR = None
 
@@ -28,35 +30,32 @@ class OutlierDetection:
 
 
         # TF-IDF model
-        from sklearn.feature_extraction.text import TfidfVectorizer
         tfidf_vectorizer = TfidfVectorizer(ngram_range=self.NGRAM_RANGE, strip_accents='ascii')
         X_tfidf = tfidf_vectorizer.fit_transform(all_sentences)
 
         # Fit to robust covariance estimation
-        from sklearn.covariance import EllipticEnvelope
         outlier_estimator = EllipticEnvelope(contamination=self.CONTAMINATION)
         outlier_estimator.fit(X_tfidf.toarray())
 
         # Binarize for future use
         with open(self.TFIFD_PICKLE_FILE, 'wb') as f:
-            pickle.dump(tfidf_vectorizer, f)
+            joblib.dump(tfidf_vectorizer, f, compress=True)
         with open(self.OUTLIER_PICKLE_FILE, 'wb') as f:
-            pickle.dump(outlier_estimator, f)
-
+            joblib.dump(outlier_estimator, f, compress=True)
 
     def predict_if_outlier(self, sentences):
-        self._ensure_unpickled_models()
+        self.ensure_models_loaded()
 
         # Predit whether new sentences are outliers
         results = self.TFIFD_VECTORIZER.transform(sentences)
         return self.OUTLIER_ESTIMATOR.predict(results.toarray())
 
-    def _ensure_unpickled_models(self):
+
+    def ensure_models_loaded(self):
         if not self.TFIFD_VECTORIZER:
             with open(self.TFIFD_PICKLE_FILE, 'rb') as f:
-                self.TFIFD_VECTORIZER = pickle.load(f)
+                self.TFIFD_VECTORIZER = joblib.load(f)
         if not self.OUTLIER_ESTIMATOR:
             with open(self.OUTLIER_PICKLE_FILE, 'rb') as f:
-                self.OUTLIER_ESTIMATOR = pickle.load(f)
-
+                self.OUTLIER_ESTIMATOR = joblib.load(f)
 
