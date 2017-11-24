@@ -129,6 +129,32 @@ def receive_message(conversation_id, message):
 
     return jsonify(response_dict)
 
+"""
+Stores the user's feedback as to whether our NLP prediction/classification/extraction is correct
+conversation_id: ID of the conversation
+conversation_id: The message provided by the user as confirmation (True/False/'$500', etc)
+:return 200 response once the confirmation is persisted
+"""
+
+def store_user_confirmation(conversation_id, confirmation):
+    conversation = __get_conversation(conversation_id)
+    messages = conversation.messages[::-1]
+    for message in messages:
+        if message.sender_type == SenderType.USER:
+            user_message = message
+
+    user_confirmation = UserConfirmation(
+        fact_id=conversation.current_fact.id,
+        message_id=user_message.id,
+        text=confirmation
+    )
+
+    # Persist new user confirmation to DB
+    db.session.add(user_confirmation)
+    db.session.commit()
+
+    return jsonify({'message': 'User confirmation stored successfully'})
+
 
 ################
 # File Handling

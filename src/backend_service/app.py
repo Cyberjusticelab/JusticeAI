@@ -49,10 +49,10 @@ def handle_files(conversation_id=None):
     else:
         abort(make_response(jsonify(message="Invalid request"), 400))
 
-@app.route("/nlp-response", methods=['POST'])
-def train_nlp_from_user_response():
-    # TODO: Persist the user's confirmation for whether NLP prediction was correct
-    return make_response(jsonify(request.get_json()))
+@app.route("/store-user-confirmation", methods=['POST'])
+def store_user_confirmation():
+    data = request.get_json()
+    return conversationController.store_user_confirmation(data['conversation_id'], data['confirmation'])
 
 @app.route("/legal", methods=['GET'])
 def get_legal_documents():
