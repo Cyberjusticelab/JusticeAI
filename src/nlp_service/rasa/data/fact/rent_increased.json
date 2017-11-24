@@ -1,0 +1,26 @@
+﻿{
+  "rasa_nlu_data": {
+    "regex_features": [
+      {
+        "name": "True",
+        "pattern": "(yes)|(YES)|(Yes)"
+      },
+      {
+        "name": "False",
+        "pattern": "(no)|(No)|(NO)"
+      }
+    ],
+    "common_examples": [
+      {
+        "text": "yes",
+        "intent": "true",
+        "entities": []
+      },
+      {
+        "text": "no",
+        "intent": "false",
+        "entities": []
+      }
+    ]
+  }
+}
