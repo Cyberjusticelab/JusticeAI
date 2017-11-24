@@ -1,6 +1,7 @@
 import os
 import timeit
 
+from rasa_nlu.components import ComponentBuilder
 from rasa_nlu.config import RasaNLUConfig
 from rasa_nlu.converters import load_data
 from rasa_nlu.model import Trainer, Interpreter
@@ -19,9 +20,12 @@ class RasaClassifier():
     problem_category_interpreters = {}
     fact_interpreters = {}
 
+    # RASA Caching
+    builder = ComponentBuilder(use_cache=True)
+
     def __init__(self):
         self.rasa_config = RasaNLUConfig(self.config_file)
-        self.trainer = Trainer(self.rasa_config)
+        self.trainer = Trainer(self.rasa_config, self.builder)
 
     """
           Training method that trains the data sets from facts and problem categories separately
@@ -91,7 +95,7 @@ class RasaClassifier():
 
             print("Model data directory for fact {}: {}".format(fact_key, model_directory))
             if initialize_interpreters:
-                interpreter_dict[fact_key] = Interpreter.load(model_directory, self.rasa_config)
+                interpreter_dict[fact_key] = Interpreter.load(model_directory, self.rasa_config, self.builder)
 
         training_end = timeit.default_timer()
         total_training_time = round(training_end - training_start, 2)
