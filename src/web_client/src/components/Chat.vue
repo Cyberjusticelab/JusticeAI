@@ -48,7 +48,7 @@
               <transition name="fade">
                 <div>
                   <div v-if="zeus.enableUserConfirmation">
-                    <p>Please confirm whether our bot's prediction was correct</p>
+                    <p>Did I understand you correctly?</p>
                     <div v-if="factType === 'boolean'">
                       <button v-on:click="confirmBotResponse(true)">Yes</button>
                       <button v-on:click="confirmBotResponse(false)">No</button>
@@ -226,7 +226,7 @@ export default {
       this.user.disableInput = conversation.enforce_possible_answer
     },
     confirmBotResponse(confirmation) {
-      this.$http.post(this.api_url + 'nlp-response', {
+      this.$http.post(this.api_url + 'store-user-confirmation', {
         conversation_id: this.$localStorage.get('zeusId'),
         confirmation: confirmation || false
       }).then(response => {

@@ -8,6 +8,7 @@ from feature_extraction.pre_processing.word_vector.french_vector import FrenchVe
 from util.constant import Path
 from util.file import Log
 
+
 class State:
     """
     Used for state machine
@@ -17,8 +18,9 @@ class State:
     FACTS = 1
     DECISION = 2
 
+
 class PreProcessor:
-    
+
     __factMatch = re.compile("\[\d+\]\s")
     __minimum_line_length = 6
 
@@ -88,11 +90,11 @@ class PreProcessor:
 
     def __add_key(self, line):
         """
-        Apppends fact<strings> and decision<strings> to model_learning
+        Apppends fact<strings> and decision<strings> to model_training
         1 - Splits sentence where it finds a "."
         2 - Fetch dictionary based on state machine
         3 - If key already exist in dictionary then simply append filename
-        4 - If key doesn"t exist then create a new model_learning and insert it
+        4 - If key doesn"t exist then create a new model_training and insert it
         :param line: String
         :return: None
         """

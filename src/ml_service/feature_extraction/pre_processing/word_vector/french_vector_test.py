@@ -2,12 +2,14 @@ import unittest
 import numpy
 from feature_extraction.pre_processing.word_vector.french_vector import FrenchVector
 
+
 class TestFrenchWordVector(unittest.TestCase):
     """
     the most crucial aspect of this unittest is to make sure
     that the words get vectorized and that the word vector"s
     memory allocation is deallocated when it is not needed anymore
     """
+
     def test_load_vector(self):
         self.assertIsNone(FrenchVector.word_vectors)
         FrenchVector.load_french_vector_bin()
@@ -31,7 +33,7 @@ class TestFrenchWordVector(unittest.TestCase):
     def test_vectorize_sent(self):
         """
         The actual values of the vector are not tested because
-        they are arbitrary from one model_learning to another.
+        they are arbitrary from one model_training to another.
         """
         FrenchVector.load_french_vector_bin()
         sentence = "Je suis trop beau."
