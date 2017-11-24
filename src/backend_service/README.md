@@ -46,6 +46,45 @@ Provide the user's name and person type.
 
 ---
 
+# Store User Confirmation
+
+Stores the user confirmation or text supplied in order to confirm whether an NLP prediction was accurate.
+
+**URL** : `/store-user-confirmation`
+
+**Method** : `POST`
+
+**Data constraints**
+
+Provide the conversation id and confirmation text of the user.
+
+```json
+{
+    "conversation_id": 1,
+    "confirmation": true | false | "$5000"
+}
+```
+
+## Success Response
+
+**Code** : `200 OK`
+
+**Content examples**
+
+```json
+{
+    "message": "User confirmation stored successfully"
+}
+```
+
+## Error Response
+
+**Code** : `400 Bad Request`
+
+**Code** : `404 Not Found`
+
+---
+
 # Send a message
 
 Sends a message to the bot.
