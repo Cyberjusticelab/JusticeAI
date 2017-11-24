@@ -11,6 +11,7 @@ from nlp_service.app import db
 from postgresql_db.models import Conversation, ClaimCategory, Fact
 
 from outlier.outlier_detection import OutlierDetection
+
 # Global Variables
 
 # Decided value of 30% percent difference which is used to determine if a clarification is needed.
@@ -26,7 +27,6 @@ rasaClassifier.train(force_train=True)
 
 # Outlier detector - Predicts if the new message is a clear outlier based on a model trained with fact messages
 outlier_detector = OutlierDetection()
-
 
 """
 Classifies the claim category from the user's message, set the Conversation's claim cateogry, and returns the first question to ask.
@@ -115,7 +115,19 @@ def classify_fact_value(conversation_id, message):
             # Generate question for next fact (returned from ML service)
             question = Responses.fact_question(new_fact.name)
         else:
-            question = "FACT DUMP: "
+            ml_prediction_request = mlService.submit_resolved_fact_list(conversation)
+
+            outcome = ml_prediction_request["outcomes_vector"]["lease_resiliation"]
+            if outcome == 1:
+                prediction = True
+            else:
+                prediction = False
+
+            # Generate statement for prediction
+            question = Responses.prediction_statement(conversation.claim_category.value, prediction)
+
+            # Append a fact dump for good measure
+            question += "\nFACT DUMP: "
             for fact_entity in conversation.fact_entities:
                 question += "{}:{}, ".format(fact_entity.fact.name, fact_entity.value)
     else:

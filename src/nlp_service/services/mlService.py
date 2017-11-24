@@ -1,6 +1,6 @@
 import requests
 
-from postgresql_db.models import Fact, FactEntity
+from postgresql_db.models import Fact, FactEntity, PersonType
 
 ML_URL = "http://ml_service:3001"
 
@@ -66,6 +66,14 @@ def generate_fact_dict(conversation):
             resolved_facts[fact_entity_name] = True
         elif fact_entity.value == "false":
             resolved_facts[fact_entity_name] = False
+
+    # Perform asker mapping
+    if conversation.person_type is PersonType.LANDLORD:
+        resolved_facts['asker_is_landlord'] = True
+        resolved_facts['asker_is_tenant'] = False
+    else:
+        resolved_facts['asker_is_landlord'] = False
+        resolved_facts['asker_is_tenant'] = True
 
     # Perform mappings with defaults
     resolved_facts['absent'] = False

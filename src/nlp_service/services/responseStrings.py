@@ -16,6 +16,16 @@ class Responses:
         "I'm afraid I don't understand. Could you please rephrase? {previous_question}"
     ]
 
+    # Giving a prediction
+    prediction = {
+        "LEASE_TERMINATION": {
+            "success": ["I have determined that it is likely that the lease will be terminated."],
+            "fail": ["I have determined that it is unlikely that the lease will be terminated."]
+        },
+
+        "missing_category": ["Sorry, I cannot yet make a prediction for this claim category."]
+    }
+
     # Fact Questions
     fact_questions = {
         "apartment_impropre":
@@ -177,6 +187,22 @@ class Responses:
             return Responses.chooseFrom(Responses.fact_questions[fact_key])
 
         return Responses.chooseFrom(Responses.fact_questions["missing_response"])
+
+    """
+    Gets a statement for a prediction for a particular claim
+    claim_category: The text value of the claim category
+    is_success: Whether or not the judgement is 1 or 0 (from ml)
+    """
+
+    @staticmethod
+    def prediction_statement(claim_category_value, is_success):
+        if claim_category_value in Responses.prediction:
+            if is_success:
+                return Responses.chooseFrom(Responses.prediction[claim_category_value]['success'])
+            else:
+                return Responses.chooseFrom(Responses.prediction[claim_category_value]['fail'])
+
+        return Responses.chooseFrom(Responses.prediction["missing_category"])
 
     """
     Chooses a random string from a list of strings
