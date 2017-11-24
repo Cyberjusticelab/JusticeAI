@@ -59,6 +59,12 @@ def submit_resolved_fact_list(conversation):
     return res.json()
 
 
+"""
+Generates demand dictionary with default values for ML service input
+:returns Demand dictionary with default values
+"""
+
+
 def generate_demand_dict():
     demand_dict = {
         "demand_lease_modification": 0,
@@ -87,6 +93,13 @@ def generate_demand_dict():
         "tenant_eviction": 0
     }
     return demand_dict
+
+
+"""
+Generates fact dictionary for ML service. Maps values for unasked facts
+based on asked facts, or provides default mappings.
+:returns Fact dictionary with mapped facts and resolved facts
+"""
 
 
 def generate_fact_dict(conversation):

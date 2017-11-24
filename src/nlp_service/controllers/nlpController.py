@@ -115,6 +115,7 @@ def classify_fact_value(conversation_id, message):
             # Generate question for next fact (returned from ML service)
             question = Responses.fact_question(new_fact.name)
         else:
+            # All facts have been resolved, submit request to ML service for prediction
             ml_prediction_request = mlService.submit_resolved_fact_list(conversation)
 
             outcome = ml_prediction_request["lease_resiliation"]
