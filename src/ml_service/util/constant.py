@@ -7,7 +7,7 @@ class Path:
     """
     root_directory = os.path.abspath(__file__ + "r/../../")
 
-    __rel_path = r'data/raw/'
+    __rel_path = r'data/raw/text_bk/'
     raw_data_directory = os.path.join(root_directory, __rel_path)
 
     __rel_path = r'data/binary/'
@@ -19,5 +19,5 @@ class Path:
     __rel_path = r'data/cache/'
     cache_directory = os.path.join(root_directory, __rel_path)
 
-    __rel_path = r'data/test_data/'
+    __rel_path = r'data/test/mock_precedent/'
     test_data_directory = os.path.join(root_directory, __rel_path)

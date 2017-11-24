@@ -8,6 +8,7 @@ from feature_extraction.pre_processing.word_vector.french_related_word_fetcher i
 from util.constant import Path
 from util.file import Log
 
+
 class FrenchVector:
 
     word_vectors = None

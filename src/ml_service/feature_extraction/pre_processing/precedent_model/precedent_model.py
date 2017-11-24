@@ -20,6 +20,7 @@ class PrecedentModel():
             return_str += f + "\n\n"
         return return_str
 
+
 class FactModel():
 
     def __init__(self):

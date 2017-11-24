@@ -3,6 +3,7 @@ import hdbscan
 from util.file import Save
 from util.log import Log
 
+
 class HDBSCANWrapper:
 
     def __init__(self, data_tuple, data_type, min_cluster_size, min_sample):

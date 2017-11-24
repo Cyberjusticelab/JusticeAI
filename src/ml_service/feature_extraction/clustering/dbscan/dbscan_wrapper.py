@@ -3,6 +3,7 @@ from sklearn.cluster import DBSCAN
 from util.file import Save
 from util.log import Log
 
+
 class DBSCANWrapper:
 
     def __init__(self, data_tuple, data_type, min_sample, eps):

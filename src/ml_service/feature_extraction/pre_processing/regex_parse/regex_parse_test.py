@@ -2,6 +2,7 @@ import unittest
 
 from feature_extraction.pre_processing.regex_parse.regex_parse import RegexParse
 
+
 class RegexTest(unittest.TestCase):
 
     def test_normalize_string(self):

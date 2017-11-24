@@ -1,6 +1,9 @@
 import numpy as np
-from model_learning.svm import LinearSVM
-from util.file  import Load
+from model_training.svm.svm import LinearSVM
+from util.file import Load
+from util.log import Log
+
+
 # I ran a crude regex to see which clusters have resiliation
 resiliation_custers = [1,
                        2,
@@ -47,8 +50,7 @@ def get_valid_cluster_precedent_vector():
     """
         Loads a binarized version of our precedents
     """
-    print("loading data")
-    model = Load.load_binary("precedent_vector_from_clusters.bin")
+    model = Load.load_binary("precedent_vector.bin")
     for (key, val) in model.items():
         val['name'] = key
     valid_values = [precedent for precedent in model.values() if precedent[
@@ -73,9 +75,9 @@ def merge_regex_and_cluster_precedent_vector(data_set):
         and merges it with the existing data set
         params: data_set: initial data_set
     """
-    print("loading regex data")
+    Log.write("loading regex data")
     fact_vectors = Load.load_binary("fact_dict.bin")
-    print("merging data")
+    Log.write("merging data")
     new_val = []
     for val in data_set:
         if val['name'] + '.txt' in fact_vectors.keys():
@@ -90,7 +92,13 @@ def merge_regex_and_cluster_precedent_vector(data_set):
     return new_val
 
 
-if __name__ == "__main__":
+def run(command_list):
+    """
+    Driver of the svm training subsystem
+    :param command_list: list of command line arguments
+    :return: None
+    """
+    Log.write("Ecxecuting train model.")
     valid_cluster_precedent_vector = get_valid_cluster_precedent_vector()
     # Taking a subset since I don't want to wait forever
     new_precedent_vector = merge_regex_and_cluster_precedent_vector(
