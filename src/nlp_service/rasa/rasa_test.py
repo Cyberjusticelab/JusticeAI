@@ -20,11 +20,11 @@ class TestRasaClassifier(unittest.TestCase):
         self.assertIsNotNone(classifier_output)
 
     def test_extract_factentities(self):
-        classifier_output = self.rasaClassifier.classify_fact("is_student", "I am a student.")
+        classifier_output = self.rasaClassifier.classify_fact("apartment_impropre", "No")
         self.assertIsNotNone(classifier_output)
 
     def test_nonexistent_factentities(self):
-        classifier_output = self.rasaClassifier.classify_fact("does_not_exist", "I am a student.")
+        classifier_output = self.rasaClassifier.classify_fact("does_not_exist", "Whatever.")
         self.assertIsNone(classifier_output)
 
     def test_percent_difference(self):

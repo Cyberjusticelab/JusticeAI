@@ -117,11 +117,8 @@ def classify_fact_value(conversation_id, message):
         else:
             ml_prediction_request = mlService.submit_resolved_fact_list(conversation)
 
-            outcome = ml_prediction_request["outcomes_vector"]["lease_resiliation"]
-            if outcome == 1:
-                prediction = True
-            else:
-                prediction = False
+            outcome = ml_prediction_request["lease_resiliation"]
+            prediction = True if outcome == 1 else False
 
             # Generate statement for prediction
             question = Responses.prediction_statement(conversation.claim_category.value, prediction)
