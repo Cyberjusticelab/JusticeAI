@@ -65,6 +65,9 @@ def receive_message(conversation_id, message):
     possible_answers = None
     additional_info = None
     enforce_possible_answer = False
+
+    user_message = None
+
     # First message in the conversation
     if len(conversation.messages) == 0:
         response_html = StaticStrings.chooseFrom(StaticStrings.disclaimer).format(name=conversation.name)
@@ -126,6 +129,24 @@ def receive_message(conversation_id, message):
         response_dict['possible_answers'] = possible_answers
         if enforce_possible_answer:
             response_dict['enforce_possible_answer'] = True
+
+    # Get the last extracted fact entity
+    if len(conversation.fact_entities) > 0 and conversation.fact_entities[-1]:
+        fact_entity_value = conversation.fact_entities[-1].value
+
+        # Get the last fact name
+        if user_message and user_message.relevant_fact:
+            fact_name = user_message.relevant_fact.name
+
+            if 'message' in response_dict:
+                key = 'message'
+            if 'html' in response_dict:
+                key = 'html'
+
+            # Format new bot response with prediction information
+            response_dict[key] = "Prediction: " + fact_name + '=' + fact_entity_value + \
+                    '<br/><br/>' + "Next question: " + response_dict[key]
+
 
     return jsonify(response_dict)
 
@@ -286,3 +307,4 @@ def __ask_initial_question(conversation):
 
 def __has_just_accepted_disclaimer(conversation):
     return len(conversation.messages) == 2
+
