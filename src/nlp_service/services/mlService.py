@@ -1,3 +1,5 @@
+import requests
+
 from postgresql_db.models import Fact, FactEntity
 
 ML_URL = "http://ml_service:3001"
@@ -49,7 +51,9 @@ conversation: the current conversation
 
 
 def submit_resolved_fact_list(conversation):
-    pass
+    req_dict = {}
+    res = requests.post("{}/{}".format(ML_URL, "predict"), json=req_dict)
+    return res.json()
 
 
 """
