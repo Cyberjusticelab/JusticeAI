@@ -1,11 +1,11 @@
 import logging
 import os
-from util import constant
+from util.constant import Path
 
 
 class Log:
 
-    __output_dir = constant.Path.root_directory
+    __output_dir = Path.root_directory
     __rel_path = 'server.log'
     __filename = os.path.join(__output_dir, __rel_path)
     logging.basicConfig(level=logging.DEBUG,

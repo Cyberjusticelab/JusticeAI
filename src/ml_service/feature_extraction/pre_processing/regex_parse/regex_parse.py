@@ -5,6 +5,7 @@ from nltk.tokenize.moses import MosesDetokenizer
 
 from feature_extraction.pre_processing.word_vector.french_vector import FrenchVector
 
+
 class RegexParse():
 
     money_match = re.compile(r"\b(\d{1,3}(\s\d{3}|,\d{2})*)+(\$|\s\$)")

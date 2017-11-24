@@ -42,5 +42,5 @@ def test__dict_to_vector():
         input_json['demands'], 'demands_vector')
 
     # Verify
-    assert_array_equal(result, [1.,  1.,  0.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,
-                                0.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  0.])
+    assert_array_equal(result, [1., 1., 0., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
+                                0., 1., 1., 1., 1., 1., 1., 1., 1., 1., 0.])

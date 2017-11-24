@@ -17,7 +17,7 @@ class TagPrecedents:
         self.text_tagged = 0
         self.nb_lines = 0
         self.nb_text = 0
-        self.regexes = Load.load_binary(Path.binary_directory + "regexes.bin")
+        self.regexes = Load.load_binary("regexes.bin")
         self.precedents_directory_path = Path.raw_data_directory
 
     def get_intent_indice(self):
@@ -126,11 +126,11 @@ if __name__ == '__main__':
     # prints fact intents
     indices = tag.get_intent_indice()
 
-    print("Total precedents parsed: {}".format(len(fact_dict)))
+    Log.write("Total precedents parsed: {}".format(len(fact_dict)))
     for i in range(len(next(iter(fact_dict.values()))['facts_vector'])):
         total_fact = len([1 for val in fact_dict.values() if val['facts_vector'][i] == 1])
-        print("Total precedents with {:41} : {}".format(indices['facts_vector'][i][1], total_fact))
+        Log.write("Total precedents with {:41} : {}".format(indices['facts_vector'][i][1], total_fact))
 
     for i in range(len(next(iter(fact_dict.values()))['demands_vector'])):
         total_fact = len([1 for val in fact_dict.values() if val['demands_vector'][i] == 1])
-        print("Total precedents with {:41} : {}".format(indices['demands_vector'][i][1], total_fact))
+        Log.write("Total precedents with {:41} : {}".format(indices['demands_vector'][i][1], total_fact))

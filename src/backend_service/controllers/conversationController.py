@@ -65,6 +65,9 @@ def receive_message(conversation_id, message):
     possible_answers = None
     additional_info = None
     enforce_possible_answer = False
+
+    user_message = None
+
     # First message in the conversation
     if len(conversation.messages) == 0:
         response_html = StaticStrings.chooseFrom(StaticStrings.disclaimer).format(name=conversation.name)
@@ -127,7 +130,51 @@ def receive_message(conversation_id, message):
         if enforce_possible_answer:
             response_dict['enforce_possible_answer'] = True
 
+    # Get the last extracted fact entity
+    if len(conversation.fact_entities) > 0 and conversation.fact_entities[-1]:
+        fact_entity_value = conversation.fact_entities[-1].value
+
+        # Get the last fact name
+        if user_message and user_message.relevant_fact:
+            fact_name = user_message.relevant_fact.name
+
+            if 'message' in response_dict:
+                key = 'message'
+            if 'html' in response_dict:
+                key = 'html'
+
+            # Format new bot response with prediction information
+            response_dict[key] = "Prediction: " + fact_name + '=' + fact_entity_value + \
+                    '<br/><br/>' + "Next question: " + response_dict[key]
+
+
     return jsonify(response_dict)
+
+"""
+Stores the user's feedback as to whether our NLP prediction/classification/extraction is correct
+conversation_id: ID of the conversation
+conversation_id: The message provided by the user as confirmation (True/False/'$500', etc)
+:return 200 response once the confirmation is persisted
+"""
+
+def store_user_confirmation(conversation_id, confirmation):
+    conversation = __get_conversation(conversation_id)
+    messages = conversation.messages[::-1]
+    for message in messages:
+        if message.sender_type == SenderType.USER:
+            user_message = message
+
+    user_confirmation = UserConfirmation(
+        fact_id=conversation.current_fact.id,
+        message_id=user_message.id,
+        text=confirmation
+    )
+
+    # Persist new user confirmation to DB
+    db.session.add(user_confirmation)
+    db.session.commit()
+
+    return jsonify({'message': 'User confirmation stored successfully'})
 
 
 ################
@@ -260,3 +307,4 @@ def __ask_initial_question(conversation):
 
 def __has_just_accepted_disclaimer(conversation):
     return len(conversation.messages) == 2
+
