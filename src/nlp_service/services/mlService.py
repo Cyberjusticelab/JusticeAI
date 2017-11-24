@@ -51,9 +51,55 @@ conversation: the current conversation
 
 
 def submit_resolved_fact_list(conversation):
-    req_dict = {}
+    req_dict = generate_fact_dict(conversation)
     res = requests.post("{}/{}".format(ML_URL, "predict"), json=req_dict)
     return res.json()
+
+
+def generate_fact_dict(conversation):
+    resolved_facts = {}
+
+    # Add all resolved facts
+    for fact_entity in conversation.fact_entities:
+        fact_entity_name = fact_entity.fact.name
+        if fact_entity.value == "true":
+            resolved_facts[fact_entity_name] = True
+        elif fact_entity.value == "false":
+            resolved_facts[fact_entity_name] = False
+
+    # Perform mappings with defaults
+    resolved_facts['absent'] = False
+    resolved_facts['incorrect_facts'] = False
+    resolved_facts['landlord_pays_indemnity'] = False
+    resolved_facts['landlord_prejudice_justified'] = False
+    resolved_facts['landlord_serious_prejudice'] = False
+    resolved_facts['proof_of_late'] = False
+    resolved_facts['tenant_is_bothered'] = False
+    resolved_facts['lack_of_proof'] = False
+    resolved_facts['tenant_rent_paid_before_hearing'] = False
+
+    # Perform one to one mappings
+    resolved_facts['violent'] = resolved_facts['tenant_violence']
+
+    resolved_facts['landlord_rent_change_piece_justification'] = resolved_facts[
+        'landlord_rent_change_doc_renseignements']
+    resolved_facts['landlord_rent_change_receipts'] = resolved_facts[
+        'landlord_rent_change_doc_renseignements']
+
+    # Perform mappings with dependencies
+    resolved_facts['tenant_lease_indeterminate'] = not resolved_facts['tenant_lease_fixed']
+    resolved_facts['lease'] = resolved_facts['tenant_lease_fixed']
+
+    resolved_facts['tenant_rent_not_paid_less_3_weeks'] = not resolved_facts['tenant_rent_not_paid_more_3_weeks']
+
+    # Convert true and false to 1 and 0
+    for fact_entity in resolved_facts:
+        if resolved_facts[fact_entity]:
+            resolved_facts[fact_entity] = 1
+        else:
+            resolved_facts[fact_entity] = 0
+
+    return resolved_facts
 
 
 """

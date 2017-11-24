@@ -61,7 +61,7 @@ class Responses:
             ],
         "landlord_retakes_apartment_indemnity":
             [
-                "Have moving expenses been compensated when the apartment was to be retaken?"
+                "Have moving expenses been compensated when the apartment was to be retaken by the landlord?"
             ],
         "landlord_sends_demand_regie_logement":
             [
