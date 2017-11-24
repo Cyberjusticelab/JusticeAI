@@ -51,7 +51,7 @@ class Responses:
             ],
         "landlord_notifies_tenant_retake_apartment":
             [
-                "Did you notify your tenant in advance about your intentions to "
+                "Did you notify your tenant in advance about your intentions to retake the apartment?"
             ],
         "landlord_relocation_indemnity_fees":
             [
@@ -115,7 +115,7 @@ class Responses:
             ],
         "tenant_group_responsability":
             [
-                "If there are multiple tenants inside of the apartment, "
+                "If there are multiple tenants inside of the apartment, do they all share the same lease?"
             ],
         "tenant_individual_responsability":
             [
