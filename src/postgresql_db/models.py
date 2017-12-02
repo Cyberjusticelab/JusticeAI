@@ -102,6 +102,7 @@ class Message(db.Model):
     def request_file(self, document_type):
         self.file_request = FileRequest(document_type=document_type)
 
+
 class UserConfirmation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
