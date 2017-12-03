@@ -17,7 +17,7 @@ class PrecedentVector:
         """
         :param fact_cluster_directory (string): directory path to fact clusters
         :param decision_cluster_directory (string): directory path to decision clusters
-        :return: 
+        :return:
         """
         self.__create_structure_from_cluster_files(fact_cluster_directory, self.FACTS)
         self.__create_structure_from_cluster_files(decision_cluster_directory, self.DECISIONS)

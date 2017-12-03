@@ -15,6 +15,7 @@ CORS(app)
 
 from controllers import conversationController, legalController
 
+
 @app.route("/new", methods=['POST'])
 def init_conversation():
     init_request = request.get_json()
@@ -49,10 +50,12 @@ def handle_files(conversation_id=None):
     else:
         abort(make_response(jsonify(message="Invalid request"), 400))
 
+
 @app.route("/store-user-confirmation", methods=['POST'])
 def store_user_confirmation():
     data = request.get_json()
     return conversationController.store_user_confirmation(data['conversation_id'], data['confirmation'])
+
 
 @app.route("/legal", methods=['GET'])
 def get_legal_documents():
