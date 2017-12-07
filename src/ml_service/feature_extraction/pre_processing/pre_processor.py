@@ -2,11 +2,12 @@ import os
 import re
 from sys import stdout
 
-from feature_extraction.pre_processing.precedent_model.precedent_model import PrecedentModel, FactModel
-from feature_extraction.pre_processing.regex_parse.regex_parse import RegexParse
-from feature_extraction.pre_processing.word_vector.french_vector import FrenchVector
-from util.constant import Path
-from util.file import Log
+from src.ml_service.feature_extraction.pre_processing.precedent_model.precedent_model import PrecedentModel, FactModel
+from src.ml_service.feature_extraction.pre_processing.regex_parse.regex_parse import RegexParse
+from src.ml_service.feature_extraction.pre_processing.word_vector.french_vector import FrenchVector
+from src.ml_service.util.constant import Path
+from src.ml_service.util.file import Log
+from nltk.corpus import stopwords
 
 
 class State:
@@ -23,6 +24,8 @@ class PreProcessor:
 
     __factMatch = re.compile("\[\d+\]\s")
     __minimum_line_length = 6
+    __english_stopwords = [word for word in stopwords.words("english") if len(word) >= 3]
+    __english_words_re = re.compile("|".join(__english_stopwords))
 
     def __init__(self):
         self.__state = None
@@ -157,9 +160,19 @@ class PreProcessor:
                 percent = float(files_parse / nb_of_files) * 100
             stdout.write("\rINFO: Data Extraction: %f " % percent + "%")
             stdout.flush()
-            self.__parse(i)
+            if not self.__isEnglish(Path.raw_data_directory + i):
+                self.__parse(i)
 
         print()
         # deallocate memory
         FrenchVector.unload_vector()
         return self.__model.dict
+
+    def __isEnglish(self, file_path):
+        file = open(file_path, "r", encoding="ISO-8859-1")
+        for line in file:
+            if self.__english_words_re.match(line):
+                file.close()
+                return True
+        file.close()
+        return False
