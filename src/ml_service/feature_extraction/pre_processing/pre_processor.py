@@ -1,12 +1,12 @@
 import os
 import re
 from sys import stdout
-
 from feature_extraction.pre_processing.precedent_model.precedent_model import PrecedentModel, FactModel
 from feature_extraction.pre_processing.regex_parse.regex_parse import RegexParse
 from feature_extraction.pre_processing.word_vector.french_vector import FrenchVector
 from util.constant import Path
 from util.file import Log
+from nltk.corpus import stopwords
 
 
 class State:
@@ -23,6 +23,9 @@ class PreProcessor:
 
     __factMatch = re.compile("\[\d+\]\s")
     __minimum_line_length = 6
+    # stopwords of minimum size 3 is used in order to remove common stopwords in English and French
+    __english_stopwords = [word for word in stopwords.words("english") if len(word) >= 3]
+    __english_words_re = re.compile("|".join(__english_stopwords))
 
     def __init__(self):
         self.__state = None
@@ -50,6 +53,11 @@ class PreProcessor:
         for lines in file:
             tpl = self.__statement_index(lines)
             self.__update_state(tpl[1], lines)
+
+            # ignore english precedent
+            if self.__english_words_re.match(lines):
+                continue
+
             if self.__factMatch.match(lines):
                 if len(lines) < self.__minimum_line_length:
                     lines = file.__next__()
