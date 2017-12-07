@@ -23,6 +23,7 @@ class PreProcessor:
 
     __factMatch = re.compile("\[\d+\]\s")
     __minimum_line_length = 6
+    # stopwords of minimum size 3 is used in order to remove common stopwords in English and French
     __english_stopwords = [word for word in stopwords.words("english") if len(word) >= 3]
     __english_words_re = re.compile("|".join(__english_stopwords))
 
