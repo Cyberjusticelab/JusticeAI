@@ -205,6 +205,62 @@ Gets the message history for a conversation
 **Code** : `404 Not Found`
 
 ---
+# Get facts resolved during conversation
+
+Gets only the list of resovled facts for the conversation
+
+**URL** : `/conversation/:conversation_id/resolved`
+
+**Method** : `GET`
+
+## Success Response
+
+**Code** : `200 OK`
+
+**Content examples**
+
+```json
+{
+	"fact_entities": [
+		{
+			"fact": {
+				"name": "apartment_infestation",
+				"type": "BOOLEAN"
+			},
+			"value": "false"
+		},
+		{
+			"fact": {
+				"name": "apartment_impropre",
+				"type": "BOOLEAN"
+			},
+			"value": "false"
+		},
+		{
+			"fact": {
+				"name": "bothers_others",
+				"type": "BOOLEAN"
+			},
+			"value": "true"
+		},
+		{
+			"fact": {
+				"name": "disrespect_previous_judgement",
+				"type": "BOOLEAN"
+			},
+			"value": "true"
+		}
+	]
+}
+```
+
+## Error Response
+
+**Code** : `400 Bad Request`
+
+**Code** : `404 Not Found`
+
+---
 
 # Upload a file 
 
