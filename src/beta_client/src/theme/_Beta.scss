@@ -74,6 +74,9 @@
                     font-size: 14px;
                 }
             }
+            @media screen and (max-height: $break-laptop-height) {
+                padding-top: 120px;
+            }
         }
         .beta-page-title-in-chat {
             padding-top: 100px !important;
