@@ -5,10 +5,10 @@
 <template>
     <el-container id="beta-component">
         <div id="beta-page">
-            <div id="about-us">
-                <p>ABOUT US</p>
+            <div id="beta-page-nav">
+                <p v-on:click="chat=!chat">ABOUT US</p> <!--todo-->
             </div>
-            <div id="beta-page-title">
+            <div id="beta-page-title" v-bind:class="{ 'beta-page-title-in-chat': chat}">
                 <el-row>
                     <el-col :md="24">
                         <div id="title-image">
@@ -23,11 +23,16 @@
                     </el-col>
                 </el-row>
             </div>
-            <div id="beta-page-button-group">
+            <div id="beta-page-sign-up" v-if="chat">
+                <div id="beta-page-sign-up-placeholder">
+                    <chat></chat>
+                </div>
+            </div>
+            <div id="beta-page-button-group" v-if="!chat">
                 <el-row>
                     <el-col :md="24">
                         <div id="button-group">
-                            <el-button type="warning" v-on:click="chooseType('tenant')">SIGN UP TO BETA</el-button>
+                            <el-button type="warning" v-on:click="chat = !chat">SIGN UP TO BETA</el-button>
                         </div>
                     </el-col>
                 </el-row>
@@ -36,15 +41,24 @@
                 <a href="http://www.cyberjustice.ca/" target="_blank">© 2017 Cyberjustice Laboratory</a>
             </div>
         </div>
+        <!-- about us section todo
+        <div id="beta-page-about-us">
+            <p>dsad</p>
+        </div>
+        -->
     </el-container>
 </template>
 
 <script>
+import Chat from './Chat'
+
 export default {
-    created () {
+    components: {
+        Chat
     },
-    methods: {
-        chooseType(usertype) {
+    data () {
+        return {
+            chat: true
         }
     }
 }

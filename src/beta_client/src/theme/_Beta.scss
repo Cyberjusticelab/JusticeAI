@@ -16,10 +16,10 @@
         height: 100%;
         background: url("../assets/beta_page_background.png") no-repeat center center fixed;
         background-size: cover;
-        #about-us {
+        #beta-page-nav {
             font-family: $zeus-font;
-            text-align: left;
-            margin-left: 20px;
+            text-align: right;
+            margin-right: 20px;
             color: $main-grey-4;
             font-size: 12px;
             cursor: pointer;
@@ -67,6 +67,34 @@
                 }
             }
         }
+        .beta-page-title-in-chat {
+            padding-top: 100px !important;
+            padding-bottom: 10px !important;
+            #title-image {
+                text-align: left;
+                margin-left: 50px;
+                img {
+                    display: inline !important;
+                }
+                #beta-page-zeus {
+                    height: 90px;
+                }
+                #beta-page-logo {
+                    padding-bottom: 15px;
+                }
+                @media screen and (max-width: $break-medium) {
+                    #beta-page-logo {
+                    }
+                }
+                @media screen and (max-width: $break-small) {
+                    #beta-page-zeus {
+                    }
+                }
+            }
+            #title-text {
+                display: none !important;
+            }
+        }
         #beta-page-button-group {
             #button-group {
                 button {
@@ -103,5 +131,13 @@
                 font-weight: 500;
             }
         }
+    }
+    #beta-page-about-us {
+        position: fixed;
+        height: 100%;
+        width: 30%;
+        z-index: 999;
+        right: 0px;
+        background-color: rgba(255,255,255,0.8);
     }
 }
