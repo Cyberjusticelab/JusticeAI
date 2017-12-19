@@ -16,23 +16,54 @@
         height: 100%;
         background: url("../assets/beta_page_background.png") no-repeat center center fixed;
         background-size: cover;
+        #about-us {
+            font-family: $zeus-font;
+            text-align: left;
+            margin-left: 20px;
+            color: $main-grey-4;
+            font-size: 12px;
+            cursor: pointer;
+            &:hover, &:active {
+                color: $main-gold-2;
+            }
+        }
         #beta-page-title {
             text-align: center;
-            padding-top: 300px;
-            padding-bottom: 35px;
+            padding-top: 220px;
+            padding-bottom: 10px;
             #title-image {
                 height: 100%;
                 img {
                     display: block;
                     margin: auto;
                 }
+                @media screen and (max-width: $break-medium) {
+                    #beta-page-logo {
+                        width: 340px;
+                    }
+                }
                 @media screen and (max-width: $break-small) {
                     #beta-page-zeus {
-                        width: 50%;
+                        width: 140px;
                     }
-                    #beta-page-logo {
-                        width: 80%;
-                    }
+                }
+            }
+            #title-text {
+                width: 700px;
+                margin: auto;
+                h2 {
+                    font-size: 18px;
+                    color: $main-grey-5;
+                    font-weight: 100;
+                    font-family: $zeus-font;
+                }
+                @media screen and (max-width: $break-medium) {
+                    width: 380px;
+                    font-size: 16px;
+                }
+                @media screen and (max-width: $break-small) {
+                    width: 315px;
+                    font-size: 14px;
                 }
             }
         }
@@ -59,6 +90,17 @@
                         height: 38px;
                     }
                 }
+            }
+        }
+        #beta-page-footer {
+            position: fixed;
+            right: 16px;
+            bottom: 16px;
+            a {
+                color: black;
+                text-decoration: none;
+                font-family: $zeus-font;
+                font-weight: 500;
             }
         }
     }
