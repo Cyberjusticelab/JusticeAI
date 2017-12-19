@@ -6,12 +6,12 @@
   <div id="chat-component">
       <div id="chat-zeus-container">
         <el-row>
-          <el-col :sm="3" :offset="1">
+          <el-col :sm="{span: 4, offset: 1}" :xs="{span: 24}">
             <div id="chat-zeus-avatar">
               <img src="../assets/zeus_avatar_2.png"/>
             </div>
           </el-col>
-          <el-col :sm="18" :offset="1">
+          <el-col :sm="{span: 18}" :xs="{span: 22, offset: 1}">
             <div id="chat-message-zeus">
               <div>
                 <p v-if="currentConversation" v-html="currentConversation.zeus"></p>

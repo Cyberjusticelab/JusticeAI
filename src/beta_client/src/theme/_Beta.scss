@@ -125,6 +125,7 @@
                 text-align: right;
                 img {
                     width: 40px;
+                    cursor: pointer;
                 }
                 p {
                     line-height: 0px;
@@ -133,9 +134,9 @@
                     font-weight: bold;
                     color: $main-grey-4;
                     margin-right: 8px;
+                    cursor: pointer;
                 }
                 &:hover {
-                    cursor: pointer;
                     p {
                         color: $main-gold-2;
                     }

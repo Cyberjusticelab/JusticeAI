@@ -27,9 +27,9 @@
             </transition>
             <transition name="fade">
                 <div id="beta-page-sign-up" v-if="chat">
-                    <div id="beta-page-sign-up-nav" v-on:click="chat=!chat">
-                        <img alt="" src="../assets/close.png">
-                        <p>Back</p>
+                    <div id="beta-page-sign-up-nav">
+                        <img alt="" src="../assets/close.png" v-on:click="$router.go('/')">
+                        <p v-on:click="$router.go('/')">Back</p>
                     </div>
                     <chat></chat>
                 </div>
