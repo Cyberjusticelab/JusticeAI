@@ -16,29 +16,23 @@
         height: 100%;
         background: url("../assets/beta_page_background.png") no-repeat center center fixed;
         background-size: cover;
-        #beta-page-nav {
-            button {
-                margin-top: 10px;
-                color: $main-grey-5;
-                font-weight: bold;
-                font-size: 14px;
-                cursor: pointer;
-                background-color: $main-gold-1;
-                &:hover {
-                    color: $main-gold-1;
-                    background-color: $main-grey-5;
-                }
-            }
-        }
         #beta-page-title {
             text-align: center;
-            padding-top: 200px;
+            padding-top: 300px;
             padding-bottom: 35px;
             #title-image {
                 height: 100%;
                 img {
                     display: block;
                     margin: auto;
+                }
+                @media screen and (max-width: $break-small) {
+                    #beta-page-zeus {
+                        width: 50%;
+                    }
+                    #beta-page-logo {
+                        width: 80%;
+                    }
                 }
             }
         }
@@ -58,6 +52,11 @@
                         background-color: $main-gold-1;
                         color: $main-grey-5;
                         border-color: $main-gold-1;
+                    }
+                    @media screen and (max-width: $break-small) {
+                        width: 80%;
+                        font-size: 14px;
+                        height: 38px;
                     }
                 }
             }
