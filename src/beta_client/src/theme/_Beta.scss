@@ -2,7 +2,13 @@
 
 //animation
 .fade-enter-active {
-  transition: opacity 20s;
+  transition: opacity 2.2s;
+}
+.fade-leave-active {
+  transition: opacity 0s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 
 #beta-component {
@@ -72,7 +78,7 @@
             padding-bottom: 10px !important;
             #title-image {
                 text-align: left;
-                margin-left: 50px;
+                margin-left: 250px;
                 img {
                     display: inline !important;
                 }
@@ -93,6 +99,33 @@
             }
             #title-text {
                 display: none !important;
+            }
+        }
+        #beta-page-sign-up {
+            background-color: $main-grey-1;
+            border: 1px solid $main-grey-2;
+            width: 75%;
+            margin: auto;
+            padding: 3px;
+            #beta-page-sign-up-nav {
+                text-align: right;
+                img {
+                    width: 40px;
+                }
+                p {
+                    line-height: 0px;
+                    font-size: 14px;
+                    font-family: $zeus-font;
+                    font-weight: bold;
+                    color: $main-grey-4;
+                    margin-right: 8px;
+                }
+                &:hover {
+                    cursor: pointer;
+                    p {
+                        color: $main-gold-2;
+                    }
+                }
             }
         }
         #beta-page-button-group {
