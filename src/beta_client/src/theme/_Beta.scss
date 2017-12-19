@@ -5,18 +5,18 @@
   transition: opacity 20s;
 }
 
-#landing-component {
+#beta-component {
     width: 100%;
     height: 100%;
     padding: 0px;
     overflow: hidden;
-    #landing-page {
+    #beta-page {
         user-select: none;
         width: 100%;
         height: 100%;
-        background: url("../assets/landing_page_background.png") no-repeat center center fixed;
+        background: url("../assets/beta_page_background.png") no-repeat center center fixed;
         background-size: cover;
-        #landing-page-nav {
+        #beta-page-nav {
             button {
                 margin-top: 10px;
                 color: $main-grey-5;
@@ -30,7 +30,7 @@
                 }
             }
         }
-        #landing-page-title {
+        #beta-page-title {
             text-align: center;
             padding-top: 200px;
             padding-bottom: 35px;
@@ -42,7 +42,7 @@
                 }
             }
         }
-        #landing-page-button-group {
+        #beta-page-button-group {
             #button-group {
                 button {
                     border-color: $main-gold-1;
