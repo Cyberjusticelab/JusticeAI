@@ -204,9 +204,53 @@
     #beta-page-about-us {
         position: fixed;
         height: 100%;
-        width: 30%;
+        width: 40%;
         z-index: 999;
         right: 0px;
         background-color: rgba(255,255,255,0.8);
+        font-family: $zeus-font;
+        text-align: center;
+        #beta-page-about-us-nav {
+            p {
+                text-align: left;
+                margin-left: 20px;
+                color: $main-grey-2;
+                font-size: 14px;
+                cursor: pointer;
+                &:hover, &:active {
+                    color: $main-gold-2;
+                }
+            }
+        }
+        img {
+            width: 90%;
+        }
+        h2 {
+            color: $main-gold-2;
+        }
+        .about-us-text {
+            font-size: 14px;
+            padding: 20px;
+            padding-left: 65px;
+            padding-right: 65px;
+        }
+        @media screen and (max-width: $break-large) {
+            width: 60%;
+            .about-us-text {
+                font-size: 13px;
+                padding: 10px;
+                padding-left: 45px;
+                padding-right: 45px;
+            }
+        }
+        @media screen and (max-width: $break-medium) {
+            width: 100%;
+            .about-us-text {
+                font-size: 14px;
+                padding: 10px;
+                padding-left: 45px;
+                padding-right: 45px;
+            }
+        }
     }
 }
