@@ -59,6 +59,7 @@ class Fact(db.Model):
 
     # Attributes
     name = db.Column(db.String(50), nullable=False)
+    summary = db.Column(db.String(50), nullable=False)
     type = db.Column(db.Enum(FactType), nullable=False)
 
 
@@ -177,59 +178,59 @@ def get_or_create(session, model, **kwargs):
 
 
 defined_facts = [
-    {'name': 'absent', 'type': FactType.BOOLEAN},
-    {'name': 'apartment_impropre', 'type': FactType.BOOLEAN},
-    {'name': 'apartment_infestation', 'type': FactType.BOOLEAN},
-    {'name': 'asker_is_landlord', 'type': FactType.BOOLEAN},
-    {'name': 'asker_is_tenant', 'type': FactType.BOOLEAN},
-    {'name': 'bothers_others', 'type': FactType.BOOLEAN},
-    {'name': 'disrespect_previous_judgement', 'type': FactType.BOOLEAN},
-    {'name': 'incorrect_facts', 'type': FactType.BOOLEAN},
-    {'name': 'landlord_inspector_fees', 'type': FactType.BOOLEAN},
-    {'name': 'landlord_notifies_tenant_retake_apartment', 'type': FactType.BOOLEAN},
-    {'name': 'landlord_pays_indemnity', 'type': FactType.BOOLEAN},
-    {'name': 'landlord_prejudice_justified', 'type': FactType.BOOLEAN},
-    {'name': 'landlord_relocation_indemnity_fees', 'type': FactType.BOOLEAN},
-    {'name': 'landlord_rent_change', 'type': FactType.BOOLEAN},
-    {'name': 'landlord_rent_change_doc_renseignements', 'type': FactType.BOOLEAN},
-    {'name': 'landlord_rent_change_piece_justification', 'type': FactType.BOOLEAN},
-    {'name': 'landlord_rent_change_receipts', 'type': FactType.BOOLEAN},
-    {'name': 'landlord_retakes_apartment', 'type': FactType.BOOLEAN},
-    {'name': 'landlord_retakes_apartment_indemnity', 'type': FactType.BOOLEAN},
-    {'name': 'landlord_sends_demand_regie_logement', 'type': FactType.BOOLEAN},
-    {'name': 'landlord_serious_prejudice', 'type': FactType.BOOLEAN},
-    {'name': 'lease', 'type': FactType.BOOLEAN},
-    {'name': 'proof_of_late', 'type': FactType.BOOLEAN},
-    {'name': 'proof_of_revenu', 'type': FactType.BOOLEAN},
-    {'name': 'rent_increased', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_bad_payment_habits', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_continuous_late_payment', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_damaged_rental', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_dead', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_declare_insalubre', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_financial_problem', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_group_responsability', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_individual_responsability', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_is_bothered', 'type': FactType.BOOLEAN},
-    {'name': 'lack_of_proof', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_landlord_agreement', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_lease_fixed', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_lease_indeterminate', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_left_without_paying', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_monthly_payment', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_negligence', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_not_request_cancel_lease', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_owes_rent', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_refuses_retake_apartment', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_rent_not_paid_less_3_weeks', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_rent_not_paid_more_3_weeks', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_rent_paid_before_hearing', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_violence', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_withold_rent_without_permission', 'type': FactType.BOOLEAN},
-    {'name': 'violent', 'type': FactType.BOOLEAN}
+    {'name': 'absent', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'apartment_impropre', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'apartment_infestation', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'asker_is_landlord', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'asker_is_tenant', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'bothers_others', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'disrespect_previous_judgement', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'incorrect_facts', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'landlord_inspector_fees', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'landlord_notifies_tenant_retake_apartment', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'landlord_pays_indemnity', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'landlord_prejudice_justified', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'landlord_relocation_indemnity_fees', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'landlord_rent_change', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'landlord_rent_change_doc_renseignements', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'landlord_rent_change_piece_justification', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'landlord_rent_change_receipts', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'landlord_retakes_apartment', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'landlord_retakes_apartment_indemnity', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'landlord_sends_demand_regie_logement', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'landlord_serious_prejudice', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'lease', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'proof_of_late', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'proof_of_revenu', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'rent_increased', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'tenant_bad_payment_habits', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'tenant_continuous_late_payment', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'tenant_damaged_rental', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'tenant_dead', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'tenant_declare_insalubre', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'tenant_financial_problem', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'tenant_group_responsability', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'tenant_individual_responsability', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'tenant_is_bothered', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'lack_of_proof', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'tenant_landlord_agreement', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'tenant_lease_fixed', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'tenant_lease_indeterminate', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'tenant_left_without_paying', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'tenant_monthly_payment', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'tenant_negligence', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'tenant_not_request_cancel_lease', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'tenant_owes_rent', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'tenant_refuses_retake_apartment', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'tenant_rent_not_paid_less_3_weeks', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'tenant_rent_not_paid_more_3_weeks', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'tenant_rent_paid_before_hearing', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'tenant_violence', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'tenant_withold_rent_without_permission', 'summary': '', 'type': FactType.BOOLEAN},
+    {'name': 'violent', 'summary': '', 'type': FactType.BOOLEAN}
 ]
 for fact_dict in defined_facts:
-    get_or_create(db.session, Fact, name=fact_dict['name'], type=fact_dict['type'])
+    get_or_create(db.session, Fact, name=fact_dict['name'], summary=fact_dict['summary'], type=fact_dict['type'])
 
 print("Finished loading pre-defined fact values.")
 
@@ -253,7 +254,7 @@ class FactSchema(ma.ModelSchema):
     type = EnumField(FactType, by_value=True)
 
     class Meta:
-        fields = ('name', 'type')
+        fields = ('name', 'summary', 'type')
 
 
 class FactEntitySchema(ma.ModelSchema):
