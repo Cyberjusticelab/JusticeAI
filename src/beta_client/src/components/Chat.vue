@@ -45,11 +45,11 @@ export default {
       conversation: [
         {
           user: [{text:'Okay', val: 1}],
-          zeus:'Hello there stranger! My name is Zeus and I\'m here to assist with tenant/landlord problems within Quebec. I\'ll be going into beta soon. Would you like to answer some questions to help me understand better in this field?'
+          zeus:'Hello there stranger! My name is Zeus and I\'m here to assist you with your Québec tenant/landlord issues. I\'ll be going into beta soon, and would like to get more context about common problems. If you don\'t mind telling me about any tenant/landlord issues you have, we\'ll try to get back to you as soon as possible with some useful information.'
         },
         {
           user: [{text:'Sure', val: 2}, {text:'I have no question', val: 3}],
-          zeus:'Would you like to tell me a question that you want to have answers the most about tenant/landlord issue?'
+          zeus:'Would you like to ask me a question about tenant/landlord issue?'
         },
         {
           user: [{text:'Confirm', val: 3, type: 'question'}],
@@ -57,7 +57,7 @@ export default {
         },
         {
           user: [{text:'Confirm', val: 4, type: 'email'}],
-          zeus:'Can I have your email?'
+          zeus:'Mind leaving your email so that we can let you know once our beta is live?'
         },
         {
           user: [{text:'Sure', val: 5, type: 'subscription', submit: true}, {text:'No, thanks', val: 5, submit: true}],
