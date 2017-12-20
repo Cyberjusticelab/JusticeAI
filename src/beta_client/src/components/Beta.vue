@@ -45,9 +45,6 @@
                     </el-row>
                 </div>
             </transition>
-            <div id="beta-page-footer">
-                <a href="http://www.cyberjustice.ca/" target="_blank">© 2017 Cyberjustice Laboratory</a>
-            </div>
         </div>
         <div id="beta-page-about-us" v-if="aboutUs">
             <div id="beta-page-about-us-nav">
@@ -61,10 +58,6 @@
                 <p>The Cyberjustice Laboratory is designing an artificial intelligence tool capable of assessing the validity of a litigant’s claim and proposing possible avenues for resolution.</p>
                 <p>The solution takes the shape of a dynamic conversational agent designed to predict the likely outcomes of a variety of landlord/tenant disputes, based on personalized interactions with the disputant and analysis of relevant case law using machine learning algorithms.</p>
                 <p>The project tests the boundaries of machine learning and natural language processing applied to the complex domain of law, and attempts to validate the utility of such a tool for stakeholders.</p>
-            </div>
-            <h2>Engineer Team</h2>
-            <div class="about-us-text">
-                <p>We are a team of software engineering students from Concordia University...</p>
             </div>
         </div>
     </el-container>

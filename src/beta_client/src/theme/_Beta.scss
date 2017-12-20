@@ -189,20 +189,6 @@
                 }
             }
         }
-        #beta-page-footer {
-            position: fixed;
-            right: 16px;
-            bottom: 16px;
-            a {
-                color: black;
-                text-decoration: none;
-                font-family: $zeus-font;
-                font-weight: 500;
-                @media screen and (max-width: $break-medium) {
-                    font-size: 12px;
-                }
-            }
-        }
     }
     #beta-page-about-us {
         position: fixed;
