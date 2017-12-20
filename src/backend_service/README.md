@@ -156,45 +156,134 @@ Gets the message history for a conversation
 
 ```json
 {
-    "id": 1,
-    "name": "Tim Timmens",
-    "person_type": "TENANT",
-    "messages": [
-        {
-            "id": 1,
-            "sender_type": "BOT",
-            "text": "Nice to meet you Tim Timmens, are you a landlord or a tenant?",
-            "timestamp": "2017-10-12T00:00:36+00:00"
-        },
-        {
-            "id": 2,
-            "sender_type": "USER",
-            "text": "I'm a tenant.",
-            "timestamp": "2017-10-12T00:00:42+00:00"
-        },
-        {
-            "id": 3,
-            "sender_type": "BOT",
-            "text": "What's your issue as a tenant?",
-            "timestamp": "2017-10-12T00:00:42+00:00",
-            "file_request": {
-                "document_type": "LEASE"
-            }
-        },
-        {
-            "id": 4,
-            "sender_type": "USER",
-            "text": "My landlord is trying to raise my rent, but my lease ends in 4 months.",
-            "timestamp": "2017-10-12T00:00:50+00:00"
-        },
-        {
-            "id": 5,
-            "sender_type": "BOT",
-            "text": "Did your landlord give you any warning of the rent increase in advance?",
-            "timestamp": "2017-10-12T00:00:50+00:00"
-        }
-    ]
-
+	"claim_category": "NONPAYMENT",
+	"current_fact": {
+		"name": "landlord_retakes_apartment",
+		"summary": "Landlord intends to retake dwelling",
+		"type": "BOOLEAN"
+	},
+	"fact_entities": [
+		{
+			"fact": {
+				"name": "apartment_impropre",
+				"summary": "Dwelling unfit for habitation",
+				"type": "BOOLEAN"
+			},
+			"value": "false"
+		},
+		{
+			"fact": {
+				"name": "landlord_relocation_indemnity_fees",
+				"summary": "Relocation reimbursed following inhabitability",
+				"type": "BOOLEAN"
+			},
+			"value": "true"
+		}
+	],
+	"files": [],
+	"id": 1,
+	"messages": [
+		{
+			"enforce_possible_answer": true,
+			"file_request": null,
+			"id": 1,
+			"possible_answers": "[\"Yes\"]",
+			"relevant_fact": null,
+			"sender_type": "BOT",
+			"text": "Hello Bobby! Before we start, I want to make it clear that I am not a replacement for a lawyer and any information I provide you with is not meant to be construed as legal advice. Always check in with your legal professional. You can read more about our terms of use <a href='/legal' target='_blank'>here</a>. Do you accept these conditions?",
+			"timestamp": "2017-12-20T01:27:35.993932+00:00"
+		},
+		{
+			"enforce_possible_answer": null,
+			"file_request": null,
+			"id": 2,
+			"possible_answers": null,
+			"relevant_fact": null,
+			"sender_type": "USER",
+			"text": "Yes",
+			"timestamp": "2017-12-20T01:27:39.023317+00:00"
+		},
+		{
+			"enforce_possible_answer": false,
+			"file_request": {
+				"document_type": "LEASE"
+			},
+			"id": 3,
+			"possible_answers": null,
+			"relevant_fact": null,
+			"sender_type": "BOT",
+			"text": "I see you're a tenant, Bobby. If you have it on hand, it would be very helpful if you could upload your lease. What issue can I help you with today?",
+			"timestamp": "2017-12-20T01:27:39.040375+00:00"
+		},
+		{
+			"enforce_possible_answer": null,
+			"file_request": null,
+			"id": 4,
+			"possible_answers": null,
+			"relevant_fact": null,
+			"sender_type": "USER",
+			"text": "I am being kicked out",
+			"timestamp": "2017-12-20T01:27:40.694884+00:00"
+		},
+		{
+			"enforce_possible_answer": false,
+			"file_request": null,
+			"id": 5,
+			"possible_answers": null,
+			"relevant_fact": {
+				"name": "apartment_impropre",
+				"summary": "Dwelling unfit for habitation",
+				"type": "BOOLEAN"
+			},
+			"sender_type": "BOT",
+			"text": "Oh yes, I know all about problems with nonpayment. Would you deem the apartment unfit for habitation?",
+			"timestamp": "2017-12-20T01:27:40.794129+00:00"
+		},
+		{
+			"enforce_possible_answer": null,
+			"file_request": null,
+			"id": 6,
+			"possible_answers": null,
+			"relevant_fact": {
+				"name": "apartment_impropre",
+				"summary": "Dwelling unfit for habitation",
+				"type": "BOOLEAN"
+			},
+			"sender_type": "USER",
+			"text": "No",
+			"timestamp": "2017-12-20T01:28:46.591573+00:00"
+		},
+		{
+			"enforce_possible_answer": false,
+			"file_request": null,
+			"id": 7,
+			"possible_answers": null,
+			"relevant_fact": {
+				"name": "landlord_relocation_indemnity_fees",
+				"summary": "Relocation reimbursed following inhabitability",
+				"type": "BOOLEAN"
+			},
+			"sender_type": "BOT",
+			"text": "Have moving expenses been compensated when the apartment was deemed inhabitable?",
+			"timestamp": "2017-12-20T01:28:46.652110+00:00"
+		},
+		{
+			"enforce_possible_answer": null,
+			"file_request": null,
+			"id": 8,
+			"possible_answers": null,
+			"relevant_fact": {
+				"name": "landlord_relocation_indemnity_fees",
+				"summary": "Relocation reimbursed following inhabitability",
+				"type": "BOOLEAN"
+			},
+			"sender_type": "USER",
+			"text": "Yes",
+			"timestamp": "2017-12-20T01:28:51.529825+00:00"
+		}
+	],
+	"name": "Bobby",
+	"person_type": "TENANT"
 }
 ```
 
@@ -224,28 +313,16 @@ Gets only the list of resovled facts for the conversation
 	"fact_entities": [
 		{
 			"fact": {
-				"name": "apartment_infestation",
-				"type": "BOOLEAN"
-			},
-			"value": "false"
-		},
-		{
-			"fact": {
 				"name": "apartment_impropre",
+				"summary": "Dwelling unfit for habitation",
 				"type": "BOOLEAN"
 			},
 			"value": "false"
 		},
 		{
 			"fact": {
-				"name": "bothers_others",
-				"type": "BOOLEAN"
-			},
-			"value": "true"
-		},
-		{
-			"fact": {
-				"name": "disrespect_previous_judgement",
+				"name": "landlord_relocation_indemnity_fees",
+				"summary": "Relocation reimbursed following inhabitability",
 				"type": "BOOLEAN"
 			},
 			"value": "true"

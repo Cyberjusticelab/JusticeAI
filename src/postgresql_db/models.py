@@ -195,7 +195,7 @@ defined_facts = [
     {'name': 'landlord_rent_change_doc_renseignements', 'summary': 'Rent change documents filed', 'type': FactType.BOOLEAN},
     {'name': 'landlord_rent_change_piece_justification', 'summary': '', 'type': FactType.BOOLEAN},
     {'name': 'landlord_rent_change_receipts', 'summary': '', 'type': FactType.BOOLEAN},
-    {'name': 'landlord_retakes_apartment', 'summary': 'Dwelling intends to retake dwelling', 'type': FactType.BOOLEAN},
+    {'name': 'landlord_retakes_apartment', 'summary': 'Landlord intends to retake dwelling', 'type': FactType.BOOLEAN},
     {'name': 'landlord_retakes_apartment_indemnity', 'summary': 'Relocation reimbursed following retake', 'type': FactType.BOOLEAN},
     {'name': 'landlord_sends_demand_regie_logement', 'summary': 'Regie inquiry filed', 'type': FactType.BOOLEAN},
     {'name': 'landlord_serious_prejudice', 'summary': '', 'type': FactType.BOOLEAN},
