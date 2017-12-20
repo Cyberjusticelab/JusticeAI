@@ -4,11 +4,11 @@
   height: 100%;
   width: 100%;
   font-family: $zeus-font;
-  background-color: $main-grey-1;
+  background-color: rgba(74, 74, 74, 0.8);
   overflow: hidden;
   #chat-zeus-container {
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-top: 150px;
+    margin-bottom: 150px;
     #chat-message-zeus {
       margin-top: 10px;
       display: table !important;
@@ -16,13 +16,13 @@
       color: $main-grey-2;
       border: 1px solid $main-grey-6;
       padding: 20px;
-      border-radius: 30px;
+      border-radius: 5px;
       display: inline-block;
     }
   }
   #chat-input {
     border-top: 2px solid $main-gold-2;
-    background-color: $main-grey-6;
+    background-color: rgba(255, 255, 255, 0.7);
     height: 100%;
     .el-input {
       width: 80%;

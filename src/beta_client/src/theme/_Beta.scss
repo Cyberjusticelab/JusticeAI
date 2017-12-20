@@ -120,10 +120,16 @@
             }
         }
         #beta-page-sign-up {
-            background-color: $main-grey-1;
-            border: 1px solid $main-grey-2;
+            border: 2px solid $main-grey-1;
             width: 75%;
             margin: auto;
+            @media screen and (max-width: $break-medium) {
+                width: 90%;
+                height: 90%;
+            }
+            @media screen and (max-width: $break-small) {
+                width: 100%;
+            }
         }
         #beta-page-button-group {
             #button-group {
