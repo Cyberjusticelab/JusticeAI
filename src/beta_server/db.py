@@ -29,13 +29,14 @@ class DbGateway:
         # prevent SQL injection with DB-API param substitution
         insert = (str(email), str(id),)
         c.execute('''UPDATE responses SET email=? WHERE id=?''', insert)
-        id = c.lastrowid
         self.conn.commit()
+        return id
 
     def update_subscription_by_id(self, id, is_subscribed):
         c = self.conn.cursor()
         # prevent SQL injection with DB-API param substitution
         insert = (int(is_subscribed), str(id),)
         c.execute('''UPDATE responses SET is_subscribed=? WHERE id=?''', insert)
-        id = c.lastrowid
         self.conn.commit()
+        return id
+
