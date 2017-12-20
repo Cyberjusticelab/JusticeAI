@@ -24,11 +24,23 @@
                 }
             }
             #legal-nav-item {
-                padding-top: 18px;
-                a {
+                padding-top: 6px;
+                a, p {
+                    margin-left: 8px;
+                    margin-right: 8px;
+                    display: inline-block;
                     text-decoration: none;
                     color: $main-grey-5;
                     cursor: pointer;
+                    &:hover, &:active {
+                        color: $main-gold-2;
+                    }
+                }
+                .active-view {
+                    color: $main-gold-2;
+                }
+                .hidden-view {
+                    color: $main-grey-5;
                 }
             }
         }
