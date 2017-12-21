@@ -61,6 +61,19 @@
                 <h3>PREVIOUS CASES</h3>
             </div>
             <!-- End of Previous Case List -->
+            <!-- Feedback -->
+            <div id="sidebar-feedback" class="sidebar-menu" @click="dialogVisible = true">
+                <h3>FEEDBACK</h3>
+            </div>
+            <el-dialog title="Feedback" :visible.sync="dialogVisible">
+              <textarea id="feedback-text">
+              </textarea>
+              <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible = false">Cancel</el-button>
+                <el-button type="primary" @click="submitFeedback()">Submit</el-button>
+              </span>
+            </el-dialog>
+            <!-- End of Feedback -->
             <!-- Progress Bar -->
             <div id="sidebar-progress">
             </div>
@@ -82,6 +95,7 @@ export default {
             uploadedFileList: new Array,
             openFileList: false,
             openReportList: false,
+            dialogVisible: false,
             username: this.$localStorage.get('username').toUpperCase(),
             //TODO: fetch username from conversation, now use usertype instead
             api_url: process.env.API_URL,
@@ -89,6 +103,24 @@ export default {
         }
     },
     methods: {
+        submitFeedback(){
+            var feedback = document.getElementById("feedback-text").value;
+            this.$http.post(this.api_url + 'feedback',{
+                text: feedback
+            }).then(
+                response => {
+                    alert("Thank you for providing us with feedback!");
+                    this.dialogVisible = false;
+                    document.getElementById("feedback-text").value = "";
+                },
+                response => {
+                    this.connectionError = true
+                    alert("Error encountered");
+                    this.dialogVisible = false;
+                    document.getElementById("feedback-text").value = "";
+                }
+            )
+        },
         getFileList () {
             if (this.$localStorage.get('zeusId') && !this.openFileList) {
                 let zeusId = this.$localStorage.get('zeusId')
