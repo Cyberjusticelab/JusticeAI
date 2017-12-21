@@ -1,5 +1,5 @@
 <style lang="scss" scoped>
-@import "../theme/beta"
+@import "../theme/Beta"
 </style>
 
 <template>
