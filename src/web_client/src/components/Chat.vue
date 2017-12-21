@@ -8,7 +8,7 @@
     <transition name="fade">
       <div id="chat-history" v-if="user.openChatHistory" v-chat-scroll>
         <el-row>
-          <el-col :sm="8">
+          <el-col :sm="16">
             <div>
               <ul>
                 <li v-for="conv in chatHistory">
@@ -19,7 +19,7 @@
               </ul>
             </div>
           </el-col>
-          <el-col :sm="4">
+          <el-col :sm="8">
             <div id="previous-facts">
               <ul>
                 <li>FACT HERE</li>
