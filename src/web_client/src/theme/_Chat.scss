@@ -73,17 +73,6 @@
       min-height: 40%;
       #chat-zeus-avatar {
         margin-top: 30px;
-        img {
-          cursor: grab;
-        }
-        img:hover {
-          -webkit-border-radius: 10px;
-          -moz-border-radius: 10px;
-          border-radius: 10px;
-          -webkit-box-shadow: 0px 0px 30px 0px rgba(255, 165, 0);
-          -moz-box-shadow: 0px 0px 30px 0px rgba(255, 165, 0);
-          box-shadow: 0px 0px 30px 0px rgba(255, 165, 0);
-        }
       }
       #chat-message-zeus {
         @extend .chat-message;
