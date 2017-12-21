@@ -33,7 +33,9 @@
         </div>
       </el-row>
       <el-row>
-        <p id="invalid-answer" v-if="isInvalidInput">Please make sure your input is valid and not empty, thanks!</p>
+        <transition name="fade">
+          <p id="invalid-answer" v-if="isInvalidInput">Please make sure your input is valid and not empty, thanks!</p>
+        </transition>
       </el-row>
     </div>
   </div>
@@ -86,6 +88,7 @@ export default {
   },
   methods: {
     validateAnswer (item) {
+      this.isInvalidInput = false
       if (item.type === 'question') {
         if (this.userQuestion) {
           this.$http.post(this.api_url + 'question', {
