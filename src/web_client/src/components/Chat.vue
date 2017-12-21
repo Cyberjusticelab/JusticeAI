@@ -21,17 +21,20 @@
           </el-col>
           <el-col :sm="4">
             <div id="previous-facts">
-              <ul><li>FACT HERE</li></ul>
-              <ul><li>FACT HERE</li></ul>
-              <ul><li>FACT HERE</li></ul>
-              <ul><li>FACT HERE</li></ul>
-              <ul><li>FACT HERE</li></ul>
-              <ul><li>FACT HERE</li></ul>
-              <ul><li>FACT HERE</li></ul>
-              <ul><li>FACT HERE</li></ul>
-              <ul><li>FACT HERE</li></ul>
-              <ul><li>FACT HERE</li></ul>
-              <ul><li>FACT HERE</li></ul>
+              <ul>
+                <li>FACT HERE</li>
+                <li>FACT HERE</li>
+                <li>FACT HERE</li>
+                <li>FACT HERE</li>
+                <li>FACT HERE</li>
+                <li>FACT HERE</li>
+                <li>FACT HERE</li>
+                <li>FACT HERE</li>
+                <li>FACT HERE</li>
+                <li>FACT HERE</li>
+                <li>FACT HERE</li>
+                <li>FACT HERE</li>
+              </ul>
             </div>
           </el-col>
         </el-row>
