@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify, make_response
+from flask_cors import CORS, cross_origin
 from db import DbGateway
-from decorators import ensure_json, ensure_key
+from decorators import ensure_json, ensure_key, handle_options_method
 
 
 app = Flask(__name__)
+CORS(app, origins=['http://localhost:3040', 'https://procezeus.ca'])
 
 gateway = DbGateway('beta.db')
 gateway.create_table()
@@ -11,7 +13,8 @@ gateway.create_table()
 QUESTION_LENGTH_LIMIT = 10000
 EMAIL_LENGTH_LIMIT = 100
 
-@app.route('/question', methods=['POST'])
+@app.route('/question', methods=['POST', 'OPTIONS'])
+@handle_options_method
 @ensure_json
 @ensure_key('question')
 def post_question():
@@ -22,7 +25,8 @@ def post_question():
     id = gateway.insert_anonymous_question(data['question'])
     return jsonify(id=id)
 
-@app.route('/email', methods=['PUT'])
+@app.route('/email', methods=['PUT', 'OPTIONS'])
+@handle_options_method
 @ensure_json
 @ensure_key('email')
 @ensure_key('id')
@@ -34,7 +38,8 @@ def put_email():
     id = gateway.update_email_by_id(data['id'], data['email'])
     return jsonify(id=id)
 
-@app.route('/subscription', methods=['PUT'])
+@app.route('/subscription', methods=['PUT', 'OPTIONS'])
+@handle_options_method
 @ensure_json
 @ensure_key('is_subscribed')
 @ensure_key('id')
