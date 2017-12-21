@@ -31,11 +31,11 @@
                 </div>
             </transition>
             <transition name="fade">
-                <div id="beta-page-button-group" v-if="!chat">
+                <div id="beta-page-button-group">
                     <el-row>
                         <el-col :md="24">
                             <div id="button-group">
-                                <el-button type="warning" v-on:click="chat = !chat">SIGN UP TO BETA</el-button>
+                                <el-button type="warning" v-if="!chat" v-on:click="chat = !chat">SIGN UP TO BETA</el-button>
                             </div>
                         </el-col>
                     </el-row>
