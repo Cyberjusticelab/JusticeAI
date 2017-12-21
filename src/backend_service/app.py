@@ -4,6 +4,7 @@ from flask import Flask, request, abort, make_response, jsonify
 from flask_cors import CORS
 from postgresql_db import database
 
+
 # Flask Setup
 app = Flask(__name__)
 
@@ -13,7 +14,7 @@ db = database.connect(app, 'postgres', os.environ['POSTGRES_PASSWORD'], 'postgre
 # Cors Setup
 CORS(app)
 
-from controllers import conversationController, legalController
+from controllers import conversationController, legalController, feedback_controller
 
 
 @app.route("/new", methods=['POST'])
@@ -60,3 +61,9 @@ def store_user_confirmation():
 @app.route("/legal", methods=['GET'])
 def get_legal_documents():
     return legalController.get_legal_documents()
+
+
+@app.route("/feedback", methods=['POST'])
+def save_feedback():
+    data = request.get_json()
+    return feedback_controller.save_feedback(data)

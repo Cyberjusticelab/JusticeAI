@@ -65,14 +65,16 @@
             <div id="sidebar-feedback" class="sidebar-menu" @click="dialogVisible = true">
                 <h3>FEEDBACK</h3>
             </div>
+            <!-- el-dialog for feedback -->
             <el-dialog title="Feedback" :visible.sync="dialogVisible">
-              <textarea id="feedback-text">
-              </textarea>
-              <span slot="footer" class="dialog-footer">
-                <el-button @click="dialogVisible = false">Cancel</el-button>
-                <el-button type="primary" @click="submitFeedback()">Submit</el-button>
-              </span>
+                <textarea id="feedback-text">
+                </textarea>
+                <span slot="footer" class="dialog-footer">
+                    <el-button @click="dialogVisible = false">Cancel</el-button>
+                    <el-button type="primary" @click="submitFeedback()">Submit</el-button>
+                </span>
             </el-dialog>
+            <!-- End of el-dialog for feedback -->
             <!-- End of Feedback -->
             <!-- Progress Bar -->
             <div id="sidebar-progress">
@@ -106,7 +108,7 @@ export default {
         submitFeedback(){
             var feedback = document.getElementById("feedback-text").value;
             this.$http.post(this.api_url + 'feedback',{
-                text: feedback
+                data: feedback
             }).then(
                 response => {
                     alert("Thank you for providing us with feedback!");
