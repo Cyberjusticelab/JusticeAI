@@ -1,5 +1,5 @@
 <style lang="scss" scoped>
-  @import "../theme/Chat"
+  @import "../theme/Chat";
 </style>
 
 <template>
@@ -8,8 +8,8 @@
     <transition name="fade">
       <div id="chat-history" v-if="user.openChatHistory" v-chat-scroll>
         <el-row>
-          <el-col :sm="16">
-            <div>
+          <el-col :sm="14">
+            <div id="chat-container">
               <ul>
                 <li v-for="conv in chatHistory">
                   <h3>{{ conv.sender_type }}</h3>
@@ -19,21 +19,50 @@
               </ul>
             </div>
           </el-col>
-          <el-col :sm="8">
+          <el-col :sm="2">
             <div id="previous-facts">
               <ul>
-                <li>FACT HERE</li>
-                <li>FACT HERE</li>
-                <li>FACT HERE</li>
-                <li>FACT HERE</li>
-                <li>FACT HERE</li>
-                <li>FACT HERE</li>
-                <li>FACT HERE</li>
-                <li>FACT HERE</li>
-                <li>FACT HERE</li>
-                <li>FACT HERE</li>
-                <li>FACT HERE</li>
-                <li>FACT HERE</li>
+                <li>
+                  <el-table
+                    :data="tableData">
+                    <el-table-column
+                      label="Statement"
+                      width="120">
+                      <template slot-scope="scope">
+                        <el-popover trigger="hover" placement="top">
+                          <p>{{ scope.row.description }}</p>
+                          <div slot="reference">
+                            <span style="margin-left: 10px">{{ scope.row.Fact_Name }}</span>
+                          </div>
+                        </el-popover>
+                      </template>
+                    </el-table-column>
+                    <el-table-column
+                      label="Answer"
+                      width="120">
+                      <template slot-scope="scope">
+                        <span style="margin-left: 10px">{{ scope.row.Answer }}</span>
+                      </template>
+                    </el-table-column>
+                    <el-table-column
+                      label="Operations"
+                      width="120">
+                      <template slot-scope="scope">
+                        <el-col>
+                          <el-button
+                            size="mini"
+                            @click="handleEdit(scope.$index, scope.row)">Edit
+                          </el-button>
+                          <el-button
+                            size="mini"
+                            type="danger"
+                            @click="handleDelete(scope.$index, scope.row)">X
+                          </el-button>
+                        </el-col>
+                      </template>
+                    </el-table-column>
+                  </el-table>
+                </li>
               </ul>
             </div>
           </el-col>
@@ -178,7 +207,24 @@
           isSent: false,
           openChatHistory: false,
           disableInput: false
-        }
+        },
+        tableData: [{
+          Fact_Name: 'Fact 1',
+          Answer: 'Answer 1',
+          description: 'Description 1'
+        }, {
+          Fact_Name: 'Fact 2',
+          Answer: 'Answer 2',
+          description: 'Description 2'
+        }, {
+          Fact_Name: 'Fact 3',
+          Answer: 'Answer 3',
+          description: 'Description 3'
+        }, {
+          Fact_Name: 'Fact 4',
+          Answer: 'Answer 4',
+          description: 'Description 4'
+        }]
       }
     },
     created() {
@@ -189,6 +235,12 @@
       }
     },
     methods: {
+      handleEdit(index, row) {
+        console.log(index, row);
+      },
+      handleDelete(index, row) {
+        console.log(index, row);
+      },
       initChatSession() {
         this.$http.post(this.api_url + 'new', {
           name: this.$localStorage.get('username'),
