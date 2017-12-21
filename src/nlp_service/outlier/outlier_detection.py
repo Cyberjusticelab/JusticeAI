@@ -30,7 +30,6 @@ class OutlierDetection:
             for example in file_json['rasa_nlu_data']['common_examples']:
                 all_sentences.append(example['text'].lower())
 
-
         # TF-IDF model
         tfidf_vectorizer = TfidfVectorizer(ngram_range=self.NGRAM_RANGE, strip_accents='ascii')
         X_tfidf = tfidf_vectorizer.fit_transform(all_sentences)

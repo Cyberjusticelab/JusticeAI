@@ -59,7 +59,7 @@ def __dict_to_vector(input_dict, input_type):
     """
     output_vector = np.zeros(len(indices[input_type]))
     for index, val in indices[input_type]:
-        if not val in input_dict:
+        if val not in input_dict:
             abort("{} is not a valid key".format(val), 400)
         output_vector[index] = int(input_dict[val])
     return output_vector
