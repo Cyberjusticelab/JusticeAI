@@ -94,7 +94,7 @@ export default {
             question: this.userQuestion
           }).then(
             response => {
-              userId = response.data.id
+              this.userId = response.data.id
             }
           )
         } else {
