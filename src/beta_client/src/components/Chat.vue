@@ -79,7 +79,6 @@ export default {
       userQuestion: null,
       userSubscription: false,
       userId: null,
-      isSent: false,
       isInvalidInput: false
     }
   },
