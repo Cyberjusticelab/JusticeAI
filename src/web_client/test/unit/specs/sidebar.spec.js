@@ -26,10 +26,10 @@ describe('Sidebar.vue', () => {
         Vue.localStorage.set('zeusId', 1)
         Vue.localStorage.set('username', 'Bruce Wayne')
     	const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
-    	promiseCall.resolves({ 
+    	promiseCall.resolves({
     		body: {
     			files: [1, 2, 3]
-    		} 
+    		}
     	})
     	const vm = new Vue(Sidebar).$mount()
         vm.openFileList = false
@@ -45,10 +45,10 @@ describe('Sidebar.vue', () => {
         Vue.localStorage.set('zeusId', 1)
         Vue.localStorage.set('username', 'Bruce Wayne')
         const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
-        promiseCall.resolves({ 
+        promiseCall.resolves({
             body: {
                 files: []
-            } 
+            }
         })
         const vm = new Vue(Sidebar).$mount()
         vm.openFileList = false
@@ -80,4 +80,36 @@ describe('Sidebar.vue', () => {
         expect(vm.openFileList).to.be.false
     })
 
+    it('successfully submit feedback', () => {
+        const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
+        promiseCall.resolves({
+            body: {
+                success: true
+            }
+        })
+        const vm = new Vue(Sidebar).$mount()
+        vm.openFeedbackModal = true
+        vm.feedback = 'Hello'
+        vm.submitFeedback()
+        expect(vm.connectionError).to.be.false
+        expect(vm.openFileList).to.be.false
+    })
+    it('fail to submit feedback', () => {
+        const promiseCall = sinon.stub(Vue.http, 'post').returnsPromise()
+        promiseCall.rejects()
+        const vm = new Vue(Sidebar).$mount()
+        vm.openFeedbackModal = true
+        vm.feedback = 'Hello'
+        vm.submitFeedback()
+        expect(vm.connectionError).to.be.true
+        expect(vm.openFileList).to.be.false
+    })
+    it('fail to do anything', () => {
+        const vm = new Vue(Sidebar).$mount()
+        vm.openFeedbackModal = true
+        vm.feedback = ''
+        vm.submitFeedback()
+        expect(vm.connectionError).to.be.false
+        expect(vm.openFileList).to.be.false
+    })
 })

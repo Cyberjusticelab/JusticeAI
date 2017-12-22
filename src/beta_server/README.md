@@ -4,6 +4,11 @@ Requires the following installed on the host system:
 - SQLite
 - Python3
 
+## SETUP
+
+`pip install -r requirements.txt`
+`FLASK_APP=app.py flask run`
+
 ## REST API DOCUMENTATTION
 
 ### `POST /question`
