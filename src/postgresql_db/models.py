@@ -155,6 +155,13 @@ class File(db.Model):
     timestamp = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
 
+class Feedback(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+
+    # Attributes
+    feedback = db.Column(db.Text, nullable=False)
+
+
 '''
 ----------------------
 Bootstrapping Database
@@ -268,6 +275,11 @@ class FactEntitySchema(ma.ModelSchema):
 class FileSchema(ma.ModelSchema):
     class Meta:
         fields = ('name', 'type', 'timestamp')
+
+
+class FeedbackSchema(ma.ModelSchema):
+    class Meta:
+        fields = ['feedback']
 
 
 class MessageSchema(ma.ModelSchema):

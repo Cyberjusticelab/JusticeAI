@@ -1,136 +1,125 @@
 <style lang="scss" scoped>
- @import "../theme/Chat"
+@import "../theme/Chat"
 </style>
 
 <template>
   <div id="chat-component">
-    <!-- Chat Widow -->
-    <div id="chat-widow">
-      <!-- Zeus Chat -->
       <div id="chat-zeus-container">
         <el-row>
-          <el-col :sm="4">
+          <el-col :sm="{span: 4, offset: 1}" :xs="{span: 24}">
             <div id="chat-zeus-avatar">
               <img src="../assets/zeus_avatar_2.png"/>
             </div>
           </el-col>
-          <el-col :sm="19">
+          <el-col :sm="{span: 18}" :xs="{span: 22, offset: 1}">
             <div id="chat-message-zeus">
-              <img v-if="!zeus.input" alt="" src="../assets/chatting.gif">
-              <transition name="fade">
-                <div>
-                  <p v-if="zeus.input" v-html="zeus.input"></p>
-                </div>
-              </transition>
+              <div>
+                <p v-if="currentConversation" v-html="currentConversation.zeus"></p>
+              </div>
             </div>
           </el-col>
         </el-row>
-      </div>
-      <!-- End of Zeus Chat -->
     </div>
-    <!-- End of Chat Widow -->
-    <!-- Input Widow -->
     <div id="chat-input">
       <el-row>
-        <el-col :span="user.inputSize" v-for="item in user.inputs" :key="item.text">
-          <el-button id="chat-input-submit" type="warning" v-on:click="nextChat(item.val)">{{item.text}}</el-button>
-        </el-col>
+        <div v-for="answer in currentConversation.user">
+          <el-col v-if="answer.type=='question' || answer.type=='email'" :sm="24">
+            <el-input v-if="answer.type=='question'" autosize v-model="userQuestion" placeholder="ENTER YOUR QUESTION" autoComplete="off"></el-input>
+            <el-input v-if="answer.type=='email'" autosize v-model="userEmail" placeholder="ENTER YOUR EMAIL"></el-input>
+          </el-col>
+          <el-col :sm="colSize">
+            <el-button type="warning" v-on:click="validateAnswer(answer)">{{answer.text}}</el-button>
+          </el-col>
+        </div>
+      </el-row>
+      <el-row>
+        <transition name="fade">
+          <p id="invalid-answer" v-if="isInvalidInput">Please make sure your input is valid and not empty, thanks!</p>
+        </transition>
       </el-row>
     </div>
-    <!-- End of Input Widow -->
   </div>
 </template>
 
 <script>
 export default {
-  // State Values
-  // 0 : Regular flow
-  // 1 : Does not want to provide question
-  // 2 : Does not want to provide email
-  // 3 : Show Question Input // TODO
-  // 4 : Show Email Input // TODO
   name: 'Chat',
   data () {
     return {
       api_url: process.env.API_URL,
-      counter: 0,
-      currentMap: [],
-      connectionError: false,
-      regularConversation: [
+      conversation: [
         {
-          user: [{text:'Okay', val: 0}],
-          zeus:'Hello there stranger. My name is Zeus and I\'m here to assist with tenant/landlord problems within Canada. I\'ll be going into beta soon.'
+          user: [{text:'Okay', val: 1}],
+          zeus:'Hello there stranger! My name is Zeus and I\'m here to assist you with your Québec tenant/landlord issues. I\'ll be going into beta soon, and would like to get more context about common problems. If you don\'t mind telling me about any tenant/landlord issues you have, we\'ll try to get back to you as soon as possible with some useful information.'
         },
         {
-          user: [{text:'Sure', val: 0}, {text:'No Question', val: 1}],
-          zeus:'Would you like to ask me a question? I\'ll email you the answer as soon as I can!'},
+          user: [{text:'Sure', val: 2}, {text:'I have no question', val: 3}],
+          zeus:'Would you like to ask me a question about tenant/landlord issue?'
+        },
         {
-          user: [{text:'Send', val: 3}],
-          zeus:'Great! What is your question?'},
+          user: [{text:'Confirm', val: 3, type: 'question'}],
+          zeus:'Great! What is your question?'
+        },
         {
-          user: [{text:'Sure', val: 4}, {text:'No Thanks', val: 2}],
-          zeus:'I\'ll keep your question in mind. Can I have your email? I\'ll send you the response ASAP!'},
+          user: [{text:'Confirm', val: 4, type: 'email'}],
+          zeus:'Mind leaving your email so that we can let you know once our beta is live?'
+        },
         {
-          user: [{text:'Okay', val: 0}],
-          zeus:'Thanks! I\'ll be in touch!'}
-      ],
-      noQuestionConversation: [
+          user: [{text:'Sure', val: 5, type: 'subscription'}, {text:'No, thanks', val: 5}],
+          zeus:'Would you like to receive updates on our beta test?'
+        },
         {
-          user: [{text:'Sure', val: 0}, {text:'No', val: 2}],
-          zeus:'Would you like to give us your email to know when I have my open beta?'},
-        {
-          user: [{text:'Okay', val: 0}],
-          zeus:'Thanks! I\'ll be in touch!'}
-      ],
-      noEmailConversation: [
-        {
-          user: [{text:'Thanks', val: 0}],
-          zeus:'Alright! Have a nice day.'
+          user: [{text:'Close', val: -1}],
+          zeus:'Thank you so much! I\'ll be in touch. Have a nice day!'
         }
       ],
-      zeus: {
-        input: null
-      },
-      user: {
-        input: null,
-        isSent: false,
-      }
+      colSize: 24,
+      currentConversation: null,
+      userEmail: null,
+      userQuestion: null,
+      userSubscription: false,
+      userId: null,
+      isInvalidInput: false
     }
   },
   created () {
-    this.currentMap = this.regularConversation
-    this.zeus.input = this.currentMap[this.counter].zeus
-    this.user.inputs = this.currentMap[this.counter].user
+    this.currentConversation = this.conversation[0]
   },
   methods: {
-    // TODO Submit Email + Question
-    sendUserMessage () {
-      this.$http.post(this.api_url + 'conversation', {
-      }).then(
-        response => {
-        },
-        response => {
+    validateAnswer (item) {
+      this.isInvalidInput = false
+      if (item.type === 'question') {
+        if (this.userQuestion) {
+          this.$http.post(this.api_url + 'question', {
+            question: this.userQuestion
+          }).then(
+            response => {
+              this.userId = response.data.id
+            }
+          )
+        } else {
+          this.isInvalidInput = true
         }
-      )
-    },
-    nextChat (item) {
-      console.log(item)
-      if (item === 1) {
-        this.currentMap = this.noQuestionConversation
-        this.counter = 0
-      } else if (item === 2) {
-        this.currentMap = this.noEmailConversation
-        this.counter = 0
-      } else {
-        this.counter++
+      } else if (item.type === 'email') {
+        if (/^.+@[a-zA-Z0-9\-]+\.[a-zA-Z]+$/.test(this.userEmail)) {
+          this.$http.put(this.api_url + 'email', {
+            id: this.userId,
+            email: this.userEmail
+          })
+        } else {
+          this.isInvalidInput = true
+        }
+      } else if (item.type === 'subscription') {
+        this.$http.put(this.api_url + 'subscription', {
+          id: this.userId,
+          is_subscribed: 1
+        })
+      } else if (item.val == -1) {
+        this.$router.go('/')
       }
-      if (this.currentMap[this.counter] !== undefined){
-        this.zeus.input = this.currentMap[this.counter].zeus
-        this.user.inputs = this.currentMap[this.counter].user
-        this.user.inputSize = 24/this.user.inputs
-      } else {
-        this.zeus.input = ":D"
-        this.user.inputs = []
+      if (!this.isInvalidInput) {
+        this.currentConversation = this.conversation[item.val];
+        this.colSize = 24/this.currentConversation.user.length;
       }
     }
   }
