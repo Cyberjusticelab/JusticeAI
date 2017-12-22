@@ -8,10 +8,11 @@
     <transition name="fade">
       <div id="chat-history" v-if="user.openChatHistory" v-chat-scroll>
         <el-row>
-          <el-col :sm="14">
-            <div id="chat-container">
+          <!-- Chat History ~ Conversation Text -->
+          <el-col :sm="{span: 6, offset: 0}">
+            <div id="chat-history-text">
               <ul>
-                <li v-for="conv in chatHistory">
+                <li v-for="conv in chatHistory.history">
                   <h3>{{ conv.sender_type }}</h3>
                   <p>- {{ conv.text }}</p>
                   <p>on {{ conv.timestamp.split('T')[0] }} at {{ conv.timestamp.split('T')[1].substring(0,8) }}</p>
@@ -19,57 +20,29 @@
               </ul>
             </div>
           </el-col>
-          <el-col :sm="2">
-            <div id="previous-facts">
-              <ul>
-                <li>
-                  <el-table
-                    :data="tableData"
-                    width="380">
-                    <el-table-column
-                      label="Statement"
-                      width="120">
-                      <template slot-scope="scope">
-                        <el-popover trigger="hover" placement="top">
-                          <p>{{ scope.row.description }}</p>
-                          <div slot="reference">
-                            <span style="margin-left: 10px">{{ scope.row.Fact_Summary }}</span>
-                          </div>
-                        </el-popover>
-                      </template>
-                    </el-table-column>
-                    <el-table-column
-                      label="Answer"
-                      width="120">
-                      <template slot-scope="scope">
-                        <span style="margin-left: 10px">{{ scope.row.Answer }}</span>
-                      </template>
-                    </el-table-column>
-                    <el-table-column
-                      label="Operations"
-                      width="140">
-                      <template slot-scope="scope">
-                        <el-col>
-                          <el-button
-                            size="mini"
-                            @click="handleEdit(scope.$index, scope.row)">Edit
-                          </el-button>
-                          <el-button
-                            size="mini"
-                            type="danger"
-                            @click="handleDelete(scope.$index, scope.row)">X
-                          </el-button>
-                        </el-col>
-                      </template>
-                    </el-table-column>
-                  </el-table>
-                </li>
-              </ul>
-            </div>
+          <!-- End Chat History ~ Conversation Text -->
+          <!-- Chat History ~ Understood Fact -->
+          <el-col :sm="{span: 14, offset: 2}">
+          <div id="chat-history-fact">
+            <el-row v-for="fact in chatHistory.fact">
+              <el-col :sm="{span: 8, offset: 0}">
+                <p>{{ fact.fact.summary }}</p>
+              </el-col>
+              <el-col :sm="{span: 4, offset: 0}">
+                <p>{{ fact.value }}</p>
+              </el-col>
+              <el-col :sm="{span: 2, offset: 0}">
+                <div class="fact-edit">
+                  <img alt="" src="../assets/history_open.png">
+                </div>
+                <div>
+                  <img alt="" src="../assets/history_open.png">
+                </div>
+              </el-col>
+            </el-row>
+          </div>
           </el-col>
-          <el-col :sm="2">
-            <div>&nbsp;</div>
-          </el-col>
+          <!-- End Chat History ~ Understood Fact -->
         </el-row>
       </div>
     </transition>
@@ -79,7 +52,7 @@
       <!-- Log out -->
       <div id="chat-nav">
         <el-row>
-          <el-col :sm="2" :offset="22">
+          <el-col :sm="{span: 2, offset: 22}">
             <div id="chat-reset" v-on:click="resetChat()">
               <img alt="" src="../assets/logout.png">
               <p>
@@ -156,7 +129,7 @@
       <div id="chat-user-container">
         <el-row>
           <el-col :sm="14" :offset="3">
-            <div id="chat-message-user" v-bind:class="{ msgIsSent: user.isSent && chatHistory}">
+            <div id="chat-message-user" v-bind:class="{ msgIsSent: user.isSent && chatHistory.history}">
               <img v-if="!user.input" alt="" src="../assets/chatting.gif">
               <p v-if="user.input" v-html="user.input"></p>
             </div>
@@ -189,15 +162,18 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       api_url: process.env.API_URL,
       uploadUrl: new String,
       connectionError: false,
-      chatHistory: new Array,
       numMessageSinceChatHistory: 0,
       isLoggedIn: false, //TODO: account feature
       factType: 'boolean',
+      chatHistory: {
+        history: new Array,
+        fact: new Array
+      },
       zeus: {
         input: null,
         file: new Array,
@@ -211,41 +187,43 @@ export default {
         isSent: false,
         openChatHistory: false,
         disableInput: false
-      },
-      tableData: [{
-        Fact_Summary: 'Fact 1',
-        Answer: 'Answer 1',
-        description: 'Description 1'
-      }, {
-        Fact_Summary: 'Fact 2',
-        Answer: 'Answer 2',
-        description: 'Description 2'
-      }, {
-        Fact_Summary: 'Fact 3',
-        Answer: 'Answer 3',
-        description: 'Description 3'
-      }, {
-        Fact_Summary: 'Fact 4',
-        Answer: 'Answer 4',
-        description: 'Description 4'
-      }]
+      }
     }
   },
-  created() {
+  created () {
     if (this.$localStorage.get('zeusId')) {
       this.getChatHistory()
     } else {
       this.initChatSession()
     }
+    //TODO: remove after integration
+    this.chatHistory.fact = [
+      {
+        fact: {
+          name: "apartment_impropre",
+          summary: "Dwelling unfit for habitation",
+          type: "BOOLEAN"
+        },
+        value: "false"
+     },
+     {
+        fact: {
+          name: "landlord_relocation_indemnity_fees",
+          summary: "Relocation reimbursed following inhabitability",
+          type: "BOOLEAN"
+        },
+        value: "true"
+     }
+   ]
   },
   methods: {
-    handleEdit(index, row) {
+    handleEdit (index, row) {
       console.log(index, row);
     },
-    handleDelete(index, row) {
+    handleDelete (index, row) {
       console.log(index, row);
     },
-    initChatSession() {
+    initChatSession () {
       this.$http.post(this.api_url + 'new', {
         name: this.$localStorage.get('username'),
         person_type: this.$localStorage.get('usertype')
@@ -261,7 +239,7 @@ export default {
         }
       )
     },
-    sendUserMessage() {
+    sendUserMessage () {
       this.$http.post(this.api_url + 'conversation', {
         conversation_id: this.$localStorage.get('zeusId'),
         message: this.user.input
@@ -280,15 +258,15 @@ export default {
         }
       )
     },
-    getChatHistory() {
+    getChatHistory () {
       let zeusId = this.$localStorage.get('zeusId')
       this.$http.get(this.api_url + 'conversation/' + zeusId).then(
         response => {
-          this.chatHistory = response.body.messages
+          this.chatHistory.history = response.body.messages
           this.numMessageSinceChatHistory = 0
           this.user.name = response.body.name
           if (!this.zeus.input) {
-            this.configChat(this.chatHistory[this.chatHistory.length - 1])
+            this.configChat(this.chatHistory.history[this.chatHistory.history.length - 1])
           }
           this.uploadUrl = this.api_url + 'conversation/' + zeusId + '/files'
           this.setEnableUserConfirmation()
@@ -298,7 +276,7 @@ export default {
         }
       )
     },
-    configChat(conversation) {
+    configChat (conversation) {
       this.zeus.input = conversation.message || conversation.html || conversation.text
       this.zeus.filePrompt = (conversation.file_request !== undefined) && (conversation.file_request !== null)
       if (conversation.possible_answers == undefined) {
@@ -313,7 +291,7 @@ export default {
       this.user.isSent = false
       this.user.disableInput = conversation.enforce_possible_answer
     },
-    confirmBotResponse(confirmation) {
+    confirmBotResponse (confirmation) {
       this.$http.post(this.api_url + 'store-user-confirmation', {
         conversation_id: this.$localStorage.get('zeusId'),
         confirmation: confirmation || false
@@ -324,11 +302,11 @@ export default {
         this.connectionError = true
       })
     },
-    setEnableUserConfirmation() {
+    setEnableUserConfirmation () {
       // Only start prompting once user has start responding to questions
-      this.zeus.enableUserConfirmation = this.numMessageSinceChatHistory + this.chatHistory.length > 4
+      this.zeus.enableUserConfirmation = this.numMessageSinceChatHistory + this.chatHistory.history.length > 4
     },
-    resetChat() {
+    resetChat () {
       if (this.isLoggedIn) {
         //TODO: some logout logic here
       } else {

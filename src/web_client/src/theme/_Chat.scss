@@ -12,15 +12,32 @@
     background-color: rgba(41,41,41,0.8);
     position: fixed;
     z-index: 999;
-    ul {
-      padding: 0px;
-      text-align: left;
-      list-style: none;
-      margin-top: 40px;
-      padding-left: 100px;
-      width: 850px;
-      li {
-        color: $main-white-1;
+    #chat-history-text {
+      ul {
+        text-align: left;
+        list-style: none;
+        li {
+          color: $main-white-1;
+        }
+        h3 {
+          font-style: italic;
+          font-weight: bold;
+        }
+      }
+    }
+    #chat-history-fact {
+      margin-top: 50px;
+      .el-col {
+        border: 1px solid white;
+        height: 60px;
+      }
+      .fact-edit {
+        border-bottom: 1px solid white;
+      }
+      img {
+        height: 28px;
+        display: block;
+        margin: auto;
       }
     }
   }
