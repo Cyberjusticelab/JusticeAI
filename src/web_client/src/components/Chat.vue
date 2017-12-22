@@ -262,6 +262,7 @@ export default {
       this.$http.get(this.api_url + 'conversation/' + zeusId).then(
         response => {
           this.chatHistory.history = response.body.messages
+          this.chatHistory.fact = response.body.fact_entities
           this.numMessageSinceChatHistory = 0
           this.user.name = response.body.name
           if (!this.zeus.input) {
