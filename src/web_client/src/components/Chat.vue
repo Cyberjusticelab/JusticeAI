@@ -22,13 +22,13 @@
           </el-col>
           <!-- End Chat History ~ Conversation Text -->
           <!-- Chat History ~ Understood Fact -->
-          <el-col :sm="{span: 14, offset: 2}">
+          <el-col :sm="{span: 16, offset: 2}">
           <div id="chat-history-fact">
-            <el-row v-for="fact in chatHistory.fact">
-              <el-col :sm="{span: 8, offset: 0}">
-                <p>{{ fact.fact.summary }}</p>
+            <el-row v-for="fact in chatHistory.fact" :key="fact.id">
+              <el-col :sm="{span: 10, offset: 0}">
+                <h4>{{ fact.fact.summary }}</h4>
               </el-col>
-              <el-col :sm="{span: 4, offset: 0}">
+              <el-col :sm="{span: 2, offset: 0}">
                 <p>{{ fact.value }}</p>
               </el-col>
               <el-col :sm="{span: 2, offset: 0}">
