@@ -122,6 +122,12 @@
         margin-top: 30px;
         img {
           height: 200px;
+          &:hover {
+            background-color: $main-gold-1;
+            border: 1px solid $main-gold-1;
+            border-radius: 140px;
+            cursor: pointer;
+          }
         }
       }
       #chat-message-zeus {

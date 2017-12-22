@@ -31,7 +31,7 @@
               <el-col :sm="{span: 2, offset: 0}" class="dark-hover">
                 <p>{{ fact.value }}</p>
               </el-col>
-              <el-col :sm="{span: 2, offset: 0}" class="color-hover">
+              <el-col :sm="{span: 2, offset: 0}">
                 <div id="fact-remove">
                   <img alt="" src="../assets/fact_remove.png">
                 </div>
@@ -69,7 +69,7 @@
         <el-row>
           <el-col :sm="4" :offset="3">
             <div id="chat-zeus-avatar">
-              <img src="../assets/zeus_avatar_2.png"/>
+              <img v-on:click="user.openChatHistory = !user.openChatHistory; getChatHistory()" src="../assets/zeus_avatar_2.png"/>
             </div>
           </el-col>
           <el-col :sm="14">
@@ -149,8 +149,7 @@
       <form v-on:submit.prevent="sendUserMessage()">
         <el-input id="chat-input-text" autosize v-model="user.input" placeholder="Enter your message" autoComplete="off" :disabled="user.disableInput"></el-input>
         <el-button id="chat-input-submit" type="warning" :disabled="!user.input" native-type="submit">SEND</el-button>
-        <div id="chat-history-button" v-on:click="user.openChatHistory = !user.openChatHistory; getChatHistory()">
-          <img v-if="!user.openChatHistory" alt="" src="../assets/history_open.png">
+        <div id="chat-history-button" v-on:click="user.openChatHistory = false">
           <img v-if="user.openChatHistory" alt="" src="../assets/history_disable.png">
         </div>
       </form>
