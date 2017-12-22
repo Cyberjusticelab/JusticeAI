@@ -1,6 +1,7 @@
 import sqlite3
 from uuid import uuid4
 
+
 class DbGateway:
     def __init__(self, db_name):
         self.conn = sqlite3.connect(db_name)
@@ -57,4 +58,3 @@ class DbGateway:
         c.execute('''UPDATE responses SET is_subscribed=? WHERE id=?''', insert)
         self.conn.commit()
         return id
-
