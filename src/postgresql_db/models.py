@@ -158,7 +158,7 @@ class Feedback(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     # Attributes
-    feedback = db.Column(db.String(250), nullable=False)
+    feedback = db.Column(db.Text, nullable=False)
 
 
 '''

@@ -3,8 +3,8 @@ from flask import jsonify
 from app import db
 
 
-def save_feedback(data):
-    info = Feedback(feedback=data)
-    db.session.add(info)
+def save_feedback(feedback_text):
+    feedback = Feedback(feedback=feedback_text)
+    db.session.add(feedback)
     db.session.commit()
     return jsonify({"success": True})

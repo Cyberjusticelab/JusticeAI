@@ -66,4 +66,4 @@ def get_legal_documents():
 @app.route("/feedback", methods=['POST'])
 def save_feedback():
     data = request.get_json()
-    return feedback_controller.save_feedback(data)
+    return feedback_controller.save_feedback(data['feedback'])
