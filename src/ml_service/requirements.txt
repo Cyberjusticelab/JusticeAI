@@ -8,6 +8,7 @@ itsdangerous==0.24
 Jinja2==2.9.6
 joblib==0.11
 Keras==2.1.1
+langdetect==1.0.7
 MarkupSafe==1.0
 nltk==3.2.5
 numpy==1.13.3
