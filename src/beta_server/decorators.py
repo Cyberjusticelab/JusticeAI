@@ -1,5 +1,13 @@
 from flask import request, make_response, jsonify
 
+def handle_options_method(func):
+    def wrapper(*args, **kwargs):
+        if request.method == 'OPTIONS':
+            return jsonify({})
+        return func(*args, **kwargs)
+    wrapper.__name__ = func.__name__
+    return wrapper
+
 def ensure_json(func):
     def wrapper(*args, **kwargs):
         if not request.is_json:

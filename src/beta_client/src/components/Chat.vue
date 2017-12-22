@@ -1,5 +1,5 @@
 <style lang="scss" scoped>
- @import "../theme/Chat"
+@import "../theme/Chat"
 </style>
 
 <template>
@@ -28,9 +28,14 @@
             <el-input v-if="answer.type=='email'" autosize v-model="userEmail" placeholder="ENTER YOUR EMAIL"></el-input>
           </el-col>
           <el-col :sm="colSize">
-            <el-button type="warning" v-on:click="nextChat(answer)">{{answer.text}}</el-button>
+            <el-button type="warning" v-on:click="validateAnswer(answer)">{{answer.text}}</el-button>
           </el-col>
         </div>
+      </el-row>
+      <el-row>
+        <transition name="fade">
+          <p id="invalid-answer" v-if="isInvalidInput">Please make sure your input is valid and not empty, thanks!</p>
+        </transition>
       </el-row>
     </div>
   </div>
@@ -60,7 +65,7 @@ export default {
           zeus:'Mind leaving your email so that we can let you know once our beta is live?'
         },
         {
-          user: [{text:'Sure', val: 5, type: 'subscription', submit: true}, {text:'No, thanks', val: 5, submit: true}],
+          user: [{text:'Sure', val: 5, type: 'subscription'}, {text:'No, thanks', val: 5}],
           zeus:'Would you like to receive updates on our beta test?'
         },
         {
@@ -73,36 +78,49 @@ export default {
       userEmail: null,
       userQuestion: null,
       userSubscription: false,
-      isSent: false
+      userId: null,
+      isInvalidInput: false
     }
   },
   created () {
     this.currentConversation = this.conversation[0]
   },
   methods: {
-    // TODO Submit Email + Question + subscription
-    submit () {
-      this.$http.post(this.api_url + 'conversation', {
-      }).then(
-        response => {
-        },
-        response => {
+    validateAnswer (item) {
+      this.isInvalidInput = false
+      if (item.type === 'question') {
+        if (this.userQuestion) {
+          this.$http.post(this.api_url + 'question', {
+            question: this.userQuestion
+          }).then(
+            response => {
+              this.userId = response.data.id
+            }
+          )
+        } else {
+          this.isInvalidInput = true
         }
-      )
-    },
-    nextChat (item) {
-      if (item.val == -1) {
+      } else if (item.type === 'email') {
+        if (/^.+@[a-zA-Z0-9\-]+\.[a-zA-Z]+$/.test(this.userEmail)) {
+          this.$http.put(this.api_url + 'email', {
+            id: this.userId,
+            email: this.userEmail
+          })
+        } else {
+          this.isInvalidInput = true
+        }
+      } else if (item.type === 'subscription') {
+        this.$http.put(this.api_url + 'subscription', {
+          id: this.userId,
+          is_subscribed: 1
+        })
+      } else if (item.val == -1) {
         this.$router.go('/')
       }
-      if (item.type === 'subscription') {
-        this.userSubscription = true
+      if (!this.isInvalidInput) {
+        this.currentConversation = this.conversation[item.val];
+        this.colSize = 24/this.currentConversation.user.length;
       }
-      if (item.submit) {
-        //TODO: call submit
-        console.log('submitted')
-      }
-      this.currentConversation = this.conversation[item.val];
-      this.colSize = 24/this.currentConversation.user.length;
     }
   }
 }
