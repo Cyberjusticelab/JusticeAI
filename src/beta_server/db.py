@@ -24,6 +24,24 @@ class DbGateway:
         self.conn.commit()
         return id
 
+    def insert_anonymous_email(self, email):
+        c = self.conn.cursor()
+        # prevent SQL injection with DB-API param substitution
+        id = str(uuid4())
+        insert = (id, str(email),)
+        c.execute('''INSERT INTO responses (id, email) VALUES (?,?)''', insert)
+        self.conn.commit()
+        return id
+
+    def insert_anonymous_subscription(self, is_subscribed):
+        c = self.conn.cursor()
+        # prevent SQL injection with DB-API param substitution
+        id = str(uuid4())
+        insert = (id, str(is_subscribed),)
+        c.execute('''INSERT INTO responses (id, is_subscribed) VALUES (?,?)''', insert)
+        self.conn.commit()
+        return id
+
     def update_email_by_id(self, id, email):
         c = self.conn.cursor()
         # prevent SQL injection with DB-API param substitution
