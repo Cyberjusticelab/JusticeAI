@@ -14,3 +14,4 @@ test/unit/coverage
 *.ntvs*
 *.njsproj
 *.sln
+*.db

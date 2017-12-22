@@ -30,25 +30,44 @@
       .el-col {
         border: 1px solid $main-gold-1;
         height: 55px;
+        h4 {
+          font-style: italic;
+          color: $main-grey-5;
+          font-size: 15px;
+        }
+        p {
+          color: $main-grey-5;
+        }
+      }
+      .dark-hover {
         &:hover {
           background-color: rgba(0, 0, 0, 0.4);
         }
       }
-      .fact-edit {
+      .fact-editing {
+        height: 50%;
+        img {
+          height: 28px;
+          display: block;
+          margin: auto;
+        }
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      #fact-remove {
+        @extend .fact-editing;
         border-bottom: 1px solid $main-gold-1;
+        background-color: $main-grey-1;
+        &:hover {
+          background-color: $main-gold-1;
+        }
       }
-      img {
-        height: 24px;
-        display: block;
-        margin: auto;
-      }
-      h4 {
-        font-style: italic;
-        color: $main-grey-5;
-        font-size: 15px;
-      }
-      p {
-        color: $main-grey-5;
+      #fact-edit {
+        @extend .fact-editing;
+        &:hover {
+          background-color: $main-grey-6;
+        }
       }
     }
   }
@@ -101,6 +120,9 @@
       min-height: 40%;
       #chat-zeus-avatar {
         margin-top: 30px;
+        img {
+          height: 200px;
+        }
       }
       #chat-message-zeus {
         @extend .chat-message;

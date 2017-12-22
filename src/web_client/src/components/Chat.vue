@@ -25,18 +25,18 @@
           <el-col :sm="{span: 16, offset: 2}">
           <div id="chat-history-fact">
             <el-row v-for="fact in chatHistory.fact" :key="fact.id">
-              <el-col :sm="{span: 10, offset: 0}">
+              <el-col :sm="{span: 10, offset: 0}" class="dark-hover">
                 <h4>{{ fact.fact.summary }}</h4>
               </el-col>
-              <el-col :sm="{span: 2, offset: 0}">
+              <el-col :sm="{span: 2, offset: 0}" class="dark-hover">
                 <p>{{ fact.value }}</p>
               </el-col>
-              <el-col :sm="{span: 2, offset: 0}">
-                <div class="fact-edit">
-                  <img alt="" src="../assets/history_open.png">
+              <el-col :sm="{span: 2, offset: 0}" class="color-hover">
+                <div id="fact-remove">
+                  <img alt="" src="../assets/fact_remove.png">
                 </div>
-                <div>
-                  <img alt="" src="../assets/history_open.png">
+                <div id="fact-edit">
+                  <img alt="" src="../assets/fact_edit.png">
                 </div>
               </el-col>
             </el-row>
