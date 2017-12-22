@@ -276,12 +276,15 @@ export default {
       this.$http.post(this.api_url + 'store-user-confirmation', {
         conversation_id: this.$localStorage.get('zeusId'),
         confirmation: confirmation || false
-      }).then(response => {
-        this.zeus.enableUserConfirmation = false
-      }, response => {
-        this.zeus.enableUserConfirmation = true
-        this.connectionError = true
-      })
+      }).then(
+        response => {
+          this.zeus.enableUserConfirmation = false
+        },
+        response => {
+          this.zeus.enableUserConfirmation = true
+          this.connectionError = true
+        }
+      )
     },
     setEnableUserConfirmation () {
       // Only start prompting once user has start responding to questions
