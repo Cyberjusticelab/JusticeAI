@@ -68,10 +68,10 @@ describe('Chat.vue', () => {
 
     it('should successfully init new session', () => {
     	const promiseCall = sinon.stub(Vue.http, 'post').returnsPromise()
-    	promiseCall.resolves({ 
+    	promiseCall.resolves({
     		body: {
     			conversation_id: 1
-    		} 
+    		}
     	})
     	const spy = sinon.spy(Chat.methods, 'sendUserMessage')
     	const vm = new Vue(Chat).$mount()
@@ -106,24 +106,22 @@ describe('Chat.vue', () => {
 
     it('should handle the failure of sending of user confirmation of bot repsonse ', () => {
     	const promiseCall = sinon.stub(Vue.http, 'post').returnsPromise()
-    	promiseCall.rejects()
     	const vm = new Vue(Chat).$mount()
-    	vm.confirmBotResponse(true)
+    	vm.confirmBotResponse()
+        promiseCall.rejects()
         expect(vm.connectionError).to.be.true
         Vue.http.post.restore()
     })
 
-
-
     it('should successfully send message and config chat (1)', () => {
     	const promiseCall = sinon.stub(Vue.http, 'post').returnsPromise()
-    	promiseCall.resolves({ 
+    	promiseCall.resolves({
     		body: {
     			message: 'mock',
     			file_request: ['yes'],
     			possible_answers: '["yes"]',
     			enforce_possible_answer: true
-    		} 
+    		}
     	})
     	const clock = sinon.useFakeTimers();
     	const spy = sinon.spy(Chat.methods, 'configChat')
@@ -138,12 +136,12 @@ describe('Chat.vue', () => {
 
     it('should successfully send message and config chat (2)', () => {
     	const promiseCall = sinon.stub(Vue.http, 'post').returnsPromise()
-    	promiseCall.resolves({ 
+    	promiseCall.resolves({
     		body: {
     			html: 'mock',
     			file_request: ['yes'],
     			enforce_possible_answer: true
-    		} 
+    		}
     	})
     	const clock = sinon.useFakeTimers();
     	const spy = sinon.spy(Chat.methods, 'configChat')
@@ -158,13 +156,13 @@ describe('Chat.vue', () => {
 
     it('should successfully send message and config chat (3)', () => {
     	const promiseCall = sinon.stub(Vue.http, 'post').returnsPromise()
-    	promiseCall.resolves({ 
+    	promiseCall.resolves({
     		body: {
     			text: 'mock',
     			file_request: ['yes'],
     			enforce_possible_answer: true,
     			possible_answers: 'null'
-    		} 
+    		}
     	})
     	const clock = sinon.useFakeTimers();
     	const spy = sinon.spy(Chat.methods, 'configChat')
@@ -188,11 +186,11 @@ describe('Chat.vue', () => {
 
     it('should successfully get chat history', () => {
     	const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
-    	promiseCall.resolves({ 
+    	promiseCall.resolves({
     		body: {
     			messages: ['mock'],
     			name: 'Bruce Wayne'
-    		} 
+    		}
     	})
     	const spy = sinon.spy(Chat.methods, 'configChat')
     	const vm = new Vue(Chat).$mount()
