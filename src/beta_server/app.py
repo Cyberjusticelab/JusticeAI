@@ -49,6 +49,7 @@ def put_subscription():
     data = request.get_json()
     if not isinstance(data['is_subscribed'], int):
         return make_response(jsonify(message="'is_subscribed' must be an integer."), 422)
+
     if 'id' in data and data['id']:
         id = gateway.update_subscription_by_id(data['id'], data['is_subscribed'])
     else:
