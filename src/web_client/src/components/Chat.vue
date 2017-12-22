@@ -195,32 +195,13 @@ export default {
     } else {
       this.initChatSession()
     }
-    //TODO: remove after integration
-    this.chatHistory.fact = [
-      {
-        fact: {
-          name: "apartment_impropre",
-          summary: "Dwelling unfit for habitation",
-          type: "BOOLEAN"
-        },
-        value: "false"
-     },
-     {
-        fact: {
-          name: "landlord_relocation_indemnity_fees",
-          summary: "Relocation reimbursed following inhabitability",
-          type: "BOOLEAN"
-        },
-        value: "true"
-     }
-   ]
   },
   methods: {
     handleEdit (index, row) {
-      console.log(index, row);
+      // TODO: bind event and api
     },
     handleDelete (index, row) {
-      console.log(index, row);
+      // TODO: bind event and api
     },
     initChatSession () {
       this.$http.post(this.api_url + 'new', {
