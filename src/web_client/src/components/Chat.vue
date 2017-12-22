@@ -24,7 +24,8 @@
               <ul>
                 <li>
                   <el-table
-                    :data="tableData">
+                    :data="tableData"
+                    width="380">
                     <el-table-column
                       label="Statement"
                       width="120">
@@ -32,7 +33,7 @@
                         <el-popover trigger="hover" placement="top">
                           <p>{{ scope.row.description }}</p>
                           <div slot="reference">
-                            <span style="margin-left: 10px">{{ scope.row.Fact_Name }}</span>
+                            <span style="margin-left: 10px">{{ scope.row.Fact_Summary }}</span>
                           </div>
                         </el-popover>
                       </template>
@@ -46,7 +47,7 @@
                     </el-table-column>
                     <el-table-column
                       label="Operations"
-                      width="120">
+                      width="140">
                       <template slot-scope="scope">
                         <el-col>
                           <el-button
@@ -65,6 +66,9 @@
                 </li>
               </ul>
             </div>
+          </el-col>
+          <el-col :sm="2">
+            <div>&nbsp;</div>
           </el-col>
         </el-row>
       </div>
@@ -209,19 +213,19 @@
           disableInput: false
         },
         tableData: [{
-          Fact_Name: 'Fact 1',
+          Fact_Summary: 'Fact 1',
           Answer: 'Answer 1',
           description: 'Description 1'
         }, {
-          Fact_Name: 'Fact 2',
+          Fact_Summary: 'Fact 2',
           Answer: 'Answer 2',
           description: 'Description 2'
         }, {
-          Fact_Name: 'Fact 3',
+          Fact_Summary: 'Fact 3',
           Answer: 'Answer 3',
           description: 'Description 3'
         }, {
-          Fact_Name: 'Fact 4',
+          Fact_Summary: 'Fact 4',
           Answer: 'Answer 4',
           description: 'Description 4'
         }]
