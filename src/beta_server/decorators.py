@@ -1,5 +1,6 @@
 from flask import request, make_response, jsonify
 
+
 def handle_options_method(func):
     def wrapper(*args, **kwargs):
         if request.method == 'OPTIONS':
@@ -8,6 +9,7 @@ def handle_options_method(func):
     wrapper.__name__ = func.__name__
     return wrapper
 
+
 def ensure_json(func):
     def wrapper(*args, **kwargs):
         if not request.is_json:
@@ -15,6 +17,7 @@ def ensure_json(func):
         return func(*args, **kwargs)
     wrapper.__name__ = func.__name__
     return wrapper
+
 
 def ensure_key(key):
     def decorator(func):
@@ -25,4 +28,3 @@ def ensure_key(key):
         wrapper.__name__ = func.__name__
         return wrapper
     return decorator
-

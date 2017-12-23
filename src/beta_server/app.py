@@ -13,6 +13,7 @@ gateway.create_table()
 QUESTION_LENGTH_LIMIT = 10000
 EMAIL_LENGTH_LIMIT = 100
 
+
 @app.route('/question', methods=['POST', 'OPTIONS'])
 @handle_options_method
 @ensure_json
@@ -24,6 +25,7 @@ def post_question():
 
     id = gateway.insert_anonymous_question(data['question'])
     return jsonify(id=id)
+
 
 @app.route('/email', methods=['PUT', 'OPTIONS'])
 @handle_options_method
@@ -41,6 +43,7 @@ def put_email():
 
     return jsonify(id=id)
 
+
 @app.route('/subscription', methods=['PUT', 'OPTIONS'])
 @handle_options_method
 @ensure_json
@@ -56,4 +59,3 @@ def put_subscription():
         id = gateway.insert_anonymous_subscription(data['is_subscribed'])
 
     return jsonify(id=id)
-
