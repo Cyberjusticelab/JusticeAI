@@ -8,6 +8,10 @@
             <div id="beta-page-nav">
                 <p v-on:click="aboutUs=!aboutUs" v-if="!aboutUs">ABOUT US</p>
             </div>
+            <div id="beta-page-lang">
+                <p v-on:click="changeLanguage('fr')" v-if="language != 'fr'">FRANCAIS</p>
+                <p v-on:click="changeLanguage('en')" v-if="language != 'en'">ENGLISH</p>
+            </div>
             <transition name="fade">
                 <div id="beta-page-title" v-bind:class="{ 'beta-page-title-in-chat': chat}">
                     <el-row>
@@ -27,7 +31,7 @@
             </transition>
             <transition name="fade">
                 <div id="beta-page-sign-up" v-if="chat">
-                    <chat></chat>
+                    <chat :language="language"></chat>
                 </div>
             </transition>
             <transition name="fade">
@@ -71,8 +75,21 @@ export default {
     data () {
         return {
             chat: false,
-            aboutUs: false
+            aboutUs: false,
+            language: 'en'
         }
-    }
+    },
+    created () {
+        if (this.langQuery == 'fr'){
+            this.language = this.langQuery
+        }
+    },
+    methods: {
+        changeLanguage (lang) {
+            this.language = lang
+            this.$router.replace({path: '/', query: {lang: lang}})
+        }
+    },
+    props: ['langQuery'],
 }
 </script>

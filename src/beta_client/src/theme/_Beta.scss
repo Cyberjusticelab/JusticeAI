@@ -35,6 +35,20 @@
                 color: $main-gold-2;
             }
         }
+        #beta-page-lang {
+            position: fixed;
+            right: 6em;
+            font-family: $zeus-font;
+            text-align: right;
+            margin-right: 20px;
+            color: $main-grey-4;
+            font-size: 12px;
+            cursor: pointer;
+            &:hover, &:active {
+                color: $main-gold-2;
+            }
+
+        }
         #beta-page-title {
             text-align: center;
             padding-top: 220px;
