@@ -14,7 +14,8 @@
           <el-col :sm="{span: 18}" :xs="{span: 22, offset: 1}">
             <div id="chat-message-zeus">
               <div>
-                <p v-if="currentConversation" v-html="currentConversation.zeus"></p>
+                <p v-if="currentConversation && language == 'en'" v-html="currentConversation.zeus.en"></p>
+                <p v-if="currentConversation && language == 'fr'" v-html="currentConversation.zeus.fr"></p>
               </div>
             </div>
           </el-col>
@@ -50,27 +51,45 @@ export default {
       conversation: [
         {
           user: [{text:'Okay', val: 1}],
-          zeus:'Hello there stranger! My name is Zeus and I\'m here to assist you with your Québec tenant/landlord issues. I\'ll be going into beta soon, and would like to get more context about common problems. If you don\'t mind telling me about any tenant/landlord issues you have, we\'ll try to get back to you as soon as possible with some useful information.'
+          zeus: {
+            en: 'Hello there stranger! My name is Zeus and I\'m here to assist you with your Québec tenant/landlord issues. I\'ll be going into beta soon, and would like to get more context about common problems. If you don\'t mind telling me about any tenant/landlord issues you have, we\'ll try to get back to you as soon as possible with some useful information.',
+            fr: 'Bonjour'
+          }
         },
         {
           user: [{text:'Sure', val: 2}, {text:'I have no question', val: 3}],
-          zeus:'Would you like to ask me a question about tenant/landlord issue?'
+          zeus: {
+            en: 'Would you like to ask me a question about tenant/landlord issue?',
+            fr: 'Question 2'
+          }
         },
         {
           user: [{text:'Confirm', val: 3, type: 'question'}],
-          zeus:'Great! What is your question?'
+          zeus: {
+            en: 'Great! What is your question?',
+            fr: 'Question 3'
+          }
         },
         {
           user: [{text:'Confirm', val: 4, type: 'email'}],
-          zeus:'Mind leaving your email so that we can let you know once our beta is live?'
+          zeus: {
+            en: 'Mind leaving your email so that we can let you know once our beta is live?',
+            fr: 'Question 4'
+          }
         },
         {
           user: [{text:'Sure', val: 5, type: 'subscription'}, {text:'No, thanks', val: 5}],
-          zeus:'Would you like to receive updates on our beta test?'
+          zeus: {
+            en: 'Would you like to receive updates on our beta test?',
+            fr: 'Question 5'
+          }
         },
         {
           user: [{text:'Close', val: -1}],
-          zeus:'Thank you so much! I\'ll be in touch. Have a nice day!'
+          zeus: {
+            en: 'Thank you so much! I\'ll be in touch. Have a nice day!',
+            fr: 'Question 6'
+          }
         }
       ],
       colSize: 24,
@@ -85,6 +104,7 @@ export default {
   created () {
     this.currentConversation = this.conversation[0]
   },
+  props: ['language'],
   methods: {
     validateAnswer (item) {
       this.isInvalidInput = false

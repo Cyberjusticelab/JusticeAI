@@ -10,7 +10,12 @@ export default new Router({
         {
             path: '/',
             name: 'Beta',
-            component: Beta
+            component: Beta,
+            props (route) {
+              return {
+                language: route.query.lang
+              }
+            }
         }
     ]
 })
