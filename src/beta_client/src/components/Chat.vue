@@ -28,7 +28,7 @@
             <el-input v-if="answer.type=='question' && language == 'en'" autosize v-model="userQuestion" placeholder="ENTER YOUR QUESTION" autoComplete="off"></el-input>
             <el-input v-if="answer.type=='email' && language == 'en'" autosize v-model="userEmail" placeholder="ENTER YOUR EMAIL"></el-input>
             <el-input v-if="answer.type=='question' && language == 'fr'" autosize v-model="userQuestion" placeholder="DEMANDEZ VOTRE QUESTION" autoComplete="off"></el-input>
-            <el-input v-if="answer.type=='email' && language == 'fr'" autosize v-model="userEmail" placeholder="ENTRER VOTRE COURRIEL"></el-input>
+            <el-input v-if="answer.type=='email' && language == 'fr'" autosize v-model="userEmail" placeholder="ENTREZ VOTRE COURRIEL"></el-input>
           </el-col>
           <el-col :sm="colSize">
             <el-button type="warning" v-if="language == 'en'" v-on:click="validateAnswer(answer)">{{answer.text.en}}</el-button>
