@@ -1,6 +1,7 @@
 import os
 from flask import jsonify, abort, make_response
 
+from nlp_service.services import factService
 from postgresql_db.models import *
 from rasa.rasa_classifier import RasaClassifier
 from services import mlService
@@ -55,8 +56,8 @@ def classify_claim_category(conversation_id, message):
     }[claim_category]
 
     # Get first fact based on claim category
-    ml_request = mlService.submit_claim_category(conversation.claim_category)
-    first_fact_id = ml_request['fact_id']
+    first_fact = factService.submit_claim_category(conversation.claim_category)
+    first_fact_id = first_fact['fact_id']
 
     # Retrieve the Fact from DB
     first_fact = db.session.query(Fact).get(first_fact_id)
@@ -102,8 +103,8 @@ def classify_fact_value(conversation_id, message):
     fact_entity_value = __extract_entity(current_fact.name, message)
     if fact_entity_value is not None:
         # Pass fact with extracted entity to ML service
-        ml_request = mlService.submit_resolved_fact(conversation, current_fact, fact_entity_value)
-        new_fact_id = ml_request['fact_id']
+        next_fact = factService.submit_resolved_fact(conversation, current_fact, fact_entity_value)
+        new_fact_id = next_fact['fact_id']
 
         # Retrieve the Fact from DB
         if new_fact_id:
