@@ -23,6 +23,30 @@ def submit_resolved_fact_list(conversation):
 
 
 """
+Given a claim cateogry and the ml service response, will extract the prediction 
+performing any necessary mappings.
+claim_category: the current conversation's claim category as a string
+ml_response: the response dict received from ml service
+:returns Outcomes vector with true/false, depending on chance of winning case
+"""
+
+
+def extract_prediction(claim_category, ml_response):
+    outcome_mapping = {
+        "lease_termination": "lease_resiliation"
+    }
+
+    outcome_key = None
+    if claim_category in outcome_mapping:
+        outcome_key = outcome_mapping[claim_category.lower()]
+
+    if outcome_key:
+        return True if ml_response[outcome_key] == 1 else False
+
+    return False
+
+
+"""
 Generates demand dictionary with default values for ML service input
 :returns Demand dictionary with default values
 """
@@ -121,6 +145,10 @@ all_ml_facts = [
 def generate_fact_dict(conversation):
     resolved_facts = {}
 
+    # Initialize expected facts with all false
+    for expected_fact in all_ml_facts:
+        resolved_facts[expected_fact] = False
+
     # Add all resolved facts
     for fact_entity in conversation.fact_entities:
         fact_entity_name = fact_entity.fact.name
@@ -129,6 +157,10 @@ def generate_fact_dict(conversation):
         elif fact_entity.value == "false":
             resolved_facts[fact_entity_name] = False
 
+    ############
+    # Mappings #
+    ############
+
     # Perform asker mapping
     if conversation.person_type is PersonType.LANDLORD:
         resolved_facts['asker_is_landlord'] = True
@@ -136,17 +168,6 @@ def generate_fact_dict(conversation):
     else:
         resolved_facts['asker_is_landlord'] = False
         resolved_facts['asker_is_tenant'] = True
-
-    # Perform mappings with defaults
-    resolved_facts['absent'] = False
-    resolved_facts['incorrect_facts'] = False
-    resolved_facts['landlord_pays_indemnity'] = False
-    resolved_facts['landlord_prejudice_justified'] = False
-    resolved_facts['landlord_serious_prejudice'] = False
-    resolved_facts['proof_of_late'] = False
-    resolved_facts['tenant_is_bothered'] = False
-    resolved_facts['lack_of_proof'] = False
-    resolved_facts['tenant_rent_paid_before_hearing'] = False
 
     # Perform one to one mappings
     resolved_facts['violent'] = resolved_facts['tenant_violence']
@@ -159,7 +180,6 @@ def generate_fact_dict(conversation):
     # Perform mappings with dependencies
     resolved_facts['tenant_lease_indeterminate'] = not resolved_facts['tenant_lease_fixed']
     resolved_facts['lease'] = resolved_facts['tenant_lease_fixed']
-
     resolved_facts['tenant_rent_not_paid_less_3_weeks'] = not resolved_facts['tenant_rent_not_paid_more_3_weeks']
 
     # Convert true and false to 1 and 0

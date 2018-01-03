@@ -44,21 +44,28 @@ facts_resolved: list of resolved fact keys
 :returns Next fact id to ask
 """
 
+# This can be replaced with a more dynamic solution using MLService to obtain fact lists
 fact_mapping = {
     "lease_termination": [
-        "apartment_impropre",
-        "landlord_rent_change",
+        "tenant_rent_not_paid_more_3_weeks",
+        "tenant_violence",
+        "tenant_owes_rent",
+        "tenant_monthly_payment",
         "landlord_retakes_apartment",
         "tenant_bad_payment_habits",
+        "apartment_impropre",
+        "landlord_rent_change",
         "tenant_left_without_paying",
-        "tenant_monthly_payment",
-        "tenant_owes_rent",
-        "tenant_rent_not_paid_more_3_weeks",
-        "tenant_violence"
     ],
-    "rent_change": [],
-    "nonpayment": [],
-    "deposits": []
+    "rent_change": [
+        "apartment_impropre",
+    ],
+    "nonpayment": [
+        "apartment_impropre",
+    ],
+    "deposits": [
+        "apartment_impropre",
+    ]
 }
 
 

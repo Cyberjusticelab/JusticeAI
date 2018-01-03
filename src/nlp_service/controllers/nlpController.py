@@ -22,9 +22,9 @@ minimum_percent_difference = 0.3
 # Intents will not be considered acceptable unless they have a confidence of at least 60%
 minimum_intent_confidence_threshold = 0.6
 
-# Rasa Classifier - Initialization of RasaClassifier, used for claim category determination and fact value classification
+# Rasa Classifier - RasaClassifier used for claim category determination and fact value classification.
 rasaClassifier = RasaClassifier()
-rasaClassifier.train(force_train=True)
+rasaClassifier.train()
 
 # Outlier detector - Predicts if the new message is a clear outlier based on a model trained with fact messages
 outlier_detector = OutlierDetection()
@@ -117,10 +117,10 @@ def classify_fact_value(conversation_id, message):
             question = Responses.fact_question(new_fact.name)
         else:
             # All facts have been resolved, submit request to ML service for prediction
-            ml_prediction_request = mlService.submit_resolved_fact_list(conversation)
+            ml_prediction = mlService.submit_resolved_fact_list(conversation)
 
-            outcome = ml_prediction_request["lease_resiliation"]
-            prediction = True if outcome == 1 else False
+            prediction = mlService.extract_prediction(claim_category=conversation.claim_category.value,
+                                                      ml_response=ml_prediction)
 
             # Generate statement for prediction
             question = Responses.prediction_statement(conversation.claim_category.value, prediction)
