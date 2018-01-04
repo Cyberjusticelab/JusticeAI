@@ -3,25 +3,25 @@
         {
             "question": "Hello there stranger! My name is Zeus and I'm here to assist you with your Québec tenant/landlord issues. I'll be going into beta soon, and would like to get more context about common problems. If you don't mind telling me about any tenant/landlord issues you have, we'll try to get back to you as soon as possible with some useful information.",
             "answer": ["Okay"],
-            "type": null,
             "val": 1
         },
         {
             "question": "Would you like to ask me a question about tenant/landlord issue?",
             "answer": ["Sure", "I have no question"],
-            "type": null,
             "val": 2
         },
         {
             "question": "Great! What is your question?",
             "answer": ["Confirm"],
             "type": "question",
+            "placeholder": "ENTER YOUR QUESTION",
             "val": 3
         },
         {
             "question": "Mind leaving your email so that we can let you know once our beta is live?",
             "answer": ["Confirm"],
             "type": "email",
+            "placeholder": "ENTER YOUR EMAIL",
             "val": 4
         },
         {
@@ -33,33 +33,32 @@
         {
             "question": "Thank you so much! I'll be in touch. Have a nice day!",
             "answer": ["Close"],
-            "type": null,
             "val": -1
         }
     ],
     "fr": [
         {
-            "question": "Hello there stranger! My name is Zeus and I'm here to assist you with your Québec tenant/landlord issues. I'll be going into beta soon, and would like to get more context about common problems. If you don't mind telling me about any tenant/landlord issues you have, we'll try to get back to you as soon as possible with some useful information.",
+            "question": "Bonjour cher étranger! Mon nom est Zeus et je suis ici pour vous assistez avec vos problèmes entre propriétaires et locataires au Québec. Je commencerai ma phase bêta bientôt. J'ai besoin par contre d'en connaître un peu plus à égard des problèmes communs qui peuvent survenir dans ces situations. Si m'aidez ne vous ennuie pas, nous nous efforcerons de vous communiquez de l'information utile dans les plus brefs délais.",
             "answer": ["Okay"],
-            "type": null,
             "val": 1
         },
         {
             "question": "Voulez-vous me poser une question concernant un problème de locataire/propriétaire?",
             "answer": ["Oui", "Je n'ai pas de question"],
-            "type": null,
             "val": 2
         },
         {
             "question": "Génial! Quelle est ta question?",
             "answer": ["Confirmer"],
             "type": "question",
+            "placeholder": "DEMANDEZ VOTRE QUESTION",
             "val": 3
         },
         {
             "question": "Voulez-vous me laisser votre courriel pour que nous vous communiquons quand notre bêta commence?",
             "answer": ["Confirmer"],
             "type": "email",
+            "placeholder": "ENTREZ VOTRE COURRIEL",
             "val": 4
         },
         {
@@ -71,7 +70,6 @@
         {
             "question": "Merci beaucoup! Je serai en contact. Bonne journée!",
             "answer": ["Fermer"],
-            "type": null,
             "val": -1
         }
     ]

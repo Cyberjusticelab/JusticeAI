@@ -6,8 +6,9 @@
   font-family: $zeus-font;
   background-color: rgba(74, 74, 74, 0.8);
   overflow: hidden;
-  #chat-zeus-container {
-    height: 100%;
+  #chat-container {
+    max-height: 400px;
+    overflow-y: scroll;
     margin-top: 150px;
     margin-bottom: 150px;
     #chat-message-zeus {

@@ -22,11 +22,9 @@
                     </el-col>
                 </el-row>
             </div>
-            <transition name="fade">
-                <div id="beta-page-sign-up">
-                    <chat :language="language"></chat>
-                </div>
-            </transition>
+            <div id="beta-page-sign-up">
+                <chat :language="language"></chat>
+            </div>
         </div>
         <div id="beta-page-about-us" v-if="aboutUs">
             <div id="beta-page-about-us-nav">
