@@ -24,15 +24,24 @@ Vue.component('file-upload', VueUpload)
 test
 */
 
-describe.only('Chat.vue', () => {
+describe('Chat.vue', () => {
 
     it('should resume chat session if conversation id exists', () => {
     	Vue.localStorage.set('zeusId', 1)
+        const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
+        promiseCall.resolves({
+            body: {
+                messages: ['mock_message1'],
+                fact_entities: ['mock_fact1'],
+                name: 'Bruce'
+            }
+        })
     	const spy = sinon.spy(Chat.methods, 'getChatHistory')
         const vm = new Vue(Chat).$mount()
         expect(spy.called).to.be.true
         Chat.methods.getChatHistory.restore()
         Vue.localStorage.remove('zeusId')
+        Vue.http.get.restore()
     })
 
     it('should init new chat session if conversation id doesn\'t exist', () => {
@@ -160,24 +169,27 @@ describe.only('Chat.vue', () => {
     	Vue.http.post.restore()
     })
 
-    xit('should successfully get chat history', () => {
-    	const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
-    	promiseCall.resolves({
-    		body: {
-    			messages: ['mock'],
-                fact_entities: ['fact'],
-    			name: 'Bruce Wayne'
-    		}
-    	})
-    	const spy = sinon.spy(Chat.methods, 'configChat')
-    	const vm = new Vue(Chat).$mount()
-    	vm.zeus.input = 'mock'
-
-    	Chat.methods.configChat.restore()
-    	Vue.http.get.restore()
+    it('should get chat history', () => {
+        Vue.localStorage.set('zeusId', 1)
+        const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
+        promiseCall.resolves({
+            body: {
+                messages: ['mock_message1'],
+                fact_entities: ['mock_fact1'],
+                name: 'Bruce'
+            }
+        })
+        const spy = sinon.spy(Chat.methods, 'configChat')
+        const vm = new Vue(Chat).$mount()
+        vm.zeus.input = true
+        vm.getChatHistory()
+        expect(spy.called).to.be.true
+        Chat.methods.configChat.restore()
+        Vue.localStorage.remove('zeusId')
+        Vue.http.get.restore()
     })
 
-    xit('should fail to get chat history', () => {
+    it('should fail to get chat history', () => {
     	const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
     	promiseCall.rejects()
     	const vm = new Vue(Chat).$mount()
@@ -186,24 +198,24 @@ describe.only('Chat.vue', () => {
     	Vue.http.get.restore()
     })
 
-    xit('should enable user confirmation prompt once chat contains questions regarding facts', () => {
+    it('should enable user confirmation prompt once chat contains questions regarding facts', () => {
         const vm = new Vue(Chat).$mount()
         expect(vm.zeus.enableUserConfirmation).to.be.false
         vm.numMessageSinceChatHistory = 10
-        vm.chatHistory = []
+        vm.chatHistory = {history: []}
         vm.setEnableUserConfirmation()
         expect(vm.zeus.enableUserConfirmation).to.be.true
         vm.numMessageSinceChatHistory = 0
-        vm.chatHistory = [{}, {}, {}, {}, {}]
+        vm.chatHistory.history = [{}, {}, {}, {}, {}]
         vm.setEnableUserConfirmation()
         expect(vm.zeus.enableUserConfirmation).to.be.true
     })
 
-    xit('should disable user confirmation prompt before chat contains questions regarding facts', () => {
+    it('should disable user confirmation prompt before chat contains questions regarding facts', () => {
         const vm = new Vue(Chat).$mount()
         expect(vm.zeus.enableUserConfirmation).to.be.false
         vm.numMessageSinceChatHistory = 0
-        vm.chatHistory = []
+        vm.chatHistory = {history: []}
         vm.setEnableUserConfirmation()
         expect(vm.zeus.enableUserConfirmation).to.be.false
     })
