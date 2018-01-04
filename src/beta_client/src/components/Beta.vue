@@ -5,28 +5,23 @@
 <template>
     <el-container id="beta-component">
         <div id="beta-page">
-            <div id="beta-page-nav">
-                <p v-on:click="aboutUs=!aboutUs" v-if="!aboutUs">ABOUT US</p>
+            <div id="beta-page-top">
+                <el-row>
+                    <el-col :md="{span: 12, offset: 1}">
+                        <div id="title-image">
+                            <img alt="" src="../assets/beta_page_zeus_avatar.png" id="beta-page-zeus">
+                            <img alt="" src="../assets/beta_page_logo.png" id="beta-page-logo">
+                        </div>
+                    </el-col>
+                    <el-col :md="{span: 4, offset: 7}">
+                        <div id="beta-page-nav">
+                            <p v-on:click="changeLanguage('fr')" v-if="language != 'fr'">FRANCAIS</p>
+                            <p v-on:click="changeLanguage('en')" v-if="language != 'en'">ENGLISH</p>
+                            <p v-on:click="aboutUs=!aboutUs" v-if="!aboutUs">ABOUT US</p>
+                        </div>
+                    </el-col>
+                </el-row>
             </div>
-            <div id="beta-page-lang">
-                <p v-on:click="changeLanguage('fr')" v-if="language != 'fr'">FRANCAIS</p>
-                <p v-on:click="changeLanguage('en')" v-if="language != 'en'">ENGLISH</p>
-            </div>
-            <transition name="fade">
-                <div id="beta-page-title">
-                    <el-row>
-                        <el-col :md="24">
-                            <div id="title-image">
-                                <img alt="" src="../assets/beta_page_zeus_avatar.png" id="beta-page-zeus">
-                                <img alt="" src="../assets/beta_page_logo.png" id="beta-page-logo">
-                            </div>
-                            <div id="title-text">
-                                <h2 id="beta_page_description">A conflict prevention tool that uses artificial intelligence and case data to answer questions from landlords and tenants regarding the likely outcome of a dispute.</h2>
-                            </div>
-                        </el-col>
-                    </el-row>
-                </div>
-            </transition>
             <transition name="fade">
                 <div id="beta-page-sign-up">
                     <chat :language="language"></chat>

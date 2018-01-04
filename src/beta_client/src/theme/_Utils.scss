@@ -21,8 +21,12 @@ $main-white-1: #FFFFFF;
   opacity: 0;
 }
 
-//responsive
-$break-small: 420px;
-$break-medium: 768px;
-$break-large: 1440px;
+//responsive width
+$break-width-legacy: 420px;
+$break-width-phone: 768px;
+$break-width-tablet: 1024px;
+$break-width-pc: 1224px;
+$break-width-wide-screen: 1824px;
+
+//responsive height
 $break-laptop-height: 700px;
