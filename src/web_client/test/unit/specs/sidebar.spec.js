@@ -80,21 +80,19 @@ describe('Sidebar.vue', () => {
         expect(vm.openFileList).to.be.false
     })
 
-    it('successfully submit feedback', () => {
-        const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
-        promiseCall.resolves({
-            body: {
-                success: true
-            }
-        })
+    it('should successfully submit feedback', () => {
+        const promiseCall = sinon.stub(Vue.http, 'post').returnsPromise()
+        promiseCall.resolves()
         const vm = new Vue(Sidebar).$mount()
         vm.openFeedbackModal = true
         vm.feedback = 'Hello'
         vm.submitFeedback()
         expect(vm.connectionError).to.be.false
         expect(vm.openFileList).to.be.false
+        Vue.http.post.restore()
     })
-    it('fail to submit feedback', () => {
+
+    it('should fail to submit feedback', () => {
         const promiseCall = sinon.stub(Vue.http, 'post').returnsPromise()
         promiseCall.rejects()
         const vm = new Vue(Sidebar).$mount()
@@ -103,8 +101,10 @@ describe('Sidebar.vue', () => {
         vm.submitFeedback()
         expect(vm.connectionError).to.be.true
         expect(vm.openFileList).to.be.false
+        Vue.http.post.restore()
     })
-    it('fail to do anything', () => {
+
+    it('should validate empty feedback', () => {
         const vm = new Vue(Sidebar).$mount()
         vm.openFeedbackModal = true
         vm.feedback = ''
@@ -112,4 +112,5 @@ describe('Sidebar.vue', () => {
         expect(vm.connectionError).to.be.false
         expect(vm.openFileList).to.be.false
     })
+
 })

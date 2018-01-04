@@ -12,15 +12,62 @@
     background-color: rgba(41,41,41,0.8);
     position: fixed;
     z-index: 999;
-    ul {
-      padding: 0px;
-      text-align: left;
-      list-style: none;
-      margin-top: 40px;
-      padding-left: 100px;
-      width: 850px;
-      li {
-        color: $main-white-1;
+    #chat-history-text {
+      ul {
+        text-align: left;
+        list-style: none;
+        li {
+          color: $main-grey-5;
+        }
+        h3 {
+          font-style: italic;
+          font-weight: bold;
+        }
+      }
+    }
+    #chat-history-fact {
+      margin-top: 50px;
+      .el-col {
+        border: 1px solid $main-gold-1;
+        height: 55px;
+        h4 {
+          font-style: italic;
+          color: $main-grey-5;
+          font-size: 15px;
+        }
+        p {
+          color: $main-grey-5;
+        }
+      }
+      .dark-hover {
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.4);
+        }
+      }
+      .fact-editing {
+        height: 50%;
+        img {
+          height: 28px;
+          display: block;
+          margin: auto;
+        }
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      #fact-remove {
+        @extend .fact-editing;
+        border-bottom: 1px solid $main-gold-1;
+        background-color: $main-grey-1;
+        &:hover {
+          background-color: $main-gold-1;
+        }
+      }
+      #fact-edit {
+        @extend .fact-editing;
+        &:hover {
+          background-color: $main-grey-6;
+        }
       }
     }
   }
@@ -73,6 +120,15 @@
       min-height: 40%;
       #chat-zeus-avatar {
         margin-top: 30px;
+        img {
+          height: 200px;
+          &:hover {
+            background-color: $main-gold-1;
+            border: 1px solid $main-gold-1;
+            border-radius: 140px;
+            cursor: pointer;
+          }
+        }
       }
       #chat-message-zeus {
         @extend .chat-message;

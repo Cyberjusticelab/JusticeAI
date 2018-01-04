@@ -87,7 +87,7 @@ export default {
           ],
           zeus: {
             en: 'Would you like to ask me a question about tenant/landlord issue?',
-            fr: 'Question 2'
+            fr: 'Voulez-vous me poser une question concernant un problème de locataire/propriétaire'
           }
         },
         {
@@ -103,7 +103,7 @@ export default {
           ],
           zeus: {
             en: 'Great! What is your question?',
-            fr: 'Question 3'
+            fr: 'Génial! Quelle est ta question?'
           }
         },
         {
@@ -119,7 +119,7 @@ export default {
           ],
           zeus: {
             en: 'Mind leaving your email so that we can let you know once our beta is live?',
-            fr: 'Question 4'
+            fr: 'Voulez-vous me laisser votre courriel pour que nous vous communiquons quand notre bêta commence?'
           }
         },
         {
@@ -142,7 +142,7 @@ export default {
           ],
           zeus: {
             en: 'Would you like to receive updates on our beta test?',
-            fr: 'Question 5'
+            fr: 'Souhaitez-vous recevoir des mises à jour à propos de notre test bêta?'
           }
         },
         {
@@ -157,7 +157,7 @@ export default {
           ],
           zeus: {
             en: 'Thank you so much! I\'ll be in touch. Have a nice day!',
-            fr: 'Question 6'
+            fr: 'Merci beaucoup! Je serai en contact. Bonne journée!'
           }
         }
       ],

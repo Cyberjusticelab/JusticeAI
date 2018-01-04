@@ -26,37 +26,22 @@ test
 
 describe('Chat.vue', () => {
 
-    it('should enable user confirmation prompt once chat contains questions regarding facts', () => {
-        const vm = new Vue(Chat).$mount()
-        expect(vm.zeus.enableUserConfirmation).to.be.false
-
-        vm.numMessageSinceChatHistory = 10
-        vm.chatHistory = []
-        vm.setEnableUserConfirmation()
-        expect(vm.zeus.enableUserConfirmation).to.be.true
-
-        vm.numMessageSinceChatHistory = 0
-        vm.chatHistory = [{}, {}, {}, {}, {}]
-        vm.setEnableUserConfirmation()
-        expect(vm.zeus.enableUserConfirmation).to.be.true
-    })
-
-    it('should disable user confirmation prompt before chat contains questions regarding facts', () => {
-        const vm = new Vue(Chat).$mount()
-        expect(vm.zeus.enableUserConfirmation).to.be.false
-        vm.numMessageSinceChatHistory = 0
-        vm.chatHistory = []
-        vm.setEnableUserConfirmation()
-        expect(vm.zeus.enableUserConfirmation).to.be.false
-    })
-
     it('should resume chat session if conversation id exists', () => {
     	Vue.localStorage.set('zeusId', 1)
+        const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
+        promiseCall.resolves({
+            body: {
+                messages: ['mock_message1'],
+                fact_entities: ['mock_fact1'],
+                name: 'Bruce'
+            }
+        })
     	const spy = sinon.spy(Chat.methods, 'getChatHistory')
         const vm = new Vue(Chat).$mount()
         expect(spy.called).to.be.true
         Chat.methods.getChatHistory.restore()
         Vue.localStorage.remove('zeusId')
+        Vue.http.get.restore()
     })
 
     it('should init new chat session if conversation id doesn\'t exist', () => {
@@ -184,23 +169,24 @@ describe('Chat.vue', () => {
     	Vue.http.post.restore()
     })
 
-    it('should successfully get chat history', () => {
-    	const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
-    	promiseCall.resolves({
-    		body: {
-    			messages: ['mock'],
-    			name: 'Bruce Wayne'
-    		}
-    	})
-    	const spy = sinon.spy(Chat.methods, 'configChat')
-    	const vm = new Vue(Chat).$mount()
-    	vm.zeus.input = 'mock'
-    	vm.getChatHistory()
-    	expect(spy.called).to.be.true
-    	expect(vm.chatHistory[0]).to.be.equal('mock')
-    	expect(vm.user.name).to.be.equal('Bruce Wayne')
-    	Chat.methods.configChat.restore()
-    	Vue.http.get.restore()
+    it('should get chat history', () => {
+        Vue.localStorage.set('zeusId', 1)
+        const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
+        promiseCall.resolves({
+            body: {
+                messages: ['mock_message1'],
+                fact_entities: ['mock_fact1'],
+                name: 'Bruce'
+            }
+        })
+        const spy = sinon.spy(Chat.methods, 'configChat')
+        const vm = new Vue(Chat).$mount()
+        vm.zeus.input = true
+        vm.getChatHistory()
+        expect(spy.called).to.be.true
+        Chat.methods.configChat.restore()
+        Vue.localStorage.remove('zeusId')
+        Vue.http.get.restore()
     })
 
     it('should fail to get chat history', () => {
@@ -212,39 +198,61 @@ describe('Chat.vue', () => {
     	Vue.http.get.restore()
     })
 
+    it('should enable user confirmation prompt once chat contains questions regarding facts', () => {
+        const vm = new Vue(Chat).$mount()
+        expect(vm.zeus.enableUserConfirmation).to.be.false
+        vm.numMessageSinceChatHistory = 10
+        vm.chatHistory = {history: []}
+        vm.setEnableUserConfirmation()
+        expect(vm.zeus.enableUserConfirmation).to.be.true
+        vm.numMessageSinceChatHistory = 0
+        vm.chatHistory.history = [{}, {}, {}, {}, {}]
+        vm.setEnableUserConfirmation()
+        expect(vm.zeus.enableUserConfirmation).to.be.true
+    })
+
+    it('should disable user confirmation prompt before chat contains questions regarding facts', () => {
+        const vm = new Vue(Chat).$mount()
+        expect(vm.zeus.enableUserConfirmation).to.be.false
+        vm.numMessageSinceChatHistory = 0
+        vm.chatHistory = {history: []}
+        vm.setEnableUserConfirmation()
+        expect(vm.zeus.enableUserConfirmation).to.be.false
+    })
+
     it('should reset chat', () => {
-    	const Component = Vue.extend(Chat)
-    	const vm = new Component({
-    		router: new VueRouter({
-    			routes: [
-    				{
-    					path: '/'
-    				}
-    			]
-    		})
-    	}).$mount()
-    	Vue.localStorage.set('zeusId', 1)
-    	Vue.localStorage.set('username', 'Bruce Wayne')
-    	Vue.localStorage.set('usertype', 'tenant')
-    	vm.resetChat()
-    	expect(Vue.localStorage.get('zeusId')).to.be.equal(null)
-    	expect(Vue.localStorage.get('username')).to.be.equal(null)
-    	expect(Vue.localStorage.get('usertype')).to.be.equal(null)
+        const Component = Vue.extend(Chat)
+        const vm = new Component({
+            router: new VueRouter({
+                routes: [
+                    {
+                        path: '/'
+                    }
+                ]
+            })
+        }).$mount()
+        Vue.localStorage.set('zeusId', 1)
+        Vue.localStorage.set('username', 'Bruce Wayne')
+        Vue.localStorage.set('usertype', 'tenant')
+        vm.resetChat()
+        expect(Vue.localStorage.get('zeusId')).to.be.equal(null)
+        expect(Vue.localStorage.get('username')).to.be.equal(null)
+        expect(Vue.localStorage.get('usertype')).to.be.equal(null)
     })
 
     it('should logout', () => {
-    	const Component = Vue.extend(Chat)
-    	const vm = new Component({
-    		router: new VueRouter({
-    			routes: [
-    				{
-    					path: '/'
-    				}
-    			]
-    		})
-    	}).$mount()
-    	vm.isLoggedIn = true
-    	vm.resetChat()
+        const Component = Vue.extend(Chat)
+        const vm = new Component({
+            router: new VueRouter({
+                routes: [
+                    {
+                        path: '/'
+                    }
+                ]
+            })
+        }).$mount()
+        vm.isLoggedIn = true
+        vm.resetChat()
     })
 
 })
