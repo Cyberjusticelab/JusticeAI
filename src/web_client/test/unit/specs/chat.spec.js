@@ -82,9 +82,9 @@ describe.only('Chat.vue', () => {
 
     it('should handle the failure of sending of user confirmation of bot repsonse ', () => {
     	const promiseCall = sinon.stub(Vue.http, 'post').returnsPromise()
-    	promiseCall.rejects()
     	const vm = new Vue(Chat).$mount()
-    	vm.confirmBotResponse(true)
+    	vm.confirmBotResponse()
+        promiseCall.rejects()
         expect(vm.connectionError).to.be.true
         Vue.http.post.restore()
     })

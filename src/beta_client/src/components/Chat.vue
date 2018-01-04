@@ -14,7 +14,8 @@
           <el-col :sm="{span: 18}" :xs="{span: 22, offset: 1}">
             <div id="chat-message-zeus">
               <div>
-                <p v-if="currentConversation" v-html="currentConversation.zeus"></p>
+                <p v-if="currentConversation && language == 'en'" v-html="currentConversation.zeus.en"></p>
+                <p v-if="currentConversation && language == 'fr'" v-html="currentConversation.zeus.fr"></p>
               </div>
             </div>
           </el-col>
@@ -24,11 +25,14 @@
       <el-row>
         <div v-for="answer in currentConversation.user">
           <el-col v-if="answer.type=='question' || answer.type=='email'" :sm="24">
-            <el-input v-if="answer.type=='question'" autosize v-model="userQuestion" placeholder="ENTER YOUR QUESTION" autoComplete="off"></el-input>
-            <el-input v-if="answer.type=='email'" autosize v-model="userEmail" placeholder="ENTER YOUR EMAIL"></el-input>
+            <el-input v-if="answer.type=='question' && language == 'en'" autosize v-model="userQuestion" placeholder="ENTER YOUR QUESTION" autoComplete="off"></el-input>
+            <el-input v-if="answer.type=='email' && language == 'en'" autosize v-model="userEmail" placeholder="ENTER YOUR EMAIL"></el-input>
+            <el-input v-if="answer.type=='question' && language == 'fr'" autosize v-model="userQuestion" placeholder="DEMANDEZ VOTRE QUESTION" autoComplete="off"></el-input>
+            <el-input v-if="answer.type=='email' && language == 'fr'" autosize v-model="userEmail" placeholder="ENTREZ VOTRE COURRIEL"></el-input>
           </el-col>
           <el-col :sm="colSize">
-            <el-button type="warning" v-on:click="validateAnswer(answer)">{{answer.text}}</el-button>
+            <el-button type="warning" v-if="language == 'en'" v-on:click="validateAnswer(answer)">{{answer.text.en}}</el-button>
+            <el-button type="warning" v-if="language == 'fr'" v-on:click="validateAnswer(answer)">{{answer.text.fr}}</el-button>
           </el-col>
         </div>
       </el-row>
@@ -49,28 +53,111 @@ export default {
       api_url: process.env.API_URL,
       conversation: [
         {
-          user: [{text:'Okay', val: 1}],
-          zeus:'Hello there stranger! My name is Zeus and I\'m here to assist you with your Québec tenant/landlord issues. I\'ll be going into beta soon, and would like to get more context about common problems. If you don\'t mind telling me about any tenant/landlord issues you have, we\'ll try to get back to you as soon as possible with some useful information.'
+          user: [
+            {
+              text: {
+                en:'Okay',
+                fr: 'D\'accord'
+              },
+              val: 1
+            }
+          ],
+          zeus: {
+            en: 'Hello there stranger! My name is Zeus and I\'m here to assist you with your Québec tenant/landlord issues. I\'ll be going into beta soon, and would like to get more context about common problems. If you don\'t mind telling me about any tenant/landlord issues you have, we\'ll try to get back to you as soon as possible with some useful information.',
+            fr: 'Bonjour'
+          }
         },
         {
-          user: [{text:'Sure', val: 2}, {text:'I have no question', val: 3}],
-          zeus:'Would you like to ask me a question about tenant/landlord issue?'
+          user: [
+            {
+              text: {
+                en: 'Sure',
+                fr: 'Oui'
+              },
+              val: 2
+            },
+            {
+              text: {
+                en:'I have no question',
+                fr: 'Je n\'ai pas de question'
+              },
+              val: 3
+            }
+          ],
+          zeus: {
+            en: 'Would you like to ask me a question about tenant/landlord issue?',
+            fr: 'Question 2'
+          }
         },
         {
-          user: [{text:'Confirm', val: 3, type: 'question'}],
-          zeus:'Great! What is your question?'
+          user: [
+            {
+              text: {
+                en:'Confirm',
+                fr:'Confirmer'
+              },
+              val: 3,
+              type: 'question'
+            }
+          ],
+          zeus: {
+            en: 'Great! What is your question?',
+            fr: 'Question 3'
+          }
         },
         {
-          user: [{text:'Confirm', val: 4, type: 'email'}],
-          zeus:'Mind leaving your email so that we can let you know once our beta is live?'
+          user: [
+            {
+              text: {
+                en:'Confirm',
+                fr:'Confirmer'
+              },
+              val: 4,
+              type: 'email'
+            }
+          ],
+          zeus: {
+            en: 'Mind leaving your email so that we can let you know once our beta is live?',
+            fr: 'Question 4'
+          }
         },
         {
-          user: [{text:'Sure', val: 5, type: 'subscription'}, {text:'No, thanks', val: 5}],
-          zeus:'Would you like to receive updates on our beta test?'
+          user: [
+            {
+              text: {
+                en:'Sure',
+                fr: 'Oui'
+              },
+              val: 5,
+              type: 'subscription'
+            },
+            {
+              text: {
+                en:'No, thanks',
+                fr: 'Non Merci'
+              },
+              val: 5
+            }
+          ],
+          zeus: {
+            en: 'Would you like to receive updates on our beta test?',
+            fr: 'Question 5'
+          }
         },
         {
-          user: [{text:'Close', val: -1}],
-          zeus:'Thank you so much! I\'ll be in touch. Have a nice day!'
+          user: [
+            {
+              text: {
+                en:'Close',
+                fr:'Fermer'
+              },
+              val: -1
+            }
+          ],
+          zeus: {
+            en: 'Thank you so much! I\'ll be in touch. Have a nice day!',
+            fr: 'Question 6'
+          }
         }
       ],
       colSize: 24,
@@ -85,6 +172,7 @@ export default {
   created () {
     this.currentConversation = this.conversation[0]
   },
+  props: ['language'],
   methods: {
     validateAnswer (item) {
       this.isInvalidInput = false

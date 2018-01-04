@@ -25,6 +25,7 @@ describe('Legal.vue', () => {
     	promiseCall.resolves({ 
     		body: [
                 {
+                    abbreviation: 'EULA',
                     html: {
                         mock: 'mock'
                     }
@@ -36,7 +37,24 @@ describe('Legal.vue', () => {
         Vue.http.get.restore()
     })
 
-    it('should fail to get EULA text', () => {
+    it('should get PP text', () => {
+        const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
+        promiseCall.resolves({ 
+            body: [
+                {
+                    abbreviation: 'PP',
+                    html: {
+                        mock: 'mock'
+                    }
+                }
+            ]        
+        })
+        const vm = new Vue(Legal).$mount()
+        expect(vm.pp.mock).to.be.equal('mock')
+        Vue.http.get.restore()
+    })
+
+    it('should fail to get legal text', () => {
         const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
         promiseCall.rejects()
         const vm = new Vue(Legal).$mount()
