@@ -1,6 +1,7 @@
 import os
 from flask import jsonify, abort, make_response
 
+from nlp_service.services import factService
 from postgresql_db.models import *
 from rasa.rasa_classifier import RasaClassifier
 from services import mlService
@@ -21,9 +22,9 @@ minimum_percent_difference = 0.3
 # Intents will not be considered acceptable unless they have a confidence of at least 60%
 minimum_intent_confidence_threshold = 0.6
 
-# Rasa Classifier - Initialization of RasaClassifier, used for claim category determination and fact value classification
+# Rasa Classifier - RasaClassifier used for claim category determination and fact value classification.
 rasaClassifier = RasaClassifier()
-rasaClassifier.train(force_train=True)
+rasaClassifier.train()
 
 # Outlier detector - Predicts if the new message is a clear outlier based on a model trained with fact messages
 outlier_detector = OutlierDetection()
@@ -55,8 +56,8 @@ def classify_claim_category(conversation_id, message):
     }[claim_category]
 
     # Get first fact based on claim category
-    ml_request = mlService.submit_claim_category(conversation.claim_category)
-    first_fact_id = ml_request['fact_id']
+    first_fact = factService.submit_claim_category(conversation.claim_category)
+    first_fact_id = first_fact['fact_id']
 
     # Retrieve the Fact from DB
     first_fact = db.session.query(Fact).get(first_fact_id)
@@ -102,8 +103,8 @@ def classify_fact_value(conversation_id, message):
     fact_entity_value = __extract_entity(current_fact.name, message)
     if fact_entity_value is not None:
         # Pass fact with extracted entity to ML service
-        ml_request = mlService.submit_resolved_fact(conversation, current_fact, fact_entity_value)
-        new_fact_id = ml_request['fact_id']
+        next_fact = factService.submit_resolved_fact(conversation, current_fact, fact_entity_value)
+        new_fact_id = next_fact['fact_id']
 
         # Retrieve the Fact from DB
         if new_fact_id:
@@ -116,10 +117,10 @@ def classify_fact_value(conversation_id, message):
             question = Responses.fact_question(new_fact.name)
         else:
             # All facts have been resolved, submit request to ML service for prediction
-            ml_prediction_request = mlService.submit_resolved_fact_list(conversation)
+            ml_prediction = mlService.submit_resolved_fact_list(conversation)
 
-            outcome = ml_prediction_request["lease_resiliation"]
-            prediction = True if outcome == 1 else False
+            prediction = mlService.extract_prediction(claim_category=conversation.claim_category.value,
+                                                      ml_response=ml_prediction)
 
             # Generate statement for prediction
             question = Responses.prediction_statement(conversation.claim_category.value, prediction)
