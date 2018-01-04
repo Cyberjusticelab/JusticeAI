@@ -1,5 +1,16 @@
 @import "./Utils";
 
+//animation
+.fade-enter-active {
+  transition: opacity 1.2s;
+}
+.fade-leave-active {
+  transition: opacity 0s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
 #chat-component {
   height: 100%;
   width: 100%;
@@ -7,19 +18,50 @@
   background-color: rgba(74, 74, 74, 0.8);
   overflow: hidden;
   #chat-container {
-    max-height: 400px;
+    height: 550px;
     overflow-y: scroll;
-    margin-top: 150px;
-    margin-bottom: 150px;
-    #chat-message-zeus {
+    margin-top: 50px;
+    margin-right: -20px;
+    .message {
       margin-top: 10px;
       display: table !important;
       background-color: $main-grey-5;
       color: $main-grey-2;
       border: 1px solid $main-grey-6;
       padding: 20px;
-      border-radius: 5px;
+      border-radius: 2px;
       display: inline-block;
+    }
+    #chat-history {
+      .history-message {
+        @extend .message;
+        margin-top: 5px;
+        font-size: 16px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        background-color: $main-grey-3;
+        color: $main-grey-6;
+        border: none;
+      }
+    }
+    #chat-current {
+      margin-top: 10px;
+      #chat-zeus-avatar {
+        img {
+          width: 170px;
+        }
+      }
+      #chat-message {
+        @extend .message;
+        font-size: 22px;
+        img {
+          margin: auto;
+          height: 41px;
+        }
+        #invalid-answer {
+          color: firebrick;
+        }
+      }
     }
   }
   #chat-input {
@@ -50,9 +92,6 @@
         background-color: $main-gold-2;
         color: $main-white-1;
       }
-    }
-    #invalid-answer {
-      color: firebrick;
     }
   }
 }

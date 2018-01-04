@@ -15,6 +15,7 @@
             "answer": ["Confirm"],
             "type": "question",
             "placeholder": "ENTER YOUR QUESTION",
+            "error": "Please make sure your input is valid and not empty, thanks!",
             "val": 3
         },
         {
@@ -22,6 +23,7 @@
             "answer": ["Confirm"],
             "type": "email",
             "placeholder": "ENTER YOUR EMAIL",
+            "error": "Please make sure your input is valid and not empty, thanks!",
             "val": 4
         },
         {
@@ -33,7 +35,7 @@
         {
             "question": "Thank you so much! I'll be in touch. Have a nice day!",
             "answer": ["Close"],
-            "val": -1
+            "val": 6
         }
     ],
     "fr": [
@@ -52,6 +54,7 @@
             "answer": ["Confirmer"],
             "type": "question",
             "placeholder": "DEMANDEZ VOTRE QUESTION",
+            "error": "SVP assurez que vos informations sont valides. Merci!",
             "val": 3
         },
         {
@@ -59,6 +62,7 @@
             "answer": ["Confirmer"],
             "type": "email",
             "placeholder": "ENTREZ VOTRE COURRIEL",
+            "error": "SVP assurez que vos informations sont valides. Merci!",
             "val": 4
         },
         {
@@ -70,7 +74,7 @@
         {
             "question": "Merci beaucoup! Je serai en contact. Bonne journée!",
             "answer": ["Fermer"],
-            "val": -1
+            "val": 6
         }
     ]
 }

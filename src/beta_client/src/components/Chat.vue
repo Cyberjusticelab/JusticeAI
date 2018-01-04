@@ -4,39 +4,72 @@
 
 <template>
   <div id="chat-component">
-    <!--
-    <div id="chat-container">
-      <el-row v-for="set in questionSet[language]" :key="set.val">
-        <el-col :sm="{span: 4, offset: 1}" :xs="{span: 24}">
-          <div id="chat-zeus-avatar" v-if="heyhey">
-            <img src="../assets/zeus_avatar_1.png"/>
-          </div>
-        </el-col>
-        <el-col :sm="{span: 18}" :xs="{span: 22, offset: 1}">
-          <div id="chat-message-zeus">
-            <div>
+    <!-- UPPER WINDOW: SHOW CHAT -->
+    <div id="chat-container" v-chat-scroll>
+      <!-- CHAT HISTORY -->
+      <div id="chat-history">
+        <el-row v-for="history in chatHistory" :key="history.val">
+          <el-col :md="{span: 12, offset: 5}">
+            <div class="history-message" v-for="set in questionSet[language]" v-if="set.val==history[0]" :key="set.val">
               <p v-html="set.question"></p>
             </div>
-          </div>
-        </el-col>
-      </el-row>
-    </div>-->
+          </el-col>
+          <el-col :md="{span: 12, offset: 7}">
+            <div class="history-message" v-for="set in questionSet[language]" v-if="set.val==history[0]" :key="set.val">
+              <p v-if="set.type!=='email' && set.type!=='question'" v-html="set.answer[history[1]]"></p>
+              <p v-if="set.type=='question'" v-html="userQuestion"></p>
+              <p v-if="set.type=='email'" v-html="userEmail"></p>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+      <!-- END CHAT HISTORY -->
+      <!-- CURRENT QUESTION -->
+      <div id="chat-current">
+        <el-row v-for="set in questionSet[language]" :key="set.val" v-if="set.val == currentQuestion">
+          <el-col :sm="{span: 4, offset: 1}" :xs="{span: 24}">
+            <!-- ANIMATED AVATAR -->
+            <div id="chat-zeus-avatar">
+              <transition name="fade">
+                <img v-if="!isZeusThinking" src="../assets/zeus_avatar_1.png"/>
+              </transition>
+              <transition name="fade">
+                <img v-if="isZeusThinking" src="../assets/zeus_avatar_2.png"/>
+              </transition>
+            </div>
+            <!-- END ANIMATED AVATAR -->
+          </el-col>
+          <el-col :sm="{span: 18}" :xs="{span: 22, offset: 1}">
+            <!-- QUESTION BINDING -->
+            <div id="chat-message">
+              <div v-if="!isZeusThinking">
+                <p v-html="set.question"></p>
+                <p id="invalid-answer" v-if="isInvalidInput" v-html="set.error"></p>
+              </div>
+              <div v-if="isZeusThinking">
+                <img src="../assets/chatting.gif"/>
+              </div>
+            </div>
+            <!-- END QUESTION BINDING -->
+          </el-col>
+        </el-row>
+      </div>
+      <!-- END CURRENT QUESTION -->
+    </div>
+    <!-- END UPPER WINDOW: SHOW CHAT -->
+    <!-- BOTTOM: SHOW INPUT OPTIONS -->
     <div id="chat-input">
       <el-row v-for="set in questionSet[language]" :key="set.val" v-if="set.val == currentQuestion">
         <el-col v-if="set.type=='question' || set.type=='email'" :md="24">
-          <el-input v-if="set.type=='question'" autosize v-model="userQuestion" :placeholder="set.placeholder" autoComplete="off"></el-input>
-          <el-input v-if="set.type=='email'" autosize v-model="userEmail" :placeholder="set.placeholder"></el-input>
+          <el-input v-if="set.type=='question'" autosize v-model="userQuestion" :placeholder="set.placeholder" autoComplete="off" :disabled="isZeusThinking"></el-input>
+          <el-input v-if="set.type=='email'" autosize v-model="userEmail" :placeholder="set.placeholder" :disabled="isZeusThinking"></el-input>
         </el-col>
         <el-col :md="colSize" v-for="(answer, index) in set.answer" :key="answer.id">
-          <el-button type="warning" v-on:click="validateAnswer(set, index)">{{answer}}</el-button>
+          <el-button type="warning" v-on:click="nextQuestion(set, index)" :disabled="isZeusThinking">{{answer}}</el-button>
         </el-col>
       </el-row>
-      <el-row>
-        <transition name="fade">
-          <p id="invalid-answer" v-if="isInvalidInput">Please make sure your input is valid and not empty, thanks!</p>
-        </transition>
-      </el-row>
     </div>
+    <!-- END BOTTOM: SHOW INPUT OPTIONS -->
   </div>
 </template>
 
@@ -55,14 +88,21 @@ export default {
       userQuestion: null,
       userSubscription: false,
       userId: null,
-      isInvalidInput: false
+      isInvalidInput: false,
+      isZeusThinking: false
     }
   },
   props: ['language'],
   methods: {
+    nextQuestion (set, skip) {
+      this.isZeusThinking = true
+      setTimeout(() => {
+        this.validateAnswer(set, skip)
+        this.isZeusThinking = false
+      }, 1100)
+    },
     validateAnswer (set, skip) {
       this.isInvalidInput = false
-      console.log(skip)
       if (set.type === 'question') {
         if (this.userQuestion) {
           this.$http.post(this.api_url + 'question', {
@@ -89,10 +129,11 @@ export default {
           id: this.userId,
           is_subscribed: 1
         })
-      } else if (set.val == -1) {
+      } else if (set.val === this.questionSet[this.language].length) {
         this.$router.go('/')
       }
       if (!this.isInvalidInput) {
+        this.chatHistory.push([this.currentQuestion, skip])
         this.currentQuestion = set.val + 1 + skip;
         for (let i = 0; i < this.questionSet[this.language].length; i++) {
           if (this.questionSet[this.language][i].val === this.currentQuestion) {
