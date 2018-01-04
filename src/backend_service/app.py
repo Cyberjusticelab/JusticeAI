@@ -46,10 +46,10 @@ def get_conversation_resolved_facts(conversation_id=None):
         abort(make_response(jsonify(message="Invalid request"), 400))
 
 
-@app.route("/conversation/<conversation_id>/resolved/<fact_id>", methods=['DELETE'])
-def get_conversation_resolved_facts(conversation_id=None):
-    if conversation_id:
-        pass
+@app.route("/conversation/<conversation_id>/resolved/<fact_entity_id>", methods=['DELETE'])
+def delete_conversation_resolved_fact(conversation_id=None, fact_entity_id=None):
+    if conversation_id and fact_entity_id:
+        return conversationController.delete_fact_entity(conversation_id, fact_entity_id)
     else:
         abort(make_response(jsonify(message="Invalid request"), 400))
 

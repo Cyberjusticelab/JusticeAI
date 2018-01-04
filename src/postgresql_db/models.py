@@ -77,7 +77,7 @@ class Conversation(db.Model):
 
     # One to many
     messages = db.relationship('Message')
-    fact_entities = db.relationship('FactEntity')
+    fact_entities = db.relationship('FactEntity', cascade="all, delete-orphan")
     files = db.relationship('File')
 
 

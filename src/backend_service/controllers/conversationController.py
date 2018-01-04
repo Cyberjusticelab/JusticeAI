@@ -1,5 +1,4 @@
 import json
-
 from flask import jsonify, abort, make_response
 
 from postgresql_db.models import *
@@ -39,6 +38,27 @@ def get_fact_entities(conversation_id):
             'fact_entities': [FactEntitySchema().dump(fact_entity).data for fact_entity in conversation.fact_entities]
         }
     )
+
+
+"""
+Returns a json representation of the Conversation's FactEntities
+conversation_id: ID of the conversation
+:return JSON list of FactEntities that represent resolved facts
+"""
+
+
+def delete_fact_entity(conversation_id, fact_entity_id):
+    conversation = __get_conversation(conversation_id)
+    fact_entity = next(
+        (fact_entity for fact_entity in conversation.fact_entities if fact_entity.id == int(fact_entity_id)), None)
+
+    if fact_entity:
+        conversation.fact_entities.remove(fact_entity)
+        db.session.commit()
+
+        return jsonify({'success': True})
+    else:
+        abort(make_response(jsonify(message="Fact entity does not exist"), 404))
 
 
 """
