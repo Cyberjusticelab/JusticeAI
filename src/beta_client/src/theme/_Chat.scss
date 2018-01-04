@@ -18,7 +18,13 @@
   background-color: rgba(74, 74, 74, 0.8);
   overflow: hidden;
   #chat-container {
-    max-height: 90%;
+    max-height: 75%;
+    @media screen and (max-height: 1200px) {
+      max-height: 65%;
+    }
+    @media screen and (max-height: 810px) {
+      max-height: 55%;
+    }
     overflow-y: scroll;
     margin-top: 50px;
     margin-right: -20px;
@@ -45,6 +51,7 @@
       }
       .history-message-user {
         @extend .history-message;
+        background-color: $main-gold-2;
         p {
           text-align: right;
           word-break: break-word;
@@ -56,6 +63,9 @@
       #chat-zeus-avatar {
         img {
           width: 170px;
+          @media screen and (max-width: $break-width-tablet) {
+            width: 120px;
+          }
         }
       }
       #chat-message {
@@ -68,6 +78,12 @@
         #invalid-answer {
           color: firebrick;
           font-size: 16px;
+        }
+        @media screen and (max-width: $break-width-phone) {
+            font-size: 18px;
+            #invalid-answer {
+              font-size: 14px;
+            }
         }
       }
     }
@@ -95,10 +111,16 @@
       background-color: $main-gold-2;
       color: $main-grey-2;
       display: inline-block;
-      font-weight: bolder;
+      font-weight: bold;
       &:hover:enabled {
         background-color: $main-gold-2;
         color: $main-white-1;
+      }
+      @media screen and (max-width: $break-width-phone) {
+        width: 80%;
+      }
+      @media screen and (max-width: $break-width-legacy) {
+        font-size: 12px;
       }
     }
   }

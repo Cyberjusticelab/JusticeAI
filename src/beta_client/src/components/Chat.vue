@@ -9,10 +9,10 @@
       <!-- CHAT HISTORY -->
       <div id="chat-history">
         <el-row v-for="history in chatHistory" :key="history.val">
-          <el-col :md="{span: 12, offset: 5}" class="history-message" v-for="set in questionSet[language]" v-if="set.val==history[0]" :key="set.val">
+          <el-col :md="{span: 12, offset: 5}" :sm="{span: 20, offset: 2}" :xs="{span: 20, offset: 2}" class="history-message" v-for="set in questionSet[language]" v-if="set.val==history[0]" :key="set.val">
             <p v-html="set.question"></p>
           </el-col>
-          <el-col :md="{span: 4, offset: 14}" class="history-message-user" v-for="set in questionSet[language]" v-if="set.val==history[0]" :key="set.val">
+          <el-col :md="{span: 4, offset: 14}" :sm="{span: 20, offset: 2}" :xs="{span: 20, offset: 2}" class="history-message-user" v-for="set in questionSet[language]" v-if="set.val==history[0]" :key="set.val">
             <p v-if="set.type!=='email' && set.type!=='question'" v-html="set.answer[history[1]]"></p>
             <p v-if="set.type=='question'" v-html="userQuestion"></p>
             <p v-if="set.type=='email'" v-html="userEmail"></p>
@@ -23,7 +23,7 @@
       <!-- CURRENT QUESTION -->
       <div id="chat-current">
         <el-row v-for="set in questionSet[language]" :key="set.val" v-if="set.val == currentQuestion">
-          <el-col :md="{span: 4, offset: 1}">
+          <el-col :md="{span: 4, offset: 1}" :sm="{span: 4, offset: 2}" :xs="{span: 0, offset: 0}">
             <!-- ANIMATED AVATAR -->
             <div id="chat-zeus-avatar">
               <transition name="fade">
@@ -35,7 +35,7 @@
             </div>
             <!-- END ANIMATED AVATAR -->
           </el-col>
-          <el-col :md="{span: 14}">
+          <el-col :md="{span: 12}" :sm="{span: 16, offset: 0}" :xs="{span: 20, offset: 2}">
             <!-- QUESTION BINDING -->
             <div id="chat-message">
               <div v-if="!isZeusThinking">
@@ -60,7 +60,7 @@
           <el-input v-if="set.type=='question'" autosize v-model="userQuestion" :placeholder="set.placeholder" autoComplete="off" :disabled="isZeusThinking"></el-input>
           <el-input v-if="set.type=='email'" autosize v-model="userEmail" :placeholder="set.placeholder" :disabled="isZeusThinking"></el-input>
         </el-col>
-        <el-col :md="colSize" v-for="(answer, index) in set.answer" :key="answer.id">
+        <el-col :md="colSize" :sm="colSize" :xs="colSize" v-for="(answer, index) in set.answer" :key="answer.id">
           <el-button type="warning" v-on:click="nextQuestion(set, index)" :disabled="isZeusThinking">{{answer}}</el-button>
         </el-col>
       </el-row>
