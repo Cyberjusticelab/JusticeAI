@@ -1,0 +1,78 @@
+{
+    "en": [
+        {
+            "question": "Hello there stranger! My name is Zeus and I'm here to assist you with your Québec tenant/landlord issues. I'll be going into beta soon, and would like to get more context about common problems. If you don't mind telling me about any tenant/landlord issues you have, we'll try to get back to you as soon as possible with some useful information.",
+            "answer": ["Okay"],
+            "type": null,
+            "val": 1
+        },
+        {
+            "question": "Would you like to ask me a question about tenant/landlord issue?",
+            "answer": ["Sure", "I have no question"],
+            "type": null,
+            "val": 2
+        },
+        {
+            "question": "Great! What is your question?",
+            "answer": ["Confirm"],
+            "type": "question",
+            "val": 3
+        },
+        {
+            "question": "Mind leaving your email so that we can let you know once our beta is live?",
+            "answer": ["Confirm"],
+            "type": "email",
+            "val": 4
+        },
+        {
+            "question": "Would you like to receive updates on our beta test?",
+            "answer": ["Sure", "No, thanks"],
+            "type": "subscription",
+            "val": 5
+        },
+        {
+            "question": "Thank you so much! I'll be in touch. Have a nice day!",
+            "answer": ["Close"],
+            "type": null,
+            "val": -1
+        }
+    ],
+    "fr": [
+        {
+            "question": "Hello there stranger! My name is Zeus and I'm here to assist you with your Québec tenant/landlord issues. I'll be going into beta soon, and would like to get more context about common problems. If you don't mind telling me about any tenant/landlord issues you have, we'll try to get back to you as soon as possible with some useful information.",
+            "answer": ["Okay"],
+            "type": null,
+            "val": 1
+        },
+        {
+            "question": "Would you like to ask me a question about tenant/landlord issue?",
+            "answer": ["Sure", "I have no question"],
+            "type": null,
+            "val": 2
+        },
+        {
+            "question": "Great! What is your question?",
+            "answer": ["Confirm"],
+            "type": "question",
+            "val": 3
+        },
+        {
+            "question": "Mind leaving your email so that we can let you know once our beta is live?",
+            "answer": ["Confirm"],
+            "type": "email",
+            "val": 4
+        },
+        {
+            "question": "Would you like to receive updates on our beta test?",
+            "answer": ["Sure", "No, thanks"],
+            "type": "subscription",
+            "val": 5
+        },
+        {
+            "question": "Thank you so much! I'll be in touch. Have a nice day!",
+            "answer": ["Close"],
+            "type": null,
+            "val": -1
+        }
+    ]
+}

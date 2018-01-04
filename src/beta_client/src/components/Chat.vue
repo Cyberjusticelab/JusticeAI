@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import locale from '../assets/locale.json'
 export default {
   name: 'Chat',
   data () {
@@ -170,6 +171,7 @@ export default {
     }
   },
   created () {
+    console.log(locale)
     this.currentConversation = this.conversation[0]
   },
   props: ['language'],
