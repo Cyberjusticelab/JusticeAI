@@ -1,5 +1,5 @@
 <style lang="scss" scoped>
-@import "../theme/Chat";
+@import "../theme/Chat"
 </style>
 
 <template>
