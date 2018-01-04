@@ -45,32 +45,32 @@
             "val": 1
         },
         {
-            "question": "Would you like to ask me a question about tenant/landlord issue?",
-            "answer": ["Sure", "I have no question"],
+            "question": "Voulez-vous me poser une question concernant un problème de locataire/propriétaire?",
+            "answer": ["Oui", "Je n'ai pas de question"],
             "type": null,
             "val": 2
         },
         {
-            "question": "Great! What is your question?",
-            "answer": ["Confirm"],
+            "question": "Génial! Quelle est ta question?",
+            "answer": ["Confirmer"],
             "type": "question",
             "val": 3
         },
         {
-            "question": "Mind leaving your email so that we can let you know once our beta is live?",
-            "answer": ["Confirm"],
+            "question": "Voulez-vous me laisser votre courriel pour que nous vous communiquons quand notre bêta commence?",
+            "answer": ["Confirmer"],
             "type": "email",
             "val": 4
         },
         {
-            "question": "Would you like to receive updates on our beta test?",
-            "answer": ["Sure", "No, thanks"],
+            "question": "Souhaitez-vous recevoir des mises à jour à propos de notre test bêta?",
+            "answer": ["Oui", "Non Merci"],
             "type": "subscription",
             "val": 5
         },
         {
-            "question": "Thank you so much! I'll be in touch. Have a nice day!",
-            "answer": ["Close"],
+            "question": "Merci beaucoup! Je serai en contact. Bonne journée!",
+            "answer": ["Fermer"],
             "type": null,
             "val": -1
         }
