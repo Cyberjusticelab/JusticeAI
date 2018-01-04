@@ -25,6 +25,22 @@ def get_conversation(conversation_id):
 
 
 """
+Returns a json representation of the Conversation's FactEntities
+conversation_id: ID of the conversation
+:return JSON list of FactEntities that represent resolved facts
+"""
+
+
+def get_fact_entities(conversation_id):
+    conversation = __get_conversation(conversation_id)
+    return jsonify(
+        {
+            'fact_entities': [FactEntitySchema().dump(fact_entity).data for fact_entity in conversation.fact_entities]
+        }
+    )
+
+
+"""
 Initializes a new Conversation
 name: Person's name
 person_type: Either LANDLORD or TENANT
@@ -145,7 +161,7 @@ def receive_message(conversation_id, message):
 
             # Format new bot response with prediction information
             response_dict[key] = "Prediction: " + fact_name + '=' + fact_entity_value + \
-                '<br/><br/>' + "Next question: " + response_dict[key]
+                                 '<br/><br/>' + "Next question: " + response_dict[key]
 
     return jsonify(response_dict)
 
@@ -240,7 +256,7 @@ def upload_file(conversation_id, file):
 """
 Retrieves the conversation by id, returning 404 if not found.
 conversation_id: ID of the conversation
-:return Conversaion if exists, else aborts with 404
+:return Conversation if exists, else aborts with 404
 """
 
 

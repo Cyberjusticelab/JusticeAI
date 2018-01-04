@@ -12,7 +12,6 @@ class RasaClassifier():
     # Directories & Files
     config_file = "rasa/config/config_spacy.json"
     model_dir = "rasa/projects/justiceai/"
-
     fact_data_dir = "rasa/data/fact/"
     category_data_dir = "rasa/data/category/"
 
@@ -111,11 +110,9 @@ class RasaClassifier():
     @staticmethod
     def intent_percent_difference(intent_dict):
         intent_ranking = intent_dict['intent_ranking']
-
         confidence_top = intent_ranking[0]['confidence']
         confidence_contender = intent_ranking[1]['confidence']
-
         percent_difference = abs(confidence_contender - confidence_top) / (
-            0.5 * (confidence_contender + confidence_top))
+                0.5 * (confidence_contender + confidence_top))
 
         return percent_difference
