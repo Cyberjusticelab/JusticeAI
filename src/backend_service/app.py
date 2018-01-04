@@ -4,7 +4,6 @@ from flask import Flask, request, abort, make_response, jsonify
 from flask_cors import CORS
 from postgresql_db import database
 
-
 # Flask Setup
 from postgresql_db.models import FactEntitySchema
 
@@ -43,6 +42,14 @@ def get_conversation(conversation_id=None):
 def get_conversation_resolved_facts(conversation_id=None):
     if conversation_id:
         return conversationController.get_fact_entities(conversation_id)
+    else:
+        abort(make_response(jsonify(message="Invalid request"), 400))
+
+
+@app.route("/conversation/<conversation_id>/resolved/<fact_id>", methods=['DELETE'])
+def get_conversation_resolved_facts(conversation_id=None):
+    if conversation_id:
+        pass
     else:
         abort(make_response(jsonify(message="Invalid request"), 400))
 

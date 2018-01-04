@@ -269,7 +269,7 @@ class FactEntitySchema(ma.ModelSchema):
     fact = ma.Nested(FactSchema)
 
     class Meta:
-        fields = ('value', 'fact')
+        fields = ('id', 'value', 'fact')
 
 
 class FileSchema(ma.ModelSchema):
