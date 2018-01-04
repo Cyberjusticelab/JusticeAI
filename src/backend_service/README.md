@@ -354,6 +354,14 @@ Removes a resolved fact from the conversation
 
 **Code** : `200 OK`
 
+**Content examples**
+
+```json
+{
+	"success": true
+}
+```
+
 ## Error Response
 
 **Code** : `400 Bad Request`
