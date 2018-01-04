@@ -34,7 +34,6 @@
         },
         {
             "question": "Thank you so much! I'll be in touch. Have a nice day!",
-            "answer": ["Close"],
             "val": 6
         }
     ],
@@ -73,7 +72,6 @@
         },
         {
             "question": "Merci beaucoup! Je serai en contact. Bonne journée!",
-            "answer": ["Fermer"],
             "val": 6
         }
     ]

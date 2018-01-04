@@ -18,11 +18,12 @@
   background-color: rgba(74, 74, 74, 0.8);
   overflow: hidden;
   #chat-container {
-    height: 550px;
+    max-height: 90%;
     overflow-y: scroll;
     margin-top: 50px;
     margin-right: -20px;
     .message {
+      text-align: left;
       margin-top: 10px;
       display: table !important;
       background-color: $main-grey-5;
@@ -35,13 +36,19 @@
     #chat-history {
       .history-message {
         @extend .message;
-        margin-top: 5px;
         font-size: 16px;
         padding-top: 0px;
         padding-bottom: 0px;
         background-color: $main-grey-3;
         color: $main-grey-6;
         border: none;
+      }
+      .history-message-user {
+        @extend .history-message;
+        p {
+          text-align: right;
+          word-break: break-word;
+        }
       }
     }
     #chat-current {
@@ -60,6 +67,7 @@
         }
         #invalid-answer {
           color: firebrick;
+          font-size: 16px;
         }
       }
     }

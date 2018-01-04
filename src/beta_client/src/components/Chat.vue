@@ -9,17 +9,13 @@
       <!-- CHAT HISTORY -->
       <div id="chat-history">
         <el-row v-for="history in chatHistory" :key="history.val">
-          <el-col :md="{span: 12, offset: 5}">
-            <div class="history-message" v-for="set in questionSet[language]" v-if="set.val==history[0]" :key="set.val">
-              <p v-html="set.question"></p>
-            </div>
+          <el-col :md="{span: 12, offset: 5}" class="history-message" v-for="set in questionSet[language]" v-if="set.val==history[0]" :key="set.val">
+            <p v-html="set.question"></p>
           </el-col>
-          <el-col :md="{span: 12, offset: 7}">
-            <div class="history-message" v-for="set in questionSet[language]" v-if="set.val==history[0]" :key="set.val">
-              <p v-if="set.type!=='email' && set.type!=='question'" v-html="set.answer[history[1]]"></p>
-              <p v-if="set.type=='question'" v-html="userQuestion"></p>
-              <p v-if="set.type=='email'" v-html="userEmail"></p>
-            </div>
+          <el-col :md="{span: 4, offset: 14}" class="history-message-user" v-for="set in questionSet[language]" v-if="set.val==history[0]" :key="set.val">
+            <p v-if="set.type!=='email' && set.type!=='question'" v-html="set.answer[history[1]]"></p>
+            <p v-if="set.type=='question'" v-html="userQuestion"></p>
+            <p v-if="set.type=='email'" v-html="userEmail"></p>
           </el-col>
         </el-row>
       </div>
@@ -27,7 +23,7 @@
       <!-- CURRENT QUESTION -->
       <div id="chat-current">
         <el-row v-for="set in questionSet[language]" :key="set.val" v-if="set.val == currentQuestion">
-          <el-col :sm="{span: 4, offset: 1}" :xs="{span: 24}">
+          <el-col :md="{span: 4, offset: 1}">
             <!-- ANIMATED AVATAR -->
             <div id="chat-zeus-avatar">
               <transition name="fade">
@@ -39,7 +35,7 @@
             </div>
             <!-- END ANIMATED AVATAR -->
           </el-col>
-          <el-col :sm="{span: 18}" :xs="{span: 22, offset: 1}">
+          <el-col :md="{span: 14}">
             <!-- QUESTION BINDING -->
             <div id="chat-message">
               <div v-if="!isZeusThinking">
@@ -129,14 +125,15 @@ export default {
           id: this.userId,
           is_subscribed: 1
         })
-      } else if (set.val === this.questionSet[this.language].length) {
-        this.$router.go('/')
       }
       if (!this.isInvalidInput) {
         this.chatHistory.push([this.currentQuestion, skip])
         this.currentQuestion = set.val + 1 + skip;
+        if (this.currentQuestion > this.questionSet[this.language].length) {
+          this.currentQuestion--
+        }
         for (let i = 0; i < this.questionSet[this.language].length; i++) {
-          if (this.questionSet[this.language][i].val === this.currentQuestion) {
+          if (this.questionSet[this.language][i].val === this.currentQuestion && this.questionSet[this.language][i].answer) {
             this.colSize = 24/this.questionSet[this.language][i].answer.length
           }
         }
