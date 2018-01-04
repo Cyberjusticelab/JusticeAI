@@ -296,7 +296,7 @@ Gets the message history for a conversation
 ---
 # Get facts resolved during conversation
 
-Gets only the list of resovled facts for the conversation
+Gets only the list of resolved facts for the conversation
 
 **URL** : `/conversation/:conversation_id/resolved`
 
@@ -330,6 +330,25 @@ Gets only the list of resovled facts for the conversation
 	]
 }
 ```
+
+## Error Response
+
+**Code** : `400 Bad Request`
+
+**Code** : `404 Not Found`
+
+---
+# Remove a resolved fact
+
+Removes a resolved fact from the conversation
+
+**URL** : `/conversation/:conversation_id/resolved/:fact_id`
+
+**Method** : `DELETE`
+
+## Success Response
+
+**Code** : `200 OK`
 
 ## Error Response
 
