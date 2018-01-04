@@ -5,43 +5,6 @@ from postgresql_db.models import Fact, FactEntity, PersonType
 ML_URL = "http://ml_service:3001"
 
 """
-Simulates the return values of the proposed ML service.
-Returns the first fact to ask a question for, based on claim category.
-claim_category: The claim category determined from user input
-:returns First fact to ask a question for
-"""
-
-
-def submit_claim_category(claim_category):
-    return {
-        'fact_id': dummy_next_fact(claim_category, [])
-    }
-
-
-"""
-Simulates the return values of the proposed ML service.
-Returns the next fact to ask a question for
-conversation: the current conversation
-current_fact: the current fact
-entity_value: value of the fact
-:returns Next fact to ask a question for
-"""
-
-
-def submit_resolved_fact(conversation, current_fact, entity_value):
-    # Create new FactEntity and attach to conversation
-    fact_entity = FactEntity(fact=current_fact, value=entity_value)
-    conversation.fact_entities.append(fact_entity)
-
-    # Get all resolved facts for Conversation
-    facts_resolved = [fact_entity_row.fact.name for fact_entity_row in conversation.fact_entities]
-
-    return {
-        'fact_id': dummy_next_fact(conversation.claim_category, facts_resolved)
-    }
-
-
-"""
 Submits list of resolved facts to ML endpoint. Only done once all
 facts have been asked and resolved.
 Returns the first fact to ask a question for, based on claim category.
@@ -57,6 +20,30 @@ def submit_resolved_fact_list(conversation):
     }
     res = requests.post("{}/{}".format(ML_URL, "predict"), json=req_dict)
     return res.json()
+
+
+"""
+Given a claim cateogry and the ml service response, will extract the prediction 
+performing any necessary mappings.
+claim_category: the current conversation's claim category as a string
+ml_response: the response dict received from ml service
+:returns Outcomes vector with true/false, depending on chance of winning case
+"""
+
+
+def extract_prediction(claim_category, ml_response):
+    outcome_mapping = {
+        "lease_termination": "lease_resiliation"
+    }
+
+    outcome_key = None
+    if claim_category in outcome_mapping:
+        outcome_key = outcome_mapping[claim_category.lower()]
+
+    if outcome_key:
+        return True if ml_response[outcome_key] == 1 else False
+
+    return False
 
 
 """
@@ -101,9 +88,66 @@ based on asked facts, or provides default mappings.
 :returns Fact dictionary with mapped facts and resolved facts
 """
 
+all_ml_facts = [
+    "absent",
+    "apartment_impropre",
+    "apartment_infestation",
+    "asker_is_landlord",
+    "asker_is_tenant",
+    "bothers_others",
+    "disrespect_previous_judgement",
+    "incorrect_facts",
+    "landlord_inspector_fees",
+    "landlord_notifies_tenant_retake_apartment",
+    "landlord_pays_indemnity",
+    "landlord_prejudice_justified",
+    "landlord_relocation_indemnity_fees",
+    "landlord_rent_change",
+    "landlord_rent_change_doc_renseignements",
+    "landlord_rent_change_piece_justification",
+    "landlord_rent_change_receipts",
+    "landlord_retakes_apartment",
+    "landlord_retakes_apartment_indemnity",
+    "landlord_sends_demand_regie_logement",
+    "landlord_serious_prejudice",
+    "lease",
+    "proof_of_late",
+    "proof_of_revenu",
+    "rent_increased",
+    "tenant_bad_payment_habits",
+    "tenant_continuous_late_payment",
+    "tenant_damaged_rental",
+    "tenant_dead",
+    "tenant_declare_insalubre",
+    "tenant_financial_problem",
+    "tenant_group_responsability",
+    "tenant_individual_responsability",
+    "tenant_is_bothered",
+    "lack_of_proof",
+    "tenant_landlord_agreement",
+    "tenant_lease_fixed",
+    "tenant_lease_indeterminate",
+    "tenant_left_without_paying",
+    "tenant_monthly_payment",
+    "tenant_negligence",
+    "tenant_not_request_cancel_lease",
+    "tenant_owes_rent",
+    "tenant_refuses_retake_apartment",
+    "tenant_rent_not_paid_less_3_weeks",
+    "tenant_rent_not_paid_more_3_weeks",
+    "tenant_rent_paid_before_hearing",
+    "tenant_violence",
+    "tenant_withold_rent_without_permission",
+    "violent"
+]
+
 
 def generate_fact_dict(conversation):
     resolved_facts = {}
+
+    # Initialize expected facts with all false
+    for expected_fact in all_ml_facts:
+        resolved_facts[expected_fact] = False
 
     # Add all resolved facts
     for fact_entity in conversation.fact_entities:
@@ -113,6 +157,10 @@ def generate_fact_dict(conversation):
         elif fact_entity.value == "false":
             resolved_facts[fact_entity_name] = False
 
+    ############
+    # Mappings #
+    ############
+
     # Perform asker mapping
     if conversation.person_type is PersonType.LANDLORD:
         resolved_facts['asker_is_landlord'] = True
@@ -120,17 +168,6 @@ def generate_fact_dict(conversation):
     else:
         resolved_facts['asker_is_landlord'] = False
         resolved_facts['asker_is_tenant'] = True
-
-    # Perform mappings with defaults
-    resolved_facts['absent'] = False
-    resolved_facts['incorrect_facts'] = False
-    resolved_facts['landlord_pays_indemnity'] = False
-    resolved_facts['landlord_prejudice_justified'] = False
-    resolved_facts['landlord_serious_prejudice'] = False
-    resolved_facts['proof_of_late'] = False
-    resolved_facts['tenant_is_bothered'] = False
-    resolved_facts['lack_of_proof'] = False
-    resolved_facts['tenant_rent_paid_before_hearing'] = False
 
     # Perform one to one mappings
     resolved_facts['violent'] = resolved_facts['tenant_violence']
@@ -143,7 +180,6 @@ def generate_fact_dict(conversation):
     # Perform mappings with dependencies
     resolved_facts['tenant_lease_indeterminate'] = not resolved_facts['tenant_lease_fixed']
     resolved_facts['lease'] = resolved_facts['tenant_lease_fixed']
-
     resolved_facts['tenant_rent_not_paid_less_3_weeks'] = not resolved_facts['tenant_rent_not_paid_more_3_weeks']
 
     # Convert true and false to 1 and 0
@@ -154,49 +190,3 @@ def generate_fact_dict(conversation):
             resolved_facts[fact_entity] = 0
 
     return resolved_facts
-
-
-"""
-Dummy method that returns next fact given resolved facts. Stub implementation for
-proposed ML service.
-claim_category: claim category of the conversation
-facts_resolved: list of resolved fact keys
-:returns Next fact id to ask
-"""
-
-
-def dummy_next_fact(claim_category, facts_resolved):
-    all_facts = [
-        "apartment_impropre",
-        "landlord_relocation_indemnity_fees",
-        "landlord_rent_change",
-        "landlord_retakes_apartment",
-        "landlord_sends_demand_regie_logement",
-        "tenant_lease_fixed",
-        "tenant_bad_payment_habits",
-        "tenant_continuous_late_payment",
-        "tenant_individual_responsability",
-        "tenant_left_without_paying",
-        "tenant_monthly_payment",
-        "tenant_owes_rent",
-        "tenant_rent_not_paid_more_3_weeks",
-        "tenant_violence",
-    ]
-
-    fact_dict = {
-        "lease_termination": all_facts,
-        "rent_change": all_facts,
-        "nonpayment": all_facts,
-        "deposits": all_facts
-    }
-
-    all_category_facts = fact_dict[claim_category.value.lower()]
-    facts_unresolved = [fact for fact in all_category_facts if fact not in facts_resolved]
-
-    # Pick the first unresolved fact, return None if none remain
-    if len(facts_unresolved) == 0:
-        return None
-
-    fact_name = facts_unresolved[0]
-    fact = Fact.query.filter_by(name=fact_name).first()
-    return fact.id
