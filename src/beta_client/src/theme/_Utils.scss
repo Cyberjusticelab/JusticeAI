@@ -1,6 +1,6 @@
 // font
-@import url("https://fonts.googleapis.com/css?family=Play");
-$zeus-font: 'Play', sans-serif;
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+$zeus-font: 'Montserrat', sans-serif;
 
 // color scheme
 $main-grey-1: #292929;
@@ -21,8 +21,9 @@ $main-white-1: #FFFFFF;
   opacity: 0;
 }
 
-//responsive
-$break-small: 420px;
-$break-medium: 768px;
-$break-large: 1440px;
-$break-laptop-height: 700px;
+//responsive width
+$break-width-legacy: 420px;
+$break-width-phone: 768px;
+$break-width-tablet: 1024px;
+$break-width-pc: 1224px;
+$break-width-wide-screen: 1824px;

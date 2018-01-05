@@ -1,29 +1,99 @@
 @import "./Utils";
 
+//animation
+.fade-enter-active {
+  transition: opacity 1.2s;
+}
+.fade-leave-active {
+  transition: opacity 0s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
 #chat-component {
   height: 100%;
   width: 100%;
   font-family: $zeus-font;
   background-color: rgba(74, 74, 74, 0.8);
   overflow: hidden;
-  #chat-zeus-container {
-    margin-top: 150px;
-    margin-bottom: 150px;
-    #chat-message-zeus {
+  #chat-container {
+    max-height: 75%;
+    @media screen and (max-height: 1200px) {
+      max-height: 65%;
+    }
+    @media screen and (max-height: 810px) {
+      max-height: 55%;
+    }
+    overflow-y: scroll;
+    margin-top: 50px;
+    margin-right: -20px;
+    .message {
+      text-align: left;
       margin-top: 10px;
       display: table !important;
       background-color: $main-grey-5;
       color: $main-grey-2;
       border: 1px solid $main-grey-6;
       padding: 20px;
-      border-radius: 5px;
+      border-radius: 2px;
       display: inline-block;
+    }
+    #chat-history {
+      .history-message {
+        @extend .message;
+        font-size: 16px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        background-color: $main-grey-3;
+        color: $main-grey-6;
+        border: none;
+      }
+      .history-message-user {
+        @extend .history-message;
+        background-color: $main-gold-2;
+        p {
+          text-align: right;
+          word-break: break-word;
+        }
+      }
+    }
+    #chat-current {
+      margin-top: 10px;
+      #chat-zeus-avatar {
+        img {
+          width: 170px;
+          @media screen and (max-width: $break-width-tablet) {
+            width: 120px;
+          }
+        }
+      }
+      #chat-message {
+        @extend .message;
+        font-size: 20px;
+        img {
+          margin: auto;
+          height: 41px;
+        }
+        #invalid-answer {
+          color: firebrick;
+          font-size: 16px;
+        }
+        @media screen and (max-width: $break-width-phone) {
+            font-size: 18px;
+            #invalid-answer {
+              font-size: 14px;
+            }
+        }
+      }
     }
   }
   #chat-input {
     border-top: 2px solid $main-gold-2;
     background-color: rgba(255, 255, 255, 0.7);
-    height: 100%;
+    position: fixed;
+    width: 100%;
+    bottom: 0px;
     .el-input {
       width: 80%;
       height: 50px;
@@ -41,14 +111,17 @@
       background-color: $main-gold-2;
       color: $main-grey-2;
       display: inline-block;
-      font-weight: bolder;
+      font-weight: bold;
       &:hover:enabled {
         background-color: $main-gold-2;
         color: $main-white-1;
       }
-    }
-    #invalid-answer {
-      color: firebrick;
+      @media screen and (max-width: $break-width-phone) {
+        width: 80%;
+      }
+      @media screen and (max-width: $break-width-legacy) {
+        font-size: 12px;
+      }
     }
   }
 }
