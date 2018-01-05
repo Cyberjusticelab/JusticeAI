@@ -4,3 +4,4 @@
 #PyCharm
 .idea/
 src/**/__pycache__
+./data

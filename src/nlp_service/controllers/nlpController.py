@@ -59,9 +59,9 @@ def classify_claim_category(conversation_id, message):
             'ask_deposit': ClaimCategory.DEPOSITS
         }[claim_category]
 
-    # Get first fact based on claim category
-    first_fact = factService.submit_claim_category(conversation.claim_category)
-    first_fact_id = first_fact['fact_id']
+        # Get first fact based on claim category
+        first_fact = factService.submit_claim_category(conversation.claim_category)
+        first_fact_id = first_fact['fact_id']
 
         # Get first fact based on claim category
         ml_request = mlService.submit_claim_category(conversation.claim_category)
