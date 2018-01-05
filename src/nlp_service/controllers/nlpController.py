@@ -156,7 +156,6 @@ message: message from user
 
 def __classify_claim_category(message):
     classify_dict = rasaClassifier.classify_problem_category(message)
-    print(classify_dict)
 
     # Return the claim category, or None if the answer was insufficient in determining one
     if __is_answer_sufficient(classify_dict):
