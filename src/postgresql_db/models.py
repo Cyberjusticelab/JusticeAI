@@ -77,7 +77,7 @@ class Conversation(db.Model):
 
     # One to many
     messages = db.relationship('Message')
-    fact_entities = db.relationship('FactEntity')
+    fact_entities = db.relationship('FactEntity', cascade="all, delete-orphan")
     files = db.relationship('File')
 
 
@@ -269,7 +269,7 @@ class FactEntitySchema(ma.ModelSchema):
     fact = ma.Nested(FactSchema)
 
     class Meta:
-        fields = ('value', 'fact')
+        fields = ('id', 'value', 'fact')
 
 
 class FileSchema(ma.ModelSchema):
