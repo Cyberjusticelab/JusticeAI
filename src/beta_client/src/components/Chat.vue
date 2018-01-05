@@ -4,179 +4,102 @@
 
 <template>
   <div id="chat-component">
-      <div id="chat-zeus-container">
-        <el-row>
-          <el-col :sm="{span: 4, offset: 1}" :xs="{span: 24}">
-            <div id="chat-zeus-avatar">
-              <img src="../assets/zeus_avatar_2.png"/>
-            </div>
+    <!-- UPPER WINDOW: SHOW CHAT -->
+    <div id="chat-container" v-chat-scroll>
+      <!-- CHAT HISTORY -->
+      <div id="chat-history">
+        <el-row v-for="history in chatHistory" :key="history.val">
+          <el-col :md="{span: 12, offset: 5}" :sm="{span: 20, offset: 2}" :xs="{span: 20, offset: 2}" class="history-message" v-for="set in questionSet[language]" v-if="set.val==history[0]" :key="set.val">
+            <p v-html="set.question"></p>
           </el-col>
-          <el-col :sm="{span: 18}" :xs="{span: 22, offset: 1}">
-            <div id="chat-message-zeus">
-              <div>
-                <p v-if="currentConversation && language == 'en'" v-html="currentConversation.zeus.en"></p>
-                <p v-if="currentConversation && language == 'fr'" v-html="currentConversation.zeus.fr"></p>
-              </div>
-            </div>
+          <el-col :md="{span: 4, offset: 14}" :sm="{span: 20, offset: 2}" :xs="{span: 20, offset: 2}" class="history-message-user" v-for="set in questionSet[language]" v-if="set.val==history[0]" :key="set.val">
+            <p v-if="set.type!=='email' && set.type!=='question'" v-html="set.answer[history[1]]"></p>
+            <p v-if="set.type=='question'" v-html="userQuestion"></p>
+            <p v-if="set.type=='email'" v-html="userEmail"></p>
           </el-col>
         </el-row>
+      </div>
+      <!-- END CHAT HISTORY -->
+      <!-- CURRENT QUESTION -->
+      <div id="chat-current">
+        <el-row v-for="set in questionSet[language]" :key="set.val" v-if="set.val == currentQuestion">
+          <el-col :md="{span: 4, offset: 1}" :sm="{span: 4, offset: 2}" :xs="{span: 0, offset: 0}">
+            <!-- ANIMATED AVATAR -->
+            <div id="chat-zeus-avatar">
+              <transition name="fade">
+                <img v-if="!isZeusThinking" src="../assets/zeus_avatar_1.png"/>
+              </transition>
+              <transition name="fade">
+                <img v-if="isZeusThinking" src="../assets/zeus_avatar_2.png"/>
+              </transition>
+            </div>
+            <!-- END ANIMATED AVATAR -->
+          </el-col>
+          <el-col :md="{span: 12}" :sm="{span: 16, offset: 0}" :xs="{span: 20, offset: 2}">
+            <!-- QUESTION BINDING -->
+            <div id="chat-message">
+              <div v-if="!isZeusThinking">
+                <p v-html="set.question"></p>
+                <p id="invalid-answer" v-if="isInvalidInput" v-html="set.error"></p>
+              </div>
+              <div v-if="isZeusThinking">
+                <img src="../assets/chatting.gif"/>
+              </div>
+            </div>
+            <!-- END QUESTION BINDING -->
+          </el-col>
+        </el-row>
+      </div>
+      <!-- END CURRENT QUESTION -->
     </div>
+    <!-- END UPPER WINDOW: SHOW CHAT -->
+    <!-- BOTTOM: SHOW INPUT OPTIONS -->
     <div id="chat-input">
-      <el-row>
-        <div v-for="answer in currentConversation.user">
-          <el-col v-if="answer.type=='question' || answer.type=='email'" :sm="24">
-            <el-input v-if="answer.type=='question' && language == 'en'" autosize v-model="userQuestion" placeholder="ENTER YOUR QUESTION" autoComplete="off"></el-input>
-            <el-input v-if="answer.type=='email' && language == 'en'" autosize v-model="userEmail" placeholder="ENTER YOUR EMAIL"></el-input>
-            <el-input v-if="answer.type=='question' && language == 'fr'" autosize v-model="userQuestion" placeholder="DEMANDEZ VOTRE QUESTION" autoComplete="off"></el-input>
-            <el-input v-if="answer.type=='email' && language == 'fr'" autosize v-model="userEmail" placeholder="ENTREZ VOTRE COURRIEL"></el-input>
-          </el-col>
-          <el-col :sm="colSize">
-            <el-button type="warning" v-if="language == 'en'" v-on:click="validateAnswer(answer)">{{answer.text.en}}</el-button>
-            <el-button type="warning" v-if="language == 'fr'" v-on:click="validateAnswer(answer)">{{answer.text.fr}}</el-button>
-          </el-col>
-        </div>
-      </el-row>
-      <el-row>
-        <transition name="fade">
-          <p id="invalid-answer" v-if="isInvalidInput">Please make sure your input is valid and not empty, thanks!</p>
-        </transition>
+      <el-row v-for="set in questionSet[language]" :key="set.val" v-if="set.val == currentQuestion">
+        <el-col v-if="set.type=='question' || set.type=='email'" :md="24">
+          <el-input v-if="set.type=='question'" autosize v-model="userQuestion" :placeholder="set.placeholder" autoComplete="off" :disabled="isZeusThinking"></el-input>
+          <el-input v-if="set.type=='email'" autosize v-model="userEmail" :placeholder="set.placeholder" :disabled="isZeusThinking"></el-input>
+        </el-col>
+        <el-col :md="colSize" :sm="colSize" :xs="colSize" v-for="(answer, index) in set.answer" :key="answer.id">
+          <el-button type="warning" v-on:click="nextQuestion(set, index)" :disabled="isZeusThinking">{{answer}}</el-button>
+        </el-col>
       </el-row>
     </div>
+    <!-- END BOTTOM: SHOW INPUT OPTIONS -->
   </div>
 </template>
 
 <script>
+import locale from '../assets/locale.json'
 export default {
   name: 'Chat',
   data () {
     return {
       api_url: process.env.API_URL,
-      conversation: [
-        {
-          user: [
-            {
-              text: {
-                en:'Okay',
-                fr: 'D\'accord'
-              },
-              val: 1
-            }
-          ],
-          zeus: {
-            en: 'Hello there stranger! My name is Zeus and I\'m here to assist you with your Québec tenant/landlord issues. I\'ll be going into beta soon, and would like to get more context about common problems. If you don\'t mind telling me about any tenant/landlord issues you have, we\'ll try to get back to you as soon as possible with some useful information.',
-            fr: 'Bonjour'
-          }
-        },
-        {
-          user: [
-            {
-              text: {
-                en: 'Sure',
-                fr: 'Oui'
-              },
-              val: 2
-            },
-            {
-              text: {
-                en:'I have no question',
-                fr: 'Je n\'ai pas de question'
-              },
-              val: 3
-            }
-          ],
-          zeus: {
-            en: 'Would you like to ask me a question about tenant/landlord issue?',
-            fr: 'Voulez-vous me poser une question concernant un problème de locataire/propriétaire'
-          }
-        },
-        {
-          user: [
-            {
-              text: {
-                en:'Confirm',
-                fr:'Confirmer'
-              },
-              val: 3,
-              type: 'question'
-            }
-          ],
-          zeus: {
-            en: 'Great! What is your question?',
-            fr: 'Génial! Quelle est ta question?'
-          }
-        },
-        {
-          user: [
-            {
-              text: {
-                en:'Confirm',
-                fr:'Confirmer'
-              },
-              val: 4,
-              type: 'email'
-            }
-          ],
-          zeus: {
-            en: 'Mind leaving your email so that we can let you know once our beta is live?',
-            fr: 'Voulez-vous me laisser votre courriel pour que nous vous communiquons quand notre bêta commence?'
-          }
-        },
-        {
-          user: [
-            {
-              text: {
-                en:'Sure',
-                fr: 'Oui'
-              },
-              val: 5,
-              type: 'subscription'
-            },
-            {
-              text: {
-                en:'No, thanks',
-                fr: 'Non Merci'
-              },
-              val: 5
-            }
-          ],
-          zeus: {
-            en: 'Would you like to receive updates on our beta test?',
-            fr: 'Souhaitez-vous recevoir des mises à jour à propos de notre test bêta?'
-          }
-        },
-        {
-          user: [
-            {
-              text: {
-                en:'Close',
-                fr:'Fermer'
-              },
-              val: -1
-            }
-          ],
-          zeus: {
-            en: 'Thank you so much! I\'ll be in touch. Have a nice day!',
-            fr: 'Merci beaucoup! Je serai en contact. Bonne journée!'
-          }
-        }
-      ],
+      questionSet: locale,
+      currentQuestion: 1,
+      chatHistory: new Array,
       colSize: 24,
-      currentConversation: null,
       userEmail: null,
       userQuestion: null,
       userSubscription: false,
       userId: null,
-      isInvalidInput: false
+      isInvalidInput: false,
+      isZeusThinking: false
     }
-  },
-  created () {
-    this.currentConversation = this.conversation[0]
   },
   props: ['language'],
   methods: {
-    validateAnswer (item) {
+    nextQuestion (set, skip) {
+      this.isZeusThinking = true
+      setTimeout(() => {
+        this.validateAnswer(set, skip)
+        this.isZeusThinking = false
+      }, 1100)
+    },
+    validateAnswer (set, skip) {
       this.isInvalidInput = false
-      if (item.type === 'question') {
+      if (set.type === 'question') {
         if (this.userQuestion) {
           this.$http.post(this.api_url + 'question', {
             question: this.userQuestion
@@ -188,7 +111,7 @@ export default {
         } else {
           this.isInvalidInput = true
         }
-      } else if (item.type === 'email') {
+      } else if (set.type === 'email') {
         if (/^.+@[a-zA-Z0-9\-]+\.[a-zA-Z]+$/.test(this.userEmail)) {
           this.$http.put(this.api_url + 'email', {
             id: this.userId,
@@ -197,17 +120,23 @@ export default {
         } else {
           this.isInvalidInput = true
         }
-      } else if (item.type === 'subscription') {
+      } else if (set.type === 'subscription') {
         this.$http.put(this.api_url + 'subscription', {
           id: this.userId,
           is_subscribed: 1
         })
-      } else if (item.val == -1) {
-        this.$router.go('/')
       }
       if (!this.isInvalidInput) {
-        this.currentConversation = this.conversation[item.val];
-        this.colSize = 24/this.currentConversation.user.length;
+        this.chatHistory.push([this.currentQuestion, skip])
+        this.currentQuestion = set.val + 1 + skip;
+        if (this.currentQuestion > this.questionSet[this.language].length) {
+          this.currentQuestion--
+        }
+        for (let i = 0; i < this.questionSet[this.language].length; i++) {
+          if (this.questionSet[this.language][i].val === this.currentQuestion && this.questionSet[this.language][i].answer) {
+            this.colSize = 24/this.questionSet[this.language][i].answer.length
+          }
+        }
       }
     }
   }
