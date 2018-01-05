@@ -24,7 +24,7 @@ minimum_intent_confidence_threshold = 0.6
 
 # Rasa Classifier - RasaClassifier used for claim category determination and fact value classification.
 rasaClassifier = RasaClassifier()
-rasaClassifier.train(force_train=False)
+rasaClassifier.train()
 
 # Outlier detector - Predicts if the new message is a clear outlier based on a model trained with fact messages
 outlier_detector = OutlierDetection()
@@ -59,13 +59,9 @@ def classify_claim_category(conversation_id, message):
             'ask_deposit': ClaimCategory.DEPOSITS
         }[claim_category]
 
-    # Get first fact based on claim category
-    first_fact = factService.submit_claim_category(conversation.claim_category)
-    first_fact_id = first_fact['fact_id']
-
         # Get first fact based on claim category
-        ml_request = mlService.submit_claim_category(conversation.claim_category)
-        first_fact_id = ml_request['fact_id']
+        first_fact = factService.submit_claim_category(conversation.claim_category)
+        first_fact_id = first_fact['fact_id']
 
         # Retrieve the Fact from DB
         first_fact = db.session.query(Fact).get(first_fact_id)
@@ -82,7 +78,6 @@ def classify_claim_category(conversation_id, message):
             claim_category=conversation.claim_category.value.lower().replace("_", " "),
             first_question=first_fact_question)
     else:
-        # Claim category could not be resolved, ask for clarification
         response = Responses.chooseFrom(Responses.clarify).format(previous_question="")
 
     return jsonify({
