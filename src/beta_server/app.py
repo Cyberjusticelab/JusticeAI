@@ -14,6 +14,12 @@ QUESTION_LENGTH_LIMIT = 10000
 EMAIL_LENGTH_LIMIT = 100
 
 
+@app.route('/health', methods=['GET', 'OPTIONS'])
+@handle_options_method
+def health():
+    return make_response()
+
+
 @app.route('/question', methods=['POST', 'OPTIONS'])
 @handle_options_method
 @ensure_json

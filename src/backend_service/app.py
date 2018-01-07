@@ -18,6 +18,11 @@ CORS(app)
 from controllers import conversationController, legalController, feedback_controller
 
 
+@app.route('/health', methods=['GET'])
+def health():
+    return make_response()
+
+
 @app.route("/new", methods=['POST'])
 def init_conversation():
     init_request = request.get_json()
