@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, make_response
 from flask_cors import CORS, cross_origin
 from db import DbGateway
 from decorators import ensure_json, ensure_key, handle_options_method
+import subprocess
 
 
 app = Flask(__name__)
@@ -13,6 +14,11 @@ gateway.create_table()
 QUESTION_LENGTH_LIMIT = 10000
 EMAIL_LENGTH_LIMIT = 100
 
+
+@app.route('/health', methods=['GET', 'OPTIONS'])
+@handle_options_method
+def health():
+    return make_response()
 
 @app.route('/question', methods=['POST', 'OPTIONS'])
 @handle_options_method
