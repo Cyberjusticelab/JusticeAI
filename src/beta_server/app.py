@@ -20,6 +20,7 @@ EMAIL_LENGTH_LIMIT = 100
 def health():
     return make_response()
 
+
 @app.route('/question', methods=['POST', 'OPTIONS'])
 @handle_options_method
 @ensure_json
