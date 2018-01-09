@@ -1,25 +1,25 @@
 {
     "en": [
         {
-            "question": "Hello there stranger! My name is Zeus and I'm here to assist you with your Québec tenant/landlord issues. I'll be going into beta soon, and would like to get more context about common problems. If you don't mind telling me about any tenant/landlord issues you have, we'll try to get back to you as soon as possible with some useful information.",
-            "answer": ["Okay"],
+            "question": "Hello there stranger! My name is Zeus and I am here to assist the tenants and landlords of Québec. I'll be going into beta soon, and would like to get more context about the problems you might be facing. Tell me about your issues with your tenants or your landlord and we'll try to get back to you as soon as possible with useful information.",
+            "answer": ["I understand"],
             "val": 1
         },
         {
-            "question": "Would you like to ask me a question about tenant/landlord issue?",
-            "answer": ["Sure", "I have no question"],
+            "question": "Would you like to ask me a question regarding issues between tenants and landlords?",
+            "answer": ["Yes", "I have no questions"],
             "val": 2
         },
         {
-            "question": "Great! What is your question?",
+            "question": "Great! What is your question? The more context you give me, the better I'll be able to help!",
             "answer": ["Confirm"],
             "type": "question",
             "placeholder": "ENTER YOUR QUESTION",
-            "error": "Please make sure your input is valid and not empty, thanks!",
+            "error": "Please make sure your input is valid and not empty, thank you!",
             "val": 3
         },
         {
-            "question": "Mind leaving your email so that we can let you know once our beta is live?",
+            "question": "If you give me your email, I can let you know once my beta is live.",
             "answer": ["Confirm"],
             "type": "email",
             "placeholder": "ENTER YOUR EMAIL",
@@ -27,33 +27,33 @@
             "val": 4
         },
         {
-            "question": "Would you like to receive updates on our beta test?",
-            "answer": ["Sure", "No, thanks"],
+            "question": "Would you like to receive updates on my beta test?",
+            "answer": ["Absolutely", "No, thank you"],
             "type": "subscription",
             "val": 5
         },
         {
-            "question": "Thank you so much! I'll be in touch. Have a nice day!",
+            "question": "Thank you so much! I'll stay in touch. Have a nice day!",
             "val": 6
         }
     ],
     "fr": [
         {
-            "question": "Bonjour cher étranger! Mon nom est Zeus et je suis ici pour vous assistez avec vos problèmes entre propriétaires et locataires au Québec. Je commencerai ma phase bêta bientôt. J'ai besoin par contre d'en connaître un peu plus à égard des problèmes communs qui peuvent survenir dans ces situations. Si m'aidez ne vous ennuie pas, nous nous efforcerons de vous communiquez de l'information utile dans les plus brefs délais.",
+            "question": "Bonjour cher étranger! Mon nom est Zeus et je suis ici pour vous assistez avec vos problèmes entre propriétaires et locataires au Québec. Je commencerai ma phase bêta bientôt et j'ai besoin d'en connaître un peu plus à l'égard des problèmes communs auxquels vous pourriez faire face. Parlez-moi de vos soucis ou vos problèmes avec vos locataires ou votre propriétaire nous nous efforcerons de vous communiquez de l'information utile dans les plus brefs délais.",
             "answer": ["Okay"],
             "val": 1
         },
         {
-            "question": "Voulez-vous me poser une question concernant un problème de locataire/propriétaire?",
+            "question": "Voudriez-vous me poser une question concernant un problème entre locataires et propriétaire?",
             "answer": ["Oui", "Je n'ai pas de question"],
             "val": 2
         },
         {
-            "question": "Génial! Quelle est ta question?",
+            "question": "Parfait! Quelle est ta question? Le plus de contexte que j'ai, le mieux je pourrai vous répondre!",
             "answer": ["Confirmer"],
             "type": "question",
             "placeholder": "DEMANDEZ VOTRE QUESTION",
-            "error": "SVP assurez que vos informations sont valides. Merci!",
+            "error": "SVP assurez-vous que votre information soit valide. Merci!",
             "val": 3
         },
         {
