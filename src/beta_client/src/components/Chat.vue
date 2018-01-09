@@ -92,8 +92,8 @@ export default {
   methods: {
     nextQuestion (set, skip) {
       this.isZeusThinking = true
+      this.validateAnswer(set, skip)
       setTimeout(() => {
-        this.validateAnswer(set, skip)
         this.isZeusThinking = false
       }, 1100)
     },
