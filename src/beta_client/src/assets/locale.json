@@ -1,7 +1,7 @@
 {
     "en": [
         {
-            "question": "Hello there stranger! My name is Zeus and I am here to assist the tenants and landlords in Québec. I'll be going into beta soon, and would like to get more context about the problems you might be facing. Tell me about your issues with your tenants or your landlord and we'll try to get back to you as soon as possible with useful information.",
+            "question": "Hello there stranger! My name is Zeus and I'm here to assist the tenants and landlords in Québec. I'll be going into beta soon, and would like to get more context about the problems you might be facing. Tell me about your issues with your tenants or your landlord and we'll try to get back to you as soon as possible with useful information.",
             "answer": ["Understood!"],
             "val": 1
         },
