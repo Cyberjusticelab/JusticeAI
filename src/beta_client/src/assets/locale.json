@@ -1,12 +1,12 @@
 {
     "en": [
         {
-            "question": "Hello there stranger! My name is Zeus and I'm here to assist the tenants and landlords in Québec. I'll be going into beta soon, and would like to get more context about the problems you might be facing. Tell me about your issues with your tenants or your landlord and we'll try to get back to you as soon as possible with useful information.",
+            "question": "Hello there stranger! My name is Zeus and I'm here to assist the tenants and landlords of Québec. I'll be going into beta soon, and would like to get more context about the problems you might be facing. Tell me about your housing issues and I'll try to get back to you as soon as possible with useful information.",
             "answer": ["Understood!"],
             "val": 1
         },
         {
-            "question": "Would you like to ask me a question regarding issues between tenants and landlord?",
+            "question": "Would you like to ask me a question?",
             "answer": ["Yes", "I have no questions"],
             "val": 2
         },
@@ -19,7 +19,7 @@
             "val": 3
         },
         {
-            "question": "Would you like leaving me your email so I can let you know once my beta is live?",
+            "question": "Would you like to leave me your email so I can let you know once my beta is live?",
             "answer": ["Confirm"],
             "type": "email",
             "placeholder": "ENTER YOUR EMAIL",
@@ -39,12 +39,12 @@
     ],
     "fr": [
         {
-            "question": "Bonjour cher étranger! Mon nom est Zeus et je suis ici pour assister les propriétaires et les locataires au Québec. Je commencerai ma phase bêta bientôt et j'ai besoin d'en connaître un peu plus à l'égard des problèmes communs auxquels vous pourriez faire face. Parlez-moi de vos problèmes avec vos locataires ou votre propriétaire et nous nous efforcerons de vous communiquez de l'information utile dans les plus brefs délais.",
+            "question": "Bonjour cher étranger! Mon nom est Zeus et je suis ici pour assister les propriétaires et les locataires au Québec. Je commencerai ma phase bêta bientôt et j'ai besoin d'en connaître un peu plus à l'égard des problèmes communs auxquels vous pourriez faire face. Parlez-moi de vos problèmes avec vos locataires ou votre propriétaire et je m'efforcerai de vous communiquez de l'information utile dans les plus brefs délais.",
             "answer": ["D'accord!"],
             "val": 1
         },
         {
-            "question": "Voudriez-vous me poser une question concernant un problème entre locataires et propriétaire?",
+            "question": "Voudriez-vous me poser une question concernant votre problème?",
             "answer": ["Oui", "Je n'ai pas de question"],
             "val": 2
         },
