@@ -2438,6 +2438,51 @@
             "entity": "terminate"
           }
         ]
+      },
+      {
+        "text": "I'm not able to attend the hearing.",
+        "intent": "attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "Do I need to attend the hearing?",
+        "intent": "attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "I can't attend the hearing. What can I do?",
+        "intent": "attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "Do I need to go to the hearing?",
+        "intent": "attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "I was informed that I must attend a hearing.",
+        "intent": "attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "There's a hearing that I can't attend.",
+        "intent": "attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "I am supposed to attend a hearing. Do I have to?",
+        "intent": "attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "My hearing is scheduled soon. Do I need to attend it?",
+        "intent": "attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "Do I need to be at the hearing?",
+        "intent": "attending_hearing",
+        "entities": []
       }
     ]
   }

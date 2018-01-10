@@ -175,6 +175,11 @@ class Responses:
             ]
     }
 
+    # TODO: Text to be modified for more conversational tone
+    static_claim_responses = {
+        "attending_hearing": "I must obtain a postponement of the hearing to a later date and for that I must obtain the written consent of the other party and file it at the Régie. If I cannot obtain that consent, I can send a mandatary who will ask for the postponement or I can write to the Régie du logement and ask for the postponement of the case. The reasons for the asked postponement must be indicated. It would be well advised to remit a copy of that letter to the other party. Except in the case where I have the consent of the other party, the commissioner must decide if he accepts or rejects the asked postponement."
+    }
+
     """
     Gets a question to ask for a particular fact
     fact_key: The fact's key
