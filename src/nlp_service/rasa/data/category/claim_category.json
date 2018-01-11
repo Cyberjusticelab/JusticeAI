@@ -34,6 +34,42 @@
         "pattern": "(didn't)(\\s)(pay)"
       },
       {
+        "name": "hearing: not showing up",
+        "pattern": "(hearing)|(meeting)|(reschedule)"
+      },
+      {
+        "name": "Leaving: tenants leave without pay",
+        "pattern": "(left)|(pursu[^\\s])|(bail[^\\s])|((ow)[^\\s])|(diced)|(nowhere)|(disappear[^\\s]*)"
+      },
+      {
+        "name": "Lease: trying to cancel lease ",
+        "pattern": "(cancel)|(void)|(revoke[^\\s])|(go back on)|(return)"
+      },
+      {
+        "name": "Not having a lease",
+        "pattern": "(leav[^\\s])|(ditch)|(sign)|(have)"
+      },
+      {
+        "name": "Repairs: Trying to reduce rent with repairs && landlord not repairing ",
+        "pattern": "(repair)|(fix)|(remov[^\\s])|(deduct[^\\s])|(rent)"
+      },
+      {
+        "name": "Habitability: noise ",
+        "pattern": "(nois[^\\s])|(loud)"
+      },
+      {
+        "name": "Repairs landlord pay",
+        "pattern": "(repair)|(fix)|(toilet[^\\s])|(sink[^\\s])|(broke[^\\s])"
+      },
+      {
+        "name": "Habitability: temperature ",
+        "pattern": "(heat(ing)*)|(cold)|(freez(e|ing)*)|([0-9]+(C|c|F|f))"
+      },
+      {
+        "name": "Visitation without permission ",
+        "pattern": "(visit)|(enter(ed|ing)*)|(apartment)|(dwelling)"
+      },
+      {
         "name": "nonpayment: haven't paid",
         "pattern": "(haven't)(\\s)(paid)"
       }
