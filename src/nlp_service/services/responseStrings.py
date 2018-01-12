@@ -2,11 +2,17 @@ import random
 
 
 class Responses:
+
+    # Respond that a particular claim category is not implemented yet
+    unimplemented_category_error = [
+        "Unfortunately, I cannot help with these types of issues right now."
+    ]
+
     # Acknowledge claim category resolution
     category_acknowledge = [
         "I see, you're having issues with {claim_category}. {first_question}",
         "As I understand it, your problems have to do with {claim_category}. {first_question}",
-        "Oh yes, I know all about problems with {claim_category}. {first_question}"
+        "Oh yes, I see you're having problems with {claim_category}. {first_question}"
     ]
 
     # Asking for clarification

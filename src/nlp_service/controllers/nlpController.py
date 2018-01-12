@@ -63,20 +63,25 @@ def classify_claim_category(conversation_id, message):
         first_fact = factService.submit_claim_category(conversation.claim_category)
         first_fact_id = first_fact['fact_id']
 
-        # Retrieve the Fact from DB
-        first_fact = db.session.query(Fact).get(first_fact_id)
+        if first_fact_id:
+            # Retrieve the Fact from DB
+            first_fact = db.session.query(Fact).get(first_fact_id)
 
-        # Save first fact as current fact
-        conversation.current_fact = first_fact
+            # Save first fact as current fact
+            conversation.current_fact = first_fact
 
-        # Commit
-        db.session.commit()
+            # Commit
+            db.session.commit()
 
-        # Generate next message
-        first_fact_question = Responses.fact_question(first_fact.name)
-        response = Responses.chooseFrom(Responses.category_acknowledge).format(
-            claim_category=conversation.claim_category.value.lower().replace("_", " "),
-            first_question=first_fact_question)
+            # Generate next message
+            first_fact_question = Responses.fact_question(first_fact.name)
+            response = Responses.chooseFrom(Responses.category_acknowledge).format(
+                claim_category=conversation.claim_category.value.lower().replace("_", " "),
+                first_question=first_fact_question)
+        else:
+            response = Responses.chooseFrom(Responses.category_acknowledge).format(
+                claim_category=conversation.claim_category.value.lower().replace("_", " "),
+                first_question=Responses.chooseFrom(Responses.unimplemented_category_error))
     else:
         response = Responses.chooseFrom(Responses.clarify).format(previous_question="")
 
