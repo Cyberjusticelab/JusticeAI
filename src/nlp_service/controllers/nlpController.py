@@ -50,7 +50,10 @@ def classify_claim_category(conversation_id, message):
     # Define the message that will be returned
     response = None
 
-    if claim_category:
+    if claim_category in Responses.static_claim_responses.keys():
+        response = Responses.static_claim_responses[claim_category]
+
+    elif claim_category:
         # Set conversation's claim category
         conversation.claim_category = {
             'ask_lease_termination': ClaimCategory.LEASE_TERMINATION,

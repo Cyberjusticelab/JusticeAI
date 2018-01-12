@@ -34,6 +34,42 @@
         "pattern": "(didn't)(\\s)(pay)"
       },
       {
+        "name": "hearing: not showing up",
+        "pattern": "(hearing)|(meeting)|(reschedule)"
+      },
+      {
+        "name": "Leaving: tenants leave without pay",
+        "pattern": "(left)|(pursu[^\\s])|(bail[^\\s])|((ow)[^\\s])|(diced)|(nowhere)|(disappear[^\\s]*)"
+      },
+      {
+        "name": "Lease: trying to cancel lease ",
+        "pattern": "(cancel)|(void)|(revoke[^\\s])|(go back on)|(return)"
+      },
+      {
+        "name": "Not having a lease",
+        "pattern": "(leav[^\\s])|(ditch)|(sign)|(have)"
+      },
+      {
+        "name": "Repairs: Trying to reduce rent with repairs && landlord not repairing ",
+        "pattern": "(repair)|(fix)|(remov[^\\s])|(deduct[^\\s])|(rent)"
+      },
+      {
+        "name": "Habitability: noise ",
+        "pattern": "(nois[^\\s])|(loud)"
+      },
+      {
+        "name": "Repairs landlord pay",
+        "pattern": "(repair)|(fix)|(toilet[^\\s])|(sink[^\\s])|(broke[^\\s])"
+      },
+      {
+        "name": "Habitability: temperature ",
+        "pattern": "(heat(ing)*)|(cold)|(freez(e|ing)*)|([0-9]+(C|c|F|f))"
+      },
+      {
+        "name": "Visitation without permission ",
+        "pattern": "(visit)|(enter(ed|ing)*)|(apartment)|(dwelling)"
+      },
+      {
         "name": "nonpayment: haven't paid",
         "pattern": "(haven't)(\\s)(paid)"
       }
@@ -2438,6 +2474,811 @@
             "entity": "terminate"
           }
         ]
+      },
+      {
+        "text": "I'm not able to attend the hearing.",
+        "intent": "FAQ_RLQ_attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "Do I need to attend the hearing?",
+        "intent": "FAQ_RLQ_attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "I won't be able to make it to the hearing on time.",
+        "intent": "FAQ_RLQ_attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "I will be late, can we reschedule the hearing?",
+        "intent": "FAQ_RLQ_attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "How can I move my hearing's date?",
+        "intent": "FAQ_RLQ_attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "How am I able to postpone my hearing?",
+        "intent": "FAQ_RLQ_attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "Can I postpone the meeting?",
+        "intent": "FAQ_RLQ_attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "I won't arrive to time to my hearing, can I reschedule?",
+        "intent": "FAQ_RLQ_attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "I am something to do at the same time as the hearing and can't make it.",
+        "intent": "FAQ_RLQ_attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "I have something to do on that day. How can I move the hearing back?",
+        "intent": "FAQ_RLQ_attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "How can I move my hearing?",
+        "intent": "FAQ_RLQ_attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "I am busy and can't free up time to go to my hearing. What can I do?",
+        "intent": "FAQ_RLQ_attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "What if I can't make it to my hearing on time?",
+        "intent": "FAQ_RLQ_attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "Can I reschedule my hearing?",
+        "intent": "FAQ_RLQ_attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "I'm unable to make it to the hearing, what are my options?",
+        "intent": "FAQ_RLQ_attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "Can I postpone the hearing?",
+        "intent": "FAQ_RLQ_attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "Can I not show up to the hearing?",
+        "intent": "FAQ_RLQ_attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "I can't make it to the hearing, what can I do?",
+        "intent": "FAQ_RLQ_attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "I can't attend the hearing. What can I do?",
+        "intent": "FAQ_RLQ_attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "Do I need to go to the hearing?",
+        "intent": "FAQ_RLQ_attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "I was informed that I must attend a hearing.",
+        "intent": "FAQ_RLQ_attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "There's a hearing that I can't attend.",
+        "intent": "FAQ_RLQ_attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "I am supposed to attend a hearing. Do I have to?",
+        "intent": "FAQ_RLQ_attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "My hearing is scheduled soon. Do I need to attend it?",
+        "intent": "FAQ_RLQ_attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "Do I need to be at the hearing?",
+        "intent": "FAQ_RLQ_attending_hearing",
+        "entities": []
+      },
+      {
+        "text": "MyThe people that I used to lease my dwelling to disappeared 3-4 months ago. I know who they are. Can I still claim my money back?",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "I think the tenants left because I never see them anymore",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "My apartment has been empty for a while and the tenants owe me rent money.",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "My tenants are nowhere to be found, what can I do?",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "The apartment has been empty for months now",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "The apartment has been empty for some time",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "My tenants left without paying me awhile ago",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "I have not heard anything from them",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "My tenant diced without telling me anything, what I do?",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "My tenant left without paying last year. What now?",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "My tenant bailed some time ago this year, what can I do?",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "My previous tenant owes me rent from 24 months ago. Can I still claim it?",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "Can I pursue my previous tenant for unpaid rent? They left 2 years ago.",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "My tenant left without telling me 4 months ago",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "My tenant left without any notice 3 months ago, what can I do?",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "I think my tenants left because I never see them ever. What can I do?",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "I am not able to reach any of my tenants",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "I can't reach my tenants",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "I can't find my tenants",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "My tenants are nowhere to be found. What now?",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "My tenants left without paying me, what can I do?",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "I left my apartment without paying rent",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "The people renting my apartment left without paying the rent",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "My tenants diced, what can I do?",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "My tenants are nowhere to be found. What can I do now?",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "My tenant left without paying me",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "My tenant bailed, what can I do?",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "How can I claim unpaid rent from my previous tenant",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "My previous tenant owers me rent, can I still claim it?",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "Can I pursue my previous tenant for unpaid rent?",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "My tenant is gone",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "My tenant just disappeared.",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "My tenant left without telling me.",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "My tenant left without any notice, what can I do?",
+        "intent": "FAQ_RLQ_abandoned_premises",
+        "entities": []
+      },
+      {
+        "text": "Is there a way that I can return the lease? I don't want the apartment anymore.",
+        "intent": "FAQ_RLQ_lease_cancellation_immediately_after_signing",
+        "entities": []
+      },
+      {
+        "text": "Can I revoke the lease? My tenants just signed it",
+        "intent": "FAQ_RLQ_lease_cancellation_immediately_after_signing",
+        "entities": []
+      },
+      {
+        "text": "Can I cancel my lease? I only signed it a few days ago.",
+        "intent": "FAQ_RLQ_lease_cancellation_immediately_after_signing",
+        "entities": []
+      },
+      {
+        "text": "Can I void my lease? I only recently signed it.",
+        "intent": "FAQ_RLQ_lease_cancellation_immediately_after_signing",
+        "entities": []
+      },
+      {
+        "text": "Can I go back on the lease I just signed?",
+        "intent": "FAQ_RLQ_lease_cancellation_immediately_after_signing",
+        "entities": []
+      },
+      {
+        "text": "I signed a lease but I found a better apartment, can I cancel my current lease?",
+        "intent": "FAQ_RLQ_lease_cancellation_immediately_after_signing",
+        "entities": []
+      },
+      {
+        "text": "My tenants are trying to cancel the lease. It has only been 5 days since they signed it. Are they allowed?",
+        "intent": "FAQ_RLQ_lease_cancellation_immediately_after_signing",
+        "entities": []
+      },
+      {
+        "text": "My tenant is trying to cancel the lease after they signed it",
+        "intent": "FAQ_RLQ_lease_cancellation_immediately_after_signing",
+        "entities": []
+      },
+      {
+        "text": "Can I cancel the lease after it is signed?",
+        "intent": "FAQ_RLQ_lease_cancellation_immediately_after_signing",
+        "entities": []
+      },
+      {
+        "text": "How long do I have to cancel the lease after it is signed?",
+        "intent": "FAQ_RLQ_lease_cancellation_immediately_after_signing",
+        "entities": []
+      },
+      {
+        "text": "I don't have a lease, can I leave the apartment at any time?",
+        "intent": "FAQ_RLQ_leave_apartment_no_lease",
+        "entities": []
+      },
+      {
+        "text": "I didn't sign anything be she told me we discussed the terms so its a verbal lease. Am I able to leave the apartment?",
+        "intent": "FAQ_RLQ_leave_apartment_no_lease",
+        "entities": []
+      },
+      {
+        "text": "I didn't sign anything be she told me we discussed the terms so its a verbal lease. Am I able to leave the apartment?",
+        "intent": "FAQ_RLQ_leave_apartment_no_lease",
+        "entities": []
+      },
+{
+        "text": "He told me it was something called a verbal lease. I don't think that exists. Can I leave anyways?",
+        "intent": "FAQ_RLQ_leave_apartment_no_lease",
+        "entities": []
+      },
+      {
+        "text": "I agreed to stay for a few months but need to leave now",
+        "intent": "FAQ_RLQ_leave_apartment_no_lease",
+        "entities": []
+      },
+      {
+        "text": "I swore to him verbally as a lease but I don't think that counts. I can leave right?",
+        "intent": "FAQ_RLQ_leave_apartment_no_lease",
+        "entities": []
+      },
+      {
+        "text": "I don't have a lease associated with my dwelling, may I leave the apartment and never come back?",
+        "intent": "FAQ_RLQ_leave_apartment_no_lease",
+        "entities": []
+      },
+      {
+        "text": "I never provided my signature and now I want to leave",
+        "intent": "FAQ_RLQ_leave_apartment_no_lease",
+        "entities": []
+      },
+      {
+        "text": "I didn't sign a single pice of paper, can I leave and get another apartment?",
+        "intent": "FAQ_RLQ_leave_apartment_no_lease",
+        "entities": []
+      },
+      {
+        "text": "The landlord didn't make me sign anything. Can I just ditch the apartment?",
+        "intent": "FAQ_RLQ_leave_apartment_no_lease",
+        "entities": []
+      },
+      {
+        "text": "I want to leave the apartment becausee I never signed anything",
+        "intent": "FAQ_RLQ_leave_apartment_no_lease",
+        "entities": []
+      },
+      {
+        "text": "I never signed a lease. Can I leave?",
+        "intent": "FAQ_RLQ_leave_apartment_no_lease",
+        "entities": []
+      },
+      {
+        "text": "I don't have a lease, can I leave the unit without any issues",
+        "intent": "FAQ_RLQ_leave_apartment_no_lease",
+        "entities": []
+      },
+      {
+        "text": "If I repair the fridge can I deduct that off the rent?",
+        "intent": "FAQ_RLQ_tenant_urgent_repair_costs_deducted",
+        "entities": []
+      },
+      {
+        "text": "If I paint the apartment, can I remove the cost of materials and labor off the rent?",
+        "intent": "FAQ_RLQ_tenant_urgent_repair_costs_deducted",
+        "entities": []
+      },
+      {
+        "text": "Can I deduct costs off my monthly rent if I fix things around my apartment?",
+        "intent": "FAQ_RLQ_tenant_urgent_repair_costs_deducted",
+        "entities": []
+      },
+      {
+        "text": "I did repairs but my landlord is asking for the full rent price",
+        "intent": "FAQ_RLQ_tenant_urgent_repair_costs_deducted",
+        "entities": []
+      },
+      {
+        "text": "If I fix the floors, can I remove how much that cost me from my rent?",
+        "intent": "FAQ_RLQ_tenant_urgent_repair_costs_deducted",
+        "entities": []
+      },
+      {
+        "text": "If I repair the wall in the apartment, can that be removed from my rent?",
+        "intent": "FAQ_RLQ_tenant_urgent_repair_costs_deducted",
+        "entities": []
+      },
+      {
+        "text": "I had to make a fix to the apartment urgently but I shouldn't be expected to pay the entire cost of my rent",
+        "intent": "FAQ_RLQ_tenant_urgent_repair_costs_deducted",
+        "entities": []
+      },
+      {
+        "text": "I fixed something in an emergency and want to be reimbursed for the costs",
+        "intent": "FAQ_RLQ_tenant_urgent_repair_costs_deducted",
+        "entities": []
+      },
+      {
+        "text": "Can I get refunded for the repair I did in my unit?",
+        "intent": "FAQ_RLQ_tenant_urgent_repair_costs_deducted",
+        "entities": []
+      },
+      {
+        "text": "If I repair the toilet in the apartment, can that cost be deducted from my rent?",
+        "intent": "FAQ_RLQ_tenant_urgent_repair_costs_deducted",
+        "entities": []
+      },
+      {
+        "text": "The landlord does not intend on fixing the water",
+        "intent": "FAQ_RLQ_landlord_neglects_necessary_repairs",
+        "entities": []
+      },
+      {
+        "text": "My landlord refuses the fix the windows and it's cold",
+        "intent": "FAQ_RLQ_landlord_neglects_necessary_repairs",
+        "entities": []
+      },
+      {
+        "text": "My landlord refuses the fix the wall and it's cold",
+        "intent": "FAQ_RLQ_landlord_neglects_necessary_repairs",
+        "entities": []
+      },
+      {
+        "text": "My landlord didn't fix it",
+        "intent": "FAQ_RLQ_landlord_neglects_necessary_repairs",
+        "entities": []
+      },
+      {
+        "text": "The landlord does not want to do repairs in the apartment. What can I do?",
+        "intent": "FAQ_RLQ_landlord_neglects_necessary_repairs",
+        "entities": []
+      },
+      {
+        "text": "The apartment needs sever repairs but the landlord hasn't done anything, is there somethin I can do?",
+        "intent": "FAQ_RLQ_landlord_neglects_necessary_repairs",
+        "entities": []
+      },
+      {
+        "text": "The unit is falling apart and the landlord won't make any repairs",
+        "intent": "FAQ_RLQ_landlord_neglects_necessary_repairs",
+        "entities": []
+      },
+      {
+        "text": "My apartment desperately needs repairs and the landlord refuses to do them.",
+        "intent": "FAQ_RLQ_landlord_neglects_necessary_repairs",
+        "entities": []
+      },
+      {
+        "text": "My landlord didn't do the required repairs. What can I do?",
+        "intent": "FAQ_RLQ_landlord_neglects_necessary_repairs",
+        "entities": []
+      },
+      {
+        "text": "If my landlord doesn't do the necessary repair, can I pursue them further?",
+        "intent": "FAQ_RLQ_landlord_neglects_necessary_repairs",
+        "entities": []
+      },
+      {
+        "text": "If my landlord doesn't do the necessary repair, can I pursue them further?",
+        "intent": "FAQ_RLQ_landlord_neglects_necessary_repairs",
+        "entities": []
+      },
+      {
+        "text": "My landlord didn't repair what I asked him to fix, what can I do?",
+        "intent": "FAQ_RLQ_landlord_neglects_necessary_repairs",
+        "entities": []
+      },
+      {
+        "text": "I'm sick of my tenant being so loud",
+        "intent": "FAQ_RLQ_noisy_tenant",
+        "entities": []
+      },
+      {
+        "text": "I can't sleep anymore because my landlord is loud as hell",
+        "intent": "FAQ_RLQ_noisy_tenant",
+        "entities": []
+      },
+      {
+        "text": "Is my neighbour allowed to be noisy at night? I can't sleep",
+        "intent": "FAQ_RLQ_noisy_tenant",
+        "entities": []
+      },
+      {
+        "text": "Can a tenant be noisy until 10:00PM?",
+        "intent": "FAQ_RLQ_noisy_tenant",
+        "entities": []
+      },
+      {
+        "text": "She is too loud",
+        "intent": "FAQ_RLQ_noisy_tenant",
+        "entities": []
+      },
+      {
+        "text": "After what time the tenant can't make noise?",
+        "intent": "FAQ_RLQ_noisy_tenant",
+        "entities": []
+      },
+      {
+        "text": "I can't sleep because my neighbour is too loud, what are my options?",
+        "intent": "FAQ_RLQ_noisy_tenant",
+        "entities": []
+      },
+      {
+        "text": "Am I allowed to make noise during the day?",
+        "intent": "FAQ_RLQ_noisy_tenant",
+        "entities": []
+      },
+      {
+        "text": "My tenant is excessively loud",
+        "intent": "FAQ_RLQ_noisy_tenant",
+        "entities": []
+      },
+      {
+        "text": "My neighboor is making excessive noise",
+        "intent": "FAQ_RLQ_noisy_tenant",
+        "entities": []
+      },
+      {
+        "text": "My tenants are making too much noise",
+        "intent": "FAQ_RLQ_noisy_tenant",
+        "entities": []
+      },
+      {
+        "text": "The toilet overflows every single time I flush, do I have to pay for the repairs?",
+        "intent": "FAQ_RLQ_paying_repairs_for_sink_toilet",
+        "entities": []
+      },
+      {
+        "text": "The toilet won't flush anymore, who has to pay to repair it?",
+        "intent": "FAQ_RLQ_paying_repairs_for_sink_toilet",
+        "entities": []
+      },
+      {
+        "text": "The sink doesn't work anymore and I want my landlord to pay for it",
+        "intent": "FAQ_RLQ_paying_repairs_for_sink_toilet",
+        "entities": []
+      },
+      {
+        "text": "My toilet is overflowing, do I have to pay for it?",
+        "intent": "FAQ_RLQ_paying_repairs_for_sink_toilet",
+        "entities": []
+      },
+      {
+        "text": "Who has to pay for a broken sink or broken toilet?",
+        "intent": "FAQ_RLQ_paying_repairs_for_sink_toilet",
+        "entities": []
+      },
+      {
+        "text": "Who has to pay for a plumber?",
+        "intent": "FAQ_RLQ_paying_repairs_for_sink_toilet",
+        "entities": []
+      },
+      {
+        "text": "Does my landlord have to pay for blocked pipes or plumbing?",
+        "intent": "FAQ_RLQ_paying_repairs_for_sink_toilet",
+        "entities": []
+      },
+      {
+        "text": "The toilet isn't working but the landlord wants me to repair it",
+        "intent": "FAQ_RLQ_paying_repairs_for_sink_toilet",
+        "entities": []
+      },
+      {
+        "text": "The toilet is blocked can I ask the landlord to repair it?",
+        "intent": "FAQ_RLQ_paying_repairs_for_sink_toilet",
+        "entities": []
+      },
+      {
+        "text": "The toilet is clogged can I ask the landlord get it fixed?",
+        "intent": "FAQ_RLQ_paying_repairs_for_sink_toilet",
+        "entities": []
+      },
+      {
+        "text": "The sink is jammed can I get the landlord to fix it?",
+        "intent": "FAQ_RLQ_paying_repairs_for_sink_toilet",
+        "entities": []
+      },
+      {
+        "text": "The sink is blocked up and the landlord doesn't want to fix it",
+        "intent": "FAQ_RLQ_paying_repairs_for_sink_toilet",
+        "entities": []
+      },
+      {
+        "text": "The sink is clogged can I ask the landlord to fix it",
+        "intent": "FAQ_RLQ_paying_repairs_for_sink_toilet",
+        "entities": []
+      },
+      {
+        "text": "My landlord is giving the lease to another tenant. When are they allowed to visit the apartment?",
+        "intent": "FAQ_RLQ_landlord_entering_occupied_apartment",
+        "entities": []
+      },
+      {
+        "text": "In general, when do landlords visit their apartments to check on their condition?",
+        "intent": "FAQ_RLQ_landlord_entering_occupied_apartment",
+        "entities": []
+      },
+      {
+        "text": "How much time am I allowed before my landlrod comes to visit my apartment?",
+        "intent": "FAQ_RLQ_landlord_entering_occupied_apartment",
+        "entities": []
+      },
+      {
+        "text": "If my landlord wants to see if my apartment is in good condition, how much time do I have?",
+        "intent": "FAQ_RLQ_landlord_entering_occupied_apartment",
+        "entities": []
+      },
+      {
+        "text": "If my landlord wants to inspect my apartment, when can she do so?",
+        "intent": "FAQ_RLQ_landlord_entering_occupied_apartment",
+        "entities": []
+      },
+      {
+        "text": "My landlord asked me to visit the apartment with the next buyer. Can he do that without asking for my permission",
+        "intent": "FAQ_RLQ_landlord_entering_occupied_apartment",
+        "entities": []
+      },
+      {
+        "text": "If my landlord wants to inspect my apartment, when can they do so?",
+        "intent": "FAQ_RLQ_landlord_entering_occupied_apartment",
+        "entities": []
+      },
+      {
+        "text": "How much time in advance does a landlord need to ask a tenant for permission to visit?",
+        "intent": "FAQ_RLQ_landlord_entering_occupied_apartment",
+        "entities": []
+      },
+      {
+        "text": "The landlord entered the backyard without asking me, do they have the right to do so?",
+        "intent": "FAQ_RLQ_landlord_entering_occupied_apartment",
+        "entities": []
+      },
+      {
+        "text": "Is the landlord allowed to enter the premises without asking me first?",
+        "intent": "FAQ_RLQ_landlord_entering_occupied_apartment",
+        "entities": []
+      },
+      {
+        "text": "My landlord entered the apartment without my consent. Were they allowed to do that?",
+        "intent": "FAQ_RLQ_landlord_entering_occupied_apartment",
+        "entities": []
+      },
+      {
+        "text": "Can the landlord enter the apartment without my permission?",
+        "intent": "FAQ_RLQ_landlord_entering_occupied_apartment",
+        "entities": []
+      },
+      {
+        "text": "Can the landlord enter the apartment without my permission?",
+        "intent": "FAQ_RLQ_landlord_entering_occupied_apartment",
+        "entities": []
+      },
+      {
+        "text": "I think the apartment is too cold. I can feel a warm breeze but my feet are still frozen. It's only 12C inside. Can I force my landlord to put it higher?",
+        "intent": "FAQ_RLQ_apartment_too_cold",
+        "entities": []
+      },
+      {
+        "text": "My landlord is cheap and won't put enough heat in. When can they put extra heating on?",
+        "intent": "FAQ_RLQ_apartment_too_cold",
+        "entities": []
+      },
+      {
+        "text": "It's too cold in my apartment. It's only 14 degrees. What heat should it legally be at?",
+        "intent": "FAQ_RLQ_apartment_too_cold",
+        "entities": []
+      },
+      {
+        "text": "Is there a date that my landlord must respect to finally put the heating on?",
+        "intent": "FAQ_RLQ_apartment_too_cold",
+        "entities": []
+      },
+      {
+        "text": "I'm in an apartment and the temperature is below 11C. When will my landlord finally put some heating inside of this building?",
+        "intent": "FAQ_RLQ_apartment_too_cold",
+        "entities": []
+      },
+      {
+        "text": "What is the precise date that my landlord must start heating my apartment?",
+        "intent": "FAQ_RLQ_apartment_too_cold",
+        "entities": []
+      },
+      {
+        "text": "When does my landlord legally have to heat up my apartment?",
+        "intent": "FAQ_RLQ_apartment_too_cold",
+        "entities": []
+      },
+      {
+        "text": "When will it get a little warmer, it's freezing",
+        "intent": "FAQ_RLQ_apartment_too_cold",
+        "entities": []
+      },
+      {
+        "text": "It's too cold, when does my landlorrd have to put the heat on?",
+        "intent": "FAQ_RLQ_apartment_too_cold",
+        "entities": []
+      },
+      {
+        "text": "When does my landlord need to put heat in",
+        "intent": "FAQ_RLQ_apartment_too_cold",
+        "entities": []
+      },
+      {
+        "text": "When will my landlord start putting the heat on?",
+        "intent": "FAQ_RLQ_apartment_too_cold",
+        "entities": []
+      },
+      {
+        "text": "I want to increase the rent of my tenants",
+        "intent": "FAQ_RLQ_unreasonable_rent_increase",
+        "entities": []
+      },
+      {
+        "text": "My landlord said rent will go up next year. How much can I expect it to increase? She didn't give me any details",
+        "intent": "FAQ_RLQ_unreasonable_rent_increase",
+        "entities": []
+      },
+      {
+        "text": "What is the legal amount by which my landlord can increase the rent?",
+        "intent": "FAQ_RLQ_unreasonable_rent_increase",
+        "entities": []
+      },
+      {
+        "text": "Is it normal that my rent increase by 10 dollars?",
+        "intent": "FAQ_RLQ_unreasonable_rent_increase",
+        "entities": []
+      },
+      {
+        "text": "My rent was increased by 3%. Is this legal?",
+        "intent": "FAQ_RLQ_unreasonable_rent_increase",
+        "entities": []
+      },
+      {
+        "text": "What is the maximum percentage by which the landlord can increase the rent",
+        "intent": "FAQ_RLQ_unreasonable_rent_increase",
+        "entities": []
+      },
+      {
+        "text": "My landlord increased the rent by $5, are they allowed to do this?",
+        "intent": "FAQ_RLQ_unreasonable_rent_increase",
+        "entities": []
+      },
+      {
+        "text": "By how much can my landlord increase the rent?",
+        "intent": "FAQ_RLQ_unreasonable_rent_increase",
+        "entities": []
+      },
+      {
+        "text": "I want to increase the rent of my tenants significantly",
+        "intent": "FAQ_RLQ_unreasonable_rent_increase",
+        "entities": []
       }
     ]
   }
