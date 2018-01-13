@@ -22,7 +22,7 @@ def ensure_json(func):
 def ensure_key(key):
     def decorator(func):
         def wrapper(*args, **kwargs):
-            if not key in request.get_json():
+            if key not in request.get_json():
                 return make_response(jsonify(message='\'' + key + '\' key is required'), 422)
             return func(*args, **kwargs)
         wrapper.__name__ = func.__name__

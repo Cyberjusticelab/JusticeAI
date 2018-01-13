@@ -38,7 +38,7 @@ def submit_resolved_fact(conversation, current_fact, entity_value):
 
 
 """
-Returns next fact based on claim category given the resolved facts. 
+Returns next fact based on claim category given the resolved facts.
 claim_category: claim category of the conversation
 facts_resolved: list of resolved fact keys
 :returns Next fact id to ask
