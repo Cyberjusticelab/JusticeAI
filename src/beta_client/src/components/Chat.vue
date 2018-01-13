@@ -5,7 +5,7 @@
 <template>
   <div id="chat-component">
     <!-- UPPER WINDOW: SHOW CHAT -->
-    <div id="chat-container" v-chat-scroll>
+    <div id="chat-container">
       <!-- CHAT HISTORY -->
       <div id="chat-history">
         <el-row v-for="history in chatHistory" :key="history.val">
@@ -93,6 +93,7 @@ export default {
     nextQuestion (set, skip) {
       this.isZeusThinking = true
       this.validateAnswer(set, skip)
+      this.$el.querySelector('#chat-zeus-avatar').scrollIntoView()
       setTimeout(() => {
         this.isZeusThinking = false
       }, 1100)
