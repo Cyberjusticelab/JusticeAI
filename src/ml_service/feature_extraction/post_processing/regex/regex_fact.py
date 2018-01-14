@@ -78,17 +78,23 @@ class TagPrecedents:
         file_contents = file.read()
         statement_tagged = False
         self.nb_lines += len(file_contents.split('\n'))
+
+        # ################################################################
+        # Modify this
         for i, (_, regex_array) in enumerate(self.regexes["regex_facts"]):
             if self.__match_any_regex(file_contents, regex_array):
-                facts_vector[i] = 1
+                facts_vector[i] = 1 # modify this line. Should be 0-1 or integers
                 statement_tagged = True
                 text_tagged = True
 
         for i, (_, regex_array) in enumerate(self.regexes["regex_demands"]):
             if self.__match_any_regex(file_contents, regex_array):
-                demands_vector[i] = 1
+                demands_vector[i] = 1 # modify this line. Should be 0-1 or integers
                 statement_tagged = True
                 text_tagged = True
+        # END OF MODIFICATION
+        # ################################################################
+
         if statement_tagged:
             self.statements_tagged += 1
         file.close()
@@ -96,14 +102,18 @@ class TagPrecedents:
             self.text_tagged += 1
         return {'facts_vector': facts_vector, 'demands_vector': demands_vector}
 
+    # ################################################################
+    # MODIFY THIS METHOD
     def __match_any_regex(self, text, regex_array):
         """
             Returns True if any of the regex in regex_array
             are found in the given text string
         """
         for regex_value in regex_array:
-            if regex_value.search(text):
-                return True
+            if regex_value.search(text): # check if this is a digit
+                return True # Return tuple (bool, int) --> [found/not found, value (0-1, OR int)]
+    # END OF MODIFICATION
+    # ################################################################
 
     def __ignore_line(self, line):
         """
