@@ -11,7 +11,7 @@ class InformationType(Enum):
     PROCESSED_SENTENCE = 3
 
 
-class Save():
+class Save:
 
     def __init__(self, directory=""):
         """
@@ -65,7 +65,7 @@ class Save():
             Log.write(target_file_name + " saved to: " + file_path)
 
 
-class Load():
+class Load:
 
     @staticmethod
     def load_binary(filename=None):
