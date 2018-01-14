@@ -6,6 +6,7 @@
     padding: 0px;
     overflow: hidden;
     #beta-page {
+        position: absolute;
         user-select: none;
         width: 100%;
         height: 100%;
@@ -59,7 +60,8 @@
             }
         }
         #beta-page-sign-up {
-            height: 90%;
+            height: 88%;
+            background-color: rgba(74, 74, 74, 0.8);
         }
     }
     #beta-page-about-us {
@@ -69,7 +71,7 @@
         width: 40%;
         z-index: 999;
         right: 0px;
-        background-color: rgba(255,255,255,0.8);
+        background-color: #DCDCDC;
         font-family: $zeus-font;
         text-align: center;
         #beta-page-about-us-nav {
@@ -117,4 +119,11 @@
             }
         }
     }
+}
+
+.translate-enter-active, .translate-leave-active {
+  transition: all 0.7s ease;
+}
+.translate-enter, .translate-leave-to {
+  transform: translateX(100%);
 }

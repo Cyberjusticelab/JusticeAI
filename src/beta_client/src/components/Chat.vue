@@ -5,14 +5,14 @@
 <template>
   <div id="chat-component">
     <!-- UPPER WINDOW: SHOW CHAT -->
-    <div id="chat-container" v-chat-scroll>
+    <div id="chat-container">
       <!-- CHAT HISTORY -->
       <div id="chat-history">
         <el-row v-for="history in chatHistory" :key="history.val">
-          <el-col :md="{span: 12, offset: 5}" :sm="{span: 20, offset: 2}" :xs="{span: 20, offset: 2}" class="history-message" v-for="set in questionSet[language]" v-if="set.val==history[0]" :key="set.val">
+          <el-col :md="{span: 12, offset: 5}" :sm="{span: 18, offset: 2}" :xs="{span: 18, offset: 2}" class="history-message" v-for="set in questionSet[language]" v-if="set.val==history[0]" :key="set.val">
             <p v-html="set.question"></p>
           </el-col>
-          <el-col :md="{span: 4, offset: 14}" :sm="{span: 20, offset: 2}" :xs="{span: 20, offset: 2}" class="history-message-user" v-for="set in questionSet[language]" v-if="set.val==history[0]" :key="set.val">
+          <el-col :md="{span: 4, offset: 14}" :sm="{span: 18, offset: 4}" :xs="{span: 18, offset: 4}" class="history-message-user" v-for="set in questionSet[language]" v-if="set.val==history[0]" :key="set.val">
             <p v-if="set.type!=='email' && set.type!=='question'" v-html="set.answer[history[1]]"></p>
             <p v-if="set.type=='question'" v-html="userQuestion"></p>
             <p v-if="set.type=='email'" v-html="userEmail"></p>
@@ -93,6 +93,7 @@ export default {
     nextQuestion (set, skip) {
       this.isZeusThinking = true
       this.validateAnswer(set, skip)
+      this.$el.querySelector('#chat-message').scrollIntoView()
       setTimeout(() => {
         this.isZeusThinking = false
       }, 1100)
