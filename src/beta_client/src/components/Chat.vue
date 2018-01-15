@@ -26,12 +26,8 @@
           <el-col :md="{span: 4, offset: 1}" :sm="{span: 4, offset: 2}" :xs="{span: 0, offset: 0}">
             <!-- ANIMATED AVATAR -->
             <div id="chat-zeus-avatar">
-              <transition name="fade">
                 <img v-if="!isZeusThinking" src="../assets/zeus_avatar_1.png"/>
-              </transition>
-              <transition name="fade">
                 <img v-if="isZeusThinking" src="../assets/zeus_avatar_2.png"/>
-              </transition>
             </div>
             <!-- END ANIMATED AVATAR -->
           </el-col>
@@ -41,6 +37,17 @@
               <div v-if="!isZeusThinking">
                 <p v-html="set.question"></p>
                 <p id="invalid-answer" v-if="isInvalidInput" v-html="set.error"></p>
+                <form v-on:submit.prevent="nextQuestion(set, 0)">
+                  <el-row v-for="set in questionSet[language]" :key="set.val" v-if="set.val == currentQuestion">
+                    <el-col v-if="set.type=='question' || set.type=='email'" :md="24">
+                      <el-input v-if="set.type=='question'" autosize v-model="userQuestion" :placeholder="set.placeholder" autoComplete="off" :disabled="isZeusThinking"></el-input>
+                      <el-input v-if="set.type=='email'" autosize v-model="userEmail" :placeholder="set.placeholder" :disabled="isZeusThinking"></el-input>
+                    </el-col>
+                    <el-col class="answer-button" :md="colSize" :sm="colSize" :xs="colSize" v-for="(answer, index) in set.answer" :key="answer.id">
+                      <el-button type="warning" v-on:click="nextQuestion(set, index)" :disabled="isZeusThinking">{{answer}}</el-button>
+                    </el-col>
+                  </el-row>
+                </form>
               </div>
               <div v-if="isZeusThinking">
                 <img src="../assets/chatting.gif"/>
@@ -53,19 +60,6 @@
       <!-- END CURRENT QUESTION -->
     </div>
     <!-- END UPPER WINDOW: SHOW CHAT -->
-    <!-- BOTTOM: SHOW INPUT OPTIONS -->
-    <div id="chat-input">
-      <el-row v-for="set in questionSet[language]" :key="set.val" v-if="set.val == currentQuestion">
-        <el-col v-if="set.type=='question' || set.type=='email'" :md="24">
-          <el-input v-if="set.type=='question'" autosize v-model="userQuestion" :placeholder="set.placeholder" autoComplete="off" :disabled="isZeusThinking"></el-input>
-          <el-input v-if="set.type=='email'" autosize v-model="userEmail" :placeholder="set.placeholder" :disabled="isZeusThinking"></el-input>
-        </el-col>
-        <el-col :md="colSize" :sm="colSize" :xs="colSize" v-for="(answer, index) in set.answer" :key="answer.id">
-          <el-button type="warning" v-on:click="nextQuestion(set, index)" :disabled="isZeusThinking">{{answer}}</el-button>
-        </el-col>
-      </el-row>
-    </div>
-    <!-- END BOTTOM: SHOW INPUT OPTIONS -->
   </div>
 </template>
 
