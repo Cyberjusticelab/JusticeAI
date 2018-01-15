@@ -98,6 +98,9 @@ export default {
     nextQuestion (set, skip) {
       this.isZeusThinking = true
       this.validateAnswer(set, skip)
+      if (!this.isInvalidInput) {
+        set = this.updateQuestion(set, skip)
+      }
       this.$el.querySelector('.chat-message').scrollIntoView()
       setTimeout(() => {
         this.isZeusThinking = false
@@ -110,6 +113,7 @@ export default {
       if (this.currentStatementIndex < set.question.length - 1) {
         setTimeout(() => {
           this.currentStatementIndex++
+          this.$el.querySelector('.chat-message').scrollIntoView()
           this.isZeusThinking = true
           setTimeout(() => {
             this.isZeusThinking = false
@@ -147,10 +151,6 @@ export default {
           is_subscribed: 1
         })
       }
-      if (!this.isInvalidInput) {
-        this.updateQuestion(set, skip)
-      }
-
     },
     updateQuestion (set, skip) {
       this.chatHistory.push([this.currentQuestionIndex, skip])
@@ -162,7 +162,7 @@ export default {
       for (let i = 0; i < this.questionSet[this.language].length; i++) {
         if (this.questionSet[this.language][i].val === this.currentQuestionIndex && this.questionSet[this.language][i].answer) {
           this.colSize = 24/this.questionSet[this.language][i].answer.length
-          return
+          return this.questionSet[this.language][i]
         }
       }
     }
