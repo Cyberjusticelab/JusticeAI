@@ -1,4 +1,8 @@
-import os
+import logging
+import sys
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+log = logging.getLogger(__name__)
+
 from flask import jsonify, abort, make_response
 
 from nlp_service.services import factService
@@ -164,11 +168,12 @@ message: message from user
 
 def __classify_claim_category(message):
     classify_dict = rasaClassifier.classify_problem_category(message)
+    log.debug("\nClassify Claim Category\n\tMessage: {}\n\tDict: {}".format(message,classify_dict))
 
     # Return the claim category, or None if the answer was insufficient in determining one
     if __is_answer_sufficient(classify_dict):
-        determined_problem_category = classify_dict['intent']
-        return determined_problem_category['name']
+        determined_claim_category = classify_dict['intent']
+        return determined_claim_category['name']
     else:
         return None
 
@@ -190,7 +195,7 @@ def __extract_entity(current_fact_name, message):
             return None
 
     classify_dict = rasaClassifier.classify_fact(current_fact_name, message)
-    print(classify_dict)
+    log.debug("\nClassify Fact\n\tMessage: {}\n\tDict: {}".format(message, classify_dict))
 
     # Return the fact value, or None if the answer was insufficient in determining one
     if __is_answer_sufficient(classify_dict):
