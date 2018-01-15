@@ -41,7 +41,7 @@
           <el-col :md="{span: 12}" :sm="{span: 16, offset: 0}" :xs="{span: 20, offset: 2}">
             <!-- QUESTION BINDING -->
             <el-col class="chat-message" v-if="!isZeusThinking">
-              <div >
+              <div>
                 <p v-html="set.question[currentStatementIndex]"></p>
                 <p id="invalid-answer" v-if="isInvalidInput" v-html="set.error"></p>
                 <form v-on:submit.prevent="nextQuestion(set, 0)" v-if="set.question.length - 1 == currentStatementIndex && set.val == currentQuestionIndex" v-for="set in questionSet[language]" :key="set.val">
@@ -57,11 +57,12 @@
                 </form>
               </div>
             </el-col>
+            <!-- END QUESTION BINDING -->
             <div class="chat-message" v-if="isZeusThinking">
                 <img src="../assets/chatting.gif"/>
             </div>
-            <!-- END QUESTION BINDING -->
           </el-col>
+          <el-col id="chat-marker"></el-col>
         </el-row>
       </el-col>
       <!-- END CURRENT QUESTION -->
@@ -101,23 +102,27 @@ export default {
       if (!this.isInvalidInput) {
         set = this.updateQuestion(set, skip)
       }
-      this.$el.querySelector('.chat-message').scrollIntoView()
+      var self = this
+      self.$nextTick(() => self.$el.querySelector('#chat-marker').scrollIntoView())
       setTimeout(() => {
-        this.isZeusThinking = false
-        if (!this.isInvalidInput){
-          this.nextStatement(set)
+        self.isZeusThinking = false
+        self.$nextTick(() => self.$el.querySelector('#chat-marker').scrollIntoView())
+        if (!self.isInvalidInput){
+          self.nextStatement(set)
         }
       }, 1500 - Math.random() * 500)
     },
     nextStatement (set) {
       if (this.currentStatementIndex < set.question.length - 1) {
+        var self = this
         setTimeout(() => {
-          this.currentStatementIndex++
-          this.$el.querySelector('.chat-message').scrollIntoView()
-          this.isZeusThinking = true
+          self.isZeusThinking = true
+          self.currentStatementIndex++
+          self.$nextTick(() => self.$el.querySelector('#chat-marker').scrollIntoView())
           setTimeout(() => {
-            this.isZeusThinking = false
-            this.nextStatement(set)
+            self.isZeusThinking = false
+            self.$nextTick(() => self.$el.querySelector('#chat-marker').scrollIntoView())
+            self.nextStatement(set)
           }, 1500 - Math.random() * 500)
         }, 2000 + Math.random() * 1000)
       }
