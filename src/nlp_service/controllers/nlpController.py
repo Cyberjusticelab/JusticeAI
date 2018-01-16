@@ -1,8 +1,3 @@
-import logging
-import sys
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
-log = logging.getLogger(__name__)
-
 from flask import jsonify, abort, make_response
 
 from nlp_service.services import factService
@@ -17,6 +12,13 @@ from postgresql_db.models import Conversation, ClaimCategory, Fact
 
 from outlier.outlier_detection import OutlierDetection
 
+# Logging
+import logging
+import sys
+
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+log = logging.getLogger(__name__)
+
 # Global Variables
 
 # Decided value of 30% percent difference which is used to determine if a clarification is needed.
@@ -28,7 +30,7 @@ minimum_intent_confidence_threshold = 0.6
 
 # Rasa Classifier - RasaClassifier used for claim category determination and fact value classification.
 rasaClassifier = RasaClassifier()
-rasaClassifier.train()
+rasaClassifier.train(force_train=True)
 
 # Outlier detector - Predicts if the new message is a clear outlier based on a model trained with fact messages
 outlier_detector = OutlierDetection()
@@ -168,7 +170,7 @@ message: message from user
 
 def __classify_claim_category(message):
     classify_dict = rasaClassifier.classify_problem_category(message)
-    log.debug("\nClassify Claim Category\n\tMessage: {}\n\tDict: {}".format(message,classify_dict))
+    log.debug("\nClassify Claim Category\n\tMessage: {}\n\tDict: {}".format(message, classify_dict))
 
     # Return the claim category, or None if the answer was insufficient in determining one
     if __is_answer_sufficient(classify_dict):
