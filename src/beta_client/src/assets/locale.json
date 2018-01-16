@@ -1,40 +1,42 @@
 {
     "en": [
         {
-            "question": "Hello there stranger! My name is Zeus and I'm here to assist the tenants and landlords of Québec. I'll be going into beta soon, and would like to get more context about the problems you might be facing. Tell me about your housing issues and I'll try to get back to you as soon as possible with useful information.",
+            "question": [
+                "Greetings friend!",
+                "I’m Procezeus, an artificially intelligent purveyor of divine justice.",
+                "I was created to assist landlords and tenants with a variety of issues they face.",
+                "Help me help you: you can ask me a question about housing law or describe a situation that you would require assistance with."
+            ],
             "answer": ["Understood!"],
             "val": 1
         },
         {
-            "question": "Would you like to ask me a question?",
-            "answer": ["Yes", "I have no questions"],
-            "val": 2
-        },
-        {
-            "question": "Great! What is your question? The more context I have, the better I'll be able to help!",
+            "question": ["What is your question?"],
             "answer": ["Confirm"],
             "type": "question",
             "placeholder": "ENTER YOUR QUESTION",
             "error": "Please make sure your input is valid and not empty, thank you!",
-            "val": 3
+            "val": 2
         },
         {
-            "question": "Would you like to leave me your email so I can let you know once my beta is live?",
+            "question": [
+                "I noted that, thanks!",
+                "Each question you ask gets me one step closer to launching in Beta.",
+                "Curious to hear aboit it when that happens? Share your email and Hermes will be in touch.",
+                "Don’t worry, it is against my credo to share information received in confidence."
+            ],
             "answer": ["Confirm"],
             "type": "email",
             "placeholder": "ENTER YOUR EMAIL",
             "error": "Please make sure your input is valid and not empty, thank you!",
+            "val": 3
+        },
+        {
+            "question": [
+                "Well heard!",
+                "And you will hear from me shortly."
+            ],
             "val": 4
-        },
-        {
-            "question": "Would you like to receive updates on my beta test?",
-            "answer": ["Absolutely", "No, thank you"],
-            "type": "subscription",
-            "val": 5
-        },
-        {
-            "question": "Thank you so much! I'll stay in touch. Have a nice day!",
-            "val": 6
         }
     ],
     "fr": [
