@@ -1,5 +1,6 @@
 from flask import jsonify, abort, make_response
 
+from nlp_service.rasa.intent_threshold import IntentThreshold
 from nlp_service.services import factService
 from postgresql_db.models import *
 from rasa.rasa_classifier import RasaClassifier
@@ -19,18 +20,12 @@ import sys
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 log = logging.getLogger(__name__)
 
-# Global Variables
-
-# Decided value of 30% percent difference which is used to determine if a clarification is needed.
-# Based on percent difference of two highest intents determined.
-minimum_percent_difference = 0.3
-
-# Intents will not be considered acceptable unless they have a confidence of at least 60%
-minimum_intent_confidence_threshold = 0.6
-
 # Rasa Classifier - RasaClassifier used for claim category determination and fact value classification.
 rasaClassifier = RasaClassifier()
 rasaClassifier.train(force_train=True)
+
+# Intent Threshold - Used to determine whether or not Rasa classification was sufficient to determine intent
+intentThreshold = IntentThreshold(min_percent_difference=0.3, min_confidence_threshold=0.4)
 
 # Outlier detector - Predicts if the new message is a clear outlier based on a model trained with fact messages
 outlier_detector = OutlierDetection()
@@ -173,7 +168,7 @@ def __classify_claim_category(message):
     log.debug("\nClassify Claim Category\n\tMessage: {}\n\tDict: {}".format(message, classify_dict))
 
     # Return the claim category, or None if the answer was insufficient in determining one
-    if __is_answer_sufficient(classify_dict):
+    if intentThreshold.is_sufficient(classify_dict):
         determined_claim_category = classify_dict['intent']
         return determined_claim_category['name']
     else:
@@ -200,25 +195,8 @@ def __extract_entity(current_fact_name, message):
     log.debug("\nClassify Fact\n\tMessage: {}\n\tDict: {}".format(message, classify_dict))
 
     # Return the fact value, or None if the answer was insufficient in determining one
-    if __is_answer_sufficient(classify_dict):
+    if intentThreshold.is_sufficient(classify_dict):
         determined_intent = classify_dict['intent']
         return determined_intent['name']
     else:
         return None
-
-
-"""
-Method which verifies the accuracy of the classification with a percentage difference between the intent with the largest confidence and the intent with the 2nd largest confidence
-classify_dict: the dict holding the intents, classification %, entities
-:returns False if percentage difference is below minimum_percent_difference
-"""
-
-
-# Determine confidence of returned intent
-def __is_answer_sufficient(classify_dict):
-    if len(classify_dict['intent_ranking']) > 1:
-        percent_difference = RasaClassifier.intent_percent_difference(classify_dict)
-        highest_intent_confidence = classify_dict['intent']['confidence']
-        if highest_intent_confidence < minimum_intent_confidence_threshold or percent_difference < minimum_percent_difference:
-            return False
-    return True
