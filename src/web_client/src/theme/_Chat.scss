@@ -2,7 +2,6 @@
 
 #chat-component {
   height: 100%;
-  background-color: $main-gold-1;
   overflow: hidden;
   font-family: $zeus-font;
   #chat-history {
@@ -41,7 +40,7 @@
       }
       .dark-hover {
         &:hover {
-          background-color: rgba(0, 0, 0, 0.4);
+          background-color: rgba(0,0,0,0.4);
         }
       }
       .fact-editing {
@@ -72,7 +71,7 @@
     }
   }
   #chat-widow {
-    background-color: $main-grey-6;
+    background-color: rgba(255,255,255,0.2);
     width: 100%;
     height: 78%;
     #chat-nav {

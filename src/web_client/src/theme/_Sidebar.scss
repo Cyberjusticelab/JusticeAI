@@ -7,7 +7,7 @@
     top: 0px;
 }
 #sidebar-component {
-    background-color: $main-grey-6;
+    background-color: rgba(255,255,255,0.2);
     overflow-y: hidden;
     #sidebar-min {
         background-color: $main-grey-1;
@@ -26,6 +26,7 @@
         height: 100%;
         background-color: $main-grey-1;
         font-family: $zeus-font;
+        border-right: 5px solid $main-gold-2;
         .active-menu {
             background-color: $main-grey-3 !important;
             color: $main-gold-1 !important;
