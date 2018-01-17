@@ -64,7 +64,7 @@
           }
         }
       }
-      #chat-message {
+      .chat-message {
         @extend .message;
         font-size: 20px;
         img {
