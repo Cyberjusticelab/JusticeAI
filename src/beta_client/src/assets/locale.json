@@ -51,7 +51,7 @@
             "val": 1
         },
         {
-            "question": "Quelle est votre question?",
+            "question": ["Quelle est votre question?"],
             "answer": ["Confirmer"],
             "type": "question",
             "placeholder": "ENTREZ VOTRE QUESTION",
