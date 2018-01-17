@@ -49,27 +49,12 @@
     <!-- End of Chat History -->
     <!-- Chat Widow -->
     <div id="chat-widow">
-      <!-- Log out -->
-      <div id="chat-nav">
-        <el-row>
-          <el-col :sm="{span: 2, offset: 22}">
-            <div id="chat-reset" v-on:click="resetChat()">
-              <img alt="" src="../assets/logout.png">
-              <p>
-                <span v-if="isLoggedIn">Sign Out</span>
-                <span v-if="!isLoggedIn">Reset</span>
-              </p>
-            </div>
-          </el-col>
-        </el-row>
-      </div>
-      <!-- End of Log out -->
       <!-- Zeus Chat -->
       <div id="chat-zeus-container">
         <el-row>
           <el-col :sm="4" :offset="3">
             <div id="chat-zeus-avatar">
-              <img v-on:click="user.openChatHistory = !user.openChatHistory; getChatHistory()" src="../assets/zeus_avatar_2.png"/>
+              <img v-on:click="user.openChatHistory = !user.openChatHistory; getChatHistory()" src="../assets/zeus_avatar_1.png"/>
             </div>
           </el-col>
           <el-col :sm="14">
@@ -132,11 +117,6 @@
             <div id="chat-message-user" v-bind:class="{ msgIsSent: user.isSent && chatHistory.history}">
               <img v-if="!user.input" alt="" src="../assets/chatting.gif">
               <p v-if="user.input" v-html="user.input"></p>
-            </div>
-          </el-col>
-          <el-col :md="4">
-            <div id="chat-user-avatar">
-              <img src="../assets/user_avatar_2.png"/>
             </div>
           </el-col>
         </el-row>
@@ -289,16 +269,6 @@ export default {
     setEnableUserConfirmation () {
       // Only start prompting once user has start responding to questions
       this.zeus.enableUserConfirmation = this.numMessageSinceChatHistory + this.chatHistory.history.length > 4
-    },
-    resetChat () {
-      if (this.isLoggedIn) {
-        //TODO: some logout logic here
-      } else {
-        this.$localStorage.remove('zeusId')
-        this.$localStorage.remove('username')
-        this.$localStorage.remove('usertype')
-        this.$router.push('/')
-      }
     }
   }
 }

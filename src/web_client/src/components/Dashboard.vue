@@ -6,14 +6,8 @@
     <transition name="fade">
         <div id="dashboard-component">
             <el-container>
-                <el-row>
-                    <el-col :sm="5" >
-                        <sidebar></sidebar>
-                    </el-col>
-                    <el-col :sm="19">
-                        <chat></chat>
-                    </el-col>
-                </el-row>
+                <sidebar></sidebar>
+                <chat></chat>
             </el-container>
         </div>
     </transition>
