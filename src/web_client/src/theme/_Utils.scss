@@ -20,3 +20,10 @@ $main-white-1: #FFFFFF;
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
+
+//responsive width
+$break-width-legacy: 420px;
+$break-width-phone: 768px;
+$break-width-tablet: 1024px;
+$break-width-pc: 1224px;
+$break-width-wide-screen: 1824px;

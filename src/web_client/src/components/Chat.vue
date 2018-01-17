@@ -25,7 +25,7 @@
               </el-col>
               <el-col :sm="{span: 4, offset: 0}">
                 <div id="fact-remove">
-                  <img alt="" src="../assets/fact_remove.png">
+                  <img alt="" src="../assets/fact_remove.png" v-on:click="removeFact(fact.id)">
                 </div>
                 <div id="fact-edit">
                   <img alt="" src="../assets/fact_edit.png">
@@ -160,11 +160,19 @@ export default {
     }
   },
   methods: {
-    handleEdit (index, row) {
+    editFact (factId) {
       // TODO: bind event and api
     },
-    handleDelete (index, row) {
-      // TODO: bind event and api
+    removeFact (factId) {
+      let zeusId = this.$localStorage.get('zeusId')
+      this.$http.delete(this.api_url + 'conversation/' + zeusId + '/resolved/' + factId).then(
+        response => {
+          this.getChatHistory()
+        },
+        response => {
+          this.connectionError = true
+        }
+      )
     },
     initChatSession () {
       this.$http.post(this.api_url + 'new', {
