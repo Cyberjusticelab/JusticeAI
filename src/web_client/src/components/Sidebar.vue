@@ -72,8 +72,8 @@
                 </div>
                 <!-- End of Toggle Menu -->
                 <!-- Reset -->
-                <div id="sidebar-reset">
-                    <p v-on:click="resetChat()">RESET CONVERSATION</p>
+                <div v-on:click="resetChat()" id="sidebar-reset">
+                    <p>RESET CONVERSATION</p>
                 </div>
                 <!-- End of Reset -->
             </div>
@@ -84,8 +84,8 @@
             <textarea id="feedback-input" v-model="feedback">
             </textarea>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="openFeedbackModal = false">Cancel</el-button>
-                <el-button type="primary" @click="submitFeedback()">Submit</el-button>
+                <el-button v-on:click="openFeedbackModal = false">Cancel</el-button>
+                <el-button type="primary" v-on:click="submitFeedback()">Submit</el-button>
             </span>
         </el-dialog>
         <!-- End of el-dialog for feedback -->

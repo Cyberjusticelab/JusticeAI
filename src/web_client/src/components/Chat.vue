@@ -185,7 +185,6 @@ export default {
           this.zeus.input = null
           this.user.isSent = this.user.input != ''
           this.zeus.filePrompt = false;
-          this.numMessageSinceChatHistory += 1
           setTimeout(() => {
             this.configChat(response.body)
           }, 1100)
@@ -227,7 +226,6 @@ export default {
       this.user.input = null
       this.user.isSent = false
       this.user.disableInput = conversation.enforce_possible_answer
-      this.promptFeedback = true
     },
     sendFeedback (confirmation) {
       this.$http.post(this.api_url + 'store-user-confirmation', {
