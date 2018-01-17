@@ -22,7 +22,7 @@
             "question": [
                 "I noted that, thanks!",
                 "Each question you ask gets me one step closer to launching in Beta.",
-                "Curious to hear aboit it when that happens? Share your email and Hermes will be in touch.",
+                "Curious to hear about it when that happens? Share your email and Hermes will be in touch.",
                 "Don’t worry, it is against my credo to share information received in confidence."
             ],
             "answer": ["Confirm"],
@@ -41,40 +41,42 @@
     ],
     "fr": [
         {
-            "question": "Bonjour cher étranger! Mon nom est Zeus et je suis ici pour assister les propriétaires et les locataires au Québec. Je commencerai ma phase bêta bientôt et j'ai besoin d'en connaître un peu plus à l'égard des problèmes communs auxquels vous pourriez faire face. Parlez-moi de vos problèmes avec vos locataires ou votre propriétaire et je m'efforcerai de vous communiquez de l'information utile dans les plus brefs délais.",
+            "question":[
+                "Bonjour cher étranger!",
+                "Mon nom est Zeus et je suis ici pour assister les propriétaires et les locataires au Québec.",
+                "Je commencerai ma phase bêta bientôt et j'ai besoin d'en connaître un peu plus à l'égard des problèmes communs auxquels vous pourriez faire face.",
+                "Parlez-moi de vos problèmes avec vos locataires ou votre propriétaire."
+            ],
             "answer": ["D'accord!"],
             "val": 1
         },
         {
-            "question": "Voudriez-vous me poser une question concernant votre problème?",
-            "answer": ["Oui", "Je n'ai pas de question"],
-            "val": 2
-        },
-        {
-            "question": "Parfait! Quelle est votre question? Le plus de contexte que j'ai, le mieux je pourrai vous aidez!",
+            "question": ["Quelle est votre question?"],
             "answer": ["Confirmer"],
             "type": "question",
             "placeholder": "ENTREZ VOTRE QUESTION",
             "error": "SVP assurez-vous que votre entrée soit valide et présente. Merci!",
-            "val": 3
+            "val": 2
         },
         {
-            "question": "Voudriez-vous me donner votre courriel afin que je puisse vous informer du lancement de la version bêta?",
+            "question": [
+                "J'ai noté cela, merci!",
+                "Chaque question que vous posez me rapproche un peu plus du lancement en version bêta.",
+                "Curieux d'entendre à ce sujet quand cela arrive? Partagez votre email et Hermes sera en contact.",
+                "Ne vous inquiétez pas, il est contre mon credo de partager des informations reçues en confidance."
+            ],
             "answer": ["Confirmer"],
             "type": "email",
             "placeholder": "ENTREZ VOTRE COURRIEL",
             "error": "SVP assurez-vous que votre entrée soit valide et présente. Merci!",
+            "val": 3
+        },
+        {
+            "question": [
+                "Merci beaucoup!",
+                "Je resterai en contact avec vous. Bonne journée!"
+            ],
             "val": 4
-        },
-        {
-            "question": "Souhaitez-vous recevoir des mises à jour à propos de notre test bêta?",
-            "answer": ["Oui", "Non Merci"],
-            "type": "subscription",
-            "val": 5
-        },
-        {
-            "question": "Merci beaucoup! Je resterai en contact avec vous. Bonne journée!",
-            "val": 6
         }
     ]
 }
