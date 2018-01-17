@@ -198,18 +198,22 @@ describe('Chat.vue', () => {
     	Vue.http.get.restore()
     })
 
-    it('should logout', () => {
-        const Component = Vue.extend(Chat)
-        const vm = new Component({
-            router: new VueRouter({
-                routes: [
-                    {
-                        path: '/'
-                    }
-                ]
-            })
-        }).$mount()
-        vm.isLoggedIn = true
+    it('should successfully remove resolved fact', () => {
+        const promiseCall = sinon.stub(Vue.http, 'delete').returnsPromise()
+        promiseCall.resolves({})
+        const vm = new Vue(Chat).$mount()
+        vm.removeFact(1)
+        expect(vm.connectionError).to.be.false
+        Vue.http.delete.restore()
+    })
+
+    it('should fail to remove resolved fact', () => {
+        const promiseCall = sinon.stub(Vue.http, 'delete').returnsPromise()
+        promiseCall.rejects({})
+        const vm = new Vue(Chat).$mount()
+        vm.removeFact(1)
+        expect(vm.connectionError).to.be.true
+        Vue.http.delete.restore()
     })
 
 })

@@ -160,20 +160,6 @@ export default {
     }
   },
   methods: {
-    editFact (factId) {
-      // TODO: bind event and api
-    },
-    removeFact (factId) {
-      let zeusId = this.$localStorage.get('zeusId')
-      this.$http.delete(this.api_url + 'conversation/' + zeusId + '/resolved/' + factId).then(
-        response => {
-          this.getChatHistory()
-        },
-        response => {
-          this.connectionError = true
-        }
-      )
-    },
     initChatSession () {
       this.$http.post(this.api_url + 'new', {
         name: this.$localStorage.get('username'),
@@ -253,6 +239,17 @@ export default {
         },
         response => {
           this.promptFeedback = false
+          this.connectionError = true
+        }
+      )
+    },
+    removeFact (factId) {
+      let zeusId = this.$localStorage.get('zeusId')
+      this.$http.delete(this.api_url + 'conversation/' + zeusId + '/resolved/' + factId).then(
+        response => {
+          this.getChatHistory()
+        },
+        response => {
           this.connectionError = true
         }
       )
