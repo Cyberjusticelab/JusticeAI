@@ -80,19 +80,19 @@ describe('Chat.vue', () => {
         Vue.http.post.restore()
     })
 
-    it('should successfully send user confirmation of bot repsonse ', () => {
+    it('should successfully send user feedback', () => {
     	const promiseCall = sinon.stub(Vue.http, 'post').returnsPromise()
     	promiseCall.resolves({})
     	const vm = new Vue(Chat).$mount()
-    	vm.confirmBotResponse(true)
-        expect(vm.zeus.enableUserConfirmation).to.be.false
+    	vm.sendFeedback(true)
+        expect(vm.promptFeedback).to.be.false
         Vue.http.post.restore()
     })
 
-    it('should handle the failure of sending of user confirmation of bot repsonse ', () => {
+    it('should handle the failure of sending user feedback ', () => {
     	const promiseCall = sinon.stub(Vue.http, 'post').returnsPromise()
     	const vm = new Vue(Chat).$mount()
-    	vm.confirmBotResponse()
+    	vm.sendFeedback()
         promiseCall.rejects()
         expect(vm.connectionError).to.be.true
         Vue.http.post.restore()
@@ -198,48 +198,6 @@ describe('Chat.vue', () => {
     	Vue.http.get.restore()
     })
 
-    it('should enable user confirmation prompt once chat contains questions regarding facts', () => {
-        const vm = new Vue(Chat).$mount()
-        expect(vm.zeus.enableUserConfirmation).to.be.false
-        vm.numMessageSinceChatHistory = 10
-        vm.chatHistory = {history: []}
-        vm.setEnableUserConfirmation()
-        expect(vm.zeus.enableUserConfirmation).to.be.true
-        vm.numMessageSinceChatHistory = 0
-        vm.chatHistory.history = [{}, {}, {}, {}, {}]
-        vm.setEnableUserConfirmation()
-        expect(vm.zeus.enableUserConfirmation).to.be.true
-    })
-
-    it('should disable user confirmation prompt before chat contains questions regarding facts', () => {
-        const vm = new Vue(Chat).$mount()
-        expect(vm.zeus.enableUserConfirmation).to.be.false
-        vm.numMessageSinceChatHistory = 0
-        vm.chatHistory = {history: []}
-        vm.setEnableUserConfirmation()
-        expect(vm.zeus.enableUserConfirmation).to.be.false
-    })
-
-    it('should reset chat', () => {
-        const Component = Vue.extend(Chat)
-        const vm = new Component({
-            router: new VueRouter({
-                routes: [
-                    {
-                        path: '/'
-                    }
-                ]
-            })
-        }).$mount()
-        Vue.localStorage.set('zeusId', 1)
-        Vue.localStorage.set('username', 'Bruce Wayne')
-        Vue.localStorage.set('usertype', 'tenant')
-        vm.resetChat()
-        expect(Vue.localStorage.get('zeusId')).to.be.equal(null)
-        expect(Vue.localStorage.get('username')).to.be.equal(null)
-        expect(Vue.localStorage.get('usertype')).to.be.equal(null)
-    })
-
     it('should logout', () => {
         const Component = Vue.extend(Chat)
         const vm = new Component({
@@ -252,7 +210,6 @@ describe('Chat.vue', () => {
             })
         }).$mount()
         vm.isLoggedIn = true
-        vm.resetChat()
     })
 
 })

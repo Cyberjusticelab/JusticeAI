@@ -22,7 +22,7 @@ describe('Dashboard.vue', () => {
 
     it('should successfully set username', () => {
         const vm = new Vue(Dashboard).$mount()
-        expect(Vue.localStorage.get('username')).to.be.equal('Bruce Lee')
+        expect(Vue.localStorage.get('username')).to.be.equal('Patient Zero')
         Vue.localStorage.remove('username')
     })
 

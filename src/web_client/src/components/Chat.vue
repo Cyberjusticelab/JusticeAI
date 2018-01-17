@@ -85,10 +85,10 @@
                 </el-button>
               </div>
               <div id="beta-feedback-group" v-if="promptFeedback">
-                <div v-on:click="confirmBotResponse(true)">
+                <div v-on:click="sendFeedback(true)">
                   <icon name="thumbs-up" class="feedback-good"></icon>
                 </div>
-                <div v-on:click="confirmBotResponse(false)">
+                <div v-on:click="sendFeedback(false)">
                   <icon name="thumbs-down" class="feedback-bad"></icon>
                 </div>
               </div>
@@ -235,7 +235,7 @@ export default {
       this.user.disableInput = conversation.enforce_possible_answer
       this.promptFeedback = true
     },
-    confirmBotResponse (confirmation) {
+    sendFeedback (confirmation) {
       this.$http.post(this.api_url + 'store-user-confirmation', {
         conversation_id: this.$localStorage.get('zeusId'),
         confirmation: confirmation || false
