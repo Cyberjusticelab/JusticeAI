@@ -2,38 +2,33 @@
 
 #chat-component {
   height: 100%;
-  background-color: $main-gold-1;
+  width: 100%;
   overflow: hidden;
   font-family: $zeus-font;
   #chat-history {
     overflow-y: scroll;
-    width: 100%;
+    width: 30%;
     height: 100%;
+    right: 0px;
     background-color: rgba(41,41,41,0.8);
     position: fixed;
     z-index: 999;
-    #chat-history-text {
-      ul {
-        text-align: left;
-        list-style: none;
-        li {
-          color: $main-grey-5;
-        }
-        h3 {
-          font-style: italic;
-          font-weight: bold;
-        }
+    #chat-history-button {
+      padding: 5px;
+      img {
+        cursor: pointer;
+        width: 40px;
       }
     }
     #chat-history-fact {
       margin-top: 50px;
       .el-col {
         border: 1px solid $main-gold-1;
-        height: 55px;
+        height: 70px;
         h4 {
           font-style: italic;
           color: $main-grey-5;
-          font-size: 15px;
+          font-size: 14px;
         }
         p {
           color: $main-grey-5;
@@ -41,7 +36,7 @@
       }
       .dark-hover {
         &:hover {
-          background-color: rgba(0, 0, 0, 0.4);
+          background-color: rgba(0,0,0,0.4);
         }
       }
       .fact-editing {
@@ -66,15 +61,15 @@
       #fact-edit {
         @extend .fact-editing;
         &:hover {
-          background-color: $main-grey-6;
+          background-color: $main-grey-4;
         }
       }
     }
   }
   #chat-widow {
-    background-color: $main-grey-6;
+    background-color: rgba(74,74,74,0.8);
     width: 100%;
-    height: 78%;
+    height: 80%;
     #chat-nav {
       #chat-reset {
         cursor: pointer;
@@ -95,16 +90,15 @@
     .chat-message {
       margin-top: 60px;
       min-height: 40px;
-      border: 2px solid $main-gold-2;
       background-color: $main-grey-5;
       color: $main-grey-2;
+      border-radius: 2px;
       p {
         text-align: center;
         margin: auto;
         padding: 12px;
         font-family: $zeus-font;
         color: $main-grey-2;
-        font-weight: bolder;
         font-size: 18px;
         a {
           text-decoration: none !important;
@@ -117,14 +111,13 @@
       }
     }
     #chat-zeus-container {
-      min-height: 40%;
+      height: 50%;
       #chat-zeus-avatar {
         margin-top: 30px;
         img {
           height: 200px;
           &:hover {
             background-color: $main-gold-1;
-            border: 1px solid $main-gold-1;
             border-radius: 140px;
             cursor: pointer;
           }
@@ -133,6 +126,8 @@
       #chat-message-zeus {
         @extend .chat-message;
         margin-top: 30px;
+        padding: 20px;
+        border: 1px solid $main-white-1;
         label {
           width: 80%;
           cursor: pointer;
@@ -158,9 +153,38 @@
             font-style: italic;
           }
         }
+        #beta-feedback-group {
+          text-align: center;
+          margin-left: 10px;
+          margin-bottom: 10px;
+          div {
+            display: inline-block;
+          }
+          .feedback {
+            height: 1em;
+            width: 1em;
+            color: $main-gold-2;
+            &:hover {
+              cursor: pointer;
+            }
+          }
+          .feedback-good {
+            @extend .feedback;
+            &:hover {
+              color: mediumseagreen;
+            }
+          }
+          .feedback-bad {
+            @extend .feedback;
+            &:hover {
+              color: crimson;
+            }
+          }
+        }
       }
     }
     #chat-user-container {
+      height: 50%;
       #chat-user-avatar {
         margin-top: 60px;
       }
@@ -178,7 +202,7 @@
   #chat-input {
     border-top: 1px solid gold;
     background-color: $main-grey-5;
-    height: 23%;
+    height: 20%;
     .el-input {
       width: 80%;
       height: 50px;
@@ -200,14 +224,6 @@
         background-color: $main-gold-2;
         color: $main-white-1;
       }
-    }
-    #chat-history-button {
-      display: inline-block;
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      cursor: pointer;
-      z-index: 999;
     }
   }
 }

@@ -23,7 +23,7 @@ def submit_resolved_fact_list(conversation):
 
 
 """
-Given a claim cateogry and the ml service response, will extract the prediction 
+Given a claim cateogry and the ml service response, will extract the prediction
 performing any necessary mappings.
 claim_category: the current conversation's claim category as a string
 ml_response: the response dict received from ml service

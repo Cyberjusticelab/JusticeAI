@@ -5,13 +5,6 @@
 <template>
     <el-container id="landing-component">
         <div id="landing-page">
-            <div id="landing-page-nav">
-                <el-row>
-                    <el-col :md="4" :offset="20">
-                        <el-button type="warning">Sign In</el-button>
-                    </el-col>
-                </el-row>
-            </div>
             <div id="landing-page-title">
                 <el-row>
                     <el-col :md="24">
@@ -32,12 +25,28 @@
                     </el-col>
                 </el-row>
             </div>
+            <!-- el-dialog for username -->
+            <el-dialog :visible.sync="promptUsername" center>
+                <h2>PLEASE ENTER YOUR NAME</h2>
+                <el-input v-model="username" placeholder="ENTER YOUR NAME"></el-input>
+                <span slot="footer" class="dialog-footer">
+                    <el-button v-on:click="promptUsername = false">Cancel</el-button>
+                    <el-button type="primary" v-on:click="login()">Next</el-button>
+                </span>
+            </el-dialog>
+            <!-- End of el-dialog for username -->
         </div>
     </el-container>
 </template>
 
 <script>
 export default {
+    data () {
+        return {
+            promptUsername: false,
+            username: null
+        }
+    },
     created () {
         if (this.$localStorage.get('zeusId')) {
             this.$router.push('dashboard')
@@ -45,8 +54,14 @@ export default {
     },
     methods: {
         chooseType(usertype) {
-            this.$localStorage.set('username', usertype) //TODO: prompt username
             this.$localStorage.set('usertype', usertype)
+            this.promptUsername = true
+        },
+        login() {
+            if (!this.username) {
+                this.username = 'Anonymous'
+            }
+            this.$localStorage.set('username', this.username)
             this.$localStorage.remove('zeusId')
             this.$router.push('dashboard')
         }
