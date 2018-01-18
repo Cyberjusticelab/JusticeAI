@@ -1,5 +1,6 @@
 import numpy as np
 from model_training.svm.svm import LinearSVM
+from model_training.similar_finder.similar_finder import SimilarFinder
 from util.file import Load
 from util.log import Log
 
@@ -105,3 +106,4 @@ def run(command_list):
         valid_cluster_precedent_vector)
     linear_svm = LinearSVM(new_precedent_vector)
     linear_svm.train()
+    SimilarFinder(train=True, dataset=new_precedent_vector)
