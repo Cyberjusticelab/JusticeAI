@@ -16,20 +16,6 @@
         height: 100%;
         background: url("../assets/landing_page_background.png") no-repeat center center fixed;
         background-size: cover;
-        #landing-page-nav {
-            button {
-                margin-top: 10px;
-                color: $main-grey-5;
-                font-weight: bold;
-                font-size: 14px;
-                cursor: pointer;
-                background-color: $main-gold-1;
-                &:hover {
-                    color: $main-gold-1;
-                    background-color: $main-grey-5;
-                }
-            }
-        }
         #landing-page-title {
             text-align: center;
             padding-top: 200px;
@@ -61,6 +47,26 @@
                     }
                 }
             }
+        }
+    }
+    .el-dialog{
+        height: 200px !important;
+        width: 400px !important;
+        h2 {
+            text-align: center;
+        }
+    }
+    .el-button {
+        margin: auto;
+        margin-top: 15px;
+        width: 150px;
+        border-color: $main-gold-2;
+        background-color: $main-gold-2;
+        color: $main-grey-2;
+        font-weight: bolder;
+        &:hover:enabled {
+          background-color: $main-gold-2;
+          color: $main-white-1;
         }
     }
 }

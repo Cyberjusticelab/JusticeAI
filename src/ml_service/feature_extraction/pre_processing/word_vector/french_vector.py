@@ -3,6 +3,7 @@ import numpy
 from gensim.models.keyedvectors import KeyedVectors
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+import sys
 
 from feature_extraction.pre_processing.word_vector.french_related_word_fetcher import find_related, save_cache
 from util.constant import Path
@@ -30,7 +31,8 @@ class FrenchVector:
             FrenchVector.custom_stop_words = FrenchVector.get_stop_tokens()
             Log.write("word vector file is successfully loaded")
         except BaseException:
-            Log.write("word vector file is not found")
+            Log.write("word vector file is not found. Please run init.py")
+            sys.exit(0)
 
     @staticmethod
     def unload_vector():
