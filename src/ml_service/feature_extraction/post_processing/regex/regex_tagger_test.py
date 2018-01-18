@@ -3,7 +3,7 @@ import unittest
 import re
 import os
 from util.constant import Path
-from feature_extraction.post_processing.regex.regex_entity import TagPrecedents
+from feature_extraction.post_processing.regex.regex_tagger import TagPrecedents
 
 
 class RegexEntityTest(unittest.TestCase):

@@ -2,7 +2,7 @@ from util.file import Load
 import re
 
 
-class RegexLogic:
+class EntityExtraction:
     __regex_bin = Load.load_binary('regexes.bin')
     one_day = 86400 # unix time for 1 day
 
@@ -17,7 +17,7 @@ class RegexLogic:
         """
         for regex in regex_array:
             if regex.search(text): 
-                return RegexLogic.__extract_regex_entity(text, regex_type)
+                return EntityExtraction.__extract_regex_entity(text, regex_type)
         return False, 0
     
     @staticmethod
@@ -34,7 +34,7 @@ class RegexLogic:
             return True, 1
 
         elif regex_type == 'MONEY':
-            generic_regex = re.compile(RegexLogic.__regex_bin[regex_type])
+            generic_regex = re.compile(EntityExtraction.__regex_bin[regex_type])
             entity = generic_regex.search(text).group(0)
 
             # Functional but not sure about how optimal it is

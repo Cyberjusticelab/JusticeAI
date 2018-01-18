@@ -6,7 +6,8 @@ from util.log import Log
 from util.constant import Path
 from sys import stdout
 from util.file import Load
-from feature_extraction.post_processing.regex.regex_post_logic import RegexLogic
+from feature_extraction.post_processing.regex.regex_entity_extraction import EntityExtraction
+
 
 class TagPrecedents:
     empty_line_length = 6
@@ -80,14 +81,14 @@ class TagPrecedents:
         self.nb_lines += len(file_contents.split('\n'))
 
         for i, (_, regex_array, regex_type) in enumerate(self.regexes["regex_facts"]):
-            match = RegexLogic.match_any_regex(file_contents,regex_array, regex_type)
+            match = EntityExtraction.match_any_regex(file_contents, regex_array, regex_type)
             if match[0]:
                 facts_vector[i] = match[1]
                 statement_tagged = True
                 text_tagged = True
 
         for i, (_, regex_array, regex_type) in enumerate(self.regexes["regex_demands"]):
-            match = RegexLogic.match_any_regex(file_contents, regex_array, regex_type)
+            match = EntityExtraction.match_any_regex(file_contents, regex_array, regex_type)
             if match[0]:
                 demands_vector[i] = match[1]
                 statement_tagged = True

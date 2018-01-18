@@ -1,5 +1,5 @@
 import unittest
-from feature_extraction.post_processing.regex.regex_post_logic import RegexLogic
+from feature_extraction.post_processing.regex.regex_entity_extraction import EntityExtraction
 import re
 
 
@@ -17,7 +17,7 @@ class RegexPostLogicTest(unittest.TestCase):
             )
         ]
         regex_type = 'BOOLEAN'
-        result = RegexLogic.match_any_regex(text, regex_array, regex_type)
+        result = EntityExtraction.match_any_regex(text, regex_array, regex_type)
         self.assertFalse(result[0])
         self.assertEqual(result[1], 0)
 
@@ -30,7 +30,7 @@ class RegexPostLogicTest(unittest.TestCase):
                 re.IGNORECASE
             )]
         regex_type = 'MONEY'
-        result = RegexLogic.match_any_regex(text, regex_array, regex_type)
+        result = EntityExtraction.match_any_regex(text, regex_array, regex_type)
         self.assertTrue(result[0])
         self.assertEqual(int(result[1]), 50)
 
@@ -47,6 +47,6 @@ class RegexPostLogicTest(unittest.TestCase):
             )
         ]
         regex_type = 'BOOLEAN'
-        result = RegexLogic.match_any_regex(text, regex_array, regex_type)
+        result = EntityExtraction.match_any_regex(text, regex_array, regex_type)
         self.assertTrue(result[0])
         self.assertEqual(result[1], 1)
