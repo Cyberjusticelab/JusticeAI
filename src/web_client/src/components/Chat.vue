@@ -6,34 +6,26 @@
   <div id="chat-component">
     <!-- Chat History -->
     <transition name="fade">
-      <div id="chat-history" v-if="user.openChatHistory" v-chat-scroll>
+      <div id="chat-history" v-if="user.openChatHistory">
         <el-row>
-          <!-- Chat History ~ Conversation Text -->
-          <el-col :sm="{span: 6, offset: 0}">
-            <div id="chat-history-text">
-              <ul>
-                <li v-for="conv in chatHistory.history">
-                  <h3>{{ conv.sender_type }}</h3>
-                  <p>- {{ conv.text }}</p>
-                  <p>on {{ conv.timestamp.split('T')[0] }} at {{ conv.timestamp.split('T')[1].substring(0,8) }}</p>
-                </li>
-              </ul>
+          <el-col :sm="{span: 2, offset: 0}">
+            <div id="chat-history-button">
+              <img v-on:click="user.openChatHistory = false" alt="" src="../assets/history_disable.png">
             </div>
           </el-col>
-          <!-- End Chat History ~ Conversation Text -->
           <!-- Chat History ~ Understood Fact -->
-          <el-col :sm="{span: 16, offset: 2}">
+          <el-col :sm="{span: 21, offset: 1}">
           <div id="chat-history-fact">
             <el-row v-for="fact in chatHistory.fact" :key="fact.id">
-              <el-col :sm="{span: 10, offset: 0}" class="dark-hover">
+              <el-col :sm="{span: 13, offset: 0}" class="dark-hover">
                 <h4>{{ fact.fact.summary }}</h4>
               </el-col>
-              <el-col :sm="{span: 2, offset: 0}" class="dark-hover">
+              <el-col :sm="{span: 4, offset: 0}" class="dark-hover">
                 <p>{{ fact.value }}</p>
               </el-col>
-              <el-col :sm="{span: 2, offset: 0}">
+              <el-col :sm="{span: 4, offset: 0}">
                 <div id="fact-remove">
-                  <img alt="" src="../assets/fact_remove.png">
+                  <img alt="" src="../assets/fact_remove.png" v-on:click="removeFact(fact.id)">
                 </div>
                 <div id="fact-edit">
                   <img alt="" src="../assets/fact_edit.png">
@@ -49,47 +41,19 @@
     <!-- End of Chat History -->
     <!-- Chat Widow -->
     <div id="chat-widow">
-      <!-- Log out -->
-      <div id="chat-nav">
-        <el-row>
-          <el-col :sm="{span: 2, offset: 22}">
-            <div id="chat-reset" v-on:click="resetChat()">
-              <img alt="" src="../assets/logout.png">
-              <p>
-                <span v-if="isLoggedIn">Sign Out</span>
-                <span v-if="!isLoggedIn">Reset</span>
-              </p>
-            </div>
-          </el-col>
-        </el-row>
-      </div>
-      <!-- End of Log out -->
       <!-- Zeus Chat -->
       <div id="chat-zeus-container">
         <el-row>
-          <el-col :sm="4" :offset="3">
+          <el-col :sm="{span: 4, offset: 2}">
             <div id="chat-zeus-avatar">
-              <img v-on:click="user.openChatHistory = !user.openChatHistory; getChatHistory()" src="../assets/zeus_avatar_2.png"/>
+              <img v-on:click="user.openChatHistory = !user.openChatHistory; getChatHistory()" src="../assets/zeus_avatar_1.png"/>
             </div>
           </el-col>
-          <el-col :sm="14">
+          <el-col :sm="{span: 10, offset: 0}">
             <div id="chat-message-zeus">
               <img v-if="!zeus.input" alt="" src="../assets/chatting.gif">
               <transition name="fade">
-                <div>
-                  <div v-if="zeus.enableUserConfirmation">
-                    <p>Did I understand you correctly?</p>
-                    <div v-if="factType === 'boolean'">
-                      <button v-on:click="confirmBotResponse(true)">Yes</button>
-                      <button v-on:click="confirmBotResponse(false)">No</button>
-                    </div>
-                    <div v-if="factType !== 'boolean'">
-                      <input type="text" v-model="userConfirmationText"/>
-                      <button v-on:click="confirmBotResponse(userConfirmationText)">OK</button>
-                    </div>
-                  </div>
-                  <p v-if="zeus.input" v-html="zeus.input"></p>
-                </div>
+                <p v-if="zeus.input" v-html="zeus.input"></p>
               </transition>
               <transition name="fade">
                 <file-upload
@@ -120,6 +84,14 @@
                   {{ answer }}
                 </el-button>
               </div>
+              <div id="beta-feedback-group" v-if="promptFeedback">
+                <div v-on:click="sendFeedback(true)">
+                  <icon name="thumbs-up" class="feedback-good"></icon>
+                </div>
+                <div v-on:click="sendFeedback(false)">
+                  <icon name="thumbs-down" class="feedback-bad"></icon>
+                </div>
+              </div>
             </div>
           </el-col>
         </el-row>
@@ -128,15 +100,10 @@
       <!-- User Chat -->
       <div id="chat-user-container">
         <el-row>
-          <el-col :sm="14" :offset="3">
+          <el-col :sm="14" :offset="8">
             <div id="chat-message-user" v-bind:class="{ msgIsSent: user.isSent && chatHistory.history}">
               <img v-if="!user.input" alt="" src="../assets/chatting.gif">
               <p v-if="user.input" v-html="user.input"></p>
-            </div>
-          </el-col>
-          <el-col :md="4">
-            <div id="chat-user-avatar">
-              <img src="../assets/user_avatar_2.png"/>
             </div>
           </el-col>
         </el-row>
@@ -149,9 +116,6 @@
       <form v-on:submit.prevent="sendUserMessage()">
         <el-input id="chat-input-text" autosize v-model="user.input" placeholder="Enter your message" autoComplete="off" :disabled="user.disableInput"></el-input>
         <el-button id="chat-input-submit" type="warning" :disabled="!user.input" native-type="submit">SEND</el-button>
-        <div id="chat-history-button" v-on:click="user.openChatHistory = false">
-          <img v-if="user.openChatHistory" alt="" src="../assets/history_disable.png">
-        </div>
       </form>
       <!--<icon id="chat-input-voice" name="microphone" scale="3"></icon>-->
     </div>
@@ -167,8 +131,8 @@ export default {
       uploadUrl: new String,
       connectionError: false,
       numMessageSinceChatHistory: 0,
+      promptFeedback: false,
       isLoggedIn: false, //TODO: account feature
-      factType: 'boolean',
       chatHistory: {
         history: new Array,
         fact: new Array
@@ -177,7 +141,6 @@ export default {
         input: null,
         file: new Array,
         filePrompt: false,
-        enableUserConfirmation: false,
         suggestion: new Array
       },
       user: {
@@ -197,12 +160,6 @@ export default {
     }
   },
   methods: {
-    handleEdit (index, row) {
-      // TODO: bind event and api
-    },
-    handleDelete (index, row) {
-      // TODO: bind event and api
-    },
     initChatSession () {
       this.$http.post(this.api_url + 'new', {
         name: this.$localStorage.get('username'),
@@ -228,7 +185,6 @@ export default {
           this.zeus.input = null
           this.user.isSent = this.user.input != ''
           this.zeus.filePrompt = false;
-          this.numMessageSinceChatHistory += 1
           setTimeout(() => {
             this.configChat(response.body)
           }, 1100)
@@ -250,7 +206,7 @@ export default {
             this.configChat(this.chatHistory.history[this.chatHistory.history.length - 1])
           }
           this.uploadUrl = this.api_url + 'conversation/' + zeusId + '/files'
-          this.setEnableUserConfirmation()
+          this.promptFeedback = this.numMessageSinceChatHistory + this.chatHistory.history.length > 4
         },
         response => {
           this.connectionError = true
@@ -266,39 +222,35 @@ export default {
         this.zeus.suggestion = JSON.parse(conversation.possible_answers) || []
       }
       this.numMessageSinceChatHistory += 1
-      this.setEnableUserConfirmation()
-      this.factType = conversation.fact_type || 'boolean'
+      this.promptFeedback = this.numMessageSinceChatHistory + this.chatHistory.history.length > 4
       this.user.input = null
       this.user.isSent = false
       this.user.disableInput = conversation.enforce_possible_answer
     },
-    confirmBotResponse (confirmation) {
+    sendFeedback (confirmation) {
       this.$http.post(this.api_url + 'store-user-confirmation', {
         conversation_id: this.$localStorage.get('zeusId'),
         confirmation: confirmation || false
       }).then(
         response => {
-          this.zeus.enableUserConfirmation = false
+          this.promptFeedback = false
         },
         response => {
-          this.zeus.enableUserConfirmation = true
+          this.promptFeedback = false
           this.connectionError = true
         }
       )
     },
-    setEnableUserConfirmation () {
-      // Only start prompting once user has start responding to questions
-      this.zeus.enableUserConfirmation = this.numMessageSinceChatHistory + this.chatHistory.history.length > 4
-    },
-    resetChat () {
-      if (this.isLoggedIn) {
-        //TODO: some logout logic here
-      } else {
-        this.$localStorage.remove('zeusId')
-        this.$localStorage.remove('username')
-        this.$localStorage.remove('usertype')
-        this.$router.push('/')
-      }
+    removeFact (factId) {
+      let zeusId = this.$localStorage.get('zeusId')
+      this.$http.delete(this.api_url + 'conversation/' + zeusId + '/resolved/' + factId).then(
+        response => {
+          this.getChatHistory()
+        },
+        response => {
+          this.connectionError = true
+        }
+      )
     }
   }
 }
