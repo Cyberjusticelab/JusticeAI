@@ -7,6 +7,7 @@ import Sidebar from '@/components/Sidebar'
 import ElementUI from 'element-ui'
 import VueResource from 'vue-resource'
 import VueLocalStorage from 'vue-localstorage'
+import VueRouter from 'vue-router'
 
 /*
 inject dependencies
@@ -15,6 +16,7 @@ inject dependencies
 Vue.use(ElementUI)
 Vue.use(VueLocalStorage)
 Vue.use(VueResource)
+Vue.use(VueRouter)
 
 /*
 test
@@ -111,6 +113,26 @@ describe('Sidebar.vue', () => {
         vm.submitFeedback()
         expect(vm.connectionError).to.be.false
         expect(vm.openFileList).to.be.false
+    })
+
+    it('should reset chat', () => {
+        const Component = Vue.extend(Sidebar)
+        const vm = new Component({
+            router: new VueRouter({
+                routes: [
+                    {
+                        path: '/'
+                    }
+                ]
+            })
+        }).$mount()
+        Vue.localStorage.set('zeusId', 1)
+        Vue.localStorage.set('username', 'Bruce Wayne')
+        Vue.localStorage.set('usertype', 'tenant')
+        vm.resetChat()
+        expect(Vue.localStorage.get('zeusId')).to.be.equal(null)
+        expect(Vue.localStorage.get('username')).to.be.equal(null)
+        expect(Vue.localStorage.get('usertype')).to.be.equal(null)
     })
 
 })

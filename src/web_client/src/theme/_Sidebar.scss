@@ -1,103 +1,130 @@
 @import "./Utils";
 
+.burger-menu {
+    z-index: 999;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+}
 #sidebar-component {
-    height: 100%;
-    background-color: $main-grey-1;
-    font-family: $zeus-font;
-    .active-menu {
-        background-color: $main-grey-3 !important;
-        color: $main-gold-1 !important;
-        cursor: pointer;
-    }
-    #sidebar-logo {
-        height: 120px;
+    background-color: rgba(74,74,74,.8);
+    overflow-y: hidden;
+    #sidebar-min {
+        background-color: $main-grey-1;
+        padding: 5px;
+        border: 1px solid $main-grey-1;
         img {
-            margin-top: 40px;
-            width: 70%;
+            width: 50px;
         }
-        p {
-            margin-top: 8px;
-            font-size: 10px;
-            color: $main-grey-5;
-            font-style: italic;
-        }
-    }
-    #sidebar-account {
-        height: 210px;
-        color: $main-grey-5;
-        h2 {
-            font-size: 30px;
-            margin-top: 20px;
-        }
-        img {
-            margin-top: 25px;
-            height: 80px;
+        &:hover {
+            background-color: $main-grey-1;
+            border: 2px solid $main-gold-1;
             cursor: pointer;
         }
     }
-    #sidebar-menu {
-        height: 500px;
-        .sidebar-menu {
-            background-color: $main-grey-2;
-            height: 70px;
-            border-top: solid 0.005em $main-grey-3;
-            border-bottom: solid 0.005em $main-grey-3;
-            margin-top: -1px;
-            padding: 0px;
-            color: $main-grey-3;
-            h3 {
-                font-size: 23px;
-                margin: 0px;
-                margin-top: 22px;
+    #sidebar-full {
+        height: 100%;
+        background-color: $main-grey-1;
+        font-family: $zeus-font;
+        border-right: 5px solid $main-gold-2;
+        .active-menu {
+            background-color: $main-grey-3 !important;
+            color: $main-gold-1 !important;
+            cursor: pointer;
+        }
+        #sidebar-logo {
+            height: 20%;
+            img {
+                margin-top: 40px;
+                width: 70%;
+                &:hover {
+                    cursor: pointer;
+                }
             }
-            &:hover {
-                border-color: $main-gold-1;
-                background-color: $main-grey-3;
-                color: $main-gold-1;
-                cursor: pointer;
-            }
-            &:active {
-                background-color: $main-gold-1;
-                color: $main-white-1;
+            p {
+                margin-top: 8px;
+                font-size: 10px;
+                color: $main-grey-5;
+                font-style: italic;
             }
         }
-        ul {
-            li {
-                list-style: none;
-                width: 90%;
-                text-align: left;
-                .el-col {
-                    height: 40px;
-                    p {
-                        display: inline-block;
-                        color: $main-grey-3;
-                        width: 100%;
-                        overflow: hidden;
-                        margin: 0px;
-                    }
-                    .sidebar-file-view {
-                        display: inline-block;
-                        margin-top: 3px;
+        #sidebar-account {
+            height: 15%;
+            color: $main-grey-5;
+            h2 {
+                font-size: 26px;
+                margin-top: 20px;
+            }
+            p {
+                font-style: italic;
+            }
+            img {
+                margin-top: 25px;
+                height: 80px;
+                cursor: pointer;
+            }
+        }
+        #sidebar-menu {
+            height: 50%;
+            .sidebar-menu {
+                background-color: $main-grey-2;
+                height: 70px;
+                border-top: solid 0.005em $main-grey-3;
+                border-bottom: solid 0.005em $main-grey-3;
+                margin-top: -1px;
+                padding: 0px;
+                color: $main-grey-3;
+                h3 {
+                    font-size: 20px;
+                    margin: 0px;
+                    margin-top: 22px;
+                }
+                &:hover {
+                    border-color: $main-gold-1;
+                    background-color: $main-grey-3;
+                    color: $main-gold-1;
+                    cursor: pointer;
+                }
+                &:active {
+                    background-color: $main-gold-1;
+                    color: $main-white-1;
+                }
+            }
+            ul {
+                li {
+                    list-style: none;
+                    width: 90%;
+                    text-align: left;
+                    .el-col {
+                        height: 40px;
+                        p {
+                            display: inline-block;
+                            color: $main-grey-3;
+                            width: 100%;
+                            overflow: hidden;
+                            margin: 0px;
+                        }
+                        .sidebar-file-view {
+                            display: inline-block;
+                            margin-top: 3px;
+                        }
                     }
                 }
             }
         }
-    }
-    #sidebar-legal {
-        position: fixed;
-        bottom: 3px;
-        height: 25px;
-        text-align: center;
-        a {
+        #sidebar-reset {
+            height: 15%;
+            font-size: 10px;
             color: $main-grey-5;
-            text-decoration: none;
-            margin-left: 30px;
+            font-style: italic;
+            padding-top: 20px;
             &:hover {
-                color: $main-gold-1;
+                color: $main-gold-2;
+                cursor: pointer;
             }
         }
     }
-    #feedback-text{
+    #feedback-input {
         width: 100%;
         height: 150px;
         resize: none;
@@ -119,3 +146,10 @@
         }
     }
 }
+.translate-enter-active {
+    transition: all 0.3s ease;
+}
+.translate-enter {
+    transform: translateX(-125%);
+}
+
