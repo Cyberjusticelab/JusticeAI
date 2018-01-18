@@ -9,7 +9,6 @@ from util.log import Log
 def run(command_list, filename=None):
     """
     Gets all information from precedent and saves binary model_training
-    :param data_to_extract: decision or facts
     :param command_list: command line arguments
     :return: None
     """
@@ -17,7 +16,7 @@ def run(command_list, filename=None):
     try:
         nb_of_files = int(command_list[0])
     except ValueError:
-        Log.write("Excepted numerical value")
+        Log.write("Expected numerical value")
     parser = PreProcessor()
     precedent_dict = parser.parse_files(Path.raw_data_directory, nb_of_files=nb_of_files)
     fact = __get_tuple(precedent_dict, "facts")

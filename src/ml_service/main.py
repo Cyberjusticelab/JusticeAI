@@ -16,7 +16,11 @@ class Command:
     def execute(command_list):
         """
         Executes machine learning with command line
-        example: python3 main.py -cluster --hdbscan -fact 1 2
+        Example Usage: 
+        1) python3 main.py -cluster --hdbscan --fact 1 2
+        2) python3 main.py -pre 10000
+        3) python3 main.py -post
+        4) python3 main.py -train
         :param command_list: Command line arguments
         :return: None
         """
