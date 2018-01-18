@@ -16,9 +16,3 @@ n. Rest of a use case of a flow chart
 - The user is able to x
 - The user sees y
 - The user hears z
-
-**Documentation, files, diagrams, etc. relating to this feature:**
-Url, books, etc.
-
-***Changes***:
-- [Optional]
