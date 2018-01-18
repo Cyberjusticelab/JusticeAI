@@ -1,5 +1,6 @@
 import os
 import re
+import sys
 from sys import stdout
 
 from feature_extraction.pre_processing.precedent_model.precedent_model import PrecedentModel, FactModel
@@ -146,19 +147,21 @@ class PreProcessor:
         FrenchVector.load_french_vector_bin()
         files_parse = 0
         Log.write("Fetching from precedence")
-
-        for i in os.listdir(file_directory):
-            if (files_parse >= nb_of_files) and (nb_of_files > -1):
-                break
-            files_parse += 1
-            if nb_of_files == -1:
-                percent = float(files_parse / len(os.listdir(file_directory))) * 100
-            else:
-                percent = float(files_parse / nb_of_files) * 100
-            stdout.write("\rINFO: Data Extraction: %f " % percent + "%")
-            stdout.flush()
-            self.__parse(i)
-
+        try:
+            for i in os.listdir(file_directory):
+                if (files_parse >= nb_of_files) and (nb_of_files > -1):
+                    break
+                files_parse += 1
+                if nb_of_files == -1:
+                    percent = float(files_parse / len(os.listdir(file_directory))) * 100
+                else:
+                    percent = float(files_parse / nb_of_files) * 100
+                stdout.write("\rINFO: Data Extraction: %f " % percent + "%")
+                stdout.flush()
+                self.__parse(i)
+        except FileNotFoundError:
+            Log.write("Precedent not found. Please download dataset")
+            sys.exit(0)
         print()
         # deallocate memory
         FrenchVector.unload_vector()

@@ -185,14 +185,13 @@ export COMPOSE_FILE=ci
 ./cjl up -d && ./cjl run ml_service
 ```
 
-## Using Azure
-1- Use machine learning through commands. Improvment from always updating python files with vim.
-2-  python main.py -cluster -hdbscan -fact|decision -[min cluster size] -[min sample size]
-    python main.py -cluster -kmeans -fact|decision -[cluster number]
-    python main.py -cluster -hdbscan -fact|decision -[min cluster size] -[epsilon]
+## Using the Command Line
+1-  python main.py -cluster --hdbscan --fact|decision [min cluster size] [min sample size]
+    python main.py -cluster --kmeans --fact|decision [cluster number]
+    python main.py -cluster --hdbscan --fact|decision [min cluster size] [epsilon]
     python main.py -train
-    python main.py -pre -[number of files | empty for all]
+    python main.py -pre [number of files | empty for all]
     python main.py -post
-3- all binary files saved to data/binary
-4- all text files to data/cluster
-5- all raw_data to data/raw
+2- all binary files saved to data/binary
+3- all text files to data/cluster
+4- all raw_data to data/raw
