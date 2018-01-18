@@ -3,7 +3,7 @@ import re
 
 
 class RegexLib:
-    MONEY_REGEX = r"(\d+(\s|,)){1,4}(\s\$|\$)"
+    MONEY = r"(\d+(\s|,)){1,4}(\s\$|\$)"
     FACT_DIGIT_REGEX = r"\[\d+\]"
     DEMAND_DIGIT_REGEX = r"\[[123]\]"
     TENANT_REGEX = r"locataire(s)?"
@@ -34,7 +34,7 @@ class RegexLib:
         ("landlord_claim_interest_damage", [
             re.compile(
                 DEMAND_DIGIT_REGEX + r".+" + LANDLORD_REGEX +
-                r".*" + MONEY_REGEX + r".*dommages-intérêts",
+                r".*" + MONEY + r".*dommages-intérêts",
                 re.IGNORECASE
             )
         ], "MONEY"),
@@ -115,7 +115,7 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+" + DEMAND_REGEX + r" " + MONEY_REGEX + r"de loyer",
+                DEMAND_DIGIT_REGEX + r".+" + DEMAND_REGEX + r" " + MONEY + r"de loyer",
                 re.IGNORECASE
             ),
             re.compile(
@@ -183,7 +183,7 @@ class RegexLib:
         ("tenant_demands_money", [
             re.compile(
                 DEMAND_DIGIT_REGEX + r".+" + TENANT_REGEX +
-                r".+(" + DEMAND_REGEX + r").+" + MONEY_REGEX,
+                r".+(" + DEMAND_REGEX + r").+" + MONEY,
                 re.IGNORECASE
             )
         ], "MONEY"),
@@ -337,7 +337,7 @@ class RegexLib:
         ("landlord_relocation_indemnity_fees", [
             re.compile(
                 FACT_DIGIT_REGEX + \
-                r".+(" + LANDLORD_REGEX + r")?.+réclame.+indemnité.*" + MONEY_REGEX,
+                r".+(" + LANDLORD_REGEX + r")?.+réclame.+indemnité.*" + MONEY,
                 re.IGNORECASE
             )
         ], "MONEY"),
@@ -403,7 +403,7 @@ class RegexLib:
             re.compile(
                 FACT_DIGIT_REGEX + r".+un bail " + \
                 multiple_words(0, 8) + r"au loyer " + \
-                multiple_words(0, 8) + r"mensuel de " + MONEY_REGEX,
+                multiple_words(0, 8) + r"mensuel de " + MONEY,
                 re.IGNORECASE
             )
         ], "MONEY"),
@@ -590,7 +590,7 @@ class RegexLib:
         ], "BOOLEAN"),
         ("tenant_monthly_payment", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+loyer\smensuel.*" + MONEY_REGEX,
+                FACT_DIGIT_REGEX + r".+loyer\smensuel.*" + MONEY,
                 re.IGNORECASE
             )
         ], "MONEY"),
@@ -615,22 +615,22 @@ class RegexLib:
             # ),
             re.compile(
                 FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + \
-                r" doi(ven|)t " + multiple_words(0, 6) + r"" + MONEY_REGEX,
+                r" doi(ven|)t " + multiple_words(0, 6) + r"" + MONEY,
                 re.IGNORECASE
             ),
             re.compile(
                 FACT_DIGIT_REGEX + r".+" + LANDLORD_REGEX + r" réclame(nt|) " + multiple_words(
-                    0, 6) + r"" + MONEY_REGEX + r"(, soit le loyer| à titre de loyer)",
+                    0, 6) + r"" + MONEY + r"(, soit le loyer| à titre de loyer)",
                 re.IGNORECASE
             ),
             re.compile(
                 FACT_DIGIT_REGEX + \
-                r".+(il|elle)(s|) doi(ven)t toujours une somme de " + MONEY_REGEX,
+                r".+(il|elle)(s|) doi(ven)t toujours une somme de " + MONEY,
                 re.IGNORECASE
             ),
             re.compile(
                 FACT_DIGIT_REGEX + r".+admet devoir la somme de " + \
-                MONEY_REGEX + r" à titre de loyer",
+                MONEY + r" à titre de loyer",
                 re.IGNORECASE
             )
         ], "MONEY"),
@@ -731,6 +731,6 @@ if "__main__" == __name__:
     dict = {}
     dict['regex_demands'] = regexes.regex_demands
     dict['regex_facts'] = regexes.regex_facts
-    dict['money'] = regexes.MONEY_REGEX
+    dict['MONEY'] = regexes.MONEY
     joblib.dump(dict, open("regexes.bin", "wb"))
 
