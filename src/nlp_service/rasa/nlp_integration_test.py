@@ -7,6 +7,7 @@ import codecs
 import os
 
 
+
 class TestNLPIntegration(unittest.TestCase):
     rasaClassifier = None
     intentThreshold = None
