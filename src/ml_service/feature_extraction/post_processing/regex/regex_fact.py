@@ -114,7 +114,7 @@ class TagPrecedents:
         return False
 
 
-if __name__ == '__main__':
+def run():
     # Models saved to ml_service//data/binary/
     tag = TagPrecedents()
     fact_dict = tag.tag_precedents()
