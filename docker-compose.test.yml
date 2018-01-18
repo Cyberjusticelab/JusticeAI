@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  ml_service:
+    command: bash -c 'pytest && autopep8 -dr .'
+    environment:
+      POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
+  nlp_service:
+    command: bash -c 'pytest &&  autopep8 -dr .'
+    environment:
+      POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
+  backend_service:
+    command: bash -c 'pytest && autopep8 -dr .'
+    environment:
+      POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
+  web_client:
+    command: bash -c 'npm run test'
+    environment:
+      POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
+  postgresql_db:
+    environment:
+      POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
