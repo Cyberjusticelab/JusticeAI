@@ -5,6 +5,7 @@ services:
     command: bash -c 'pytest && autopep8 -dr . && bash <(curl -s https://codecov.io/bash)'
     environment:
       CI: "true"
+      POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
   nlp_service:
     command: bash -c 'pytest &&  autopep8 -dr . && bash <(curl -s https://codecov.io/bash)'
     environment:
