@@ -22,7 +22,7 @@ log = logging.getLogger(__name__)
 
 # Rasa Classifier - RasaClassifier used for claim category determination and fact value classification.
 rasaClassifier = RasaClassifier()
-rasaClassifier.train(force_train=True)
+rasaClassifier.train(force_train=False)
 
 # Intent Threshold - Used to determine whether or not Rasa classification was sufficient to determine intent
 intentThreshold = IntentThreshold(min_percent_difference=0.3, min_confidence_threshold=0.4)

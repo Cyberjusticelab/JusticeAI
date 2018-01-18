@@ -11,7 +11,7 @@ class IntentThreshold:
 
     def is_sufficient(self, classify_dict):
         if len(classify_dict['intent_ranking']) > 1:
-            percent_difference = self.__intent_percent_difference(classify_dict)
+            percent_difference = self.intent_percent_difference(classify_dict)
             highest_intent_confidence = classify_dict['intent']['confidence']
             if highest_intent_confidence < self.min_confidence_threshold or percent_difference < self.min_percent_difference:
                 return False
@@ -23,7 +23,7 @@ class IntentThreshold:
         :returns percentage difference between top and 2nd intent
     """
 
-    def __intent_percent_difference(self, intent_dict):
+    def intent_percent_difference(self, intent_dict):
         intent_ranking = intent_dict['intent_ranking']
         confidence_top = intent_ranking[0]['confidence']
         confidence_contender = intent_ranking[1]['confidence']
