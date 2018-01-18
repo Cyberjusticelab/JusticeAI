@@ -1,9 +1,11 @@
 from util.file import Load
+import re
 
 
 class RegexLogic:
     __regex_bin = Load.load_binary('regexes.bin')
-    
+    one_day = 86400 # unix time for 1 day
+
     def __init__(self):
         pass
     
@@ -27,12 +29,21 @@ class RegexLogic:
         :param regex_type: type of information to extract
         :return: (boolean, int)
         """
-        if regex_type is 'bool':
-            return (True, 1)
-        else:
-            return True, RegexLogic.__regex_bin[regex_type].match(text)[0]
+
+        if regex_type == 'BOOLEAN':
+            return True, 1
+
+        elif regex_type == 'MONEY':
+            regex = RegexLogic.__regex_bin[regex_type]
+            generic_regex = re.compile(regex)
+            entity = generic_regex.search(text).group(0)
+
+            # Functional but not sure about how optimal it is
+            entity = entity.replace("$", "")
+            entity = entity.replace(" ", "")
+            entity = entity.replace(",", ".")
+            return True, entity
     
     @staticmethod
     def __time_to_unix(time):
         pass
-
