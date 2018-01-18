@@ -3,10 +3,10 @@ import unittest
 import re
 import os
 from util.constant import Path
-from feature_extraction.post_processing.regex.regex_fact import TagPrecedents
+from feature_extraction.post_processing.regex.regex_entity import TagPrecedents
 
 
-class RegexFactTest(unittest.TestCase):
+class RegexEntityTest(unittest.TestCase):
     def setUp(self):
         self.precedent_tagger = TagPrecedents()
         self.precedent_tagger.regexes = {"regex_facts": [("some_fact", [re.compile("fermentum", re.IGNORECASE)])],

@@ -44,5 +44,4 @@ class Command:
 
 
 if __name__ == "__main__":
-    #Command.execute(sys.argv)
-    Command.execute(['shit', '-post'])
+    Command.execute(sys.argv)

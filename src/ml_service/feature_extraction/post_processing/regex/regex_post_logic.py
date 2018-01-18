@@ -34,8 +34,7 @@ class RegexLogic:
             return True, 1
 
         elif regex_type == 'MONEY':
-            regex = RegexLogic.__regex_bin[regex_type]
-            generic_regex = re.compile(regex)
+            generic_regex = re.compile(RegexLogic.__regex_bin[regex_type])
             entity = generic_regex.search(text).group(0)
 
             # Functional but not sure about how optimal it is
