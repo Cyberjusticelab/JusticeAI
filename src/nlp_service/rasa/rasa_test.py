@@ -26,12 +26,3 @@ class TestRasaClassifier(unittest.TestCase):
     def test_nonexistent_factentities(self):
         classifier_output = self.rasaClassifier.classify_fact("does_not_exist", "Whatever.")
         self.assertIsNone(classifier_output)
-
-    def test_percent_difference(self):
-        intent_dict = {
-            'intent_ranking': [
-                {'confidence': 0.5},
-                {'confidence': 0.5}
-            ]
-        }
-        self.assertEqual(RasaClassifier.intent_percent_difference(intent_dict), 0)
