@@ -49,7 +49,7 @@ class RasaClassifier:
     """
 
     def classify_problem_category(self, message):
-        return self.problem_category_interpreters['claim_category'].parse(message)
+        return self.problem_category_interpreters['claim_category'].parse(message.lower())
 
     """
         The parsing of the message given by the user to determine information about a fact for its intent i.e. is_student
