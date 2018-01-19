@@ -12,6 +12,7 @@
         height: 100%;
         background: url("../assets/beta_page_background.png") no-repeat center center fixed;
         background-size: cover;
+
         #beta-page-top {
             height: 12%;
             #title-image {
@@ -89,30 +90,33 @@
             }
         }
         img {
-            width: 90%;
+          display: inline;
+          margin: 0 auto;
+          width: 90%;
+          max-width: 200px;
         }
         h2 {
             color: $main-gold-2;
         }
         .about-us-text {
-            font-size: 14px;
-            padding: 20px;
-            padding-left: 65px;
-            padding-right: 65px;
+            font-size: 13px;
+            padding: 10px;
+            padding-left: 40px;
+            padding-right: 40px;
         }
         @media screen and (max-width: $break-width-tablet) {
             width: 60%;
             .about-us-text {
-                font-size: 13px;
-                padding: 10px;
-                padding-left: 45px;
-                padding-right: 45px;
+                font-size: 12px;
+                padding: 5px;
+                padding-left: 25px;
+                padding-right: 25px;
             }
         }
         @media screen and (max-width: $break-width-phone) {
             width: 100%;
             .about-us-text {
-                font-size: 14px;
+                font-size: 12px;
                 padding: 10px;
                 padding-left: 45px;
                 padding-right: 45px;
