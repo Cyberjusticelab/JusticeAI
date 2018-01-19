@@ -105,13 +105,8 @@ class RegexLib:
         ], "BOOLEAN"),
         ("landlord_money_cover_rent", [
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+" + LANDLORD_REGEX +
-                r".+" + DEMAND_REGEX + r"?.+recouvrement.+\sloyer",
-                re.IGNORECASE
-            ),
-            re.compile(
                 DEMAND_DIGIT_REGEX +
-                r".+recouvrement (de loyer|du loyer|d'une somme)",
+                r".+recouvrement (de loyer|du loyer|d'une somme|montant).+" + multiple_words(0, 3) + r"\s" + MONEY,
                 re.IGNORECASE
             ),
             re.compile(
@@ -119,7 +114,9 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+" + DEMAND_REGEX + r" du loyer impayé",
+                DEMAND_DIGIT_REGEX + r".+" + DEMAND_REGEX +
+                r" du loyer impayé" + multiple_words(0, 3) +
+                r"\s" + r"\(" + MONEY + r"\)",
                 re.IGNORECASE
             )
         ], "MONEY"),
@@ -725,7 +722,7 @@ class RegexLib:
         ], "BOOLEAN")
     ]
 
-    def get_regexes(name):
+    def get_regexes(self, name):
         for fact in RegexLib.regex_facts:
             if fact[0] == name:
                 return fact[1]
@@ -756,6 +753,30 @@ class RegexLib:
                     regex_match_list.append(demand[regex_name_index])
 
         return regex_match_list
+
+    def sentence_finder(self, regex_name, nb_of_files):
+        """
+        finds sentences that matches the regex_name
+        :param regex_name: name of the regex ex: landlord_money_cover_rent
+        :param nb_of_files: number of files to search through
+        :return: list of sentences that matched this regex
+        """
+        from util.file import Path
+        import os
+        regexes = self.get_regexes(regex_name)
+        count = 0
+        sentences_matched = []
+        for i in os.listdir(Path.raw_data_directory):
+            if count > nb_of_files:
+                break
+            count += 1
+            file = open(Path.raw_data_directory + i, "r", encoding="ISO-8859-1")
+            for line in file:
+                for reg in regexes:
+                    if reg.search(line):
+                        sentences_matched.append(line)
+            file.close()
+        return sentences_matched
 
 if "__main__" == __name__:
     import joblib
