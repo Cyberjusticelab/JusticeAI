@@ -23,15 +23,27 @@ fi
 
 # Runs all tests and lints across all services
 if [ "$1" == "test" ]; then
-  docker-compose -f docker-compose.base.yml -f docker-compose.ci.yml down &&
-  docker-compose -f docker-compose.base.yml -f docker-compose.ci.yml build &&
-  docker-compose -f docker-compose.base.yml -f docker-compose.ci.yml up -d
-  docker-compose -f docker-compose.base.yml -f docker-compose.ci.yml run ml_service
-  docker-compose -f docker-compose.base.yml -f docker-compose.ci.yml run nlp_service
-  docker-compose -f docker-compose.base.yml -f docker-compose.ci.yml run backend_service
-  docker-compose -f docker-compose.base.yml -f docker-compose.ci.yml run web_client
-  docker-compose -f docker-compose.base.yml -f docker-compose.ci.yml down
-  exit
+  docker-compose -f docker-compose.base.yml -f docker-compose.test.yml down &&
+  docker-compose -f docker-compose.base.yml -f docker-compose.test.yml build &&
+  docker-compose -f docker-compose.base.yml -f docker-compose.test.yml up -d
+
+  if [ "$2" == "backend_service" ]; then
+    docker-compose -f docker-compose.base.yml -f docker-compose.test.yml run backend_service
+  elif [ "$2" == "ml_service" ]; then
+    docker-compose -f docker-compose.base.yml -f docker-compose.test.yml run ml_service
+  elif [ "$2" == "nlp_service" ]; then
+    docker-compose -f docker-compose.base.yml -f docker-compose.test.yml run nlp_service
+  elif [ "$2" == "web_client" ]; then
+    docker-compose -f docker-compose.base.yml -f docker-compose.test.yml run web_client
+  else
+    docker-compose -f docker-compose.base.yml -f docker-compose.test.yml run ml_service
+    docker-compose -f docker-compose.base.yml -f docker-compose.test.yml run nlp_service
+    docker-compose -f docker-compose.base.yml -f docker-compose.test.yml run backend_service
+    docker-compose -f docker-compose.base.yml -f docker-compose.test.yml run web_client
+  fi
+
+  docker-compose -f docker-compose.base.yml -f docker-compose.test.yml down
+  exit 0
 fi
 
 # Tries to fix all Javascript and Python linting errors for you
