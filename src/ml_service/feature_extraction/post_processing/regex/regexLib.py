@@ -267,6 +267,13 @@ class RegexLib:
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
+        ("case_fee_reimbursement", [
+            re.compile(
+                FACT_DIGIT_REGEX + r".+remboursement.+frais\sjudiciaires.+" + \
+                MONEY,
+                re.IGNORECASE
+            )
+        ], "MONEY"),
         ("disrespect_previous_judgement", [
             re.compile(
                 FACT_DIGIT_REGEX + r".+non-respect d'une ordonnance émise antérieurement",
@@ -405,7 +412,11 @@ class RegexLib:
                 multiple_words(0, 8) + r"au loyer " + \
                 multiple_words(0, 8) + r"mensuel de " + MONEY,
                 re.IGNORECASE
-            )
+            ),
+            re.compile(
+                FACT_DIGIT_REGEX + r".*bail valide.*loyer.*" + \
+                MONEY + r"\spar mois",
+                re.IGNORECASE)
         ], "MONEY"),
         ("proof_of_late", [
             re.compile(
@@ -725,7 +736,7 @@ class RegexLib:
         # if name was not found in demands or facts
         return None
 
-    def _regex_finder(self, sentence):
+    def regex_finder(self, sentence):
         """
         This function is used to see if a regex is already written for a given sentence
         :param sentence: is used to find a regex the matches it
@@ -736,13 +747,13 @@ class RegexLib:
         regex_match_list = []
 
         for fact in RegexLib.regex_facts:
-            for reg in fact[regex_name_index]:
+            for reg in fact[regex_index]:
                 if re.search(reg, sentence):
-                    regex_match_list.append(fact[regex_index])
+                    regex_match_list.append(fact[regex_name_index])
         for demand in RegexLib.regex_demands:
             for reg in demand[regex_index]:
                 if re.search(reg, sentence):
-                    regex_match_list.append(fact[regex_index])
+                    regex_match_list.append(demand[regex_name_index])
 
         return regex_match_list
 
@@ -754,4 +765,3 @@ if "__main__" == __name__:
     dict['regex_facts'] = regexes.regex_facts
     dict['MONEY'] = regexes.MONEY
     joblib.dump(dict, open("regexes.bin", "wb"))
-
