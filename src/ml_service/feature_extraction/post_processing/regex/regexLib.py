@@ -714,55 +714,6 @@ class RegexLib:
         ], "BOOLEAN")
     ]
     regex_outcomes = [
-        ("tenant_ordered_to_pay_landlord", [
-            re.compile(
-                r"CONDAMNE le(s)? " + TENANT_REGEX + " " + multiple_words(0, 3) + r"à payer (au|à la|aux) " +
-                LANDLORD_REGEX + r" la somme de " + MONEY_REGEX,
-                re.IGNORECASE
-            )
-        ], "MONEY"),
-        ("declares_resiliation_is_correct", [
-            re.compile(
-                r"CONSTATE la résiliation du bail",
-                re.IGNORECASE
-            ),
-            re.compile(
-                r"DÉCLARE le bail résilié"
-            )
-        ], "BOOLEAN"),
-        ("tenant_ordered_to_pay_landlord_legal_fees", [
-            re.compile(
-                r"(CONDAMNE le(s)? " + TENANT_REGEX + " " + multiple_words(0, 3) + r"à payer (au|à la|aux) " +
-                LANDLORD_REGEX + r".*)\Kplus les frais judiciaires de " + MONEY_REGEX,
-                re.IGNORECASE
-            ),
-            re.compile(
-                r"CONDAMNE le locataire à payer aux locateurs \Kles frais judiciaires de " + MONEY_REGEX,
-                re.IGNORECASE
-            ),
-        ], "MONEY"),
-        ("orders_resiliation", [
-            re.compile(
-                r"RÉSILIE le bail"
-            )
-        ], "BOOLEAN"),
-        ("orders_expulsion", [
-            re.compile(
-                r"ORDONNE l'expulsion"
-            )
-        ], "BOOLEAN"),
-        ("declares_housing_inhabitable", [
-            re.compile(
-                r"DÉCLARE le logement impropre à l'habitation",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
-        ("orders_immediate_execution", [
-            re.compile(
-                r"ORDONNE l'exécution provisoire, malgré l'appel",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
         ("additional_indemnity_date", [
             re.compile(
                 r"l'indemnité additionnelle prévue à l'article 1619 C\.c\.Q\., à compter du \K(\d+ \w+ \d+)",
@@ -775,9 +726,40 @@ class RegexLib:
                 re.IGNORECASE
             )
         ], "MONEY"),
-        ("rejects_tenant_demand", [
+        ("declares_housing_inhabitable", [
             re.compile(
-                r"REJETTE la demande (de la|du|des) " + TENANT_REGEX,
+                r"DÉCLARE le logement impropre à l'habitation",
+                re.IGNORECASE
+            )
+        ], "BOOLEAN"),
+        ("declares_resiliation_is_correct", [
+            re.compile(
+                r"CONSTATE la résiliation du bail",
+                re.IGNORECASE
+            ),
+            re.compile(
+                r"DÉCLARE le bail résilié"
+            )
+        ], "BOOLEAN"),
+        ("orders_expulsion", [
+            re.compile(
+                r"ORDONNE l'expulsion"
+            )
+        ], "BOOLEAN"),
+        ("orders_immediate_execution", [
+            re.compile(
+                r"ORDONNE l'exécution provisoire, malgré l'appel",
+                re.IGNORECASE
+            )
+        ], "BOOLEAN"),
+        ("orders_resiliation", [
+            re.compile(
+                r"RÉSILIE le bail"
+            )
+        ], "BOOLEAN"),
+        ("orders_tenant_pay_first_of_month", [
+            re.compile(
+                r"ORDONNE (au|à la|aux) " + TENANT_REGEX + " de payer le loyer le premier jour",
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
@@ -787,12 +769,30 @@ class RegexLib:
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
-        ("orders_tenant_pay_first_of_month", [
+        ("rejects_tenant_demand", [
             re.compile(
-                r"ORDONNE (au|à la|aux) " + TENANT_REGEX + " de payer le loyer le premier jour",
+                r"REJETTE la demande (de la|du|des) " + TENANT_REGEX,
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
+        ("tenant_ordered_to_pay_landlord", [
+            re.compile(
+                r"CONDAMNE le(s)? " + TENANT_REGEX + " " + multiple_words(0, 3) + r"à payer (au|à la|aux) " +
+                LANDLORD_REGEX + r" la somme de " + MONEY_REGEX,
+                re.IGNORECASE
+            )
+        ], "MONEY"),
+        ("tenant_ordered_to_pay_landlord_legal_fees", [
+            re.compile(
+                r"(CONDAMNE le(s)? " + TENANT_REGEX + " " + multiple_words(0, 3) + r"à payer (au|à la|aux) " +
+                LANDLORD_REGEX + r".*)\Kplus les frais judiciaires de " + MONEY_REGEX,
+                re.IGNORECASE
+            ),
+            re.compile(
+                r"CONDAMNE le locataire à payer aux locateurs \Kles frais judiciaires de " + MONEY_REGEX,
+                re.IGNORECASE
+            ),
+        ], "MONEY")
     ]
 
     def get_regexes(name):
