@@ -725,6 +725,27 @@ class RegexLib:
         # if name was not found in demands or facts
         return None
 
+    def _regex_finder(self, sentence):
+        """
+        This function is used to see if a regex is already written for a given sentence
+        :param sentence: is used to find a regex the matches it
+        :return: list of regex names that matches this sentence
+        """
+        regex_name_index = 0
+        regex_index = 1
+        regex_match_list = []
+
+        for fact in RegexLib.regex_facts:
+            for reg in fact[regex_name_index]:
+                if re.search(reg, sentence):
+                    regex_match_list.append(fact[regex_index])
+        for demand in RegexLib.regex_demands:
+            for reg in demand[regex_index]:
+                if re.search(reg, sentence):
+                    regex_match_list.append(fact[regex_index])
+
+        return regex_match_list
+
 if "__main__" == __name__:
     import joblib
     regexes = RegexLib()
