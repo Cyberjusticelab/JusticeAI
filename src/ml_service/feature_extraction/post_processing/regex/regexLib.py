@@ -318,7 +318,17 @@ class RegexLib:
                 FACT_DIGIT_REGEX + r".+" + LANDLORD_REGEX + \
                 r".+(frais\sde\sdépistage)",
                 re.IGNORECASE
+            ),
+            re.compile(
+                DEMAND_DIGIT_REGEX + r".*\K" + MONEY_REGEX + r"\s(((pour|représentant)\s(les\s|des\s)?)|en\s)?\(?frais\sde\sdépistage\)?",
+                re.IGNORECASE
+            ),
+            re.compile(
+                DEMAND_DIGIT_REGEX + r".*\Kfrais\sde\sdépistage\s((au montant\s)?de\s)?" +
+                r"\(?" + MONEY_REGEX + r"\)?",
+                re.IGNORECASE
             )
+
         ], "BOOLEAN"),
         ("landlord_notifies_tenant_retake_apartment", [
             re.compile(
