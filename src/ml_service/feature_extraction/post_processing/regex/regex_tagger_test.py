@@ -9,8 +9,8 @@ from feature_extraction.post_processing.regex.regex_tagger import TagPrecedents
 class RegexEntityTest(unittest.TestCase):
     def setUp(self):
         self.precedent_tagger = TagPrecedents()
-        self.precedent_tagger.regexes = {"regex_facts": [("some_fact", [re.compile("fermentum", re.IGNORECASE)])],
-                                         "regex_demands": [("some_demand", [re.compile("réclame", re.IGNORECASE)])]}
+        self.precedent_tagger.regexes = {"regex_facts": [("some_fact", [re.compile("fermentum", re.IGNORECASE)], 'BOOLEAN')],
+                                         "regex_demands": [("some_demand", [re.compile("réclame", re.IGNORECASE)], 'BOOLEAN')]}
 
     def test_regex_model(self):
         self.precedent_tagger.tag_precedents(10)

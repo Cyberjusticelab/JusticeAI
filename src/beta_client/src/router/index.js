@@ -13,7 +13,7 @@ export default new Router({
             component: Beta,
             props (route) {
               return {
-                language: route.query.lang
+                langQuery: route.query.lang
               }
             }
         }

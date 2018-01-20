@@ -8,7 +8,7 @@ from rasa_nlu.model import Trainer, Interpreter
 
 
 # Class which will hold all the Rasa logic from training to parsing
-class RasaClassifier():
+class RasaClassifier:
     # Directories & Files
     config_file = "rasa/config/config_spacy.json"
     model_dir = "rasa/projects/justiceai/"
@@ -44,16 +44,16 @@ class RasaClassifier():
 
     """
         The parsing of the message given by the user to determine the category of the claim i.e. lease_termination
-        message: User input
+            message: User input
         :returns dict of the claim category with intent and entities
     """
 
     def classify_problem_category(self, message):
-        return self.problem_category_interpreters['claim_category'].parse(message)
+        return self.problem_category_interpreters['claim_category'].parse(message.lower())
 
     """
         The parsing of the message given by the user to determine information about a fact for its intent i.e. is_student
-        message: User input
+            message: User input
         :returns dict of the fact with intent and entities
     """
 
@@ -64,10 +64,10 @@ class RasaClassifier():
 
     """
         Training the interpreters one by one
-        training_data_dir: Directory where data is held on our project
-        interpreter_dict: dictionary of interpreters that will hold the interpreters
-        force_train: set ti either true or false so it knows if it should train new models (if empty dir) or use the old ones already present
-        initialized_interpreters: won't attempt to initialize interpreters if there are no models
+            training_data_dir: Directory where data is held on our project
+            interpreter_dict: dictionary of interpreters that will hold the interpreters
+            force_train: set ti either true or false so it knows if it should train new models (if empty dir) or use the old ones already present
+            initialized_interpreters: won't attempt to initialize interpreters if there are no models
         :returns dict of the fact with intent and entities
     """
 
@@ -100,19 +100,3 @@ class RasaClassifier():
         total_training_time = round(training_end - training_start, 2)
 
         print("~~Training Finished. Took {}s for {} facts ~".format(total_training_time, len(fact_files)))
-
-    """
-        static method used to calculate the math for the percentage difference
-        intent_dict: dict holding the intents there for extraction in the method
-        :returns percentage difference between top and 2nd intent
-    """
-
-    @staticmethod
-    def intent_percent_difference(intent_dict):
-        intent_ranking = intent_dict['intent_ranking']
-        confidence_top = intent_ranking[0]['confidence']
-        confidence_contender = intent_ranking[1]['confidence']
-        percent_difference = abs(confidence_contender - confidence_top) / (
-            0.5 * (confidence_contender + confidence_top))
-
-        return percent_difference
