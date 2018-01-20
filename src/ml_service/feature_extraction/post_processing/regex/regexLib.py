@@ -48,10 +48,19 @@ class RegexLib:
         ], "BOOLEAN"),
         ("landlord_demand_bank_fee", [
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+recouvrement.*frais\sbancaire(s)?",
+                DEMAND_DIGIT_REGEX + r".+recouvrement.*" + MONEY_REGEX + r"\spour\s(les\s|des\s)?frais\sbancaire(s)?",
                 re.IGNORECASE
-            )
-        ], "BOOLEAN"),
+            ),
+            re.compile(
+                DEMAND_DIGIT_REGEX + r".+recouvrement.*" + MONEY_REGEX + r"\s\(frais\sbancaire(s)?\)",
+                re.IGNORECASE
+            ),
+            re.compile(
+                DEMAND_DIGIT_REGEX + r".+recouvrement.*frais\sbancaire(s)?\s(de\s)?" +
+                r"(\()?" + MONEY_REGEX + r"(\))?",
+                re.IGNORECASE
+            ),
+        ], "MONEY"),
         ("landlord_demand_damage", [
             re.compile(
                 DEMAND_DIGIT_REGEX + r".+" + LANDLORD_REGEX +
@@ -819,7 +828,7 @@ class RegexLib:
         # if name was not found in demands, facts or outcomes
         return None
 
-    def __regex_finder(self, sentence):
+    def regex_finder(self, sentence):
         """
         This function is used to see if a regex is already written for a given sentence
         :param sentence: is used to find a regex the matches it
@@ -840,7 +849,7 @@ class RegexLib:
 
         return regex_match_list
 
-    def __sentence_finder(self, regex_name, nb_of_files):
+    def sentence_finder(self, regex_name, nb_of_files):
         """
         finds sentences that matches the regex_name
         :param regex_name: name of the regex ex: landlord_money_cover_rent
@@ -871,10 +880,15 @@ def run():
     :return: None
     """
     regexes = RegexLib()
-    reg_dict = {}
-    reg_dict['regex_demands'] = regexes.regex_demands
-    reg_dict['regex_facts'] = regexes.regex_facts
-    reg_dict['regex_outcomes'] = regexes.regex_outcomes
-    reg_dict['MONEY_REGEX'] = regexes.MONEY_REGEX
-    save = Save()
-    save.save_binary('regexes.bin', reg_dict)
+    # reg_dict = {}
+    # reg_dict['regex_demands'] = regexes.regex_demands
+    # reg_dict['regex_facts'] = regexes.regex_facts
+    # reg_dict['regex_outcomes'] = regexes.regex_outcomes
+    # reg_dict['MONEY_REGEX'] = regexes.MONEY_REGEX
+    # save = Save()
+    # save.save_binary('regexes.bin', reg_dict)
+
+regexes = RegexLib()
+sentences = regexes.sentence_finder("landlord_demand_bank_fee",10000)
+for sentence in sentences:
+    print(sentence)
