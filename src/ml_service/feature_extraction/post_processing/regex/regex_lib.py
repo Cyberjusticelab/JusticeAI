@@ -855,11 +855,11 @@ class RegexLib:
         for fact in RegexLib.regex_facts:
             for reg in fact[regex_index]:
                 if re.search(reg, sentence):
-                    regex_match_list.append(re.search(reg,sentence))
+                    regex_match_list.append(fact[regex_name_index])
         for demand in RegexLib.regex_demands:
             for reg in demand[regex_index]:
                 if re.search(reg, sentence):
-                    regex_match_list.append(re.search(reg,sentence))
+                    regex_match_list.append(demand[regex_name_index])
 
         return regex_match_list
 
