@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import re
+from util.file import Save
 
 
 class RegexLib:
@@ -10,7 +11,7 @@ class RegexLib:
     LANDLORD_REGEX = r"locat(eur|rice)(s)?"
     DEMAND_REGEX = r"(demand|réclam)(ait|e|ent|aient)"
 
-    def multiple_words(min, max):
+    def __multiple_words(min, max):
         return r"(\w+(\s|'|,\s)){" + str(min) + "," + str(max) + "}"
 
     regex_demands = [
@@ -106,7 +107,7 @@ class RegexLib:
         ("landlord_money_cover_rent", [
             re.compile(
                 DEMAND_DIGIT_REGEX +
-                r".+recouvrement (de loyer|du loyer|d'une somme|montant).+" + multiple_words(0, 3) + r"\s" + MONEY,
+                r".+recouvrement (de loyer|du loyer|d'une somme|montant).+" + __multiple_words(0, 3) + r"\s" + MONEY,
                 re.IGNORECASE
             ),
             re.compile(
@@ -115,7 +116,7 @@ class RegexLib:
             ),
             re.compile(
                 DEMAND_DIGIT_REGEX + r".+" + DEMAND_REGEX +
-                r" du loyer impayé" + multiple_words(0, 3) +
+                r" du loyer impayé" + __multiple_words(0, 3) +
                 r"\s" + r"\(" + MONEY + r"\)",
                 re.IGNORECASE
             )
@@ -278,7 +279,7 @@ class RegexLib:
             ),
             re.compile(
                 FACT_DIGIT_REGEX + r".+pas respecté l'ordonnance de payer " + \
-                multiple_words(0, 4) + r"loyer",
+                __multiple_words(0, 4) + r"loyer",
                 re.IGNORECASE
             ),
             re.compile(
@@ -287,7 +288,7 @@ class RegexLib:
             ),
             re.compile(
                 FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + r" " + \
-                multiple_words(0, 3) + r"pas respecté l'ordonnance",
+                __multiple_words(0, 3) + r"pas respecté l'ordonnance",
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
@@ -399,15 +400,15 @@ class RegexLib:
             ),
             re.compile(
                 FACT_DIGIT_REGEX + r".+" + LANDLORD_REGEX + r" " + \
-                multiple_words(0, 1) + r"}un préjudice sérieux",
+                __multiple_words(0, 1) + r"}un préjudice sérieux",
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
         ("lease", [
             re.compile(
                 FACT_DIGIT_REGEX + r".+un bail " + \
-                multiple_words(0, 8) + r"au loyer " + \
-                multiple_words(0, 8) + r"mensuel de " + MONEY,
+                __multiple_words(0, 8) + r"au loyer " + \
+                __multiple_words(0, 8) + r"mensuel de " + MONEY,
                 re.IGNORECASE
             ),
             re.compile(
@@ -545,7 +546,7 @@ class RegexLib:
             ),
             re.compile(
                 FACT_DIGIT_REGEX + r".+homologue " + \
-                multiple_words(0, 3) + r"transaction",
+                __multiple_words(0, 3) + r"transaction",
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
@@ -571,7 +572,7 @@ class RegexLib:
             ),
             re.compile(
                 FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + r" " + \
-                multiple_words(0, 6) + \
+                __multiple_words(0, 6) + \
                 r"(a|ont|aurait|auraient) quitté le logement",
                 re.IGNORECASE
             ),
@@ -623,11 +624,11 @@ class RegexLib:
             # ),
             re.compile(
                 FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + \
-                r" doi(ven|)t " + multiple_words(0, 6) + r"" + MONEY,
+                r" doi(ven|)t " + __multiple_words(0, 6) + r"" + MONEY,
                 re.IGNORECASE
             ),
             re.compile(
-                FACT_DIGIT_REGEX + r".+" + LANDLORD_REGEX + r" réclame(nt|) " + multiple_words(
+                FACT_DIGIT_REGEX + r".+" + LANDLORD_REGEX + r" réclame(nt|) " + __multiple_words(
                     0, 6) + r"" + MONEY + r"(, soit le loyer| à titre de loyer)",
                 re.IGNORECASE
             ),
@@ -665,7 +666,7 @@ class RegexLib:
             re.compile(
                 FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + \
                 r" (est|sont) en retard " + \
-                multiple_words(1, 8) + r"(trois|3) semaines",
+                __multiple_words(1, 8) + r"(trois|3) semaines",
                 re.IGNORECASE
             )
 
@@ -715,14 +716,14 @@ class RegexLib:
             ),
             re.compile(
                 FACT_DIGIT_REGEX + r".+menace " + \
-                multiple_words(
+                __multiple_words(
                     0, 6) + r"(sécurité des occupants|l'intégrité du logement)",
                 re.IGNORECASE
             )
         ], "BOOLEAN")
     ]
 
-    def get_regexes(self, name):
+    def __get_regexes(self, name):
         for fact in RegexLib.regex_facts:
             if fact[0] == name:
                 return fact[1]
@@ -733,7 +734,7 @@ class RegexLib:
         # if name was not found in demands or facts
         return None
 
-    def regex_finder(self, sentence):
+    def __regex_finder(self, sentence):
         """
         This function is used to see if a regex is already written for a given sentence
         :param sentence: is used to find a regex the matches it
@@ -754,7 +755,7 @@ class RegexLib:
 
         return regex_match_list
 
-    def sentence_finder(self, regex_name, nb_of_files):
+    def __sentence_finder(self, regex_name, nb_of_files):
         """
         finds sentences that matches the regex_name
         :param regex_name: name of the regex ex: landlord_money_cover_rent
@@ -763,7 +764,7 @@ class RegexLib:
         """
         from util.file import Path
         import os
-        regexes = self.get_regexes(regex_name)
+        regexes = self.__get_regexes(regex_name)
         count = 0
         sentences_matched = []
         for i in os.listdir(Path.raw_data_directory):
@@ -778,11 +779,16 @@ class RegexLib:
             file.close()
         return sentences_matched
 
-if "__main__" == __name__:
-    import joblib
+
+def run():
+    """
+    Driver to save regex binary file
+    :return: None
+    """
     regexes = RegexLib()
     dict = {}
     dict['regex_demands'] = regexes.regex_demands
     dict['regex_facts'] = regexes.regex_facts
     dict['MONEY'] = regexes.MONEY
-    joblib.dump(dict, open("regexes.bin", "wb"))
+    save = Save()
+    save.save_binary('regexes.bin', dict)
