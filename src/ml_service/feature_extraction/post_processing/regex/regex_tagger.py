@@ -34,7 +34,7 @@ class TagPrecedents:
             demands_vector.append((i, self.regexes["regex_demands"][i][0]))
 
         outcomes_vector = []
-        for i in range(len(self.regexes["regex_demands"])):
+        for i in range(len(self.regexes["regex_outcomes"])):
             outcomes_vector.append((i, self.regexes["regex_outcomes"][i][0]))
 
         return {
@@ -139,19 +139,19 @@ class TagPrecedents:
 def run():
     # Models saved to ml_service//data/binary/
     tag = TagPrecedents()
-    fact_dict = tag.tag_precedents()
+    structured_data_dict = tag.tag_precedents(10)
     # prints fact intents
     indices = tag.get_intent_indice()
 
-    Log.write("Total precedents parsed: {}".format(len(fact_dict)))
-    for i in range(len(next(iter(fact_dict.values()))['facts_vector'])):
-        total_fact = len([1 for val in fact_dict.values() if val['facts_vector'][i] == 1])
+    Log.write("Total precedents parsed: {}".format(len(structured_data_dict)))
+    for i in range(len(next(iter(structured_data_dict.values()))['facts_vector'])):
+        total_fact = len([1 for val in structured_data_dict.values() if val['facts_vector'][i] == 1])
         Log.write("Total precedents with {:41} : {}".format(indices['facts_vector'][i][1], total_fact))
 
-    for i in range(len(next(iter(fact_dict.values()))['demands_vector'])):
-        total_fact = len([1 for val in fact_dict.values() if val['demands_vector'][i] == 1])
+    for i in range(len(next(iter(structured_data_dict.values()))['demands_vector'])):
+        total_fact = len([1 for val in structured_data_dict.values() if val['demands_vector'][i] == 1])
         Log.write("Total precedents with {:41} : {}".format(indices['demands_vector'][i][1], total_fact))
 
-    for i in range(len(next(iter(fact_dict.values()))['outcomes_vector'])):
-        total_fact = len([1 for val in fact_dict.values() if val['outcomes_vector'][i] == 1])
+    for i in range(len(next(iter(structured_data_dict.values()))['outcomes_vector'])):
+        total_fact = len([1 for val in structured_data_dict.values() if val['outcomes_vector'][i] == 1])
         Log.write("Total precedents with {:41} : {}".format(indices['outcomes_vector'][i][1], total_fact))
