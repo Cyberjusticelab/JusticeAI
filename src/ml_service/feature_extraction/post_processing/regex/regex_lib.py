@@ -878,4 +878,3 @@ def run():
     reg_dict['MONEY_REGEX'] = regexes.MONEY_REGEX
     save = Save()
     save.save_binary('regexes.bin', reg_dict)
-
