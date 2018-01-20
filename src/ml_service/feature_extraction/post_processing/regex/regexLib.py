@@ -802,7 +802,7 @@ class RegexLib:
         for demand in RegexLib.regex_demands:
             if demand[0] == name:
                 return demand[1]
-        for outcome in RegexLib.outcomes:
+        for outcome in RegexLib.regex_outcomes:
             if outcome[0] == name:
                 return outcome[1]
 
