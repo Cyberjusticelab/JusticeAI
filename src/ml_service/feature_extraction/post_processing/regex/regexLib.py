@@ -880,15 +880,10 @@ def run():
     :return: None
     """
     regexes = RegexLib()
-    # reg_dict = {}
-    # reg_dict['regex_demands'] = regexes.regex_demands
-    # reg_dict['regex_facts'] = regexes.regex_facts
-    # reg_dict['regex_outcomes'] = regexes.regex_outcomes
-    # reg_dict['MONEY_REGEX'] = regexes.MONEY_REGEX
-    # save = Save()
-    # save.save_binary('regexes.bin', reg_dict)
-
-regexes = RegexLib()
-sentences = regexes.sentence_finder("landlord_demand_bank_fee",10000)
-for sentence in sentences:
-    print(sentence)
+    reg_dict = {}
+    reg_dict['regex_demands'] = regexes.regex_demands
+    reg_dict['regex_facts'] = regexes.regex_facts
+    reg_dict['regex_outcomes'] = regexes.regex_outcomes
+    reg_dict['MONEY_REGEX'] = regexes.MONEY_REGEX
+    save = Save()
+    save.save_binary('regexes.bin', reg_dict)
