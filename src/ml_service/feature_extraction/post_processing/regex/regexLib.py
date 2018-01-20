@@ -60,7 +60,7 @@ class RegexLib:
                 r"(\()?" + MONEY_REGEX + r"(\))?",
                 re.IGNORECASE
             ),
-        ], "MONEY"),
+        ], "MONEY_REGEX"),
         ("landlord_demand_damage", [
             re.compile(
                 DEMAND_DIGIT_REGEX + r".+" + LANDLORD_REGEX +
@@ -96,11 +96,15 @@ class RegexLib:
         ], "BOOLEAN"),
         ("landlord_demand_utility_fee", [
             re.compile(
-                DEMAND_DIGIT_REGEX +
-                r".+recouvrement(.+frais.+(énergie|électricité))+",
+                DEMAND_DIGIT_REGEX + r".*\K" + MONEY_REGEX + r"\s(((pour|représentant)\s(les\s|des\s)?)|en\s)?\(?frais\s(d'énergie|d'électricité|hydroélectricité)\)?",
+                re.IGNORECASE
+            ),
+            re.compile(
+                DEMAND_DIGIT_REGEX + r".*\Kfrais\s(d'énergie|d'électricité|hydroélectricité)\s((au montant\s)?de\s)?" +
+                r"\(?" + MONEY_REGEX + r"\)?",
                 re.IGNORECASE
             )
-        ], "BOOLEAN"),
+        ], "MONEY_REGEX"),
         ("landlord_fix_rent", [
             re.compile(
                 DEMAND_DIGIT_REGEX + r".+" + LANDLORD_REGEX +
