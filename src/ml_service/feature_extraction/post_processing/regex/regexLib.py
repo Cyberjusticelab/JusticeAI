@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
-import re
 from util.file import Save
+import regex as re
 
 
 class RegexLib:
-    MONEY = r"(\d+(\s|,)){1,4}(\s\$|\$)"
+    MONEY_REGEX = r"(\d+(\s|,)){1,4}(\s\$|\$)"
     FACT_DIGIT_REGEX = r"\[\d+\]"
     DEMAND_DIGIT_REGEX = r"\[[123]\]"
     TENANT_REGEX = r"locataire(s)?"
     LANDLORD_REGEX = r"locat(eur|rice)(s)?"
     DEMAND_REGEX = r"(demand|réclam)(ait|e|ent|aient)"
+
 
     def __multiple_words(min, max):
         return r"(\w+(\s|'|,\s)){" + str(min) + "," + str(max) + "}"
@@ -35,7 +36,7 @@ class RegexLib:
         ("landlord_claim_interest_damage", [
             re.compile(
                 DEMAND_DIGIT_REGEX + r".+" + LANDLORD_REGEX +
-                r".*" + MONEY + r".*dommages-intérêts",
+                r".*" + MONEY_REGEX + r".*dommages-intérêts",
                 re.IGNORECASE
             )
         ], "MONEY"),
@@ -107,17 +108,17 @@ class RegexLib:
         ("landlord_money_cover_rent", [
             re.compile(
                 DEMAND_DIGIT_REGEX +
-                r".+recouvrement (de loyer|du loyer|d'une somme|montant).+" + __multiple_words(0, 3) + r"\s" + MONEY,
+                r".+recouvrement (de loyer|du loyer|d'une somme|montant).+" + __multiple_words(0, 3) + r"\s" + MONEY_REGEX,
                 re.IGNORECASE
             ),
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+" + DEMAND_REGEX + r" " + MONEY + r"de loyer",
+                DEMAND_DIGIT_REGEX + r".+" + DEMAND_REGEX + r" " + MONEY_REGEX + r"de loyer",
                 re.IGNORECASE
             ),
             re.compile(
                 DEMAND_DIGIT_REGEX + r".+" + DEMAND_REGEX +
                 r" du loyer impayé" + __multiple_words(0, 3) +
-                r"\s" + r"\(" + MONEY + r"\)",
+                r"\s" + r"\(" + MONEY_REGEX + r"\)",
                 re.IGNORECASE
             )
         ], "MONEY"),
@@ -181,7 +182,7 @@ class RegexLib:
         ("tenant_demands_money", [
             re.compile(
                 DEMAND_DIGIT_REGEX + r".+" + TENANT_REGEX +
-                r".+(" + DEMAND_REGEX + r").+" + MONEY,
+                r".+(" + DEMAND_REGEX + r").+" + MONEY_REGEX,
                 re.IGNORECASE
             )
         ], "MONEY"),
@@ -268,7 +269,7 @@ class RegexLib:
         ("case_fee_reimbursement", [
             re.compile(
                 FACT_DIGIT_REGEX + r".+remboursement.+frais\sjudiciaires.+" + \
-                MONEY,
+                MONEY_REGEX,
                 re.IGNORECASE
             )
         ], "MONEY"),
@@ -342,7 +343,7 @@ class RegexLib:
         ("landlord_relocation_indemnity_fees", [
             re.compile(
                 FACT_DIGIT_REGEX + \
-                r".+(" + LANDLORD_REGEX + r")?.+réclame.+indemnité.*" + MONEY,
+                r".+(" + LANDLORD_REGEX + r")?.+réclame.+indemnité.*" + MONEY_REGEX,
                 re.IGNORECASE
             )
         ], "MONEY"),
@@ -408,12 +409,12 @@ class RegexLib:
             re.compile(
                 FACT_DIGIT_REGEX + r".+un bail " + \
                 __multiple_words(0, 8) + r"au loyer " + \
-                __multiple_words(0, 8) + r"mensuel de " + MONEY,
+                __multiple_words(0, 8) + r"mensuel de " + MONEY_REGEX,
                 re.IGNORECASE
             ),
             re.compile(
                 FACT_DIGIT_REGEX + r".*bail valide.*loyer.*" + \
-                MONEY + r"\spar mois",
+                MONEY_REGEX + r"\spar mois",
                 re.IGNORECASE)
         ], "MONEY"),
         ("proof_of_late", [
@@ -599,7 +600,7 @@ class RegexLib:
         ], "BOOLEAN"),
         ("tenant_monthly_payment", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+loyer\smensuel.*" + MONEY,
+                FACT_DIGIT_REGEX + r".+loyer\smensuel.*" + MONEY_REGEX,
                 re.IGNORECASE
             )
         ], "MONEY"),
@@ -624,22 +625,22 @@ class RegexLib:
             # ),
             re.compile(
                 FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + \
-                r" doi(ven|)t " + __multiple_words(0, 6) + r"" + MONEY,
+                r" doi(ven|)t " + __multiple_words(0, 6) + r"" + MONEY_REGEX,
                 re.IGNORECASE
             ),
             re.compile(
                 FACT_DIGIT_REGEX + r".+" + LANDLORD_REGEX + r" réclame(nt|) " + __multiple_words(
-                    0, 6) + r"" + MONEY + r"(, soit le loyer| à titre de loyer)",
+                    0, 6) + r"" + MONEY_REGEX + r"(, soit le loyer| à titre de loyer)",
                 re.IGNORECASE
             ),
             re.compile(
                 FACT_DIGIT_REGEX + \
-                r".+(il|elle)(s|) doi(ven)t toujours une somme de " + MONEY,
+                r".+(il|elle)(s|) doi(ven)t toujours une somme de " + MONEY_REGEX,
                 re.IGNORECASE
             ),
             re.compile(
                 FACT_DIGIT_REGEX + r".+admet devoir la somme de " + \
-                MONEY + r" à titre de loyer",
+                MONEY_REGEX + r" à titre de loyer",
                 re.IGNORECASE
             )
         ], "MONEY"),
@@ -722,6 +723,87 @@ class RegexLib:
             )
         ], "BOOLEAN")
     ]
+    regex_outcomes = [
+        ("additional_indemnity_date", [
+            re.compile(
+                r"l'indemnité additionnelle prévue à l'article 1619 C\.c\.Q\., à compter du \K(\d+ \w+ \d+)",
+                re.IGNORECASE
+            )
+        ], "DATE"),
+        ("additional_indemnity_money", [
+            re.compile(
+                r"l'indemnité additionnelle prévue à l'article 1619 C\.c\.Q\., à compter du \d+ \w+ \d+ sur la somme de \K" + MONEY_REGEX,
+                re.IGNORECASE
+            )
+        ], "MONEY"),
+        ("declares_housing_inhabitable", [
+            re.compile(
+                r"DÉCLARE le logement impropre à l'habitation",
+                re.IGNORECASE
+            )
+        ], "BOOLEAN"),
+        ("declares_resiliation_is_correct", [
+            re.compile(
+                r"CONSTATE la résiliation du bail",
+                re.IGNORECASE
+            ),
+            re.compile(
+                r"DÉCLARE le bail résilié"
+            )
+        ], "BOOLEAN"),
+        ("orders_expulsion", [
+            re.compile(
+                r"ORDONNE l'expulsion"
+            )
+        ], "BOOLEAN"),
+        ("orders_immediate_execution", [
+            re.compile(
+                r"ORDONNE l'exécution provisoire, malgré l'appel",
+                re.IGNORECASE
+            )
+        ], "BOOLEAN"),
+        ("orders_resiliation", [
+            re.compile(
+                r"RÉSILIE le bail"
+            )
+        ], "BOOLEAN"),
+        ("orders_tenant_pay_first_of_month", [
+            re.compile(
+                r"ORDONNE (au|à la|aux) " + TENANT_REGEX + " de payer le loyer le premier jour",
+                re.IGNORECASE
+            )
+        ], "BOOLEAN"),
+        ("rejects_landlord_demand", [
+            re.compile(
+                r"REJETTE la demande (de la|du|des) " + LANDLORD_REGEX,
+                re.IGNORECASE
+            )
+        ], "BOOLEAN"),
+        ("rejects_tenant_demand", [
+            re.compile(
+                r"REJETTE la demande (de la|du|des) " + TENANT_REGEX,
+                re.IGNORECASE
+            )
+        ], "BOOLEAN"),
+        ("tenant_ordered_to_pay_landlord", [
+            re.compile(
+                r"CONDAMNE le(s)? " + TENANT_REGEX + " " + __multiple_words(0, 3) + r"à payer (au|à la|aux) " +
+                LANDLORD_REGEX + r" la somme de " + MONEY_REGEX,
+                re.IGNORECASE
+            )
+        ], "MONEY"),
+        ("tenant_ordered_to_pay_landlord_legal_fees", [
+            re.compile(
+                r"(CONDAMNE le(s)? " + TENANT_REGEX + " " + __multiple_words(0, 3) + r"à payer (au|à la|aux) " +
+                LANDLORD_REGEX + r".*)\Kplus les frais judiciaires de " + MONEY_REGEX,
+                re.IGNORECASE
+            ),
+            re.compile(
+                r"CONDAMNE le locataire à payer aux locateurs \Kles frais judiciaires de " + MONEY_REGEX,
+                re.IGNORECASE
+            ),
+        ], "MONEY")
+    ]
 
     def __get_regexes(self, name):
         for fact in RegexLib.regex_facts:
@@ -730,8 +812,11 @@ class RegexLib:
         for demand in RegexLib.regex_demands:
             if demand[0] == name:
                 return demand[1]
+        for outcome in RegexLib.regex_outcomes:
+            if outcome[0] == name:
+                return outcome[1]
 
-        # if name was not found in demands or facts
+        # if name was not found in demands, facts or outcomes
         return None
 
     def __regex_finder(self, sentence):
@@ -786,9 +871,12 @@ def run():
     :return: None
     """
     regexes = RegexLib()
-    dict = {}
-    dict['regex_demands'] = regexes.regex_demands
-    dict['regex_facts'] = regexes.regex_facts
-    dict['MONEY'] = regexes.MONEY
+    reg_dict = {}
+    reg_dict['regex_demands'] = regexes.regex_demands
+    reg_dict['regex_facts'] = regexes.regex_facts
+    reg_dict['regex_outcomes'] = regexes.regex_outcomes
+    reg_dict['MONEY_REGEX'] = regexes.MONEY_REGEX
     save = Save()
     save.save_binary('regexes.bin', dict)
+
+run()
