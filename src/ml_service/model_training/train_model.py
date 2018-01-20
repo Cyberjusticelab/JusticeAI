@@ -77,7 +77,7 @@ def merge_regex_and_cluster_precedent_vector(data_set):
         params: data_set: initial data_set
     """
     Log.write("loading regex data")
-    fact_vectors = Load.load_binary("fact_dict.bin")
+    fact_vectors = Load.load_binary("structured_data_dict.bin")
     Log.write("merging data")
     new_val = []
     for val in data_set:

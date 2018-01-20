@@ -1,5 +1,5 @@
 from util.file import Load
-from feature_extraction.post_processing.regex.regex_fact import TagPrecedents
+from feature_extraction.post_processing.regex.regex_tagger import TagPrecedents
 from flask import abort
 from model_training.svm.svm import LinearSVM
 import numpy as np
