@@ -1,7 +1,7 @@
 from feature_extraction.post_processing.precedent_vector.precedent_vector import PrecedentVector
 from util.file import Load, Save
 from feature_extraction.post_processing.regex import regex_tagger
-from feature_extraction.post_processing.regex import regexLib
+from feature_extraction.post_processing.regex import regex_lib
 
 
 def run(command_list):
@@ -20,7 +20,7 @@ def run(command_list):
     :param command_list: Command line arguments
     :return: None
     """
-    regexLib.run()
+    regex_lib.run()
     regex_tagger.run()
     fact_cluster_model = Load.load_binary("facts_cluster_model.bin")
     decision_cluster_model = Load.load_binary("decisions_cluster_model.bin")

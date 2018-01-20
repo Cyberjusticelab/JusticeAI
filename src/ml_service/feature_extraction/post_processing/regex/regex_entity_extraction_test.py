@@ -29,7 +29,7 @@ class RegexPostLogicTest(unittest.TestCase):
                 r".*" + r"(\d+(\s|,)){1,4}(\s\$|\$)" + r".*dommages-intérêts",
                 re.IGNORECASE
             )]
-        regex_type = 'MONEY'
+        regex_type = 'MONEY_REGEX'
         result = EntityExtraction.match_any_regex(text, regex_array, regex_type)
         self.assertTrue(result[0])
         self.assertEqual(int(result[1]), 50)

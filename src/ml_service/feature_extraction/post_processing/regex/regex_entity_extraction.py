@@ -3,7 +3,7 @@ import re
 
 
 class EntityExtraction:
-    __regex_bin = Load.load_binary('regexes.bin')
+    __regex_bin = None
     one_day = 86400 # unix time for 1 day
 
     def __init__(self):
@@ -15,6 +15,9 @@ class EntityExtraction:
             Returns True if any of the regex in regex_array
             are found in the given text string
         """
+        if EntityExtraction.__regex_bin is None:
+            EntityExtraction.__regex_bin = Load.load_binary('regexes.bin')
+
         for regex in regex_array:
             if regex.search(text): 
                 return EntityExtraction.__extract_regex_entity(text, regex_type)
@@ -33,7 +36,7 @@ class EntityExtraction:
         if regex_type == 'BOOLEAN':
             return True, 1
 
-        elif regex_type == 'MONEY':
+        elif regex_type == 'MONEY_REGEX':
             generic_regex = re.compile(EntityExtraction.__regex_bin[regex_type])
             entity = generic_regex.search(text).group(0)
 
