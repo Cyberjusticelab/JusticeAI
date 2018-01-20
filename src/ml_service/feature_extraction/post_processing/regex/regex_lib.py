@@ -48,15 +48,15 @@ class RegexLib:
         ], "BOOLEAN"),
         ("landlord_demand_bank_fee", [
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+recouvrement.*" + MONEY_REGEX + r"\spour\s(les\s|des\s)?frais\sbancaire(s)?",
+                DEMAND_DIGIT_REGEX + r".+recouvrement.*\K" + MONEY_REGEX + r"\spour\s(les\s|des\s)?frais\sbancaire(s)?",
                 re.IGNORECASE
             ),
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+recouvrement.*" + MONEY_REGEX + r"\s\(frais\sbancaire(s)?\)",
+                DEMAND_DIGIT_REGEX + r".+recouvrement.*\K" + MONEY_REGEX + r"\s\(frais\sbancaire(s)?\)",
                 re.IGNORECASE
             ),
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+recouvrement.*frais\sbancaire(s)?\s(de\s)?" +
+                DEMAND_DIGIT_REGEX + r".+recouvrement.*\Kfrais\sbancaire(s)?\s(de\s)?" +
                 r"(\()?" + MONEY_REGEX + r"(\))?",
                 re.IGNORECASE
             ),
@@ -366,7 +366,7 @@ class RegexLib:
         ("landlord_relocation_indemnity_fees", [
             re.compile(
                 FACT_DIGIT_REGEX + \
-                r".+(" + LANDLORD_REGEX + r")?.+réclame.+indemnité.*" + MONEY_REGEX,
+                r".+(" + LANDLORD_REGEX + r")?.+réclame.+indemnité de relocation\s" + __multiple_words(0, 5) + MONEY_REGEX,
                 re.IGNORECASE
             )
         ], "MONEY_REGEX"),
@@ -855,11 +855,11 @@ class RegexLib:
         for fact in RegexLib.regex_facts:
             for reg in fact[regex_index]:
                 if re.search(reg, sentence):
-                    regex_match_list.append(fact[regex_name_index])
+                    regex_match_list.append(re.search(reg,sentence))
         for demand in RegexLib.regex_demands:
             for reg in demand[regex_index]:
                 if re.search(reg, sentence):
-                    regex_match_list.append(demand[regex_name_index])
+                    regex_match_list.append(re.search(reg,sentence))
 
         return regex_match_list
 
