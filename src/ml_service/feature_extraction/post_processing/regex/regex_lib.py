@@ -329,7 +329,7 @@ class RegexLib:
                 re.IGNORECASE
             )
 
-        ], "BOOLEAN"),
+        ], "MONEY_REGEX"),
         ("landlord_notifies_tenant_retake_apartment", [
             re.compile(
                 FACT_DIGIT_REGEX + r".+" + LANDLORD_REGEX + r".+" + \
