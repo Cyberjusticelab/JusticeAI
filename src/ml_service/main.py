@@ -1,5 +1,5 @@
 from feature_extraction import feature_extraction_driver
-from model_training import train_model
+from model_training import training_driver
 from util.log import Log
 import sys
 
@@ -35,7 +35,7 @@ class Command:
             feature_extraction_driver.run(command_list[1:])
 
         elif checkpoint == CommandEnum.TRAIN_FACTS:
-            train_model.run(command_list[2:])
+            training_driver.run(command_list[2:])
 
         else:
             Log.write("Command not recognized: " + command_list[1])

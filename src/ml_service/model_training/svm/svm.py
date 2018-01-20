@@ -101,9 +101,15 @@ class LinearSVM:
         """
             Reshapes the given dataset to acommodate
             ML algorithm.
+
+            For x_total = m X n then y_total = x X 1
+            Using linear regression only accomodates a 1 dimensional
+            output vector
+
+            returns: (m X n matrix, m X 1 matrix)
         """
         x_total = np.array(
             [np.reshape(precedent['facts_vector'], (len(precedent['facts_vector'],))) for precedent in self.data_set])
         y_total = np.array(
-            [precedent['decisions_vector'][0] for precedent in self.data_set])
-        return (x_total, y_total)
+            [precedent['outcomes_vector'][1] for precedent in self.data_set])
+        return x_total, y_total
