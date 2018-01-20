@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from util.file import Save
 import regex as re
+from util.file import Save
 
 
 class RegexLib:
@@ -39,7 +39,7 @@ class RegexLib:
                 r".*" + MONEY_REGEX + r".*dommages-intérêts",
                 re.IGNORECASE
             )
-        ], "MONEY"),
+        ], "MONEY_REGEX"),
         ("landlord_demand_access_rental", [
             re.compile(
                 DEMAND_DIGIT_REGEX + r".+accès au logement",
@@ -121,7 +121,7 @@ class RegexLib:
                 r"\s" + r"\(" + MONEY_REGEX + r"\)",
                 re.IGNORECASE
             )
-        ], "MONEY"),
+        ], "MONEY_REGEX"),
         ("paid_judicial_fees", [
             re.compile(
                 DEMAND_DIGIT_REGEX + r".+" + LANDLORD_REGEX +
@@ -185,7 +185,7 @@ class RegexLib:
                 r".+(" + DEMAND_REGEX + r").+" + MONEY_REGEX,
                 re.IGNORECASE
             )
-        ], "MONEY"),
+        ], "MONEY_REGEX"),
         ("tenant_demand_rent_decrease", [
             re.compile(
                 DEMAND_DIGIT_REGEX +
@@ -272,7 +272,7 @@ class RegexLib:
                 MONEY_REGEX,
                 re.IGNORECASE
             )
-        ], "MONEY"),
+        ], "MONEY_REGEX"),
         ("disrespect_previous_judgement", [
             re.compile(
                 FACT_DIGIT_REGEX + r".+non-respect d'une ordonnance émise antérieurement",
@@ -346,7 +346,7 @@ class RegexLib:
                 r".+(" + LANDLORD_REGEX + r")?.+réclame.+indemnité.*" + MONEY_REGEX,
                 re.IGNORECASE
             )
-        ], "MONEY"),
+        ], "MONEY_REGEX"),
         ("landlord_rent_change", [
             re.compile(
                 FACT_DIGIT_REGEX + r".+l'ajustement.+loyer",
@@ -416,7 +416,7 @@ class RegexLib:
                 FACT_DIGIT_REGEX + r".*bail valide.*loyer.*" + \
                 MONEY_REGEX + r"\spar mois",
                 re.IGNORECASE)
-        ], "MONEY"),
+        ], "MONEY_REGEX"),
         ("proof_of_late", [
             re.compile(
                 FACT_DIGIT_REGEX + r".+une reconnaissance de dette",
@@ -603,7 +603,7 @@ class RegexLib:
                 FACT_DIGIT_REGEX + r".+loyer\smensuel.*" + MONEY_REGEX,
                 re.IGNORECASE
             )
-        ], "MONEY"),
+        ], "MONEY_REGEX"),
         ("tenant_negligence", [
             re.compile(
                 FACT_DIGIT_REGEX + \
@@ -643,7 +643,7 @@ class RegexLib:
                 MONEY_REGEX + r" à titre de loyer",
                 re.IGNORECASE
             )
-        ], "MONEY"),
+        ], "MONEY_REGEX"),
         ("tenant_refuses_retake_apartment", [
             re.compile(
                 FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + \
@@ -735,7 +735,7 @@ class RegexLib:
                 r"l'indemnité additionnelle prévue à l'article 1619 C\.c\.Q\., à compter du \d+ \w+ \d+ sur la somme de \K" + MONEY_REGEX,
                 re.IGNORECASE
             )
-        ], "MONEY"),
+        ], "MONEY_REGEX"),
         ("declares_housing_inhabitable", [
             re.compile(
                 r"DÉCLARE le logement impropre à l'habitation",
@@ -791,7 +791,7 @@ class RegexLib:
                 LANDLORD_REGEX + r" la somme de " + MONEY_REGEX,
                 re.IGNORECASE
             )
-        ], "MONEY"),
+        ], "MONEY_REGEX"),
         ("tenant_ordered_to_pay_landlord_legal_fees", [
             re.compile(
                 r"(CONDAMNE le(s)? " + TENANT_REGEX + " " + __multiple_words(0, 3) + r"à payer (au|à la|aux) " +
@@ -802,7 +802,7 @@ class RegexLib:
                 r"CONDAMNE le locataire à payer aux locateurs \Kles frais judiciaires de " + MONEY_REGEX,
                 re.IGNORECASE
             ),
-        ], "MONEY")
+        ], "MONEY_REGEX")
     ]
 
     def __get_regexes(self, name):
@@ -877,6 +877,4 @@ def run():
     reg_dict['regex_outcomes'] = regexes.regex_outcomes
     reg_dict['MONEY_REGEX'] = regexes.MONEY_REGEX
     save = Save()
-    save.save_binary('regexes.bin', dict)
-
-run()
+    save.save_binary('regexes.bin', reg_dict)
