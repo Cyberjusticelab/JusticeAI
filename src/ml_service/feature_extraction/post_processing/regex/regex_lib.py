@@ -320,11 +320,11 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
-                DEMAND_DIGIT_REGEX + r".*\K" + MONEY_REGEX + r"\s(((pour|représentant)\s(les\s|des\s)?)|en\s)?\(?frais\sde\sdépistage\)?",
+                FACT_DIGIT_REGEX + r".*\K" + MONEY_REGEX + r"\s(((pour|représentant)\s(les\s|des\s)?)|en\s)?\(?frais\sde\sdépistage\)?",
                 re.IGNORECASE
             ),
             re.compile(
-                DEMAND_DIGIT_REGEX + r".*\Kfrais\sde\sdépistage\s((au montant\s)?de\s)?" +
+                FACT_DIGIT_REGEX + r".*\Kfrais\sde\sdépistage\s((au montant\s)?de\s)?" +
                 r"\(?" + MONEY_REGEX + r"\)?",
                 re.IGNORECASE
             )
