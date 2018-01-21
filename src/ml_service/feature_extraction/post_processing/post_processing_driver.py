@@ -13,5 +13,10 @@ def run(command_list):
     :param command_list: Command line arguments
     :return: None
     """
+    nb_files=-1
+    try:
+        nb_files = int(command_list[0])
+    except:
+        pass
     regex_lib.run()
-    regex_tagger.run()
+    regex_tagger.run(nb_files)

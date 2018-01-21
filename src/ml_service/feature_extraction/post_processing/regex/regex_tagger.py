@@ -182,7 +182,7 @@ class TagPrecedents:
         return False
 
 
-def run():
+def run(nb_files=-1):
     """
     Models saved to ml_service/data/binary/
     1) create vectors and save them
@@ -191,7 +191,7 @@ def run():
     """
     
     tag = TagPrecedents()
-    precedent_vector = tag.tag_precedents(10)
+    precedent_vector = tag.tag_precedents(nb_files)
     # prints fact intents
     indices = tag.get_intent_indice()
 
@@ -199,11 +199,14 @@ def run():
     for i in range(len(next(iter(precedent_vector.values()))['facts_vector'])):
         total_fact = len([1 for val in precedent_vector.values() if val['facts_vector'][i] != 0])
         Log.write("Total precedents with {:41} : {}".format(indices['facts_vector'][i][1], total_fact))
+    Log.write("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
     for i in range(len(next(iter(precedent_vector.values()))['demands_vector'])):
         total_fact = len([1 for val in precedent_vector.values() if val['demands_vector'][i] != 0])
         Log.write("Total precedents with {:41} : {}".format(indices['demands_vector'][i][1], total_fact))
+    Log.write("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
     for i in range(len(next(iter(precedent_vector.values()))['outcomes_vector'])):
         total_fact = len([1 for val in precedent_vector.values() if val['outcomes_vector'][i] != 0])
         Log.write("Total precedents with {:41} : {}".format(indices['outcomes_vector'][i][1], total_fact))
+    Log.write("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
