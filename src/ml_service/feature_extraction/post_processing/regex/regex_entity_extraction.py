@@ -23,7 +23,6 @@ class EntityExtraction:
         """
         if EntityExtraction.__regex_bin is None:
             EntityExtraction.__regex_bin = Load.load_binary('regexes.bin')
-
         for regex in regex_array:
             regex_result = regex.search(text)
             if regex_result:
@@ -57,6 +56,8 @@ class EntityExtraction:
             entity = entity.replace("$", "")
             entity = entity.replace(" ", "")
             entity = entity.replace(",", ".")
+            if entity[-1] == '.':
+                entity = entity[:-1]
             return True, entity
 
         return False, 0

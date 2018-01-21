@@ -13,7 +13,7 @@ class TagPrecedents:
     empty_line_length = 6
 
     def __init__(self):
-        self.structured_data_dict = {}
+        self.precedent_vector = {}
         self.statements_tagged = 0
         self.text_tagged = 0
         self.nb_lines = 0
@@ -85,7 +85,7 @@ class TagPrecedents:
             stdout.flush()
 
             # ----------------------- 2 -----------------------------#
-            self.structured_data_dict[file] = self.__tag_file(file)
+            self.precedent_vector[file] = self.__tag_file(file)
             self.nb_text += 1
 
         # ----------------------- 3 -----------------------------#
@@ -98,8 +98,8 @@ class TagPrecedents:
 
         # ----------------------- 5 -----------------------------#
         save = Save()
-        save.save_binary('structured_data_dict.bin', self.structured_data_dict)
-        return self.structured_data_dict
+        save.save_binary('precedent_vectors.bin', self.precedent_vector)
+        return self.precedent_vector
 
     def __tag_file(self, filename):
         """
@@ -186,26 +186,24 @@ def run():
     """
     Models saved to ml_service/data/binary/
     1) create vectors and save them
-    2) retrieve the labels of every column
-    3) display labels
-    4) display metrics: % of tagged categories
-    :return: None
+    2) retrieve the lab    
+    :return: None 
     """
-
+    
     tag = TagPrecedents()
-    structured_data_dict = tag.tag_precedents(10)
+    precedent_vector = tag.tag_precedents(10)
     # prints fact intents
     indices = tag.get_intent_indice()
 
-    Log.write("Total precedents parsed: {}".format(len(structured_data_dict)))
-    for i in range(len(next(iter(structured_data_dict.values()))['facts_vector'])):
-        total_fact = len([1 for val in structured_data_dict.values() if val['facts_vector'][i] == 1])
+    Log.write("Total precedents parsed: {}".format(len(precedent_vector)))
+    for i in range(len(next(iter(precedent_vector.values()))['facts_vector'])):
+        total_fact = len([1 for val in precedent_vector.values() if val['facts_vector'][i] != 0])
         Log.write("Total precedents with {:41} : {}".format(indices['facts_vector'][i][1], total_fact))
 
-    for i in range(len(next(iter(structured_data_dict.values()))['demands_vector'])):
-        total_fact = len([1 for val in structured_data_dict.values() if val['demands_vector'][i] == 1])
+    for i in range(len(next(iter(precedent_vector.values()))['demands_vector'])):
+        total_fact = len([1 for val in precedent_vector.values() if val['demands_vector'][i] != 0])
         Log.write("Total precedents with {:41} : {}".format(indices['demands_vector'][i][1], total_fact))
 
-    for i in range(len(next(iter(structured_data_dict.values()))['outcomes_vector'])):
-        total_fact = len([1 for val in structured_data_dict.values() if val['outcomes_vector'][i] == 1])
+    for i in range(len(next(iter(precedent_vector.values()))['outcomes_vector'])):
+        total_fact = len([1 for val in precedent_vector.values() if val['outcomes_vector'][i] != 0])
         Log.write("Total precedents with {:41} : {}".format(indices['outcomes_vector'][i][1], total_fact))

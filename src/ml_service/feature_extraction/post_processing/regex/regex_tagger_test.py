@@ -11,12 +11,12 @@ class RegexTaggerTest(unittest.TestCase):
         self.precedent_tagger = TagPrecedents()
         self.precedent_tagger.regexes = {"regex_facts": [("some_fact", [re.compile("fermentum", re.IGNORECASE)], 'BOOLEAN')],
                                          "regex_demands": [("some_demand", [re.compile("réclame", re.IGNORECASE)], 'BOOLEAN')],
-                                         "regex_outcomes": [("some_outcome", [re.compile("REJETTE"), re.IGNORECASE], 'BOOLEAN')]
+                                         "regex_outcomes": [("some_outcome", [re.compile("REJETTE")], 'BOOLEAN')]
                                          }
 
     def test_regex_model(self):
         self.precedent_tagger.tag_precedents(10)
-        binary_model_path = Path.binary_directory + r'structured_data_dict.bin'
+        binary_model_path = Path.binary_directory + r'precedent_vector.bin'
         self.assertTrue(os.path.isfile(binary_model_path))
 
     def test_tag_precedents(self):

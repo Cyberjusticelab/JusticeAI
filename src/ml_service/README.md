@@ -186,10 +186,12 @@ export COMPOSE_FILE=ci
 ```
 
 ## Using the Command Line
+* denotes optional arguments
+
 1-  python main.py -cluster --hdbscan --fact|decision [min cluster size] [min sample size]
     python main.py -cluster --kmeans --fact|decision [cluster number]
     python main.py -cluster --hdbscan --fact|decision [min cluster size] [epsilon]
-    python main.py -train
+    python main.py -train [data size | empty for all] --svm* --sf*
     python main.py -pre [number of files | empty for all]
     python main.py -post
 2- all binary files saved to data/binary
