@@ -16,7 +16,7 @@ class RegexTaggerTest(unittest.TestCase):
 
     def test_regex_model(self):
         self.precedent_tagger.tag_precedents(10)
-        binary_model_path = Path.binary_directory + r'precedent_vector.bin'
+        binary_model_path = Path.binary_directory + r'precedent_vectors.bin'
         self.assertTrue(os.path.isfile(binary_model_path))
 
     def test_tag_precedents(self):
