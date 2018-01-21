@@ -47,10 +47,19 @@ class RegexLib:
         ], "BOOLEAN"),
         ("landlord_demand_bank_fee", [
             re.compile(
-                DEMAND_DIGIT_REGEX + r".+recouvrement.*frais\sbancaire(s)?",
+                DEMAND_DIGIT_REGEX + r".+recouvrement.*\K" + MONEY_REGEX + r"\spour\s(les\s|des\s)?frais\sbancaire(s)?",
                 re.IGNORECASE
-            )
-        ], "BOOLEAN"),
+            ),
+            re.compile(
+                DEMAND_DIGIT_REGEX + r".+recouvrement.*\K" + MONEY_REGEX + r"\s\(frais\sbancaire(s)?\)",
+                re.IGNORECASE
+            ),
+            re.compile(
+                DEMAND_DIGIT_REGEX + r".+recouvrement.*\Kfrais\sbancaire(s)?\s(de\s)?" +
+                r"(\()?" + MONEY_REGEX + r"(\))?",
+                re.IGNORECASE
+            ),
+        ], "MONEY_REGEX"),
         ("landlord_demand_damage", [
             re.compile(
                 DEMAND_DIGIT_REGEX + r".+" + LANDLORD_REGEX +
@@ -86,11 +95,15 @@ class RegexLib:
         ], "BOOLEAN"),
         ("landlord_demand_utility_fee", [
             re.compile(
-                DEMAND_DIGIT_REGEX +
-                r".+recouvrement(.+frais.+(énergie|électricité))+",
+                DEMAND_DIGIT_REGEX + r".*\K" + MONEY_REGEX + r"\s(((pour|représentant)\s(les\s|des\s)?)|en\s)?\(?frais\s(d'énergie|d'électricité|hydroélectricité)\)?",
+                re.IGNORECASE
+            ),
+            re.compile(
+                DEMAND_DIGIT_REGEX + r".*\Kfrais\s(d'énergie|d'électricité|hydroélectricité)\s((au montant\s)?de\s)?" +
+                r"\(?" + MONEY_REGEX + r"\)?",
                 re.IGNORECASE
             )
-        ], "BOOLEAN"),
+        ], "MONEY_REGEX"),
         ("landlord_fix_rent", [
             re.compile(
                 DEMAND_DIGIT_REGEX + r".+" + LANDLORD_REGEX +
@@ -304,8 +317,18 @@ class RegexLib:
                 FACT_DIGIT_REGEX + r".+" + LANDLORD_REGEX + \
                 r".+(frais\sde\sdépistage)",
                 re.IGNORECASE
+            ),
+            re.compile(
+                FACT_DIGIT_REGEX + r".*\K" + MONEY_REGEX + r"\s(((pour|représentant)\s(les\s|des\s)?)|en\s)?\(?frais\sde\sdépistage\)?",
+                re.IGNORECASE
+            ),
+            re.compile(
+                FACT_DIGIT_REGEX + r".*\Kfrais\sde\sdépistage\s((au montant\s)?de\s)?" +
+                r"\(?" + MONEY_REGEX + r"\)?",
+                re.IGNORECASE
             )
-        ], "BOOLEAN"),
+
+        ], "MONEY_REGEX"),
         ("landlord_notifies_tenant_retake_apartment", [
             re.compile(
                 FACT_DIGIT_REGEX + r".+" + LANDLORD_REGEX + r".+" + \
@@ -342,7 +365,7 @@ class RegexLib:
         ("landlord_relocation_indemnity_fees", [
             re.compile(
                 FACT_DIGIT_REGEX + \
-                r".+(" + LANDLORD_REGEX + r")?.+réclame.+indemnité.*" + MONEY_REGEX,
+                r".+(" + LANDLORD_REGEX + r")?.+réclame.+indemnité de relocation\s" + __multiple_words(0, 5) + MONEY_REGEX,
                 re.IGNORECASE
             )
         ], "MONEY_REGEX"),
@@ -818,7 +841,7 @@ class RegexLib:
         # if name was not found in demands, facts or outcomes
         return None
 
-    def __regex_finder(self, sentence):
+    def regex_finder(self, sentence):
         """
         This function is used to see if a regex is already written for a given sentence
         :param sentence: is used to find a regex the matches it
@@ -839,7 +862,7 @@ class RegexLib:
 
         return regex_match_list
 
-    def __sentence_finder(self, regex_name, nb_of_files):
+    def sentence_finder(self, regex_name, nb_of_files):
         """
         finds sentences that matches the regex_name
         :param regex_name: name of the regex ex: landlord_money_cover_rent
