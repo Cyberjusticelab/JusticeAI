@@ -102,9 +102,7 @@ class LinearSVM:
             Reshapes the given dataset to acommodate
             ML algorithm.
 
-            For x_total = m X n then y_total = x X 1
-            Using linear regression only accomodates a 1 dimensional
-            output vector
+            x_total = m X n then y_total = x X 1
 
             returns: (m X n matrix, m X 1 matrix)
         """
