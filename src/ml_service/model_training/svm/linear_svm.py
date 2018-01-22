@@ -33,7 +33,7 @@ class LinearSVM:
         Log.write("Train size: {}".format(len(x_train)))
         Log.write("Test size: {}".format(len(x_test)))
 
-        Log.write("Training Classifier")
+        Log.write("Training Classifier using SVC")
         clf = svm.SVC(kernel='linear', random_state=42)
         clf.fit(x_train, y_train)
 
@@ -109,5 +109,5 @@ class LinearSVM:
         x_total = np.array(
             [np.reshape(precedent['facts_vector'], (len(precedent['facts_vector'],))) for precedent in self.data_set])
         y_total = np.array(
-            [precedent['outcomes_vector'][1] for precedent in self.data_set], dtype=np.float64)
+            [precedent['outcomes_vector'][0] for precedent in self.data_set])
         return x_total, y_total

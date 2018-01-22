@@ -1,4 +1,4 @@
-from model_training.svm.svm import LinearSVM
+from model_training.svm.linear_svm import LinearSVM
 from model_training.similar_finder.similar_finder import SimilarFinder
 from util.file import Load
 from util.log import Log
