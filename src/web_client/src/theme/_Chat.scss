@@ -57,7 +57,43 @@
   }
   #chat-widow {
     width: 100%;
-    height: 80%;
+    height: 100%;
+    overflow-y: scroll;
+    text-align: left;
+    #chat-history-container {
+      .chat-history-item {
+        margin-top: 10px;
+        display: table !important;
+        background-color: $main-grey-5;
+        color: $main-grey-2;
+        border: 1px solid $main-grey-6;
+        padding: 20px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        border-radius: 2px;
+        display: inline-block;
+        font-size: 16px;
+        a {
+          text-decoration: none !important;
+          color: $main-white-1;
+        }
+      }
+      .chat-history-zeus {
+        @extend .chat-history-item;
+        background-color: $main-grey-3;
+        color: $main-grey-6;
+        border: none;
+      }
+      .chat-history-user {
+        @extend .chat-history-item;
+        float:right;
+        background-color: $main-gold-2;
+        border-color: $main-gold-2;
+        color: $main-grey-3;
+        text-align: right;
+        word-break: break-word;
+      }
+    }
     #chat-current-container {
       height: 50%;
       #chat-zeus-avatar {

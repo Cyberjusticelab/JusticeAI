@@ -4,7 +4,7 @@
 
 <template>
   <div id="chat-component">
-    <!-- Chat History -->
+    <!-- Resolved Fact Overlay -->
     <transition name="fade">
       <div id="chat-resolved-fact" v-if="user.openChatHistory">
         <el-row>
@@ -13,7 +13,6 @@
               <img v-on:click="user.openChatHistory = false" alt="" src="../assets/history_disable.png">
             </div>
           </el-col>
-          <!-- Chat History ~ Understood Fact -->
           <el-col :sm="{span: 21, offset: 1}">
           <div id="chat-resolved-fact-item">
             <el-row v-for="fact in chatHistory.fact" :key="fact.id">
@@ -35,10 +34,24 @@
         </el-row>
       </div>
     </transition>
-    <!-- End of Chat History -->
+    <!-- End of Resolved Fact Overlay -->
     <!-- Chat Widow -->
-    <div id="chat-widow">
+    <div id="chat-widow" v-chat-scroll>
       <!-- Zeus Chat -->
+      <div id="chat-history-container">
+        <el-row v-for="history in chatHistory.history" :key="history.id">
+          <el-col :sm="{span: 10, offset: 2}">
+            <div class="chat-history-zeus" v-if="history.sender_type == 'BOT'">
+              <p v-html="history.text"></p>
+            </div>
+          </el-col>
+          <el-col :sm="{span: 10, offset: 10}" v-if="history.sender_type == 'USER'">
+            <div class="chat-history-user">
+              <p v-html="history.text"></p>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
       <div id="chat-current-container">
         <el-row>
           <el-col :sm="{span: 3, offset: 2}">
