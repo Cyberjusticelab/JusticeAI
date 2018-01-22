@@ -1,10 +1,10 @@
-from util.file import Load
 from feature_extraction.post_processing.regex.regex_tagger import TagPrecedents
 from flask import abort
-from model_training.svm.linear_svm import LinearSVM
+from model_training.svm.multi_class_svm import MultiClassSVM
 import numpy as np
 
-linear_classifier = LinearSVM()
+
+linear_classifier = MultiClassSVM()
 linear_classifier.load()
 indices = TagPrecedents().get_intent_indice()
 

@@ -1,5 +1,5 @@
 import unittest
-from model_training.svm.linear_svc import LinearSVC
+from model_training.svm.multi_class_svm import MultiClassSVM
 import numpy as np
 
 
@@ -25,7 +25,7 @@ class TestLinearSvc(unittest.TestCase):
     ]
 
     def test_svc_train(self):
-        linear_svc = LinearSVC(self.data)
+        linear_svc = MultiClassSVM(self.data)
         linear_svc.train()
         data = np.array([1, 0, 0, 0])
         expected_result = np.array([0, 1, 0])
@@ -35,7 +35,7 @@ class TestLinearSvc(unittest.TestCase):
             self.assertEqual(expected_result[i], predicted_result[i])
 
     def test_reshape_dataset(self):
-        linear_svc = LinearSVC(self.data)
+        linear_svc = MultiClassSVM(self.data)
         x, y = linear_svc.reshape_dataset()
         x = x[0]
         y = y[0]
@@ -58,3 +58,7 @@ class TestLinearSvc(unittest.TestCase):
 
         for i in range(len(y)):
             self.assertEqual(y[i], expected_y[0][i])
+
+    def test_get_weights(self):
+        linear_svc = MultiClassSVM(self.data)
+        self.assertIsNone(linear_svc.get_weights())

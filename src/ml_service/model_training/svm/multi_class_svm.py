@@ -8,9 +8,9 @@ from util.file import Load, Save
 from util.log import Log
 
 
-class LinearSVC(AbstractClassifier):
+class MultiClassSVM(AbstractClassifier):
 
-    def __init__(self, data_set):
+    def __init__(self, data_set=None):
         """
         Constructor
         :param data_set: [{
@@ -40,14 +40,14 @@ class LinearSVC(AbstractClassifier):
         y_total = mlb.fit_transform(y_total)
 
         x_train, x_test, y_train, y_test = train_test_split(
-            x_total, y_total, test_size=0.20) # 3
+            x_total, y_total, test_size=0.20, random_state=42) # 3
 
         Log.write("Sample size: {}".format(len(x_total)))
         Log.write("Train size: {}".format(len(x_train)))
         Log.write("Test size: {}".format(len(x_test)))
-        Log.write("Training Classifier Using Linear SVC")
+        Log.write("Training Classifier Using Multi Class SVM")
 
-        clf = OneVsRestClassifier(SVC()) # 4
+        clf = OneVsRestClassifier(SVC(kernel='linear', random_state=42)) # 4
         clf.fit(x_train, y_train)
         self.model = clf
         self.test(x_test, y_test) # 5
@@ -58,7 +58,7 @@ class LinearSVC(AbstractClassifier):
         :return: None
         """
         save = Save()
-        save.save_binary("linear_svc_model.bin", self.model)
+        save.save_binary("multi_class_svm_model.bin", self.model)
 
     def predict(self, data):
         """
@@ -73,7 +73,7 @@ class LinearSVC(AbstractClassifier):
         Returns a model of the classifier
         :return: OneVsRestClassifier(SVC())
         """
-        self.model = Load.load_binary("linear_svc_model.bin")
+        self.model = Load.load_binary("multi_class_svm_model.bin")
 
     def reshape_dataset(self):
         """

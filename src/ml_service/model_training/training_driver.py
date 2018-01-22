@@ -1,4 +1,4 @@
-from model_training.svm.linear_svc import LinearSVC
+from model_training.svm.multi_class_svm import MultiClassSVM
 from model_training.similar_finder.similar_finder import SimilarFinder
 from util.file import Load
 from util.log import Log
@@ -65,6 +65,9 @@ def run(command_list):
     except IndexError:
         precedent_vector = __dictionary_to_list()
 
+    except ValueError:
+        precedent_vector = __dictionary_to_list()
+
     except TypeError:
         Log.write("create the precedent vector model first.\nCommand: python main.py -post")
         return False
@@ -72,8 +75,9 @@ def run(command_list):
     # ------------------- TRAINING --------------------------
     Log.write("Executing train model.")
     if CommandEnum.SVM in command_list:
-        linear_svm = LinearSVC(precedent_vector)
+        linear_svm = MultiClassSVM(precedent_vector)
         linear_svm.train()
+        linear_svm.save()
 
     if CommandEnum.SIMILARITY_FINDER in command_list:
         SimilarFinder(train=True, dataset=precedent_vector)
