@@ -79,9 +79,9 @@ class EntityExtraction:
                 try:
                     date_components[1] = EntityExtraction.month_dict[date_components[1]]
                 except KeyError:
-                    date_components[1] = EntityExtraction.month_dict[EntityExtraction.month_name_error_tolerence(date_components[1])]
+                    date_components[1] = EntityExtraction.month_dict[EntityExtraction.month_name_corrector(date_components[1])]
                 date_components[2] = int(date_components[2])
-                return EntityExtraction.__time_to_unix(date_components)
+                return True, 1  # temporary
 
         return False, 0
     
