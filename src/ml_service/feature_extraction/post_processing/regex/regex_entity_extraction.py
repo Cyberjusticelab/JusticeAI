@@ -50,6 +50,7 @@ class EntityExtraction:
 
         elif regex_type == 'MONEY_REGEX':
             generic_regex = re.compile(EntityExtraction.__regex_bin[regex_type])
+            print(sentence)
             entity = generic_regex.search(sentence).group(0)
 
             # Functional but not sure about how optimal it is
