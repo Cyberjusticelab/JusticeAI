@@ -8,7 +8,7 @@ class SimilarFinder:
     """
         SimilarFinder is used to obtain the most similar cases to a given
         sample. It uses Ski-kit learn's nearest neighbor implementation
-        param: train: will train the
+        param: train: will train the model
         param: dataset: numpy array of precedent vectors. Ignored if train
                         is set to False
     """
