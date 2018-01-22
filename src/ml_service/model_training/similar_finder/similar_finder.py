@@ -18,9 +18,13 @@ class SimilarFinder:
             self.model = Load.load_binary("similarity_model.bin")
             self.case_numbers = Load.load_binary("similarity_case_numbers.bin")
         elif len(dataset) > 0:
-            self.model = NearestNeighbors(5, metric='mahalanobis')
             sample_set = [np.concatenate([vec['demands_vector'], vec['facts_vector'], vec[
-                                         'decisions_vector']]) for vec in dataset]
+                                         'outcomes_vector']]) for vec in dataset]
+
+            for i in range(len(sample_set)):
+                sample_set[i] = sample_set[i].astype(np.int64)
+
+            self.model = NearestNeighbors(5, metric='mahalanobis', metric_params={'V': np.cov(sample_set)})
             self.model.fit(sample_set)
             self.case_numbers = [vec['name'] for vec in dataset]
             save = Save()
@@ -49,7 +53,7 @@ class SimilarFinder:
 
     def get_most_similar(self, sample):
         sample_vector = np.concatenate([sample['demands_vector'], sample[
-                                       'facts_vector'], sample['decisions_vector']])
+                                       'facts_vector'], sample['outcomes_vector']])
         nearest = self.model.kneighbors([sample_vector])
         names = [self.case_numbers[index] for index in nearest[1][0]]
         return list(zip(names, nearest[0][0]))

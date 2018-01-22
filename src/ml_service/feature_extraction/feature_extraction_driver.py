@@ -24,7 +24,7 @@ def run(command_list):
         clustering_driver.run(command_list[1:])
 
     elif command == CommandEnum.POST_PROCESSING:
-        post_processing_driver.run(command_list)
+        post_processing_driver.run(command_list[1:])
     else:
         Log.write("Command not recognized: " + command_list[0])
         return False

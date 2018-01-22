@@ -1,4 +1,4 @@
-from model_training.svm.svm import LinearSVM
+from model_training.svm.linear_svm import LinearSVM
 from numpy.testing import assert_array_equal
 
 
@@ -20,9 +20,9 @@ def test_predict_without_training():
 
 def test__reshape_dataset():
     # Test Data
-    precedent1 = {'facts_vector': [1, 2, 3], 'decisions_vector': [14]}
-    precedent2 = {'facts_vector': [4, 6, 8], 'decisions_vector': [1114]}
-    precedent3 = {'facts_vector': [5, 7, 9], 'decisions_vector': [114]}
+    precedent1 = {'facts_vector': [1, 2, 3], 'outcomes_vector': [14]}
+    precedent2 = {'facts_vector': [4, 6, 8], 'outcomes_vector': [1114]}
+    precedent3 = {'facts_vector': [5, 7, 9], 'outcomes_vector': [114]}
     precedents = [precedent1, precedent2, precedent3]
 
     # Execute

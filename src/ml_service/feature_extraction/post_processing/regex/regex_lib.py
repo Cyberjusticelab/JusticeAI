@@ -11,7 +11,6 @@ class RegexLib:
     LANDLORD_REGEX = r"locat(eur|rice)(s)?"
     DEMAND_REGEX = r"(demand|réclam)(ait|e|ent|aient)"
 
-
     def __multiple_words(min, max):
         return r"(\w+(\s|'|,\s)){" + str(min) + "," + str(max) + "}"
 
@@ -891,6 +890,10 @@ class RegexLib:
 def run():
     """
     Driver to save regex binary file
+    1) Create an empty dictionary
+    2) Add keys and values to the dictionary
+    3) binarize file
+
     :return: None
     """
     regexes = RegexLib()
