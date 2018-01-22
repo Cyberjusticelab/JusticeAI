@@ -22,7 +22,7 @@ def test_get_most_similar():
 
     # Execute
     result = similar.get_most_similar({'demands_vector': np.zeros(
-        73), 'decisions_vector': np.zeros(1), 'facts_vector': np.zeros(1)})
+        73), 'outcomes_vector': np.zeros(1), 'facts_vector': np.zeros(1)})
 
     # Verify
     assert result[0] == ('b', 1.)

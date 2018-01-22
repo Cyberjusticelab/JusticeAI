@@ -11,7 +11,6 @@ class RegexLib:
     LANDLORD_REGEX = r"locat(eur|rice)(s)?"
     DEMAND_REGEX = r"(demand|réclam)(ait|e|ent|aient)"
 
-
     def __multiple_words(min, max):
         return r"(\w+(\s|'|,\s)){" + str(min) + "," + str(max) + "}"
 
@@ -315,20 +314,14 @@ class RegexLib:
         ], "BOOLEAN"),
         ("landlord_inspector_fees", [
             re.compile(
-                FACT_DIGIT_REGEX + r".+" + LANDLORD_REGEX + \
-                r".+(frais\sde\sdépistage)",
-                re.IGNORECASE
-            ),
-            re.compile(
                 FACT_DIGIT_REGEX + r".*\K" + MONEY_REGEX + r"\s(((pour|représentant)\s(les\s|des\s)?)|en\s)?\(?frais\sde\sdépistage\)?",
                 re.IGNORECASE
             ),
             re.compile(
-                FACT_DIGIT_REGEX + r".*\Kfrais\sde\sdépistage\s((au montant\s)?de\s)?" +
-                r"\(?" + MONEY_REGEX + r"\)?",
+                FACT_DIGIT_REGEX + r".*frais\sde\sdépistage\s((au montant\s)?de\s)?" +
+                r"\(?\K" + MONEY_REGEX + r"\)?",
                 re.IGNORECASE
             )
-
         ], "MONEY_REGEX"),
         ("landlord_notifies_tenant_retake_apartment", [
             re.compile(
@@ -891,6 +884,10 @@ class RegexLib:
 def run():
     """
     Driver to save regex binary file
+    1) Create an empty dictionary
+    2) Add keys and values to the dictionary
+    3) binarize file
+
     :return: None
     """
     regexes = RegexLib()
