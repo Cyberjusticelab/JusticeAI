@@ -109,5 +109,5 @@ class LinearSVM:
         x_total = np.array(
             [np.reshape(precedent['facts_vector'], (len(precedent['facts_vector'],))) for precedent in self.data_set])
         y_total = np.array(
-            [precedent['outcomes_vector'][1] for precedent in self.data_set], dtype=np.float64)
+            [precedent['outcomes_vector'][0] for precedent in self.data_set])
         return x_total, y_total
