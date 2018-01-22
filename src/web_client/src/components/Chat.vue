@@ -6,16 +6,16 @@
   <div id="chat-component">
     <!-- Chat History -->
     <transition name="fade">
-      <div id="chat-history" v-if="user.openChatHistory">
+      <div id="chat-resolved-fact" v-if="user.openChatHistory">
         <el-row>
           <el-col :sm="{span: 2, offset: 0}">
-            <div id="chat-history-button">
+            <div id="chat-resolved-fact-button">
               <img v-on:click="user.openChatHistory = false" alt="" src="../assets/history_disable.png">
             </div>
           </el-col>
           <!-- Chat History ~ Understood Fact -->
           <el-col :sm="{span: 21, offset: 1}">
-          <div id="chat-history-fact">
+          <div id="chat-resolved-fact-item">
             <el-row v-for="fact in chatHistory.fact" :key="fact.id">
               <el-col :sm="{span: 13, offset: 0}" class="dark-hover">
                 <h4>{{ fact.fact.summary }}</h4>
@@ -26,9 +26,6 @@
               <el-col :sm="{span: 4, offset: 0}">
                 <div id="fact-remove">
                   <img alt="" src="../assets/fact_remove.png" v-on:click="removeFact(fact.id)">
-                </div>
-                <div id="fact-edit">
-                  <img alt="" src="../assets/fact_edit.png">
                 </div>
               </el-col>
             </el-row>
@@ -42,15 +39,13 @@
     <!-- Chat Widow -->
     <div id="chat-widow">
       <!-- Zeus Chat -->
-      <div id="chat-zeus-container">
+      <div id="chat-current-container">
         <el-row>
-          <el-col :sm="{span: 4, offset: 2}">
-            <div id="chat-zeus-avatar">
-              <img v-on:click="user.openChatHistory = !user.openChatHistory; getChatHistory()" src="../assets/zeus_avatar_1.png"/>
-            </div>
+          <el-col :sm="{span: 3, offset: 2}">
+            <div id="chat-zeus-avatar" v-on:click="user.openChatHistory = !user.openChatHistory; getChatHistory()"></div>
           </el-col>
           <el-col :sm="{span: 10, offset: 0}">
-            <div id="chat-message-zeus">
+            <div id="chat-zeus-message">
               <img v-if="!zeus.input" alt="" src="../assets/chatting.gif">
               <transition name="fade">
                 <p v-if="zeus.input" v-html="zeus.input"></p>
