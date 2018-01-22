@@ -19,7 +19,10 @@ class AbstractClassifier:
         raise NotImplementedError
 
     def get_weights(self):
-        raise NotImplementedError
+        if self.model is not None:
+            return self.model.coef_[0]
+        Log.write('Please train or load the classifier first')
+        return None
 
     def reshape_dataset(self):
         raise NotImplementedError
