@@ -52,7 +52,7 @@ def classify_claim_category(conversation_id, message):
     response = None
 
     if claim_category in Responses.static_claim_responses.keys():
-        response = Responses.static_claim_responses[claim_category]
+        response = Responses.chooseFrom(Responses.static_claim_responses[claim_category])
 
     elif claim_category:
         # Set conversation's claim category
