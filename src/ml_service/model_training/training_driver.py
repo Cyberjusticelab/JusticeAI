@@ -1,4 +1,4 @@
-from model_training.svm.linear_svm import LinearSVM
+from model_training.svm.linear_svc import LinearSVC
 from model_training.similar_finder.similar_finder import SimilarFinder
 from util.file import Load
 from util.log import Log
@@ -67,7 +67,7 @@ def run(command_list):
         precedent_vector = __dictionary_to_list()
 
     if CommandEnum.SVM in command_list:
-        linear_svm = LinearSVM(precedent_vector)
+        linear_svm = LinearSVC(precedent_vector)
         linear_svm.train()
 
     if CommandEnum.SIMILARITY_FINDER in command_list:
