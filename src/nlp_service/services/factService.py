@@ -58,8 +58,7 @@ fact_mapping = {
         "tenant_left_without_paying",
     ],
     "rent_change": [],
-    "nonpayment": [],
-    "deposits": []
+    "nonpayment": []
 }
 
 

@@ -59,8 +59,7 @@ def classify_claim_category(conversation_id, message):
         conversation.claim_category = {
             'ask_lease_termination': ClaimCategory.LEASE_TERMINATION,
             'ask_rent_change': ClaimCategory.RENT_CHANGE,
-            'ask_nonpayment': ClaimCategory.NONPAYMENT,
-            'ask_deposit': ClaimCategory.DEPOSITS
+            'ask_nonpayment': ClaimCategory.NONPAYMENT
         }[claim_category]
 
         # Get first fact based on claim category
