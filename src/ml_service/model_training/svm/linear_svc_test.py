@@ -22,12 +22,12 @@ class TestLinearSvc(unittest.TestCase):
         precedent6,
         precedent7,
         precedent8
-        ]
+    ]
 
     def test_svc_train(self):
         linear_svc = LinearSVC(self.data)
         linear_svc.train()
-        data = np.array([[1, 0, 0, 0]])
+        data = np.array([1, 0, 0, 0])
         expected_result = np.array([0, 1, 0])
         predicted_result = linear_svc.predict(data)[0]
         for i in range(len(expected_result)):

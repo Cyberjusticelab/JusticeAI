@@ -63,30 +63,51 @@ class LinearSVC(AbstractClassifier):
     def predict(self, data):
         """
         Predicts an outcome given facts
-        :param data: numpy([
-            [1, 0, 0, ...],
-            [1, 0, 1, ...],
-            ...
-        ])
+        :param data: numpy([1, 0, 0, ...])
         :return: np.array([...])
         """
-        return self.model.predict(data)
+        return self.model.predict([data])
 
     def load(self):
         """
-
-        :return:
+        Returns a model of the classifier
+        :return: OneVsRestClassifier(SVC())
         """
         self.model = Load.load_binary("linear_svc_model.bin")
 
     def reshape_dataset(self):
         """
+        Restructure the data to accomodate the sklearn library
+        1) Reshape the x data
+            1.1) 2D numpy array: [
+                    [precedent #1 facts],
+                    [precedent #2 facts],
+                    ...
+                ]
 
-        :return:
+        2) Reshape the y data
+            2.1) The data looks as such: [1, 1, 1, 0, 1, 0, 0, 1...]
+
+            2.2) We must create a new list with only the index of the columns where
+                 there are values of '1'. This is necessary because the sklearn
+                 algorithm expects this kind of input.
+
+            2.3) Example:        (transformation)
+                [1, 1, 0, 0, 1] ------------------> [0, 1, 4]
+
+            2.4) Create a 2D numpy array from the new list:[
+                [precedent #1 outcomes],
+                [precedent #2 outcomes],
+                ...
+            ]
+        :return: x_total <#1.1>, y_total <#2.4>
         """
+
+        # --------------------1--------------------------
         x_total = np.array(
             [np.reshape(precedent['facts_vector'], (len(precedent['facts_vector'],))) for precedent in self.data_set])
 
+        # --------------------2--------------------------
         y_list = []
         for precedent in self.data_set:
             classified_precedent = []
