@@ -26,16 +26,16 @@ class LinearSVC(AbstractClassifier):
         mlb = MultiLabelBinarizer(sparse_output=True)
         y_train_mlb = mlb.fit_transform(y_train)
 
-        clf = OneVsRestClassifier(LinSVC())
+        clf = OneVsRestClassifier(LinSVC(random_state=42))
         clf.fit(x_train, y_train_mlb)
         self.model = clf
         self.test(x_test, y_test)
         save = Save()
         save.save_binary("linear_svc_model.bin", self.model)
 
-    def predict(self):
+    def predict(self, data):
         mlb = MultiLabelBinarizer(sparse_output=True)
-        print(mlb.inverse_transform(self.model.predict(np.array([[0, 1, 0]]))))
+        return mlb.inverse_transform(self.model.predict(data))
 
     def get_weights(self):
         pass

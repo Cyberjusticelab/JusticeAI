@@ -15,7 +15,7 @@ class AbstractClassifier:
     def load(self):
         raise NotImplementedError
 
-    def predict(self):
+    def predict(self, data):
         raise NotImplementedError
 
     def get_weights(self):
