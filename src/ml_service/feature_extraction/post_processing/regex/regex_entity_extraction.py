@@ -1,10 +1,21 @@
 from util.file import Load
 import re
+import enchant
 
 
 class EntityExtraction:
     __regex_bin = None
     one_day = 86400 # unix time for 1 day
+    month_dict = {'janvier': 1, 'février': 2, 'mars': 3, 'avril': 4, 'mai': 5, 'juin': 6,
+                  'juillet': 7, 'août': 8, 'septembre': 9, "octobre": 10, 'novembre': 11, 'décembre': 12}
+
+    @staticmethod
+    def month_name_corrector(month_name_with_mistake):
+        dictionary = enchant.Dict('fr_FR')
+        possible_words = dictionary.suggest(month_name_with_mistake)
+        for word in possible_words:
+            if word in EntityExtraction.month_dict:
+                return word
 
     def __init__(self):
         pass
@@ -59,6 +70,18 @@ class EntityExtraction:
             if entity[-1] == '.':
                 entity = entity[:-1]
             return True, entity
+
+        elif regex_type == 'DATE_REGEX':
+            sentence = sentence.lower()
+            date_components = sentence.split(" ")
+            if len(date_components) == 3:
+                date_components[0] = int(re.sub(r"er|ere|em|eme", "", date_components[0]))
+                try:
+                    date_components[1] = EntityExtraction.month_dict[date_components[1]]
+                except KeyError:
+                    date_components[1] = EntityExtraction.month_dict[EntityExtraction.month_name_error_tolerence(date_components[1])]
+                date_components[2] = int(date_components[2])
+                return EntityExtraction.__time_to_unix(date_components)
 
         return False, 0
     
