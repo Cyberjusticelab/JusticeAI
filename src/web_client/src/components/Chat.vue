@@ -97,21 +97,9 @@
         </el-row>
       </div>
       <!-- End of Zeus Chat -->
-      <!-- User Chat -->
-      <div id="chat-user-container">
-        <el-row>
-          <el-col :sm="14" :offset="8">
-            <div id="chat-message-user" v-bind:class="{ msgIsSent: user.isSent && chatHistory.history}">
-              <img v-if="!user.input" alt="" src="../assets/chatting.gif">
-              <p v-if="user.input" v-html="user.input"></p>
-            </div>
-          </el-col>
-        </el-row>
-      </div>
-      <!-- End of User Chat -->
     </div>
     <!-- End of Chat Widow -->
-    <!-- Input Widow -->
+    <!-- Input Widow - Mobile -->
     <div id="chat-input">
       <form v-on:submit.prevent="sendUserMessage()">
         <el-input id="chat-input-text" autosize v-model="user.input" placeholder="Enter your message" autoComplete="off" :disabled="user.disableInput"></el-input>
@@ -119,7 +107,7 @@
       </form>
       <!--<icon id="chat-input-voice" name="microphone" scale="3"></icon>-->
     </div>
-    <!-- End of Input Widow -->
+    <!-- End of Input Widow - Mobile -->
   </div>
 </template>
 
@@ -146,7 +134,6 @@ export default {
       user: {
         name: null,
         input: null,
-        isSent: false,
         openChatHistory: false,
         disableInput: false
       }
@@ -183,7 +170,6 @@ export default {
       }).then(
         response => {
           this.zeus.input = null
-          this.user.isSent = this.user.input != ''
           this.zeus.filePrompt = false;
           setTimeout(() => {
             this.configChat(response.body)
@@ -224,7 +210,6 @@ export default {
       this.numMessageSinceChatHistory += 1
       this.promptFeedback = this.numMessageSinceChatHistory + this.chatHistory.history.length > 4
       this.user.input = null
-      this.user.isSent = false
       this.user.disableInput = conversation.enforce_possible_answer
     },
     sendFeedback (confirmation) {

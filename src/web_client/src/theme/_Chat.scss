@@ -5,6 +5,7 @@
   width: 100%;
   overflow: hidden;
   font-family: $zeus-font;
+  background-color: rgba(74,74,74,0.8);
   #chat-history {
     overflow-y: scroll;
     width: 30%;
@@ -67,7 +68,6 @@
     }
   }
   #chat-widow {
-    background-color: rgba(74,74,74,0.8);
     width: 100%;
     height: 80%;
     #chat-nav {
@@ -183,21 +183,6 @@
         }
       }
     }
-    #chat-user-container {
-      height: 50%;
-      #chat-user-avatar {
-        margin-top: 60px;
-      }
-      #chat-message-user {
-        @extend .chat-message;
-        p {
-          overflow-wrap: break-word;
-        }
-      }
-    }
-    .msgIsSent {
-      border-color: mediumturquoise !important;
-    }
   }
   #chat-input {
     border-top: 1px solid gold;
@@ -224,6 +209,10 @@
         background-color: $main-gold-2;
         color: $main-white-1;
       }
+    }
+    /* show fixed input section only on mobile phone */
+    @media screen and (min-width: $break-width-phone) {
+      display: none;
     }
   }
 }
