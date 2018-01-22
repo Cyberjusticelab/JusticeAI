@@ -24,6 +24,9 @@ class AbstractClassifier:
     def reshape_dataset(self):
         raise NotImplementedError
 
+    def save(self):
+        raise NotImplementedError
+
     def test(self, x_test, y_test):
         # Test
         Log.write("Testing Classifier")
