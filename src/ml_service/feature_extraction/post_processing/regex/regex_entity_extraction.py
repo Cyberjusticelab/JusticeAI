@@ -1,23 +1,16 @@
 from util.file import Load
 import re
-import enchant
 import datetime
 import time
+import util.log as logger
 
 
 class EntityExtraction:
+    log = logger.Log()
     regex_bin = None
     one_day = 86400 # unix time for 1 day
     month_dict = {'janvier': 1, 'février': 2, 'mars': 3, 'avril': 4, 'mai': 5, 'juin': 6,
                   'juillet': 7, 'août': 8, 'septembre': 9, "octobre": 10, 'novembre': 11, 'décembre': 12}
-
-    @staticmethod
-    def month_name_corrector(month_name_with_mistake):
-        dictionary = enchant.Dict('fr_FR')
-        possible_words = dictionary.suggest(month_name_with_mistake)
-        for word in possible_words:
-            if word in EntityExtraction.month_dict:
-                return word
 
     def __init__(self):
         pass
@@ -85,9 +78,12 @@ class EntityExtraction:
                 try:
                     date_components[1] = str(EntityExtraction.month_dict[date_components[1]])
                 except KeyError:
-                    date_components[1] = str(EntityExtraction.month_dict[EntityExtraction.month_name_corrector(date_components[1])])
+                    EntityExtraction.log.write("mistake in month name : " + date_components[1])
+                    return False, 0
                 date_components[2] = date_components[2]
-                return True, EntityExtraction.__date_to_unix(date_components)
+                unix_time = EntityExtraction.__date_to_unix(date_components)
+                if unix_time is not None:
+                    return True, unix_time
 
         return False, 0
     
@@ -99,7 +95,11 @@ class EntityExtraction:
         :return: unix time representing the input date
         """
         date_string = " ".join(date)
-        unix_time = time.mktime(datetime.datetime.strptime(date_string, '%d %m %Y').timetuple())
+        try:
+            unix_time = time.mktime(datetime.datetime.strptime(date_string, '%d %m %Y').timetuple())
+        except OverflowError:
+            EntityExtraction.log.write("overflow : " + str(date_string))
+            return None
         return unix_time
 
     @staticmethod
