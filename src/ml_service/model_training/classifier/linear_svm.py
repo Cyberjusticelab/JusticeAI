@@ -33,7 +33,7 @@ class LinearSVM:
         Log.write("Train size: {}".format(len(x_train)))
         Log.write("Test size: {}".format(len(x_test)))
 
-        Log.write("Training Classifier")
+        Log.write("Training Classifier using SVC")
         clf = svm.SVC(kernel='linear', random_state=42)
         clf.fit(x_train, y_train)
 
