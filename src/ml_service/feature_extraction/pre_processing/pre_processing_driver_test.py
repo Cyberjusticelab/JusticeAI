@@ -11,9 +11,8 @@ class TestPreProcessingMethods(unittest.TestCase):
 
     def test_save(self):
         facts = "test_facts"
-
         raw_data_directory = Path.raw_data_directory
-        Path.precedent_directory = Path.test_data_directory
+        Path.raw_data_directory = Path.test_data_directory
         file = open(Path.test_data_directory + "garbage.txt", "w")
         file.writelines("[1] Le locateur est faible.\n")
         file.writelines("[2] Le locateur est faible.\n")
