@@ -104,6 +104,26 @@
       {
         "name": "RL31",
         "pattern": "rl(-)?31"
+      },
+      {
+        "name": "rent in advance",
+        "pattern": "(in advance)"
+      },
+      {
+        "name":"landlord harassing",
+        "pattern": "(harass(ing|ed|es)?)|(creep(y)?)|(lewd)"
+      },
+      {
+        "name":"emergency",
+        "pattern":"emergency"
+      },
+      {
+        "name":"personal info",
+        "pattern": "sin|card|copy|photocopy|permit|license"
+      },
+      {
+        "name": "spouse-violence",
+        "pattern": "(violen(t|ce)?)|(hit(s/ting)?)|(beat(s|ing)?)|(abus(ive|ed|ing)?)|(rape(d)?)"
       }
     ],
     "common_examples": [
