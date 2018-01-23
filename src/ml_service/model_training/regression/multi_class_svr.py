@@ -56,35 +56,29 @@ class MultiClassSVR:
         """
         Train a classifier using Linear SVC
         1) reshape date in a format that sklearn understands
-        2) Binarize data for multi output
-        3) split training data
-        4) train (fit)
-        5) test model
+        2) split training data
+        3) train (fit)
+        4) test model
         :return: None
         """
         x_total, y_total = self.reshape_dataset() # 1
 
         x_train, x_test, y_train, y_test = train_test_split(
-            x_total, y_total, test_size=0.20, random_state=42) # 3
+            x_total, y_total, test_size=0.20, random_state=42) # 2
 
         Log.write("Sample size: {}".format(len(x_total)))
         Log.write("Train size: {}".format(len(x_train)))
         Log.write("Test size: {}".format(len(x_test)))
         Log.write("Training Regression Using Multi Class SVR")
 
-        clf = MultiOutputRegressor(SVR(kernel='linear')) # 4
+        clf = MultiOutputRegressor(SVR(kernel='linear')) # 3
         clf.fit(x_train, y_train)
         self.model = clf
-        self.__test(x_test, y_test) # 5
+        self.__test(x_test, y_test) # 4
 
     def save(self):
         """
-        Since the regression and classifier models are separate,
-        then new index will be assigned to each model.
-
-        1) Save classifier of each column into a binary format
-        2) Save the prediction model into binary
-        :return:
+        :return: None
         """
         save = Save()
         save.save_binary("multi_class_svr_model.bin", self.model)
