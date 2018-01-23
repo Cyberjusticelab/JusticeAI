@@ -6,9 +6,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import precision_recall_fscore_support
 from util.file import Load, Save
 from util.log import Log
+from feature_extraction.post_processing.regex.regex_tagger import TagPrecedents
 
 
-class MultiClassSVM():
+class MultiClassSVM:
 
     def __init__(self, data_set=None):
         """
@@ -25,6 +26,7 @@ class MultiClassSVM():
         """
         self.data_set = data_set
         self.model = None
+        self.mlb = None
 
     def get_weights(self):
         """
@@ -66,8 +68,8 @@ class MultiClassSVM():
         :return: None
         """
         x_total, y_total = self.reshape_dataset() # 1
-        mlb = MultiLabelBinarizer() # 2
-        y_total = mlb.fit_transform(y_total)
+        self.mlb = MultiLabelBinarizer() # 2
+        y_total = self.mlb.fit_transform(y_total)
 
         x_train, x_test, y_train, y_test = train_test_split(
             x_total, y_total, test_size=0.20, random_state=42) # 3
@@ -84,10 +86,22 @@ class MultiClassSVM():
 
     def save(self):
         """
-        Saves model
-        :return: None
+        Since the regression and classifier models are separate,
+        then new index will be assigned to each model.
+
+        1) Save classifier of each column into a binary format
+        2) Save the prediction model into binary
+        :return:
         """
+        # ------------------- 1 -----------------------------
+        linear_labels = {}
+        indices = TagPrecedents().get_intent_indice()['outcomes_vector']
+        for i in range(len(self.mlb.classes_)):
+            linear_labels[i] = indices[self.mlb.classes_[i]][1]
         save = Save()
+        save.save_binary("classifier_labels.bin", linear_labels)
+
+        # ------------------- 2 -----------------------------
         save.save_binary("multi_class_svm_model.bin", self.model)
 
     def predict(self, data):
