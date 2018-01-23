@@ -6,6 +6,30 @@
   overflow: hidden;
   font-family: $zeus-font;
   background-color: rgba(74,74,74,0.8);
+  .generic-input {
+    .el-input {
+      width: 80%;
+      height: 50px;
+      margin: auto;
+      margin-top: 45px;
+      display: block;
+      text-align: center;
+    }
+    .el-button {
+      margin: auto;
+      margin-top: 15px;
+      width: 250px;
+      border-color: $main-gold-2;
+      background-color: $main-gold-2;
+      color: $main-grey-2;
+      display: block;
+      font-weight: bolder;
+      &:hover:enabled {
+        background-color: $main-gold-2;
+        color: $main-white-1;
+      }
+    }
+  }
   #chat-resolved-fact {
     overflow-y: scroll;
     width: 30%;
@@ -55,14 +79,17 @@
       }
     }
   }
-  #chat-widow {
+  #chat-window {
     width: 100%;
     height: 100%;
     overflow-y: scroll;
     text-align: left;
     #chat-history-container {
+      margin-top: 50px;
+      margin-bottom: 40px;
       .chat-history-item {
         margin-top: 10px;
+        margin-bottom: 10px;
         display: table !important;
         background-color: $main-grey-5;
         color: $main-grey-2;
@@ -107,6 +134,7 @@
           cursor: pointer;
           background: url("../assets/zeus_avatar_2.png");
           background-size: 180px;
+          background-repeat: no-repeat;
         }
       }
       #chat-zeus-message {
@@ -116,17 +144,12 @@
         margin-top: 30px;
         padding: 20px;
         border: 1px solid $main-white-1;
-        p {
-          text-align: center;
-          margin: auto;
-          padding: 12px;
-          font-family: $zeus-font;
-          color: $main-grey-2;
-          font-size: 18px;
-          a {
-            text-decoration: none !important;
-            color: $main-white-1;
-          }
+        padding: 12px;
+        color: $main-grey-2;
+        font-size: 18px;
+        a {
+          text-decoration: none !important;
+          color: $main-white-1;
         }
         img {
           margin: auto;
@@ -185,36 +208,24 @@
             }
           }
         }
+        #bubble-input-group {
+          @extend .generic-input;
+          .el-button {
+            width: 150px;
+          }
+        }
       }
+    }
+    @media screen and (max-width: $break-width-phone) {
+      height: 80%;
     }
   }
   /* Bottom IM style input on mobile device */
   #chat-input {
+    @extend .generic-input;
     border-top: 1px solid gold;
     background-color: $main-grey-5;
     height: 20%;
-    .el-input {
-      width: 80%;
-      height: 50px;
-      margin: auto;
-      margin-top: 45px;
-      display: block;
-      text-align: center;
-    }
-    .el-button {
-      margin: auto;
-      margin-top: 15px;
-      width: 250px;
-      border-color: $main-gold-2;
-      background-color: $main-gold-2;
-      color: $main-grey-2;
-      display: block;
-      font-weight: bolder;
-      &:hover:enabled {
-        background-color: $main-gold-2;
-        color: $main-white-1;
-      }
-    }
     /* show fixed input section only on mobile phone */
     @media screen and (min-width: $break-width-phone) {
       display: none;

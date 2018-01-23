@@ -35,8 +35,8 @@
       </div>
     </transition>
     <!-- End of Resolved Fact Overlay -->
-    <!-- Chat Widow -->
-    <div id="chat-widow" v-chat-scroll>
+    <!-- Chat window -->
+    <div id="chat-window">
       <!-- Zeus Chat -->
       <div id="chat-history-container">
         <el-row v-for="history in chatHistory.history" :key="history.id">
@@ -54,7 +54,7 @@
       </div>
       <div id="chat-current-container">
         <el-row>
-          <el-col :sm="{span: 3, offset: 2}">
+          <el-col :sm="{span: 3, offset: 4}">
             <div id="chat-zeus-avatar" v-on:click="user.openChatHistory = !user.openChatHistory; getChatHistory()"></div>
           </el-col>
           <el-col :sm="{span: 12, offset: 0}">
@@ -69,14 +69,14 @@
                   v-model="zeus.file"
                   :drop="true"
                   :post-action="uploadUrl"
-                  v-if="zeus.filePrompt"
+                  v-if="zeus.filePrompt && zeus.input"
                   extensions="jpg,jpeg,pdf,docx,webp,png"
                 >
                   <p v-if="zeus.file.length == 0" id="drag-and-drop">drag and drop or click to select file</p>
                   <p v-if="zeus.file" id="file-name" v-for="file in zeus.file">{{ file.name }}</p>
                 </file-upload>
               </transition>
-              <div id="file-upload-button-group" v-if="zeus.filePrompt">
+              <div id="file-upload-button-group" v-if="zeus.filePrompt && zues.input">
                 <el-button v-show="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true" type="warning" :disabled="zeus.file.length == 0">
                   Upload
                 </el-button>
@@ -92,7 +92,7 @@
                   {{ answer }}
                 </el-button>
               </div>
-              <div id="beta-feedback-group" v-if="promptFeedback">
+              <div id="beta-feedback-group" v-if="promptFeedback && zeus.input">
                 <div v-on:click="sendFeedback(true)">
                   <icon name="thumbs-up" class="feedback-good"></icon>
                 </div>
@@ -100,22 +100,27 @@
                   <icon name="thumbs-down" class="feedback-bad"></icon>
                 </div>
               </div>
+              <div id="bubble-input-group" v-if="zeus.input">
+                <form v-on:submit.prevent="sendUserMessage()" v-if="zeus.suggestion.length == 0">
+                  <el-input autosize v-model="user.input" placeholder="Enter your message" autoComplete="off" :disabled="user.disableInput"></el-input>
+                  <el-button type="warning" :disabled="!user.input" native-type="submit">SEND</el-button>
+                </form>
+              </div>
             </div>
           </el-col>
         </el-row>
       </div>
       <!-- End of Zeus Chat -->
     </div>
-    <!-- End of Chat Widow -->
-    <!-- Input Widow - Mobile -->
+    <!-- End of Chat window -->
+    <!-- Input window - Mobile -->
     <div id="chat-input">
       <form v-on:submit.prevent="sendUserMessage()">
         <el-input id="chat-input-text" autosize v-model="user.input" placeholder="Enter your message" autoComplete="off" :disabled="user.disableInput"></el-input>
         <el-button id="chat-input-submit" type="warning" :disabled="!user.input" native-type="submit">SEND</el-button>
       </form>
-      <!--<icon id="chat-input-voice" name="microphone" scale="3"></icon>-->
     </div>
-    <!-- End of Input Widow - Mobile -->
+    <!-- End of Input window - Mobile -->
   </div>
 </template>
 
@@ -180,10 +185,20 @@ export default {
         message: this.user.input
       }).then(
         response => {
+          let userMessage = this.user.input
+          let zeusMessage = this.zeus.input
           this.zeus.input = null
           this.zeus.filePrompt = false;
+          this.chatHistory.history.push({
+            sender_type: "USER",
+            text: userMessage
+          })
           setTimeout(() => {
             this.configChat(response.body)
+            this.chatHistory.history.push({
+              sender_type: "BOT",
+              text: zeusMessage
+            })
           }, 1100)
         },
         response => {
@@ -206,6 +221,7 @@ export default {
           this.uploadUrl = this.api_url + 'conversation/' + zeusId + '/files'
           this.promptFeedback = this.numMessageSinceChatHistory + this.chatHistory.history.length > 4
           this.initLoading = false
+          this.$el.querySelector('#chat-window').scrollTop = "1000px"
         },
         response => {
           this.connectionError = true
