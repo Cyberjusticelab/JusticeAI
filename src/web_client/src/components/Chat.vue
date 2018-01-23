@@ -3,7 +3,7 @@
 </style>
 
 <template>
-  <div id="chat-component" v-loading="initLoading" element-loading-text="Let's Talk!" element-loading-spinner="el-icon-loading" fullscreen="true">
+  <div id="chat-component" v-loading="initLoading" element-loading-text="Let's Talk!" element-loading-spinner="el-icon-loading" fullscreen="true" vue-chat-scroll="{always: true}">
     <!-- Resolved Fact Overlay -->
     <transition name="fade">
       <div id="chat-resolved-fact" v-if="user.openChatHistory">
@@ -35,8 +35,8 @@
       </div>
     </transition>
     <!-- End of Resolved Fact Overlay -->
-    <!-- Chat window -->
-    <div id="chat-window">
+    <!-- Chat Window -->
+    <div id="chat-window" v-if="!initLoading">
       <!-- Zeus Chat -->
       <div id="chat-history-container">
         <el-row v-for="history in chatHistory.history" :key="history.id">
@@ -112,15 +112,15 @@
       </div>
       <!-- End of Zeus Chat -->
     </div>
-    <!-- End of Chat window -->
-    <!-- Input window - Mobile -->
+    <!-- End of Chat Window -->
+    <!-- Input Window - Mobile -->
     <div id="chat-input">
       <form v-on:submit.prevent="sendUserMessage()">
         <el-input id="chat-input-text" autosize v-model="user.input" placeholder="Enter your message" autoComplete="off" :disabled="user.disableInput"></el-input>
         <el-button id="chat-input-submit" type="warning" :disabled="!user.input" native-type="submit">SEND</el-button>
       </form>
     </div>
-    <!-- End of Input window - Mobile -->
+    <!-- End of Input Window - Mobile -->
   </div>
 </template>
 
@@ -187,18 +187,22 @@ export default {
         response => {
           let userMessage = this.user.input
           let zeusMessage = this.zeus.input
-          this.zeus.input = null
+          this.zeus .input = null
           this.zeus.filePrompt = false;
-          this.chatHistory.history.push({
-            sender_type: "USER",
-            text: userMessage
-          })
+          if (userMessage) {
+            this.chatHistory.history.push({
+              sender_type: "USER",
+              text: userMessage
+            })
+          }
           setTimeout(() => {
             this.configChat(response.body)
-            this.chatHistory.history.push({
-              sender_type: "BOT",
-              text: zeusMessage
-            })
+            if (zeusMessage) {
+              this.chatHistory.history.push({
+                sender_type: "BOT",
+                text: zeusMessage
+              })
+            }
           }, 1100)
         },
         response => {
@@ -221,7 +225,6 @@ export default {
           this.uploadUrl = this.api_url + 'conversation/' + zeusId + '/files'
           this.promptFeedback = this.numMessageSinceChatHistory + this.chatHistory.history.length > 4
           this.initLoading = false
-          this.$el.querySelector('#chat-window').scrollTop = "1000px"
         },
         response => {
           this.connectionError = true

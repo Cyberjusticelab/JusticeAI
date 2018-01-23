@@ -15,7 +15,7 @@
                 <!-- LOGO -->
                 <div id="sidebar-logo">
                     <img alt="" src="../assets/logo.png" v-on:click="openSidebar = false">
-                    <p>Alpha</p>
+                    <p>Beta</p>
                 </div>
                 <!-- End of LOGO -->
                 <!-- User Information -->
