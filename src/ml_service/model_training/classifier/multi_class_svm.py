@@ -3,12 +3,12 @@ from sklearn.multiclass import OneVsRestClassifier
 from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.svm import SVC
 from sklearn.model_selection import train_test_split
-from model_training.abstract_models.abstract_classifier import AbstractClassifier
+from sklearn.metrics import precision_recall_fscore_support
 from util.file import Load, Save
 from util.log import Log
 
 
-class MultiClassSVM(AbstractClassifier):
+class MultiClassSVM():
 
     def __init__(self, data_set=None):
         """
@@ -23,7 +23,37 @@ class MultiClassSVM(AbstractClassifier):
             ...
         }]
         """
-        AbstractClassifier.__init__(self, data_set)
+        self.data_set = data_set
+        self.model = None
+
+    def get_weights(self):
+        """
+        The weight associated with each input fact.
+        Useful in seeing which facts the classifier
+        values more than others
+        :return: None
+        """
+        if self.model is not None:
+            return self.model.coef_[0]
+        Log.write('Please train or load the classifier first')
+        return None
+
+    def __test(self, x_test, y_test):
+        """
+
+        :param x_test:
+        :param y_test:
+        :return: None
+        """
+        Log.write("Testing Classifier")
+        y_predict = self.model.predict(x_test)
+        num_correct = np.sum(y_predict == y_test)
+        (precision, recall, f1, _) = precision_recall_fscore_support(y_test, y_predict)
+        Log.write('Test accuracy: {}%'.format(
+            num_correct * 100.0 / len(y_test)))
+        Log.write('Precision: {}'.format(precision))
+        Log.write('Recall: {}'.format(recall))
+        Log.write('F1: {}'.format(f1))
 
     def train(self):
         """
@@ -50,7 +80,7 @@ class MultiClassSVM(AbstractClassifier):
         clf = OneVsRestClassifier(SVC(kernel='linear', random_state=42)) # 4
         clf.fit(x_train, y_train)
         self.model = clf
-        self.test(x_test, y_test) # 5
+        self.__test(x_test, y_test) # 5
 
     def save(self):
         """

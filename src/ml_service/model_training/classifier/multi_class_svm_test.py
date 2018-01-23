@@ -1,5 +1,5 @@
 import unittest
-from model_training.svm.multi_class_svm import MultiClassSVM
+from model_training.classifier.multi_class_svm import MultiClassSVM
 import numpy as np
 
 

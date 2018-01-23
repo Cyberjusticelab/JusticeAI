@@ -39,6 +39,7 @@ class TestStringMethods(unittest.TestCase):
         file.writelines("[10] Le chat veut me tuer.\n")
         file.close()
 
+        raw_data_directory = Path.raw_data_directory
         Path.raw_data_directory = __full_path
         parser = PreProcessor()
         model = parser.parse_files(__full_path, 1)
@@ -69,3 +70,4 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(["garbage.txt"], filename)
 
         shutil.rmtree(__full_path)
+        Path.raw_data_directory = raw_data_directory

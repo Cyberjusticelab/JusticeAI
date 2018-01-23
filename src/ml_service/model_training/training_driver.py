@@ -1,4 +1,4 @@
-from model_training.svm.multi_class_svm import MultiClassSVM
+from model_training.classifier.multi_class_svm import MultiClassSVM
 from model_training.similar_finder.similar_finder import SimilarFinder
 from util.file import Load
 from util.log import Log

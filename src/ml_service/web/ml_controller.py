@@ -1,8 +1,8 @@
 from feature_extraction.post_processing.regex.regex_tagger import TagPrecedents
 from flask import abort
-from model_training.svm.multi_class_svm import MultiClassSVM
+from model_training.classifier.multi_class_svm import MultiClassSVM
 import numpy as np
-
+from util.constant import Path
 
 linear_classifier = MultiClassSVM()
 linear_classifier.load()
