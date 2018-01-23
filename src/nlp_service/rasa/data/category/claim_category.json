@@ -258,6 +258,56 @@
         "entities": []
       },
       {
+        "text": "they want to increase the rent for the apartment",
+        "intent": "ask_rent_change",
+        "entities": []
+      },
+      {
+        "text": "rent change",
+        "intent": "ask_rent_change",
+        "entities": []
+      },
+      {
+        "text": "rent increase",
+        "intent": "ask_rent_change",
+        "entities": []
+      },
+      {
+        "text": "increase the current rent price",
+        "intent": "ask_rent_change",
+        "entities": []
+      },
+      {
+        "text": "my landlord wants to increase the current rent price",
+        "intent": "ask_rent_change",
+        "entities": []
+      },
+      {
+        "text": "the landlord wants to increase the price of the rent",
+        "intent": "ask_rent_change",
+        "entities": []
+      },
+      {
+        "text": "the rent for my apartment is being increased",
+        "intent": "ask_rent_change",
+        "entities": []
+      },
+      {
+        "text": "the rent price increased",
+        "intent": "ask_rent_change",
+        "entities": []
+      },
+      {
+        "text": "the price of the rent should be higher",
+        "intent": "ask_rent_change",
+        "entities": []
+      },
+      {
+        "text": "i want to increase the rent",
+        "intent": "ask_rent_change",
+        "entities": []
+      },
+      {
         "text": "my landlord increased the rent",
         "intent": "ask_rent_change",
         "entities": []
