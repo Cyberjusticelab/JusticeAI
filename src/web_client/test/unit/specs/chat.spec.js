@@ -111,6 +111,8 @@ describe('Chat.vue', () => {
     	const clock = sinon.useFakeTimers();
     	const spy = sinon.spy(Chat.methods, 'configChat')
     	const vm = new Vue(Chat).$mount()
+        vm.user.input = 'mock'
+        vm.zeus.input = 'mock'
     	vm.sendUserMessage()
     	clock.tick(1500);
     	expect(spy.called).to.be.true
@@ -131,6 +133,8 @@ describe('Chat.vue', () => {
     	const clock = sinon.useFakeTimers();
     	const spy = sinon.spy(Chat.methods, 'configChat')
     	const vm = new Vue(Chat).$mount()
+        vm.user.input = 'mock'
+        vm.zeus.input = 'mock'
     	vm.sendUserMessage()
     	clock.tick(1500);
     	expect(spy.called).to.be.true
@@ -152,6 +156,8 @@ describe('Chat.vue', () => {
     	const clock = sinon.useFakeTimers();
     	const spy = sinon.spy(Chat.methods, 'configChat')
     	const vm = new Vue(Chat).$mount()
+        vm.user.input = 'mock'
+        vm.zeus.input = 'mock'
     	vm.sendUserMessage()
     	clock.tick(1500);
     	expect(spy.called).to.be.true
