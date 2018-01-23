@@ -4,7 +4,6 @@ import numpy
 from hdbscan import HDBSCAN
 
 from feature_extraction.post_processing.precedent_vector.precedent_vector import PrecedentVector
-from util.constant import Path
 
 
 class StructuredPrecedentsTest(unittest.TestCase):
