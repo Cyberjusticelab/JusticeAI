@@ -15,7 +15,7 @@ class TestNLPIntegration(unittest.TestCase):
     def setUpClass(cls):
         cls.rasaClassifier = RasaClassifier()
         cls.rasaClassifier.train(force_train=True)
-        cls.intentThreshold = IntentThreshold(min_percent_difference=0.3, min_confidence_threshold=0.4)
+        cls.intentThreshold = IntentThreshold(min_percent_difference=0.3, min_confidence_threshold=0.3)
 
     def test_all_claim_category_text(self):
         filepath = os.getcwd() + '/rasa/data/category/claim_category.json'
