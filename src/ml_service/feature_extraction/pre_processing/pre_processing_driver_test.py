@@ -10,15 +10,10 @@ from util.constant import Path
 class TestPreProcessingMethods(unittest.TestCase):
 
     def test_save(self):
-        __script_dir = os.path.abspath(Path.cache_directory)
-        __relative_dir = r"test/"
-        __full_path = os.path.join(__script_dir, __relative_dir)
-        if not os.path.exists(__full_path):
-            os.makedirs(__full_path)
         facts = "test_facts"
-
-        Path.precedent_directory = __full_path
-        file = open(__full_path + "garbage.txt", "w")
+        raw_data_directory = Path.raw_data_directory
+        Path.raw_data_directory = Path.test_data_directory
+        file = open(Path.test_data_directory + "garbage.txt", "w")
         file.writelines("[1] Le locateur est faible.\n")
         file.writelines("[2] Le locateur est faible.\n")
         file.writelines("[3] Le locateur est faible.\n")
@@ -42,3 +37,7 @@ class TestPreProcessingMethods(unittest.TestCase):
         self.assertEqual(type(model[0]), type(sample_matrix))
         self.assertEqual(type(model[1]), type(sample_array))
         self.assertEqual(type(model[2]), type(sample_array))
+
+        os.remove(binary_model_path)
+        os.remove(Path.test_data_directory + 'garbage.txt')
+        Path.raw_data_directory = raw_data_directory

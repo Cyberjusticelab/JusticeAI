@@ -7,7 +7,7 @@ from feature_extraction.pre_processing.word_vector.french_vector import FrenchVe
 from util.constant import Path
 
 
-class TestStringMethods(unittest.TestCase):
+class TestPreprocessorMethods(unittest.TestCase):
 
     """
     1- The key to this unittest is to make sure the Word Vector model_training
@@ -19,6 +19,7 @@ class TestStringMethods(unittest.TestCase):
     """
 
     def test_parse_files(self):
+        FrenchVector.unload_vector()
         self.assertIsNone(FrenchVector.word_vectors)
         __script_dir = os.path.abspath(Path.cache_directory)
         __relative_dir = r"test/"
@@ -39,6 +40,7 @@ class TestStringMethods(unittest.TestCase):
         file.writelines("[10] Le chat veut me tuer.\n")
         file.close()
 
+        raw_data_directory = Path.raw_data_directory
         Path.raw_data_directory = __full_path
         parser = PreProcessor()
         model = parser.parse_files(__full_path, 1)
@@ -69,3 +71,4 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(["garbage.txt"], filename)
 
         shutil.rmtree(__full_path)
+        Path.raw_data_directory = raw_data_directory
