@@ -11,11 +11,10 @@ ENV FLASK_APP=app.py
 WORKDIR /usr/src/app
 
 RUN mkdir -p /usr/src/app/src/ml_service/word_vectors/
-
+RUN apt-get install enchant -y
 COPY ./src/ml_service/requirements.txt ./src/ml_service/
 COPY ./src/ml_service/requirements_test.txt ./src/ml_service/
 RUN pip install -r ./src/ml_service/requirements_test.txt
-RUN apt-get install libenchant1c2a
 RUN pip install hdbscan
 
 COPY ./src/ml_service/init.py ./src/ml_service/
