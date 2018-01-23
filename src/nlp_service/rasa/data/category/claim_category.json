@@ -143,56 +143,6 @@
         "entities": []
       },
       {
-        "text": "i want to move out",
-        "intent": "ask_lease_termination",
-        "entities": []
-      },
-      {
-        "text": "i want to leave",
-        "intent": "ask_lease_termination",
-        "entities": []
-      },
-      {
-        "text": "i want to leave the place",
-        "intent": "ask_lease_termination",
-        "entities": []
-      },
-      {
-        "text": "i want to leave the place",
-        "intent": "ask_lease_termination",
-        "entities": []
-      },
-      {
-        "text": "i want to leave the house",
-        "intent": "ask_lease_termination",
-        "entities": []
-      },
-      {
-        "text": "i want to leave my place",
-        "intent": "ask_lease_termination",
-        "entities": []
-      },
-      {
-        "text": "i want to leave my apartment",
-        "intent": "ask_lease_termination",
-        "entities": []
-      },
-      {
-        "text": "i want to leave my house",
-        "intent": "ask_lease_termination",
-        "entities": []
-      },
-      {
-        "text": "my tenant left the apartment",
-        "intent": "ask_lease_termination",
-        "entities": []
-      },
-      {
-        "text": "the tenant left the apartment",
-        "intent": "ask_lease_termination",
-        "entities": []
-      },
-      {
         "text": "i'd like to terminate my lease",
         "intent": "ask_lease_termination",
         "entities": []
