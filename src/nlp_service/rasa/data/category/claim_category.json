@@ -848,6 +848,26 @@
         "entities": []
       },
       {
+        "text": "can i cancel a lease i just signed",
+        "intent": "faq_rlq_lease_cancellation_immediately_after_signing",
+        "entities": []
+      },
+      {
+        "text": "i signed the lease for an apartment but found a better one afterwards",
+        "intent": "faq_rlq_lease_cancellation_immediately_after_signing",
+        "entities": []
+      },
+      {
+        "text": "i signed for an apartment but changed my mind",
+        "intent": "faq_rlq_lease_cancellation_immediately_after_signing",
+        "entities": []
+      },
+      {
+        "text": "i signed the lease but do not want it anymore",
+        "intent": "faq_rlq_lease_cancellation_immediately_after_signing",
+        "entities": []
+      },
+      {
         "text": "is there a way that i can return the lease? i don't want the apartment anymore.",
         "intent": "faq_rlq_lease_cancellation_immediately_after_signing",
         "entities": []
