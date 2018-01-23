@@ -1688,7 +1688,7 @@
         "entities": []
       },
       {
-        "text": "i want to leave and let someone else have my apartment",
+        "text": "let someone else have my apartment",
         "intent": "faq_likehome_lease-transfer",
         "entities": []
       },
@@ -1758,7 +1758,7 @@
         "entities": []
       },
       {
-        "text": "my apartment has infestations of bed bugs",
+        "text": "my apartment has infestations of bed bugs, i want to leave",
         "intent": "faq_likehome_abandon",
         "entities": []
       },
@@ -1768,7 +1768,7 @@
         "entities": []
       },
       {
-        "text": "i can’t live in my dwelling anymore",
+        "text": "i can’t live in my dwelling anymore i want to go",
         "intent": "faq_likehome_abandon",
         "entities": []
       },
