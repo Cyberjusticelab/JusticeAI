@@ -28,10 +28,11 @@ class TestLinearSvc(unittest.TestCase):
         linear_svc = MultiClassSVR(self.data)
         linear_svc.train()
         data = np.array([1, 0, 0, 0])
-        expected_result = 500
+        expected_result = [500, 0, 0]
         predicted_result = linear_svc.predict(data)[0]
-        self.assertGreaterEqual(expected_result + (expected_result * 0.1), predicted_result[0])
-        self.assertLessEqual(expected_result - (expected_result * 0.1), predicted_result[0])
+        for i in range(len(predicted_result)):
+            self.assertGreaterEqual(expected_result[i] + (expected_result[i] * 0.1), predicted_result[i])
+            self.assertLessEqual(expected_result[i] - (expected_result[i] * 0.1), predicted_result[i])
 
     def test_reshape_dataset(self):
         linear_svc = MultiClassSVR(self.data)
@@ -50,7 +51,16 @@ class TestLinearSvc(unittest.TestCase):
             [0, 0, 0, 1]
         ]
 
-        expected_y = [[500], [254], [847], [28], [445], [120], [4], [592.1]]
+        expected_y = [
+            [500, 0, 0],
+            [254, 0, 0],
+            [847, 0, 0],
+            [28, 0, 0],
+            [445, 0, 0],
+            [120, 0, 0],
+            [4, 0, 0],
+            [592.1, 0, 0]
+        ]
 
         for i in range(len(x)):
             self.assertEqual(x[i], expected_x[0][i])
