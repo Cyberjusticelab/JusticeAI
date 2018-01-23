@@ -14,6 +14,7 @@ class TestFrenchWordVector(unittest.TestCase):
 
     def test_load_vector(self):
         Path.binary_directory = os.path.join(Path.root_directory, r'data/binary/')
+        FrenchVector.unload_vector()
         self.assertIsNone(FrenchVector.word_vectors)
         FrenchVector.load_french_vector_bin()
         self.assertIsNotNone(FrenchVector.word_vectors)
@@ -21,6 +22,7 @@ class TestFrenchWordVector(unittest.TestCase):
 
     def test_unload_vector(self):
         Path.binary_directory = os.path.join(Path.root_directory, r'data/binary/')
+        FrenchVector.unload_vector()
         self.assertIsNone(FrenchVector.word_vectors)
         FrenchVector.load_french_vector_bin()
         self.assertIsNotNone(FrenchVector.word_vectors)
