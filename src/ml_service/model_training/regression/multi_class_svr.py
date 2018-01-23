@@ -142,6 +142,8 @@ class MultiClassSVR:
             for i in range(len(precedent['outcomes_vector'])):
                 if precedent['outcomes_vector'][i] > 1:
                     classified_precedent.append(precedent['outcomes_vector'][i])
+                else:
+                    classified_precedent.append(0)
             y_list.append(classified_precedent)
         y_total = np.array(y_list)
         return x_total, y_total
