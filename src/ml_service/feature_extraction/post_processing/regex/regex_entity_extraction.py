@@ -6,7 +6,7 @@ import time
 
 
 class EntityExtraction:
-    __regex_bin = None
+    regex_bin = None
     one_day = 86400 # unix time for 1 day
     month_dict = {'janvier': 1, 'février': 2, 'mars': 3, 'avril': 4, 'mai': 5, 'juin': 6,
                   'juillet': 7, 'août': 8, 'septembre': 9, "octobre": 10, 'novembre': 11, 'décembre': 12}
@@ -34,8 +34,8 @@ class EntityExtraction:
         :param regex_type: Entity we look for in a particular regex match
         :return: (Boolean, entity<int>)
         """
-        if EntityExtraction.__regex_bin is None:
-            EntityExtraction.__regex_bin = Load.load_binary('regexes.bin')
+        if EntityExtraction.regex_bin is None:
+            EntityExtraction.regex_bin = Load.load_binary('regexes.bin')
         for regex in regex_array:
             regex_result = regex.search(text)
             if regex_result:
@@ -62,7 +62,7 @@ class EntityExtraction:
             return True, 1
 
         elif regex_type == 'MONEY_REGEX':
-            generic_regex = re.compile(EntityExtraction.__regex_bin[regex_type])
+            generic_regex = re.compile(EntityExtraction.regex_bin[regex_type])
             entity = generic_regex.search(sentence).group(0)
 
             # Functional but not sure about how optimal it is

@@ -34,11 +34,11 @@ class RasaClassifier:
     """
 
     def train(self, force_train=False, initialize_interpreters=True):
-        # Train fact classifiers
+        # Train fact classifier
         self.__train_interpreter(self.fact_data_dir, self.fact_interpreters, force_train=force_train,
                                  initialize_interpreters=initialize_interpreters)
 
-        # Train problem category classifiers
+        # Train problem category classifier
         self.__train_interpreter(self.category_data_dir, self.problem_category_interpreters, force_train=force_train,
                                  initialize_interpreters=initialize_interpreters)
 
