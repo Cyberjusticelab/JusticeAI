@@ -7,7 +7,6 @@ import codecs
 import os
 
 
-
 class TestNLPIntegration(unittest.TestCase):
     rasaClassifier = None
     intentThreshold = None
@@ -26,5 +25,10 @@ class TestNLPIntegration(unittest.TestCase):
         for example in example_objects:
             classify_dict = self.rasaClassifier.classify_problem_category(example['text'])
             determined_claim_category = classify_dict['intent']['name']
-            self.assertTrue(self.intentThreshold.is_sufficient(classify_dict))
+            self.assertTrue(self.intentThreshold.is_sufficient(classify_dict),
+                            "Insufficient Confidence - Intent: {}, Confidence {}"
+                            .format(
+                                determined_claim_category,
+                                classify_dict['intent']['confidence'])
+                            )
             self.assertTrue(determined_claim_category == example['intent'])
