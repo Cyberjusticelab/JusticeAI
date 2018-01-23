@@ -17,6 +17,7 @@ class RegexTaggerTest(unittest.TestCase):
     def test_regex_model(self):
         binary_directory = Path.binary_directory
         Path.binary_directory = Path.test_data_directory
+        self.precedent_tagger.precedents_directory_path = Path.test_data_directory
 
         self.precedent_tagger.tag_precedents(10)
         binary_model_path = Path.binary_directory + r'precedent_vectors.bin'
@@ -29,6 +30,7 @@ class RegexTaggerTest(unittest.TestCase):
         binary_directory = Path.binary_directory
         self.precedent_tagger.precedents_directory_path = Path.test_data_directory
         Path.binary_directory = Path.test_data_directory
+
         facts_found = self.precedent_tagger.tag_precedents(2)
 
         self.assertEqual(facts_found["1.txt"]["facts_vector"], [1])
