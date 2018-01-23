@@ -71,4 +71,4 @@ class RegexPostLogicTest(unittest.TestCase):
         regex_type = 'DATE_REGEX'
         result = EntityExtraction.match_any_regex(text, regex_array, regex_type)
         self.assertTrue(result[0])
-        self.assertEqual(result[1], 1412827200.0)
+        self.assertEqual(result[1], 1412812800.0)

@@ -97,7 +97,10 @@ class EntityExtraction:
         date_string = " ".join(date)
         try:
             unix_time = time.mktime(datetime.datetime.strptime(date_string, '%d %m %Y').timetuple())
-        except ValueError or OverflowError as error:
+        except ValueError as error:
+            EntityExtraction.log.write(str(error) + ": " + str(date_string))
+            return None
+        except OverflowError as error:
             EntityExtraction.log.write(str(error) + ": " + str(date_string))
             return None
         return unix_time
