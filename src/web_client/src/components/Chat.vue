@@ -3,7 +3,7 @@
 </style>
 
 <template>
-  <div id="chat-component">
+  <div id="chat-component" v-loading="initLoading" element-loading-text="Let's Talk!" element-loading-spinner="el-icon-loading" fullscreen="true">
     <!-- Resolved Fact Overlay -->
     <transition name="fade">
       <div id="chat-resolved-fact" v-if="user.openChatHistory">
@@ -40,12 +40,12 @@
       <!-- Zeus Chat -->
       <div id="chat-history-container">
         <el-row v-for="history in chatHistory.history" :key="history.id">
-          <el-col :sm="{span: 10, offset: 2}">
+          <el-col :sm="{span: 14, offset: 2}">
             <div class="chat-history-zeus" v-if="history.sender_type == 'BOT'">
               <p v-html="history.text"></p>
             </div>
           </el-col>
-          <el-col :sm="{span: 10, offset: 10}" v-if="history.sender_type == 'USER'">
+          <el-col :sm="{span: 14, offset: 8}" v-if="history.sender_type == 'USER'">
             <div class="chat-history-user">
               <p v-html="history.text"></p>
             </div>
@@ -57,7 +57,7 @@
           <el-col :sm="{span: 3, offset: 2}">
             <div id="chat-zeus-avatar" v-on:click="user.openChatHistory = !user.openChatHistory; getChatHistory()"></div>
           </el-col>
-          <el-col :sm="{span: 10, offset: 0}">
+          <el-col :sm="{span: 12, offset: 0}">
             <div id="chat-zeus-message">
               <img v-if="!zeus.input" alt="" src="../assets/chatting.gif">
               <transition name="fade">
@@ -129,6 +129,7 @@ export default {
       numMessageSinceChatHistory: 0,
       promptFeedback: false,
       isLoggedIn: false, //TODO: account feature
+      initLoading: true,
       chatHistory: {
         history: new Array,
         fact: new Array
@@ -165,9 +166,11 @@ export default {
           this.user.input = ''
           this.sendUserMessage()
           this.uploadUrl = this.api_url + 'conversation/' + response.body.conversation_id + '/files'
+          this.initLoading = false
         },
         response => {
           this.connectionError = true
+          console.log("Connection Fail: init new user")
         }
       )
     },
@@ -185,6 +188,7 @@ export default {
         },
         response => {
           this.connectionError = true
+          console.log("Connection Fail: send message")
         }
       )
     },
@@ -201,9 +205,11 @@ export default {
           }
           this.uploadUrl = this.api_url + 'conversation/' + zeusId + '/files'
           this.promptFeedback = this.numMessageSinceChatHistory + this.chatHistory.history.length > 4
+          this.initLoading = false
         },
         response => {
           this.connectionError = true
+          console.log("Connection Fail: get history")
         }
       )
     },
@@ -231,6 +237,7 @@ export default {
         response => {
           this.promptFeedback = false
           this.connectionError = true
+          console.log("Connection Fail: send feedback")
         }
       )
     },
@@ -242,6 +249,7 @@ export default {
         },
         response => {
           this.connectionError = true
+          console.log("Connection Fail: remove resolved fact")
         }
       )
     }
