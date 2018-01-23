@@ -203,6 +203,11 @@
         "entities": []
       },
       {
+        "text": "they have not paid rent",
+        "intent": "ask_nonpayment",
+        "entities": []
+      },
+      {
         "text": "tenant hasn't paid his rent",
         "intent": "ask_nonpayment",
         "entities": []
@@ -218,12 +223,22 @@
         "entities": []
       },
       {
+        "text": "they owe me for rent",
+        "intent": "ask_nonpayment",
+        "entities": []
+      },
+      {
         "text": "tenant hasn't paid rent",
         "intent": "ask_nonpayment",
         "entities": []
       },
       {
         "text": "tenant hasn't paid rent in a while",
+        "intent": "ask_nonpayment",
+        "entities": []
+      },
+      {
+        "text": "they have not paid me for rent",
         "intent": "ask_nonpayment",
         "entities": []
       },
@@ -248,7 +263,27 @@
         "entities": []
       },
       {
+        "text": "my tenants owe me rent money",
+        "intent": "ask_nonpayment",
+        "entities": []
+      },
+      {
+        "text": "they are late on rent payments",
+        "intent": "ask_nonpayment",
+        "entities": []
+      },
+      {
+        "text": "rent payments have not gone through",
+        "intent": "ask_nonpayment",
+        "entities": []
+      },
+      {
         "text": "i haven't received payment",
+        "intent": "ask_nonpayment",
+        "entities": []
+      },
+      {
+        "text": "the tenant has not paid rent recently",
         "intent": "ask_nonpayment",
         "entities": []
       },
