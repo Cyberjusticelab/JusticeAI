@@ -3,19 +3,18 @@
 </style>
 
 <template>
-  <div id="chat-component">
-    <!-- Chat History -->
+  <div id="chat-component" v-loading="initLoading" element-loading-text="Let's Talk!" element-loading-spinner="el-icon-loading" fullscreen="true" vue-chat-scroll="{always: true}">
+    <!-- Resolved Fact Overlay -->
     <transition name="fade">
-      <div id="chat-history" v-if="user.openChatHistory">
+      <div id="chat-resolved-fact" v-if="user.openChatHistory">
         <el-row>
           <el-col :sm="{span: 2, offset: 0}">
-            <div id="chat-history-button">
+            <div id="chat-resolved-fact-button">
               <img v-on:click="user.openChatHistory = false" alt="" src="../assets/history_disable.png">
             </div>
           </el-col>
-          <!-- Chat History ~ Understood Fact -->
           <el-col :sm="{span: 21, offset: 1}">
-          <div id="chat-history-fact">
+          <div id="chat-resolved-fact-item">
             <el-row v-for="fact in chatHistory.fact" :key="fact.id">
               <el-col :sm="{span: 13, offset: 0}" class="dark-hover">
                 <h4>{{ fact.fact.summary }}</h4>
@@ -27,9 +26,6 @@
                 <div id="fact-remove">
                   <img alt="" src="../assets/fact_remove.png" v-on:click="removeFact(fact.id)">
                 </div>
-                <div id="fact-edit">
-                  <img alt="" src="../assets/fact_edit.png">
-                </div>
               </el-col>
             </el-row>
           </div>
@@ -38,19 +34,31 @@
         </el-row>
       </div>
     </transition>
-    <!-- End of Chat History -->
-    <!-- Chat Widow -->
-    <div id="chat-widow">
+    <!-- End of Resolved Fact Overlay -->
+    <!-- Chat Window -->
+    <div id="chat-window" v-if="!initLoading">
       <!-- Zeus Chat -->
-      <div id="chat-zeus-container">
-        <el-row>
-          <el-col :sm="{span: 4, offset: 2}">
-            <div id="chat-zeus-avatar">
-              <img v-on:click="user.openChatHistory = !user.openChatHistory; getChatHistory()" src="../assets/zeus_avatar_1.png"/>
+      <div id="chat-history-container">
+        <el-row v-for="history in chatHistory.history" :key="history.id">
+          <el-col :sm="{span: 14, offset: 2}">
+            <div class="chat-history-zeus" v-if="history.sender_type == 'BOT'">
+              <p v-html="history.text"></p>
             </div>
           </el-col>
-          <el-col :sm="{span: 10, offset: 0}">
-            <div id="chat-message-zeus">
+          <el-col :sm="{span: 14, offset: 8}" v-if="history.sender_type == 'USER'">
+            <div class="chat-history-user">
+              <p v-html="history.text"></p>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+      <div id="chat-current-container">
+        <el-row>
+          <el-col :sm="{span: 3, offset: 4}">
+            <div id="chat-zeus-avatar" v-on:click="user.openChatHistory = !user.openChatHistory; getChatHistory()"></div>
+          </el-col>
+          <el-col :sm="{span: 12, offset: 0}">
+            <div id="chat-zeus-message">
               <img v-if="!zeus.input" alt="" src="../assets/chatting.gif">
               <transition name="fade">
                 <p v-if="zeus.input" v-html="zeus.input"></p>
@@ -61,14 +69,14 @@
                   v-model="zeus.file"
                   :drop="true"
                   :post-action="uploadUrl"
-                  v-if="zeus.filePrompt"
+                  v-if="zeus.filePrompt && zeus.input"
                   extensions="jpg,jpeg,pdf,docx,webp,png"
                 >
                   <p v-if="zeus.file.length == 0" id="drag-and-drop">drag and drop or click to select file</p>
                   <p v-if="zeus.file" id="file-name" v-for="file in zeus.file">{{ file.name }}</p>
                 </file-upload>
               </transition>
-              <div id="file-upload-button-group" v-if="zeus.filePrompt">
+              <div id="file-upload-button-group" v-if="zeus.filePrompt && zues.input">
                 <el-button v-show="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true" type="warning" :disabled="zeus.file.length == 0">
                   Upload
                 </el-button>
@@ -84,7 +92,7 @@
                   {{ answer }}
                 </el-button>
               </div>
-              <div id="beta-feedback-group" v-if="promptFeedback">
+              <div id="beta-feedback-group" v-if="promptFeedback && zeus.input">
                 <div v-on:click="sendFeedback(true)">
                   <icon name="thumbs-up" class="feedback-good"></icon>
                 </div>
@@ -92,34 +100,27 @@
                   <icon name="thumbs-down" class="feedback-bad"></icon>
                 </div>
               </div>
+              <div id="bubble-input-group" v-if="zeus.input">
+                <form v-on:submit.prevent="sendUserMessage()" v-if="zeus.suggestion.length == 0">
+                  <el-input autosize v-model="user.input" placeholder="Enter your message" autoComplete="off" :disabled="user.disableInput"></el-input>
+                  <el-button type="warning" :disabled="!user.input" native-type="submit">SEND</el-button>
+                </form>
+              </div>
             </div>
           </el-col>
         </el-row>
       </div>
       <!-- End of Zeus Chat -->
-      <!-- User Chat -->
-      <div id="chat-user-container">
-        <el-row>
-          <el-col :sm="14" :offset="8">
-            <div id="chat-message-user" v-bind:class="{ msgIsSent: user.isSent && chatHistory.history}">
-              <img v-if="!user.input" alt="" src="../assets/chatting.gif">
-              <p v-if="user.input" v-html="user.input"></p>
-            </div>
-          </el-col>
-        </el-row>
-      </div>
-      <!-- End of User Chat -->
     </div>
-    <!-- End of Chat Widow -->
-    <!-- Input Widow -->
+    <!-- End of Chat Window -->
+    <!-- Input Window - Mobile -->
     <div id="chat-input">
       <form v-on:submit.prevent="sendUserMessage()">
         <el-input id="chat-input-text" autosize v-model="user.input" placeholder="Enter your message" autoComplete="off" :disabled="user.disableInput"></el-input>
         <el-button id="chat-input-submit" type="warning" :disabled="!user.input" native-type="submit">SEND</el-button>
       </form>
-      <!--<icon id="chat-input-voice" name="microphone" scale="3"></icon>-->
     </div>
-    <!-- End of Input Widow -->
+    <!-- End of Input Window - Mobile -->
   </div>
 </template>
 
@@ -133,6 +134,7 @@ export default {
       numMessageSinceChatHistory: 0,
       promptFeedback: false,
       isLoggedIn: false, //TODO: account feature
+      initLoading: true,
       chatHistory: {
         history: new Array,
         fact: new Array
@@ -146,7 +148,6 @@ export default {
       user: {
         name: null,
         input: null,
-        isSent: false,
         openChatHistory: false,
         disableInput: false
       }
@@ -170,9 +171,11 @@ export default {
           this.user.input = ''
           this.sendUserMessage()
           this.uploadUrl = this.api_url + 'conversation/' + response.body.conversation_id + '/files'
+          this.initLoading = false
         },
         response => {
           this.connectionError = true
+          console.log("Connection Fail: init new user")
         }
       )
     },
@@ -182,15 +185,29 @@ export default {
         message: this.user.input
       }).then(
         response => {
-          this.zeus.input = null
-          this.user.isSent = this.user.input != ''
+          let userMessage = this.user.input
+          let zeusMessage = this.zeus.input
+          this.zeus .input = null
           this.zeus.filePrompt = false;
+          if (userMessage) {
+            this.chatHistory.history.push({
+              sender_type: "USER",
+              text: userMessage
+            })
+          }
           setTimeout(() => {
             this.configChat(response.body)
+            if (zeusMessage) {
+              this.chatHistory.history.push({
+                sender_type: "BOT",
+                text: zeusMessage
+              })
+            }
           }, 1100)
         },
         response => {
           this.connectionError = true
+          console.log("Connection Fail: send message")
         }
       )
     },
@@ -207,9 +224,11 @@ export default {
           }
           this.uploadUrl = this.api_url + 'conversation/' + zeusId + '/files'
           this.promptFeedback = this.numMessageSinceChatHistory + this.chatHistory.history.length > 4
+          this.initLoading = false
         },
         response => {
           this.connectionError = true
+          console.log("Connection Fail: get history")
         }
       )
     },
@@ -224,7 +243,6 @@ export default {
       this.numMessageSinceChatHistory += 1
       this.promptFeedback = this.numMessageSinceChatHistory + this.chatHistory.history.length > 4
       this.user.input = null
-      this.user.isSent = false
       this.user.disableInput = conversation.enforce_possible_answer
     },
     sendFeedback (confirmation) {
@@ -238,6 +256,7 @@ export default {
         response => {
           this.promptFeedback = false
           this.connectionError = true
+          console.log("Connection Fail: send feedback")
         }
       )
     },
@@ -249,6 +268,7 @@ export default {
         },
         response => {
           this.connectionError = true
+          console.log("Connection Fail: remove resolved fact")
         }
       )
     }
