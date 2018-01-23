@@ -518,7 +518,7 @@
         "entities": []
       },
       {
-        "text": "i need help with my lease. my landlord is not doing anything about my neighbours and i can't sleep at night. i want to move out.",
+        "text": "i need help with my lease. my landlord is not doing anything about my neighbours and i can't sleep at night I want to annul it",
         "intent": "ask_lease_termination",
         "entities": []
       },
@@ -1683,7 +1683,7 @@
         "entities": []
       },
       {
-        "text": "what do i do to let someone else move in",
+        "text": "what do i do to let someone else move in instead of me",
         "intent": "faq_likehome_lease-transfer",
         "entities": []
       },
