@@ -1538,37 +1538,47 @@
         "entities": []
       },
       {
-        "text": "my apartment is getting destroyed",
+        "text": "my apartment is getting destroyed it's an emergency",
         "intent": "faq_likehome_emergency",
         "entities": []
       },
       {
-        "text": "there’s a flood in my apartment",
+        "text": "there was an emergency where there’s a flood in my apartment",
         "intent": "faq_likehome_emergency",
         "entities": []
       },
       {
-        "text": "my apartment electricity went off",
+        "text": "there was an emergency where my apartment electricity went off ",
         "intent": "faq_likehome_emergency",
         "entities": []
       },
       {
-        "text": "help a fire burned half of my apartment and there’s a hole in the wall now",
+        "text": "help there was an emergency where a fire burned half of my apartment and there’s a hole in the wall now",
         "intent": "faq_likehome_emergency",
         "entities": []
       },
       {
-        "text": "water is leaking all over my bathroom",
+        "text": "water is leaking all over my bathroom it's an emergency",
         "intent": "faq_likehome_emergency",
         "entities": []
       },
       {
-        "text": "my lights don’t work and i can’t see anything",
+        "text": "there is an emergency my lights don’t work and i can’t see anything",
         "intent": "faq_likehome_emergency",
         "entities": []
       },
       {
-        "text": "my whole apartment is flooded, i can’t live there anymore",
+        "text": "it's an emergency",
+        "intent": "faq_likehome_emergency",
+        "entities": []
+      },
+      {
+        "text": "there was an emergency",
+        "intent": "faq_likehome_emergency",
+        "entities": []
+      },
+      {
+        "text": "my whole apartment was flooded in an emergency, i can’t live there anymore",
         "intent": "faq_likehome_emergency",
         "entities": []
       },
