@@ -88,49 +88,21 @@
       {
         "name": "eviction",
         "pattern": "evict|evicted|kicked|kick"
+      },
+      {
+        "name": "gender",
+        "pattern": "him|he|her|she"
+      },
+      {
+        "name": "spouse/lover",
+        "pattern": "lover('s)?|boyfriend('s)?|girlfriend('s)?|spouse('s)?|husband('s)?|wife('s)?"
+      },
+      {
+        "name": "RL31",
+        "pattern": "rl(-)?31"
       }
     ],
     "common_examples": [
-      {
-        "text": "my landlord is asking me for a deposit",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "my landlord wants me to pay for one month in advance",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "i'm being asked for a deposit",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "my landlord wants rent in advance",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "my landlord wants payment in advance",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "my landlord is asking me for a security deposit",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "my landlord is asking me for a key deposit",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "my landlord is asking me for a rent deposit",
-        "intent": "ask_deposit",
-        "entities": []
-      },
       {
         "text": "to end my lease",
         "intent": "ask_lease_termination",
@@ -332,36 +304,6 @@
         "entities": []
       },
       {
-        "text": "hey my landlord is asking for a deposit and i heard it's illegal can you help me?",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "my landlord is asking me for a key deposit. i heard it's illegal and i need help.",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "i need help my landlord is asking me for a deposit before i sign the lease. it was never mentioned before.",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "hello my landlord is asking me for a security deposit before i sign the contract",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "i need help my landlord is asking me for a key deposit for me to renew my lease",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "hey my landlord is asking me for a key deposit before i get to live in my new apartment",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
         "text": "i'm leaving my apartment even though my lease is still ongoing.",
         "intent": "ask_lease_termination",
         "entities": []
@@ -444,21 +386,6 @@
       {
         "text": "my tenant hasn't paid in 2 days, what can i do?",
         "intent": "ask_nonpayment",
-        "entities": []
-      },
-      {
-        "text": "can i ask my tenants for a deposit?",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "can my landlord ask a security deposit from me? i really like the apartment.",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "hey i saw this advertisement on craigslist and they're asking for a security deposit. is this allowed?",
-        "intent": "ask_deposit",
         "entities": []
       },
       {
@@ -1375,7 +1302,587 @@
         "text": "i want to increase the rent of my tenants significantly",
         "intent": "faq_rlq_unreasonable_rent_increase",
         "entities": []
+      },
+      {
+        "text": "my landlord is asking me for a deposit",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "my landlord wants me to pay for one month in advance",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "i'm being asked for a deposit",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "my landlord wants rent in advance",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "my landlord wants payment in advance",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "my landlord is asking me for a security deposit",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "my landlord is asking me for a key deposit",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "my landlord is asking me for a rent deposit",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "hey my landlord is asking for a deposit and i heard it's illegal can you help me?",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "my landlord is asking me for a key deposit. i heard it's illegal and i need help.",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "i need help my landlord is asking me for a deposit before i sign the lease. it was never mentioned before.",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "hello my landlord is asking me for a security deposit before i sign the contract",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "i need help my landlord is asking me for a key deposit for me to renew my lease",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "hey my landlord is asking me for a key deposit before i get to live in my new apartment",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "can i ask my tenants for a deposit?",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "can my landlord ask a security deposit from me? i really like the apartment.",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "hey i saw this advertisement on craigslist and they're asking for a security deposit. is this allowed?",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "my landlord is harassing me",
+        "intent": "faq_likehome_landlord-harass",
+        "entities": []
+      },
+      {
+        "text": "my landlord is constantly bothering me",
+        "intent": "faq_likehome_landlord-harass",
+        "entities": []
+      },
+      {
+        "text": "my landlord is sexually harassing me",
+        "intent": "faq_likehome_landlord-harass",
+        "entities": []
+      },
+      {
+        "text": "my landlord keeps trying to date me, i said no but he insists, it’s creepy",
+        "intent": "faq_likehome_landlord-harass",
+        "entities": []
+      },
+      {
+        "text": "i keep getting asked out by my landlord, i told him no but he keeps insisting",
+        "intent": "faq_likehome_landlord-harass",
+        "entities": []
+      },
+      {
+        "text": "my landlord calls me all the time and makes lewd comments",
+        "intent": "faq_likehome_landlord-harass",
+        "entities": []
+      },
+      {
+        "text": "i can’t take my landlord’s harassment anymore",
+        "intent": "faq_likehome_landlord-harass",
+        "entities": []
+      },
+      {
+        "text": "it’s an emergency",
+        "intent": "faq_likehome_emergency",
+        "entities": []
+      },
+      {
+        "text": "my apartment is getting destroyed",
+        "intent": "faq_likehome_emergency",
+        "entities": []
+      },
+      {
+        "text": "there’s a flood in my apartment",
+        "intent": "faq_likehome_emergency",
+        "entities": []
+      },
+      {
+        "text": "my apartment electricity went off",
+        "intent": "faq_likehome_emergency",
+        "entities": []
+      },
+      {
+        "text": "help a fire burned half of my apartment and there’s a hole in the wall now",
+        "intent": "faq_likehome_emergency",
+        "entities": []
+      },
+      {
+        "text": "water is leaking all over my bathroom",
+        "intent": "faq_likehome_emergency",
+        "entities": []
+      },
+      {
+        "text": "my lights don’t work and i can’t see anything",
+        "intent": "faq_likehome_emergency",
+        "entities": []
+      },
+      {
+        "text": "my whole apartment is flooded, i can’t live there anymore",
+        "intent": "faq_likehome_emergency",
+        "entities": []
+      },
+      {
+        "text": "can my landlord ask for my sin",
+        "intent": "faq_likehome_personal-info",
+        "entities": []
+      },
+      {
+        "text": "my landlord asked for a copy of my study permit",
+        "intent": "faq_likehome_personal-info",
+        "entities": []
+      },
+      {
+        "text": "is my landlord allowed to ask for a copy of my driver’s license",
+        "intent": "faq_likehome_personal-info",
+        "entities": []
+      },
+      {
+        "text": "my landlord asked for a picture of my sun card",
+        "intent": "faq_likehome_personal-info",
+        "entities": []
+      },
+      {
+        "text": "my landlord wants me to photocopy my health card and send it to him",
+        "intent": "faq_likehome_personal-info",
+        "entities": []
+      },
+      {
+        "text": "my future landlord is asking for my social insurance number",
+        "intent": "faq_likehome_personal-info",
+        "entities": []
+      },
+      {
+        "text": "my future landlord is asking for my sin",
+        "intent": "faq_likehome_personal-info",
+        "entities": []
+      },
+      {
+        "text": "my future landlord is asking for my social security number",
+        "intent": "faq_likehome_personal-info",
+        "entities": []
+      },
+      {
+        "text": "my landlord keeps asking me for a copy of my birth certificate",
+        "intent": "faq_likehome_personal-info",
+        "entities": []
+      },
+      {
+        "text": "how can I get my rl31 slip",
+        "intent": "faq_likehome_rl31",
+        "entities": []
+      },
+      {
+        "text": "my landlord won’t give me my rl31 slip",
+        "intent": "faq_likehome_rl31",
+        "entities": []
+      },
+      {
+        "text": "my landlord still hasn’t sent me my rl31 slip",
+        "intent": "faq_likehome_rl31",
+        "entities": []
+      },
+      {
+        "text": "my landlord hasn’t provided me with the rl31",
+        "intent": "faq_likehome_rl31",
+        "entities": []
+      },
+      {
+        "text": "i need to file in my taxes soon.",
+        "intent": "faq_likehome_rl31",
+        "entities": []
+      },
+      {
+        "text": "i need to submit my taxes and i don’t have my rl31 yet",
+        "intent": "faq_likehome_rl31",
+        "entities": []
+      },
+      {
+        "text": "i asked my landlord about my rl31 but he still hasn’t answered back",
+        "intent": "faq_likehome_rl31",
+        "entities": []
+      },
+      {
+        "text": "solidarity tax credit",
+        "intent": "faq_likehome_rl31",
+        "entities": []
+      },
+      {
+        "text": "i’m trying to cancel the lease after sexual abuse",
+        "intent": "faq_likehome_spouse-violence",
+        "entities": []
+      },
+      {
+        "text": "me and my child are scared of my lover's violence",
+        "intent": "faq_likehome_spouse-violence",
+        "entities": []
+      },
+      {
+        "text": "my lover beats me and i can’t take it anymore",
+        "intent": "faq_likehome_spouse-violence",
+        "entities": []
+      },
+      {
+        "text": "my boyfriend tried to rape me",
+        "intent": "faq_likehome_spouse-violence",
+        "entities": []
+      },
+      {
+        "text": "i got raped by my ex",
+        "intent": "faq_likehome_spouse-violence",
+        "entities": []
+      },
+      {
+        "text": "my lover comes back drunk every night and scares my child",
+        "intent": "faq_likehome_spouse-violence",
+        "entities": []
+      },
+      {
+        "text": "my ex-lover was violent",
+        "intent": "faq_likehome_spouse-violence",
+        "entities": []
+      },
+      {
+        "text": "my lover hits me",
+        "intent": "faq_likehome_spouse-violence",
+        "entities": []
+      },
+      {
+        "text": "i need helping transferring my leas",
+        "intent": "faq_likehome_lease-transfer",
+        "entities": []
+      },
+      {
+        "text": "how can i transfer my lease",
+        "intent": "faq_likehome_lease-transfer",
+        "entities": []
+      },
+      {
+        "text": "what do i do for a lease transfer",
+        "intent": "faq_likehome_lease-transfer",
+        "entities": []
+      },
+      {
+        "text": "what are the steps to follow to transfer my lease to someone else",
+        "intent": "faq_likehome_lease-transfer",
+        "entities": []
+      },
+      {
+        "text": "how do i give my lease to someone else",
+        "intent": "faq_likehome_lease-transfer",
+        "entities": []
+      },
+      {
+        "text": "what do i do to let someone else move in",
+        "intent": "faq_likehome_lease-transfer",
+        "entities": []
+      },
+      {
+        "text": "i want to leave and let someone else have my apartment",
+        "intent": "faq_likehome_lease-transfer",
+        "entities": []
+      },
+      {
+        "text": "how do I go about subletting my dwelling",
+        "intent": "faq_likehome_sublet",
+        "entities": []
+      },
+      {
+        "text": "how do i sublet my dwelling",
+        "intent": "faq_likehome_sublet",
+        "entities": []
+      },
+      {
+        "text": "can i sublet my place",
+        "intent": "faq_likehome_sublet",
+        "entities": []
+      },
+      {
+        "text": "how do i sublet my lease to someone",
+        "intent": "faq_likehome_sublet",
+        "entities": []
+      },
+      {
+        "text": "i’m leaving on vacation, how do i setup subletting",
+        "intent": "faq_likehome_sublet",
+        "entities": []
+      },
+      {
+        "text": "give me information on subletting",
+        "intent": "faq_likehome_sublet",
+        "entities": []
+      },
+      {
+        "text": "i’m getting subtenants",
+        "intent": "faq_likehome_sublet",
+        "entities": []
+      },
+      {
+        "text": "i’m getting subtenants and i don’t know how to manage them",
+        "intent": "faq_likehome_sublet",
+        "entities": []
+      },
+      {
+        "text": "i want to abandon my apartment",
+        "intent": "faq_likehome_abandon",
+        "entities": []
+      },
+      {
+        "text": "my apartment is a shithole, i want to leave",
+        "intent": "faq_likehome_abandon",
+        "entities": []
+      },
+      {
+        "text": "i have to leave my apartment due to a family emergency",
+        "intent": "faq_likehome_abandon",
+        "entities": []
+      },
+      {
+        "text": "do i need to keep paying rent if i abandon my apartment",
+        "intent": "faq_likehome_abandon",
+        "entities": []
+      },
+      {
+        "text": "my apartment has infestations of bed bugs",
+        "intent": "faq_likehome_abandon",
+        "entities": []
+      },
+      {
+        "text": "can i leave my apartment even though my lease is not finished",
+        "intent": "faq_likehome_abandon",
+        "entities": []
+      },
+      {
+        "text": "i can’t live in my dwelling anymore",
+        "intent": "faq_likehome_abandon",
+        "entities": []
+      },
+      {
+        "text": "how do I prove to my landlord this is an issue of wear and tear and not negligence",
+        "intent": "faq_likehome_negligence",
+        "entities": []
+      },
+      {
+        "text": "it broke and it wasn’t my fault",
+        "intent": "faq_likehome_negligence",
+        "entities": []
+      },
+      {
+        "text": "how do i ensure the case can’t be spinned into it being negligence",
+        "intent": "faq_likehome_negligence",
+        "entities": []
+      },
+      {
+        "text": "my pipes burst during winter and it’s not my fault",
+        "intent": "faq_likehome_negligence",
+        "entities": []
+      },
+      {
+        "text": "my landlord is trying to say i was negligent and i need to pay for the damages",
+        "intent": "faq_likehome_negligence",
+        "entities": []
+      },
+      {
+        "text": "the ceiling in my bathroom is cracking and my landlord says it’s my fault that i was negligent",
+        "intent": "faq_likehome_negligence",
+        "entities": []
+      },
+      {
+        "text": "my landlord keeps saying it’s my fault the lock broke, how do i prove it’s not?",
+        "intent": "faq_likehome_negligence",
+        "entities": []
+      },
+      {
+        "text": "my landlord disappeared and I need to contact him right now",
+        "intent": "faq_likehome_landlord-contact",
+        "entities": []
+      },
+      {
+        "text": "i can't find my landlord",
+        "intent": "faq_likehome_landlord-contact",
+        "entities": []
+      },
+      {
+        "text": "how do i find my landlord’s contact information",
+        "intent": "faq_likehome_landlord-contact",
+        "entities": []
+      },
+      {
+        "text": "is there a yellowpages for my landlord",
+        "intent": "faq_likehome_landlord-contact",
+        "entities": []
+      },
+      {
+        "text": "i can’t find my landlord’s phone number on the lease",
+        "intent": "faq_likehome_landlord-contact",
+        "entities": []
+      },
+      {
+        "text": "i need to email my landlord",
+        "intent": "faq_likehome_landlord-contact",
+        "entities": []
+      },
+      {
+        "text": "how do i find the representative of the landlord",
+        "intent": "faq_likehome_landlord-contact",
+        "entities": []
+      },
+      {
+        "text": "is there a way i can get the property manager phone number",
+        "intent": "faq_likehome_landlord-contact",
+        "entities": []
+      },
+      {
+        "text": "how do i make a request to my landlord",
+        "intent": "faq_likehome_demand-letter",
+        "entities": []
+      },
+      {
+        "text": "how do I write a demand letter to my landlord",
+        "intent": "faq_likehome_demand-letter",
+        "entities": []
+      },
+      {
+        "text": "how do i make a demand from my landlord",
+        "intent": "faq_likehome_demand-letter",
+        "entities": []
+      },
+      {
+        "text": "what are the steps i need to take to make a proper request out of my landlord",
+        "intent": "faq_likehome_demand-letter",
+        "entities": []
+      },
+      {
+        "text": "is there a way i need to ask my landlord for things",
+        "intent": "faq_likehome_demand-letter",
+        "entities": []
+      },
+      {
+        "text": "how do i write a letter to my landlord",
+        "intent": "faq_likehome_demand-letter",
+        "entities": []
+      },
+      {
+        "text": "how do i find a housing committee",
+        "intent": "faq_likehome_housing-committee",
+        "entities": []
+      },
+      {
+        "text": "how do i find my local housing committee",
+        "intent": "faq_likehome_housing-committee",
+        "entities": []
+      },
+      {
+        "text": "i have housing problems, is there any group that can help me",
+        "intent": "faq_likehome_housing-committee",
+        "entities": []
+      },
+      {
+        "text": "i prefer in-person help i think, can anyone help me",
+        "intent": "faq_likehome_housing-committee",
+        "entities": []
+      },
+      {
+        "text": "is there a way i can locate the closest housing committee to me",
+        "intent": "faq_likehome_housing-committee",
+        "entities": []
+      },
+      {
+        "text": "is there a list somewhere of people that can help me",
+        "intent": "faq_likehome_housing-committee",
+        "entities": []
+      },
+      {
+        "text": "i prefer face to face help, where can i go",
+        "intent": "faq_likehome_housing-committee",
+        "entities": []
+      },
+      {
+        "text": "je parle pas anglais, ou pouvez-vous m’aidez",
+        "intent": "faq_likehome_housing-committee",
+        "entities": []
+      },
+      {
+        "text": "i don’t speak english well help",
+        "intent": "faq_likehome_housing-committee",
+        "entities": []
+      },
+      {
+        "text": "is there anyone that can help me about my housing issues that is not a program",
+        "intent": "faq_likehome_housing-committee",
+        "entities": []
+      },
+      {
+        "text": "yo no hablo ingles",
+        "intent": "faq_likehome_housing-committee",
+        "entities": []
+      },
+      {
+        "text": "how can i provide a credit check to my landlord",
+        "intent": "faq_likehome_credit-check",
+        "entities": []
+      },
+      {
+        "text": "how do i provide a credit check",
+        "intent": "faq_likehome_credit-check",
+        "entities": []
+      },
+      {
+        "text": "how can i get my credit checked",
+        "intent": "faq_likehome_credit-check",
+        "entities": []
+      },
+      {
+        "text": "how can i get my credit score",
+        "intent": "faq_likehome_credit-check",
+        "entities": []
+      },
+      {
+        "text": "how can i generate a credit report",
+        "intent": "faq_likehome_credit-check",
+        "entities": []
       }
     ]
-}
+  }
 }

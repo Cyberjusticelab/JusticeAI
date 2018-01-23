@@ -232,9 +232,13 @@ class Responses:
         ############
         # LikeHome #
         ############
+        "faq_likehome_deposit-request":
+            [
+                "Any key deposits, rent advances, damage deposits, security deposits, etc. are illegal and you are not obliged to pay any of them.|Consider all other requested fees (laundry machine access, pools, kitchen appliances), if already granted in your lease, as illegal too.|Lease transfer fees and sublet fees are also illegal.|However, according to the Civil Code of Quebec (article 1904), your landlord may ask for the first month’s rent to be paid in advance right after the signature of the lease.|Good news though! Even if you signed a document saying you’d pay for any of these fees, they are without effect! You cannot sign away your rights."
+            ],
         "faq_likehome_landlord-harass":
             [
-                "If you are suffering harrasment, find someone to possibly serve as a witness testimony and document the events with the aid of an audio-visual device (ie: cell phone).|You should file an immediate demand letter to your landlord demanding for the harassment to cease and a possible lease resiliation or compensation for moral damages.|If your landlord is not receptive, you may file at the Régie du logement for a hearing. <a href=”http://www.cdpdj.qc.ca/en/droits-de-la-personne/defendre-vos-droits/Pages/porter-plainte.aspx”>The Commission des droits de la personne et des droits de la jeunesse</a> can also give you aid.|Be aware that if you leave your dwelling, you still need to pay unless the regie or the landlord allows you to resiliate your lease."
+                "If you are suffering harassment, find someone to possibly serve as a witness testimony and document the events with the aid of an audio-visual device (ie: cell phone).|You should file an immediate demand letter to your landlord demanding for the harassment to cease and a possible lease resiliation or compensation for moral damages.|If your landlord is not receptive, you may file at the Régie du logement for a hearing. <a href=”http://www.cdpdj.qc.ca/en/droits-de-la-personne/defendre-vos-droits/Pages/porter-plainte.aspx”>The Commission des droits de la personne et des droits de la jeunesse</a> can also give you aid.|Be aware that if you leave your dwelling, you still need to pay unless the regie or the landlord allows you to resiliate your lease."
             ],
         "faq_likehome_emergency":
             [
