@@ -25,7 +25,7 @@ rasaClassifier = RasaClassifier()
 rasaClassifier.train(force_train=False)
 
 # Intent Threshold - Used to determine whether or not Rasa classification was sufficient to determine intent
-intentThreshold = IntentThreshold(min_percent_difference=0.3, min_confidence_threshold=0.3)
+intentThreshold = IntentThreshold(min_percent_difference=0.0, min_confidence_threshold=0.25)
 
 # Outlier detector - Predicts if the new message is a clear outlier based on a model trained with fact messages
 outlier_detector = OutlierDetection()

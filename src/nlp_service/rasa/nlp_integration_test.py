@@ -15,7 +15,7 @@ class TestNLPIntegration(unittest.TestCase):
     def setUpClass(cls):
         cls.rasaClassifier = RasaClassifier()
         cls.rasaClassifier.train(force_train=True)
-        cls.intentThreshold = IntentThreshold(min_percent_difference=0.3, min_confidence_threshold=0.3)
+        cls.intentThreshold = IntentThreshold(min_percent_difference=0, min_confidence_threshold=0.25)
 
     def test_all_claim_category_text(self):
         filepath = os.getcwd() + '/rasa/data/category/claim_category.json'
@@ -31,4 +31,6 @@ class TestNLPIntegration(unittest.TestCase):
                                 determined_claim_category,
                                 classify_dict['intent']['confidence'])
                             )
-            self.assertTrue(determined_claim_category == example['intent'])
+            self.assertTrue(determined_claim_category == example['intent'],
+                            "Wrong Intent Classification\nClassified Intent: {}\nActual Intent: {}\nExample Sentence: {}".format(determined_claim_category, example['intent'], example['text'])
+                            )
