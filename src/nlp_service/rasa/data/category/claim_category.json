@@ -67,11 +67,15 @@
       },
       {
         "name": "visitation without permission ",
-        "pattern": "(visit)|(enter(ed|ing)*)|(apartment)|(dwelling)"
+        "pattern": "(visit)|(enter(ed|ing)*)"
       },
       {
         "name": "nonpayment: haven't paid",
         "pattern": "(haven't)(\\s)(paid)"
+      },
+      {
+        "name": "dwelling",
+        "pattern": "dwelling|apartment|house|place|crib"
       },
       {
         "name": "i am",
@@ -91,11 +95,11 @@
       },
       {
         "name": "gender",
-        "pattern": "him|he|her|she"
+        "pattern": "(him|he|her|she)((')?s)?"
       },
       {
         "name": "spouse/lover",
-        "pattern": "lover('s)?|boyfriend('s)?|girlfriend('s)?|spouse('s)?|husband('s)?|wife('s)?"
+        "pattern": "(ex)?(-)?(lover|boyfriend|girlfriend|spouse|husband|wife)?('s)?"
       },
       {
         "name": "RL31",
@@ -1630,6 +1634,11 @@
       },
       {
         "text": "how do i sublet my dwelling",
+        "intent": "faq_likehome_sublet",
+        "entities": []
+      },
+      {
+        "text": "i want to sublet my dwelling",
         "intent": "faq_likehome_sublet",
         "entities": []
       },

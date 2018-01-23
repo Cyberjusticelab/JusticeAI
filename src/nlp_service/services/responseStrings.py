@@ -248,7 +248,7 @@ class Responses:
             [
                 "Your landlord is not legally allowed to collect personal information such as copies of your study permit, driver’s license, passports, health cards, bank account numbers or even your social insurance number (SIN).|If you’ve given this kind of sensitive information to your landlord, you can:|1. Demand a copy of every piece of sensitive information in a written demand letter sent by registered mail.|2. Demand in a second letter the destruction of said information.|If the landlord doesn’t abide in full to your demand, file a claim with the Commission d’acces a l’information du Quebec (CAIQ). Even if you signed a clause saying you’ll willingly give this information away, you cannot sign away your rights, making that clause legally invalid."
             ],
-        "faq_likehome_rl-31":
+        "faq_likehome_rl31":
             [
                 "The RL-31 allows you to claim your housing as part of the solidarity tax credit. You are eligible to receive the RL-31 if you are a tenant or a subtenant.|Your landlord is responsible for providing you with the RL-31 prior to the last day of February.|If your landlord has not provided you with your RL-31, contact them and ask them to provide one as it is required by law. If they refuse to do so, call Revenu Québec and they will accept a copy of your lease."
             ],
