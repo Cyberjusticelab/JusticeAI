@@ -18,7 +18,7 @@ class TestNLPIntegration(unittest.TestCase):
         cls.rasaClassifier.train(force_train=True)
         cls.intentThreshold = IntentThreshold(min_percent_difference=0.3, min_confidence_threshold=0.4)
 
-    def test_claim_category_lease_termination(self):
+    def test_all_claim_category_text(self):
         filepath = os.getcwd() + '/rasa/data/category/claim_category.json'
         data = json.loads(codecs.open(filepath, 'r', 'utf-8').read().encode('utf-8'))
         example_objects = data['rasa_nlu_data']['common_examples']
