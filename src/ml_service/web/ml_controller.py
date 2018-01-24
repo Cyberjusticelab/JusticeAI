@@ -103,3 +103,6 @@ class MlController:
             return_dict[label] = integer_outcome_vector[outcome_index]
 
         return {'outcomes_vector': return_dict}
+
+print(MlController.indexes)
+print(MlController.classifier_index)
