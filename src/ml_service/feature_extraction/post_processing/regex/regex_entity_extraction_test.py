@@ -64,7 +64,7 @@ class RegexPostLogicTest(unittest.TestCase):
         text = "[3]l'indemnité additionnelle prévue à l'article 1619 C.c.Q., à compter du 9ème octobre 2014. random text"
         regex_array = [
             re.compile(
-                r"l'indemnité additionnelle prévue à l'article 1619 C\.c\.Q\., à compter du \K(?i)\d{1,2}(er|ere|em|eme)? \w{3,9} \d{4}",
+                r"l'indemnité additionnelle prévue à l'article 1619 C\.c\.Q\., à compter du \K(?i)\d{1,2}(er|èr|ere|em|eme|ème)? \w{3,9} \d{4}",
                 re.IGNORECASE
             )
         ]
