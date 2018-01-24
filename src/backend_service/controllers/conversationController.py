@@ -97,7 +97,6 @@ def receive_message(conversation_id, message):
     conversation = __get_conversation(conversation_id)
 
     response_text = None
-    response_html = None
     file_request = None
     possible_answers = None
     additional_info = None
@@ -107,7 +106,7 @@ def receive_message(conversation_id, message):
 
     # First message in the conversation
     if len(conversation.messages) == 0:
-        response_html = StaticStrings.chooseFrom(StaticStrings.disclaimer).format(name=conversation.name)
+        response_text = StaticStrings.chooseFrom(StaticStrings.disclaimer).format(name=conversation.name)
         possible_answers = json.dumps(["Yes"])
         enforce_possible_answer = True
     else:
@@ -133,14 +132,6 @@ def receive_message(conversation_id, message):
             enforce_possible_answer=enforce_possible_answer,
             relevant_fact=conversation.current_fact
         )
-    elif response_html is not None:
-        response = Message(
-            sender_type=SenderType.BOT,
-            text=response_html,
-            possible_answers=possible_answers,
-            enforce_possible_answer=enforce_possible_answer,
-            relevant_fact=conversation.current_fact
-        )
     else:
         return abort(make_response(jsonify(message="Response text not generated"), 400))
 
@@ -158,31 +149,12 @@ def receive_message(conversation_id, message):
 
     if response_text is not None:
         response_dict['message'] = response_text
-    if response_html is not None:
-        response_dict['html'] = response_html
     if file_request is not None:
         response_dict['file_request'] = FileRequestSchema().dump(file_request).data
     if possible_answers is not None:
         response_dict['possible_answers'] = possible_answers
         if enforce_possible_answer:
             response_dict['enforce_possible_answer'] = True
-
-    # Get the last extracted fact entity
-    if len(conversation.fact_entities) > 0 and conversation.fact_entities[-1]:
-        fact_entity_value = conversation.fact_entities[-1].value
-
-        # Get the last fact name
-        if user_message and user_message.relevant_fact:
-            fact_name = user_message.relevant_fact.name
-
-            if 'message' in response_dict:
-                key = 'message'
-            if 'html' in response_dict:
-                key = 'html'
-
-            # Format new bot response with prediction information
-            response_dict[key] = "Prediction: " + fact_name + '=' + fact_entity_value + \
-                                 '<br/><br/>' + "Next question: " + response_dict[key]
 
     return jsonify(response_dict)
 

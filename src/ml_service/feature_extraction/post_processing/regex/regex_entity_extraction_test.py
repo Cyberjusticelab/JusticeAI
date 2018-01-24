@@ -1,6 +1,6 @@
 import unittest
 from feature_extraction.post_processing.regex.regex_entity_extraction import EntityExtraction
-import re
+import regex as re
 
 
 class RegexPostLogicTest(unittest.TestCase):
@@ -59,3 +59,17 @@ class RegexPostLogicTest(unittest.TestCase):
         result = EntityExtraction.match_any_regex(text, regex_array, regex_type)
         self.assertTrue(result[0])
         self.assertEqual(result[1], 1)
+
+    def test_match_date(self):
+        text = "[3]l'indemnité additionnelle prévue à l'article 1619 C.c.Q., à compter du 9èr octobre 2014. random text"
+        regex_array = [
+            re.compile(
+                r"l'indemnité additionnelle prévue à l'article 1619 C\.c\.Q\., à compter du \K(?i)\d{1,2}(er|èr|ere|em|eme|ème)? \w{3,9} \d{4}",
+                re.IGNORECASE
+            )
+        ]
+        regex_type = 'DATE_REGEX'
+        result = EntityExtraction.match_any_regex(text, regex_array, regex_type)
+        self.assertTrue(result[0])
+        self.assertEqual(result[1], 1412812800.0)
+

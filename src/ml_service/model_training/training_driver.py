@@ -1,4 +1,5 @@
 from model_training.classifier.multi_class_svm import MultiClassSVM
+from model_training.regression.multi_class_svr import MultiClassSVR
 from model_training.similar_finder.similar_finder import SimilarFinder
 from util.file import Load
 from util.log import Log
@@ -39,7 +40,9 @@ def __dictionary_to_list():
 class CommandEnum:
     SVM = "--svm"
     SIMILARITY_FINDER = "--sf"
-    command_list = [SVM, SIMILARITY_FINDER]
+    SVR = "--svr"
+    EVALUATE = "--evaluate"
+    command_list = [SVM, SIMILARITY_FINDER, SVR, EVALUATE]
 
 
 def run(command_list):
@@ -78,6 +81,14 @@ def run(command_list):
         linear_svm = MultiClassSVM(precedent_vector)
         linear_svm.train()
         linear_svm.save()
+
+    if CommandEnum.SVR in command_list:
+        regression_svr = MultiClassSVR(precedent_vector)
+        if CommandEnum.EVALUATE in command_list:
+            regression_svr.evaluate_best_parameters()
+        else:
+            regression_svr.train()
+            regression_svr.save()
 
     if CommandEnum.SIMILARITY_FINDER in command_list:
         SimilarFinder(train=True, dataset=precedent_vector)
