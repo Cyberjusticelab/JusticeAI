@@ -13,3 +13,4 @@ server.log
 /data/raw/**/*.txt
 /data/cluster/fact/*.txt
 /data/cluster/decision/*.txt
+!/data/binary/regexes.bin
