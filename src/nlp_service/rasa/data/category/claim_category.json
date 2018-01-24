@@ -1745,7 +1745,7 @@
         "entities": []
       },
       {
-        "text": "how do I go about subletting my dwelling",
+        "text": "how do i go about subletting my dwelling",
         "intent": "faq_likehome_sublet",
         "entities": []
       },
@@ -1825,7 +1825,7 @@
         "entities": []
       },
       {
-        "text": "how do I prove to my landlord this is an issue of wear and tear and not negligence",
+        "text": "how do i prove to my landlord this is an issue of wear and tear and not negligence",
         "intent": "faq_likehome_negligence",
         "entities": []
       },
@@ -1905,7 +1905,17 @@
         "entities": []
       },
       {
-        "text": "how do I write a demand letter to my landlord",
+        "text": "i want to give my landlord a demand letter",
+        "intent": "faq_likehome_demand-letter",
+        "entities": []
+      },
+      {
+        "text": "i need to write a demand letter to my landlord",
+        "intent": "faq_likehome_demand-letter",
+        "entities": []
+      },
+      {
+        "text": "how do i write a demand letter to my landlord",
         "intent": "faq_likehome_demand-letter",
         "entities": []
       },
@@ -1982,6 +1992,26 @@
       {
         "text": "yo no hablo ingles",
         "intent": "faq_likehome_housing-committee",
+        "entities": []
+      },
+      {
+        "text": "i am going to have my credit checked",
+        "intent": "faq_likehome_credit-check",
+        "entities": []
+      },
+      {
+        "text": "i have to check my credit",
+        "intent": "faq_likehome_credit-check",
+        "entities": []
+      },
+      {
+        "text": "i need to provide a credit check",
+        "intent": "faq_likehome_credit-check",
+        "entities": []
+      },
+      {
+        "text": "credit check",
+        "intent": "faq_likehome_credit-check",
         "entities": []
       },
       {

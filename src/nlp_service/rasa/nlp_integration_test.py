@@ -26,10 +26,11 @@ class TestNLPIntegration(unittest.TestCase):
             classify_dict = self.rasaClassifier.classify_problem_category(example['text'])
             determined_claim_category = classify_dict['intent']['name']
             self.assertTrue(self.intentThreshold.is_sufficient(classify_dict),
-                            "Insufficient Confidence - Intent: {}, Confidence {}"
+                            "Insufficient Confidence - Intent: {}\nConfidence {}\nExample Sentence: {}"
                             .format(
                                 determined_claim_category,
-                                classify_dict['intent']['confidence'])
+                                classify_dict['intent']['confidence'],
+                                example['text'])
                             )
             self.assertTrue(determined_claim_category == example['intent'],
                             "Wrong Intent Classification\nClassified Intent: {}\nActual Intent: {}\nExample Sentence: {}".format(determined_claim_category, example['intent'], example['text'])
