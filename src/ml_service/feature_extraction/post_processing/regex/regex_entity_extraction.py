@@ -3,14 +3,15 @@ import re
 import datetime
 import time
 import util.log as logger
+import unicodedata
 
 
 class EntityExtraction:
     log = logger.Log()
     regex_bin = None
     one_day = 86400 # unix time for 1 day
-    month_dict = {'janvier': 1, 'février': 2, 'mars': 3, 'avril': 4, 'mai': 5, 'juin': 6,
-                  'juillet': 7, 'août': 8, 'septembre': 9, "octobre": 10, 'novembre': 11, 'décembre': 12}
+    month_dict = {'janvier': 1, 'fevrier': 2, 'mars': 3, 'avril': 4, 'mai': 5, 'juin': 6,
+                  'juillet': 7, 'aout': 8, 'septembre': 9, "octobre": 10, 'novembre': 11, 'decembre': 12}
 
     def __init__(self):
         pass
@@ -51,6 +52,10 @@ class EntityExtraction:
         :return: (boolean, int)
         """
 
+        # removes accents
+        nfkd_form = unicodedata.normalize('NFKD', sentence)
+        sentence = u"".join([c for c in nfkd_form if not unicodedata.combining(c)])
+
         if regex_type == 'BOOLEAN':
             return True, 1
 
@@ -82,8 +87,6 @@ class EntityExtraction:
                     EntityExtraction.log.write("mistake in month name : " + date_components[1])
                     return False, 0
 
-                date_components[2] = date_components[2]
-
                 unix_time = EntityExtraction.__date_to_unix(date_components)
                 if unix_time:
                     return True, unix_time
@@ -93,7 +96,7 @@ class EntityExtraction:
     @staticmethod
     def __date_to_unix(date):
         """
-        Given a date list (ex: [30,12,2019]) this function gets the unix time the represents this date
+        Given a date list (ex: [30,12,2019]) this function gets the unix time that represents this date
         :param date: date to convert into unix time
         :return: unix time representing the input date
         """
