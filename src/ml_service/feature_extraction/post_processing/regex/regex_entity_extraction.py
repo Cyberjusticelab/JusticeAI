@@ -75,14 +75,17 @@ class EntityExtraction:
             """
             if len(date_components) == 3:
                 date_components[0] = re.sub(r"er|ere|em|eme", "", date_components[0])
+
                 try:
                     date_components[1] = str(EntityExtraction.month_dict[date_components[1]])
                 except KeyError:
                     EntityExtraction.log.write("mistake in month name : " + date_components[1])
                     return False, 0
+
                 date_components[2] = date_components[2]
+
                 unix_time = EntityExtraction.__date_to_unix(date_components)
-                if unix_time is not None:
+                if unix_time:
                     return True, unix_time
 
         return False, 0
@@ -97,12 +100,10 @@ class EntityExtraction:
         date_string = " ".join(date)
         try:
             unix_time = time.mktime(datetime.datetime.strptime(date_string, '%d %m %Y').timetuple())
-        except ValueError as error:
+        except (ValueError, OverflowError) as error:
             EntityExtraction.log.write(str(error) + ": " + str(date_string))
             return None
-        except OverflowError as error:
-            EntityExtraction.log.write(str(error) + ": " + str(date_string))
-            return None
+
         return unix_time
 
     @staticmethod
