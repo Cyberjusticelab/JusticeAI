@@ -1,5 +1,5 @@
 import unittest
-from util.create_json import CreateJson
+from util.parse_dataset import CreateJson
 
 
 class TestMain(unittest.TestCase):

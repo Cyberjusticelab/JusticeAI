@@ -3,7 +3,7 @@ import os
 from util.models.meta_dict import MetaDict
 from util.models.regex_model import RegexModel
 from util.models.synonym_model import SynonymModel
-from util.models.intent_model import IntentModel
+from util.models.common_example_model import CommonExampleModel
 
 class StateEnum:
     NONE = 0
@@ -19,6 +19,20 @@ class CreateJson:
     ENTITY_SYNONYM_HEADER = re.compile('\[entity_synonyms\]')
     TEXT_HEADER = re.compile('\[common_examples:.*\]')
     EMPTY_LINE = re.compile('\s*')
+
+    nlu_dict = {"rasa_nlu_data":
+        {
+            "regex_features": [
+
+            ],
+            "entity_synonyms": [
+                
+            ],
+            "common_examples": [
+
+            ]
+        }
+    }
 
     def __init__(self):
         self.current_intent = ""
@@ -41,6 +55,9 @@ class CreateJson:
             with open(file, "r") as myfile:
                 text = myfile.readlines()
             self.parse_file(text)
+            self.nlu_dict['rasa_nlu_data']['regex_features'] += self.regex_list
+            self.nlu_dict['rasa_nlu_data']['entity_synonyms'] += self.synonym_list
+            self.nlu_dict['rasa_nlu_data']['common_examples'] += self.intent_list
 
     def parse_file(self, file):
         self.state = StateEnum.NONE
@@ -108,7 +125,7 @@ class CreateJson:
         return syn_dict.syn_dict
 
     def find_text(self, line):
-        intent_dict = IntentModel().intent_dict
+        intent_dict = CommonExampleModel().intent_dict
         text = line
         intent_dict['text'] = text
         intent_dict['intent'] = self.current_intent
