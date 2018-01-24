@@ -53,7 +53,7 @@ class CreateJson:
         for file in os.listdir(read_dir):
             self.reset()
             with open(file, "r") as myfile:
-                text = myfile.readlines()
+                text = myfile.read()
 
             self.parse_file(text)
             self.nlu_dict['rasa_nlu_data']['regex_features'] = self.regex_list
