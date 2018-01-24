@@ -117,7 +117,7 @@ class TestTrainingDriver(unittest.TestCase):
         ]}
     MlController.classifier_index = mock_classifier_index
     MlController.indexes = mock_index
-    
+
     def test_dict_to_int_vector(self):
         # Test data
         input_json = json.loads(self.test_json)

@@ -39,10 +39,10 @@ class MlController:
         """
 
         int_facts_vector = MlController.dict_to_int_vector(input_json['facts'])
-        integer_outcome_vector = MlController.regression_model.predict(int_facts_vector)
+        integer_outcome_vector = MlController.regression_model.predict(int_facts_vector)[0]
 
         bool_facts_vector = MlController.dict_to_bool_vector(input_json['facts'])
-        binary_outcome_vector = MlController.classifier_model.predict(bool_facts_vector)
+        binary_outcome_vector = MlController.classifier_model.predict(bool_facts_vector)[0]
 
         return MlController.vector_to_dict(binary_outcome_vector, integer_outcome_vector)
 
@@ -103,6 +103,3 @@ class MlController:
             return_dict[label] = integer_outcome_vector[outcome_index]
 
         return {'outcomes_vector': return_dict}
-
-print(MlController.indexes)
-print(MlController.classifier_index)
