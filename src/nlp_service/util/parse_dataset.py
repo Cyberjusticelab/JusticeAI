@@ -25,9 +25,6 @@ class CreateJson:
             "regex_features": [
 
             ],
-            "entity_synonyms": [
-                
-            ],
             "common_examples": [
 
             ]
@@ -56,7 +53,6 @@ class CreateJson:
                 text = myfile.readlines()
             self.parse_file(text)
             self.nlu_dict['rasa_nlu_data']['regex_features'] += self.regex_list
-            self.nlu_dict['rasa_nlu_data']['entity_synonyms'] += self.synonym_list
             self.nlu_dict['rasa_nlu_data']['common_examples'] += self.intent_list
 
     def parse_file(self, file):
@@ -149,7 +145,7 @@ class CreateJson:
                     "entity": entity,
                 }
                 if extractor is not "":
-                    ent_dict['extrator'] = extractor
+                    ent_dict['extractor'] = extractor
 
                 entity_list.append(ent_dict)
 

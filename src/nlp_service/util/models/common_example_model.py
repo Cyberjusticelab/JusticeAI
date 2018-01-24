@@ -4,12 +4,5 @@ class CommonExampleModel:
             "text": "",
             "intent": "",
             "entities": [
-                {
-                    "start": "",
-                    "end": "",
-                    "value": "chinese",
-                    "entity": "cuisine",
-                    "extractor": "ner_mitie",
-                }
             ]
         }
