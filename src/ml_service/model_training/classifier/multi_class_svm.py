@@ -47,7 +47,7 @@ class MultiClassSVM:
         :param y_test:
         :return: None
         """
-        indices = TagPrecedents().get_intent_indice()['outcomes_vector']
+        index = TagPrecedents().get_intent_index()['outcomes_vector']
         Log.write("Testing Classifier")
         y_predict = self.model.predict(x_test)
         Log.write("Classifier results:\n")
@@ -56,7 +56,7 @@ class MultiClassSVM:
             yt = y_test[:, [i]]
             num_correct = np.sum(yp == yt)
             (precision, recall, f1, _) = precision_recall_fscore_support(yt, yp)
-            Log.write('Column: {}'.format(indices[self.mlb.classes_[i]][1]))
+            Log.write('Column: {}'.format(index[self.mlb.classes_[i]][1]))
             Log.write('Test accuracy: {}%'.format(
                 num_correct * 100.0 / len(yt)))
             Log.write('Precision: {}'.format(precision))
@@ -101,7 +101,7 @@ class MultiClassSVM:
         """
         # ------------------- 1 -----------------------------
         linear_labels = {}
-        indices = TagPrecedents().get_intent_indice()['outcomes_vector']
+        indices = TagPrecedents().get_intent_index()['outcomes_vector']
         for i in range(len(self.mlb.classes_)):
             linear_labels[i] = indices[self.mlb.classes_[i]][1]
         save = Save()
@@ -124,6 +124,21 @@ class MultiClassSVM:
         :return: OneVsRestClassifier(SVC())
         """
         self.model = Load.load_binary("multi_class_svm_model.bin")
+
+    def load_classifier_index(self):
+        """
+        The prediction given by the model gives a matrix with less dimensions
+        then the total outcomes. The reason being that only boolean outcomes
+        are kept in the prediction. We therefore have to relabel the columns.
+
+        :return: Dict of classifier labels
+                 dict:{
+                    "column 1": <int>,
+                    "column 2": <int>,
+                    ...
+                 }
+        """
+        return Load.load_binary('classifier_labels.bin')
 
     def reshape_dataset(self):
         """
