@@ -143,7 +143,19 @@
       },
       {
         "name": "landlord-contact",
-        "pattern": "(contact)|(yellow page(s)?)|(phone)|(number)|(email)(in touch)",
+        "pattern": "(contact)|(yellow page(s)?)|(phone)|(number)|(email)(in touch)"
+      },
+      {
+        "name":"demand-letter",
+        "pattern": "(demand( letter)?)|(request)|(ask)|(letter)"
+      },
+      {
+        "name": "housing-committee",
+        "pattern": "(housing(( committee)|( problems))?)|(help)|(aidez)"
+      },
+      {
+        "name":"credit check",
+        "pattern": "(credit( score| check| report)?)"
       }
     ],
     "common_examples": [
