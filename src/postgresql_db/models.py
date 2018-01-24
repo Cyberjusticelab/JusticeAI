@@ -33,7 +33,6 @@ class ClaimCategory(Enum):
     LEASE_TERMINATION = "LEASE_TERMINATION"
     RENT_CHANGE = "RENT_CHANGE"
     NONPAYMENT = "NONPAYMENT"
-    DEPOSITS = "DEPOSITS"
 
 
 class FactType(Enum):
