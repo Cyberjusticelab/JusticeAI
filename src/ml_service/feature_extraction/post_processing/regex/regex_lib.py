@@ -10,6 +10,7 @@ class RegexLib:
     TENANT_REGEX = r"locataire(s)?"
     LANDLORD_REGEX = r"locat(eur|rice)(s)?"
     DEMAND_REGEX = r"(demand|réclam)(ait|e|ent|aient)"
+    DATE_REGEX = r"(?i)\d{1,2}(er|èr|ere|em|eme|ème)? \w{3,9} \d{4}"
 
     def __multiple_words(min, max):
         return r"(\w+(\s|'|,\s)){" + str(min) + "," + str(max) + "}"
@@ -742,13 +743,13 @@ class RegexLib:
     regex_outcomes = [
         ("additional_indemnity_date", [
             re.compile(
-                r"l'indemnité additionnelle prévue à l'article 1619 C\.c\.Q\., à compter du \K(\d+ \w+ \d+)",
+                r"l'indemnité additionnelle prévue à l'article 1619 C\.c\.Q\., à compter du \K" + DATE_REGEX,
                 re.IGNORECASE
             )
-        ], "DATE"),
+        ], "DATE_REGEX"),
         ("additional_indemnity_money", [
             re.compile(
-                r"l'indemnité additionnelle prévue à l'article 1619 C\.c\.Q\., à compter du \d+ \w+ \d+ sur la somme de \K" + MONEY_REGEX,
+                r"l'indemnité additionnelle prévue à l'article 1619 C\.c\.Q\., à compter du " + DATE_REGEX + " sur la somme de \K" + MONEY_REGEX,
                 re.IGNORECASE
             )
         ], "MONEY_REGEX"),
