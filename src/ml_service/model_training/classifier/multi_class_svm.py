@@ -47,15 +47,21 @@ class MultiClassSVM:
         :param y_test:
         :return: None
         """
+        indices = TagPrecedents().get_intent_indice()['outcomes_vector']
         Log.write("Testing Classifier")
         y_predict = self.model.predict(x_test)
-        num_correct = np.sum(y_predict == y_test)
-        (precision, recall, f1, _) = precision_recall_fscore_support(y_test, y_predict)
-        Log.write('Test accuracy: {}%'.format(
-            num_correct * 100.0 / len(y_test)))
-        Log.write('Precision: {}'.format(precision))
-        Log.write('Recall: {}'.format(recall))
-        Log.write('F1: {}'.format(f1))
+        Log.write("Classifier results:\n")
+        for i in range(len(y_predict[0])):
+            yp = y_predict[:, [i]]
+            yt = y_test[:, [i]]
+            num_correct = np.sum(yp == yt)
+            (precision, recall, f1, _) = precision_recall_fscore_support(yt, yp)
+            Log.write('Column: {}'.format(indices[self.mlb.classes_[i]][1]))
+            Log.write('Test accuracy: {}%'.format(
+                num_correct * 100.0 / len(yt)))
+            Log.write('Precision: {}'.format(precision))
+            Log.write('Recall: {}'.format(recall))
+            Log.write('F1: {}\n'.format(f1))
 
     def train(self):
         """
@@ -150,6 +156,11 @@ class MultiClassSVM:
         # --------------------1--------------------------
         x_total = np.array(
             [np.reshape(precedent['facts_vector'], (len(precedent['facts_vector'],))) for precedent in self.data_set])
+
+        for i in range(len(x_total)):
+            for j in range(len(x_total[i])):
+                if x_total[i][j] > 1:
+                    x_total[i][j] = 1
 
         # --------------------2--------------------------
         y_list = []
