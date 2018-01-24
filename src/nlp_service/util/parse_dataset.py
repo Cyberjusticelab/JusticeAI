@@ -4,6 +4,9 @@ from util.models.meta_dict import MetaDict
 from util.models.regex_model import RegexModel
 from util.models.synonym_model import SynonymModel
 from util.models.common_example_model import CommonExampleModel
+import sys
+import json
+
 
 class StateEnum:
     NONE = 0
@@ -46,14 +49,19 @@ class CreateJson:
         self.intent_list = []
         self.meta_string = ""
 
-    def parse_directory(self, directory):
-        for file in os.listdir(directory):
+    def parse_directory(self, read_dir, save_dir):
+        for file in os.listdir(read_dir):
             self.reset()
             with open(file, "r") as myfile:
                 text = myfile.readlines()
+
             self.parse_file(text)
-            self.nlu_dict['rasa_nlu_data']['regex_features'] += self.regex_list
-            self.nlu_dict['rasa_nlu_data']['common_examples'] += self.intent_list
+            self.nlu_dict['rasa_nlu_data']['regex_features'] = self.regex_list
+            self.nlu_dict['rasa_nlu_data']['common_examples'] = self.intent_list
+
+            filename = save_dir + file.split('.')[0] + '.json'
+            with open(filename, 'w') as fp:
+                json.dump(self.nlu_dict, fp)
 
     def parse_file(self, file):
         self.state = StateEnum.NONE
@@ -152,3 +160,10 @@ class CreateJson:
         intent_dict['entities'] = entity_list
         intent_dict['text'] = text
         return intent_dict
+
+
+if __name__ == '__main__':
+    read_directory = sys.argv[1]
+    save_directory = sys.argv[2]
+    parser = CreateJson()
+    parser.parse_directory(read_directory, save_directory)

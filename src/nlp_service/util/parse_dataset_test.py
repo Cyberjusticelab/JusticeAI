@@ -100,7 +100,7 @@ i don't owe my landlord any (money)
                 'text': 'my landlord increased my rent by $500',
                 'entities': [
                     {
-                        'extrator': 'ner_duckling',
+                        'extractor': 'ner_duckling',
                         'end': 37,
                         'value': '$500',
                         'start': 33,
@@ -112,7 +112,7 @@ i don't owe my landlord any (money)
              'text': 'i owe my landlord 40 dollars',
              'entities': [
                  {
-                     'extrator': 'ner_duckling',
+                     'extractor': 'ner_duckling',
                      'end': 28,
                      'value': '40 dollars',
                      'start': 18,
@@ -125,7 +125,7 @@ i don't owe my landlord any (money)
                 'text': "i don't owe my landlord any money    ",
                 'entities': [
                     {
-                        'extrator': 'ner_duckling',
+                        'extractor': 'ner_duckling',
                         'end': 33,
                         'value': 'money',
                         'start': 28,
