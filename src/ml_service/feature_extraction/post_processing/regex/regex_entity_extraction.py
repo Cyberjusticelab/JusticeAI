@@ -54,7 +54,7 @@ class EntityExtraction:
 
         # removes accents
         nfkd_form = unicodedata.normalize('NFKD', sentence)
-        sentence = u"".join([c for c in nfkd_form if not unicodedata.combining(c)])
+        sentence = u"".join([character for character in nfkd_form if not unicodedata.combining(character)])
 
         if regex_type == 'BOOLEAN':
             return True, 1
