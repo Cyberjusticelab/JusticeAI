@@ -10,7 +10,7 @@ class RegexLib:
     TENANT_REGEX = r"locataire(s)?"
     LANDLORD_REGEX = r"locat(eur|rice)(s)?"
     DEMAND_REGEX = r"(demand|réclam)(ait|e|ent|aient)"
-    DATE_REGEX = r"(?i)\d{1,2}(er|ere|em|eme)? \w{3,9} \d{4}"
+    DATE_REGEX = r"(?i)\d{1,2}(er|èr|ere|em|eme|ème)? \w{3,9} \d{4}"
 
     def __multiple_words(min, max):
         return r"(\w+(\s|'|,\s)){" + str(min) + "," + str(max) + "}"
