@@ -124,6 +124,26 @@
       {
         "name": "spouse-violence",
         "pattern": "(violen(t|ce)?)|(hit(s/ting)?)|(beat(s|ing)?)|(abus(ive|ed|ing)?)|(rape(d)?)"
+      },
+      {
+        "name": "lease-transfer",
+        "pattern": "(transfer(ring)?)|(give)"
+      },
+      {
+        "name": "sublet",
+        "pattern": "(sub(let(ting)?)|(tenant)?)"
+      },
+      {
+        "name": "abandoning",
+        "pattern": "(abandon)|(leave)"
+      },
+      {
+        "name": "Negligence",
+        "pattern": "(wear and tear)|(negligen(ce|t)?)|(fault)"
+      },
+      {
+        "name": "landlord-contact",
+        "pattern": "(contact)|(yellow page(s)?)|(phone)|(number)|(email)(in touch)",
       }
     ],
     "common_examples": [
