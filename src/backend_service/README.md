@@ -109,16 +109,42 @@ Provide the conversation_id and a message. Message should be empty string for fi
 
 **Content examples**
 
-Simple response containing a message.
+Simple response containing a message. Messages may contain pipe characters (|) which indicate that a sentence should be split into separate conversation windows. Note that the first message will not contain a pipe character. Each subsequent sentence will begin with a pipe character if it is meant to be split.
+
+### Example 1:
 
 ```json
 {
     "conversation_id": 1,
-    "message": "Hello Tim Timmens, what kind of problem are you having?"
+    "message": "Hello Tim Timmens!|What kind of problem are you having?"
 }
 ```
 
-Response containing a request for a file.
+This can be formatted as:
+
+Message 1: Hello Tim Timmens!
+
+Message 2: What kind of problem are you having?
+
+### Example 2:
+
+```json
+{
+    "conversation_id": 5,
+    "message": "Oh I see you're having problems with lease termination!|I have a few questions for you.|Do you have a lease?"
+}
+```
+
+This can be formatted as:
+
+Message 1: Oh I see you're having problems with lease termination!
+
+Message 2: I have a few questions for you.
+
+Message 3: Do you have a lease
+
+
+### Response containing a request for a file.
 
 ```json
 {

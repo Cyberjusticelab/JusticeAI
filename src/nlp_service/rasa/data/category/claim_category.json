@@ -38,99 +38,127 @@
         "pattern": "(hearing)|(meeting)|(reschedule)"
       },
       {
-        "name": "Leaving: tenants leave without pay",
+        "name": "leaving: tenants leave without pay",
         "pattern": "(left)|(pursu[^\\s])|(bail[^\\s])|((ow)[^\\s])|(diced)|(nowhere)|(disappear[^\\s]*)"
       },
       {
-        "name": "Lease: trying to cancel lease ",
+        "name": "lease: trying to cancel lease ",
         "pattern": "(cancel)|(void)|(revoke[^\\s])|(go back on)|(return)"
       },
       {
-        "name": "Not having a lease",
+        "name": "not having a lease",
         "pattern": "(leav[^\\s])|(ditch)|(sign)|(have)"
       },
       {
-        "name": "Repairs: Trying to reduce rent with repairs && landlord not repairing ",
+        "name": "repairs: trying to reduce rent with repairs && landlord not repairing ",
         "pattern": "(repair)|(fix)|(remov[^\\s])|(deduct[^\\s])|(rent)"
       },
       {
-        "name": "Habitability: noise ",
+        "name": "habitability: noise ",
         "pattern": "(nois[^\\s])|(loud)"
       },
       {
-        "name": "Repairs landlord pay",
+        "name": "repairs landlord pay",
         "pattern": "(repair)|(fix)|(toilet[^\\s])|(sink[^\\s])|(broke[^\\s])"
       },
       {
-        "name": "Habitability: temperature ",
-        "pattern": "(heat(ing)*)|(cold)|(freez(e|ing)*)|([0-9]+(C|c|F|f))"
+        "name": "habitability: temperature ",
+        "pattern": "(heat(ing)*)|(cold)|(freez(e|ing)*)|([0-9]+(c|c|f|f))"
       },
       {
-        "name": "Visitation without permission ",
-        "pattern": "(visit)|(enter(ed|ing)*)|(apartment)|(dwelling)"
+        "name": "visitation without permission ",
+        "pattern": "(visit)|(enter(ed|ing)*)"
       },
       {
         "name": "nonpayment: haven't paid",
         "pattern": "(haven't)(\\s)(paid)"
       },
       {
-        "name": "I am",
+        "name": "dwelling",
+        "pattern": "dwelling|apartment|house|place|crib"
+      },
+      {
+        "name": "i am",
         "pattern": "im|i'm|i am"
       },
       {
-        "name": "Will not",
+        "name": "will not",
         "pattern": "won't|will not"
       },
       {
-        "name": "Has not",
+        "name": "has not",
         "pattern": "hasn't|has not"
       },
       {
-        "name": "Eviction",
+        "name": "eviction",
         "pattern": "evict|evicted|kicked|kick"
+      },
+      {
+        "name": "gender",
+        "pattern": "(him|he|her|she)((')?s)?"
+      },
+      {
+        "name": "spouse/lover",
+        "pattern": "(ex)?(-)?(lover|boyfriend|girlfriend|spouse|husband|wife)?('s)?"
+      },
+      {
+        "name": "RL31",
+        "pattern": "rl(-)?31"
+      },
+      {
+        "name": "rent in advance",
+        "pattern": "(in advance)"
+      },
+      {
+        "name":"landlord harassing",
+        "pattern": "(harass(ing|ed|es)?)|(creep(y)?)|(lewd)"
+      },
+      {
+        "name":"emergency",
+        "pattern":"emergency"
+      },
+      {
+        "name":"personal info",
+        "pattern": "sin|card|copy|photocopy|permit|license"
+      },
+      {
+        "name": "spouse-violence",
+        "pattern": "(violen(t|ce)?)|(hit(s/ting)?)|(beat(s|ing)?)|(abus(ive|ed|ing)?)|(rape(d)?)"
+      },
+      {
+        "name": "lease-transfer",
+        "pattern": "(transfer(ring)?)|(give)"
+      },
+      {
+        "name": "sublet",
+        "pattern": "(sub(let(ting)?)|(tenant)?)"
+      },
+      {
+        "name": "abandoning",
+        "pattern": "(abandon)|(leave)"
+      },
+      {
+        "name": "Negligence",
+        "pattern": "(wear and tear)|(negligen(ce|t)?)|(fault)"
+      },
+      {
+        "name": "landlord-contact",
+        "pattern": "(contact)|(yellow page(s)?)|(phone)|(number)|(email)(in touch)"
+      },
+      {
+        "name":"demand-letter",
+        "pattern": "(demand( letter)?)|(request)|(ask)|(letter)"
+      },
+      {
+        "name": "housing-committee",
+        "pattern": "(housing(( committee)|( problems))?)|(help)|(aidez)"
+      },
+      {
+        "name":"credit check",
+        "pattern": "(credit( score| check| report)?)"
       }
     ],
     "common_examples": [
-      {
-        "text": "my landlord is asking me for a deposit",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "my landlord wants me to pay for one month in advance",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "i'm being asked for a deposit",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "my landlord wants rent in advance",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "my landlord wants payment in advance",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "my landlord is asking me for a security deposit",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "my landlord is asking me for a key deposit",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "my landlord is asking me for a rent deposit",
-        "intent": "ask_deposit",
-        "entities": []
-      },
       {
         "text": "to end my lease",
         "intent": "ask_lease_termination",
@@ -167,56 +195,6 @@
         "entities": []
       },
       {
-        "text": "i want to move out",
-        "intent": "ask_lease_termination",
-        "entities": []
-      },
-      {
-        "text": "i want to leave",
-        "intent": "ask_lease_termination",
-        "entities": []
-      },
-      {
-        "text": "i want to leave the place",
-        "intent": "ask_lease_termination",
-        "entities": []
-      },
-      {
-        "text": "i want to leave the place",
-        "intent": "ask_lease_termination",
-        "entities": []
-      },
-      {
-        "text": "i want to leave the house",
-        "intent": "ask_lease_termination",
-        "entities": []
-      },
-      {
-        "text": "i want to leave my place",
-        "intent": "ask_lease_termination",
-        "entities": []
-      },
-      {
-        "text": "i want to leave my apartment",
-        "intent": "ask_lease_termination",
-        "entities": []
-      },
-      {
-        "text": "i want to leave my house",
-        "intent": "ask_lease_termination",
-        "entities": []
-      },
-      {
-        "text": "my tenant left the apartment",
-        "intent": "ask_lease_termination",
-        "entities": []
-      },
-      {
-        "text": "the tenant left the apartment",
-        "intent": "ask_lease_termination",
-        "entities": []
-      },
-      {
         "text": "i'd like to terminate my lease",
         "intent": "ask_lease_termination",
         "entities": []
@@ -224,6 +202,11 @@
       {
         "text": "i want to break my lease",
         "intent": "ask_lease_termination",
+        "entities": []
+      },
+      {
+        "text": "they have not paid rent",
+        "intent": "ask_nonpayment",
         "entities": []
       },
       {
@@ -242,12 +225,22 @@
         "entities": []
       },
       {
+        "text": "they owe me for rent",
+        "intent": "ask_nonpayment",
+        "entities": []
+      },
+      {
         "text": "tenant hasn't paid rent",
         "intent": "ask_nonpayment",
         "entities": []
       },
       {
         "text": "tenant hasn't paid rent in a while",
+        "intent": "ask_nonpayment",
+        "entities": []
+      },
+      {
+        "text": "they have not paid me for rent",
         "intent": "ask_nonpayment",
         "entities": []
       },
@@ -272,13 +265,83 @@
         "entities": []
       },
       {
+        "text": "my tenants owe me rent money",
+        "intent": "ask_nonpayment",
+        "entities": []
+      },
+      {
+        "text": "they are late on rent payments",
+        "intent": "ask_nonpayment",
+        "entities": []
+      },
+      {
+        "text": "rent payments have not gone through",
+        "intent": "ask_nonpayment",
+        "entities": []
+      },
+      {
         "text": "i haven't received payment",
         "intent": "ask_nonpayment",
         "entities": []
       },
       {
-        "text": "I haven't been paid rent",
+        "text": "the tenant has not paid rent recently",
         "intent": "ask_nonpayment",
+        "entities": []
+      },
+      {
+        "text": "i haven't been paid rent",
+        "intent": "ask_nonpayment",
+        "entities": []
+      },
+      {
+        "text": "they want to increase the rent for the apartment",
+        "intent": "ask_rent_change",
+        "entities": []
+      },
+      {
+        "text": "rent change",
+        "intent": "ask_rent_change",
+        "entities": []
+      },
+      {
+        "text": "rent increase",
+        "intent": "ask_rent_change",
+        "entities": []
+      },
+      {
+        "text": "increase the current rent price",
+        "intent": "ask_rent_change",
+        "entities": []
+      },
+      {
+        "text": "my landlord wants to increase the current rent price",
+        "intent": "ask_rent_change",
+        "entities": []
+      },
+      {
+        "text": "the landlord wants to increase the price of the rent",
+        "intent": "ask_rent_change",
+        "entities": []
+      },
+      {
+        "text": "the rent for my apartment is being increased",
+        "intent": "ask_rent_change",
+        "entities": []
+      },
+      {
+        "text": "the rent price increased",
+        "intent": "ask_rent_change",
+        "entities": []
+      },
+      {
+        "text": "the price of the rent should be higher",
+        "intent": "ask_rent_change",
+        "entities": []
+      },
+      {
+        "text": "i want to increase the rent",
+        "intent": "ask_rent_change",
         "entities": []
       },
       {
@@ -332,1050 +395,1650 @@
         "entities": []
       },
       {
-        "text": "hey my landlord is asking for a deposit and I heard it's illegal can you help me?",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "My landlord is asking me for a key deposit. I heard it's illegal and I need help.",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "I need help my landlord is asking me for a deposit before I sign the lease. It was never mentioned before.",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "hello my landlord is asking me for a security deposit before I sign the contract",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "I need help my landlord is asking me for a key deposit for me to renew my lease",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "Hey my landlord is asking me for a key deposit before I get to live in my new apartment",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "I'm leaving my apartment even though my lease is still ongoing.",
+        "text": "i'm leaving my apartment even though my lease is still ongoing.",
         "intent": "ask_lease_termination",
         "entities": []
       },
       {
-        "text": "I want to leave my apartment for another apartment.",
+        "text": "i want to leave my apartment for another apartment.",
         "intent": "ask_lease_termination",
         "entities": []
       },
       {
-        "text": "I'm getting evicted",
+        "text": "i'm getting evicted",
         "intent": "ask_lease_termination",
         "entities": []
       },
       {
-        "text": "I'm getting evicted from my apartment.",
+        "text": "i'm getting evicted from my apartment.",
         "intent": "ask_lease_termination",
         "entities": []
       },
       {
-        "text": "I'm injured and I haven't paid rent in 2 months since I got fired from job. I can't afford it.",
+        "text": "i'm injured and i haven't paid rent in 2 months since i got fired from job. i can't afford it.",
         "intent": "ask_nonpayment",
         "entities": []
       },
       {
-        "text": "My landlord is trying to increase the rent of my apartment during the lease.",
+        "text": "my landlord is trying to increase the rent of my apartment during the lease.",
         "intent": "ask_rent_change",
         "entities": []
       },
       {
-        "text": "My landlord is increasing rent after I have to renew the lease.",
+        "text": "my landlord is increasing rent after i have to renew the lease.",
         "intent": "ask_rent_change",
         "entities": []
       },
       {
-        "text": "My landlord is trying to increase rent during the lease. Next month will cost 5$ more!",
+        "text": "my landlord is trying to increase rent during the lease. next month will cost 5$ more!",
         "intent": "ask_rent_change",
         "entities": []
       },
       {
-        "text": "My landlord is trying to evict me since I haven't paid rent.",
+        "text": "my landlord is trying to evict me since i haven't paid rent.",
         "intent": "ask_nonpayment",
         "entities": []
       },
       {
-        "text": "My tenant hasn't paid in 2 months, can I evict him?",
+        "text": "my tenant hasn't paid in 2 months, can i evict him?",
         "intent": "ask_nonpayment",
         "entities": []
       },
       {
-        "text": "My landlord is trying to add 5$ to my rent next month. Help please",
+        "text": "my landlord is trying to add 5$ to my rent next month. help please",
         "intent": "ask_rent_change",
         "entities": []
       },
       {
-        "text": "My landlord increased the rent by 15$ per month after the end of my lease.",
+        "text": "my landlord increased the rent by 15$ per month after the end of my lease.",
         "intent": "ask_rent_change",
         "entities": []
       },
       {
-        "text": "My tenant hasn't paid in 3 months. I haven't seen him either and I can never catch him.",
+        "text": "my tenant hasn't paid in 3 months. i haven't seen him either and i can never catch him.",
         "intent": "ask_nonpayment",
         "entities": []
       },
       {
-        "text": "I'm kicking out my tenant.",
+        "text": "i'm kicking out my tenant.",
         "intent": "ask_lease_termination",
         "entities": []
       },
       {
-        "text": "My tenant hasn't paid in 2 weeks, what can I do?",
+        "text": "my tenant hasn't paid in 2 weeks, what can i do?",
         "intent": "ask_nonpayment",
         "entities": []
       },
       {
-        "text": "I'm trying to kick my tenant out. He damaged my property and hasn't paid rent.",
+        "text": "i'm trying to kick my tenant out. he damaged my property and hasn't paid rent.",
         "intent": "ask_lease_termination",
         "entities": []
       },
       {
-        "text": "My tenant hasn't paid in 2 days, what can I do?",
+        "text": "my tenant hasn't paid in 2 days, what can i do?",
         "intent": "ask_nonpayment",
         "entities": []
       },
       {
-        "text": "Can I ask my tenants for a deposit?",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "Can my landlord ask a security deposit from me? I really like the apartment.",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "Hey I saw this advertisement on craigslist and they're asking for a security deposit. Is this allowed?",
-        "intent": "ask_deposit",
-        "entities": []
-      },
-      {
-        "text": "My landlord is trying to evict me.",
+        "text": "my landlord is trying to evict me.",
         "intent": "ask_lease_termination",
         "entities": []
       },
       {
-        "text": "My neighbour complained to my landlord about my cat. My landlord is now trying to evict me.",
+        "text": "my neighbour complained to my landlord about my cat. my landlord is now trying to evict me.",
         "intent": "ask_lease_termination",
         "entities": []
       },
       {
-        "text": "My landlord is trying to evict me.",
+        "text": "my landlord is trying to evict me.",
         "intent": "ask_lease_termination"
       },
       {
-        "text": "I want to leave my apartment.",
+        "text": "i want to leave my apartment.",
         "intent": "ask_lease_termination"
       },
       {
-        "text": "There is mold everywhere in the apartment. I need to leave ASAP but I don't want to pay rent.",
+        "text": "there is mold everywhere in the apartment. i need to leave asap but i don't want to pay rent.",
         "intent": "ask_lease_termination",
         "entities": []
       },
       {
-        "text": "The apartment is disgusting. My roommate won't clean and my landlord won't do anything.",
+        "text": "the apartment is disgusting. my roommate won't clean and my landlord won't do anything.",
         "intent": "ask_lease_termination",
         "entities": []
       },
       {
-        "text": "My apartment is not habitable and my landlord won't do anything to fix the issues. I want to break the lease.",
+        "text": "my apartment is not habitable and my landlord won't do anything to fix the issues. i want to break the lease.",
         "intent": "ask_lease_termination",
         "entities": []
       },
       {
-        "text": "I want to break the lease.",
+        "text": "i want to break the lease.",
         "intent": "ask_lease_termination"
       },
       {
-        "text": "I'm getting kicked out of my apartment.",
+        "text": "i'm getting kicked out of my apartment.",
         "intent": "ask_lease_termination"
       },
       {
-        "text": "I want to break the lease.",
+        "text": "i want to break the lease.",
         "intent": "ask_lease_termination"
       },
       {
-        "text": "My tenant damaged the apartment and won't pay for the damages.",
+        "text": "my tenant damaged the apartment and won't pay for the damages.",
         "intent": "ask_lease_termination",
         "entities": []
       },
       {
-        "text": "I want to evict my tenant. He's noisy and I got complaints about him.",
+        "text": "i want to evict my tenant. he's noisy and i got complaints about him.",
         "intent": "ask_lease_termination",
         "entities": []
       },
       {
-        "text": "My landlord is not doing any repairs. I want to move out.",
+        "text": "my landlord is not doing any repairs. i want to move out.",
         "intent": "ask_lease_termination",
         "entities": []
       },
       {
-        "text": "My tenant keeps bringing his dog in the apartment. I specified cats only. I need him out.",
+        "text": "my tenant keeps bringing his dog in the apartment. i specified cats only. i need him out.",
         "intent": "ask_lease_termination",
         "entities": []
       },
       {
-        "text": "I haven't paid rent and my landlord wants to evict me",
+        "text": "i haven't paid rent and my landlord wants to evict me",
         "intent": "ask_nonpayment",
         "entities": []
       },
       {
-        "text": "I haven't paid rent in 2 weeks and my landlord wants to evict me",
+        "text": "i haven't paid rent in 2 weeks and my landlord wants to evict me",
         "intent": "ask_nonpayment",
         "entities": []
       },
       {
-        "text": "My tenant brought in a noisy parrot that won't stop singing. I need him gone. This can't continue I keep getting complaints and it's keeping his neighbours up.",
+        "text": "my tenant brought in a noisy parrot that won't stop singing. i need him gone. this can't continue i keep getting complaints and it's keeping his neighbours up.",
         "intent": "ask_lease_termination",
         "entities": []
       },
       {
-        "text": "I cannot stand my tenant anymore. He's noisy, rude, disrespectful and tardy. He needs to go.",
+        "text": "i cannot stand my tenant anymore. he's noisy, rude, disrespectful and tardy. he needs to go.",
         "intent": "ask_lease_termination",
         "entities": []
       },
       {
-        "text": "I can't pay my landlord and I'm scared I might get evicted. What can I do?",
+        "text": "i can't pay my landlord and i'm scared i might get evicted. what can i do?",
         "intent": "ask_nonpayment",
         "entities": []
       },
       {
-        "text": "I need help with my lease. My landlord is not doing anything about my neighbours and I can't sleep at night. I want to move out.",
+        "text": "i need help with my lease. my landlord is not doing anything about my neighbours and i can't sleep at night I want to annul it",
         "intent": "ask_lease_termination",
         "entities": []
       },
       {
-        "text": "My landlord told me that he'll be increasing rent. I don't know what to do. I think he'll try to evict me if I say no.",
+        "text": "my landlord told me that he'll be increasing rent. i don't know what to do. i think he'll try to evict me if i say no.",
         "intent": "ask_rent_change",
         "entities": []
       },
       {
-        "text": "The tenant needs to go. He's making a mess of the apartment and I can't have him damage it further.",
+        "text": "the tenant needs to go. he's making a mess of the apartment and i can't have him damage it further.",
         "intent": "ask_lease_termination",
         "entities": []
       },
       {
-        "text": "My landlord wants me gone because my dog is too loud and keeps barking. I need help I got no where else to go.",
+        "text": "my landlord wants me gone because my dog is too loud and keeps barking. i need help i got no where else to go.",
         "intent": "ask_lease_termination",
         "entities": []
       },
       {
-        "text": "I'm not able to attend the hearing.",
-        "intent": "FAQ_RLQ_attending_hearing",
+        "text": "i'm not able to attend the hearing.",
+        "intent": "faq_rlq_attending_hearing",
         "entities": []
       },
       {
-        "text": "Do I need to attend the hearing?",
-        "intent": "FAQ_RLQ_attending_hearing",
+        "text": "do i need to attend the hearing?",
+        "intent": "faq_rlq_attending_hearing",
         "entities": []
       },
       {
-        "text": "I won't be able to make it to the hearing on time.",
-        "intent": "FAQ_RLQ_attending_hearing",
+        "text": "i won't be able to make it to the hearing on time.",
+        "intent": "faq_rlq_attending_hearing",
         "entities": []
       },
       {
-        "text": "I will be late, can we reschedule the hearing?",
-        "intent": "FAQ_RLQ_attending_hearing",
+        "text": "i will be late, can we reschedule the hearing?",
+        "intent": "faq_rlq_attending_hearing",
         "entities": []
       },
       {
-        "text": "How can I move my hearing's date?",
-        "intent": "FAQ_RLQ_attending_hearing",
+        "text": "how can i move my hearing's date?",
+        "intent": "faq_rlq_attending_hearing",
         "entities": []
       },
       {
-        "text": "How am I able to postpone my hearing?",
-        "intent": "FAQ_RLQ_attending_hearing",
+        "text": "how am i able to postpone my hearing?",
+        "intent": "faq_rlq_attending_hearing",
         "entities": []
       },
       {
-        "text": "Can I postpone the meeting?",
-        "intent": "FAQ_RLQ_attending_hearing",
+        "text": "can i postpone the meeting?",
+        "intent": "faq_rlq_attending_hearing",
         "entities": []
       },
       {
-        "text": "I won't arrive to time to my hearing, can I reschedule?",
-        "intent": "FAQ_RLQ_attending_hearing",
+        "text": "i won't arrive to time to my hearing, can i reschedule?",
+        "intent": "faq_rlq_attending_hearing",
         "entities": []
       },
       {
-        "text": "I am something to do at the same time as the hearing and can't make it.",
-        "intent": "FAQ_RLQ_attending_hearing",
+        "text": "i am something to do at the same time as the hearing and can't make it.",
+        "intent": "faq_rlq_attending_hearing",
         "entities": []
       },
       {
-        "text": "I have something to do on that day. How can I move the hearing back?",
-        "intent": "FAQ_RLQ_attending_hearing",
+        "text": "i have something to do on that day. how can i move the hearing back?",
+        "intent": "faq_rlq_attending_hearing",
         "entities": []
       },
       {
-        "text": "How can I move my hearing?",
-        "intent": "FAQ_RLQ_attending_hearing",
+        "text": "how can i move my hearing?",
+        "intent": "faq_rlq_attending_hearing",
         "entities": []
       },
       {
-        "text": "I am busy and can't free up time to go to my hearing. What can I do?",
-        "intent": "FAQ_RLQ_attending_hearing",
+        "text": "i am busy and can't free up time to go to my hearing. what can i do?",
+        "intent": "faq_rlq_attending_hearing",
         "entities": []
       },
       {
-        "text": "What if I can't make it to my hearing on time?",
-        "intent": "FAQ_RLQ_attending_hearing",
+        "text": "what if i can't make it to my hearing on time?",
+        "intent": "faq_rlq_attending_hearing",
         "entities": []
       },
       {
-        "text": "Can I reschedule my hearing?",
-        "intent": "FAQ_RLQ_attending_hearing",
+        "text": "can i reschedule my hearing?",
+        "intent": "faq_rlq_attending_hearing",
         "entities": []
       },
       {
-        "text": "I'm unable to make it to the hearing, what are my options?",
-        "intent": "FAQ_RLQ_attending_hearing",
+        "text": "i'm unable to make it to the hearing, what are my options?",
+        "intent": "faq_rlq_attending_hearing",
         "entities": []
       },
       {
-        "text": "Can I postpone the hearing?",
-        "intent": "FAQ_RLQ_attending_hearing",
+        "text": "can i postpone the hearing?",
+        "intent": "faq_rlq_attending_hearing",
         "entities": []
       },
       {
-        "text": "Can I not show up to the hearing?",
-        "intent": "FAQ_RLQ_attending_hearing",
+        "text": "can i not show up to the hearing?",
+        "intent": "faq_rlq_attending_hearing",
         "entities": []
       },
       {
-        "text": "I can't make it to the hearing, what can I do?",
-        "intent": "FAQ_RLQ_attending_hearing",
+        "text": "i can't make it to the hearing, what can i do?",
+        "intent": "faq_rlq_attending_hearing",
         "entities": []
       },
       {
-        "text": "I can't attend the hearing. What can I do?",
-        "intent": "FAQ_RLQ_attending_hearing",
+        "text": "i can't attend the hearing. what can i do?",
+        "intent": "faq_rlq_attending_hearing",
         "entities": []
       },
       {
-        "text": "Do I need to go to the hearing?",
-        "intent": "FAQ_RLQ_attending_hearing",
+        "text": "do i need to go to the hearing?",
+        "intent": "faq_rlq_attending_hearing",
         "entities": []
       },
       {
-        "text": "I was informed that I must attend a hearing.",
-        "intent": "FAQ_RLQ_attending_hearing",
+        "text": "i was informed that i must attend a hearing.",
+        "intent": "faq_rlq_attending_hearing",
         "entities": []
       },
       {
-        "text": "There's a hearing that I can't attend.",
-        "intent": "FAQ_RLQ_attending_hearing",
+        "text": "there's a hearing that i can't attend.",
+        "intent": "faq_rlq_attending_hearing",
         "entities": []
       },
       {
-        "text": "I am supposed to attend a hearing. Do I have to?",
-        "intent": "FAQ_RLQ_attending_hearing",
+        "text": "i am supposed to attend a hearing. do i have to?",
+        "intent": "faq_rlq_attending_hearing",
         "entities": []
       },
       {
-        "text": "My hearing is scheduled soon. Do I need to attend it?",
-        "intent": "FAQ_RLQ_attending_hearing",
+        "text": "my hearing is scheduled soon. do i need to attend it?",
+        "intent": "faq_rlq_attending_hearing",
         "entities": []
       },
       {
-        "text": "Do I need to be at the hearing?",
-        "intent": "FAQ_RLQ_attending_hearing",
+        "text": "do i need to be at the hearing?",
+        "intent": "faq_rlq_attending_hearing",
         "entities": []
       },
       {
-        "text": "MyThe people that I used to lease my dwelling to disappeared 3-4 months ago. I know who they are. Can I still claim my money back?",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "mythe people that i used to lease my dwelling to disappeared 3-4 months ago. i know who they are. can i still claim my money back?",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "I think the tenants left because I never see them anymore",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "i think the tenants left because i never see them anymore",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "My apartment has been empty for a while and the tenants owe me rent money.",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "my apartment has been empty for a while and the tenants owe me rent money.",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "My tenants are nowhere to be found, what can I do?",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "my tenants are nowhere to be found, what can i do?",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "The apartment has been empty for months now",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "the apartment has been empty for months now",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "The apartment has been empty for some time",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "the apartment has been empty for some time",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "My tenants left without paying me awhile ago",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "my tenants left without paying me awhile ago",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "I have not heard anything from them",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "i have not heard anything from them",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "My tenant diced without telling me anything, what I do?",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "my tenant diced without telling me anything, what i do?",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "My tenant left without paying last year. What now?",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "my tenant left without paying last year. what now?",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "My tenant bailed some time ago this year, what can I do?",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "my tenant bailed some time ago this year, what can i do?",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "My previous tenant owes me rent from 24 months ago. Can I still claim it?",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "my previous tenant owes me rent from 24 months ago. can i still claim it?",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "Can I pursue my previous tenant for unpaid rent? They left 2 years ago.",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "can i pursue my previous tenant for unpaid rent? they left 2 years ago.",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "My tenant left without telling me 4 months ago",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "my tenant left without telling me 4 months ago",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "My tenant left without any notice 3 months ago, what can I do?",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "my tenant left without any notice 3 months ago, what can i do?",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "I think my tenants left because I never see them ever. What can I do?",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "i think my tenants left because i never see them ever. what can i do?",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "I am not able to reach any of my tenants",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "i am not able to reach any of my tenants",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "I can't reach my tenants",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "i can't reach my tenants",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "I can't find my tenants",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "i can't find my tenants",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "My tenants are nowhere to be found. What now?",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "my tenants are nowhere to be found. what now?",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "My tenants left without paying me, what can I do?",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "my tenants left without paying me, what can i do?",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "I left my apartment without paying rent",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "i left my apartment without paying rent",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "The people renting my apartment left without paying the rent",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "the people renting my apartment left without paying the rent",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "My tenants diced, what can I do?",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "my tenants diced, what can i do?",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "My tenants are nowhere to be found. What can I do now?",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "my tenants are nowhere to be found. what can i do now?",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "My tenant left without paying me",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "my tenant left without paying me",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "My tenant bailed, what can I do?",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "my tenant bailed, what can i do?",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "How can I claim unpaid rent from my previous tenant",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "how can i claim unpaid rent from my previous tenant",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "My previous tenant owers me rent, can I still claim it?",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "my previous tenant owers me rent, can i still claim it?",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "Can I pursue my previous tenant for unpaid rent?",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "can i pursue my previous tenant for unpaid rent?",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "My tenant is gone",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "my tenant is gone",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "My tenant just disappeared.",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "my tenant just disappeared.",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "My tenant left without telling me.",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "my tenant left without telling me.",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "My tenant left without any notice, what can I do?",
-        "intent": "FAQ_RLQ_abandoned_premises",
+        "text": "my tenant left without any notice, what can i do?",
+        "intent": "faq_rlq_abandoned_premises",
         "entities": []
       },
       {
-        "text": "Is there a way that I can return the lease? I don't want the apartment anymore.",
-        "intent": "FAQ_RLQ_lease_cancellation_immediately_after_signing",
+        "text": "can i cancel a lease i just signed",
+        "intent": "faq_rlq_lease_cancellation_immediately_after_signing",
         "entities": []
       },
       {
-        "text": "Can I revoke the lease? My tenants just signed it",
-        "intent": "FAQ_RLQ_lease_cancellation_immediately_after_signing",
+        "text": "i signed the lease for an apartment but found a better one afterwards",
+        "intent": "faq_rlq_lease_cancellation_immediately_after_signing",
         "entities": []
       },
       {
-        "text": "Can I cancel my lease? I only signed it a few days ago.",
-        "intent": "FAQ_RLQ_lease_cancellation_immediately_after_signing",
+        "text": "i signed for an apartment but changed my mind",
+        "intent": "faq_rlq_lease_cancellation_immediately_after_signing",
         "entities": []
       },
       {
-        "text": "Can I void my lease? I only recently signed it.",
-        "intent": "FAQ_RLQ_lease_cancellation_immediately_after_signing",
+        "text": "i signed the lease but do not want it anymore",
+        "intent": "faq_rlq_lease_cancellation_immediately_after_signing",
         "entities": []
       },
       {
-        "text": "Can I go back on the lease I just signed?",
-        "intent": "FAQ_RLQ_lease_cancellation_immediately_after_signing",
+        "text": "is there a way that i can return the lease? i don't want the apartment anymore.",
+        "intent": "faq_rlq_lease_cancellation_immediately_after_signing",
         "entities": []
       },
       {
-        "text": "I signed a lease but I found a better apartment, can I cancel my current lease?",
-        "intent": "FAQ_RLQ_lease_cancellation_immediately_after_signing",
+        "text": "can i revoke the lease? my tenants just signed it",
+        "intent": "faq_rlq_lease_cancellation_immediately_after_signing",
         "entities": []
       },
       {
-        "text": "My tenants are trying to cancel the lease. It has only been 5 days since they signed it. Are they allowed?",
-        "intent": "FAQ_RLQ_lease_cancellation_immediately_after_signing",
+        "text": "can i cancel my lease? i only signed it a few days ago.",
+        "intent": "faq_rlq_lease_cancellation_immediately_after_signing",
         "entities": []
       },
       {
-        "text": "My tenant is trying to cancel the lease after they signed it",
-        "intent": "FAQ_RLQ_lease_cancellation_immediately_after_signing",
+        "text": "can i void my lease? i only recently signed it.",
+        "intent": "faq_rlq_lease_cancellation_immediately_after_signing",
         "entities": []
       },
       {
-        "text": "Can I cancel the lease after it is signed?",
-        "intent": "FAQ_RLQ_lease_cancellation_immediately_after_signing",
+        "text": "can i go back on the lease i just signed?",
+        "intent": "faq_rlq_lease_cancellation_immediately_after_signing",
         "entities": []
       },
       {
-        "text": "How long do I have to cancel the lease after it is signed?",
-        "intent": "FAQ_RLQ_lease_cancellation_immediately_after_signing",
+        "text": "i signed a lease but i found a better apartment, can i cancel my current lease?",
+        "intent": "faq_rlq_lease_cancellation_immediately_after_signing",
         "entities": []
       },
       {
-        "text": "I don't have a lease, can I leave the apartment at any time?",
-        "intent": "FAQ_RLQ_leave_apartment_no_lease",
+        "text": "my tenants are trying to cancel the lease. it has only been 5 days since they signed it. are they allowed?",
+        "intent": "faq_rlq_lease_cancellation_immediately_after_signing",
         "entities": []
       },
       {
-        "text": "I didn't sign anything be she told me we discussed the terms so its a verbal lease. Am I able to leave the apartment?",
-        "intent": "FAQ_RLQ_leave_apartment_no_lease",
+        "text": "my tenant is trying to cancel the lease after they signed it",
+        "intent": "faq_rlq_lease_cancellation_immediately_after_signing",
         "entities": []
       },
       {
-        "text": "I didn't sign anything be she told me we discussed the terms so its a verbal lease. Am I able to leave the apartment?",
-        "intent": "FAQ_RLQ_leave_apartment_no_lease",
+        "text": "can i cancel the lease after it is signed?",
+        "intent": "faq_rlq_lease_cancellation_immediately_after_signing",
         "entities": []
       },
       {
-        "text": "He told me it was something called a verbal lease. I don't think that exists. Can I leave anyways?",
-        "intent": "FAQ_RLQ_leave_apartment_no_lease",
+        "text": "how long do i have to cancel the lease after it is signed?",
+        "intent": "faq_rlq_lease_cancellation_immediately_after_signing",
         "entities": []
       },
       {
-        "text": "I agreed to stay for a few months but need to leave now",
-        "intent": "FAQ_RLQ_leave_apartment_no_lease",
+        "text": "i don't have a lease, can i leave the apartment at any time?",
+        "intent": "faq_rlq_leave_apartment_no_lease",
         "entities": []
       },
       {
-        "text": "I swore to him verbally as a lease but I don't think that counts. I can leave right?",
-        "intent": "FAQ_RLQ_leave_apartment_no_lease",
+        "text": "i didn't sign anything be she told me we discussed the terms so its a verbal lease. am i able to leave the apartment?",
+        "intent": "faq_rlq_leave_apartment_no_lease",
         "entities": []
       },
       {
-        "text": "I don't have a lease associated with my dwelling, may I leave the apartment and never come back?",
-        "intent": "FAQ_RLQ_leave_apartment_no_lease",
+        "text": "i didn't sign anything be she told me we discussed the terms so its a verbal lease. am i able to leave the apartment?",
+        "intent": "faq_rlq_leave_apartment_no_lease",
         "entities": []
       },
       {
-        "text": "I never provided my signature and now I want to leave",
-        "intent": "FAQ_RLQ_leave_apartment_no_lease",
+        "text": "he told me it was something called a verbal lease. i don't think that exists. can i leave anyways?",
+        "intent": "faq_rlq_leave_apartment_no_lease",
         "entities": []
       },
       {
-        "text": "I didn't sign a single pice of paper, can I leave and get another apartment?",
-        "intent": "FAQ_RLQ_leave_apartment_no_lease",
+        "text": "i agreed to stay for a few months but need to leave now",
+        "intent": "faq_rlq_leave_apartment_no_lease",
         "entities": []
       },
       {
-        "text": "The landlord didn't make me sign anything. Can I just ditch the apartment?",
-        "intent": "FAQ_RLQ_leave_apartment_no_lease",
+        "text": "i swore to him verbally as a lease but i don't think that counts. i can leave right?",
+        "intent": "faq_rlq_leave_apartment_no_lease",
         "entities": []
       },
       {
-        "text": "I want to leave the apartment becausee I never signed anything",
-        "intent": "FAQ_RLQ_leave_apartment_no_lease",
+        "text": "i don't have a lease associated with my dwelling, may i leave the apartment and never come back?",
+        "intent": "faq_rlq_leave_apartment_no_lease",
         "entities": []
       },
       {
-        "text": "I never signed a lease. Can I leave?",
-        "intent": "FAQ_RLQ_leave_apartment_no_lease",
+        "text": "i never provided my signature and now i want to leave",
+        "intent": "faq_rlq_leave_apartment_no_lease",
         "entities": []
       },
       {
-        "text": "I don't have a lease, can I leave the unit without any issues",
-        "intent": "FAQ_RLQ_leave_apartment_no_lease",
+        "text": "i didn't sign a single pice of paper, can i leave and get another apartment?",
+        "intent": "faq_rlq_leave_apartment_no_lease",
         "entities": []
       },
       {
-        "text": "If I repair the fridge can I deduct that off the rent?",
-        "intent": "FAQ_RLQ_tenant_urgent_repair_costs_deducted",
+        "text": "the landlord didn't make me sign anything. can i just ditch the apartment?",
+        "intent": "faq_rlq_leave_apartment_no_lease",
         "entities": []
       },
       {
-        "text": "If I paint the apartment, can I remove the cost of materials and labor off the rent?",
-        "intent": "FAQ_RLQ_tenant_urgent_repair_costs_deducted",
+        "text": "i want to leave the apartment becausee i never signed anything",
+        "intent": "faq_rlq_leave_apartment_no_lease",
         "entities": []
       },
       {
-        "text": "Can I deduct costs off my monthly rent if I fix things around my apartment?",
-        "intent": "FAQ_RLQ_tenant_urgent_repair_costs_deducted",
+        "text": "i never signed a lease. can i leave?",
+        "intent": "faq_rlq_leave_apartment_no_lease",
         "entities": []
       },
       {
-        "text": "I did repairs but my landlord is asking for the full rent price",
-        "intent": "FAQ_RLQ_tenant_urgent_repair_costs_deducted",
+        "text": "i don't have a lease, can i leave the unit without any issues",
+        "intent": "faq_rlq_leave_apartment_no_lease",
         "entities": []
       },
       {
-        "text": "If I fix the floors, can I remove how much that cost me from my rent?",
-        "intent": "FAQ_RLQ_tenant_urgent_repair_costs_deducted",
+        "text": "if i repair the fridge can i deduct that off the rent?",
+        "intent": "faq_rlq_tenant_urgent_repair_costs_deducted",
         "entities": []
       },
       {
-        "text": "If I repair the wall in the apartment, can that be removed from my rent?",
-        "intent": "FAQ_RLQ_tenant_urgent_repair_costs_deducted",
+        "text": "if i paint the apartment, can i remove the cost of materials and labor off the rent?",
+        "intent": "faq_rlq_tenant_urgent_repair_costs_deducted",
         "entities": []
       },
       {
-        "text": "I had to make a fix to the apartment urgently but I shouldn't be expected to pay the entire cost of my rent",
-        "intent": "FAQ_RLQ_tenant_urgent_repair_costs_deducted",
+        "text": "can i deduct costs off my monthly rent if i fix things around my apartment?",
+        "intent": "faq_rlq_tenant_urgent_repair_costs_deducted",
         "entities": []
       },
       {
-        "text": "I fixed something in an emergency and want to be reimbursed for the costs",
-        "intent": "FAQ_RLQ_tenant_urgent_repair_costs_deducted",
+        "text": "i did repairs but my landlord is asking for the full rent price",
+        "intent": "faq_rlq_tenant_urgent_repair_costs_deducted",
         "entities": []
       },
       {
-        "text": "Can I get refunded for the repair I did in my unit?",
-        "intent": "FAQ_RLQ_tenant_urgent_repair_costs_deducted",
+        "text": "if i fix the floors, can i remove how much that cost me from my rent?",
+        "intent": "faq_rlq_tenant_urgent_repair_costs_deducted",
         "entities": []
       },
       {
-        "text": "If I repair the toilet in the apartment, can that cost be deducted from my rent?",
-        "intent": "FAQ_RLQ_tenant_urgent_repair_costs_deducted",
+        "text": "if i repair the wall in the apartment, can that be removed from my rent?",
+        "intent": "faq_rlq_tenant_urgent_repair_costs_deducted",
         "entities": []
       },
       {
-        "text": "The landlord does not intend on fixing the water",
-        "intent": "FAQ_RLQ_landlord_neglects_necessary_repairs",
+        "text": "i had to make a fix to the apartment urgently but i shouldn't be expected to pay the entire cost of my rent",
+        "intent": "faq_rlq_tenant_urgent_repair_costs_deducted",
         "entities": []
       },
       {
-        "text": "My landlord refuses the fix the windows and it's cold",
-        "intent": "FAQ_RLQ_landlord_neglects_necessary_repairs",
+        "text": "i fixed something in an emergency and want to be reimbursed for the costs",
+        "intent": "faq_rlq_tenant_urgent_repair_costs_deducted",
         "entities": []
       },
       {
-        "text": "My landlord refuses the fix the wall and it's cold",
-        "intent": "FAQ_RLQ_landlord_neglects_necessary_repairs",
+        "text": "can i get refunded for the repair i did in my unit?",
+        "intent": "faq_rlq_tenant_urgent_repair_costs_deducted",
         "entities": []
       },
       {
-        "text": "My landlord didn't fix it",
-        "intent": "FAQ_RLQ_landlord_neglects_necessary_repairs",
+        "text": "if i repair the toilet in the apartment, can that cost be deducted from my rent?",
+        "intent": "faq_rlq_tenant_urgent_repair_costs_deducted",
         "entities": []
       },
       {
-        "text": "The landlord does not want to do repairs in the apartment. What can I do?",
-        "intent": "FAQ_RLQ_landlord_neglects_necessary_repairs",
+        "text": "the landlord does not intend on fixing the water",
+        "intent": "faq_rlq_landlord_neglects_necessary_repairs",
         "entities": []
       },
       {
-        "text": "The apartment needs sever repairs but the landlord hasn't done anything, is there somethin I can do?",
-        "intent": "FAQ_RLQ_landlord_neglects_necessary_repairs",
+        "text": "my landlord refuses the fix the windows and it's cold",
+        "intent": "faq_rlq_landlord_neglects_necessary_repairs",
         "entities": []
       },
       {
-        "text": "The unit is falling apart and the landlord won't make any repairs",
-        "intent": "FAQ_RLQ_landlord_neglects_necessary_repairs",
+        "text": "my landlord refuses the fix the wall and it's cold",
+        "intent": "faq_rlq_landlord_neglects_necessary_repairs",
         "entities": []
       },
       {
-        "text": "My apartment desperately needs repairs and the landlord refuses to do them.",
-        "intent": "FAQ_RLQ_landlord_neglects_necessary_repairs",
+        "text": "my landlord didn't fix it",
+        "intent": "faq_rlq_landlord_neglects_necessary_repairs",
         "entities": []
       },
       {
-        "text": "My landlord didn't do the required repairs. What can I do?",
-        "intent": "FAQ_RLQ_landlord_neglects_necessary_repairs",
+        "text": "the landlord does not want to do repairs in the apartment. what can i do?",
+        "intent": "faq_rlq_landlord_neglects_necessary_repairs",
         "entities": []
       },
       {
-        "text": "If my landlord doesn't do the necessary repair, can I pursue them further?",
-        "intent": "FAQ_RLQ_landlord_neglects_necessary_repairs",
+        "text": "the apartment needs sever repairs but the landlord hasn't done anything, is there somethin i can do?",
+        "intent": "faq_rlq_landlord_neglects_necessary_repairs",
         "entities": []
       },
       {
-        "text": "If my landlord doesn't do the necessary repair, can I pursue them further?",
-        "intent": "FAQ_RLQ_landlord_neglects_necessary_repairs",
+        "text": "the unit is falling apart and the landlord won't make any repairs",
+        "intent": "faq_rlq_landlord_neglects_necessary_repairs",
         "entities": []
       },
       {
-        "text": "My landlord didn't repair what I asked him to fix, what can I do?",
-        "intent": "FAQ_RLQ_landlord_neglects_necessary_repairs",
+        "text": "my apartment desperately needs repairs and the landlord refuses to do them.",
+        "intent": "faq_rlq_landlord_neglects_necessary_repairs",
         "entities": []
       },
       {
-        "text": "I'm sick of my tenant being so loud",
-        "intent": "FAQ_RLQ_noisy_tenant",
+        "text": "my landlord didn't do the required repairs. what can i do?",
+        "intent": "faq_rlq_landlord_neglects_necessary_repairs",
         "entities": []
       },
       {
-        "text": "I can't sleep anymore because my landlord is loud as hell",
-        "intent": "FAQ_RLQ_noisy_tenant",
+        "text": "if my landlord doesn't do the necessary repair, can i pursue them further?",
+        "intent": "faq_rlq_landlord_neglects_necessary_repairs",
         "entities": []
       },
       {
-        "text": "Is my neighbour allowed to be noisy at night? I can't sleep",
-        "intent": "FAQ_RLQ_noisy_tenant",
+        "text": "if my landlord doesn't do the necessary repair, can i pursue them further?",
+        "intent": "faq_rlq_landlord_neglects_necessary_repairs",
         "entities": []
       },
       {
-        "text": "Can a tenant be noisy until 10:00PM?",
-        "intent": "FAQ_RLQ_noisy_tenant",
+        "text": "my landlord didn't repair what i asked him to fix, what can i do?",
+        "intent": "faq_rlq_landlord_neglects_necessary_repairs",
         "entities": []
       },
       {
-        "text": "She is too loud",
-        "intent": "FAQ_RLQ_noisy_tenant",
+        "text": "i'm sick of my tenant being so loud",
+        "intent": "faq_rlq_noisy_tenant",
         "entities": []
       },
       {
-        "text": "After what time the tenant can't make noise?",
-        "intent": "FAQ_RLQ_noisy_tenant",
+        "text": "i can't sleep anymore because my landlord is loud as hell",
+        "intent": "faq_rlq_noisy_tenant",
         "entities": []
       },
       {
-        "text": "I can't sleep because my neighbour is too loud, what are my options?",
-        "intent": "FAQ_RLQ_noisy_tenant",
+        "text": "is my neighbour allowed to be noisy at night? i can't sleep",
+        "intent": "faq_rlq_noisy_tenant",
         "entities": []
       },
       {
-        "text": "Am I allowed to make noise during the day?",
-        "intent": "FAQ_RLQ_noisy_tenant",
+        "text": "can a tenant be noisy until 10:00pm?",
+        "intent": "faq_rlq_noisy_tenant",
         "entities": []
       },
       {
-        "text": "My tenant is excessively loud",
-        "intent": "FAQ_RLQ_noisy_tenant",
+        "text": "she is too loud",
+        "intent": "faq_rlq_noisy_tenant",
         "entities": []
       },
       {
-        "text": "My neighboor is making excessive noise",
-        "intent": "FAQ_RLQ_noisy_tenant",
+        "text": "after what time the tenant can't make noise?",
+        "intent": "faq_rlq_noisy_tenant",
         "entities": []
       },
       {
-        "text": "My tenants are making too much noise",
-        "intent": "FAQ_RLQ_noisy_tenant",
+        "text": "i can't sleep because my neighbour is too loud, what are my options?",
+        "intent": "faq_rlq_noisy_tenant",
         "entities": []
       },
       {
-        "text": "The toilet overflows every single time I flush, do I have to pay for the repairs?",
-        "intent": "FAQ_RLQ_paying_repairs_for_sink_toilet",
+        "text": "am i allowed to make noise during the day?",
+        "intent": "faq_rlq_noisy_tenant",
         "entities": []
       },
       {
-        "text": "The toilet won't flush anymore, who has to pay to repair it?",
-        "intent": "FAQ_RLQ_paying_repairs_for_sink_toilet",
+        "text": "my tenant is excessively loud",
+        "intent": "faq_rlq_noisy_tenant",
         "entities": []
       },
       {
-        "text": "The sink doesn't work anymore and I want my landlord to pay for it",
-        "intent": "FAQ_RLQ_paying_repairs_for_sink_toilet",
+        "text": "my neighboor is making excessive noise",
+        "intent": "faq_rlq_noisy_tenant",
         "entities": []
       },
       {
-        "text": "My toilet is overflowing, do I have to pay for it?",
-        "intent": "FAQ_RLQ_paying_repairs_for_sink_toilet",
+        "text": "my tenants are making too much noise",
+        "intent": "faq_rlq_noisy_tenant",
         "entities": []
       },
       {
-        "text": "Who has to pay for a broken sink or broken toilet?",
-        "intent": "FAQ_RLQ_paying_repairs_for_sink_toilet",
+        "text": "the toilet overflows every single time i flush, do i have to pay for the repairs?",
+        "intent": "faq_rlq_paying_repairs_for_sink_toilet",
         "entities": []
       },
       {
-        "text": "Who has to pay for a plumber?",
-        "intent": "FAQ_RLQ_paying_repairs_for_sink_toilet",
+        "text": "the toilet won't flush anymore, who has to pay to repair it?",
+        "intent": "faq_rlq_paying_repairs_for_sink_toilet",
         "entities": []
       },
       {
-        "text": "Does my landlord have to pay for blocked pipes or plumbing?",
-        "intent": "FAQ_RLQ_paying_repairs_for_sink_toilet",
+        "text": "the sink doesn't work anymore and i want my landlord to pay for it",
+        "intent": "faq_rlq_paying_repairs_for_sink_toilet",
         "entities": []
       },
       {
-        "text": "The toilet isn't working but the landlord wants me to repair it",
-        "intent": "FAQ_RLQ_paying_repairs_for_sink_toilet",
+        "text": "my toilet is overflowing, do i have to pay for it?",
+        "intent": "faq_rlq_paying_repairs_for_sink_toilet",
         "entities": []
       },
       {
-        "text": "The toilet is blocked can I ask the landlord to repair it?",
-        "intent": "FAQ_RLQ_paying_repairs_for_sink_toilet",
+        "text": "who has to pay for a broken sink or broken toilet?",
+        "intent": "faq_rlq_paying_repairs_for_sink_toilet",
         "entities": []
       },
       {
-        "text": "The toilet is clogged can I ask the landlord get it fixed?",
-        "intent": "FAQ_RLQ_paying_repairs_for_sink_toilet",
+        "text": "who has to pay for a plumber?",
+        "intent": "faq_rlq_paying_repairs_for_sink_toilet",
         "entities": []
       },
       {
-        "text": "The sink is jammed can I get the landlord to fix it?",
-        "intent": "FAQ_RLQ_paying_repairs_for_sink_toilet",
+        "text": "does my landlord have to pay for blocked pipes or plumbing?",
+        "intent": "faq_rlq_paying_repairs_for_sink_toilet",
         "entities": []
       },
       {
-        "text": "The sink is blocked up and the landlord doesn't want to fix it",
-        "intent": "FAQ_RLQ_paying_repairs_for_sink_toilet",
+        "text": "the toilet isn't working but the landlord wants me to repair it",
+        "intent": "faq_rlq_paying_repairs_for_sink_toilet",
         "entities": []
       },
       {
-        "text": "The sink is clogged can I ask the landlord to fix it",
-        "intent": "FAQ_RLQ_paying_repairs_for_sink_toilet",
+        "text": "the toilet is blocked can i ask the landlord to repair it?",
+        "intent": "faq_rlq_paying_repairs_for_sink_toilet",
         "entities": []
       },
       {
-        "text": "My landlord is giving the lease to another tenant. When are they allowed to visit the apartment?",
-        "intent": "FAQ_RLQ_landlord_entering_occupied_apartment",
+        "text": "the toilet is clogged can i ask the landlord get it fixed?",
+        "intent": "faq_rlq_paying_repairs_for_sink_toilet",
         "entities": []
       },
       {
-        "text": "In general, when do landlords visit their apartments to check on their condition?",
-        "intent": "FAQ_RLQ_landlord_entering_occupied_apartment",
+        "text": "the sink is jammed can i get the landlord to fix it?",
+        "intent": "faq_rlq_paying_repairs_for_sink_toilet",
         "entities": []
       },
       {
-        "text": "How much time am I allowed before my landlrod comes to visit my apartment?",
-        "intent": "FAQ_RLQ_landlord_entering_occupied_apartment",
+        "text": "the sink is blocked up and the landlord doesn't want to fix it",
+        "intent": "faq_rlq_paying_repairs_for_sink_toilet",
         "entities": []
       },
       {
-        "text": "If my landlord wants to see if my apartment is in good condition, how much time do I have?",
-        "intent": "FAQ_RLQ_landlord_entering_occupied_apartment",
+        "text": "the sink is clogged can i ask the landlord to fix it",
+        "intent": "faq_rlq_paying_repairs_for_sink_toilet",
         "entities": []
       },
       {
-        "text": "If my landlord wants to inspect my apartment, when can she do so?",
-        "intent": "FAQ_RLQ_landlord_entering_occupied_apartment",
+        "text": "my landlord is giving the lease to another tenant. when are they allowed to visit the apartment?",
+        "intent": "faq_rlq_landlord_entering_occupied_apartment",
         "entities": []
       },
       {
-        "text": "My landlord asked me to visit the apartment with the next buyer. Can he do that without asking for my permission",
-        "intent": "FAQ_RLQ_landlord_entering_occupied_apartment",
+        "text": "in general, when do landlords visit their apartments to check on their condition?",
+        "intent": "faq_rlq_landlord_entering_occupied_apartment",
         "entities": []
       },
       {
-        "text": "If my landlord wants to inspect my apartment, when can they do so?",
-        "intent": "FAQ_RLQ_landlord_entering_occupied_apartment",
+        "text": "how much time am i allowed before my landlrod comes to visit my apartment?",
+        "intent": "faq_rlq_landlord_entering_occupied_apartment",
         "entities": []
       },
       {
-        "text": "How much time in advance does a landlord need to ask a tenant for permission to visit?",
-        "intent": "FAQ_RLQ_landlord_entering_occupied_apartment",
+        "text": "if my landlord wants to see if my apartment is in good condition, how much time do i have?",
+        "intent": "faq_rlq_landlord_entering_occupied_apartment",
         "entities": []
       },
       {
-        "text": "The landlord entered the backyard without asking me, do they have the right to do so?",
-        "intent": "FAQ_RLQ_landlord_entering_occupied_apartment",
+        "text": "if my landlord wants to inspect my apartment, when can she do so?",
+        "intent": "faq_rlq_landlord_entering_occupied_apartment",
         "entities": []
       },
       {
-        "text": "Is the landlord allowed to enter the premises without asking me first?",
-        "intent": "FAQ_RLQ_landlord_entering_occupied_apartment",
+        "text": "my landlord asked me to visit the apartment with the next buyer. can he do that without asking for my permission",
+        "intent": "faq_rlq_landlord_entering_occupied_apartment",
         "entities": []
       },
       {
-        "text": "My landlord entered the apartment without my consent. Were they allowed to do that?",
-        "intent": "FAQ_RLQ_landlord_entering_occupied_apartment",
+        "text": "if my landlord wants to inspect my apartment, when can they do so?",
+        "intent": "faq_rlq_landlord_entering_occupied_apartment",
         "entities": []
       },
       {
-        "text": "Can the landlord enter the apartment without my permission?",
-        "intent": "FAQ_RLQ_landlord_entering_occupied_apartment",
+        "text": "how much time in advance does a landlord need to ask a tenant for permission to visit?",
+        "intent": "faq_rlq_landlord_entering_occupied_apartment",
         "entities": []
       },
       {
-        "text": "Can the landlord enter the apartment without my permission?",
-        "intent": "FAQ_RLQ_landlord_entering_occupied_apartment",
+        "text": "the landlord entered the backyard without asking me, do they have the right to do so?",
+        "intent": "faq_rlq_landlord_entering_occupied_apartment",
         "entities": []
       },
       {
-        "text": "I think the apartment is too cold. I can feel a warm breeze but my feet are still frozen. It's only 12C inside. Can I force my landlord to put it higher?",
-        "intent": "FAQ_RLQ_apartment_too_cold",
+        "text": "is the landlord allowed to enter the premises without asking me first?",
+        "intent": "faq_rlq_landlord_entering_occupied_apartment",
         "entities": []
       },
       {
-        "text": "My landlord is cheap and won't put enough heat in. When can they put extra heating on?",
-        "intent": "FAQ_RLQ_apartment_too_cold",
+        "text": "my landlord entered the apartment without my consent. were they allowed to do that?",
+        "intent": "faq_rlq_landlord_entering_occupied_apartment",
         "entities": []
       },
       {
-        "text": "It's too cold in my apartment. It's only 14 degrees. What heat should it legally be at?",
-        "intent": "FAQ_RLQ_apartment_too_cold",
+        "text": "can the landlord enter the apartment without my permission?",
+        "intent": "faq_rlq_landlord_entering_occupied_apartment",
         "entities": []
       },
       {
-        "text": "Is there a date that my landlord must respect to finally put the heating on?",
-        "intent": "FAQ_RLQ_apartment_too_cold",
+        "text": "can the landlord enter the apartment without my permission?",
+        "intent": "faq_rlq_landlord_entering_occupied_apartment",
         "entities": []
       },
       {
-        "text": "I'm in an apartment and the temperature is below 11C. When will my landlord finally put some heating inside of this building?",
-        "intent": "FAQ_RLQ_apartment_too_cold",
+        "text": "i think the apartment is too cold. i can feel a warm breeze but my feet are still frozen. it's only 12c inside. can i force my landlord to put it higher?",
+        "intent": "faq_rlq_apartment_too_cold",
         "entities": []
       },
       {
-        "text": "What is the precise date that my landlord must start heating my apartment?",
-        "intent": "FAQ_RLQ_apartment_too_cold",
+        "text": "my landlord is cheap and won't put enough heat in. when can they put extra heating on?",
+        "intent": "faq_rlq_apartment_too_cold",
         "entities": []
       },
       {
-        "text": "When does my landlord legally have to heat up my apartment?",
-        "intent": "FAQ_RLQ_apartment_too_cold",
+        "text": "it's too cold in my apartment. it's only 14 degrees. what heat should it legally be at?",
+        "intent": "faq_rlq_apartment_too_cold",
         "entities": []
       },
       {
-        "text": "When will it get a little warmer, it's freezing",
-        "intent": "FAQ_RLQ_apartment_too_cold",
+        "text": "is there a date that my landlord must respect to finally put the heating on?",
+        "intent": "faq_rlq_apartment_too_cold",
         "entities": []
       },
       {
-        "text": "It's too cold, when does my landlorrd have to put the heat on?",
-        "intent": "FAQ_RLQ_apartment_too_cold",
+        "text": "i'm in an apartment and the temperature is below 11c. when will my landlord finally put some heating inside of this building?",
+        "intent": "faq_rlq_apartment_too_cold",
         "entities": []
       },
       {
-        "text": "When does my landlord need to put heat in",
-        "intent": "FAQ_RLQ_apartment_too_cold",
+        "text": "what is the precise date that my landlord must start heating my apartment?",
+        "intent": "faq_rlq_apartment_too_cold",
         "entities": []
       },
       {
-        "text": "When will my landlord start putting the heat on?",
-        "intent": "FAQ_RLQ_apartment_too_cold",
+        "text": "when does my landlord legally have to heat up my apartment?",
+        "intent": "faq_rlq_apartment_too_cold",
         "entities": []
       },
       {
-        "text": "I want to increase the rent of my tenants",
-        "intent": "FAQ_RLQ_unreasonable_rent_increase",
+        "text": "when will it get a little warmer, it's freezing",
+        "intent": "faq_rlq_apartment_too_cold",
         "entities": []
       },
       {
-        "text": "My landlord said rent will go up next year. How much can I expect it to increase? She didn't give me any details",
-        "intent": "FAQ_RLQ_unreasonable_rent_increase",
+        "text": "it's too cold, when does my landlorrd have to put the heat on?",
+        "intent": "faq_rlq_apartment_too_cold",
         "entities": []
       },
       {
-        "text": "What is the legal amount by which my landlord can increase the rent?",
-        "intent": "FAQ_RLQ_unreasonable_rent_increase",
+        "text": "when does my landlord need to put heat in",
+        "intent": "faq_rlq_apartment_too_cold",
         "entities": []
       },
       {
-        "text": "Is it normal that my rent increase by 10 dollars?",
-        "intent": "FAQ_RLQ_unreasonable_rent_increase",
+        "text": "when will my landlord start putting the heat on?",
+        "intent": "faq_rlq_apartment_too_cold",
         "entities": []
       },
       {
-        "text": "My rent was increased by 3%. Is this legal?",
-        "intent": "FAQ_RLQ_unreasonable_rent_increase",
+        "text": "i want to increase the rent of my tenants",
+        "intent": "faq_rlq_unreasonable_rent_increase",
         "entities": []
       },
       {
-        "text": "What is the maximum percentage by which the landlord can increase the rent",
-        "intent": "FAQ_RLQ_unreasonable_rent_increase",
+        "text": "my landlord said rent will go up next year. how much can i expect it to increase? she didn't give me any details",
+        "intent": "faq_rlq_unreasonable_rent_increase",
         "entities": []
       },
       {
-        "text": "My landlord increased the rent by $5, are they allowed to do this?",
-        "intent": "FAQ_RLQ_unreasonable_rent_increase",
+        "text": "what is the legal amount by which my landlord can increase the rent?",
+        "intent": "faq_rlq_unreasonable_rent_increase",
         "entities": []
       },
       {
-        "text": "By how much can my landlord increase the rent?",
-        "intent": "FAQ_RLQ_unreasonable_rent_increase",
+        "text": "is it normal that my rent increase by 10 dollars?",
+        "intent": "faq_rlq_unreasonable_rent_increase",
         "entities": []
       },
       {
-        "text": "I want to increase the rent of my tenants significantly",
-        "intent": "FAQ_RLQ_unreasonable_rent_increase",
+        "text": "my rent was increased by 3%. is this legal?",
+        "intent": "faq_rlq_unreasonable_rent_increase",
+        "entities": []
+      },
+      {
+        "text": "what is the maximum percentage by which the landlord can increase the rent",
+        "intent": "faq_rlq_unreasonable_rent_increase",
+        "entities": []
+      },
+      {
+        "text": "my landlord increased the rent by $5, are they allowed to do this?",
+        "intent": "faq_rlq_unreasonable_rent_increase",
+        "entities": []
+      },
+      {
+        "text": "by how much can my landlord increase the rent?",
+        "intent": "faq_rlq_unreasonable_rent_increase",
+        "entities": []
+      },
+      {
+        "text": "i want to increase the rent of my tenants significantly",
+        "intent": "faq_rlq_unreasonable_rent_increase",
+        "entities": []
+      },
+      {
+        "text": "my landlord is asking me for a deposit",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "my landlord wants me to pay for one month in advance",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "i'm being asked for a deposit",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "my landlord wants rent in advance",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "my landlord wants payment in advance",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "my landlord is asking me for a security deposit",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "my landlord is asking me for a key deposit",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "my landlord is asking me for a rent deposit",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "hey my landlord is asking for a deposit and i heard it's illegal can you help me?",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "my landlord is asking me for a key deposit. i heard it's illegal and i need help.",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "i need help my landlord is asking me for a deposit before i sign the lease. it was never mentioned before.",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "hello my landlord is asking me for a security deposit before i sign the contract",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "i need help my landlord is asking me for a key deposit for me to renew my lease",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "hey my landlord is asking me for a key deposit before i get to live in my new apartment",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "can i ask my tenants for a deposit?",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "can my landlord ask a security deposit from me? i really like the apartment.",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "hey i saw this advertisement on craigslist and they're asking for a security deposit. is this allowed?",
+        "intent": "faq_likehome_deposit-request",
+        "entities": []
+      },
+      {
+        "text": "my landlord is harassing me",
+        "intent": "faq_likehome_landlord-harass",
+        "entities": []
+      },
+      {
+        "text": "my landlord is constantly bothering me",
+        "intent": "faq_likehome_landlord-harass",
+        "entities": []
+      },
+      {
+        "text": "my landlord is sexually harassing me",
+        "intent": "faq_likehome_landlord-harass",
+        "entities": []
+      },
+      {
+        "text": "my landlord keeps trying to date me, i said no but he insists, it’s creepy",
+        "intent": "faq_likehome_landlord-harass",
+        "entities": []
+      },
+      {
+        "text": "i keep getting asked out by my landlord, i told him no but he keeps insisting",
+        "intent": "faq_likehome_landlord-harass",
+        "entities": []
+      },
+      {
+        "text": "my landlord calls me all the time and makes lewd comments",
+        "intent": "faq_likehome_landlord-harass",
+        "entities": []
+      },
+      {
+        "text": "i can’t take my landlord’s harassment anymore",
+        "intent": "faq_likehome_landlord-harass",
+        "entities": []
+      },
+      {
+        "text": "it’s an emergency",
+        "intent": "faq_likehome_emergency",
+        "entities": []
+      },
+      {
+        "text": "my apartment is getting destroyed it's an emergency",
+        "intent": "faq_likehome_emergency",
+        "entities": []
+      },
+      {
+        "text": "there was an emergency where there’s a flood in my apartment",
+        "intent": "faq_likehome_emergency",
+        "entities": []
+      },
+      {
+        "text": "there was an emergency where my apartment electricity went off ",
+        "intent": "faq_likehome_emergency",
+        "entities": []
+      },
+      {
+        "text": "help there was an emergency where a fire burned half of my apartment and there’s a hole in the wall now",
+        "intent": "faq_likehome_emergency",
+        "entities": []
+      },
+      {
+        "text": "water is leaking all over my bathroom it's an emergency",
+        "intent": "faq_likehome_emergency",
+        "entities": []
+      },
+      {
+        "text": "there is an emergency my lights don’t work and i can’t see anything",
+        "intent": "faq_likehome_emergency",
+        "entities": []
+      },
+      {
+        "text": "it's an emergency",
+        "intent": "faq_likehome_emergency",
+        "entities": []
+      },
+      {
+        "text": "there was an emergency",
+        "intent": "faq_likehome_emergency",
+        "entities": []
+      },
+      {
+        "text": "my whole apartment was flooded in an emergency, i can’t live there anymore",
+        "intent": "faq_likehome_emergency",
+        "entities": []
+      },
+      {
+        "text": "can my landlord ask for my sin",
+        "intent": "faq_likehome_personal-info",
+        "entities": []
+      },
+      {
+        "text": "my landlord asked for a copy of my study permit",
+        "intent": "faq_likehome_personal-info",
+        "entities": []
+      },
+      {
+        "text": "is my landlord allowed to ask for a copy of my driver’s license",
+        "intent": "faq_likehome_personal-info",
+        "entities": []
+      },
+      {
+        "text": "my landlord asked for a picture of my sun card",
+        "intent": "faq_likehome_personal-info",
+        "entities": []
+      },
+      {
+        "text": "my landlord wants me to photocopy my health card and send it to him",
+        "intent": "faq_likehome_personal-info",
+        "entities": []
+      },
+      {
+        "text": "my future landlord is asking for my social insurance number",
+        "intent": "faq_likehome_personal-info",
+        "entities": []
+      },
+      {
+        "text": "my future landlord is asking for my sin",
+        "intent": "faq_likehome_personal-info",
+        "entities": []
+      },
+      {
+        "text": "my future landlord is asking for my social security number",
+        "intent": "faq_likehome_personal-info",
+        "entities": []
+      },
+      {
+        "text": "my landlord keeps asking me for a copy of my birth certificate",
+        "intent": "faq_likehome_personal-info",
+        "entities": []
+      },
+      {
+        "text": "how can I get my rl31 slip",
+        "intent": "faq_likehome_rl31",
+        "entities": []
+      },
+      {
+        "text": "my landlord won’t give me my rl31 slip",
+        "intent": "faq_likehome_rl31",
+        "entities": []
+      },
+      {
+        "text": "my landlord still hasn’t sent me my rl31 slip",
+        "intent": "faq_likehome_rl31",
+        "entities": []
+      },
+      {
+        "text": "my landlord hasn’t provided me with the rl31",
+        "intent": "faq_likehome_rl31",
+        "entities": []
+      },
+      {
+        "text": "i need to file in my taxes soon.",
+        "intent": "faq_likehome_rl31",
+        "entities": []
+      },
+      {
+        "text": "i need to submit my taxes and i don’t have my rl31 yet",
+        "intent": "faq_likehome_rl31",
+        "entities": []
+      },
+      {
+        "text": "i asked my landlord about my rl31 but he still hasn’t answered back",
+        "intent": "faq_likehome_rl31",
+        "entities": []
+      },
+      {
+        "text": "solidarity tax credit",
+        "intent": "faq_likehome_rl31",
+        "entities": []
+      },
+      {
+        "text": "i’m trying to cancel the lease after sexual abuse",
+        "intent": "faq_likehome_spouse-violence",
+        "entities": []
+      },
+      {
+        "text": "me and my child are scared of my lover's violence",
+        "intent": "faq_likehome_spouse-violence",
+        "entities": []
+      },
+      {
+        "text": "my lover beats me and i can’t take it anymore",
+        "intent": "faq_likehome_spouse-violence",
+        "entities": []
+      },
+      {
+        "text": "my boyfriend tried to rape me",
+        "intent": "faq_likehome_spouse-violence",
+        "entities": []
+      },
+      {
+        "text": "i got raped by my ex",
+        "intent": "faq_likehome_spouse-violence",
+        "entities": []
+      },
+      {
+        "text": "my lover comes back drunk every night and scares my child",
+        "intent": "faq_likehome_spouse-violence",
+        "entities": []
+      },
+      {
+        "text": "my ex-lover was violent",
+        "intent": "faq_likehome_spouse-violence",
+        "entities": []
+      },
+      {
+        "text": "my lover hits me",
+        "intent": "faq_likehome_spouse-violence",
+        "entities": []
+      },
+      {
+        "text": "i need helping transferring my lease",
+        "intent": "faq_likehome_lease-transfer",
+        "entities": []
+      },
+      {
+        "text": "how can i transfer my lease",
+        "intent": "faq_likehome_lease-transfer",
+        "entities": []
+      },
+      {
+        "text": "what do i do for a lease transfer",
+        "intent": "faq_likehome_lease-transfer",
+        "entities": []
+      },
+      {
+        "text": "what are the steps to follow to transfer my lease to someone else",
+        "intent": "faq_likehome_lease-transfer",
+        "entities": []
+      },
+      {
+        "text": "how do i give my lease to someone else",
+        "intent": "faq_likehome_lease-transfer",
+        "entities": []
+      },
+      {
+        "text": "what do i do to let someone else move in instead of me",
+        "intent": "faq_likehome_lease-transfer",
+        "entities": []
+      },
+      {
+        "text": "let someone else have my apartment",
+        "intent": "faq_likehome_lease-transfer",
+        "entities": []
+      },
+      {
+        "text": "how do i go about subletting my dwelling",
+        "intent": "faq_likehome_sublet",
+        "entities": []
+      },
+      {
+        "text": "how do i sublet my dwelling",
+        "intent": "faq_likehome_sublet",
+        "entities": []
+      },
+      {
+        "text": "i want to sublet my dwelling",
+        "intent": "faq_likehome_sublet",
+        "entities": []
+      },
+      {
+        "text": "can i sublet my place",
+        "intent": "faq_likehome_sublet",
+        "entities": []
+      },
+      {
+        "text": "how do i sublet my lease to someone",
+        "intent": "faq_likehome_sublet",
+        "entities": []
+      },
+      {
+        "text": "i’m leaving on vacation, how do i setup subletting",
+        "intent": "faq_likehome_sublet",
+        "entities": []
+      },
+      {
+        "text": "give me information on subletting",
+        "intent": "faq_likehome_sublet",
+        "entities": []
+      },
+      {
+        "text": "i’m getting subtenants",
+        "intent": "faq_likehome_sublet",
+        "entities": []
+      },
+      {
+        "text": "i’m getting subtenants and i don’t know how to manage them",
+        "intent": "faq_likehome_sublet",
+        "entities": []
+      },
+      {
+        "text": "i want to abandon my apartment",
+        "intent": "faq_likehome_abandon",
+        "entities": []
+      },
+      {
+        "text": "my apartment is a shithole, i want to leave",
+        "intent": "faq_likehome_abandon",
+        "entities": []
+      },
+      {
+        "text": "i have to leave my apartment due to a family emergency",
+        "intent": "faq_likehome_abandon",
+        "entities": []
+      },
+      {
+        "text": "do i need to keep paying rent if i abandon my apartment",
+        "intent": "faq_likehome_abandon",
+        "entities": []
+      },
+      {
+        "text": "my apartment has infestations of bed bugs, i want to leave",
+        "intent": "faq_likehome_abandon",
+        "entities": []
+      },
+      {
+        "text": "can i leave my apartment even though my lease is not finished",
+        "intent": "faq_likehome_abandon",
+        "entities": []
+      },
+      {
+        "text": "i can’t live in my dwelling anymore i want to go",
+        "intent": "faq_likehome_abandon",
+        "entities": []
+      },
+      {
+        "text": "how do i prove to my landlord this is an issue of wear and tear and not negligence",
+        "intent": "faq_likehome_negligence",
+        "entities": []
+      },
+      {
+        "text": "it broke and it wasn’t my fault",
+        "intent": "faq_likehome_negligence",
+        "entities": []
+      },
+      {
+        "text": "how do i ensure the case can’t be spinned into it being negligence",
+        "intent": "faq_likehome_negligence",
+        "entities": []
+      },
+      {
+        "text": "my pipes burst during winter and it’s not my fault",
+        "intent": "faq_likehome_negligence",
+        "entities": []
+      },
+      {
+        "text": "my landlord is trying to say i was negligent and i need to pay for the damages",
+        "intent": "faq_likehome_negligence",
+        "entities": []
+      },
+      {
+        "text": "the ceiling in my bathroom is cracking and my landlord says it’s my fault that i was negligent",
+        "intent": "faq_likehome_negligence",
+        "entities": []
+      },
+      {
+        "text": "my landlord keeps saying it’s my fault the lock broke, how do i prove it’s not?",
+        "intent": "faq_likehome_negligence",
+        "entities": []
+      },
+      {
+        "text": "my landlord disappeared and I need to contact him right now",
+        "intent": "faq_likehome_landlord-contact",
+        "entities": []
+      },
+      {
+        "text": "i can't find my landlord",
+        "intent": "faq_likehome_landlord-contact",
+        "entities": []
+      },
+      {
+        "text": "how do i find my landlord’s contact information",
+        "intent": "faq_likehome_landlord-contact",
+        "entities": []
+      },
+      {
+        "text": "is there a yellowpages for my landlord",
+        "intent": "faq_likehome_landlord-contact",
+        "entities": []
+      },
+      {
+        "text": "i can’t find my landlord’s phone number on the lease",
+        "intent": "faq_likehome_landlord-contact",
+        "entities": []
+      },
+      {
+        "text": "i need to email my landlord",
+        "intent": "faq_likehome_landlord-contact",
+        "entities": []
+      },
+      {
+        "text": "how do i find the representative of the landlord",
+        "intent": "faq_likehome_landlord-contact",
+        "entities": []
+      },
+      {
+        "text": "is there a way i can get the property manager phone number",
+        "intent": "faq_likehome_landlord-contact",
+        "entities": []
+      },
+      {
+        "text": "how do i make a request to my landlord",
+        "intent": "faq_likehome_demand-letter",
+        "entities": []
+      },
+      {
+        "text": "i want to give my landlord a demand letter",
+        "intent": "faq_likehome_demand-letter",
+        "entities": []
+      },
+      {
+        "text": "i need to write a demand letter to my landlord",
+        "intent": "faq_likehome_demand-letter",
+        "entities": []
+      },
+      {
+        "text": "how do i write a demand letter to my landlord",
+        "intent": "faq_likehome_demand-letter",
+        "entities": []
+      },
+      {
+        "text": "how do i make a demand from my landlord",
+        "intent": "faq_likehome_demand-letter",
+        "entities": []
+      },
+      {
+        "text": "what are the steps i need to take to make a proper request out of my landlord",
+        "intent": "faq_likehome_demand-letter",
+        "entities": []
+      },
+      {
+        "text": "is there a way i need to ask my landlord for things",
+        "intent": "faq_likehome_demand-letter",
+        "entities": []
+      },
+      {
+        "text": "how do i write a letter to my landlord",
+        "intent": "faq_likehome_demand-letter",
+        "entities": []
+      },
+      {
+        "text": "how do i find a housing committee",
+        "intent": "faq_likehome_housing-committee",
+        "entities": []
+      },
+      {
+        "text": "how do i find my local housing committee",
+        "intent": "faq_likehome_housing-committee",
+        "entities": []
+      },
+      {
+        "text": "i have housing problems, is there any group that can help me",
+        "intent": "faq_likehome_housing-committee",
+        "entities": []
+      },
+      {
+        "text": "i prefer in-person help i think, can anyone help me",
+        "intent": "faq_likehome_housing-committee",
+        "entities": []
+      },
+      {
+        "text": "is there a way i can locate the closest housing committee to me",
+        "intent": "faq_likehome_housing-committee",
+        "entities": []
+      },
+      {
+        "text": "is there a list somewhere of people that can help me",
+        "intent": "faq_likehome_housing-committee",
+        "entities": []
+      },
+      {
+        "text": "i prefer face to face help, where can i go",
+        "intent": "faq_likehome_housing-committee",
+        "entities": []
+      },
+      {
+        "text": "je parle pas anglais, ou pouvez-vous m’aidez",
+        "intent": "faq_likehome_housing-committee",
+        "entities": []
+      },
+      {
+        "text": "i don’t speak english well help",
+        "intent": "faq_likehome_housing-committee",
+        "entities": []
+      },
+      {
+        "text": "is there anyone that can help me about my housing issues that is not a program",
+        "intent": "faq_likehome_housing-committee",
+        "entities": []
+      },
+      {
+        "text": "yo no hablo ingles",
+        "intent": "faq_likehome_housing-committee",
+        "entities": []
+      },
+      {
+        "text": "i am going to have my credit checked",
+        "intent": "faq_likehome_credit-check",
+        "entities": []
+      },
+      {
+        "text": "i have to check my credit",
+        "intent": "faq_likehome_credit-check",
+        "entities": []
+      },
+      {
+        "text": "i need to provide a credit check",
+        "intent": "faq_likehome_credit-check",
+        "entities": []
+      },
+      {
+        "text": "credit check",
+        "intent": "faq_likehome_credit-check",
+        "entities": []
+      },
+      {
+        "text": "how can i provide a credit check to my landlord",
+        "intent": "faq_likehome_credit-check",
+        "entities": []
+      },
+      {
+        "text": "how do i provide a credit check",
+        "intent": "faq_likehome_credit-check",
+        "entities": []
+      },
+      {
+        "text": "how can i get my credit checked",
+        "intent": "faq_likehome_credit-check",
+        "entities": []
+      },
+      {
+        "text": "how can i get my credit score",
+        "intent": "faq_likehome_credit-check",
+        "entities": []
+      },
+      {
+        "text": "how can i generate a credit report",
+        "intent": "faq_likehome_credit-check",
         "entities": []
       }
     ]
-}
+  }
 }

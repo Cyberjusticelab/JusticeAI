@@ -15,7 +15,7 @@ ADDRESS_INDEX = 0
 FILE_SIZE_INDEX = 1
 
 binary_names_dict = {'non-lem': ['https://capstone.cyberjustice.ca/data/frWac_non_lem_no_postag_no_phrase_200_skip_cut100.bin', 126052447],
-                     'svm_model': ['https://capstone.cyberjustice.ca/data/bin/svm_model.bin', 9796]}
+                     'multi_class_svm_model': ['https://capstone.cyberjustice.ca/data/bin/svm_model.bin', 9796]}
 
 
 def monitor_download(filename, filesize):

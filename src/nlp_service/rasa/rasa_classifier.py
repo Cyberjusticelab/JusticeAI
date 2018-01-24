@@ -34,11 +34,11 @@ class RasaClassifier:
     """
 
     def train(self, force_train=False, initialize_interpreters=True):
-        # Train fact classifiers
+        # Train fact classifier
         self.__train_interpreter(self.fact_data_dir, self.fact_interpreters, force_train=force_train,
                                  initialize_interpreters=initialize_interpreters)
 
-        # Train problem category classifiers
+        # Train problem category classifier
         self.__train_interpreter(self.category_data_dir, self.problem_category_interpreters, force_train=force_train,
                                  initialize_interpreters=initialize_interpreters)
 
@@ -49,7 +49,7 @@ class RasaClassifier:
     """
 
     def classify_problem_category(self, message):
-        return self.problem_category_interpreters['claim_category'].parse(message)
+        return self.problem_category_interpreters['claim_category'].parse(message.lower())
 
     """
         The parsing of the message given by the user to determine information about a fact for its intent i.e. is_student
