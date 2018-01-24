@@ -41,7 +41,8 @@ class CommandEnum:
     SVM = "--svm"
     SIMILARITY_FINDER = "--sf"
     SVR = "--svr"
-    command_list = [SVM, SIMILARITY_FINDER, SVR]
+    EVALUATE = "--evaluate"
+    command_list = [SVM, SIMILARITY_FINDER, SVR, EVALUATE]
 
 
 def run(command_list):
@@ -83,8 +84,11 @@ def run(command_list):
 
     if CommandEnum.SVR in command_list:
         regression_svr = MultiClassSVR(precedent_vector)
-        regression_svr.train()
-        regression_svr.save()
+        if CommandEnum.EVALUATE in command_list:
+            regression_svr.evaluate_best_parameters()
+        else:
+            regression_svr.train()
+            regression_svr.save()
 
     if CommandEnum.SIMILARITY_FINDER in command_list:
         SimilarFinder(train=True, dataset=precedent_vector)

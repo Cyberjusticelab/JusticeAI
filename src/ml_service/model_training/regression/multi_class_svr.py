@@ -1,11 +1,16 @@
+def warn(*args, **kwargs):
+    pass
+import warnings
+warnings.warn = warn
 from sklearn.svm import SVR
 import numpy as np
 from sklearn.multioutput import MultiOutputRegressor
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.metrics import r2_score
 from sklearn.metrics import explained_variance_score
 from util.file import Load, Save
 from util.log import Log
+from feature_extraction.post_processing.regex.regex_tagger import TagPrecedents
 
 
 class MultiClassSVR:
@@ -26,6 +31,35 @@ class MultiClassSVR:
         self.data_set = data_set
         self.model = None
 
+    def evaluate_best_parameters(self):
+        """
+            Evaluate several different parameter combinations and
+            returns the best combination.
+            returns: a dict containing the most optimal parameter
+                     combination
+        """
+        Log.write("Evaluating best parameters for SVR")
+        (x_total, y_total) = self.reshape_dataset()
+        x_train, x_test, y_train, y_test = train_test_split(
+            x_total, y_total, test_size=0.20, random_state=42)
+
+        parameters = {'kernel': ('linear', 'poly', 'sigmoid', 'rbf'),
+                      'C': [0.5, 0.7, 1, 1.5, 2, 3, 5],
+                      'gamma': ['auto', 0.1, 0.2, 0.3, 0.4, 0.5],
+                      'epsilon': [0.1, 0.2, 0.3, 0.4, 0.5]
+                      }
+        results = []
+        indices = TagPrecedents().get_intent_indice()
+        for i in range(len(y_train[0])):
+            yt = y_train[:, [i]]
+            svr = SVR()
+            clf = GridSearchCV(svr, parameters)
+            clf.fit(x_train, yt)
+            Log.write('Column: {}'.format(indices['outcomes_vector'][i][1]))
+            Log.write(clf.best_params_)
+            results.append(clf.best_params_)
+        return results
+
     def get_weights(self):
         """
         The weight associated with each input fact.
@@ -40,17 +74,26 @@ class MultiClassSVR:
 
     def __test(self, x_test, y_test):
         """
-
+        1) Get the indice of every column of the outcome matrix
+        2) Make the y prediction
+        3) For every column calculate it's explained variance as well as r2 score
+        4) Log the results
         :param x_test:
         :param y_test:
         :return: None
         """
-        Log.write("Testing Classifier")
+        indices = TagPrecedents().get_intent_indice()
+        Log.write("\nTesting Classifier")
         y_predict = self.model.predict(x_test)
-        r_Score = r2_score(y_test, y_predict)
-        explained_variance = explained_variance_score(y_test, y_predict)
-        Log.write('R2: {}'.format(r_Score))
-        Log.write('Explained Variance: {}'.format(explained_variance))
+        Log.write('Regression Results:')
+        for i in range(len(y_predict[0])):
+            yp = y_predict[:, [i]]
+            yt = y_test[:, [i]]
+            r_Score = r2_score(yt, yp)
+            explained_variance = explained_variance_score(yt, yp)
+            Log.write('Column: {}'.format(indices['outcomes_vector'][i][1]))
+            Log.write('R2: {}'.format(r_Score))
+            Log.write('Explained Variance: {}\n'.format(explained_variance))
 
     def train(self):
         """
@@ -75,6 +118,7 @@ class MultiClassSVR:
         clf.fit(x_train, y_train)
         self.model = clf
         self.__test(x_test, y_test) # 4
+        self.data_set = None
 
     def save(self):
         """
