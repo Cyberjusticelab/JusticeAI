@@ -100,6 +100,7 @@ class MlController:
         for outcome_tuples in MlController.indexes['outcomes_vector']:
             outcome_index = outcome_tuples[0]
             label = outcome_tuples[1]
-            return_dict[label] = integer_outcome_vector[outcome_index]
+            if label not in return_dict:
+                return_dict[label] = integer_outcome_vector[outcome_index]
 
         return {'outcomes_vector': return_dict}
