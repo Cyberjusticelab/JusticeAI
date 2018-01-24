@@ -156,18 +156,18 @@ class TestTrainingDriver(unittest.TestCase):
         result = MlController.vector_to_dict(binary_vector, integer_vector)
         expected_dict = {
             'outcomes_vector': {
-                'additional_indemnity_money': 1,
-                'rejects_tenant_demand': 0,
-                'orders_immediate_execution': 1,
-                'tenant_ordered_to_pay_landlord': 1,
+                'orders_resiliation': 1,
+                'additional_indemnity_money': 0,
                 'additional_indemnity_date': 43,
-                'orders_expulsion': 0,
-                'declares_housing_inhabitable': 0,
-                'orders_tenant_pay_first_of_month': 0,
+                'orders_tenant_pay_first_of_month': 1,
+                'rejects_landlord_demand': 0,
+                'declares_housing_inhabitable': 1,
                 'declares_resiliation_is_correct': 0,
-                'tenant_ordered_to_pay_landlord_legal_fees': 80,
-                'rejects_landlord_demand': 1,
-                'orders_resiliation': 1
+                'rejects_tenant_demand': 1,
+                'orders_expulsion': 0,
+                'orders_immediate_execution': 0,
+                'tenant_ordered_to_pay_landlord': 0,
+                'tenant_ordered_to_pay_landlord_legal_fees': 80
             }
         }
         self.assertEqual(expected_dict, result)
