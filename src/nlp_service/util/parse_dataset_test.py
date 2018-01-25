@@ -21,6 +21,7 @@ i owe my landlord (40 dollars)
 i don't owe my landlord any (money)    
     """
 
+
     def test_find_meta_characters(self):
         parser = CreateJson()
         text = "() = money, ner_duckling"
