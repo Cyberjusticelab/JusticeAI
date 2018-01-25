@@ -52,7 +52,7 @@ class CreateJson:
     def parse_directory(self, read_dir, save_dir):
         for file in os.listdir(read_dir):
             self.reset()
-            with open(file, "r") as myfile:
+            with open(read_dir + file, "r") as myfile:
                 text = myfile.read()
 
             self.parse_file(text)
@@ -107,9 +107,11 @@ class CreateJson:
 
         meta_meaning = line.split('=')[1]
         meta_meaning = meta_meaning.replace(" ", "")
-        meta_dict.entity(meta_meaning.split(",")[0])
-        meta_dict.extractor(meta_meaning.split(",")[1])
-
+        if ',' in meta_meaning:
+            meta_dict.entity(meta_meaning.split(",")[0])
+            meta_dict.extractor(meta_meaning.split(",")[1])
+        else:
+            meta_dict.entity(meta_meaning)
         return meta_dict.meta
 
     def find_regex(self, line):
@@ -139,12 +141,15 @@ class CreateJson:
         for dictionary in self.meta_list:
             if dictionary['open'] in line:
                 start = text.find(dictionary['open'])
-                end = text.find(dictionary['close']) - 1
-                text = text.replace(dictionary['open'], "")
-                text = text.replace(dictionary['close'], "")
+                text = text.replace(dictionary['open'], "", 1)
+                end = text.find(dictionary['close'])
+                text = text.replace(dictionary['close'], "", 1)
                 value = text[start:end]
                 entity = dictionary['entity']
-                extractor = dictionary['extractor']
+                try:
+                    extractor = dictionary['extractor']
+                except KeyError:
+                    extractor = ""
 
                 ent_dict = {
                     "start": start,
