@@ -57,7 +57,7 @@
       <div id="chat-current-container">
         <el-row>
           <el-col :sm="{span: 3, offset: 4}">
-            <div id="chat-zeus-avatar" v-on:click="user.openChatHistory = !user.openChatHistory; getChatHistory()"></div>
+            <div id="chat-zeus-avatar" v-on:click="user.openChatHistory = !user.openChatHistory; getFact()"></div>
           </el-col>
           <el-col :sm="{span: 12, offset: 0}">
             <div id="chat-zeus-message">
@@ -287,11 +287,23 @@ export default {
         }
       )
     },
+    getFact () {
+      let zeusId = this.$localStorage.get('zeusId')
+      this.$http.get(this.api_url + 'conversation/' + zeusId + '/resolved').then(
+        response => {
+          this.chatHistory.fact = response.body.fact_entities
+        },
+        response => {
+          this.connectionError = true
+          console.log("Connection Fail: remove resolved fact")
+        }
+      )
+    },
     removeFact (factId) {
       let zeusId = this.$localStorage.get('zeusId')
       this.$http.delete(this.api_url + 'conversation/' + zeusId + '/resolved/' + factId).then(
         response => {
-          this.getChatHistory()
+          this.getFact()
         },
         response => {
           this.connectionError = true
