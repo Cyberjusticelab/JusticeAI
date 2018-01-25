@@ -236,24 +236,20 @@ export default {
       }
       // set current zeus response
       let zeusResponseText = conversation.message || conversation.text
-      setTimeout(() => {
-        // 1) if from history, show the last sentence
-        if (!this.zeus.input && this.chatHistory.history.length > 0) {
-          this.zeus.input = zeusResponseText.slice(-1)[0]
-        // 2) if from new response, repeatly show the sentences and push to history
-        } else {
-          zeusResponseText = zeusResponseText.split('|')
-          conversation.text = new Array
-          conversation.sender_type = 'BOT'
-          this.chatHistory.history.push(conversation)
-          for (let i = 0; i < zeusResponseText.length; i++) {
-            this.zeus.input = zeusResponseText[i]
-            setTimeout(() => {
-              this.chatHistory.history[this.chatHistory.history.length-1].text.push(zeusResponseText[i])
-            }, 1100)
-          }
+      // 1) if from history, show the last sentence
+      if (!this.zeus.input && this.chatHistory.history.length > 0) {
+        this.zeus.input = zeusResponseText.slice(-1)[0]
+      // 2) if from new response, repeatly show the sentences and push to history
+      } else {
+        zeusResponseText = zeusResponseText.split('|')
+        conversation.text = new Array
+        conversation.sender_type = 'BOT'
+        this.chatHistory.history.push(conversation)
+        for (let i = 0; i < zeusResponseText.length; i++) {
+          this.zeus.input = zeusResponseText[i]
+          this.chatHistory.history[this.chatHistory.history.length-1].text.push(zeusResponseText[i])
         }
-      }, 1100)
+      }
       // set if file prompt
       this.zeus.filePrompt = (conversation.file_request !== undefined) && (conversation.file_request !== null)
       // set if pre-selected answer buttons
