@@ -10,6 +10,8 @@ ENV PYTHONPATH /usr/src/app/src:/usr/src/app/src/nlp_service
 
 WORKDIR /usr/src/app
 
+RUN apt-get update -y && apt-get install default-jre -y
+
 RUN mkdir -p /usr/src/app/src/nlp_service/outlier
 
 WORKDIR /usr/src/app/src/nlp_service/outlier
