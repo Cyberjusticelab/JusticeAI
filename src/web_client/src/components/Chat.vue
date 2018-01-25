@@ -36,7 +36,7 @@
     </transition>
     <!-- End of Resolved Fact Overlay -->
     <!-- Chat Window -->
-    <div id="chat-window" v-if="!initLoading">
+    <div id="chat-window" v-if="!initLoading" v-autoscroll="'bottom'">
       <!-- Zeus Chat -->
       <div id="chat-history-container">
         <div v-for="(history, index1) in chatHistory.history" :key="index1">
@@ -215,10 +215,6 @@ export default {
   },
   methods: {
     sendUserMessage () {
-      this.zeus.isThinking = true
-      setTimeout(() => {
-        this.zeus.isThinking = false
-      }, 1500)
       this.$http.post(this.api_url + 'conversation', {
         conversation_id: this.$localStorage.get('zeusId'),
         message: this.user.input
@@ -233,6 +229,10 @@ export default {
       )
     },
     configChat (conversation) {
+      this.zeus.isThinking = true
+      setTimeout(() => {
+        this.zeus.isThinking = false
+      }, 1500)
       // 1. push user input to history
       if (this.user.input) {
         this.chatHistory.history.push({
