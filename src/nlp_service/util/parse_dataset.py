@@ -49,9 +49,17 @@ class CreateJson:
         self.intent_list = []
         self.meta_string = ""
 
+    """
+    Takes a directory of text files and converts them to JSON files for RASA NLU training.
+    read_dir: Directory with txt files to be converted to JSON.
+    save_dir: Directory in which to save the converted JSON files. File names will be same as the source text files.
+    """
+
     def parse_directory(self, read_dir, save_dir):
         read_dir = os.getcwd() + read_dir
         save_dir = os.getcwd() + save_dir
+        print("RASA Json Creator - Parse Directory\n\t-Read Directory: {}\n\t-Save Directory: {}".format(read_dir,
+                                                                                                         save_dir))
         for file in os.listdir(read_dir):
             self.reset()
             with open(read_dir + file, "r") as myfile:
@@ -64,7 +72,35 @@ class CreateJson:
             filename = save_dir + file.split('.')[0] + '.json'
             with open(filename, 'w+') as fp:
                 json.dump(self.nlu_dict, fp)
-                print(json.dumps(self.nlu_dict))
+                print("\t+Writing file: {}".format(filename))
+
+    """
+    Takes a single input text file to use as a base and creates JSON files for RASA NLU training for each file in the output file list.
+    input_file: Input text file to be used as the base.
+    output_file_names: A list of names for the output files. All files will have identical training data.
+    save_dir: Directory in which to save the JSON files. File names will be taken from the output file name list.
+    """
+
+    def identical_fact_list(self, input_file, output_file_names, save_dir):
+        input_file = os.getcwd() + "/" + input_file
+        save_dir = os.getcwd() + save_dir
+        print(
+            "RASA Json Creator - Identical Fact List\n\t-Input File: {}\n\t-Output File Names: {}\n\t-Save Directory: {}"
+                .format(input_file, output_file_names, save_dir))
+
+        self.reset()
+        with open(input_file) as file:
+            text = file.read()
+
+            self.parse_file(text)
+            self.nlu_dict['rasa_nlu_data']['regex_features'] = self.regex_list
+            self.nlu_dict['rasa_nlu_data']['common_examples'] = self.intent_list
+
+            for filename in output_file_names:
+                full_filename = save_dir + filename + '.json'
+                with open(full_filename, 'w+') as output_file:
+                    json.dump(self.nlu_dict, output_file)
+                    print("\t+Writing file: {}".format(full_filename))
 
     def parse_file(self, file):
         self.state = StateEnum.NONE
