@@ -138,6 +138,6 @@ no
 python3 -m util.parse_dataset <read_dir> <write_dir>
 
 #### Example
-python3 -m util.parsset ~/Documents/ ~/Documents/Json/
+python3 -m util.parse_dataset ~/Documents/ ~/Documents/Json/
 
 **DO NOT FORGET THE '/' AT THE END OF YOUR DIRECTORY**
