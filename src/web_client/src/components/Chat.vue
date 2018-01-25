@@ -61,7 +61,7 @@
           </el-col>
           <el-col :sm="{span: 12, offset: 0}">
             <div id="chat-zeus-message">
-              <img v-if="!zeus.input" alt="" src="../assets/chatting.gif">
+              <img v-if="!zeus.input && zeus.isSpeaking" alt="" src="../assets/chatting.gif">
               <transition name="fade">
                 <p v-if="zeus.input" v-html="zeus.input"></p>
               </transition>
@@ -71,14 +71,14 @@
                   v-model="zeus.file"
                   :drop="true"
                   :post-action="uploadUrl"
-                  v-if="zeus.filePrompt && zeus.input"
+                  v-if="zeus.filePrompt && !zeus.isSpeaking"
                   extensions="jpg,jpeg,pdf,docx,webp,png"
                 >
                   <p v-if="zeus.file.length == 0" id="drag-and-drop">drag and drop or click to select file</p>
                   <p v-if="zeus.file" id="file-name" v-for="file in zeus.file">{{ file.name }}</p>
                 </file-upload>
               </transition>
-              <div id="file-upload-button-group" v-if="zeus.filePrompt && zeus.input">
+              <div id="file-upload-button-group" v-if="zeus.filePrompt && !zeus.isSpeaking">
                 <el-button v-show="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true" type="warning" :disabled="zeus.file.length == 0">
                   Upload
                 </el-button>
@@ -89,12 +89,12 @@
                   Successfully uploaded <span>{{ zeus.file[0].name }}</span>
                 </p>
               </div>
-              <div id="pre-selected-answer-group" v-if="zeus.suggestion && zeus.input">
+              <div id="pre-selected-answer-group" v-if="zeus.suggestion && !zeus.isSpeaking">
                 <el-button v-for="answer in zeus.suggestion" :key="answer.id" type="warning" v-on:click="user.input = answer; sendUserMessage()">
                   {{ answer }}
                 </el-button>
               </div>
-              <div id="beta-feedback-group" v-if="promptFeedback && zeus.input">
+              <div id="beta-feedback-group" v-if="promptFeedback && !zeus.isSpeaking">
                 <div v-on:click="sendFeedback(true)">
                   <icon name="thumbs-up" class="feedback-good"></icon>
                 </div>
@@ -103,7 +103,7 @@
                 </div>
               </div>
               <div id="bubble-input-group" v-if="zeus.input">
-                <form v-on:submit.prevent="sendUserMessage()" v-if="zeus.suggestion.length == 0">
+                <form v-on:submit.prevent="sendUserMessage()" v-if="zeus.suggestion.length == 0 && !zeus.isSpeaking">
                   <el-input autosize v-model="user.input" placeholder="Enter your message" autoComplete="off" :disabled="user.disableInput"></el-input>
                   <el-button type="warning" :disabled="!user.input" native-type="submit">SEND</el-button>
                 </form>
@@ -117,7 +117,7 @@
     <!-- End of Chat Window -->
     <!-- Input Window - Mobile -->
     <div id="chat-input">
-      <form v-on:submit.prevent="sendUserMessage()">
+      <form v-on:submit.prevent="sendUserMessage()" v-if="!zeus.isSpeaking">
         <el-input id="chat-input-text" autosize v-model="user.input" placeholder="Enter your message" autoComplete="off" :disabled="user.disableInput"></el-input>
         <el-button id="chat-input-submit" type="warning" :disabled="!user.input" native-type="submit">SEND</el-button>
       </form>
@@ -145,7 +145,8 @@ export default {
         input: null,
         file: new Array,
         filePrompt: false,
-        suggestion: new Array
+        suggestion: new Array,
+        isSpeaking: false
       },
       user: {
         name: null,
@@ -241,6 +242,7 @@ export default {
         this.zeus.input = zeusResponseText.slice(-1)[0]
       // 2.2 if from new response, repeatly show the sentences and push to history
       } else {
+        this.zeus.isSpeaking = true
         zeusResponseText = zeusResponseText.split('|')
         conversation.text = new Array
         conversation.sender_type = 'BOT'
@@ -250,7 +252,10 @@ export default {
           setTimeout(() => {
             this.zeus.input = zeusResponseText[i]
             this.chatHistory.history[this.chatHistory.history.length-1].text.push(zeusResponseText[i])
-          }, 1200)
+            if (i == zeusResponseText.length - 1) {
+              this.zeus.isSpeaking = false
+            }
+          }, 2500*i)
         }
       }
       // 3. set if file prompt
