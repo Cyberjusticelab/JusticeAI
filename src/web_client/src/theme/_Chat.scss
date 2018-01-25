@@ -99,10 +99,6 @@
         border-radius: 2px;
         display: inline-block;
         font-size: 16px;
-        a {
-          text-decoration: none !important;
-          color: $main-white-1;
-        }
       }
       .chat-history-zeus {
         @extend .chat-history-item;

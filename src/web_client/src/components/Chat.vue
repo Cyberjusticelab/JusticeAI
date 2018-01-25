@@ -39,8 +39,8 @@
     <div id="chat-window" v-if="!initLoading">
       <!-- Zeus Chat -->
       <div id="chat-history-container">
-        <div v-for="(history, index1) in chatHistory.history" :key="history.id">
-          <el-row v-for="(sentence, index2) in history.text" :key="sentence.id" v-if="!(index1 == chatHistory.history.length-1 && index2 == history.text.length-1)">
+        <div v-for="(history, index1) in chatHistory.history" :key="index1">
+          <el-row v-for="(sentence, index2) in history.text" :key="index2" v-if="!(index1 == chatHistory.history.length-1 && index2 == history.text.length-1)">
             <el-col :sm="{span: 14, offset: 2}">
               <div class="chat-history-zeus" v-if="history.sender_type == 'BOT'">
                 <p v-html="sentence"></p>
@@ -227,41 +227,44 @@ export default {
       )
     },
     configChat (conversation) {
-      // push user input to history
+      // 1. push user input to history
       if (this.user.input) {
         this.chatHistory.history.push({
           text: [this.user.input],
           sender_type: 'USER'
         })
       }
-      // set current zeus response
+      // 2. set current zeus response
       let zeusResponseText = conversation.message || conversation.text
-      // 1) if from history, show the last sentence
+      // 2.1 if from history, show the last sentence
       if (!this.zeus.input && this.chatHistory.history.length > 0) {
         this.zeus.input = zeusResponseText.slice(-1)[0]
-      // 2) if from new response, repeatly show the sentences and push to history
+      // 2.2 if from new response, repeatly show the sentences and push to history
       } else {
         zeusResponseText = zeusResponseText.split('|')
         conversation.text = new Array
         conversation.sender_type = 'BOT'
         this.chatHistory.history.push(conversation)
         for (let i = 0; i < zeusResponseText.length; i++) {
-          this.zeus.input = zeusResponseText[i]
-          this.chatHistory.history[this.chatHistory.history.length-1].text.push(zeusResponseText[i])
+          this.zeus.input = null
+          setTimeout(() => {
+            this.zeus.input = zeusResponseText[i]
+            this.chatHistory.history[this.chatHistory.history.length-1].text.push(zeusResponseText[i])
+          }, 1200)
         }
       }
-      // set if file prompt
+      // 3. set if file prompt
       this.zeus.filePrompt = (conversation.file_request !== undefined) && (conversation.file_request !== null)
-      // set if pre-selected answer buttons
+      // 4. set if pre-selected answer buttons
       if (conversation.possible_answers == undefined) {
         this.zeus.suggestion = []
       } else {
         this.zeus.suggestion = JSON.parse(conversation.possible_answers) || []
       }
-      // set feedback prompt
+      // 5. set feedback prompt
       this.numMessageSinceChatHistory += 1
       this.promptFeedback = this.numMessageSinceChatHistory > 4
-      // reset user input to empty
+      // 6. reset user input to empty
       this.user.input = null
       this.user.disableInput = conversation.enforce_possible_answer
     },
