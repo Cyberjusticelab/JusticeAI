@@ -29,6 +29,7 @@ RUN python -m spacy download en
 
 COPY ./src/nlp_service/init_rasa.py ./src/nlp_service
 COPY ./src/nlp_service/outlier ./src/nlp_service/outlier
+COPY ./src/nlp_service/util ./src/nlp_service/util
 COPY ./src/nlp_service/rasa ./src/nlp_service/rasa
 
 # Train RASA classifier

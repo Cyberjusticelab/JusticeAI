@@ -50,6 +50,8 @@ class CreateJson:
         self.meta_string = ""
 
     def parse_directory(self, read_dir, save_dir):
+        read_dir = os.getcwd() + read_dir
+        save_dir = os.getcwd() + save_dir
         for file in os.listdir(read_dir):
             self.reset()
             with open(read_dir + file, "r") as myfile:
@@ -60,8 +62,9 @@ class CreateJson:
             self.nlu_dict['rasa_nlu_data']['common_examples'] = self.intent_list
 
             filename = save_dir + file.split('.')[0] + '.json'
-            with open(filename, 'w') as fp:
+            with open(filename, 'w+') as fp:
                 json.dump(self.nlu_dict, fp)
+                print(json.dumps(self.nlu_dict))
 
     def parse_file(self, file):
         self.state = StateEnum.NONE
@@ -101,7 +104,7 @@ class CreateJson:
         meta_dict = MetaDict()
 
         meta_characters = line.split('=')[0]
-        meta_characters = meta_characters.replace(" " , "")
+        meta_characters = meta_characters.replace(" ", "")
         meta_dict.open(meta_characters[0])
         meta_dict.close(meta_characters[1])
 

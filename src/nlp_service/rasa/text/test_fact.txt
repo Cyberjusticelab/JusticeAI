@@ -1,0 +1,18 @@
+[meta]
+() = money, ner_duckling
+
+[regex_features]
+money: $\d
+
+[entity_synonyms]
+entity: synonym1, synonym2
+
+[common_examples: true]
+my landlord increased my rent by ($500)
+i owe my landlord (40 dollars)
+yes i owe my landlord (50 bucks)
+
+[common_examples: false]
+i don't owe my landlord any money
+i have no debt to my landlord
+no
