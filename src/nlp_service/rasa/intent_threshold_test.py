@@ -8,7 +8,7 @@ class TestIntentThreshold(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.intentThreshold = IntentThreshold(min_percent_difference=0.0, min_confidence_threshold=0.25)
+        cls.intentThreshold = IntentThreshold(min_percent_difference=0.0, min_confidence_threshold=0.15)
 
     def test_instantiate(self):
         self.assertIsNotNone(self.intentThreshold)
