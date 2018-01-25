@@ -58,8 +58,14 @@ class CreateJson:
     def parse_directory(self, read_dir, save_dir):
         read_dir = os.getcwd() + read_dir
         save_dir = os.getcwd() + save_dir
+
         print("RASA Json Creator - Parse Directory\n\t-Read Directory: {}\n\t-Save Directory: {}".format(read_dir,
                                                                                                          save_dir))
+
+        if not os.path.exists(os.path.dirname(save_dir)):
+            print("!Directory {} does not exist, creating it".format(save_dir))
+            os.makedirs(os.path.dirname(save_dir))
+
         for file in os.listdir(read_dir):
             self.reset()
             with open(read_dir + file, "r") as myfile:
@@ -84,9 +90,14 @@ class CreateJson:
     def identical_fact_list(self, input_file, output_file_names, save_dir):
         input_file = os.getcwd() + "/" + input_file
         save_dir = os.getcwd() + save_dir
+
         print(
             "RASA Json Creator - Identical Fact List\n\t-Input File: {}\n\t-Output File Names: {}\n\t-Save Directory: {}"
                 .format(input_file, output_file_names, save_dir))
+
+        if not os.path.exists(os.path.dirname(save_dir)):
+            print("!Directory {} does not exist, creating it".format(save_dir))
+            os.makedirs(os.path.dirname(save_dir))
 
         self.reset()
         with open(input_file) as file:
