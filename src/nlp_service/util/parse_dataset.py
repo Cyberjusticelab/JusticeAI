@@ -63,7 +63,7 @@ class CreateJson:
                                                                                                          save_dir))
 
         if not os.path.exists(os.path.dirname(save_dir)):
-            print("!Directory {} does not exist, creating it".format(save_dir))
+            print("\t!Directory {} does not exist, creating it".format(save_dir))
             os.makedirs(os.path.dirname(save_dir))
 
         for file in os.listdir(read_dir):
@@ -96,7 +96,7 @@ class CreateJson:
                 .format(input_file, output_file_names, save_dir))
 
         if not os.path.exists(os.path.dirname(save_dir)):
-            print("!Directory {} does not exist, creating it".format(save_dir))
+            print("\t!Directory {} does not exist, creating it".format(save_dir))
             os.makedirs(os.path.dirname(save_dir))
 
         self.reset()
