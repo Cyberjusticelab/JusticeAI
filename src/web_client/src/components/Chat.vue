@@ -39,8 +39,8 @@
     <div id="chat-window" v-if="!initLoading">
       <!-- Zeus Chat -->
       <div id="chat-history-container">
-        <div v-for="history in chatHistory.history" :key="history.id">
-          <el-row v-for="sentence in history.text" :key="sentence.id">
+        <div v-for="(history, index1) in chatHistory.history" :key="history.id">
+          <el-row v-for="(sentence, index2) in history.text" :key="sentence.id" v-if="!(index1 == chatHistory.history.length-1 && index2 == history.text.length-1)">
             <el-col :sm="{span: 14, offset: 2}">
               <div class="chat-history-zeus" v-if="history.sender_type == 'BOT'">
                 <p v-html="sentence"></p>
@@ -218,17 +218,7 @@ export default {
         message: this.user.input
       }).then(
         response => {
-          this.zeus.input = null
-          this.zeus.filePrompt = false;
-          setTimeout(() => {
-            this.configChat(response.body)
-            if (zeusMessage) {
-              this.chatHistory.history.push({
-                sender_type: "BOT",
-                text: zeusMessage
-              })
-            }
-          }, 1100)
+          this.configChat(response.body)
         },
         response => {
           this.connectionError = true
@@ -237,8 +227,33 @@ export default {
       )
     },
     configChat (conversation) {
-      // set current zeus text
-      this.zeus.input = conversation.message || conversation.html || conversation.text
+      // push user input to history
+      if (this.user.input) {
+        this.chatHistory.history.push({
+          text: [this.user.input],
+          sender_type: 'USER'
+        })
+      }
+      // set current zeus response
+      let zeusResponseText = conversation.message || conversation.text
+      setTimeout(() => {
+        // 1) if from history, show the last sentence
+        if (!this.zeus.input && this.chatHistory.history.length > 0) {
+          this.zeus.input = zeusResponseText.slice(-1)[0]
+        // 2) if from new response, repeatly show the sentences and push to history
+        } else {
+          zeusResponseText = zeusResponseText.split('|')
+          conversation.text = new Array
+          conversation.sender_type = 'BOT'
+          this.chatHistory.history.push(conversation)
+          for (let i = 0; i < zeusResponseText.length; i++) {
+            this.zeus.input = zeusResponseText[i]
+            setTimeout(() => {
+              this.chatHistory.history[this.chatHistory.history.length-1].text.push(zeusResponseText[i])
+            }, 1100)
+          }
+        }
+      }, 1100)
       // set if file prompt
       this.zeus.filePrompt = (conversation.file_request !== undefined) && (conversation.file_request !== null)
       // set if pre-selected answer buttons
@@ -263,7 +278,6 @@ export default {
           this.promptFeedback = false
         },
         response => {
-          this.promptFeedback = false
           this.connectionError = true
           console.log("Connection Fail: send feedback")
         }
