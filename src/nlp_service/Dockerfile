@@ -33,7 +33,7 @@ COPY ./src/nlp_service/util ./src/nlp_service/util
 COPY ./src/nlp_service/rasa ./src/nlp_service/rasa
 
 # Train RASA classifier
-RUN cd src/nlp_service && python init_rasa.py
+RUN cd src/nlp_service && ls rasa/ && python init_rasa.py
 
 COPY . .
 
