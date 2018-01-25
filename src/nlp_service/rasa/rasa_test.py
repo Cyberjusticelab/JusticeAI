@@ -10,7 +10,7 @@ class TestRasaClassifier(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.rasaClassifier = RasaClassifier()
-        cls.rasaClassifier.train(force_train=True)
+        cls.rasaClassifier.train(force_train=False)
 
     def test_instantiate(self):
         self.assertIsNotNone(self.rasaClassifier)
