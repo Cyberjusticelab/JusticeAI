@@ -5,7 +5,7 @@ from util.parse_dataset import CreateJson
 class TestMain(unittest.TestCase):
     text = """
 [meta]
-() = money,ner_duckling
+() = money, ner_duckling
 
 [regex_features]
 money: $\d(.)?+|\d(.)?+$
@@ -23,7 +23,7 @@ i don't owe my landlord any (money)
 
     def test_find_meta_characters(self):
         parser = CreateJson()
-        text = "() = money,ner_duckling"
+        text = "() = money, ner_duckling"
         result = parser.find_meta_characters(text)
         expected_result = {
             'open': '(',
