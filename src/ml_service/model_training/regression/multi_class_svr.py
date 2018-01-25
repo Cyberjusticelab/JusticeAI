@@ -49,7 +49,7 @@ class MultiClassSVR:
                       'epsilon': [0.1, 0.2, 0.3, 0.4, 0.5]
                       }
         results = []
-        indices = TagPrecedents().get_intent_indice()
+        indices = TagPrecedents().get_intent_index()
         for i in range(len(y_train[0])):
             yt = y_train[:, [i]]
             svr = SVR()
@@ -82,7 +82,7 @@ class MultiClassSVR:
         :param y_test:
         :return: None
         """
-        indices = TagPrecedents().get_intent_indice()
+        indices = TagPrecedents().get_intent_index()
         Log.write("\nTesting Classifier")
         y_predict = self.model.predict(x_test)
         Log.write('Regression Results:')
