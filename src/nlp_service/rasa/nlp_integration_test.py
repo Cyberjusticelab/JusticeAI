@@ -14,7 +14,7 @@ class TestNLPIntegration(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.rasaClassifier = RasaClassifier()
-        cls.rasaClassifier.train(force_train=True)
+        cls.rasaClassifier.train(force_train=False)
         cls.intentThreshold = IntentThreshold(min_percent_difference=0, min_confidence_threshold=0.15)
 
     def test_all_claim_category_text(self):
