@@ -277,7 +277,6 @@ to resiliate the lease
 i'd like to terminate my lease
 i want to break my lease
 i'm leaving my apartment even though my lease is still ongoing.
-i want to leave my apartment for another apartment.
 i'm getting evicted
 i'm getting evicted from my apartment.
 i'm kicking out my tenant.
@@ -285,8 +284,6 @@ i'm trying to kick my tenant out. he damaged my property and hasn't paid rent.
 my landlord is trying to evict me.
 my neighbour complained to my landlord about my cat. my landlord is now trying to evict me.
 my landlord is trying to evict me.
-i want to leave my apartment.
-there is mold everywhere in the apartment. i need to leave asap but i don't want to pay rent.
 the apartment is disgusting. my roommate won't clean and my landlord won't do anything.
 my apartment is not habitable and my landlord won't do anything to fix the issues. i want to break the lease.
 i want to break the lease.
@@ -480,9 +477,9 @@ i’m getting subtenants and i don’t know how to manage them
 
 [common_examples: faq_likehome_abandon]
 i want to abandon my apartment
-my apartment is a shithole, i want to leave
-i have to leave my apartment due to a family emergency
+my apartment is a shithole, i want to abandon
+i have to abandon my apartment due to a family emergency
 do i need to keep paying rent if i abandon my apartment
-my apartment has infestations of bed bugs, i want to leave
-can i leave my apartment even though my lease is not finished
+my apartment has infestations of bed bugs, i want to abandon
+can i abandon my apartment even though my lease is not finished
 i can’t live in my dwelling anymore i want to go
