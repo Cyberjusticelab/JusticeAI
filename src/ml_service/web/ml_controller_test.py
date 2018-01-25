@@ -137,6 +137,7 @@ class TestTrainingDriver(unittest.TestCase):
     def test_vector_to_dict(self):
         binary_vector = np.array([0, 1, 0, 0, 0, 1, 1, 0, 1, 0])
         integer_vector = np.array([43, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 80])
+        MlController.classifier_labels = self.mock_classifier_index
         result = MlController.vector_to_dict(binary_vector, integer_vector)
         expected_dict = {
             'outcomes_vector': {

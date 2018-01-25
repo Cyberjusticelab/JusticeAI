@@ -30,6 +30,8 @@ def __dictionary_to_list():
     }]
     """
     precedent_vector = Load.load_binary("precedent_vectors.bin")
+    if precedent_vector is None:
+        return []
     Log.write("Formatting data")
     data_list = []
     for precedent_file in precedent_vector:
@@ -63,6 +65,8 @@ def run(command_list):
                 return False
 
     precedent_vector = __dictionary_to_list()
+    if len(precedent_vector) == 0:
+        return False
     try:
         data_size = command_list[-1]
         precedent_vector = precedent_vector[:int(data_size)]
