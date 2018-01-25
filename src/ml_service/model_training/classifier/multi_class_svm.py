@@ -8,6 +8,7 @@ from util.file import Load, Save
 from util.log import Log
 from feature_extraction.post_processing.regex.regex_tagger import TagPrecedents
 from sklearn.preprocessing import binarize
+import csv
 
 
 class MultiClassSVM:
@@ -30,17 +31,38 @@ class MultiClassSVM:
         self.mlb = None
         self.classifier_labels = None
 
-    def get_weights(self):
+    def display_weights(self):
         """
-        The weight associated with each input fact.
-        Useful in seeing which facts the classifier
-        values more than others
+        Writes all the weights to .csv format
+        1) get the facts
+        2) for every outcome write the weights
         :return: None
         """
-        if self.model is not None:
-            return self.model.coef_[0]
-        Log.write('Please train or load the classifier first')
-        return None
+        try:
+            if self.model is None:
+                self.model = Load.load_binary('multi_class_svm_model.bin')
+                self.classifier_labels = Load.load_binary('classifier_labels.bin')
+        except:
+            return None
+
+        index = TagPrecedents().get_intent_index()
+        fact_header = [" "]
+        for header in index['facts_vector']:
+            fact_header.append(header[1])
+
+        with open('weights.csv', 'w') as outcsv:
+            writer = csv.writer(outcsv)
+            writer.writerow(fact_header)
+
+            for i in range(len(self.model.estimators_)):
+                outcome_list = [self.classifier_labels[i]]
+                estimator = self.model.estimators_[i]
+                weights = estimator.coef_[0]
+                for j in range(len(weights)):
+                    outcome_list.append(weights[j])
+                writer.writerow(outcome_list)
+
+        Log.write('Weights saved to .csv')
 
     def __test(self, x_test, y_test):
         """

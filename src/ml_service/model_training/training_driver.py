@@ -86,8 +86,11 @@ def run(command_list):
     Log.write("Executing train model.")
     if CommandEnum.SVM in command_list:
         linear_svm = MultiClassSVM(precedent_vector)
-        linear_svm.train()
-        linear_svm.save()
+        if CommandEnum.WEIGHTS in command_list:
+            linear_svm.display_weights()
+        else:
+            linear_svm.train()
+            linear_svm.save()
 
     if CommandEnum.SVR in command_list:
         regression_svr = MultiClassSVR(precedent_vector)
