@@ -43,40 +43,43 @@ i am: im|i'm|i am
 [entity_synonyms]
 
 [common_examples: faq_rlq_abandoned_premises]
-the people that i used to lease my dwelling to disappeared 3-4 months ago. i know who they are. can i still claim my money back?
+the people that i used to lease my dwelling to disappeared 3-4 months ago
 i think the tenants left because i never see them anymore
+i left my apartment without telling anyone
+i left my apartment without telling my landlord
+i left my apartment without notice
 my apartment has been empty for a while and the tenants owe me rent money.
-my tenants are nowhere to be found, what can i do?
+my tenants are nowhere to be found
 the apartment has been empty for months now
 the apartment has been empty for some time
 my tenants left without paying me awhile ago
 i have not heard anything from them
 my tenant diced without telling me anything, what i do?
 my tenant left without paying last year. what now?
-my tenant bailed some time ago this year, what can i do?
+my tenant bailed some time ago this year
 my previous tenant owes me rent from 24 months ago. can i still claim it?
 can i pursue my previous tenant for unpaid rent? they left 2 years ago.
 my tenant left without telling me 4 months ago
-my tenant left without any notice 3 months ago, what can i do?
-i think my tenants left because i never see them ever. what can i do?
+my tenant left without any notice 3 months ago
+i think my tenants left because i never see them ever
 i am not able to reach any of my tenants
 i can't reach my tenants
 i can't find my tenants
 my tenants are nowhere to be found. what now?
-my tenants left without paying me, what can i do?
+my tenants left without paying me
 i left my apartment without paying rent
 the people renting my apartment left without paying the rent
-my tenants diced, what can i do?
-my tenants are nowhere to be found. what can i do now?
+my tenants diced
+my tenants are nowhere to be found
 my tenant left without paying me
-my tenant bailed, what can i do?
+my tenant bailed
 how can i claim unpaid rent from my previous tenant
 my previous tenant owers me rent, can i still claim it?
 can i pursue my previous tenant for unpaid rent?
 my tenant is gone
 my tenant just disappeared.
 my tenant left without telling me.
-my tenant left without any notice, what can i do?
+my tenant left without any notice
 
 [common_examples: faq_rlq_tenant_urgent_repair_costs_deducted]
 if i repair the fridge can i deduct that off the rent?
@@ -150,14 +153,15 @@ i haven't received payment
 the tenant has not paid rent recently
 i haven't been paid rent
 i'm injured and i haven't paid rent in 2 months since i got fired from job. i can't afford it.
-my landlord is trying to evict me since i haven't paid rent.
+i haven't paid rent.
 my tenant hasn't paid in 2 months, can i evict him?
 my tenant hasn't paid in 3 months. i haven't seen him either and i can never catch him.
-my tenant hasn't paid in 2 weeks, what can i do?
-my tenant hasn't paid in 2 days, what can i do?
+my tenant hasn't paid in 2 weeks
+my tenant hasn't paid in 2 days
 i haven't paid rent and my landlord wants to evict me
 i haven't paid rent in 2 weeks and my landlord wants to evict me
-i can't pay my landlord and i'm scared i might get evicted. what can i do?
+i cannot pay my landlord rent money
+
 
 [common_examples: faq_likehome_spouse-violence]
 i’m trying to cancel the lease after sexual abuse
@@ -190,14 +194,14 @@ the landlord does not intend on fixing the water
 my landlord refuses the fix the windows and it's cold
 my landlord refuses the fix the wall and it's cold
 my landlord didn't fix it
-the landlord does not want to do repairs in the apartment. what can i do?
+the landlord does not want to do repairs in the apartment
 the apartment needs sever repairs but the landlord hasn't done anything, is there somethin i can do?
 the unit is falling apart and the landlord won't make any repairs
 my apartment desperately needs repairs and the landlord refuses to do them.
-my landlord didn't do the required repairs. what can i do?
+my landlord didn't do the required repairs
 if my landlord doesn't do the necessary repair, can i pursue them further?
 if my landlord doesn't do the necessary repair, can i pursue them further?
-my landlord didn't repair what i asked him to fix, what can i do?
+my landlord didn't repair what i asked him to fix
 
 [common_examples: faq_likehome_personal-info]
 can my landlord ask for my sin
@@ -236,7 +240,12 @@ my landlord is increasing rent after i have to renew the lease.
 my landlord is trying to increase rent during the lease. next month will cost 5$ more!
 my landlord is trying to add 5$ to my rent next month. help please
 my landlord increased the rent by 15$ per month after the end of my lease.
-my landlord told me that he'll be increasing rent. i don't know what to do. i think he'll try to evict me if i say no.
+my landlord told me that he'll be increasing rent
+there will be a rent increase
+there will be an increase in rent
+my landlord says that my rent will change soon
+
+
 
 [common_examples: faq_likehome_negligence]
 how do i prove to my landlord this is an issue of wear and tear and not negligence
@@ -305,14 +314,14 @@ i won't arrive to time to my hearing, can i reschedule?
 i am something to do at the same time as the hearing and can't make it.
 i have something to do on that day. how can i move the hearing back?
 how can i move my hearing?
-i am busy and can't free up time to go to my hearing. what can i do?
+i am busy and can't free up time to go to my hearing.
 what if i can't make it to my hearing on time?
 can i reschedule my hearing?
 i'm unable to make it to the hearing, what are my options?
 can i postpone the hearing?
 can i not show up to the hearing?
-i can't make it to the hearing, what can i do?
-i can't attend the hearing. what can i do?
+i can't make it to the hearing
+i can't attend the hearing
 do i need to go to the hearing?
 i was informed that i must attend a hearing.
 there's a hearing that i can't attend.
