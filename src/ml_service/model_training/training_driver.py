@@ -44,7 +44,8 @@ class CommandEnum:
     SIMILARITY_FINDER = "--sf"
     SVR = "--svr"
     EVALUATE = "--evaluate"
-    command_list = [SVM, SIMILARITY_FINDER, SVR, EVALUATE]
+    WEIGHTS = '--weights'
+    command_list = [SVM, SIMILARITY_FINDER, SVR, EVALUATE, WEIGHTS]
 
 
 def run(command_list):
@@ -92,6 +93,8 @@ def run(command_list):
         regression_svr = MultiClassSVR(precedent_vector)
         if CommandEnum.EVALUATE in command_list:
             regression_svr.evaluate_best_parameters()
+        elif CommandEnum.WEIGHTS in command_list:
+            regression_svr.display_weights()
         else:
             regression_svr.train()
             regression_svr.save()
