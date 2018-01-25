@@ -6,13 +6,9 @@ import numpy as np
 
 class MlController:
     indexes = TagPrecedents().get_intent_index()
-
     classifier_model = MultiClassSVM()
-    classifier_model.load()
-    classifier_index = classifier_model.load_classifier_index()
-
     regression_model = MultiClassSVR()
-    regression_model.load()
+    classifier_labels = classifier_model.load_classifier_labels()
 
     @staticmethod
     def predict_outcome(input_json):
@@ -38,40 +34,16 @@ class MlController:
                  }
         """
 
-        int_facts_vector = MlController.dict_to_int_vector(input_json['facts'])
+        int_facts_vector = MlController.dict_to_vector(input_json['facts'])
         integer_outcome_vector = MlController.regression_model.predict(int_facts_vector)[0]
 
-        bool_facts_vector = MlController.dict_to_bool_vector(input_json['facts'])
+        bool_facts_vector = MlController.dict_to_vector(input_json['facts'])
         binary_outcome_vector = MlController.classifier_model.predict(bool_facts_vector)[0]
 
         return MlController.vector_to_dict(binary_outcome_vector, integer_outcome_vector)
 
     @staticmethod
-    def dict_to_bool_vector(input_dict):
-        """
-        Converts a dictionary to vector form, readable by ML
-        input_dict: dictionary containing all facts or demands
-                    It is as follows:
-                    {
-                        "fact 1": <int>,
-                        "fact 2": <int>,
-                        "fact 3": <int>,
-                        ...
-                    }
-        returns: a vector of boolean.
-                 for any x where (x >= 1) then x = 1
-        """
-        output_vector = np.zeros(len(MlController.indexes['facts_vector']))
-        for index, val in MlController.indexes['facts_vector']:
-            if val in input_dict:
-                if int(input_dict[val]) > 1:
-                    output_vector[index] = 1
-                else:
-                    output_vector[index] = int(input_dict[val])
-        return output_vector
-
-    @staticmethod
-    def dict_to_int_vector(input_dict):
+    def dict_to_vector(input_dict):
         """
         Converts a dictionary to vector form, readable by ML
         input_dict: dictionary containing all facts or demands
@@ -93,8 +65,8 @@ class MlController:
     @staticmethod
     def vector_to_dict(binary_outcome_vector, integer_outcome_vector):
         return_dict = {}
-        for outcome_index in MlController.classifier_index:
-            label = MlController.classifier_index[outcome_index]
+        for outcome_index in MlController.classifier_labels:
+            label = MlController.classifier_labels[outcome_index]
             return_dict[label] = binary_outcome_vector[outcome_index]
 
         for outcome_tuples in MlController.indexes['outcomes_vector']:

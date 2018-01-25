@@ -7,6 +7,7 @@ from sklearn.metrics import precision_recall_fscore_support
 from util.file import Load, Save
 from util.log import Log
 from feature_extraction.post_processing.regex.regex_tagger import TagPrecedents
+from sklearn.preprocessing import binarize
 
 
 class MultiClassSVM:
@@ -27,6 +28,7 @@ class MultiClassSVM:
         self.data_set = data_set
         self.model = None
         self.mlb = None
+        self.classifier_labels = None
 
     def get_weights(self):
         """
@@ -116,27 +118,25 @@ class MultiClassSVM:
         :param data: numpy([1, 0, 0, ...])
         :return: np.array([...])
         """
-        return self.model.predict([data])
+        if self.model is None:
+            self.model = Load.load_binary("multi_class_svm_model.bin")
+        if self.classifier_labels is None:
+            Load.load_binary('classifier_labels.bin')
+        data = binarize([data], threshold=0)
+        return self.model.predict(data)
 
-    def load(self):
-        """
-        Returns a model of the classifier
-        :return: OneVsRestClassifier(SVC())
-        """
-        self.model = Load.load_binary("multi_class_svm_model.bin")
-
-    def load_classifier_index(self):
+    def load_classifier_labels(self):
         """
         The prediction given by the model gives a matrix with less dimensions
         then the total outcomes. The reason being that only boolean outcomes
         are kept in the prediction. We therefore have to relabel the columns.
 
         :return: Dict of classifier labels
-                 dict:{
-                    "column 1": <int>,
-                    "column 2": <int>,
-                    ...
-                 }
+            dict:{
+                "column 1": <int>,
+                "column 2": <int>,
+                ...
+             }
         """
         return Load.load_binary('classifier_labels.bin')
 
@@ -171,11 +171,7 @@ class MultiClassSVM:
         # --------------------1--------------------------
         x_total = np.array(
             [np.reshape(precedent['facts_vector'], (len(precedent['facts_vector'],))) for precedent in self.data_set])
-
-        for i in range(len(x_total)):
-            for j in range(len(x_total[i])):
-                if x_total[i][j] > 1:
-                    x_total[i][j] = 1
+        x_total = binarize(x_total, threshold=0)
 
         # --------------------2--------------------------
         y_list = []

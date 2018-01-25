@@ -118,12 +118,12 @@ class TestTrainingDriver(unittest.TestCase):
     MlController.classifier_index = mock_classifier_index
     MlController.indexes = mock_index
 
-    def test_dict_to_int_vector(self):
+    def test_dict_to_vector(self):
         # Test data
         input_json = json.loads(self.test_json)
 
         # Execute
-        result = MlController.dict_to_int_vector(input_json['facts'])
+        result = MlController.dict_to_vector(input_json['facts'])
         print(result)
         # Verify
 
@@ -132,22 +132,6 @@ class TestTrainingDriver(unittest.TestCase):
                                     1., 1., 0., 0., 0., 0., 0., 0., 0., 0.,
                                     0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
                                     674., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
-                                    0., 0., 0.])
-
-    def test_dict_to_bool_vector(self):
-        # Test data
-        input_json = json.loads(self.test_json)
-
-        # Execute
-        result = MlController.dict_to_bool_vector(input_json['facts'])
-        print(result)
-        # Verify
-
-        assert_array_equal(result, [0., 0., 0., 1., 0., 0., 0., 0., 1.,
-                                    0., 1., 0., 0., 0., 1., 0., 0., 1.,
-                                    1., 1., 0., 0., 0., 0., 0., 0., 0., 0.,
-                                    0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
-                                    1., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
                                     0., 0., 0.])
 
     def test_vector_to_dict(self):
