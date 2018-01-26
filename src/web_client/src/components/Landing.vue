@@ -30,8 +30,9 @@
                 <h2>PLEASE ENTER YOUR NAME</h2>
                 <el-input v-model="username" placeholder="ENTER YOUR NAME"></el-input>
                 <span slot="footer" class="dialog-footer">
+                    <el-button type="primary" v-on:click="login()" v-if="username">Next</el-button>
+                    <el-button type="primary" v-on:click="login()" v-if="!username">Skip</el-button>
                     <el-button v-on:click="promptUsername = false">Cancel</el-button>
-                    <el-button type="primary" v-on:click="login()">Next</el-button>
                 </span>
             </el-dialog>
             <!-- End of el-dialog for username -->
