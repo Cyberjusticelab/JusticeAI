@@ -7,17 +7,21 @@ from postgresql_db.models import db, Conversation, PersonType, Fact, FactEntity
 class MlServiceTest(unittest.TestCase):
     def test_extract_prediction(self):
         mock_ml_response = {
-            "lease_resiliation": 1
+            "outcomes_vector": {
+                "orders_resiliation": 1
+            }
         }
-        prediction = mlService.extract_prediction("lease_termination", mock_ml_response)
-        self.assertTrue(prediction == 1)
+        prediction_dict = mlService.extract_prediction("lease_termination", mock_ml_response)
+        self.assertTrue("orders_resiliation" in prediction_dict)
 
     def test_extract_prediction_bad_key(self):
         mock_ml_response = {
-            "lease_resiliation": 1
+            "outcomes_vector": {
+                "orders_resiliation": 1
+            }
         }
-        prediction = mlService.extract_prediction("bad_key", mock_ml_response)
-        self.assertFalse(prediction)
+        prediction_dict = mlService.extract_prediction("bad_key", mock_ml_response)
+        self.assertFalse(bool(prediction_dict))
 
     def test_generate_demand_dict(self):
         demand_dict = mlService.generate_demand_dict()

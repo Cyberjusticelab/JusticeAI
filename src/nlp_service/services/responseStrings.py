@@ -24,11 +24,26 @@ class Responses:
     # Giving a prediction
     prediction = {
         "LEASE_TERMINATION": {
-            "success": ["I have determined that it is likely that the lease will be terminated."],
-            "fail": ["I have determined that it is unlikely that the lease will be terminated."]
+            "orders_resiliation": {
+                True: ["I have determined that it is likely that the lease will be terminated."],
+                False: ["I have determined that it is unlikely that the lease will be terminated."]
+            }
         },
-
-        "missing_category": ["Sorry, I cannot yet make a prediction for this claim category."]
+        "NONPAYMENT": {
+            "tenant_ordered_to_pay_landlord": {
+                True: ["I have determined that the tenant will likely have to pay the landlord ${} in late rent."],
+                False: ["I have determined that the tenant will likely not owe any late rent payments to the landlord."]
+            },
+            "tenant_ordered_to_pay_landlord_legal_fees": {
+                True: ["In terms of legal fees, the tenant will likely owe ${} to the landlord."],
+                False: ["I don't suspect that the tenant will owe the landlord any legal fees."]
+            },
+            "additional_indemnity_money": {
+                True: ["The tenant may owe ${} to the landlord due as compensation for prejudice."],
+                False: ["It is unlikely that the tenant will owe the landlord any compensation for prejudice."]
+            }
+        },
+        "missing_category": ["Sorry, I cannot yet make a prediction for this claim category yet."]
     }
 
     # Fact Questions
@@ -98,10 +113,6 @@ class Responses:
             [
                 "Has the tenant continually been late with their rent payments?"
             ],
-        "tenant_continuous_late_payment":
-            [
-                "Does the tenant often pay their rent after it’s due?",
-            ],
         "tenant_damaged_rental":
             [
                 "Was there any damage done to the rented property?"
@@ -113,10 +124,6 @@ class Responses:
         "tenant_declare_insalubre":
             [
                 "Is the apartment dirty?"
-            ],
-        "tenant_financial_problem":
-            [
-                "Are there any financial issues preventing the payment of rent?"
             ],
         "tenant_group_responsability":
             [
@@ -151,11 +158,6 @@ class Responses:
             [
                 "Has a request for cancellation of the lease been given by any of the parties?"
             ],
-        "tenant_owes_rent":
-            [
-                "Does the tenant owe rent?",
-                "Does the tenant currently owe you an overdue rent payment?"
-            ],
         "tenant_refuses_retake_apartment":
             [
                 "Has the tenant refused the takeover of the apartment?"
@@ -173,6 +175,34 @@ class Responses:
         "tenant_withold_rent_without_permission":
             [
                 "Is the tenant withholding rent without having received permission from the Regie du logement?"
+            ],
+        "landlord_prejudice_justified":
+            [
+                ""
+            ],
+        "landlord_serious_prejudice":
+            [
+                "Has the tenant’s payment habits caused you any prejudice?"
+            ],
+        "tenant_continuous_late_payment":
+            [
+                "Has your tenant been continuously late on their rent payments?"
+            ],
+        "tenant_financial_problem":
+            [
+                "Did the tenant declare they are in a financially indisposed situation due to external factors? (i.e. job loss, injury, death in the family, etc.)"
+            ],
+        "tenant_owes_rent":
+            [
+                "Does the tenant currently owe any rent?|If so, how much do they owe?"
+            ],
+        "tenant_rent_not_paid_less_3_weeks":
+            [
+                "Has it been less than 3 weeks since the tenant has paid the landlord?"
+            ],
+        "tenant_rent_paid_before_hearing":
+            [
+                "Was the remaining balance for rent paid before the hearing?"
             ],
         "missing_response":
             [
@@ -306,18 +336,24 @@ class Responses:
     """
     Gets a statement for a prediction for a particular claim
     claim_category: The text value of the claim category
-    is_success: Whether or not the judgement is 1 or 0 (from ml)
+    prediction_dict: A dict of prediction keys from the ML service
     """
 
     @staticmethod
-    def prediction_statement(claim_category_value, is_success):
-        if claim_category_value in Responses.prediction:
-            if is_success:
-                return Responses.chooseFrom(Responses.prediction[claim_category_value]['success'])
-            else:
-                return Responses.chooseFrom(Responses.prediction[claim_category_value]['fail'])
+    def prediction_statement(claim_category_value, prediction_dict):
+        # Check if dict is empty
+        if not bool(prediction_dict) or claim_category_value not in Responses.prediction:
+            return Responses.chooseFrom(Responses.prediction["missing_category"])
 
-        return Responses.chooseFrom(Responses.prediction["missing_category"])
+        all_predictions = []
+        for prediction in prediction_dict:
+            prediction_value = prediction_dict[prediction]
+            prediction_predicate = int(prediction_value) > 0
+            prediction_text = Responses.chooseFrom(
+                Responses.prediction[claim_category_value][prediction][prediction_predicate]).format(prediction_value)
+            all_predictions.append(prediction_text)
+
+        return "|".join(all_predictions)
 
     """
     Chooses a random string from a list of strings

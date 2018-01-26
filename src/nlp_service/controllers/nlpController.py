@@ -114,7 +114,7 @@ def classify_fact_value(conversation_id, message):
     # Extract entity from message based on current fact
     question = None
 
-    fact_entity_value = __extract_entity(current_fact.name, message)
+    fact_entity_value = __extract_entity(current_fact.name, current_fact.type, message)
     if fact_entity_value is not None:
         # Pass fact with extracted entity to ML service
         next_fact = factService.submit_resolved_fact(conversation, current_fact, fact_entity_value)
@@ -133,16 +133,11 @@ def classify_fact_value(conversation_id, message):
             # All facts have been resolved, submit request to ML service for prediction
             ml_prediction = mlService.submit_resolved_fact_list(conversation)
 
-            prediction = mlService.extract_prediction(claim_category=conversation.claim_category.value,
-                                                      ml_response=ml_prediction)
+            prediction_dict = mlService.extract_prediction(claim_category=conversation.claim_category.value,
+                                                           ml_response=ml_prediction)
 
             # Generate statement for prediction
-            question = Responses.prediction_statement(conversation.claim_category.value, prediction)
-
-            # Append a fact dump for good measure
-            question += "\nFACT DUMP: "
-            for fact_entity in conversation.fact_entities:
-                question += "{}:{}, ".format(fact_entity.fact.name, fact_entity.value)
+            question = Responses.prediction_statement(conversation.claim_category.value, prediction_dict)
     else:
         question = Responses.chooseFrom(Responses.clarify).format(
             previous_question=Responses.fact_question(current_fact.name))
@@ -182,7 +177,7 @@ message: the message given by the user
 """
 
 
-def __extract_entity(current_fact_name, message):
+def __extract_entity(current_fact_name, current_fact_type, message):
     # First pass: outlier detection
     # TODO: For now, this is disabled while we are gathering data from beta users
     if 'OUTLIER_DETECTION' in os.environ:
@@ -195,7 +190,6 @@ def __extract_entity(current_fact_name, message):
 
     # Return the fact value, or None if the answer was insufficient in determining one
     if intentThreshold.is_sufficient(classify_dict):
-        determined_intent = classify_dict['intent']
-        return determined_intent['name']
+        return factService.extract_fact_by_type(current_fact_type, classify_dict['intent'], classify_dict['entities'])
     else:
         return None
