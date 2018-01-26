@@ -45,6 +45,7 @@ fact_names = [
     "tenant_withold_rent_without_permission"
 ]
 jsonCreator.identical_fact_list("/rasa/text/fact/yes_no.txt", fact_names, "/rasa/data/fact/")
+jsonCreator.parse_directory("/rasa/text/fact/nonpayment/", "/rasa/data/fact/")
 
 # Generate model data for training
 rasa = RasaClassifier()
