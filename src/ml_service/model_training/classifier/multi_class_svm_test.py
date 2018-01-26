@@ -61,4 +61,4 @@ class TestLinearSvc(unittest.TestCase):
 
     def test_get_weights(self):
         linear_svc = MultiClassSVM(self.data)
-        self.assertIsNone(linear_svc.get_weights())
+        self.assertIsNone(linear_svc.display_weights())
