@@ -8,6 +8,7 @@ from util.file import Load, Save
 from util.log import Log
 from feature_extraction.post_processing.regex.regex_tagger import TagPrecedents
 from sklearn.preprocessing import binarize
+import csv
 
 
 class MultiClassSVM:
@@ -30,17 +31,38 @@ class MultiClassSVM:
         self.mlb = None
         self.classifier_labels = None
 
-    def get_weights(self):
+    def display_weights(self):
         """
-        The weight associated with each input fact.
-        Useful in seeing which facts the classifier
-        values more than others
+        Writes all the weights to .csv format
+        1) get the facts
+        2) for every outcome write the weights
         :return: None
         """
-        if self.model is not None:
-            return self.model.coef_[0]
-        Log.write('Please train or load the classifier first')
-        return None
+        try:
+            if self.model is None:
+                self.model = Load.load_binary('multi_class_svm_model.bin')
+                self.classifier_labels = Load.load_binary('classifier_labels.bin')
+        except:
+            return None
+
+        index = TagPrecedents().get_intent_index()
+        fact_header = [" "]
+        for header in index['facts_vector']:
+            fact_header.append(header[1])
+
+        with open('weights.csv', 'w') as outcsv:
+            writer = csv.writer(outcsv)
+            writer.writerow(fact_header)
+
+            for i in range(len(self.model.estimators_)):
+                outcome_list = [self.classifier_labels[i]]
+                estimator = self.model.estimators_[i]
+                weights = estimator.coef_[0]
+                for j in range(len(weights)):
+                    outcome_list.append(weights[j])
+                writer.writerow(outcome_list)
+
+        Log.write('Weights saved to .csv')
 
     def __test(self, x_test, y_test):
         """
@@ -150,17 +172,21 @@ class MultiClassSVM:
                     ...
                 ]
 
-        2) Reshape the y data
-            2.1) The data looks as such: [1, 1, 1, 0, 1, 0, 0, 1...]
+        2) Obtain the index of every int column. It happens that some int had
+           the value of 0/1. For this reason we have to do a first pass and
+           identify the column so that we don't mix up the value for a boolean.
 
-            2.2) We must create a new list with only the index of the columns where
+        3) Reshape the y data
+            3.1) The data looks as such: [1, 1, 1, 0, 1, 0, 0, 1...]
+
+            3.2) We must create a new list with only the index of the columns where
                  there are values of '1'. This is necessary because the sklearn
                  algorithm expects this kind of input.
 
-            2.3) Example:        (transformation)
+            3.3) Example:        (transformation)
                 [1, 1, 0, 0, 1] ------------------> [0, 1, 4]
 
-            2.4) Create a 2D numpy array from the new list:[
+            3.4) Create a 2D numpy array from the new list:[
                 [precedent #1 outcomes],
                 [precedent #2 outcomes],
                 ...
@@ -174,11 +200,19 @@ class MultiClassSVM:
         x_total = binarize(x_total, threshold=0)
 
         # --------------------2--------------------------
+        int_list = []
+        for precedent in self.data_set:
+            for i in range(len(precedent['outcomes_vector'])):
+                if precedent['outcomes_vector'][i] > 1:
+                    int_list.append(i)
+        int_list = set(int_list)
+
+        # --------------------3--------------------------
         y_list = []
         for precedent in self.data_set:
             classified_precedent = []
             for i in range(len(precedent['outcomes_vector'])):
-                if precedent['outcomes_vector'][i] == 1:
+                if (i not in int_list) and (precedent['outcomes_vector'][i] == 1):
                     classified_precedent.append(i)
             y_list.append(classified_precedent)
         y_total = np.array(y_list)

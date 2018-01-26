@@ -72,7 +72,6 @@ class TestLinearSvc(unittest.TestCase):
 
     def test_get_weights(self):
         linear_svc = MultiClassSVR(self.data)
-        self.assertIsNone(linear_svc.get_weights())
 
     def test_evaluate_best_parameters(self):
         linear_svr = MultiClassSVR(self.data)
