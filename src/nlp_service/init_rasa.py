@@ -7,7 +7,7 @@ jsonCreator = CreateJson()
 # Claim Categories
 jsonCreator.parse_directory("/rasa/text/category/", "/rasa/data/category/")
 
-# Facts
+# Facts generated from base file
 fact_names = [
     "apartment_impropre",
     "apartment_infestation",
@@ -44,8 +44,10 @@ fact_names = [
     "tenant_violence",
     "tenant_withold_rent_without_permission"
 ]
-jsonCreator.identical_fact_list("/rasa/text/fact/yes_no.txt", fact_names, "/rasa/data/fact/")
-jsonCreator.parse_directory("/rasa/text/fact/nonpayment/", "/rasa/data/fact/")
+jsonCreator.identical_fact_list("/rasa/text/fact/base/yes_no.txt", fact_names, "/rasa/data/fact/")
+
+# Facts with their own data sets
+jsonCreator.parse_directory("/rasa/text/fact/individual/", "/rasa/data/fact/")
 
 # Generate model data for training
 rasa = RasaClassifier()

@@ -95,6 +95,7 @@ all_ml_facts = [
     "asker_is_landlord",
     "asker_is_tenant",
     "bothers_others",
+    "case_fee_reimbursement",
     "disrespect_previous_judgement",
     "incorrect_facts",
     "landlord_inspector_fees",
@@ -170,6 +171,7 @@ def generate_fact_dict(conversation):
         resolved_facts['asker_is_tenant'] = True
 
     # Perform one to one mappings
+    resolved_facts['landlord_prejudice_justified'] = resolved_facts['landlord_serious_prejudice']
     resolved_facts['violent'] = resolved_facts['tenant_violence']
 
     resolved_facts['landlord_rent_change_piece_justification'] = resolved_facts[

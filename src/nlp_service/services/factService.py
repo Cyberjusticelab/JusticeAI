@@ -57,8 +57,15 @@ fact_mapping = {
         "landlord_rent_change",
         "tenant_left_without_paying",
     ],
+    "nonpayment": [
+        "tenant_owes_rent",
+        "tenant_withold_rent_without_permission",
+        "tenant_continuous_late_payment",
+        "tenant_rent_not_paid_more_3_weeks",
+        "tenant_rent_paid_before_hearing",
+        "landlord_serious_prejudice"
+    ],
     "rent_change": [],
-    "nonpayment": []
 }
 
 
