@@ -98,10 +98,6 @@ class Responses:
             [
                 "Has the tenant continually been late with their rent payments?"
             ],
-        "tenant_continuous_late_payment":
-            [
-                "Does the tenant often pay their rent after it’s due?",
-            ],
         "tenant_damaged_rental":
             [
                 "Was there any damage done to the rented property?"
@@ -113,10 +109,6 @@ class Responses:
         "tenant_declare_insalubre":
             [
                 "Is the apartment dirty?"
-            ],
-        "tenant_financial_problem":
-            [
-                "Are there any financial issues preventing the payment of rent?"
             ],
         "tenant_group_responsability":
             [
@@ -151,11 +143,6 @@ class Responses:
             [
                 "Has a request for cancellation of the lease been given by any of the parties?"
             ],
-        "tenant_owes_rent":
-            [
-                "Does the tenant owe rent?",
-                "Does the tenant currently owe you an overdue rent payment?"
-            ],
         "tenant_refuses_retake_apartment":
             [
                 "Has the tenant refused the takeover of the apartment?"
@@ -173,6 +160,34 @@ class Responses:
         "tenant_withold_rent_without_permission":
             [
                 "Is the tenant withholding rent without having received permission from the Regie du logement?"
+            ],
+        "landlord_prejudice_justified":
+            [
+                ""
+            ],
+        "landlord_serious_prejudice":
+            [
+                "Has the tenant’s payment habits caused you any prejudice?"
+            ],
+        "tenant_continuous_late_payment":
+            [
+                "Has your tenant been continuously late on their rent payments?"
+            ],
+        "tenant_financial_problem":
+            [
+                "Did the tenant declare they are in a financially indisposed situation due to external factors? (i.e. job loss, injury, death in the family, etc.)"
+            ],
+        "tenant_owes_rent":
+            [
+                "Does the tenant currently owe any rent?|If so, how much do they owe?"
+            ],
+        "tenant_rent_not_paid_less_3_weeks":
+            [
+                "Has it been less than 3 weeks since the tenant has paid the landlord?"
+            ],
+        "tenant_rent_paid_before_hearing":
+            [
+                "Was the remaining balance for rent paid before the hearing?"
             ],
         "missing_response":
             [
