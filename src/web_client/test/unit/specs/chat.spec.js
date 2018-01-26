@@ -26,7 +26,7 @@ Vue.component('file-upload', VueUpload)
 test
 */
 
-describe.only('Chat.vue', () => {
+describe('Chat.vue', () => {
 
     it('should resume chat session if conversation id exists', () => {
     	Vue.localStorage.set('zeusId', 1)
@@ -203,29 +203,7 @@ describe.only('Chat.vue', () => {
         Vue.http.post.restore()
     })
 
-    it('should successfully get resolved fact list', () => {
-        const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
-        promiseCall.resolves({
-            body: {
-                fact_entities: ['mock']
-            }
-        })
-        const vm = new Vue(Chat).$mount()
-        vm.getFact()
-        expect(vm.connectionError).to.be.false
-        Vue.http.get.restore()
-    })
-
-    it('should fail to remove get resolved fact list', () => {
-        const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
-        promiseCall.rejects({})
-        const vm = new Vue(Chat).$mount()
-        vm.getFact()
-        expect(vm.connectionError).to.be.true
-        Vue.http.get.restore()
-    })
-
-    xit('should successfully remove resolved fact', () => {
+    it('should successfully remove resolved fact', () => {
         const promiseCall = sinon.stub(Vue.http, 'delete').returnsPromise()
         promiseCall.resolves({})
         const vm = new Vue(Chat).$mount()
@@ -234,13 +212,26 @@ describe.only('Chat.vue', () => {
         Vue.http.delete.restore()
     })
 
-    xit('should fail to remove resolved fact', () => {
+    it('should fail to remove resolved fact', () => {
         const promiseCall = sinon.stub(Vue.http, 'delete').returnsPromise()
         promiseCall.rejects({})
         const vm = new Vue(Chat).$mount()
         vm.removeFact(1)
         expect(vm.connectionError).to.be.true
         Vue.http.delete.restore()
+    })
+
+    it('should successfully get resolved fact', () => {
+        Vue.localStorage.set('zeusId', 1)
+        const promiseDeleteCall = sinon.stub(Vue.http, 'delete').returnsPromise()
+        const promiseGetCall = sinon.stub(Vue.http, 'get').returnsPromise()
+        promiseDeleteCall.resolves({})
+        promiseGetCall.resolves({})
+        const vm = new Vue(Chat).$mount()
+        vm.removeFact(1)
+        Vue.http.delete.restore()
+        Vue.http.get.restore()
+        Vue.localStorage.remove('zeusId')
     })
 
 })
