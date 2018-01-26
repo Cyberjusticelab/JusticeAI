@@ -3,7 +3,9 @@
 [regex_features]
 false: (no)|(No)|(NO)
 true: (yes)|(YES)|(Yes)
-that's: that is|that's 
+that's: that is|that's
+conditionpoor: (suffer)|(lost)|(debt)|(die(d)?)|(death)|(depression)|(injur(ed|y)?)|
+conditiongood: (lazy)|(not true)|(fine)|(able)
 
 [entity_synonyms]
 
