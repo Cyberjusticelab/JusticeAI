@@ -341,7 +341,6 @@ class Responses:
 
     @staticmethod
     def prediction_statement(claim_category_value, prediction_dict):
-        print("Response Prediction Dict: {}".format(prediction_dict))
         # Check if dict is empty
         if not bool(prediction_dict) or claim_category_value not in Responses.prediction:
             return Responses.chooseFrom(Responses.prediction["missing_category"])
@@ -352,13 +351,7 @@ class Responses:
             prediction_predicate = int(prediction_value) > 0
             prediction_text = Responses.chooseFrom(
                 Responses.prediction[claim_category_value][prediction][prediction_predicate]).format(prediction_value)
-            print("Prediction: {}, Value: {}, Predicate: {}, Text: {}".format(prediction, prediction_value,
-                                                                              prediction_predicate, prediction_text))
             all_predictions.append(prediction_text)
-
-        print("Printing text")
-        for text in all_predictions:
-            print(text)
 
         return "|".join(all_predictions)
 

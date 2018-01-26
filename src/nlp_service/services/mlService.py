@@ -44,13 +44,11 @@ def extract_prediction(claim_category, ml_response):
     if claim_category in relevant_outcomes:
         outcome_list = relevant_outcomes[claim_category]
 
-    print("Outcome List: {}".format(outcome_list))
     resolved_outcomes = {}
     if len(outcome_list) > 0:
         for outcome in outcome_list:
             resolved_outcomes[outcome] = ml_response['outcomes_vector'][outcome]
 
-    print("Resolved Outcomes: {}".format(resolved_outcomes))
     return resolved_outcomes
 
 

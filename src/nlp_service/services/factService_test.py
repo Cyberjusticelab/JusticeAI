@@ -30,14 +30,14 @@ class FactServiceTest(unittest.TestCase):
         self.assertIsNone(next_fact)
 
     def test_extract_fact_bool(self):
-        intent = {'name': 'test', 'confidence': 0.90}
+        intent = {'name': 'true', 'confidence': 0.90}
         entities = []
 
         fact_value = factService.extract_fact_by_type(FactType.BOOLEAN, intent, entities)
-        self.assertTrue(fact_value == 'test')
+        self.assertTrue(fact_value == 'true')
 
     def test_extract_fact_money(self):
-        intent = {'name': 'test', 'confidence': 0.90}
+        intent = {'name': 'true', 'confidence': 0.90}
         entities = [
             {
                 'start': 18,
