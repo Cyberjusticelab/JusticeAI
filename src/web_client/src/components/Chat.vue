@@ -3,7 +3,7 @@
 </style>
 
 <template>
-  <div id="chat-component" v-loading="initLoading" element-loading-text="Let's Talk!" element-loading-spinner="el-icon-loading" fullscreen="true">
+  <div id="chat-component" v-loading="initLoading" element-loading-text="Let's Talk!" element-loading-spinner="el-icon-loading" fullscreen="true" v-autoscroll="'bottom'">
     <!-- Resolved Fact Overlay -->
     <transition name="fade">
       <div id="chat-resolved-fact" v-if="user.openChatHistory">
@@ -36,7 +36,7 @@
     </transition>
     <!-- End of Resolved Fact Overlay -->
     <!-- Chat Window -->
-    <div id="chat-window" v-if="!initLoading" v-autoscroll="'bottom'">
+    <div id="chat-window" v-if="!initLoading" v-autoscroll="'bottom'" ref="mainWindow">
       <!-- Zeus Chat -->
       <div id="chat-history-container">
         <div v-for="(history, index1) in chatHistory.history" :key="index1">
@@ -259,6 +259,7 @@ export default {
             if (i == zeusResponseText.length - 1) {
               this.zeus.isSpeaking = false
             }
+            this.$refs.mainWindow.scrollTop = this.$refs.mainWindow.scrollHeight
           }, 2500*i)
         }
       }
