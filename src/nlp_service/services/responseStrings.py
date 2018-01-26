@@ -24,11 +24,26 @@ class Responses:
     # Giving a prediction
     prediction = {
         "LEASE_TERMINATION": {
-            "success": ["I have determined that it is likely that the lease will be terminated."],
-            "fail": ["I have determined that it is unlikely that the lease will be terminated."]
+            "orders_resiliation": {
+                True: ["I have determined that it is likely that the lease will be terminated."],
+                False: ["I have determined that it is unlikely that the lease will be terminated."]
+            }
         },
-
-        "missing_category": ["Sorry, I cannot yet make a prediction for this claim category."]
+        "NONPAYMENT": {
+            "tenant_ordered_to_pay_landlord": {
+                True: ["I have determined that the tenant will likely have to pay the landlord ${} in late rent."],
+                False: ["I have determined that the tenant will likely not owe any late rent payments to the landlord."]
+            },
+            "tenant_ordered_to_pay_landlord_legal_fees": {
+                True: ["In terms of legal fees, the tenant will likely owe ${} to the landlord."],
+                False: ["I don't suspect that the tenant will owe the landlord any legal fees."]
+            },
+            "additional_indemnity_money": {
+                True: ["The tenant may owe ${} to the landlord due as compensation for prejudice."],
+                False: ["It is unlikely that the tenant will owe the landlord any compensation for prejudice."]
+            }
+        },
+        "missing_category": ["Sorry, I cannot yet make a prediction for this claim category yet."]
     }
 
     # Fact Questions
@@ -321,18 +336,31 @@ class Responses:
     """
     Gets a statement for a prediction for a particular claim
     claim_category: The text value of the claim category
-    is_success: Whether or not the judgement is 1 or 0 (from ml)
+    prediction_dict: A dict of prediction keys from the ML service
     """
 
     @staticmethod
-    def prediction_statement(claim_category_value, is_success):
-        if claim_category_value in Responses.prediction:
-            if is_success:
-                return Responses.chooseFrom(Responses.prediction[claim_category_value]['success'])
-            else:
-                return Responses.chooseFrom(Responses.prediction[claim_category_value]['fail'])
+    def prediction_statement(claim_category_value, prediction_dict):
+        print("Response Prediction Dict: {}".format(prediction_dict))
+        # Check if dict is empty
+        if not bool(prediction_dict) or claim_category_value not in Responses.prediction:
+            return Responses.chooseFrom(Responses.prediction["missing_category"])
 
-        return Responses.chooseFrom(Responses.prediction["missing_category"])
+        all_predictions = []
+        for prediction in prediction_dict:
+            prediction_value = prediction_dict[prediction]
+            prediction_predicate = int(prediction_value) > 0
+            prediction_text = Responses.chooseFrom(
+                Responses.prediction[claim_category_value][prediction][prediction_predicate]).format(prediction_value)
+            print("Prediction: {}, Value: {}, Predicate: {}, Text: {}".format(prediction, prediction_value,
+                                                                              prediction_predicate, prediction_text))
+            all_predictions.append(prediction_text)
+
+        print("Printing text")
+        for text in all_predictions:
+            print(text)
+
+        return "|".join(all_predictions)
 
     """
     Chooses a random string from a list of strings

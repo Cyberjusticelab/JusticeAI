@@ -1,4 +1,4 @@
-from postgresql_db.models import FactEntity, Fact
+from postgresql_db.models import FactEntity, Fact, FactType
 
 """
 Simulates the return values of the proposed ML service.
@@ -80,3 +80,26 @@ def get_next_fact(claim_category, facts_resolved):
     fact_name = facts_unresolved[0]
     fact = Fact.query.filter_by(name=fact_name).first()
     return fact.id
+
+
+"""
+Returns the relevant information for a particular FactType based on rasa nlu classification data.
+fact_type: The FactType of the relevant fact
+intent: The intent returned by RASA. Has 'name' and 'confidence' attributes.
+entities: A list of extracted entities. Can be empty.
+:returns Final fact value based on fact_type
+"""
+
+
+def extract_fact_by_type(fact_type, intent, entities):
+    intent_name = intent['name']
+
+    if fact_type == FactType.BOOLEAN:
+        return intent_name
+    elif fact_type == FactType.MONEY:
+        if intent_name == 'true':
+            for entity in entities:
+                if entity['entity'] == 'amount-of-money':
+                    return entity['value']
+        elif intent_name == 'false':
+            return 0
