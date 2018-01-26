@@ -3,7 +3,6 @@
 #chat-component {
   height: 100%;
   width: 100%;
-  overflow-y: scroll;
   font-family: $zeus-font;
   background-color: rgba(74,74,74,0.8);
   .generic-input {
@@ -82,6 +81,7 @@
   #chat-window {
     width: 100%;
     height: 100%;
+    overflow-y: scroll;
     text-align: left;
     #chat-history-container {
       margin-top: 50px;
@@ -99,10 +99,6 @@
         border-radius: 2px;
         display: inline-block;
         font-size: 16px;
-        a {
-          text-decoration: none !important;
-          color: $main-white-1;
-        }
       }
       .chat-history-zeus {
         @extend .chat-history-item;
