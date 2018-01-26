@@ -139,7 +139,6 @@ Provide facts_vector and demands_vector, with key values for each fact/demand.
 {
     "outcomes_vector": {
       "lease_resiliation" : 1,
-      <outcome n> : <int>,
       ...
     }
 }

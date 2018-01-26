@@ -69,10 +69,19 @@ class MlController:
             label = MlController.classifier_labels[outcome_index]
             return_dict[label] = str(binary_outcome_vector[outcome_index])
 
+        # #######################################################
+        # Change this section later. temporary bug fix until regression
+        # works properly
         for outcome_tuples in MlController.indexes['outcomes_vector']:
             outcome_index = outcome_tuples[0]
             label = outcome_tuples[1]
-            if label not in return_dict:
-                return_dict[label] = str(integer_outcome_vector[outcome_index])
+            if label in return_dict:
+                if return_dict[label] == '0':
+                    value = int(integer_outcome_vector[outcome_index])
+                    if value < 0:
+                        value = 0
+                    return_dict[label] = str(value)
+            else:
+                return_dict[label] = str(int(integer_outcome_vector[outcome_index]))
 
         return {'outcomes_vector': return_dict}
