@@ -4,6 +4,8 @@
 false: (no)|(No)|(NO)
 true: (yes)|(YES)|(Yes)
 that's: that is|that's 
+abandonbad: (disappear(ed)?)|(left)|(split)|(vanished)|(absent)|(gone)
+notabandon: (still (t)?here)|(not gone)|(in (his|the) apartment)|(present)|(around)|(not gone)
 
 [entity_synonyms]
 
