@@ -10,7 +10,7 @@ from rasa_nlu.model import Trainer, Interpreter
 # Class which will hold all the Rasa logic from training to parsing
 class RasaClassifier:
     # Directories & Files
-    config_file = "rasa/config/config_spacy.json"
+    config_file = "rasa/config/config_spacy_duckling.json"
     model_dir = "rasa/projects/justiceai/"
     fact_data_dir = "rasa/data/fact/"
     category_data_dir = "rasa/data/category/"
