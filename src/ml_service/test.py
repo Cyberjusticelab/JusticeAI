@@ -10,7 +10,7 @@ from sklearn.pipeline import Pipeline
 import numpy as np
 
 prec = joblib.load('/home/arekmano/workspace/JusticeAI/src/ml_service/data/binary/precedent_vectors.bin')
-aa = [prece for prece in prec.values() if prece['demands_vector'][2] > 0 or prece['demands_vector'][11] > 0]
+aa = [prece for prece in prec.values() if (prece['demands_vector'][2] > 0 or prece['demands_vector'][11] > 0) and prece['outcomes_vector'][10] > 1]
 
 print("Size of dataset: %d" % (len(aa)))
 # load dataset
