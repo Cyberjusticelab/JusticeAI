@@ -3,7 +3,7 @@
 </style>
 
 <template>
-  <div id="chat-component" v-loading="initLoading" element-loading-text="Let's Talk!" element-loading-spinner="el-icon-loading" fullscreen="true" vue-chat-scroll="{always: true}">
+  <div id="chat-component" v-loading="initLoading" element-loading-text="Let's Talk!" element-loading-spinner="el-icon-loading" fullscreen="true" v-autoscroll="'bottom'">
     <!-- Resolved Fact Overlay -->
     <transition name="fade">
       <div id="chat-resolved-fact" v-if="user.openChatHistory">
@@ -36,32 +36,34 @@
     </transition>
     <!-- End of Resolved Fact Overlay -->
     <!-- Chat Window -->
-    <div id="chat-window" v-if="!initLoading">
+    <div id="chat-window" v-if="!initLoading" v-autoscroll="'bottom'" ref="mainWindow">
       <!-- Zeus Chat -->
       <div id="chat-history-container">
-        <el-row v-for="history in chatHistory.history" :key="history.id">
-          <el-col :sm="{span: 14, offset: 2}">
-            <div class="chat-history-zeus" v-if="history.sender_type == 'BOT'">
-              <p v-html="history.text"></p>
-            </div>
-          </el-col>
-          <el-col :sm="{span: 14, offset: 8}" v-if="history.sender_type == 'USER'">
-            <div class="chat-history-user">
-              <p v-html="history.text"></p>
-            </div>
-          </el-col>
-        </el-row>
+        <div v-for="(history, index1) in chatHistory.history" :key="index1">
+          <el-row v-for="(sentence, index2) in history.text" :key="index2" v-if="!(index1 == chatHistory.history.length-1 && index2 == history.text.length-1)">
+            <el-col :sm="{span: 14, offset: 2}">
+              <div class="chat-history-zeus" v-if="history.sender_type == 'BOT'">
+                <p v-html="sentence"></p>
+              </div>
+            </el-col>
+            <el-col :sm="{span: 14, offset: 8}" v-if="history.sender_type == 'USER'">
+              <div class="chat-history-user">
+                <p v-html="sentence"></p>
+              </div>
+            </el-col>
+          </el-row>
+        </div>
       </div>
       <div id="chat-current-container">
         <el-row>
           <el-col :sm="{span: 3, offset: 4}">
-            <div id="chat-zeus-avatar" v-on:click="user.openChatHistory = !user.openChatHistory; getChatHistory()"></div>
+            <div id="chat-zeus-avatar" v-on:click="user.openChatHistory = !user.openChatHistory; getFact()"></div>
           </el-col>
           <el-col :sm="{span: 12, offset: 0}">
             <div id="chat-zeus-message">
-              <img v-if="!zeus.input" alt="" src="../assets/chatting.gif">
+              <img v-if="zeus.isThinking" alt="" src="../assets/chatting.gif">
               <transition name="fade">
-                <p v-if="zeus.input" v-html="zeus.input"></p>
+                <p v-if="!zeus.isThinking" v-html="zeus.input"></p>
               </transition>
               <transition name="fade">
                 <file-upload
@@ -69,14 +71,14 @@
                   v-model="zeus.file"
                   :drop="true"
                   :post-action="uploadUrl"
-                  v-if="zeus.filePrompt && zeus.input"
+                  v-if="zeus.filePrompt && !zeus.isSpeaking && !zeus.isThinking"
                   extensions="jpg,jpeg,pdf,docx,webp,png"
                 >
                   <p v-if="zeus.file.length == 0" id="drag-and-drop">drag and drop or click to select file</p>
                   <p v-if="zeus.file" id="file-name" v-for="file in zeus.file">{{ file.name }}</p>
                 </file-upload>
               </transition>
-              <div id="file-upload-button-group" v-if="zeus.filePrompt && zues.input">
+              <div id="file-upload-button-group" v-if="zeus.filePrompt && !zeus.isSpeaking && !zeus.isThinking">
                 <el-button v-show="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true" type="warning" :disabled="zeus.file.length == 0">
                   Upload
                 </el-button>
@@ -87,12 +89,12 @@
                   Successfully uploaded <span>{{ zeus.file[0].name }}</span>
                 </p>
               </div>
-              <div id="pre-selected-answer-group" v-if="zeus.suggestion && zeus.input">
+              <div id="pre-selected-answer-group" v-if="zeus.suggestion && !zeus.isSpeaking && !zeus.isThinking">
                 <el-button v-for="answer in zeus.suggestion" :key="answer.id" type="warning" v-on:click="user.input = answer; sendUserMessage()">
                   {{ answer }}
                 </el-button>
               </div>
-              <div id="beta-feedback-group" v-if="promptFeedback && zeus.input">
+              <div id="beta-feedback-group" v-if="promptFeedback && !zeus.isSpeaking && !zeus.isThinking">
                 <div v-on:click="sendFeedback(true)">
                   <icon name="thumbs-up" class="feedback-good"></icon>
                 </div>
@@ -101,7 +103,7 @@
                 </div>
               </div>
               <div id="bubble-input-group" v-if="zeus.input">
-                <form v-on:submit.prevent="sendUserMessage()" v-if="zeus.suggestion.length == 0">
+                <form v-on:submit.prevent="sendUserMessage()" v-if="zeus.suggestion.length == 0 && !zeus.isSpeaking && !zeus.isThinking">
                   <el-input autosize v-model="user.input" placeholder="Enter your message" autoComplete="off" :disabled="user.disableInput"></el-input>
                   <el-button type="warning" :disabled="!user.input" native-type="submit">SEND</el-button>
                 </form>
@@ -115,7 +117,7 @@
     <!-- End of Chat Window -->
     <!-- Input Window - Mobile -->
     <div id="chat-input">
-      <form v-on:submit.prevent="sendUserMessage()">
+      <form v-on:submit.prevent="sendUserMessage()" v-if="!zeus.isSpeaking">
         <el-input id="chat-input-text" autosize v-model="user.input" placeholder="Enter your message" autoComplete="off" :disabled="user.disableInput"></el-input>
         <el-button id="chat-input-submit" type="warning" :disabled="!user.input" native-type="submit">SEND</el-button>
       </form>
@@ -143,7 +145,9 @@ export default {
         input: null,
         file: new Array,
         filePrompt: false,
-        suggestion: new Array
+        suggestion: new Array,
+        isThinking: false,
+        isSpeaking: false
       },
       user: {
         name: null,
@@ -154,56 +158,69 @@ export default {
     }
   },
   created () {
-    if (this.$localStorage.get('zeusId')) {
-      this.getChatHistory()
+    let zeusId = this.$localStorage.get('zeusId')
+    /*
+    1. resume conversation if user exists
+    */
+    if (zeusId) {
+      this.uploadUrl = this.api_url + 'conversation/' + zeusId + '/files'
+      this.$http.get(this.api_url + 'conversation/' + zeusId).then(
+        response => {
+          // 1.1 save chat history in local and parse the sentences
+          this.chatHistory.history = response.body.messages
+          for (let i = 0; i < this.chatHistory.history.length; i++) {
+            this.chatHistory.history[i].text = this.chatHistory.history[i].text.split('|')
+          }
+          // 1.2 save resolved fact in local
+          this.chatHistory.fact = response.body.fact_entities
+          // 1.3 save user name
+          this.user.name = response.body.name
+          // 1.4 set counter for feedback prompt
+          this.numMessageSinceChatHistory = this.chatHistory.history.length
+          this.promptFeedback = this.numMessageSinceChatHistory > 4
+          // 1.5 resume conversation from last message
+          this.configChat(this.chatHistory.history[this.chatHistory.history.length - 1])
+          // 1.6 disable loading bar
+          this.initLoading = false
+        },
+        response => {
+          this.connectionError = true
+          console.log("Connection Fail: init - get history")
+        }
+      )
+    /*
+    2. init new conversation if new user
+    */
     } else {
-      this.initChatSession()
-    }
-  },
-  methods: {
-    initChatSession () {
       this.$http.post(this.api_url + 'new', {
         name: this.$localStorage.get('username'),
         person_type: this.$localStorage.get('usertype')
       }).then(
         response => {
+          // 2.1 store conversation id
           this.$localStorage.set('zeusId', response.body.conversation_id)
+          // 2.2 init new conversation session by sending empty string
           this.user.input = ''
           this.sendUserMessage()
+          // 2.3 config url and remove loading
           this.uploadUrl = this.api_url + 'conversation/' + response.body.conversation_id + '/files'
           this.initLoading = false
         },
         response => {
           this.connectionError = true
-          console.log("Connection Fail: init new user")
+          console.log("Connection Fail: init - new user")
         }
       )
-    },
+    }
+  },
+  methods: {
     sendUserMessage () {
       this.$http.post(this.api_url + 'conversation', {
         conversation_id: this.$localStorage.get('zeusId'),
         message: this.user.input
       }).then(
         response => {
-          let userMessage = this.user.input
-          let zeusMessage = this.zeus.input
-          this.zeus .input = null
-          this.zeus.filePrompt = false;
-          if (userMessage) {
-            this.chatHistory.history.push({
-              sender_type: "USER",
-              text: userMessage
-            })
-          }
-          setTimeout(() => {
-            this.configChat(response.body)
-            if (zeusMessage) {
-              this.chatHistory.history.push({
-                sender_type: "BOT",
-                text: zeusMessage
-              })
-            }
-          }, 1100)
+          this.configChat(response.body)
         },
         response => {
           this.connectionError = true
@@ -211,37 +228,53 @@ export default {
         }
       )
     },
-    getChatHistory () {
-      let zeusId = this.$localStorage.get('zeusId')
-      this.$http.get(this.api_url + 'conversation/' + zeusId).then(
-        response => {
-          this.chatHistory.history = response.body.messages
-          this.chatHistory.fact = response.body.fact_entities
-          this.numMessageSinceChatHistory = 0
-          this.user.name = response.body.name
-          if (!this.zeus.input) {
-            this.configChat(this.chatHistory.history[this.chatHistory.history.length - 1])
-          }
-          this.uploadUrl = this.api_url + 'conversation/' + zeusId + '/files'
-          this.promptFeedback = this.numMessageSinceChatHistory + this.chatHistory.history.length > 4
-          this.initLoading = false
-        },
-        response => {
-          this.connectionError = true
-          console.log("Connection Fail: get history")
-        }
-      )
-    },
     configChat (conversation) {
-      this.zeus.input = conversation.message || conversation.html || conversation.text
+      this.zeus.isThinking = true
+      setTimeout(() => {
+        this.zeus.isThinking = false
+      }, 1500)
+      // 1. push user input to history
+      if (this.user.input) {
+        this.chatHistory.history.push({
+          text: [this.user.input],
+          sender_type: 'USER'
+        })
+      }
+      // 2. set current zeus response
+      let zeusResponseText = conversation.message || conversation.text
+      // 2.1 if from history, show the last sentence
+      if (!this.zeus.input && this.chatHistory.history.length > 0) {
+        this.zeus.input = zeusResponseText.slice(-1)[0]
+      // 2.2 if from new response, repeatly show the sentences and push to history
+      } else {
+        this.zeus.isSpeaking = true
+        zeusResponseText = zeusResponseText.split('|')
+        conversation.text = new Array
+        conversation.sender_type = 'BOT'
+        this.chatHistory.history.push(conversation)
+        for (let i = 0; i < zeusResponseText.length; i++) {
+          setTimeout(() => {
+            this.zeus.input = zeusResponseText[i]
+            this.chatHistory.history[this.chatHistory.history.length-1].text.push(zeusResponseText[i])
+            if (i == zeusResponseText.length - 1) {
+              this.zeus.isSpeaking = false
+            }
+            this.$refs.mainWindow.scrollTop = this.$refs.mainWindow.scrollHeight
+          }, 2500*i)
+        }
+      }
+      // 3. set if file prompt
       this.zeus.filePrompt = (conversation.file_request !== undefined) && (conversation.file_request !== null)
+      // 4. set if pre-selected answer buttons
       if (conversation.possible_answers == undefined) {
         this.zeus.suggestion = []
       } else {
         this.zeus.suggestion = JSON.parse(conversation.possible_answers) || []
       }
+      // 5. set feedback prompt
       this.numMessageSinceChatHistory += 1
-      this.promptFeedback = this.numMessageSinceChatHistory + this.chatHistory.history.length > 4
+      this.promptFeedback = this.numMessageSinceChatHistory > 4
+      // 6. reset user input to empty
       this.user.input = null
       this.user.disableInput = conversation.enforce_possible_answer
     },
@@ -254,9 +287,20 @@ export default {
           this.promptFeedback = false
         },
         response => {
-          this.promptFeedback = false
           this.connectionError = true
           console.log("Connection Fail: send feedback")
+        }
+      )
+    },
+    getFact () {
+      let zeusId = this.$localStorage.get('zeusId')
+      this.$http.get(this.api_url + 'conversation/' + zeusId + '/resolved').then(
+        response => {
+          this.chatHistory.fact = response.body.fact_entities
+        },
+        response => {
+          this.connectionError = true
+          console.log("Connection Fail: remove resolved fact")
         }
       )
     },
@@ -264,7 +308,7 @@ export default {
       let zeusId = this.$localStorage.get('zeusId')
       this.$http.delete(this.api_url + 'conversation/' + zeusId + '/resolved/' + factId).then(
         response => {
-          this.getChatHistory()
+          this.getFact()
         },
         response => {
           this.connectionError = true

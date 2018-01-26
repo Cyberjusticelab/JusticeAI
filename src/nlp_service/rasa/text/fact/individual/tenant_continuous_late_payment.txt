@@ -1,0 +1,37 @@
+[meta]
+
+[regex_features]
+
+[entity_synonyms]
+
+[common_examples: true]
+the tenant has been continuously late on payments
+the tenant has not paid in a long time
+the tenant last paid a long time ago
+it has been a long time since he paid
+i have not received any cheques from the tenant for a while
+the last time he paid was last year
+the tenant has been late in payments for over 5 months.
+tt has been over a year.
+the tenant refuses to pay on time
+he pays but it is always late
+i have never received a payment on time.
+their payments are often late
+yes
+affirmative
+roger
+he always pays in an untimely manner.
+
+[common_examples: false]
+negative
+their payment habits are good
+he always pays on time
+it is rare that he pays late
+they usually pay within the grace period
+the payment has never exceeded 3 weeks
+the tenant is punctual
+their payment habits are unmatched
+their payments habits are unparalleled.
+their payments habits are unrivaled.
+the tenant is the usain bolt of timely payments.
+the tenant always pays in a timely manner

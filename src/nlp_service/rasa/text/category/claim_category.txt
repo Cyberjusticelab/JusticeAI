@@ -30,7 +30,7 @@ sublet: (sub(let(ting)?)|(tenant)?)
 termination of lease: kick(s/ed) me out|(kick[^\s]*)(\s)(me)(\s)(out)
 will not: won't|will not
 negligence: (wear and tear)|(negligen(ce|t)?)|(fault)
-gender: (him|he|her|she)((')?s)?
+gender: (him|he|her|she|they)((')?s)?
 hearing-not showing up: (hearing)|(meeting)|(reschedule)
 haven't paid: (haven't)(\s)(paid)
 rent increase: rais(e/es/end/ing)|rais[^\s]*
