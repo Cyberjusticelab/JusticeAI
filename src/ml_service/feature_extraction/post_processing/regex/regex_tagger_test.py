@@ -44,7 +44,7 @@ class RegexTaggerTest(unittest.TestCase):
         binary_directory = Path.binary_directory
         Path.binary_directory = Path.test_data_directory
 
-        regex_list = self.precedent_tagger.get_intent_indice()
+        regex_list = self.precedent_tagger.get_intent_index()
         self.assertEqual(regex_list["facts_vector"][0], (0, "some_fact"))
         self.assertEqual(regex_list["demands_vector"][0], (0, "some_demand"))
 

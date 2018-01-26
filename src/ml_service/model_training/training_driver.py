@@ -30,6 +30,8 @@ def __dictionary_to_list():
     }]
     """
     precedent_vector = Load.load_binary("precedent_vectors.bin")
+    if precedent_vector is None:
+        return []
     Log.write("Formatting data")
     data_list = []
     for precedent_file in precedent_vector:
@@ -42,7 +44,8 @@ class CommandEnum:
     SIMILARITY_FINDER = "--sf"
     SVR = "--svr"
     EVALUATE = "--evaluate"
-    command_list = [SVM, SIMILARITY_FINDER, SVR, EVALUATE]
+    WEIGHTS = '--weights'
+    command_list = [SVM, SIMILARITY_FINDER, SVR, EVALUATE, WEIGHTS]
 
 
 def run(command_list):
@@ -61,15 +64,19 @@ def run(command_list):
             if command not in CommandEnum.command_list:
                 Log.write(command + " not recognized")
                 return False
+
+    precedent_vector = __dictionary_to_list()
+    if len(precedent_vector) == 0:
+        return False
     try:
         data_size = command_list[-1]
-        precedent_vector = __dictionary_to_list()[:int(data_size)]
+        precedent_vector = precedent_vector[:int(data_size)]
 
     except IndexError:
-        precedent_vector = __dictionary_to_list()
+        pass
 
     except ValueError:
-        precedent_vector = __dictionary_to_list()
+        pass
 
     except TypeError:
         Log.write("create the precedent vector model first.\nCommand: python main.py -post")
@@ -79,13 +86,18 @@ def run(command_list):
     Log.write("Executing train model.")
     if CommandEnum.SVM in command_list:
         linear_svm = MultiClassSVM(precedent_vector)
-        linear_svm.train()
-        linear_svm.save()
+        if CommandEnum.WEIGHTS in command_list:
+            linear_svm.display_weights()
+        else:
+            linear_svm.train()
+            linear_svm.save()
 
     if CommandEnum.SVR in command_list:
         regression_svr = MultiClassSVR(precedent_vector)
         if CommandEnum.EVALUATE in command_list:
             regression_svr.evaluate_best_parameters()
+        elif CommandEnum.WEIGHTS in command_list:
+            regression_svr.display_weights()
         else:
             regression_svr.train()
             regression_svr.save()
