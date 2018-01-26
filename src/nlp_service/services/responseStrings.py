@@ -98,10 +98,6 @@ class Responses:
             [
                 "Has the tenant continually been late with their rent payments?"
             ],
-        "tenant_continuous_late_payment":
-            [
-                "Does the tenant often pay their rent after it’s due?",
-            ],
         "tenant_damaged_rental":
             [
                 "Was there any damage done to the rented property?"
@@ -113,10 +109,6 @@ class Responses:
         "tenant_declare_insalubre":
             [
                 "Is the apartment dirty?"
-            ],
-        "tenant_financial_problem":
-            [
-                "Are there any financial issues preventing the payment of rent?"
             ],
         "tenant_group_responsability":
             [
@@ -150,11 +142,6 @@ class Responses:
         "tenant_not_request_cancel_lease":
             [
                 "Has a request for cancellation of the lease been given by any of the parties?"
-            ],
-        "tenant_owes_rent":
-            [
-                "Does the tenant owe rent?",
-                "Does the tenant currently owe you an overdue rent payment?"
             ],
         "tenant_refuses_retake_apartment":
             [
@@ -190,18 +177,6 @@ class Responses:
             [
                 "Did the tenant declare they are in a financially indisposed situation due to external factors? (i.e. job loss, injury, death in the family, etc.)"
             ],
-        "tenant_group_responsibility":
-            [
-                "Are there multiple tenants associated on the same lease?"
-            ],
-        "tenant_individual_responsibility":
-            [
-                "Is there only one tenant associated to the lease?"
-            ],
-        "tenant_left_without_paying":
-            [
-                "Did the tenant abandon the apartment without paying?"
-            ],
         "tenant_owes_rent":
             [
                 "Does the tenant currently owe any rent?|If so, how much do they owe?"
@@ -209,10 +184,6 @@ class Responses:
         "tenant_rent_not_paid_less_3_weeks":
             [
                 "Has it been less than 3 weeks since the tenant has paid the landlord?"
-            ],
-        "tenant_rent_not_paid_more_3_weeks":
-            [
-                "Has it been more than 3 weeks since the tenant has paid the landlord?"
             ],
         "tenant_rent_paid_before_hearing":
             [
