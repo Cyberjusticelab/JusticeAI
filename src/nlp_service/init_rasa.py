@@ -41,8 +41,7 @@ fact_names = [
     "tenant_owes_rent",
     "tenant_refuses_retake_apartment",
     "tenant_rent_not_paid_more_3_weeks",
-    "tenant_violence",
-    "tenant_withold_rent_without_permission"
+    "tenant_violence"
 ]
 jsonCreator.identical_fact_list("/rasa/text/fact/yes_no.txt", fact_names, "/rasa/data/fact/")
 jsonCreator.parse_directory("/rasa/text/fact/nonpayment/", "/rasa/data/fact/")

@@ -174,6 +174,50 @@ class Responses:
             [
                 "Is the tenant withholding rent without having received permission from the Regie du logement?"
             ],
+        "landlord_prejudice_justified":
+            [
+                ""
+            ],
+        "landlord_serious_prejudice":
+            [
+                "Has the tenant’s payment habits caused you any prejudice?"
+            ],
+        "tenant_continuous_late_payment":
+            [
+                "Has your tenant been continuously late on their rent payments?"
+            ],
+        "tenant_financial_problem":
+            [
+                "Did the tenant declare they are in a financially indisposed situation due to external factors? (i.e. job loss, injury, death in the family, etc.)"
+            ],
+        "tenant_group_responsibility":
+            [
+                "Are there multiple tenants associated on the same lease?"
+            ],
+        "tenant_individual_responsibility":
+            [
+                "Is there only one tenant associated to the lease?"
+            ],
+        "tenant_left_without_paying":
+            [
+                "Did the tenant abandon the apartment without paying?"
+            ],
+        "tenant_owes_rent":
+            [
+                "Does the tenant currently owe any rent?|If so, how much do they owe?"
+            ],
+        "tenant_rent_not_paid_less_3_weeks":
+            [
+                "Has it been less than 3 weeks since the tenant has paid the landlord?"
+            ],
+        "tenant_rent_not_paid_more_3_weeks":
+            [
+                "Has it been more than 3 weeks since the tenant has paid the landlord?"
+            ],
+        "tenant_rent_paid_before_hearing":
+            [
+                "Was the remaining balance for rent paid before the hearing?"
+            ],
         "missing_response":
             [
                 "Oops, something went wrong finding a response. Sorry about that."
