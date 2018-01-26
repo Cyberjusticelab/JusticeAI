@@ -110,17 +110,18 @@ describe.only('Chat.vue', () => {
     	const vm = new Vue(Chat).$mount()
     	clock.tick(1500);
     	expect(spy.called).to.be.true
+        expect(vm.zeus.input).to.equal('rainbow')
     	Chat.methods.configChat.restore()
     	Vue.http.get.restore()
         Vue.localStorage.remove('zeusId')
     	clock.restore();
     })
 
-    xit('should successfully send message and config chat (2)', () => {
+    it('should successfully send message and config chat', () => {
     	const promiseCall = sinon.stub(Vue.http, 'post').returnsPromise()
     	promiseCall.resolves({
     		body: {
-    			html: 'mock',
+    			message: 'mock',
     			file_request: ['yes'],
     			enforce_possible_answer: true
     		}
@@ -138,27 +139,50 @@ describe.only('Chat.vue', () => {
     	clock.restore();
     })
 
-    xit('should successfully send message and config chat (3)', () => {
-    	const promiseCall = sinon.stub(Vue.http, 'post').returnsPromise()
-    	promiseCall.resolves({
-    		body: {
-    			text: 'mock',
-    			file_request: ['yes'],
-    			enforce_possible_answer: true,
-    			possible_answers: 'null'
-    		}
-    	})
-    	const clock = sinon.useFakeTimers();
-    	const spy = sinon.spy(Chat.methods, 'configChat')
-    	const vm = new Vue(Chat).$mount()
+    it('should successfully send message and config chat', () => {
+        const promiseCall = sinon.stub(Vue.http, 'post').returnsPromise()
+        promiseCall.resolves({
+            body: {
+                message: 'mock|split',
+                file_request: ['yes'],
+                enforce_possible_answer: true,
+                possible_answers: '["yes"]'
+            }
+        })
+        const clock = sinon.useFakeTimers();
+        const spy = sinon.spy(Chat.methods, 'configChat')
+        const vm = new Vue(Chat).$mount()
         vm.user.input = 'mock'
         vm.zeus.input = 'mock'
-    	vm.sendUserMessage()
-    	clock.tick(1500);
-    	expect(spy.called).to.be.true
-    	Chat.methods.configChat.restore()
-    	Vue.http.post.restore()
-    	clock.restore();
+        vm.sendUserMessage()
+        clock.tick(1500);
+        expect(spy.called).to.be.true
+        Chat.methods.configChat.restore()
+        Vue.http.post.restore()
+        clock.restore();
+    })
+
+    it('should successfully send message and config chat', () => {
+        const promiseCall = sinon.stub(Vue.http, 'post').returnsPromise()
+        promiseCall.resolves({
+            body: {
+                message: 'mock|split',
+                file_request: ['yes'],
+                enforce_possible_answer: true,
+                possible_answers: 'null'
+            }
+        })
+        const clock = sinon.useFakeTimers();
+        const spy = sinon.spy(Chat.methods, 'configChat')
+        const vm = new Vue(Chat).$mount()
+        vm.user.input = 'mock'
+        vm.zeus.input = 'mock'
+        vm.sendUserMessage()
+        clock.tick(1500);
+        expect(spy.called).to.be.true
+        Chat.methods.configChat.restore()
+        Vue.http.post.restore()
+        clock.restore();
     })
 
     it('should successfully send user feedback', () => {
@@ -179,42 +203,26 @@ describe.only('Chat.vue', () => {
         Vue.http.post.restore()
     })
 
-    xit('should fail to send message', () => {
-    	const promiseCall = sinon.stub(Vue.http, 'post').returnsPromise()
-    	promiseCall.rejects()
-    	const vm = new Vue(Chat).$mount()
-    	vm.sendUserMessage()
-    	expect(vm.connectionError).to.be.true
-    	Vue.http.post.restore()
-    })
-
-    xit('should get chat history', () => {
-        Vue.localStorage.set('zeusId', 1)
+    it('should successfully get resolved fact list', () => {
         const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
         promiseCall.resolves({
             body: {
-                messages: ['mock_message1'],
-                fact_entities: ['mock_fact1'],
-                name: 'Bruce'
+                fact_entities: ['mock']
             }
         })
-        const spy = sinon.spy(Chat.methods, 'configChat')
         const vm = new Vue(Chat).$mount()
-        vm.zeus.input = true
-        vm.getChatHistory()
-        expect(spy.called).to.be.true
-        Chat.methods.configChat.restore()
-        Vue.localStorage.remove('zeusId')
+        vm.getFact()
+        expect(vm.connectionError).to.be.false
         Vue.http.get.restore()
     })
 
-    xit('should fail to get chat history', () => {
-    	const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
-    	promiseCall.rejects()
-    	const vm = new Vue(Chat).$mount()
-    	vm.getChatHistory()
-    	expect(vm.connectionError).to.be.true
-    	Vue.http.get.restore()
+    it('should fail to remove get resolved fact list', () => {
+        const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
+        promiseCall.rejects({})
+        const vm = new Vue(Chat).$mount()
+        vm.getFact()
+        expect(vm.connectionError).to.be.true
+        Vue.http.get.restore()
     })
 
     xit('should successfully remove resolved fact', () => {
