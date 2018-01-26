@@ -13,6 +13,12 @@ true
 that's correct
 yeah
 yes
+yes, they recently paid me
+yes they have paid the balance
+they paid the remaining balance before the hearing
+they no longer owe me any rent money
+the tenants paid all the rent before the hearing
+the tenants successfully paid off the balance
 
 [common_examples: false]
 that is incorrect
@@ -21,3 +27,9 @@ absolutely not
 nope
 no way
 no
+the hearing past and they still haven’t paid me money
+no I haven’t seen my rent money yet
+the tenants refuse to pay
+no they did not pay before the hearing
+they still have a remaining balance on the rent
+they still owe me money
