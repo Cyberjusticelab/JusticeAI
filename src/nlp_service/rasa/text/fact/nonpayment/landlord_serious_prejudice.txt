@@ -1,23 +1,61 @@
 [meta]
 
 [regex_features]
-false: (no)|(No)|(NO)
-true: (yes)|(YES)|(Yes)
-that's: that is|that's 
 
 [entity_synonyms]
 
 [common_examples: true]
-absolutely
-true
-that's correct
-yeah
-yes
+the tenant’s payment habits has cause me prejudice.
+the tenant’s payment habits has caused me trouble.
+i was counting on their payments for my projects.
+i needed the tenant’s money.
+the tenant didn’t pay and it is troublesome for me.
+the tenant didn’t pay and it is troublesome.
+it is hard for me to sustain myself because of his late payments.
+it is hard for me to sustain myself because of his habits.
+their negligence is causing me problems.
+his negligence is causing me problems.
+the tenant’s is unbearable.
+it is hard to bear the consequences caused by my tenant.
+the consequences are grave.
+i bear many consequences from his negligence.
+the times have been hard because of their habits.
+i just manage to get through considering their habits.
+yes it has and it isn’t easy for me.
+absolutely.
+yes and i think it is a lack of respect towards me.
+it is hard for me to reach ends meet.
+i cannot manage to reach ends meet because of the tenant.
+i experience many problems due to these circumstances.
+their non payment is an absolute abomination towards my life.
+the tenant’s prejudice has brought a great deal of calamity into my life.
+my life is now filled with void and sorrow.
+yes, my life now feels like a rollercoaster of pain.
+it is hard to cope with.
+madness has consumed my way of living.
 
 [common_examples: false]
-that is incorrect
-false
-absolutely not
-nope
-no way
-no
+the tenant’s payment habits has not caused me any prejudice.
+the tenant’s payment habits has not caused me trouble.
+i was not counting on their payments for my projects.
+i did not need the tenant’s money.
+the tenant didn’t pay but it was not troublesome for me.
+the tenant didn’t pay but it was fine
+it is not hard for me to sustain myself because of his late payments.
+it is not hard for me to sustain myself because of his habits.
+their negligence is not causing me problems.
+his negligence is not causing me problems.
+the tenant’s habits are bearable.
+it is not hard to bear the consequences caused by my tenant.
+the consequences are not so bad.
+i bear little consequences from his negligence.
+i live just fine
+yes it has but it is fine
+absolutely not.
+it is not hard for me to reach ends meet.
+i can still manage to reach ends meet because of the tenant.
+i do not experience many problems due to these circumstances.
+their habits has not caused me too much harm
+i do not feel any prejudice
+there is no prejudice
+zero kill

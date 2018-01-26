@@ -3,7 +3,9 @@
 [regex_features]
 false: (no)|(No)|(NO)
 true: (yes)|(YES)|(Yes)
-that's: that is|that's 
+that's: that is|that's
+conditionpoor: (suffer)|(lost)|(debt)|(die(d)?)|(death)|(depression)|(injur(ed|y)?)|
+conditiongood: (lazy)|(not true)|(fine)|(able)
 
 [entity_synonyms]
 
@@ -13,6 +15,17 @@ true
 that's correct
 yeah
 yes
+yes the tenant suffered a job injury
+yes the tenant is suffering from depression
+this is correct the tenant had a death in the family
+the tenant lost his job
+the tenant’s family died and he lost his job
+yes he is in debt due to school
+correct he had to pay hospital bills
+i was told he is going through something
+yes but I don’t care
+I heard but i don’t give a shit
+
 
 [common_examples: false]
 that is incorrect
@@ -21,3 +34,10 @@ absolutely not
 nope
 no way
 no
+no he is perfectly able
+no he is just lazy
+untrue he just smokes pot all day
+incorrect he is fine just knows he can get away with it
+not true he’s sitting around doing nothing
+no he’s just a snowflake
+his generation is just lazy
