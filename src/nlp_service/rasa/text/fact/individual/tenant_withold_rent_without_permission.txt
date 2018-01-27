@@ -1,0 +1,27 @@
+[meta]
+
+[regex_features]
+false: (no)|(No)|(NO)
+true: (yes)|(YES)|(Yes)
+that's: that is|that's 
+
+[entity_synonyms]
+
+[common_examples: true]
+absolutely
+true
+that's correct
+yeah
+yes
+yes the tenant refused to pay me for random reasons
+yes the tenant hasn’t paid for a while
+
+[common_examples: false]
+that is incorrect
+false
+absolutely not
+nope
+no way
+no
+no the tenant paid the rent
+no the tenant always pay on time

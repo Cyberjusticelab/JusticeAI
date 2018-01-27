@@ -59,7 +59,7 @@ class RasaClassifier:
 
     def classify_fact(self, fact_name, message):
         if fact_name in self.fact_interpreters:
-            return self.fact_interpreters[fact_name].parse(message)
+            return self.fact_interpreters[fact_name].parse(message.lower())
         return None
 
     """

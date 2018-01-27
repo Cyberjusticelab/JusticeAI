@@ -23,27 +23,33 @@ def submit_resolved_fact_list(conversation):
 
 
 """
-Given a claim cateogry and the ml service response, will extract the prediction
-performing any necessary mappings.
+Given a claim category and the ml service response, will extract the prediction performing any necessary mappings.
 claim_category: the current conversation's claim category as a string
 ml_response: the response dict received from ml service
-:returns Outcomes vector with true/false, depending on chance of winning case
+:returns Dict of relevant outcomes for the claim category returned my ML service
 """
 
 
 def extract_prediction(claim_category, ml_response):
-    outcome_mapping = {
-        "lease_termination": "lease_resiliation"
+    relevant_outcomes = {
+        "lease_termination": ['orders_resiliation'],
+        "nonpayment": ['tenant_ordered_to_pay_landlord',
+                       'tenant_ordered_to_pay_landlord_legal_fees',
+                       'additional_indemnity_money']
     }
 
-    outcome_key = None
-    if claim_category in outcome_mapping:
-        outcome_key = outcome_mapping[claim_category.lower()]
+    claim_category = claim_category.lower()
+    outcome_list = []
 
-    if outcome_key:
-        return True if ml_response[outcome_key] == 1 else False
+    if claim_category in relevant_outcomes:
+        outcome_list = relevant_outcomes[claim_category]
 
-    return False
+    resolved_outcomes = {}
+    if len(outcome_list) > 0:
+        for outcome in outcome_list:
+            resolved_outcomes[outcome] = ml_response['outcomes_vector'][outcome]
+
+    return resolved_outcomes
 
 
 """
@@ -55,7 +61,7 @@ Generates demand dictionary with default values for ML service input
 def generate_demand_dict():
     demand_dict = {
         "demand_lease_modification": 0,
-        "demand_resiliation": 1,
+        "demand_resiliation": 0,
         "landlord_claim_interest_damage": 0,
         "landlord_demand_access_rental": 0,
         "landlord_demand_bank_fee": 0,
@@ -95,6 +101,7 @@ all_ml_facts = [
     "asker_is_landlord",
     "asker_is_tenant",
     "bothers_others",
+    "case_fee_reimbursement",
     "disrespect_previous_judgement",
     "incorrect_facts",
     "landlord_inspector_fees",
@@ -170,6 +177,7 @@ def generate_fact_dict(conversation):
         resolved_facts['asker_is_tenant'] = True
 
     # Perform one to one mappings
+    resolved_facts['landlord_prejudice_justified'] = resolved_facts['landlord_serious_prejudice']
     resolved_facts['violent'] = resolved_facts['tenant_violence']
 
     resolved_facts['landlord_rent_change_piece_justification'] = resolved_facts[
@@ -181,6 +189,9 @@ def generate_fact_dict(conversation):
     resolved_facts['tenant_lease_indeterminate'] = not resolved_facts['tenant_lease_fixed']
     resolved_facts['lease'] = resolved_facts['tenant_lease_fixed']
     resolved_facts['tenant_rent_not_paid_less_3_weeks'] = not resolved_facts['tenant_rent_not_paid_more_3_weeks']
+
+    # Type mappings
+    resolved_facts['tenant_owes_rent'] = int(resolved_facts['tenant_owes_rent'])
 
     # Convert true and false to 1 and 0
     for fact_entity in resolved_facts:

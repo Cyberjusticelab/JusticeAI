@@ -1,7 +1,7 @@
 import unittest
 
 from nlp_service.services import factService
-from postgresql_db.models import ClaimCategory, Conversation, PersonType, db, Fact
+from postgresql_db.models import ClaimCategory, Conversation, PersonType, db, Fact, FactType
 
 
 class FactServiceTest(unittest.TestCase):
@@ -28,3 +28,27 @@ class FactServiceTest(unittest.TestCase):
         all_lease_termination_facts = list(factService.fact_mapping["lease_termination"])
         next_fact = factService.get_next_fact(ClaimCategory.LEASE_TERMINATION, all_lease_termination_facts)
         self.assertIsNone(next_fact)
+
+    def test_extract_fact_bool(self):
+        intent = {'name': 'true', 'confidence': 0.90}
+        entities = []
+
+        fact_value = factService.extract_fact_by_type(FactType.BOOLEAN, intent, entities)
+        self.assertTrue(fact_value == 'true')
+
+    def test_extract_fact_money(self):
+        intent = {'name': 'true', 'confidence': 0.90}
+        entities = [
+            {
+                'start': 18,
+                'end': 28,
+                'text': '50 dollars',
+                'value': 50.0,
+                'additional_info': {'value': 50.0, 'unit': '$'},
+                'entity': 'amount-of-money',
+                'extractor': 'ner_duckling',
+            },
+        ]
+
+        fact_value = factService.extract_fact_by_type(FactType.MONEY, intent, entities)
+        self.assertTrue(fact_value == 50.0)

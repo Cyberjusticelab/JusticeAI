@@ -1,0 +1,40 @@
+[meta]
+
+[regex_features]
+false: (no)|(No)|(NO)
+true: (yes)|(YES)|(Yes)
+that's: that is|that's 
+
+[entity_synonyms]
+
+[common_examples: true]
+absolutely
+true
+that's correct
+yeah
+yes
+it has been longer than 3 weeks since they paid me
+they paid me more than a month ago
+they are at least 3 weeks behind on rent
+i was paid more than 3 weeks ago
+it has been at least one month and the tenants still haven’t paid me rent
+the tenants are late on rent by over 3 weeks
+the tenants are late by at least a month
+yes they still haven’t paid me
+
+
+[common_examples: false]
+that is incorrect
+false
+absolutely not
+nope
+no way
+no
+no it has been less than 3 weeks
+it has been 2 weeks
+the tenant paid rent this week
+they paid me this week
+the tenant has recently paid me
+they paid me this week
+they only paid me a few days late
+
