@@ -173,37 +173,49 @@ class MultiClassSVM:
                     [precedent #2 facts],
                     ...
                 ]
-
         2) Reshape the y data
-            2.1) The data looks as such: [1, 1, 1, 0, 1, 0, 0, 1...]
-
-            2.2) We must create a new list with only the index of the columns where
-                 there are values of '1'. This is necessary because the sklearn
-                 algorithm expects this kind of input.
-
-            2.3) Example:        (transformation)
-                [1, 1, 0, 0, 1] ------------------> [0, 1, 4]
-
-            2.4) Create a 2D numpy array from the new list:[
-                [precedent #1 outcomes],
-                [precedent #2 outcomes],
-                ...
-            ]
         :return: x_total <#1.1>, y_total <#2.4>
         """
 
-        # --------------------1--------------------------
+        # 1
         x_total = np.array(
             [np.reshape(precedent['facts_vector'], (len(precedent['facts_vector'],))) for precedent in self.data_set])
         x_total = binarize(x_total, threshold=0)
 
-        # --------------------2--------------------------
+        # 2
         y_list = []
         for precedent in self.data_set:
-            classified_precedent = []
-            for i in range(len(precedent['outcomes_vector'])):
-                if precedent['outcomes_vector'][i] >= 1:
-                    classified_precedent.append(i)
-            y_list.append(classified_precedent)
+            y_list.append(self.__classify_precedent(precedent))
         y_total = np.array(y_list)
         return x_total, y_total
+
+    def __classify_precedent(self, precedent):
+        """
+        1) The data looks as such: [1, 1, 1, 0, 1, 0, 0, 1...]
+
+        2) We must create a new list with only the index of the columns where
+             there are values of '1'. This is necessary because the sklearn
+             algorithm expects this kind of input.
+
+        3) Example:        (transformation)
+            [1, 1, 0, 0, 1] ------------------> [0, 1, 4]
+
+        4) Create a 2D numpy array from the new list:[
+            [precedent #1 outcomes],
+            [precedent #2 outcomes],
+            ...
+            ]
+        :param precedent:
+            dict{
+                'facts_vector': [],
+                'outcomes_vector': [],
+                'demands_vector': []
+            }
+        :return: np.array([0, 1, 4, ...])
+        """
+        classified_precedent = []
+        outcome_vector = precedent['outcomes_vector']
+        for i in range(len(outcome_vector)):
+            if outcome_vector[i] >= 1:
+                classified_precedent.append(i)
+        return classified_precedent

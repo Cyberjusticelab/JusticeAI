@@ -88,7 +88,7 @@ class TenantPaysLandlordRegressor:
         scaler = StandardScaler()
         self.model = TenantPaysLandlordRegressor.__create_pipeline(scaler, regressor)
         self.model.fit(X, Y)
-        self.test()
+        self.dataset = None
 
     @staticmethod
     def __create_pipeline(scaler, regressor):
