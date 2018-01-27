@@ -2,8 +2,8 @@ import json
 from flask import jsonify, abort, make_response
 
 from postgresql_db.models import *
-from services import nlpService, fileService
-from services.staticStrings import *
+from services import nlp_service, file_service
+from services.staticStrings import StaticStrings
 
 from app import db
 
@@ -223,15 +223,15 @@ def upload_file(conversation_id, file):
     if file.filename == '':
         abort(make_response(jsonify(message="No file selected"), 400))
 
-    if fileService.is_accepted_format(file):
+    if file_service.is_accepted_format(file):
         # Create the file and commit it to generate id
-        new_file = File(name=fileService.sanitize_name(file), type=file.content_type)
+        new_file = File(name=file_service.sanitize_name(file), type=file.content_type)
         conversation.files.append(new_file)
         db.session.commit()
 
         # Generate path information and upload file to disk
-        new_file.path = fileService.generate_path(conversation.id, new_file.id)
-        fileService.upload_file(file, new_file.path, new_file.name)
+        new_file.path = file_service.generate_path(conversation.id, new_file.id)
+        file_service.upload_file(file, new_file.path, new_file.name)
         db.session.commit()
 
         # Return the file info
@@ -239,7 +239,7 @@ def upload_file(conversation_id, file):
     else:
         abort(make_response(
             jsonify(message="Filetype {} is not supported. Supported filetypes are {}.".format(
-                fileService.get_file_extension(file), fileService.get_accepted_formats_string())), 400))
+                file_service.get_file_extension(file), file_service.get_accepted_formats_string())), 400))
 
 
 ##################
@@ -274,16 +274,16 @@ def __generate_response(conversation, message):
     if __has_just_accepted_disclaimer(conversation):
         return __ask_initial_question(conversation)
     elif conversation.claim_category is None:
-        nlp_request = nlpService.claim_category(conversation.id, message)
+        nlp_request = nlp_service.claim_category(conversation.id, message)
 
-        # Refresh the session, since nlpService may have modified conversation
+        # Refresh the session, since nlp_service may have modified conversation
         db.session.refresh(conversation)
 
         return {'response_text': nlp_request['message']}
     elif conversation.current_fact is not None:
-        nlp_request = nlpService.submit_message(conversation.id, message)
+        nlp_request = nlp_service.submit_message(conversation.id, message)
 
-        # Refresh the session, since nlpService may have modified conversation
+        # Refresh the session, since nlp_service may have modified conversation
         db.session.refresh(conversation)
 
         return {'response_text': nlp_request['message']}
