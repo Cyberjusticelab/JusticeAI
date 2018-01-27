@@ -200,19 +200,11 @@ class MultiClassSVM:
         x_total = binarize(x_total, threshold=0)
 
         # --------------------2--------------------------
-        int_list = []
-        for precedent in self.data_set:
-            for i in range(len(precedent['outcomes_vector'])):
-                if precedent['outcomes_vector'][i] > 1:
-                    int_list.append(i)
-        int_list = set(int_list)
-
-        # --------------------3--------------------------
         y_list = []
         for precedent in self.data_set:
             classified_precedent = []
             for i in range(len(precedent['outcomes_vector'])):
-                if (i not in int_list) and (precedent['outcomes_vector'][i] == 1):
+                if precedent['outcomes_vector'][i] >= 1:
                     classified_precedent.append(i)
             y_list.append(classified_precedent)
         y_total = np.array(y_list)
