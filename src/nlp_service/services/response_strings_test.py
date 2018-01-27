@@ -1,6 +1,6 @@
 import unittest
 
-from services.responseStrings import Responses
+from services.response_strings import Responses
 
 
 class TestResponse(unittest.TestCase):

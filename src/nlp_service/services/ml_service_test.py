@@ -1,6 +1,6 @@
 import unittest
 
-from nlp_service.services import mlService
+from nlp_service.services import ml_service
 from postgresql_db.models import db, Conversation, PersonType, Fact, FactEntity
 
 
@@ -11,7 +11,7 @@ class MlServiceTest(unittest.TestCase):
                 "orders_resiliation": 1
             }
         }
-        prediction_dict = mlService.extract_prediction("lease_termination", mock_ml_response)
+        prediction_dict = ml_service.extract_prediction("lease_termination", mock_ml_response)
         self.assertTrue("orders_resiliation" in prediction_dict)
 
     def test_extract_prediction_bad_key(self):
@@ -20,11 +20,11 @@ class MlServiceTest(unittest.TestCase):
                 "orders_resiliation": 1
             }
         }
-        prediction_dict = mlService.extract_prediction("bad_key", mock_ml_response)
+        prediction_dict = ml_service.extract_prediction("bad_key", mock_ml_response)
         self.assertFalse(bool(prediction_dict))
 
     def test_generate_demand_dict(self):
-        demand_dict = mlService.generate_demand_dict()
+        demand_dict = ml_service.generate_demand_dict()
         self.assertTrue(len(demand_dict) != 0)
 
     def test_generate_fact_dict(self):
@@ -43,7 +43,7 @@ class MlServiceTest(unittest.TestCase):
         conversation.fact_entities.append(fact_entity_false)
         db.session.commit()
 
-        fact_dict = mlService.generate_fact_dict(conversation)
+        fact_dict = ml_service.generate_fact_dict(conversation)
         self.assertTrue(len(fact_dict) != 0)
 
         self.assertTrue(fact_dict["apartment_impropre"] == 1)

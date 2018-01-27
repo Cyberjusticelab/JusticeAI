@@ -3,7 +3,7 @@ import os
 from flask import Flask
 from flask import request
 
-from controllers import nlpController
+from controllers import nlp_controller
 
 from postgresql_db import database
 
@@ -23,10 +23,10 @@ db = database.connect(app, 'postgres', os.environ['POSTGRES_PASSWORD'], 'postgre
 @app.route("/claim_category", methods=['POST'])
 def classify_claim_category():
     input = request.get_json()
-    return nlpController.classify_claim_category(input['conversation_id'], input['message'])
+    return nlp_controller.classify_claim_category(input['conversation_id'], input['message'])
 
 
 @app.route("/submit_message", methods=['POST'])
 def submit_message():
     input = request.get_json()
-    return nlpController.classify_fact_value(input['conversation_id'], input['message'])
+    return nlp_controller.classify_fact_value(input['conversation_id'], input['message'])

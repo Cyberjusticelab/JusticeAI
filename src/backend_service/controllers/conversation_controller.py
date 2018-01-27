@@ -3,7 +3,7 @@ from flask import jsonify, abort, make_response
 
 from postgresql_db.models import *
 from services import nlp_service, file_service
-from services.staticStrings import StaticStrings
+from services.static_strings import StaticStrings
 
 from app import db
 
