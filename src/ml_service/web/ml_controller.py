@@ -30,7 +30,7 @@ class MlController:
                  }
         """
         facts_vector = MlController.dict_to_vector(input_json['facts'])
-        outcome_vector = GlobalPredictor.predict_outcome(facts_vector)[0]
+        outcome_vector = GlobalPredictor.predict_outcome(facts_vector)
 
         return MlController.vector_to_dict(outcome_vector)
 
@@ -49,7 +49,7 @@ class MlController:
         returns: a vector integers
         """
         output_vector = np.zeros(len(MlController.indexes['facts_vector']))
-        for index, val in MlController.indexes['facts_vector']:
+        for index, val, data_type in MlController.indexes['facts_vector']:
             if val in input_dict:
                 output_vector[index] = int(input_dict[val])
         return output_vector
@@ -58,7 +58,7 @@ class MlController:
     def vector_to_dict(outcome_vector):
         return_dict = {}
         for outcome_index in GlobalPredictor.classifier_labels:
-            label = GlobalPredictor.classifier_labels[outcome_index]
+            label = GlobalPredictor.classifier_labels[outcome_index][0]
             return_dict[label] = str(outcome_vector[outcome_index])
 
         return {'outcomes_vector': return_dict}
