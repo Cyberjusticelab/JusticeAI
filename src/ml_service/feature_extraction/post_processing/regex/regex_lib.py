@@ -881,6 +881,23 @@ class RegexLib:
             file.close()
         return sentences_matched
 
+    def regex_matches_file(self, regex_name, file, min_percentage):
+        total_nb_lines_in_file = 0
+        total_lines_matched = 0
+        regexes = self.__get_regexes(regex_name)
+        line = file.readline()
+        while line:
+            total_nb_lines_in_file += 1
+            for reg in regexes:
+                if reg.search(line):
+                    total_lines_matched += 1
+            line = file.readline()
+        if total_lines_matched == 0:
+            return False
+        return True if(total_lines_matched/total_nb_lines_in_file >= min_percentage) else False
+
+
+
 
 def run():
     """
