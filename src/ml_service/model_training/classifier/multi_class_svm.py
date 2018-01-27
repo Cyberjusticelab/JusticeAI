@@ -127,7 +127,9 @@ class MultiClassSVM:
         linear_labels = {}
         indices = TagPrecedents().get_intent_index()['outcomes_vector']
         for i in range(len(self.mlb.classes_)):
-            linear_labels[i] = indices[self.mlb.classes_[i]][1]
+            label = indices[self.mlb.classes_[i]][1]
+            data_type = indices[self.mlb.classes_[i]][2]
+            linear_labels[i] = label, data_type
         save = Save()
         save.save_binary("classifier_labels.bin", linear_labels)
 
@@ -172,21 +174,17 @@ class MultiClassSVM:
                     ...
                 ]
 
-        2) Obtain the index of every int column. It happens that some int had
-           the value of 0/1. For this reason we have to do a first pass and
-           identify the column so that we don't mix up the value for a boolean.
+        2) Reshape the y data
+            2.1) The data looks as such: [1, 1, 1, 0, 1, 0, 0, 1...]
 
-        3) Reshape the y data
-            3.1) The data looks as such: [1, 1, 1, 0, 1, 0, 0, 1...]
-
-            3.2) We must create a new list with only the index of the columns where
+            2.2) We must create a new list with only the index of the columns where
                  there are values of '1'. This is necessary because the sklearn
                  algorithm expects this kind of input.
 
-            3.3) Example:        (transformation)
+            2.3) Example:        (transformation)
                 [1, 1, 0, 0, 1] ------------------> [0, 1, 4]
 
-            3.4) Create a 2D numpy array from the new list:[
+            2.4) Create a 2D numpy array from the new list:[
                 [precedent #1 outcomes],
                 [precedent #2 outcomes],
                 ...

@@ -35,15 +35,30 @@ class TagPrecedents:
         """
         facts_vector = []
         for i in range(len(self.regexes["regex_facts"])):
-            facts_vector.append((i, self.regexes["regex_facts"][i][0]))
+            name = self.regexes["regex_facts"][i][0]
+            if self.regexes["regex_facts"][i][2] == 'BOOLEAN':
+                data_type = 'bool'
+            else:
+                data_type = 'int'
+            facts_vector.append((i, name, data_type))
 
         demands_vector = []
         for i in range(len(self.regexes["regex_demands"])):
-            demands_vector.append((i, self.regexes["regex_demands"][i][0]))
+            name = self.regexes["regex_demands"][i][0]
+            if self.regexes["regex_demands"][i][2] == 'BOOLEAN':
+                data_type = 'bool'
+            else:
+                data_type = 'int'
+            demands_vector.append((i, name, data_type))
 
         outcomes_vector = []
         for i in range(len(self.regexes["regex_outcomes"])):
-            outcomes_vector.append((i, self.regexes["regex_outcomes"][i][0]))
+            name = self.regexes["regex_outcomes"][i][0]
+            if self.regexes["regex_outcomes"][i][2] == 'BOOLEAN':
+                data_type = 'bool'
+            else:
+                data_type = 'int'
+            outcomes_vector.append((i, name, data_type))
 
         return {
             'facts_vector': facts_vector,
