@@ -881,6 +881,40 @@ class RegexLib:
             file.close()
         return sentences_matched
 
+    def cluster_file_finder(self, regex_name, file_path):
+        regexes = self.__get_regexes(regex_name)
+        total_nb_lines_in_file = 0
+        total_lines_matched = 0
+        file = open(file_path, "r", encoding="utf-8")
+        for line in file:
+            if '----------------------------------' in line:
+                break
+            total_nb_lines_in_file += 1
+            line = '[5] ' + line
+            for reg in regexes:
+                if reg.search(line):
+                    total_lines_matched += 1
+                    return True
+
+    def cluster_regex_mapper(self, folder_name, nb_of_files):
+        from util.file import Path
+        import os
+        nb_of_files_proccessed = 0
+        path = Path.cluster_directory + folder_name +'/'
+        cluster_regex_dict = {}
+        for i in os.listdir(path):
+            if i == '.DS_Store':
+                continue
+            if nb_of_files_proccessed > nb_of_files:
+                break
+            nb_of_files_proccessed += 1
+            for regex in self.regex_facts:
+                if self.cluster_file_finder(regex[0], path+i):
+                    if regex[0] in cluster_regex_dict.keys():
+                        cluster_regex_dict[regex[0]].append(i)
+                    cluster_regex_dict[regex[0]] = [i]
+        return cluster_regex_dict
+
     def regex_matches_file(self, regex_name, file, min_percentage):
         total_nb_lines_in_file = 0
         total_lines_matched = 0
@@ -916,3 +950,9 @@ def run():
     reg_dict['MONEY_REGEX'] = regexes.MONEY_REGEX
     save = Save()
     save.save_binary('regexes.bin', reg_dict)
+
+
+rc_dict = RegexLib().cluster_regex_mapper('fact', 3000)
+
+for key, val in rc_dict.items():
+    print(key,val)
