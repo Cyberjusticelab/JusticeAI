@@ -22,7 +22,9 @@ binary_names_dict = {
     'multi_class_svm_model': ['https://capstone.cyberjustice.ca/data/bin/multi_class_svm_model.bin', 11434717],
     'classifier_labels': ['https://capstone.cyberjustice.ca/data/bin/classifier_labels.bin', 275],
     'multi_class_svr_model': ['https://capstone.cyberjustice.ca/data/bin/multi_class_svr_model.bin', 22977311],
-    'svr_scaler_model': ['https://capstone.cyberjustice.ca/data/bin/svr_scaler_model.bin', 2623]
+    'svr_scaler_model': ['https://capstone.cyberjustice.ca/data/bin/svr_scaler_model.bin', 2623],
+    'fact_cluster': ['https://capstone.cyberjustice.ca/data/bin/fact_cluster.zip', 13337193],
+    'decision_cluster': ['https://capstone.cyberjustice.ca/data/bin/decision_cluster.zip', 1209757]
     }
 
 
