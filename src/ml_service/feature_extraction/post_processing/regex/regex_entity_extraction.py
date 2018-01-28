@@ -9,13 +9,13 @@ import unicodedata
 class EntityExtraction:
     log = logger.Log()
     regex_bin = None
-    one_day = 86400 # unix time for 1 day
+    one_day = 86400  # unix time for 1 day
     month_dict = {'janvier': 1, 'fevrier': 2, 'mars': 3, 'avril': 4, 'mai': 5, 'juin': 6,
                   'juillet': 7, 'aout': 8, 'septembre': 9, "octobre": 10, 'novembre': 11, 'decembre': 12}
 
     def __init__(self):
         pass
-    
+
     @staticmethod
     def match_any_regex(text, regex_array, regex_type):
         """
@@ -36,7 +36,7 @@ class EntityExtraction:
                 sentence = regex_result.group(0).lower()
                 return EntityExtraction.__extract_regex_entity(sentence, regex_type)
         return False, 0
-    
+
     @staticmethod
     def __extract_regex_entity(sentence, regex_type):
         """
@@ -75,7 +75,7 @@ class EntityExtraction:
             date_components = sentence.split(" ")
 
             """
-            the value 3 is used to make sure we have all the required components. 
+            the value 3 is used to make sure we have all the required components.
             1 for the day, 1 for the month and 1 for the year.
             """
             if len(date_components) == 3:
@@ -92,7 +92,7 @@ class EntityExtraction:
                     return True, unix_time
 
         return False, 0
-    
+
     @staticmethod
     def __date_to_unix(date):
         """

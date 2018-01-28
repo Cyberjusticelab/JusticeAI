@@ -7,7 +7,6 @@ from backend_service.controllers import conversation_controller
 from postgresql_db.models import *
 
 
-
 class ConversationControllerTest(unittest.TestCase):
     def test_get_conversation(self):
         with app.test_request_context():

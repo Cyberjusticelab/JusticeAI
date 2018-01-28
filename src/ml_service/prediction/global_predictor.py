@@ -41,4 +41,3 @@ class GlobalPredictor:
                 if column_name == 'tenant_ordered_to_pay_landlord':
                     outcome_vector[i] = GlobalPredictor.regression_model.predict(data)[0][0]
         return outcome_vector
-

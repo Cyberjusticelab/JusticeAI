@@ -17,6 +17,8 @@ from util.log import Log
     supposed to pay a landlord. An implicit assumption of this regressor
     is that the tenant IS SUPPOSED TO PAY the landlord (i.e. non-zero value)
 """
+
+
 class TenantPaysLandlordRegressor:
 
     def __init__(self, dataset=None):
@@ -124,4 +126,3 @@ class TenantPaysLandlordRegressor:
             returns: predicted integer value of tenant_ordered_to_pay_landlord
         """
         return self.model.predict([precedent])
-

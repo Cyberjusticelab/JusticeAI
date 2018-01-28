@@ -21,7 +21,6 @@ i owe my landlord (40 dollars)
 i don't owe my landlord any (money)    
     """
 
-
     def test_find_meta_characters(self):
         parser = CreateJson()
         text = "() = money, ner_duckling"
@@ -141,4 +140,3 @@ i don't owe my landlord any (money)
         self.assertEqual(regex_list, expected_regex_list)
         self.assertEqual(synonym_list, expected_synonym_list)
         self.assertEqual(intent_list, expected_intent_list)
-

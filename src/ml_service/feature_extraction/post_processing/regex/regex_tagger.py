@@ -182,7 +182,7 @@ class TagPrecedents:
             'demands_vector': demands_vector,
             'outcomes_vector': outcomes_vector
         }
- 
+
     def __ignore_line(self, line):
         """
         Verifies if we should ignore line from total count
@@ -201,10 +201,10 @@ def run(nb_files=-1):
     """
     Models saved to ml_service/data/binary/
     1) create vectors and save them
-    2) retrieve the lab    
-    :return: None 
+    2) retrieve the lab
+    :return: None
     """
-    
+
     tag = TagPrecedents()
     precedent_vector = tag.tag_precedents(nb_files)
     # prints fact intents
