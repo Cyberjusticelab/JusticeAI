@@ -127,7 +127,9 @@ class MultiClassSVM:
         linear_labels = {}
         indices = TagPrecedents().get_intent_index()['outcomes_vector']
         for i in range(len(self.mlb.classes_)):
-            linear_labels[i] = indices[self.mlb.classes_[i]][1]
+            label = indices[self.mlb.classes_[i]][1]
+            data_type = indices[self.mlb.classes_[i]][2]
+            linear_labels[i] = label, data_type
         save = Save()
         save.save_binary("classifier_labels.bin", linear_labels)
 
@@ -171,49 +173,49 @@ class MultiClassSVM:
                     [precedent #2 facts],
                     ...
                 ]
-
-        2) Obtain the index of every int column. It happens that some int had
-           the value of 0/1. For this reason we have to do a first pass and
-           identify the column so that we don't mix up the value for a boolean.
-
-        3) Reshape the y data
-            3.1) The data looks as such: [1, 1, 1, 0, 1, 0, 0, 1...]
-
-            3.2) We must create a new list with only the index of the columns where
-                 there are values of '1'. This is necessary because the sklearn
-                 algorithm expects this kind of input.
-
-            3.3) Example:        (transformation)
-                [1, 1, 0, 0, 1] ------------------> [0, 1, 4]
-
-            3.4) Create a 2D numpy array from the new list:[
-                [precedent #1 outcomes],
-                [precedent #2 outcomes],
-                ...
-            ]
+        2) Reshape the y data
         :return: x_total <#1.1>, y_total <#2.4>
         """
 
-        # --------------------1--------------------------
+        # 1
         x_total = np.array(
             [np.reshape(precedent['facts_vector'], (len(precedent['facts_vector'],))) for precedent in self.data_set])
         x_total = binarize(x_total, threshold=0)
 
-        # --------------------2--------------------------
-        int_list = []
-        for precedent in self.data_set:
-            for i in range(len(precedent['outcomes_vector'])):
-                if precedent['outcomes_vector'][i] > 1:
-                    int_list.append(i)
-        int_list = set(int_list)
-
-        # --------------------3--------------------------
+        # 2
         y_list = []
         for precedent in self.data_set:
-            classified_precedent = []
-            for i in range(len(precedent['outcomes_vector'])):
-                if (i not in int_list) and (precedent['outcomes_vector'][i] == 1):
-                    classified_precedent.append(i)
-            y_list.append(classified_precedent)
+            y_list.append(self.__classify_precedent(precedent))
         y_total = np.array(y_list)
         return x_total, y_total
+
+    def __classify_precedent(self, precedent):
+        """
+        1) The data looks as such: [1, 1, 1, 0, 1, 0, 0, 1...]
+
+        2) We must create a new list with only the index of the columns where
+             there are values of '1'. This is necessary because the sklearn
+             algorithm expects this kind of input.
+
+        3) Example:        (transformation)
+            [1, 1, 0, 0, 1] ------------------> [0, 1, 4]
+
+        4) Create a 2D numpy array from the new list:[
+            [precedent #1 outcomes],
+            [precedent #2 outcomes],
+            ...
+            ]
+        :param precedent:
+            dict{
+                'facts_vector': [],
+                'outcomes_vector': [],
+                'demands_vector': []
+            }
+        :return: np.array([0, 1, 4, ...])
+        """
+        classified_precedent = []
+        outcome_vector = precedent['outcomes_vector']
+        for i in range(len(outcome_vector)):
+            if outcome_vector[i] >= 1:
+                classified_precedent.append(i)
+        return classified_precedent
