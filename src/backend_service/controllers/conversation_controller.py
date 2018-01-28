@@ -25,6 +25,30 @@ def get_conversation(conversation_id):
     return ConversationSchema().jsonify(conversation)
 
 
+def init_conversation(name, person_type):
+    """
+    Initializes a new conversation
+    :param name: User's name
+    :param person_type: Either LANDLORD or TENANT
+    :return: JSON with id of newly created Conversation
+    """
+
+    if person_type.upper() not in PersonType.__members__:
+        return abort(make_response(jsonify(message="Invalid person type provided"), 400))
+
+    conversation = Conversation(name=name, person_type=PersonType[person_type.upper()])
+
+    # Persist new conversation to DB
+    db.session.add(conversation)
+    db.session.commit()
+
+    return jsonify(
+        {
+            'conversation_id': conversation.id
+        }
+    )
+
+
 def get_fact_entities(conversation_id):
     """
     Returns a json representation of the Conversation's FactEntities
@@ -59,30 +83,6 @@ def delete_fact_entity(conversation_id, fact_entity_id):
         return jsonify({'success': True})
     else:
         abort(make_response(jsonify(message="Fact entity does not exist"), 404))
-
-
-def init_conversation(name, person_type):
-    """
-    Initializes a new conversation
-    :param name: User's name
-    :param person_type: Either LANDLORD or TENANT
-    :return: JSON with id of newly created Conversation
-    """
-
-    if person_type.upper() not in PersonType.__members__:
-        return abort(make_response(jsonify(message="Invalid person type provided"), 400))
-
-    conversation = Conversation(name=name, person_type=PersonType[person_type.upper()])
-
-    # Persist new conversation to DB
-    db.session.add(conversation)
-    db.session.commit()
-
-    return jsonify(
-        {
-            'conversation_id': conversation.id
-        }
-    )
 
 
 def receive_message(conversation_id, message):
