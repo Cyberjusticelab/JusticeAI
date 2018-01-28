@@ -7,31 +7,31 @@ from services.static_strings import StaticStrings
 
 from app import db
 
+
 ########################
 # Conversation Handling
 ########################
 
-"""
-Returns a json representation of the Conversation
-conversation_id: ID of the conversation
-:return JSON representation of the conversation
-"""
-
 
 def get_conversation(conversation_id):
+    """
+    Returns a json representation of the Conversation
+    :param conversation_id: ID of the conversation
+    :return: JSON representation of the conversation
+    """
+
     conversation = __get_conversation(conversation_id)
 
     return ConversationSchema().jsonify(conversation)
 
 
-"""
-Returns a json representation of the Conversation's FactEntities
-conversation_id: ID of the conversation
-:return JSON list of FactEntities that represent resolved facts
-"""
-
-
 def get_fact_entities(conversation_id):
+    """
+    Returns a json representation of the Conversation's FactEntities
+    :param conversation_id: ID of the conversation
+    :return: JSON list of FactEntities that represent resolved facts
+    """
+
     conversation = __get_conversation(conversation_id)
     return jsonify(
         {
@@ -40,14 +40,14 @@ def get_fact_entities(conversation_id):
     )
 
 
-"""
-Returns a json representation of the Conversation's FactEntities
-conversation_id: ID of the conversation
-:return JSON list of FactEntities that represent resolved facts
-"""
-
-
 def delete_fact_entity(conversation_id, fact_entity_id):
+    """
+    Deletes a fact entity from a conversation
+    :param conversation_id:  ID of the conversation
+    :param fact_entity_id: ID of the fact entity
+    :return: JSON with a success value of true or an error message
+    """
+
     conversation = __get_conversation(conversation_id)
     fact_entity = next(
         (fact_entity for fact_entity in conversation.fact_entities if fact_entity.id == int(fact_entity_id)), None)
@@ -61,15 +61,14 @@ def delete_fact_entity(conversation_id, fact_entity_id):
         abort(make_response(jsonify(message="Fact entity does not exist"), 404))
 
 
-"""
-Initializes a new Conversation
-name: Person's name
-person_type: Either LANDLORD or TENANT
-:return JSON with id of newly created Conversation
-"""
-
-
 def init_conversation(name, person_type):
+    """
+    Initializes a new conversation
+    :param name: User's name
+    :param person_type: Either LANDLORD or TENANT
+    :return: JSON with id of newly created Conversation
+    """
+
     if person_type.upper() not in PersonType.__members__:
         return abort(make_response(jsonify(message="Invalid person type provided"), 400))
 
@@ -86,14 +85,14 @@ def init_conversation(name, person_type):
     )
 
 
-"""
-Process an incoming message from the user
-conversation_id: ID of the conversation
-:return JSON object with data for the front end, including response text and file requests.
-"""
-
-
 def receive_message(conversation_id, message):
+    """
+    Process an incoming message from the user
+    :param conversation_id: ID of the conversation
+    :param message: Message received from the user
+    :return: JSON object with data for the front end, including response text and file requests.
+    """
+
     conversation = __get_conversation(conversation_id)
 
     response_text = None
@@ -159,15 +158,14 @@ def receive_message(conversation_id, message):
     return jsonify(response_dict)
 
 
-"""
-Stores the user's feedback as to whether our NLP prediction/classification/extraction is correct
-conversation_id: ID of the conversation
-conversation_id: The message provided by the user as confirmation (True/False/'$500', etc)
-:return 200 response once the confirmation is persisted
-"""
-
-
 def store_user_confirmation(conversation_id, confirmation):
+    """
+    Stores the user's feedback as to whether our NLP prediction/classification/extraction is correct
+    :param conversation_id: ID of the conversation
+    :param confirmation: The message provided by the user as confirmation (True/False/'$500', etc)
+    :return: 200 response once the confirmation is persisted
+    """
+
     conversation = __get_conversation(conversation_id)
     messages = conversation.messages[::-1]
     for message in messages:
@@ -191,14 +189,13 @@ def store_user_confirmation(conversation_id, confirmation):
 # File Handling
 ################
 
-"""
-Retrieves a list of data about files the user has uploaded
-conversation_id: ID of the conversation
-:return JSON object with file data
-"""
-
-
 def get_file_list(conversation_id):
+    """
+    Retrieves a list of data about files the user has uploaded
+    :param conversation_id: ID of the conversation
+    :return: JSON object with file data
+    """
+
     conversation = __get_conversation(conversation_id)
 
     return jsonify(
@@ -208,15 +205,14 @@ def get_file_list(conversation_id):
     )
 
 
-"""
-Uploads a file and creates a database entry for the File linked to the Conversation
-conversation_id: ID of the conversation
-file: Werkzeug file data received from front end
-:return JSON object with file data
-"""
-
-
 def upload_file(conversation_id, file):
+    """
+    Uploads a file and creates a database entry for the File linked to the Conversation
+    :param conversation_id: ID of the conversation
+    :param file: Werkzeug file data received from front end
+    :return: JSON object with file data
+    """
+
     conversation = __get_conversation(conversation_id)
 
     # Check if the file has a filename
@@ -246,14 +242,13 @@ def upload_file(conversation_id, file):
 # Private Methods
 ##################
 
-"""
-Retrieves the conversation by id, returning 404 if not found.
-conversation_id: ID of the conversation
-:return Conversation if exists, else aborts with 404
-"""
-
-
 def __get_conversation(conversation_id):
+    """
+    Retrieves the conversation by id, returning 404 if not found.
+    :param conversation_id: ID of the conversation
+    :return: Conversation if exists, else aborts with 404
+    """
+
     conversation = db.session.query(Conversation).get(conversation_id)
 
     if conversation:
@@ -262,15 +257,14 @@ def __get_conversation(conversation_id):
     abort(make_response(jsonify(message="Conversation does not exist"), 404))
 
 
-"""
-Generates the next response for the bot, based on conversation's state
-conversation: Conversation
-message: User's message
-:return Next response for bot
-"""
-
-
 def __generate_response(conversation, message):
+    """
+    Generates the next response for the bot, based on conversation's state
+    :param conversation: Conversation
+    :param message: User's message
+    :return: Next response for bot
+    """
+
     if __has_just_accepted_disclaimer(conversation):
         return __ask_initial_question(conversation)
     elif conversation.claim_category is None:
@@ -289,14 +283,13 @@ def __generate_response(conversation, message):
         return {'response_text': nlp_request['message']}
 
 
-"""
-Returns the initial question to ask, and optionally a file request
-conversation: Conversation
-:return Next response for bot
-"""
-
-
 def __ask_initial_question(conversation):
+    """
+    Returns the initial question to ask, and optionally a file request
+    :param conversation: Conversation
+    :return: Next response for bot
+    """
+
     person_type = conversation.person_type
 
     file_request = None

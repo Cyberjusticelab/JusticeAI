@@ -4,16 +4,15 @@ from postgresql_db.models import Fact, FactEntity, PersonType
 
 ML_URL = "http://ml_service:3001"
 
-"""
-Submits list of resolved facts to ML endpoint. Only done once all
-facts have been asked and resolved.
-Returns the first fact to ask a question for, based on claim category.
-conversation: the current conversation
-:returns Outcomes vector with true/false, depending on chance of winning case
-"""
-
 
 def submit_resolved_fact_list(conversation):
+    """
+    Submits list of resolved facts to ML endpoint.
+    Should only be done once all facts have been asked and resolved.
+    :param conversation: The current conversation
+    :return: Outcomes vector from ML service
+    """
+
     req_dict = {
         "demands": generate_demand_dict(),
         "facts": generate_fact_dict(conversation)
@@ -22,15 +21,14 @@ def submit_resolved_fact_list(conversation):
     return res.json()
 
 
-"""
-Given a claim category and the ml service response, will extract the prediction performing any necessary mappings.
-claim_category: the current conversation's claim category as a string
-ml_response: the response dict received from ml service
-:returns Dict of relevant outcomes for the claim category returned my ML service
-"""
-
-
 def extract_prediction(claim_category, ml_response):
+    """
+    Given a claim category and the ml service response, will extract the prediction performing any necessary mappings.
+    :param claim_category: The current conversation's claim category as a string
+    :param ml_response: The response dict received from ml service
+    :return: Dict of relevant outcomes for the claim category returned my ML service
+    """
+
     relevant_outcomes = {
         "lease_termination": ['orders_resiliation'],
         "nonpayment": ['tenant_ordered_to_pay_landlord',
@@ -52,13 +50,12 @@ def extract_prediction(claim_category, ml_response):
     return resolved_outcomes
 
 
-"""
-Generates demand dictionary with default values for ML service input
-:returns Demand dictionary with default values
-"""
-
-
 def generate_demand_dict():
+    """
+    Generates demand dictionary with default values for ML service input
+    :return: Demand dictionary with default values
+    """
+
     demand_dict = {
         "demand_lease_modification": 0,
         "demand_resiliation": 0,
@@ -87,12 +84,6 @@ def generate_demand_dict():
     }
     return demand_dict
 
-
-"""
-Generates fact dictionary for ML service. Maps values for unasked facts
-based on asked facts, or provides default mappings.
-:returns Fact dictionary with mapped facts and resolved facts
-"""
 
 all_ml_facts = [
     "absent",
@@ -150,6 +141,13 @@ all_ml_facts = [
 
 
 def generate_fact_dict(conversation):
+    """
+    Generates fact dictionary for ML service.
+    Maps values for unasked facts based on asked facts, or provides default mappings.
+    :param conversation: The current conversation
+    :return: Fact dictionary with mapped facts and resolved facts
+    """
+
     resolved_facts = {}
 
     # Initialize expected facts with all false
