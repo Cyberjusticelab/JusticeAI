@@ -1,30 +1,27 @@
 from postgresql_db.models import FactEntity, Fact, FactType
 
-"""
-Simulates the return values of the proposed ML service.
-Returns the first fact to ask a question for, based on claim category.
-claim_category: The claim category determined from user input
-:returns First fact to ask a question for
-"""
-
 
 def submit_claim_category(claim_category):
+    """
+    Returns the first fact after submitting a determined claim category
+    :param claim_category: The claim category determined from user input as a string
+    :return: First fact id to ask a question for
+    """
+
     return {
         'fact_id': get_next_fact(claim_category, [])
     }
 
 
-"""
-Simulates the return values of the proposed ML service.
-Returns the next fact to ask a question for
-conversation: the current conversation
-current_fact: the current fact
-entity_value: value of the fact
-:returns Next fact to ask a question for
-"""
-
-
 def submit_resolved_fact(conversation, current_fact, entity_value):
+    """
+    After resolving a fact, returns the next fact to ask a question for
+    :param conversation: The current conversation
+    :param current_fact: The current fact
+    :param entity_value: Classified value of the current fact
+    :return: Next fact id to ask a question for
+    """
+
     # Create new FactEntity and attach to conversation
     fact_entity = FactEntity(fact=current_fact, value=entity_value)
     conversation.fact_entities.append(fact_entity)
@@ -36,13 +33,6 @@ def submit_resolved_fact(conversation, current_fact, entity_value):
         'fact_id': get_next_fact(conversation.claim_category, facts_resolved)
     }
 
-
-"""
-Returns next fact based on claim category given the resolved facts.
-claim_category: claim category of the conversation
-facts_resolved: list of resolved fact keys
-:returns Next fact id to ask
-"""
 
 # This can be replaced with a more dynamic solution using MLService to obtain fact lists
 fact_mapping = {
@@ -70,6 +60,13 @@ fact_mapping = {
 
 
 def get_next_fact(claim_category, facts_resolved):
+    """
+    Returns next fact id based on claim category given the resolved facts.
+    :param claim_category: Claim category of the conversation as a string
+    :param facts_resolved: List of all resolved fact keys for the conversation
+    :return: Next fact id to ask a question for
+    """
+
     all_category_facts = fact_mapping[claim_category.value.lower()]
     facts_unresolved = [fact for fact in all_category_facts if fact not in facts_resolved]
 
@@ -82,16 +79,15 @@ def get_next_fact(claim_category, facts_resolved):
     return fact.id
 
 
-"""
-Returns the relevant information for a particular FactType based on rasa nlu classification data.
-fact_type: The FactType of the relevant fact
-intent: The intent returned by RASA. Has 'name' and 'confidence' attributes.
-entities: A list of extracted entities. Can be empty.
-:returns Final fact value based on fact_type
-"""
-
-
 def extract_fact_by_type(fact_type, intent, entities):
+    """
+    Returns the relevant information for a particular FactType based on rasa nlu classification data.
+    :param fact_type: The FactType of the relevant fact
+    :param intent: The intent returned by RASA. Has 'name' and 'confidence' attributes.
+    :param entities: A list of extracted entities. Can be empty.
+    :return: Final fact value based on fact_type
+    """
+
     intent_name = intent['name']
 
     if fact_type == FactType.BOOLEAN:

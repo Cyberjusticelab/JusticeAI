@@ -29,15 +29,16 @@ intentThreshold = IntentThreshold(min_percent_difference=0.0, min_confidence_thr
 # Outlier detector - Predicts if the new message is a clear outlier based on a model trained with fact messages
 outlier_detector = OutlierDetection()
 
-"""
-Classifies the claim category from the user's message, set the Conversation's claim cateogry, and returns the first question to ask.
-conversation_id: ID of the Conversation
-message: message from the user
-:return JSON containing the next message the user should be given
-"""
-
 
 def classify_claim_category(conversation_id, message):
+    """
+    Classifies the claim category from the user's message, set the Conversation's claim category
+    and returns the first question to ask.
+    :param conversation_id: ID of the Conversation
+    :param message: Message from the user
+    :return: JSON containing the next message the user should be given
+    """
+
     if conversation_id is None or message is None:
         abort(make_response(jsonify(message="Must provide conversation_id and message"), 400))
 
@@ -92,15 +93,14 @@ def classify_claim_category(conversation_id, message):
     })
 
 
-"""
-Classifies the value of the Conversation's current fact, based on the user's message.
-conversation_id: ID of the conversation
-message: message from the user
-:return JSON containing the next message the user should be given
-"""
-
-
 def classify_fact_value(conversation_id, message):
+    """
+    Classifies the value of the Conversation's current fact, based on the user's message.
+    :param conversation_id: ID of the conversation
+    :param message: Message from the user
+    :return: JSON containing the next message the user should be given
+    """
+
     if conversation_id is None or message is None:
         abort(make_response(jsonify(message="Must provide conversation_id and message"), 400))
 
@@ -149,14 +149,13 @@ def classify_fact_value(conversation_id, message):
     })
 
 
-"""
-Classifies the claim category based on a message.
-message: message from user
-:returns problem category key
-"""
-
-
 def __classify_claim_category(message):
+    """
+    Classifies the claim category based on a message.
+    :param message: Message from user
+    :return: Claim category key
+    """
+
     classify_dict = rasaClassifier.classify_problem_category(message)
     log.debug("\nClassify Claim Category\n\tMessage: {}\n\tDict: {}".format(message, classify_dict))
 
@@ -168,15 +167,15 @@ def __classify_claim_category(message):
         return None
 
 
-"""
-Extracts the value of a fact, based on the current fact
-current_fact_name: which fact we are checking for i.e. is_student
-message: the message given by the user
-:returns the determined value for the fact specified
-"""
-
-
 def __extract_entity(current_fact_name, current_fact_type, message):
+    """
+    Extracts the value of a fact, based on the current fact
+    :param current_fact_name: Which fact we are checking for i.e. is_student
+    :param current_fact_type: The type of the fact we are checking i.e. FactType.BOOLEAN
+    :param message: Message given by the user
+    :return: The determined value for the fact specified
+    """
+
     # First pass: outlier detection
     # TODO: For now, this is disabled while we are gathering data from beta users
     if 'OUTLIER_DETECTION' in os.environ:
