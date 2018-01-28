@@ -890,7 +890,7 @@ class RegexLib:
             if line == '\n':
                 break
             total_nb_lines_in_file += 1
-            line = '[5] ' + line
+            line = '[123] ' + line
             for reg in regexes:
                 if reg.search(line):
                     total_lines_matched += 1
@@ -918,6 +918,19 @@ class RegexLib:
                     cluster_regex_dict[regex[0]] = [i]
         return cluster_regex_dict
 
+    def unpack_fact_decision_bin(self):
+        from util.file import Path
+        import zipfile
+        import os
+        import shutil
+
+        with zipfile.ZipFile(Path.binary_directory +"fact_cluster.zip", "r") as zip_ref:
+            zip_ref.extractall(Path.cluster_directory+'test/')
+        for file in os.listdir(Path.cluster_directory+'test/fact_cluster'):
+            shutil.copy(Path.cluster_directory+'test/fact_cluster/'+file, Path.cluster_directory+'test/fact')
+        shutil.rmtree(Path.cluster_directory+'test/fact_cluster/')
+        shutil.rmtree(Path.cluster_directory + 'test/__MACOSX/')
+
 def run():
     """
     Driver to save regex binary file
@@ -937,8 +950,9 @@ def run():
     save.save_binary('regexes.bin', reg_dict)
 
 
-rc_dict = RegexLib().cluster_regex_mapper('decision', .5, 3000)
+# rc_dict = RegexLib().cluster_regex_mapper('fact', .5, 4000)
+#
+# for key, val in rc_dict.items():
+#     print(key, val)
 
-for key, val in rc_dict.items():
-    print(key, val)
-
+RegexLib().unpack_fact_decision_bin()
