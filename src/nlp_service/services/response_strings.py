@@ -320,27 +320,28 @@ class Responses:
             ]
     }
 
-    """
-    Gets a question to ask for a particular fact
-    fact_key: The fact's key
-    :returns A question to ask to attempt to resolve the fact value
-    """
-
     @staticmethod
     def fact_question(fact_key):
+        """
+        Gets a question to ask for a particular fact
+        :param fact_key: The fact's key as a string
+        :return:A question to ask to attempt to resolve the fact value
+        """
+
         if fact_key in Responses.fact_questions:
             return Responses.chooseFrom(Responses.fact_questions[fact_key])
 
         return Responses.chooseFrom(Responses.fact_questions["missing_response"])
 
-    """
-    Gets a statement for a prediction for a particular claim
-    claim_category: The text value of the claim category
-    prediction_dict: A dict of prediction keys from the ML service
-    """
-
     @staticmethod
     def prediction_statement(claim_category_value, prediction_dict):
+        """
+        Gets a statement for a prediction for a particular claim
+        :param claim_category_value: The string value of the claim category
+        :param prediction_dict: A dict of prediction keys from the ML service
+        :return: A string of predictions based on determined outcomes
+        """
+
         # Check if dict is empty
         if not bool(prediction_dict) or claim_category_value not in Responses.prediction:
             return Responses.chooseFrom(Responses.prediction["missing_category"])
@@ -355,13 +356,12 @@ class Responses:
 
         return "|".join(all_predictions)
 
-    """
-    Chooses a random string from a list of strings
-    string: list of strings
-    :returns A random string from the list
-    """
-
     @staticmethod
     def chooseFrom(strings):
+        """
+        Chooses a random string from a list of strings
+        :param strings: List of strings
+        :return: A random string from the list
+        """
         choice = random.choice
         return choice(strings)
