@@ -26,14 +26,14 @@ class RasaClassifier:
         self.rasa_config = RasaNLUConfig(self.config_file)
         self.trainer = Trainer(self.rasa_config, self.builder)
 
-    """
-          Training method that trains the data sets from facts and problem categories separately
-              force_train=False will ensure the saved models are used
-              initialize_interpreters=True so the interpreters get initialized due to the models already being present
-          result: creates models on trained data
-    """
-
     def train(self, force_train=False, initialize_interpreters=True):
+
+        """
+        Trains the data sets from facts and problem categories separately
+        :param force_train: If False will use saved models
+        :param initialize_interpreters: If True the interpreters get initialized with models already present
+        """
+
         # Train fact classifier
         self.__train_interpreter(self.fact_data_dir, self.fact_interpreters, force_train=force_train,
                                  initialize_interpreters=initialize_interpreters)
@@ -42,36 +42,36 @@ class RasaClassifier:
         self.__train_interpreter(self.category_data_dir, self.problem_category_interpreters, force_train=force_train,
                                  initialize_interpreters=initialize_interpreters)
 
-    """
-        The parsing of the message given by the user to determine the category of the claim i.e. lease_termination
-            message: User input
-        :returns dict of the claim category with intent and entities
-    """
-
     def classify_problem_category(self, message):
+        """
+        Classifies a claim category based on a message
+        :param message: Message received from user
+        :return: The classified claim category dict from RASA
+        """
+
         return self.problem_category_interpreters['claim_category'].parse(message.lower())
 
-    """
-        The parsing of the message given by the user to determine information about a fact for its intent i.e. is_student
-            message: User input
-        :returns dict of the fact with intent and entities
-    """
-
     def classify_fact(self, fact_name, message):
+        """
+        Classifies a fact based on a message
+        :param fact_name: Name of the fact being classified i.e. tenant_owes_rent
+        :param message: Message received from user
+        :return: The classified fact dict from RASA
+        """
+
         if fact_name in self.fact_interpreters:
             return self.fact_interpreters[fact_name].parse(message.lower())
         return None
 
-    """
-        Training the interpreters one by one
-            training_data_dir: Directory where data is held on our project
-            interpreter_dict: dictionary of interpreters that will hold the interpreters
-            force_train: set ti either true or false so it knows if it should train new models (if empty dir) or use the old ones already present
-            initialized_interpreters: won't attempt to initialize interpreters if there are no models
-        :returns dict of the fact with intent and entities
-    """
-
     def __train_interpreter(self, training_data_dir, interpreter_dict, force_train, initialize_interpreters):
+        """
+        Trains the interpreters for fact and claim category classification
+        :param training_data_dir: Directory where data is stores
+        :param interpreter_dict: Dictionary will contain the interpreters
+        :param force_train: If True will retrain model data
+        :param initialize_interpreters: If True will initialize the interpreters
+        """
+
         print("~~Starting training with data directory {}~~".format(training_data_dir))
         if force_train is False:
             print("->No force train, using saved models.".format(training_data_dir))
