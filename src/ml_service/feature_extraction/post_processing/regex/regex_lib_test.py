@@ -1,47 +1,30 @@
 # -*- coding: utf-8 -*-
 import unittest
-import codecs
-import os
-from sys import stdout
-
-import sys
-
 from util.constant import Path
-from util.log import Log
-from feature_extraction.post_processing.regex import regex_lib
+from feature_extraction.post_processing.regex.regex_lib import RegexLib
+from util.file import Load
 
 
-class RegexLibTest():
+class RegexLibTest(unittest.TestCase):
 
-    def run(self):
-        self.regex_cluster_dict = {}
-        self.regex_lib = regex_lib.RegexLib()
-        self.fact_regexes = self.regex_lib.regex_facts
-        self.test_matchRegexesToClusterFiles()
+    def setUp(self):
+        self.regex_lib = RegexLib()
+        self.fact_cluster_regex_dict = Load().load_binary("cluster_regex_dict")
+        print("done")
 
-    def test_matchRegexesToClusterFiles(self):
-
-        fact_cluster_directory = Path.cluster_directory + "fact/"
-        max_files = 10
-        file_parsed = 0
-        try:
-            if file_parsed > max_files:
-                return
-            for file in os.listdir(fact_cluster_directory):
-                regex_match = self.test_match_file_to_regex(codecs.open(fact_cluster_directory+file, encoding='ISO-8859-1'))
-                if regex_match:
-                    self.regex_cluster_dict[regex_match] = file
-        except FileNotFoundError:
-            Log.write("Precedent not found. Please download dataset")
-            sys.exit(0)
-        print("\ndict:\n")
-        for val in self.regex_cluster_dict:
-            print(val)
-
-    def test_match_file_to_regex(self,file):
-        for fact_regex in self.fact_regexes:
-            if self.regex_lib.regex_matches_file(fact_regex[0], file, .1):
-                return fact_regex[0]
-        return None
-
-RegexLibTest().run()
+    def test_fact_regexes(self):
+        for regex_name in self.fact_cluster_regex_dict.keys():
+            regexes = self.regex_lib.get_regexes(regex_name)
+            test_file_names = self.fact_cluster_regex_dict[regex_name]
+            total_lines_matched = 0
+            total_nb_lines_in_file = 0
+            for file_name in test_file_names:
+                file = open(Path.cluster_directory + 'fact/' + file_name, "r", encoding="utf-8")
+                for line in file:
+                    total_nb_lines_in_file += 1
+                    for regex in regexes:
+                        if regex.search(line):
+                            total_lines_matched += 1
+                file.close()
+            self.assertFalse(total_lines_matched > 0 and total_lines_matched / total_nb_lines_in_file > 0.5)
+        self.assertTrue(True)

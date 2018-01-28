@@ -822,7 +822,7 @@ class RegexLib:
         ], "MONEY_REGEX")
     ]
 
-    def __get_regexes(self, name):
+    def get_regexes(self, name):
         for fact in RegexLib.regex_facts:
             if fact[0] == name:
                 return fact[1]
@@ -882,7 +882,7 @@ class RegexLib:
         return sentences_matched
 
     def cluster_file_finder(self, regex_name, min_match_percentage,file_path):
-        regexes = self.__get_regexes(regex_name)
+        regexes = self.get_regexes(regex_name)
         total_nb_lines_in_file = 0
         total_lines_matched = 0
         file = open(file_path, "r", encoding="utf-8")
@@ -916,6 +916,8 @@ class RegexLib:
                     if regex[0] in cluster_regex_dict.keys():
                         cluster_regex_dict[regex[0]].append(i)
                     cluster_regex_dict[regex[0]] = [i]
+        save = Save()
+        save.save_binary('cluster_regex_dict.bin', cluster_regex_dict)
         return cluster_regex_dict
 
     def unpack_fact_decision_bin(self):
@@ -923,13 +925,23 @@ class RegexLib:
         import zipfile
         import os
         import shutil
+        fact_cluster_zip = 'fact_cluster.bin'
+        fact_cluster_zip_destination = 'fact/'
+        with zipfile.ZipFile(Path.binary_directory + fact_cluster_zip, "r") as zip_ref:
+            zip_ref.extractall(Path.cluster_directory)
+        for file in os.listdir(Path.cluster_directory+'fact_cluster'):
+            shutil.copy(Path.cluster_directory+'fact_cluster/'+file, Path.cluster_directory + fact_cluster_zip_destination)
+        shutil.rmtree(Path.cluster_directory+'fact_cluster/')
+        shutil.rmtree(Path.cluster_directory + '__MACOSX/')
 
-        with zipfile.ZipFile(Path.binary_directory +"fact_cluster.zip", "r") as zip_ref:
-            zip_ref.extractall(Path.cluster_directory+'test/')
-        for file in os.listdir(Path.cluster_directory+'test/fact_cluster'):
-            shutil.copy(Path.cluster_directory+'test/fact_cluster/'+file, Path.cluster_directory+'test/fact')
-        shutil.rmtree(Path.cluster_directory+'test/fact_cluster/')
-        shutil.rmtree(Path.cluster_directory + 'test/__MACOSX/')
+        decision_cluster_zip = 'decision_cluster.bin'
+        decision_cluster_zip_destination = 'decision/'
+        with zipfile.ZipFile(Path.binary_directory + decision_cluster_zip, "r") as zip_ref:
+            zip_ref.extractall(Path.cluster_directory)
+        for file in os.listdir(Path.cluster_directory+'decision_cluster'):
+            shutil.copy(Path.cluster_directory+'decision_cluster/'+file, Path.cluster_directory + decision_cluster_zip_destination)
+        shutil.rmtree(Path.cluster_directory+'decision_cluster/')
+        shutil.rmtree(Path.cluster_directory + '__MACOSX/')
 
 def run():
     """
@@ -955,4 +967,4 @@ def run():
 # for key, val in rc_dict.items():
 #     print(key, val)
 
-RegexLib().unpack_fact_decision_bin()
+# RegexLib().unpack_fact_decision_bin()
