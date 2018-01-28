@@ -62,4 +62,3 @@ class MlController:
             return_dict[label] = str(outcome_vector[outcome_index])
 
         return {'outcomes_vector': return_dict}
- 
