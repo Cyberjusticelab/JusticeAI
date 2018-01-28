@@ -4,7 +4,8 @@ from werkzeug.exceptions import HTTPException
 
 from backend_service.app import app
 from backend_service.controllers import conversation_controller
-from postgresql_db.models import db, Conversation, PersonType, ClaimCategory, Fact, FactEntity
+from postgresql_db.models import *
+
 
 
 class ConversationControllerTest(unittest.TestCase):
