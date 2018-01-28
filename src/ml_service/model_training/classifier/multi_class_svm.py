@@ -144,8 +144,6 @@ class MultiClassSVM:
         """
         if self.model is None:
             self.model = Load.load_binary("multi_class_svm_model.bin")
-        if self.classifier_labels is None:
-            Load.load_binary('classifier_labels.bin')
         data = binarize([data], threshold=0)
         return self.model.predict(data)
 
@@ -197,7 +195,15 @@ class MultiClassSVM:
              there are values of '1'. This is necessary because the sklearn
              algorithm expects this kind of input.
 
-        3) Example:        (transformation)
+        3) Reshape the y data
+           The MultiLabelBinarizer expects a series of labels for binarization.
+           From all the collected labels, it finds all the unique ones in order
+           to figure out how many columns are needed in the vector. From this,
+           it will place 1's and 0's accordingly in the columns. For this purpose,
+           we cannot create a binarized vector here but instead we return the labels
+           which are true for an outcome.
+
+            Example:        (transformation)
             [1, 1, 0, 0, 1] ------------------> [0, 1, 4]
 
         4) Create a 2D numpy array from the new list:[
