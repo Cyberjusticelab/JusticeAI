@@ -881,7 +881,15 @@ class RegexLib:
             file.close()
         return sentences_matched
 
-    def cluster_file_finder(self, regex_name, min_match_percentage,file_path):
+    def cluster_file_finder(self, regex_name, min_match_percentage, file_path):
+        """
+        Given a file path and a regex name, this function validates that at least min_match_percentage (ex: 50%)
+        of the sentence matches the regex
+        :param regex_name: name of the regex to match with
+        :param min_match_percentage: min percentage of matches required
+        :param file_path: cluster file path (where the sentences are)
+        :return: True if minimum percentage of sentences do matches the given regex
+        """
         regexes = self.get_regexes(regex_name)
         total_nb_lines_in_file = 0
         total_lines_matched = 0
@@ -900,6 +908,13 @@ class RegexLib:
         return False
 
     def cluster_regex_mapper(self, folder_name, min_match_percentage, nb_of_files=-1):
+        """
+        This function searches through a given folder_name in order to find all regex-cluster pair and store them in a dict
+        :param folder_name: cluster folder to search in (fact or demand)
+        :param min_match_percentage: min percentage of sentence in a cluster file that needs to match a regex
+        :param nb_of_files: number of files to search through in the folder
+        :return: dict of regex-cluster file match
+        """
         from util.file import Path
         import os
         nb_of_files_proccessed = 0
@@ -919,6 +934,10 @@ class RegexLib:
         return cluster_regex_dict
 
     def unpack_fact_demand_bin(self):
+        """
+        unpacks fact and demand binaries and move them to their appropriate folders
+        :return: None
+        """
         from util.file import Path
         import zipfile
         import os
@@ -935,7 +954,7 @@ class RegexLib:
 
 def run():
     """
-    Driver to save regex binary file
+    Driver to save regex binary file and regex-cluster dict binary
     1) Create an empty dictionary
     2) Add keys and values to the dictionary
     3) binarize file
@@ -951,6 +970,7 @@ def run():
     save = Save()
     save.save_binary('regexes.bin', reg_dict)
 
+    # Create and save regex-cluster dict
     RegexLib().unpack_fact_demand_bin()
     rc_fact_dict = RegexLib().cluster_regex_mapper('fact', .5)
     rc_demand_dict = RegexLib().cluster_regex_mapper('demand', .5)
