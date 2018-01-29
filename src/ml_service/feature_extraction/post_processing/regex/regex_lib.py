@@ -881,7 +881,15 @@ class RegexLib:
             file.close()
         return sentences_matched
 
-    def cluster_file_finder(self, regex_name, min_match_percentage,file_path):
+    def cluster_file_finder(self, regex_name, min_match_percentage, file_path):
+        """
+        Given a file path and a regex name, this function validates that at least min_match_percentage (ex: 50%)
+        of the sentence matches the regex
+        :param regex_name: name of the regex to match with
+        :param min_match_percentage: min percentage of matches required
+        :param file_path: cluster file path (where the sentences are)
+        :return: True if minimum percentage of sentences do matches the given regex
+        """
         regexes = self.get_regexes(regex_name)
         total_nb_lines_in_file = 0
         total_lines_matched = 0
@@ -900,18 +908,24 @@ class RegexLib:
         return False
 
     def cluster_regex_mapper(self, folder_name, min_match_percentage, nb_of_files=-1):
+        """
+        This function searches through a given folder_name in order to find all regex-cluster pair and store them in a dict
+        :param folder_name: cluster folder to search in (fact or demand)
+        :param min_match_percentage: min percentage of sentence in a cluster file that needs to match a regex
+        :param nb_of_files: number of files to search through in the folder
+        :return: dict of regex-cluster file match
+        """
         from util.file import Path
         import os
         nb_of_files_proccessed = 0
         path = Path.cluster_directory + folder_name + '/'
         cluster_regex_dict = {}
+        regexes = self.regex_facts if folder_name == 'fact' else self.regex_demands
         for file_name in os.listdir(path):
-            if file_name == '.DS_Store':
-                continue
             if nb_of_files != -1 and nb_of_files_proccessed > nb_of_files:
                 break
             nb_of_files_proccessed += 1
-            for regex in self.regex_facts:
+            for regex in regexes:
                 if self.cluster_file_finder(regex[0], min_match_percentage, path + file_name):
                     if regex[0] in cluster_regex_dict.keys():
                         cluster_regex_dict[regex[0]].append(file_name)
@@ -919,11 +933,15 @@ class RegexLib:
         return cluster_regex_dict
 
     def unpack_fact_decision_bin(self):
+        """
+        unpacks fact and demand binaries and move them to their appropriate folders
+        :return: None
+        """
         from util.file import Path
         import zipfile
         import os
         import shutil
-        regex_types = ['fact', 'decision']
+        regex_types = ['fact', 'demand']
 
         for regex_type in regex_types:
             with zipfile.ZipFile(Path.binary_directory + regex_type + '_cluster.bin', "r") as zip_ref:
@@ -953,7 +971,7 @@ def run():
 
     RegexLib().unpack_fact_decision_bin()
     rc_fact_dict = RegexLib().cluster_regex_mapper('fact', .5)
-    rc_decision_dict = RegexLib().cluster_regex_mapper('decision', .5)
-    cluster_regex_dict = {'fact': rc_fact_dict, 'decision': rc_decision_dict}
+    rc_demand_dict = RegexLib().cluster_regex_mapper('demand', .5)
+    cluster_regex_dict = {'fact': rc_fact_dict, 'demand': rc_demand_dict}
     save = Save()
     save.save_binary('cluster_regex_dict.bin', cluster_regex_dict)
