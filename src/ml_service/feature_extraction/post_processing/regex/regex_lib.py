@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import regex as re
-from util.file import Save
-
+import os
+from util.file import Save, Path
 
 class RegexLib:
     MONEY_REGEX = r"(\d+(\s|,)){1,4}(\s\$|\$)"
@@ -915,8 +915,6 @@ class RegexLib:
         :param nb_of_files: number of files to search through in the folder
         :return: dict of regex-cluster file match
         """
-        from util.file import Path
-        import os
         nb_of_files_proccessed = 0
         path = Path.cluster_directory + folder_name + '/'
         cluster_regex_dict = {}
@@ -937,10 +935,9 @@ class RegexLib:
         unpacks fact and demand binaries and move them to their appropriate folders
         :return: None
         """
-        from util.file import Path
         import zipfile
-        import os
         import shutil
+
         regex_types = ['fact', 'demand']
 
         for regex_type in regex_types:
@@ -950,6 +947,7 @@ class RegexLib:
                 shutil.copy(Path.cluster_directory + regex_type + '_cluster/' + file, Path.cluster_directory + regex_type + '/')
             shutil.rmtree(Path.cluster_directory + regex_type + '_cluster/')
             shutil.rmtree(Path.cluster_directory + '__MACOSX/')
+
 
 def run():
     """
