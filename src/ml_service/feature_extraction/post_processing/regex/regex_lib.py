@@ -866,7 +866,7 @@ class RegexLib:
         """
         from util.file import Path
         import os
-        regexes = self.__get_regexes(regex_name)
+        regexes = self.get_regexes(regex_name)
         count = 0
         sentences_matched = []
         for i in os.listdir(Path.raw_data_directory):
