@@ -932,7 +932,7 @@ class RegexLib:
                     cluster_regex_dict[regex[0]] = [file_name]
         return cluster_regex_dict
 
-    def unpack_fact_decision_bin(self):
+    def unpack_fact_demand_bin(self):
         """
         unpacks fact and demand binaries and move them to their appropriate folders
         :return: None
@@ -969,7 +969,7 @@ def run():
     save = Save()
     save.save_binary('regexes.bin', reg_dict)
 
-    RegexLib().unpack_fact_decision_bin()
+    RegexLib().unpack_fact_demand_bin()
     rc_fact_dict = RegexLib().cluster_regex_mapper('fact', .5)
     rc_demand_dict = RegexLib().cluster_regex_mapper('demand', .5)
     cluster_regex_dict = {'fact': rc_fact_dict, 'demand': rc_demand_dict}
