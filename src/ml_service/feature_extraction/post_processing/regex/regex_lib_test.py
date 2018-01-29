@@ -11,17 +11,16 @@ class RegexLibTest(unittest.TestCase):
         self.regex_lib = RegexLib()
         self.fact_cluster_regex_dict = Load().load_binary("cluster_regex_dict.bin")
 
-
     def test_fact_regexes(self):
-        for regex_name in self.fact_cluster_regex_dict.keys():
+        for regex_name in self.fact_cluster_regex_dict['fact'].keys():
             regexes = self.regex_lib.get_regexes(regex_name)
-            test_file_names = self.fact_cluster_regex_dict[regex_name]
+            test_file_names = self.fact_cluster_regex_dict['fact'][regex_name]
             total_lines_matched = 0
             total_nb_lines_in_file = 0
             file = open(Path.cluster_directory + 'fact/' + test_file_names[0], "r", encoding="utf-8")
 
             for line in file:
-                if line == '\n' or '---' in line:
+                if line == '\n':
                     break
                 total_nb_lines_in_file += 1
             file.seek(0)

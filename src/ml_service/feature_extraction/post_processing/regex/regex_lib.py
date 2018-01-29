@@ -890,7 +890,7 @@ class RegexLib:
             if line == '\n':
                 break
             total_nb_lines_in_file += 1
-            line = '[123] ' + line
+            line = '[1] ' + line
             for reg in regexes:
                 if reg.search(line):
                     total_lines_matched += 1
@@ -899,25 +899,23 @@ class RegexLib:
             return True
         return False
 
-    def cluster_regex_mapper(self, folder_name, min_match_percentage, nb_of_files):
+    def cluster_regex_mapper(self, folder_name, min_match_percentage, nb_of_files=-1):
         from util.file import Path
         import os
         nb_of_files_proccessed = 0
-        path = Path.cluster_directory + folder_name +'/'
+        path = Path.cluster_directory + folder_name + '/'
         cluster_regex_dict = {}
-        for i in os.listdir(path):
-            if i == '.DS_Store':
+        for file_name in os.listdir(path):
+            if file_name == '.DS_Store':
                 continue
-            if nb_of_files_proccessed > nb_of_files:
+            if nb_of_files != -1 and nb_of_files_proccessed > nb_of_files:
                 break
             nb_of_files_proccessed += 1
             for regex in self.regex_facts:
-                if self.cluster_file_finder(regex[0], min_match_percentage, path+i):
+                if self.cluster_file_finder(regex[0], min_match_percentage, path + file_name):
                     if regex[0] in cluster_regex_dict.keys():
-                        cluster_regex_dict[regex[0]].append(i)
-                    cluster_regex_dict[regex[0]] = [i]
-        save = Save()
-        save.save_binary('cluster_regex_dict.bin', cluster_regex_dict)
+                        cluster_regex_dict[regex[0]].append(file_name)
+                    cluster_regex_dict[regex[0]] = [file_name]
         return cluster_regex_dict
 
     def unpack_fact_decision_bin(self):
@@ -925,23 +923,15 @@ class RegexLib:
         import zipfile
         import os
         import shutil
-        fact_cluster_zip = 'fact_cluster.bin'
-        fact_cluster_zip_destination = 'fact/'
-        with zipfile.ZipFile(Path.binary_directory + fact_cluster_zip, "r") as zip_ref:
-            zip_ref.extractall(Path.cluster_directory)
-        for file in os.listdir(Path.cluster_directory+'fact_cluster'):
-            shutil.copy(Path.cluster_directory+'fact_cluster/'+file, Path.cluster_directory + fact_cluster_zip_destination)
-        shutil.rmtree(Path.cluster_directory+'fact_cluster/')
-        shutil.rmtree(Path.cluster_directory + '__MACOSX/')
+        regex_types = ['fact', 'decision']
 
-        decision_cluster_zip = 'decision_cluster.bin'
-        decision_cluster_zip_destination = 'decision/'
-        with zipfile.ZipFile(Path.binary_directory + decision_cluster_zip, "r") as zip_ref:
-            zip_ref.extractall(Path.cluster_directory)
-        for file in os.listdir(Path.cluster_directory+'decision_cluster'):
-            shutil.copy(Path.cluster_directory+'decision_cluster/'+file, Path.cluster_directory + decision_cluster_zip_destination)
-        shutil.rmtree(Path.cluster_directory+'decision_cluster/')
-        shutil.rmtree(Path.cluster_directory + '__MACOSX/')
+        for regex_type in regex_types:
+            with zipfile.ZipFile(Path.binary_directory + regex_type + '_cluster.bin', "r") as zip_ref:
+                zip_ref.extractall(Path.cluster_directory)
+            for file in os.listdir(Path.cluster_directory + regex_type + '_cluster'):
+                shutil.copy(Path.cluster_directory + regex_type + '_cluster/' + file, Path.cluster_directory + regex_type + '/')
+            shutil.rmtree(Path.cluster_directory + regex_type + '_cluster/')
+            shutil.rmtree(Path.cluster_directory + '__MACOSX/')
 
 def run():
     """
@@ -961,10 +951,9 @@ def run():
     save = Save()
     save.save_binary('regexes.bin', reg_dict)
 
-
-# rc_dict = RegexLib().cluster_regex_mapper('fact', .5, 4000)
-#
-# for key, val in rc_dict.items():
-#     print(key, val)
-
-# RegexLib().unpack_fact_decision_bin()
+    RegexLib().unpack_fact_decision_bin()
+    rc_fact_dict = RegexLib().cluster_regex_mapper('fact', .5)
+    rc_decision_dict = RegexLib().cluster_regex_mapper('decision', .5)
+    cluster_regex_dict = {'fact': rc_fact_dict, 'decision': rc_decision_dict}
+    save = Save()
+    save.save_binary('cluster_regex_dict.bin', cluster_regex_dict)
