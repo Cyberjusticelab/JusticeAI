@@ -17,6 +17,8 @@ from util.log import Log
     supposed to pay a landlord. An implicit assumption of this regressor
     is that the tenant IS SUPPOSED TO PAY the landlord (i.e. non-zero value)
 """
+
+
 class TenantPaysLandlordRegressor:
 
     def __init__(self, dataset=None):
@@ -33,7 +35,7 @@ class TenantPaysLandlordRegressor:
         }]
         """
         if dataset is not None:
-            self.dataset = [precedent for precedent in dataset.values() if precedent[
+            self.dataset = [precedent for precedent in dataset if precedent[
                 'outcomes_vector'][10] > 1]
         else:
             self.load()
@@ -89,7 +91,6 @@ class TenantPaysLandlordRegressor:
         self.model = TenantPaysLandlordRegressor.__create_pipeline(scaler, regressor)
         self.model.fit(X, Y)
         self.dataset = None
-        self.save()
 
     @staticmethod
     def __create_pipeline(scaler, regressor):
@@ -125,13 +126,3 @@ class TenantPaysLandlordRegressor:
             returns: predicted integer value of tenant_ordered_to_pay_landlord
         """
         return self.model.predict([precedent])
-
-if __name__ == '__main__':
-    precedents = Load.load_binary('precedent_vectors.bin')
-    regressor = TenantPaysLandlordRegressor(precedents)
-    regressor.train()
-    precedents = [precedent for precedent in precedents.values() if precedent['outcomes_vector'][10] > 1]
-    print("Test prediction with original regressor: %d, expected: %d" % (regressor.predict(precedents[0]['facts_vector']), precedents[0]['outcomes_vector'][10]))
-
-    regressor = TenantPaysLandlordRegressor()
-    print("Test prediction with loaded regressor: %d, expected: %d" % (regressor.predict(precedents[0]['facts_vector']), precedents[0]['outcomes_vector'][10]))

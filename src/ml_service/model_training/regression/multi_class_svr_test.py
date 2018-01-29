@@ -42,7 +42,7 @@ class TestLinearSvc(unittest.TestCase):
         x = x[0]
         y = y[0]
 
-        expected_x =[
+        expected_x = [
             [550, 0, 0, 0],
             [292, 1, 0, 0],
             [800, 1, 0, 0],
@@ -76,5 +76,5 @@ class TestLinearSvc(unittest.TestCase):
     def test_evaluate_best_parameters(self):
         linear_svr = MultiClassSVR(self.data)
         results = linear_svr.evaluate_best_parameters()
-        self.assertTrue(type(results) == list)
-        self.assertTrue(type(results[0]) == dict)
+        self.assertTrue(isinstance(results, list))
+        self.assertTrue(isinstance(results[0], dict))

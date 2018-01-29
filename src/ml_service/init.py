@@ -25,7 +25,9 @@ binary_names_dict = {
     'svr_scaler_model': ['https://capstone.cyberjustice.ca/data/bin/svr_scaler_model.bin', 2623],
     'fact_cluster': ['https://capstone.cyberjustice.ca/data/bin/fact_cluster.zip', 13337193],
     'decision_cluster': ['https://capstone.cyberjustice.ca/data/bin/decision_cluster.zip', 1209757]
-    }
+    'tenant_pays_landlord_regressor': ['https://capstone.cyberjustice.ca/data/tenant_pays_landlord_regressor.bin', 38524],
+    'tenant_pays_landlord_scaler': ['https://capstone.cyberjustice.ca/data/tenant_pays_landlord_scaler.bin', 1706]
+}
 
 
 def monitor_download(filename, filesize):

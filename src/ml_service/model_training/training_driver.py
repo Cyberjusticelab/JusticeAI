@@ -1,5 +1,5 @@
 from model_training.classifier.multi_class_svm import MultiClassSVM
-from model_training.regression.multi_class_svr import MultiClassSVR
+from model_training.regression.tenant_pays_landlord_regressor import TenantPaysLandlordRegressor
 from model_training.similar_finder.similar_finder import SimilarFinder
 from util.file import Load
 from util.log import Log
@@ -93,18 +93,13 @@ def run(command_list):
             linear_svm.save()
 
     if CommandEnum.SVR in command_list:
-        regression_svr = MultiClassSVR(precedent_vector)
-        if CommandEnum.EVALUATE in command_list:
-            regression_svr.evaluate_best_parameters()
-        elif CommandEnum.WEIGHTS in command_list:
-            regression_svr.display_weights()
-        else:
-            regression_svr.train()
-            regression_svr.save()
+        regression_svr = TenantPaysLandlordRegressor(precedent_vector)
+        regression_svr.train()
+        regression_svr.save()
 
     if CommandEnum.SIMILARITY_FINDER in command_list:
         SimilarFinder(train=True, dataset=precedent_vector)
 
-    precedent_vector = None # deallocate memory
+    precedent_vector = None  # deallocate memory
 
     return True

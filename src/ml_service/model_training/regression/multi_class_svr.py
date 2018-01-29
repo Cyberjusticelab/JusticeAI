@@ -1,5 +1,7 @@
 def warn(*args, **kwargs):
     pass
+
+
 import warnings
 warnings.warn = warn
 from sklearn.svm import SVR
@@ -75,7 +77,7 @@ class MultiClassSVR:
         try:
             if self.model is None:
                 self.model = Load.load_binary('multi_class_svr_model.bin')
-        except:
+        except BaseException:
             return None
 
         indices = TagPrecedents().get_intent_index()
@@ -129,9 +131,9 @@ class MultiClassSVR:
         4) test model
         :return: None
         """
-        x_total, y_total = self.reshape_dataset() # 1
+        x_total, y_total = self.reshape_dataset()  # 1
         x_train, x_test, y_train, y_test = train_test_split(
-            x_total, y_total, test_size=0.20, random_state=42) # 2
+            x_total, y_total, test_size=0.20, random_state=42)  # 2
 
         Log.write('Scaling data')
         self.scaler = MinMaxScaler(feature_range=(-1, 1)).fit(x_train)
@@ -143,10 +145,10 @@ class MultiClassSVR:
         Log.write("Test size: {}".format(len(x_test)))
         Log.write("Training Regression Using Multi Class SVR")
 
-        clf = MultiOutputRegressor(SVR(kernel='linear', C=1, epsilon=1.0)) # 3
+        clf = MultiOutputRegressor(SVR(kernel='linear', C=1, epsilon=1.0))  # 3
         clf.fit(x_train, y_train)
         self.model = clf
-        self.__test(x_test, y_test) # 4
+        self.__test(x_test, y_test)  # 4
         self.data_set = None
 
     def save(self):
