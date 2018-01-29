@@ -893,7 +893,7 @@ class RegexLib:
         regexes = self.get_regexes(regex_name)
         total_nb_lines_in_file = 0
         total_lines_matched = 0
-        file = open(file_path, "r", encoding="utf-8")
+        file = open(file_path, 'r', encoding='utf-8')
         for line in file:
             if line == '\n':
                 break
@@ -921,8 +921,6 @@ class RegexLib:
         path = Path.cluster_directory + folder_name + '/'
         cluster_regex_dict = {}
         for file_name in os.listdir(path):
-            if file_name == '.DS_Store':
-                continue
             if nb_of_files != -1 and nb_of_files_proccessed > nb_of_files:
                 break
             nb_of_files_proccessed += 1
@@ -945,7 +943,7 @@ class RegexLib:
         regex_types = ['fact', 'demand']
 
         for regex_type in regex_types:
-            with zipfile.ZipFile(Path.binary_directory + regex_type + '_cluster.bin', "r") as zip_ref:
+            with zipfile.ZipFile(Path.binary_directory + regex_type + '_cluster.bin', 'r') as zip_ref:
                 zip_ref.extractall(Path.cluster_directory)
             for file in os.listdir(Path.cluster_directory + regex_type + '_cluster'):
                 shutil.copy(Path.cluster_directory + regex_type + '_cluster/' + file, Path.cluster_directory + regex_type + '/')
