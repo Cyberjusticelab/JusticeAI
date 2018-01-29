@@ -100,6 +100,6 @@ def run(command_list):
     if CommandEnum.SIMILARITY_FINDER in command_list:
         SimilarFinder(train=True, dataset=precedent_vector)
 
-    precedent_vector = None # deallocate memory
+    precedent_vector = None  # deallocate memory
 
     return True

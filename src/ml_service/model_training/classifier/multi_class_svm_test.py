@@ -40,7 +40,7 @@ class TestLinearSvc(unittest.TestCase):
         x = x[0]
         y = y[0]
 
-        expected_x =[
+        expected_x = [
             [1, 0, 0, 0],
             [0, 1, 0, 0],
             [1, 1, 0, 0],

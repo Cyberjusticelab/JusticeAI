@@ -33,7 +33,7 @@ class TestMlController(unittest.TestCase):
         "landlord_sends_demand_regie_logement": 0,
         "landlord_serious_prejudice": 0,
         "tenant_lease_indeterminate": 674.2
-        } 
+        }
     }
     """
     mock_classifier_index = {

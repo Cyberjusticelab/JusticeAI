@@ -23,7 +23,7 @@ binary_names_dict = {
     'classifier_labels': ['https://capstone.cyberjustice.ca/data/bin/classifier_labels.bin', 275],
     'tenant_pays_landlord_regressor': ['https://capstone.cyberjustice.ca/data/tenant_pays_landlord_regressor.bin', 38524],
     'tenant_pays_landlord_scaler': ['https://capstone.cyberjustice.ca/data/tenant_pays_landlord_scaler.bin', 1706]
-    }
+}
 
 
 def monitor_download(filename, filesize):

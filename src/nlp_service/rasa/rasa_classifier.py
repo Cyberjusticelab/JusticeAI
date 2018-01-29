@@ -27,7 +27,6 @@ class RasaClassifier:
         self.trainer = Trainer(self.rasa_config, self.builder)
 
     def train(self, force_train=False, initialize_interpreters=True):
-
         """
         Trains the data sets from facts and problem categories separately
         :param force_train: If False will use saved models

@@ -42,7 +42,7 @@ class MultiClassSVM:
             if self.model is None:
                 self.model = Load.load_binary('multi_class_svm_model.bin')
                 self.classifier_labels = Load.load_binary('classifier_labels.bin')
-        except:
+        except BaseException:
             return None
 
         index = TagPrecedents().get_intent_index()
@@ -97,22 +97,22 @@ class MultiClassSVM:
         5) test model
         :return: None
         """
-        x_total, y_total = self.reshape_dataset() # 1
-        self.mlb = MultiLabelBinarizer() # 2
+        x_total, y_total = self.reshape_dataset()  # 1
+        self.mlb = MultiLabelBinarizer()  # 2
         y_total = self.mlb.fit_transform(y_total)
 
         x_train, x_test, y_train, y_test = train_test_split(
-            x_total, y_total, test_size=0.20, random_state=42) # 3
+            x_total, y_total, test_size=0.20, random_state=42)  # 3
 
         Log.write("Sample size: {}".format(len(x_total)))
         Log.write("Train size: {}".format(len(x_train)))
         Log.write("Test size: {}".format(len(x_test)))
         Log.write("Training Classifier Using Multi Class SVM")
 
-        clf = OneVsRestClassifier(SVC(kernel='linear', random_state=42)) # 4
+        clf = OneVsRestClassifier(SVC(kernel='linear', random_state=42))  # 4
         clf.fit(x_train, y_train)
         self.model = clf
-        self.__test(x_test, y_test) # 5
+        self.__test(x_test, y_test)  # 5
 
     def save(self):
         """
