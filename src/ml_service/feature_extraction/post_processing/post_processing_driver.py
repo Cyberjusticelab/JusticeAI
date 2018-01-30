@@ -1,5 +1,5 @@
 from feature_extraction.post_processing.regex import regex_tagger
-from feature_extraction.post_processing.regex import regex_lib
+from feature_extraction.post_processing.regex import regex_lib_helper
 
 
 def run(command_list):
@@ -18,5 +18,6 @@ def run(command_list):
         nb_files = int(command_list[0])
     except BaseException:
         pass
-    regex_lib.run()
+    regex_lib_helper.create_regex_bin()
+    regex_lib_helper.create_regex_cluster_bin(0.5)
     regex_tagger.run(nb_files)
