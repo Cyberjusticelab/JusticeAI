@@ -140,9 +140,9 @@ def unpack_fact_demand_bin():
 
 def create_regex_cluster_bin(min_match_percentage):
     """
-
-    :param min_match_percentage:
-    :return:
+    creates a regex to cluster mapping and store it in a binary file
+    :param min_match_percentage: min percentage of sentence to be matched to a regex
+    :return: None
     """
     unpack_fact_demand_bin()
     rc_fact_dict = cluster_regex_mapper('fact', min_match_percentage)
@@ -169,5 +169,3 @@ def create_regex_bin():
     reg_dict['MONEY_REGEX'] = regexes.MONEY_REGEX
     save = Save()
     save.save_binary('regexes.bin', reg_dict)
-
-create_regex_cluster_bin(0.5)
