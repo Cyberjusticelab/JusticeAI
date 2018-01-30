@@ -18,7 +18,7 @@ class RegexLibTest(unittest.TestCase):
                 test_file_names = self.fact_cluster_regex_dict[regex_type][regex_name]
                 total_lines_matched = 0
                 total_nb_lines_in_file = 0
-                file = open(Path.cluster_directory + regex_type + '/' + test_file_names[0], 'r', encoding='ISO-8859-1')
+                file = open(Path.cluster_directory + regex_type + '/' + test_file_names[0], 'r', encoding='utf-8')
 
                 for line in file:
                     if line == '\n':
@@ -31,6 +31,8 @@ class RegexLibTest(unittest.TestCase):
                             break
                         line = '[1] ' + line
                         if regex.search(line):
+                            print(line)
+                            print (regex_name)
                             total_lines_matched += 1
                     file.seek(0)
                 file.close()
