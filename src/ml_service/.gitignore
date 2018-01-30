@@ -13,5 +13,6 @@ server.log
 /data/raw/**/*.txt
 /data/cluster/fact/*.txt
 /data/cluster/decision/*.txt
+/data/cluster/demand/*.txt
 !/data/binary/regexes.bin
 **/**.csv
