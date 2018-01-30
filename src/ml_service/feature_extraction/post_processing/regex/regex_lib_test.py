@@ -10,7 +10,7 @@ class RegexLibTest(unittest.TestCase):
     def setUp(self):
         self.fact_cluster_regex_dict = Load().load_binary('cluster_regex_dict.bin')
 
-    def test_fact_regexes(self):
+    def test_fact_demand_regexes(self):
         regex_types = ['fact', 'demand']
         for regex_type in regex_types:
             for regex_name in self.fact_cluster_regex_dict[regex_type].keys():
@@ -18,7 +18,7 @@ class RegexLibTest(unittest.TestCase):
                 test_file_names = self.fact_cluster_regex_dict[regex_type][regex_name]
                 total_lines_matched = 0
                 total_nb_lines_in_file = 0
-                file = open(Path.cluster_directory + regex_type + '/' + test_file_names[0], 'r', encoding='utf-8')
+                file = open(Path.cluster_directory + regex_type + '/' + test_file_names[0], 'r', encoding='ISO-8859-1')
 
                 for line in file:
                     if line == '\n':
