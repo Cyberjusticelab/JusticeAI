@@ -31,8 +31,6 @@ class RegexLibTest(unittest.TestCase):
                             break
                         line = '[1] ' + line
                         if regex.search(line):
-                            print(line)
-                            print (regex_name)
                             total_lines_matched += 1
                     file.seek(0)
                 file.close()

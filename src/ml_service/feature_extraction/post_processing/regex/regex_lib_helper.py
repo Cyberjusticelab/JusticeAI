@@ -1,6 +1,9 @@
 import regex as re
+import os
+import zipfile
+import shutil
 from feature_extraction.post_processing.regex.regex_lib import RegexLib
-from util.file import Save
+from util.file import Save, Path
 
 
 def get_regexes(name):
@@ -47,8 +50,6 @@ def sentence_finder(regex_name, nb_of_files):
     :param nb_of_files: number of files to search through
     :return: list of sentences that matched this regex
     """
-    from util.file import Path
-    import os
     regexes = get_regexes(regex_name)
     count = 0
     sentences_matched = []
@@ -100,8 +101,6 @@ def cluster_regex_mapper(folder_name, min_match_percentage, nb_of_files=-1):
     :param nb_of_files: number of files to search through in the folder
     :return: dict of regex-cluster file match
     """
-    from util.file import Path
-    import os
     nb_of_files_proccessed = 0
     path = Path.cluster_directory + folder_name + '/'
     cluster_regex_dict = {}
@@ -122,10 +121,6 @@ def unpack_fact_demand_bin():
     unpacks fact and demand binaries and move them to their appropriate folders
     :return: None
     """
-    from util.file import Path
-    import zipfile
-    import os
-    import shutil
     regex_types = ['fact', 'demand']
 
     for regex_type in regex_types:
