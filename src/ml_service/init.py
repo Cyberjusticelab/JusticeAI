@@ -18,9 +18,11 @@ FILE_SIZE_INDEX = 1
 sem = threading.Semaphore()
 
 binary_names_dict = {
-    'non-lem': ['https://capstone.cyberjustice.ca/data/frWac_non_lem_no_postag_no_phrase_200_skip_cut100.bin', 126052447],
-    'multi_class_svm_model': ['https://capstone.cyberjustice.ca/data/bin/multi_class_svm_model.bin', 11434717],
     'classifier_labels': ['https://capstone.cyberjustice.ca/data/bin/classifier_labels.bin', 275],
+    'fact_cluster': ['https://capstone.cyberjustice.ca/data/bin/fact_cluster.zip', 13337193],
+    'demand_cluster': ['https://capstone.cyberjustice.ca/data/bin/demand_cluster.zip', 1209757],
+    'multi_class_svm_model': ['https://capstone.cyberjustice.ca/data/bin/multi_class_svm_model.bin', 11434717],
+    'non-lem': ['https://capstone.cyberjustice.ca/data/frWac_non_lem_no_postag_no_phrase_200_skip_cut100.bin', 126052447],
     'tenant_pays_landlord_regressor': ['https://capstone.cyberjustice.ca/data/tenant_pays_landlord_regressor.bin', 38524],
     'tenant_pays_landlord_scaler': ['https://capstone.cyberjustice.ca/data/tenant_pays_landlord_scaler.bin', 1706]
 }
