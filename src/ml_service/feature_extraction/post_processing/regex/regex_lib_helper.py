@@ -8,6 +8,7 @@ from util.file import Save, Path
 regex_name_index = 0
 regex_index = 1
 
+
 def get_regexes(name):
     for fact in RegexLib.regex_facts:
         if fact[regex_name_index] == name:
@@ -105,6 +106,9 @@ def cluster_regex_mapper(folder_name, min_match_percentage, nb_of_files=-1):
     path = Path.cluster_directory + folder_name + '/'
     cluster_regex_dict = {}
     for file_name in os.listdir(path):
+        # Ignoring this file because this file contains sentences that could not be clustered
+        if file_name == '-1.txt':
+            continue
         if nb_of_files != -1 and nb_of_files_proccessed > nb_of_files:
             break
         nb_of_files_proccessed += 1
@@ -164,4 +168,3 @@ def create_regex_bin():
     reg_dict['MONEY_REGEX'] = regexes.MONEY_REGEX
     save = Save()
     save.save_binary('regexes.bin', reg_dict)
-
