@@ -5,17 +5,19 @@ import shutil
 from feature_extraction.post_processing.regex.regex_lib import RegexLib
 from util.file import Save, Path
 
+regex_name_index = 0
+regex_index = 1
 
 def get_regexes(name):
     for fact in RegexLib.regex_facts:
-        if fact[0] == name:
-            return fact[1]
+        if fact[regex_name_index] == name:
+            return fact[regex_index]
     for demand in RegexLib.regex_demands:
-        if demand[0] == name:
-            return demand[1]
+        if demand[regex_name_index] == name:
+            return demand[regex_index]
     for outcome in RegexLib.regex_outcomes:
-        if outcome[0] == name:
-            return outcome[1]
+        if outcome[regex_name_index] == name:
+            return outcome[regex_index]
 
     # if name was not found in demands, facts or outcomes
     return None
@@ -27,8 +29,6 @@ def regex_finder(sentence):
     :param sentence: is used to find a regex the matches it
     :return: list of regex names that matches this sentence
     """
-    regex_name_index = 0
-    regex_index = 1
     regex_match_list = []
 
     for fact in RegexLib.regex_facts:
@@ -109,10 +109,10 @@ def cluster_regex_mapper(folder_name, min_match_percentage, nb_of_files=-1):
             break
         nb_of_files_proccessed += 1
         for regex in RegexLib.regex_facts:
-            if cluster_file_finder(regex[0], min_match_percentage, path + file_name):
-                if regex[0] in cluster_regex_dict.keys():
-                    cluster_regex_dict[regex[0]].append(file_name)
-                cluster_regex_dict[regex[0]] = [file_name]
+            if cluster_file_finder(regex[regex_name_index], min_match_percentage, path + file_name):
+                if regex[regex_name_index] in cluster_regex_dict.keys():
+                    cluster_regex_dict[regex[regex_name_index]].append(file_name)
+                cluster_regex_dict[regex[regex_name_index]] = [file_name]
     return cluster_regex_dict
 
 
@@ -164,3 +164,4 @@ def create_regex_bin():
     reg_dict['MONEY_REGEX'] = regexes.MONEY_REGEX
     save = Save()
     save.save_binary('regexes.bin', reg_dict)
+
