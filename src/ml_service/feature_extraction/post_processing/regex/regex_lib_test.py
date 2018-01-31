@@ -25,13 +25,14 @@ class RegexLibTest(unittest.TestCase):
                         break
                     total_nb_lines_in_file += 1
                 file.seek(0)
-                for regex in regexes:
-                    for line in file:
-                        if line == '\n':
-                            break
-                        line = '[1] ' + line
+
+                for line in file:
+                    if line == '\n':
+                        break
+                    line = '[1] ' + line
+                    for regex in regexes:
                         if regex.search(line):
                             total_lines_matched += 1
-                    file.seek(0)
+                            break
                 file.close()
                 self.assertTrue(total_lines_matched > 0 and total_lines_matched / total_nb_lines_in_file > 0.5)
