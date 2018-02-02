@@ -19,7 +19,7 @@ The core functionality of classify_claim_category and classify_fact_value are ex
 """
 
 
-@app.route("/extract_text", methods=['POST'])
+@app.route("/ocr/extract_text", methods=['POST'])
 def extract_text():
     request_data = request.get_json()
     return ocr_controller.extract_text(request_data['conversation_id'], request_data['image_data'])
