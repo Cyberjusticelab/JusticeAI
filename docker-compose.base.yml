@@ -23,14 +23,14 @@ services:
     restart: always
     networks:
       - procezeus_net
-  ocr_service:
+  task_service:
     build:
       context: .
-      dockerfile: ./src/ocr_service/Dockerfile
+      dockerfile: ./src/task_service/Dockerfile
       args:
       - CJL_USER
       - CJL_PASS
-    image: procezeus/ocr_service
+    image: procezeus/task_service
     restart: always
     networks:
       - procezeus_net

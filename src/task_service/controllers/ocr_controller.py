@@ -2,7 +2,7 @@ from flask import jsonify, abort, make_response
 
 from postgresql_db.models import *
 
-from ocr_service.app import db
+from task_service.app import db
 
 # Logging
 import logging

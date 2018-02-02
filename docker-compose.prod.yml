@@ -14,7 +14,7 @@ services:
       - 3003:3003
     environment:
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
-  ocr_service:
+  task_service:
     ports:
       - 3004:3004
     environment:
