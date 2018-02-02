@@ -1,11 +1,10 @@
 from model_training.classifier.multi_class_svm import MultiClassSVM
-from model_training.regression.tenant_pays_landlord_regressor import TenantPaysLandlordRegressor
+from model_training.regression.multi_output_regression import MultiOutputRegression
 
 
 class GlobalPredictor:
     classifier_model = MultiClassSVM()
-    classifier_labels = classifier_model.load_classifier_labels()
-    regression_model = TenantPaysLandlordRegressor()
+    regression_model = MultiOutputRegression()
 
     def __init__(self):
         pass
@@ -28,16 +27,9 @@ class GlobalPredictor:
                           inputs. In a sense, the classifier serves a filtering layer to know
                           which fields are needed by the regressor.
 
-        ** Right now the columns we inspect are hard coded. this will change once
-           a wrapper class for a multioutput regressor is created
-
         :param data: np.array([1, 0, 522, 0, 1, ...])
         :return: np.array([1, 0, 22, 2, ...])
         """
         outcome_vector = GlobalPredictor.classifier_model.predict(data)[0]
-        for i in range(len(outcome_vector)):
-            if outcome_vector[i] == 1:
-                column_name = GlobalPredictor.classifier_labels[i][0]
-                if column_name == 'tenant_ordered_to_pay_landlord':
-                    outcome_vector[i] = GlobalPredictor.regression_model.predict(data)[0][0]
+        outcome_vector = GlobalPredictor.regression_model.predict(outcome_vector)
         return outcome_vector
