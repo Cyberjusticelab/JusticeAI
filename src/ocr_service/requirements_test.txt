@@ -1,0 +1,9 @@
+# Testing dependencies
+
+-r requirements.txt
+
+pytest
+pytest-cov
+pytest-timeout
+autopep8
+

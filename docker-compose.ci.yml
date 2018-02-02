@@ -11,6 +11,11 @@ services:
     environment:
       CI: "true"
       POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
+  ocr_service:
+    command: bash -c 'pytest &&  autopep8 -dr . && bash <(curl -s https://codecov.io/bash)'
+    environment:
+      CI: "true"
+      POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
   backend_service:
     command: bash -c 'pytest && autopep8 -dr . && bash <(curl -s https://codecov.io/bash)'
     environment:
