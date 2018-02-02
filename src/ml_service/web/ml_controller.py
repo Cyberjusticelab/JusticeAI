@@ -1,13 +1,14 @@
 from feature_extraction.post_processing.regex.regex_tagger import TagPrecedents
-from prediction.global_predictor import GlobalPredictor
 from model_training.classifier.multi_class_svm import MultiClassSVM
+from model_training.regression.multi_output_regression import MultiOutputRegression
 import numpy as np
 
 
 class MlController:
     indexes = TagPrecedents().get_intent_index()
     classifier_labels = MultiClassSVM.load_classifier_labels()
-
+    classifier_model = MultiClassSVM()
+    regression_model = MultiOutputRegression()
 
     @staticmethod
     def predict_outcome(input_json):
@@ -33,8 +34,8 @@ class MlController:
                  }
         """
         facts_vector = MlController.dict_to_vector(input_json['facts'])
-        outcome_vector = GlobalPredictor.predict_outcome(facts_vector)
-
+        outcome_vector = MlController.classifier_model.predict(facts_vector)[0]
+        outcome_vector = MlController.regression_model.predict(facts_vector, outcome_vector)
         return MlController.vector_to_dict(outcome_vector)
 
     @staticmethod
@@ -63,5 +64,4 @@ class MlController:
         for outcome_index in MlController.classifier_labels:
             label = MlController.classifier_labels[outcome_index][0]
             return_dict[label] = str(outcome_vector[outcome_index])
-
         return {'outcomes_vector': return_dict}

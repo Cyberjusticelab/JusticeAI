@@ -30,12 +30,12 @@ class MultiOutputRegression:
         regression.train()
         regression.save()
 
-    def predict(self, data):
+    def predict(self, facts, outcomes):
         """
-        2) Iterate each column. If the column represents an integer data type
+        1) Iterate each column. If the column represents an integer data type
            AND it's boolean value == 1 then run it through the regressor.
 
-        3) If 2) is true, then replace the value in the vector by it's true integer
+        2) If 1) is true, then replace the value in the vector by it's true integer
            value.
 
         Additional notes: step 2) only applies when the boolean value of the classifier
@@ -46,9 +46,15 @@ class MultiOutputRegression:
         :param data: np.array([1, 0, 1, 1, ...])
         :return: np.array([1, 0, 22, 2, ...])
         """
-        for i in range(len(data)):
-            if data[i] == 1:
+        for i in range(len(outcomes)):
+            if outcomes[i] == 1:
                 column_name = MultiOutputRegression.classifier_labels[i][0]
-                if column_name == 'tenant_ordered_to_pay_landlord':
-                    data[i] = TenantPaysLandlordRegressor().predict(data)[0][0]
-        return data
+                if column_name == 'additional_indemnity_date':
+                    pass
+                elif column_name == 'additional_indemnity_money':
+                    pass
+                elif column_name == 'tenant_ordered_to_pay_landlord':
+                    outcomes[i] = TenantPaysLandlordRegressor().predict(facts)[0][0]
+                elif column_name == 'tenant_ordered_to_pay_landlord_legal_fees':
+                    pass
+        return outcomes
