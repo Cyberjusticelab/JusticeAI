@@ -24,7 +24,8 @@ class MultiOutputRegression:
     def train(self):
         """
         Trains all models
-        :return:
+        Simply insert your regression model --> train --> save
+        :return: None
         """
         regression = TenantPaysLandlordRegressor(self.dataset)
         regression.train()
@@ -49,6 +50,7 @@ class MultiOutputRegression:
         for i in range(len(outcomes)):
             if outcomes[i] == 1:
                 column_name = MultiOutputRegression.classifier_labels[i][0]
+
                 if column_name == 'additional_indemnity_date':
                     pass
                 elif column_name == 'additional_indemnity_money':
@@ -57,4 +59,5 @@ class MultiOutputRegression:
                     outcomes[i] = TenantPaysLandlordRegressor().predict(facts)[0][0]
                 elif column_name == 'tenant_ordered_to_pay_landlord_legal_fees':
                     pass
+                
         return outcomes
