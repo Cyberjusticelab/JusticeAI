@@ -75,32 +75,6 @@ Provide facts_vector and demands_vector, with key values for each fact/demand.
 
 ```json
 {
-  "demands" : {
-    "demand_lease_modification": 1,
-    "demand_resiliation": 1,
-    "landlord_claim_interest_damage": 0,
-    "landlord_demand_access_rental": 1,
-    "landlord_demand_bank_fee": 1,
-    "landlord_demand_damage": 1,
-    "landlord_demand_legal_fees": 1,
-    "landlord_demand_retake_apartment": 1,
-    "landlord_demand_utility_fee": 1,
-    "landlord_fix_rent": 1,
-    "landlord_lease_termination": 1,
-    "landlord_money_cover_rent": 1,
-    "paid_judicial_fees": 1,
-    "tenant_claims_harassment": 0,
-    "tenant_cover_rent": 1,
-    "tenant_demands_decision_retraction": 1,
-    "tenant_demand_indemnity_Code_Civil": 1,
-    "tenant_demand_indemnity_damage": 1,
-    "tenant_demand_indemnity_judicial_fee": 1,
-    "tenant_demand_interest_damage": 1,
-    "tenant_demands_money": 1,
-    "tenant_demand_rent_decrease": 1,
-    "tenant_respect_of_contract": 1,
-    "tenant_eviction": 0
-  },
   "facts" : {
     "absent" : 1,
     "apartment_impropre" : 0,
@@ -164,7 +138,8 @@ Provide facts_vector and demands_vector, with key values for each fact/demand.
 ```json
 {
     "outcomes_vector": {
-      "lease_resiliation" : 1
+      "lease_resiliation" : 1,
+      ...
     }
 }
 ```
@@ -188,12 +163,17 @@ export COMPOSE_FILE=ci
 ## Using the Command Line
 * denotes optional arguments
 
-1-  python main.py -cluster --hdbscan --fact|decision [min cluster size] [min sample size]
+1-  Commands
+
+    python main.py -cluster --hdbscan --fact|decision [min cluster size] [min sample size]
     python main.py -cluster --kmeans --fact|decision [cluster number]
     python main.py -cluster --hdbscan --fact|decision [min cluster size] [epsilon]
-    python main.py -train [data size | empty for all] --svm* --sf*
+    python main.py -train [data size | empty for all] --svm* --sf* --weights* --evaluate*
     python main.py -pre [number of files | empty for all]
-    python main.py -post
+    python main.py -post [number of files | empty for all]
+
 2- all binary files saved to data/binary
+
 3- all text files to data/cluster
+
 4- all raw_data to data/raw

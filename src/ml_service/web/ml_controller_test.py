@@ -1,46 +1,155 @@
 import json
-from web import ml_controller
+from web.ml_controller import MlController
 from numpy.testing import assert_array_equal
+from prediction.global_predictor import GlobalPredictor
+import unittest
+import numpy as np
 
 
-def test__dict_to_vector():
-    # Test data
+class TestMlController(unittest.TestCase):
     test_json = """
     {
-      "demands" : {
-        "demand_lease_modification": 1,
-        "demand_resiliation": 1,
-        "landlord_claim_interest_damage": 0,
-        "landlord_demand_access_rental": 1,
-        "landlord_demand_bank_fee": 1,
-        "landlord_demand_damage": 1,
-        "landlord_demand_legal_fees": 1,
-        "landlord_demand_retake_apartment": 1,
-        "landlord_demand_utility_fee": 1,
-        "landlord_fix_rent": 1,
-        "landlord_lease_termination": 1,
-        "landlord_money_cover_rent": 1,
-        "paid_judicial_fees": 1,
-        "tenant_claims_harassment": 0,
-        "tenant_cover_rent": 1,
-        "tenant_demands_decision_retraction": 1,
-        "tenant_demand_indemnity_Code_Civil": 1,
-        "tenant_demand_indemnity_damage": 1,
-        "tenant_demand_indemnity_judicial_fee": 1,
-        "tenant_demand_interest_damage": 1,
-        "tenant_demands_money": 1,
-        "tenant_demand_rent_decrease": 1,
-        "tenant_respect_of_contract": 1,
-        "tenant_eviction": 0
-      }
+        "facts": {
+        "absent": 0,
+        "apartment_impropre": 0,
+        "apartment_infestation": 0,
+        "asker_is_landlord": 1,
+        "asker_is_tenant": 0,
+        "bothers_others": 0,
+        "case_fee_reimbursement": 0,
+        "disrespect_previous_judgement": 0,
+        "incorrect_facts": 48,
+        "landlord_inspector_fees": 0,
+        "landlord_notifies_tenant_retake_apartment": 1,
+        "landlord_pays_indemnity": 0,
+        "landlord_prejudice_justified": 0,
+        "landlord_relocation_indemnity_fees": 0,
+        "landlord_rent_change": 31,
+        "landlord_rent_change_doc_renseignements": 0,
+        "landlord_rent_change_piece_justification": 0,
+        "landlord_rent_change_receipts": 540,
+        "landlord_retakes_apartment": 1,
+        "landlord_retakes_apartment_indemnity": 1,
+        "landlord_sends_demand_regie_logement": 0,
+        "landlord_serious_prejudice": 0,
+        "tenant_lease_indeterminate": 674.2
+        }
     }
     """
-    input_json = json.loads(test_json)
+    mock_classifier_index = {
+        0: ('additional_indemnity_money', 'int'),
+        1: ('declares_housing_inhabitable', 'bool'),
+        2: ('declares_resiliation_is_correct', 'bool'),
+        3: ('orders_expulsion', 'bool'),
+        4: ('orders_immediate_execution', 'bool'),
+        5: ('orders_resiliation', 'bool'),
+        6: ('orders_tenant_pay_first_of_month', 'bool'),
+        7: ('rejects_landlord_demand', 'bool'),
+        8: ('rejects_tenant_demand', 'bool'),
+        9: ('tenant_ordered_to_pay_landlord', 'int')
+    }
 
-    # Execute
-    result = ml_controller.__dict_to_vector(
-        input_json['demands'], 'demands_vector')
+    mock_index = {
+        'facts_vector': [
+            (0, 'absent', 'bool'),
+            (1, 'apartment_impropre', 'bool'),
+            (2, 'apartment_infestation', 'bool'),
+            (3, 'asker_is_landlord', 'bool'),
+            (4, 'asker_is_tenant', 'bool'),
+            (5, 'bothers_others', 'bool'),
+            (6, 'case_fee_reimbursement', 'int'),
+            (7, 'disrespect_previous_judgement', 'bool'),
+            (8, 'incorrect_facts', 'bool'),
+            (9, 'landlord_inspector_fees', 'int'),
+            (10, 'landlord_notifies_tenant_retake_apartment', 'bool'),
+            (11, 'landlord_pays_indemnity', 'bool'),
+            (12, 'landlord_prejudice_justified', 'bool'),
+            (13, 'landlord_relocation_indemnity_fees', 'int'),
+            (14, 'landlord_rent_change', 'bool'),
+            (15, 'landlord_rent_change_doc_renseignements', 'bool'),
+            (16, 'landlord_rent_change_piece_justification', 'bool'),
+            (17, 'landlord_rent_change_receipts', 'bool'),
+            (18, 'landlord_retakes_apartment', 'bool'),
+            (19, 'landlord_retakes_apartment_indemnity', 'bool'),
+            (20, 'landlord_sends_demand_regie_logement', 'bool'),
+            (21, 'landlord_serious_prejudice', 'bool'),
+            (22, 'lease', 'int'),
+            (23, 'proof_of_late', 'bool'),
+            (24, 'proof_of_revenu', 'bool'),
+            (25, 'rent_increased', 'bool'),
+            (26, 'tenant_bad_payment_habits', 'bool'),
+            (27, 'tenant_continuous_late_payment', 'bool'),
+            (28, 'tenant_damaged_rental', 'bool'),
+            (29, 'tenant_dead', 'bool'),
+            (30, 'tenant_declare_insalubre', 'bool'),
+            (31, 'tenant_financial_problem', 'bool'),
+            (32, 'tenant_group_responsability', 'bool'),
+            (33, 'tenant_individual_responsability', 'bool'),
+            (34, 'tenant_is_bothered', 'bool'),
+            (35, 'lack_of_proof', 'bool'),
+            (36, 'tenant_landlord_agreement', 'bool'),
+            (37, 'tenant_lease_fixed', 'bool'),
+            (38, 'tenant_lease_indeterminate', 'bool'),
+            (39, 'tenant_left_without_paying', 'bool'),
+            (40, 'tenant_monthly_payment', 'int'),
+            (41, 'tenant_negligence', 'bool'),
+            (42, 'tenant_not_request_cancel_lease', 'bool'),
+            (43, 'tenant_owes_rent', 'int'),
+            (44, 'tenant_refuses_retake_apartment', 'bool'),
+            (45, 'tenant_rent_not_paid_less_3_weeks', 'bool'),
+            (46, 'tenant_rent_not_paid_more_3_weeks', 'bool'),
+            (47, 'tenant_rent_paid_before_hearing', 'bool'),
+            (48, 'tenant_violence', 'bool'),
+            (49, 'tenant_withold_rent_without_permission', 'bool'),
+            (50, 'violent', 'bool')],
+        'outcomes_vector': [
+            (0, 'additional_indemnity_date', 'int'),
+            (1, 'additional_indemnity_money', 'int'),
+            (2, 'declares_housing_inhabitable', 'bool'),
+            (3, 'declares_resiliation_is_correct', 'bool'),
+            (4, 'orders_expulsion', 'bool'),
+            (5, 'orders_immediate_execution', 'bool'),
+            (6, 'orders_resiliation', 'bool'),
+            (7, 'orders_tenant_pay_first_of_month', 'bool'),
+            (8, 'rejects_landlord_demand', 'bool'),
+            (9, 'rejects_tenant_demand', 'bool'),
+            (10, 'tenant_ordered_to_pay_landlord', 'int'),
+            (11, 'tenant_ordered_to_pay_landlord_legal_fees', 'int')
+        ]}
+    MlController.classifier_index = mock_classifier_index
+    MlController.indexes = mock_index
 
-    # Verify
-    assert_array_equal(result, [1., 1., 0., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
-                                0., 1., 1., 1., 1., 1., 1., 1., 1., 1., 0.])
+    def test_dict_to_vector(self):
+        # Test data
+        input_json = json.loads(self.test_json)
+
+        # Execute
+        result = MlController.dict_to_vector(input_json['facts'])
+        # Verify
+
+        assert_array_equal(result, [0., 0., 0., 1., 0., 0., 0., 0., 48.,
+                                    0., 1., 0., 0., 0., 31., 0., 0., 540.,
+                                    1., 1., 0., 0., 0., 0., 0., 0., 0., 0.,
+                                    0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+                                    674., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+                                    0., 0., 0.])
+
+    def test_vector_to_dict(self):
+        binary_vector = np.array([0, 1, 0, 0, 0, 1, 1, 0, 1, 0])
+        GlobalPredictor.classifier_labels = self.mock_classifier_index
+        result = MlController.vector_to_dict(binary_vector)
+        expected_dict = {
+            'outcomes_vector': {
+                'rejects_tenant_demand': '1',
+                'orders_expulsion': '0',
+                'declares_resiliation_is_correct': '0',
+                'tenant_ordered_to_pay_landlord': '0',
+                'orders_tenant_pay_first_of_month': '1',
+                'orders_immediate_execution': '0',
+                'rejects_landlord_demand': '0',
+                'declares_housing_inhabitable': '1',
+                'orders_resiliation': '1',
+                'additional_indemnity_money': '0'
+            }
+        }
+        self.assertEqual(expected_dict, result)

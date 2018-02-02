@@ -1,0 +1,23 @@
+[meta]
+
+[regex_features]
+false: (no)|(No)|(NO)
+true: (yes)|(YES)|(Yes)
+that's: that is|that's 
+
+[entity_synonyms]
+
+[common_examples: true]
+absolutely
+true
+that's correct
+yeah
+yes
+
+[common_examples: false]
+that is incorrect
+false
+absolutely not
+nope
+no way
+no

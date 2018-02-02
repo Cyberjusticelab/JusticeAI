@@ -21,7 +21,7 @@ class TagPrecedents:
         self.regexes = Load.load_binary("regexes.bin")
         self.precedents_directory_path = Path.raw_data_directory
 
-    def get_intent_indice(self):
+    def get_intent_index(self):
         """
         Retrieves the label of every column in the vectors
 
@@ -35,15 +35,30 @@ class TagPrecedents:
         """
         facts_vector = []
         for i in range(len(self.regexes["regex_facts"])):
-            facts_vector.append((i, self.regexes["regex_facts"][i][0]))
+            name = self.regexes["regex_facts"][i][0]
+            if self.regexes["regex_facts"][i][2] == 'BOOLEAN':
+                data_type = 'bool'
+            else:
+                data_type = 'int'
+            facts_vector.append((i, name, data_type))
 
         demands_vector = []
         for i in range(len(self.regexes["regex_demands"])):
-            demands_vector.append((i, self.regexes["regex_demands"][i][0]))
+            name = self.regexes["regex_demands"][i][0]
+            if self.regexes["regex_demands"][i][2] == 'BOOLEAN':
+                data_type = 'bool'
+            else:
+                data_type = 'int'
+            demands_vector.append((i, name, data_type))
 
         outcomes_vector = []
         for i in range(len(self.regexes["regex_outcomes"])):
-            outcomes_vector.append((i, self.regexes["regex_outcomes"][i][0]))
+            name = self.regexes["regex_outcomes"][i][0]
+            if self.regexes["regex_outcomes"][i][2] == 'BOOLEAN':
+                data_type = 'bool'
+            else:
+                data_type = 'int'
+            outcomes_vector.append((i, name, data_type))
 
         return {
             'facts_vector': facts_vector,
@@ -167,7 +182,7 @@ class TagPrecedents:
             'demands_vector': demands_vector,
             'outcomes_vector': outcomes_vector
         }
- 
+
     def __ignore_line(self, line):
         """
         Verifies if we should ignore line from total count
@@ -186,27 +201,27 @@ def run(nb_files=-1):
     """
     Models saved to ml_service/data/binary/
     1) create vectors and save them
-    2) retrieve the lab    
-    :return: None 
+    2) retrieve the lab
+    :return: None
     """
-    
+
     tag = TagPrecedents()
     precedent_vector = tag.tag_precedents(nb_files)
     # prints fact intents
-    indices = tag.get_intent_indice()
+    indexes = tag.get_intent_index()
 
     Log.write("Total precedents parsed: {}".format(len(precedent_vector)))
     for i in range(len(next(iter(precedent_vector.values()))['facts_vector'])):
         total_fact = len([1 for val in precedent_vector.values() if val['facts_vector'][i] != 0])
-        Log.write("Total precedents with {:41} : {}".format(indices['facts_vector'][i][1], total_fact))
+        Log.write("Total precedents with {:41} : {}".format(indexes['facts_vector'][i][1], total_fact))
     Log.write("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
     for i in range(len(next(iter(precedent_vector.values()))['demands_vector'])):
         total_fact = len([1 for val in precedent_vector.values() if val['demands_vector'][i] != 0])
-        Log.write("Total precedents with {:41} : {}".format(indices['demands_vector'][i][1], total_fact))
+        Log.write("Total precedents with {:41} : {}".format(indexes['demands_vector'][i][1], total_fact))
     Log.write("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
     for i in range(len(next(iter(precedent_vector.values()))['outcomes_vector'])):
         total_fact = len([1 for val in precedent_vector.values() if val['outcomes_vector'][i] != 0])
-        Log.write("Total precedents with {:41} : {}".format(indices['outcomes_vector'][i][1], total_fact))
+        Log.write("Total precedents with {:41} : {}".format(indexes['outcomes_vector'][i][1], total_fact))
     Log.write("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")

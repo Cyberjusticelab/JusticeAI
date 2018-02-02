@@ -7,10 +7,10 @@ class TestLinearSvc(unittest.TestCase):
     precedent1 = {'facts_vector': [1, 0, 0, 0], 'outcomes_vector': [0, 1, 0]}
     precedent2 = {'facts_vector': [0, 1, 0, 0], 'outcomes_vector': [0, 1, 0]}
     precedent3 = {'facts_vector': [1, 1, 0, 0], 'outcomes_vector': [1, 0, 0]}
-    precedent4 = {'facts_vector': [0, 0, 1, 0], 'outcomes_vector': [1, 1, 1]}
+    precedent4 = {'facts_vector': [0, 0, 50, 0], 'outcomes_vector': [1, 1, 1]}
     precedent5 = {'facts_vector': [1, 0, 1, 0], 'outcomes_vector': [0, 1, 0]}
-    precedent6 = {'facts_vector': [0, 1, 1, 0], 'outcomes_vector': [1, 1, 0]}
-    precedent7 = {'facts_vector': [1, 1, 1, 0], 'outcomes_vector': [1, 0, 0]}
+    precedent6 = {'facts_vector': [0, 30, 1, 0], 'outcomes_vector': [1, 1, 0]}
+    precedent7 = {'facts_vector': [42, 1, 1, 0], 'outcomes_vector': [1, 0, 0]}
     precedent8 = {'facts_vector': [0, 0, 0, 1], 'outcomes_vector': [0, 1, 0]}
 
     data = [
@@ -40,7 +40,7 @@ class TestLinearSvc(unittest.TestCase):
         x = x[0]
         y = y[0]
 
-        expected_x =[
+        expected_x = [
             [1, 0, 0, 0],
             [0, 1, 0, 0],
             [1, 1, 0, 0],
@@ -61,4 +61,4 @@ class TestLinearSvc(unittest.TestCase):
 
     def test_get_weights(self):
         linear_svc = MultiClassSVM(self.data)
-        self.assertIsNone(linear_svc.get_weights())
+        self.assertIsNone(linear_svc.display_weights())

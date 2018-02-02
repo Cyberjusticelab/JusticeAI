@@ -33,6 +33,8 @@ if [ "$1" == "test" ]; then
     docker-compose -f docker-compose.base.yml -f docker-compose.test.yml run ml_service
   elif [ "$2" == "nlp_service" ]; then
     docker-compose -f docker-compose.base.yml -f docker-compose.test.yml run nlp_service
+  elif [ "$2" == "task_service" ]; then
+    docker-compose -f docker-compose.base.yml -f docker-compose.test.yml run task_service
   elif [ "$2" == "web_client" ]; then
     docker-compose -f docker-compose.base.yml -f docker-compose.test.yml run web_client
   else
@@ -60,10 +62,6 @@ if [ "$1" == "lint-fix" ]; then
   echo "Done!"
   exit
 fi
-
-
-
-
 
 # Choose an environment, default is dev
 if [ -z "$COMPOSE_FILE" ]; then

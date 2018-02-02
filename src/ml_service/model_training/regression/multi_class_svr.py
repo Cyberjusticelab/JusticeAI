@@ -1,5 +1,7 @@
 def warn(*args, **kwargs):
     pass
+
+
 import warnings
 warnings.warn = warn
 from sklearn.svm import SVR
@@ -11,6 +13,8 @@ from sklearn.metrics import explained_variance_score
 from util.file import Load, Save
 from util.log import Log
 from feature_extraction.post_processing.regex.regex_tagger import TagPrecedents
+from sklearn.preprocessing import MinMaxScaler
+import csv
 
 
 class MultiClassSVR:
@@ -30,6 +34,7 @@ class MultiClassSVR:
         """
         self.data_set = data_set
         self.model = None
+        self.scaler = None
 
     def evaluate_best_parameters(self):
         """
@@ -43,13 +48,15 @@ class MultiClassSVR:
         x_train, x_test, y_train, y_test = train_test_split(
             x_total, y_total, test_size=0.20, random_state=42)
 
-        parameters = {'kernel': ('linear', 'poly', 'sigmoid', 'rbf'),
-                      'C': [0.5, 0.7, 1, 1.5, 2, 3, 5],
-                      'gamma': ['auto', 0.1, 0.2, 0.3, 0.4, 0.5],
-                      'epsilon': [0.1, 0.2, 0.3, 0.4, 0.5]
+        self.scaler = MinMaxScaler(feature_range=(-1, 1)).fit(x_train)
+        x_train = self.scaler.transform(x_train)
+
+        parameters = {'kernel': ('linear', 'poly', 'rbf'),
+                      'C': [5, 8, 9],
+                      'epsilon': [0.1, 0.5, 1.0]
                       }
         results = []
-        indices = TagPrecedents().get_intent_indice()
+        indices = TagPrecedents().get_intent_index()
         for i in range(len(y_train[0])):
             yt = y_train[:, [i]]
             svr = SVR()
@@ -60,17 +67,37 @@ class MultiClassSVR:
             results.append(clf.best_params_)
         return results
 
-    def get_weights(self):
+    def display_weights(self):
         """
-        The weight associated with each input fact.
-        Useful in seeing which facts the classifier
-        values more than others
+        Writes all the weights to .csv format
+        1) get the facts
+        2) for every outcome write the weights
         :return: None
         """
-        if self.model is not None:
-            return self.model.coef_[0]
-        Log.write('Please train or load the regression model first')
-        return None
+        try:
+            if self.model is None:
+                self.model = Load.load_binary('multi_class_svr_model.bin')
+        except BaseException:
+            return None
+
+        indices = TagPrecedents().get_intent_index()
+        fact_header = [" "]
+        for header in indices['facts_vector']:
+            fact_header.append(header[1])
+
+        with open('weights.csv', 'w') as outcsv:
+            writer = csv.writer(outcsv)
+            writer.writerow(fact_header)
+
+            for i in range(len(self.model.estimators_)):
+                outcome_list = [indices['outcomes_vector'][i][1]]
+                estimator = self.model.estimators_[i]
+                weights = estimator.coef_[0]
+                for j in range(len(weights)):
+                    outcome_list.append(weights[j])
+                writer.writerow(outcome_list)
+
+        Log.write('Weights saved to .csv')
 
     def __test(self, x_test, y_test):
         """
@@ -82,7 +109,7 @@ class MultiClassSVR:
         :param y_test:
         :return: None
         """
-        indices = TagPrecedents().get_intent_indice()
+        indices = TagPrecedents().get_intent_index()
         Log.write("\nTesting Classifier")
         y_predict = self.model.predict(x_test)
         Log.write('Regression Results:')
@@ -104,20 +131,24 @@ class MultiClassSVR:
         4) test model
         :return: None
         """
-        x_total, y_total = self.reshape_dataset() # 1
-
+        x_total, y_total = self.reshape_dataset()  # 1
         x_train, x_test, y_train, y_test = train_test_split(
-            x_total, y_total, test_size=0.20, random_state=42) # 2
+            x_total, y_total, test_size=0.20, random_state=42)  # 2
+
+        Log.write('Scaling data')
+        self.scaler = MinMaxScaler(feature_range=(-1, 1)).fit(x_train)
+        x_train = self.scaler.transform(x_train)
+        x_test = self.scaler.transform(x_test)
 
         Log.write("Sample size: {}".format(len(x_total)))
         Log.write("Train size: {}".format(len(x_train)))
         Log.write("Test size: {}".format(len(x_test)))
         Log.write("Training Regression Using Multi Class SVR")
 
-        clf = MultiOutputRegressor(SVR(kernel='linear')) # 3
+        clf = MultiOutputRegressor(SVR(kernel='linear', C=1, epsilon=1.0))  # 3
         clf.fit(x_train, y_train)
         self.model = clf
-        self.__test(x_test, y_test) # 4
+        self.__test(x_test, y_test)  # 4
         self.data_set = None
 
     def save(self):
@@ -126,6 +157,7 @@ class MultiClassSVR:
         """
         save = Save()
         save.save_binary("multi_class_svr_model.bin", self.model)
+        save.save_binary("svr_scaler_model.bin", self.scaler)
 
     def predict(self, data):
         """
@@ -133,14 +165,12 @@ class MultiClassSVR:
         :param data: numpy([1, 0, 0, ...])
         :return: np.array([...])
         """
-        return self.model.predict([data])
-
-    def load(self):
-        """
-        Returns a model of the classifier
-        :return: OneVsRestClassifier(SVC())
-        """
-        self.model = Load.load_binary("multi_class_svr_model.bin")
+        if self.scaler is None:
+            self.scaler = Load.load_binary('svr_scaler_model.bin')
+        if self.model is None:
+            self.model = Load.load_binary('multi_class_svr_model.bin')
+        data = self.scaler.transform([data])
+        return self.model.predict(data)
 
     def reshape_dataset(self):
         """

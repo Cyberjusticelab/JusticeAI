@@ -1,0 +1,40 @@
+[meta]
+
+[regex_features]
+false: (no)|(No)|(NO)
+true: (yes)|(YES)|(Yes)
+that's: that is|that's 
+abandonbad: (disappear(ed)?)|(left)|(split)|(vanished)|(absent)|(gone)
+notabandon: (still (t)?here)|(not gone)|(in (his|the) apartment)|(present)|(around)|(not gone)
+
+[entity_synonyms]
+
+[common_examples: true]
+absolutely
+true
+that's correct
+yeah
+yes
+i haven’t been able to contact the tenant
+i haven’t seen the tenant in weeks
+the guy disappeared completely
+yes the tenant is gone
+he left without paying
+he seems to be absent
+the dude split
+he vanished
+
+
+[common_examples: false]
+that is incorrect
+false
+absolutely not
+nope
+no way
+no
+no he’s still here
+no he’s still around
+he’s not gone yet
+i still see him around
+he’s present
+he’s in his apartment right now

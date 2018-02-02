@@ -1,0 +1,485 @@
+[meta]
+
+[regex_features]
+deposit-in advance: (in)(\s)(advance)
+dwelling: dwelling|apartment|house|place|crib
+rent in advance: (in advance)
+spouse-violence: (violen(t|ce)?)|(hit(s/ting)?)|(beat(s|ing)?)|(abus(ive|ed|ing)?)|(rape(d)?)
+eviction: evict|evicted|kicked|kick
+has not: hasn't|has not
+spouse/lover: (ex)?(-)?(lover|boyfriend|girlfriend|spouse|husband|wife)?('s)?
+not having a lease: (leav[^\s])|(ditch)|(sign)|(have)
+tenants leave without pay: (left)|(pursu[^\s])|(bail[^\s])|((ow)[^\s])|(diced)|(nowhere)|(disappear[^\s]*)
+landlord-contact: (contact)|(yellow page(s)?)|(phone)|(number)|(email)(in touch)
+RL31: rl(-)?31
+abandoning: (abandon)|(leave)
+rent increase: increas(e/es/ed/ing)|increas[^\s]*
+credit check: (credit( score| check| report)?)
+personal info: sin|card|copy|photocopy|permit|license
+termination of lease: end(s/ed/ing)|end[^\s]*
+habitability-temperature: (heat(ing)*)|(cold)|(freez(e|ing)*)|([0-9]+(c|c|f|f))
+repairs landlord pay: (repair)|(fix)|(toilet[^\s])|(sink[^\s])|(broke[^\s])
+housing-committee: (housing(( committee)|( problems))?)|(help)|(aidez)
+demand-letter: (demand( letter)?)|(request)|(ask)|(letter)
+habitability-noise: (nois[^\s])|(loud)
+lease-transfer: (transfer(ring)?)|(give)
+cancel lease: (cancel)|(void)|(revoke[^\s])|(go back on)|(return)
+termination of lease: terminat(ing/e/es/ed)|terminat[^\s]*
+deposit: deposit(s/ed)|deposit[^\s]*
+sublet: (sub(let(ting)?)|(tenant)?)
+termination of lease: kick(s/ed) me out|(kick[^\s]*)(\s)(me)(\s)(out)
+will not: won't|will not
+negligence: (wear and tear)|(negligen(ce|t)?)|(fault)
+gender: (him|he|her|she|they)((')?s)?
+hearing-not showing up: (hearing)|(meeting)|(reschedule)
+haven't paid: (haven't)(\s)(paid)
+rent increase: rais(e/es/end/ing)|rais[^\s]*
+nonpayment: didn't pay:(didn't)(\s)(pay)
+landlord not repairing: (repair)|(fix)|(remov[^\s])|(deduct[^\s])|(rent)
+landlord harassing: (harass(ing|ed|es)?)|(creep(y)?)|(lewd)
+visitation without permission: (visit)|(enter(ed|ing)*)
+i am: im|i'm|i am
+
+[entity_synonyms]
+
+[common_examples: faq_rlq_abandoned_premises]
+the people that i used to lease my dwelling to disappeared 3-4 months ago
+i think the tenants left because i never see them anymore
+i left my apartment without telling anyone
+i left my apartment without telling my landlord
+i left my apartment without notice
+my apartment has been empty for a while and the tenants owe me rent money.
+my tenants are nowhere to be found
+the apartment has been empty for months now
+the apartment has been empty for some time
+my tenants left without paying me awhile ago
+i have not heard anything from them
+my tenant diced without telling me anything, what i do?
+my tenant left without paying last year. what now?
+my tenant bailed some time ago this year
+my previous tenant owes me rent from 24 months ago. can i still claim it?
+can i pursue my previous tenant for unpaid rent? they left 2 years ago.
+my tenant left without telling me 4 months ago
+my tenant left without any notice 3 months ago
+i think my tenants left because i never see them ever
+i am not able to reach any of my tenants
+i can't reach my tenants
+i can't find my tenants
+my tenants are nowhere to be found. what now?
+my tenants left without paying me
+i left my apartment without paying rent
+the people renting my apartment left without paying the rent
+my tenants diced
+my tenants are nowhere to be found
+my tenant left without paying me
+my tenant bailed
+how can i claim unpaid rent from my previous tenant
+my previous tenant owers me rent, can i still claim it?
+can i pursue my previous tenant for unpaid rent?
+my tenant is gone
+my tenant just disappeared.
+my tenant left without telling me.
+my tenant left without any notice
+
+[common_examples: faq_rlq_tenant_urgent_repair_costs_deducted]
+if i repair the fridge can i deduct that off the rent?
+if i paint the apartment, can i remove the cost of materials and labor off the rent?
+can i deduct costs off my monthly rent if i fix things around my apartment?
+i did repairs but my landlord is asking for the full rent price
+if i fix the floors, can i remove how much that cost me from my rent?
+if i repair the wall in the apartment, can that be removed from my rent?
+i had to make a fix to the apartment but i shouldn't be expected to pay the entire cost of my rent
+i fixed something in an emergency and want to be reimbursed for the costs
+can i get refunded for the repair i did in my unit?
+i need to repair something in the apartment but do not want to pay for it
+if i make a repair will i have to pay for it
+can i get the costs reimbursed if i have to make a repair for it
+if i repair the toilet in the apartment, can that cost be deducted from my rent
+
+[common_examples: faq_likehome_housing-committee]
+how do i find a housing committee
+how do i find my local housing committee
+i have housing problems, is there any group that can help me
+i prefer in-person help i think, can anyone help me
+is there a way i can locate the closest housing committee to me
+is there a list somewhere of people that can help me
+i prefer face to face help, where can i go
+je parle pas anglais, ou pouvez-vous m’aidez
+i don’t speak english well help
+is there anyone that can help me about my housing issues that is not a program
+yo no hablo ingles
+
+[common_examples: faq_rlq_leave_apartment_no_lease]
+i don't have a lease, can i leave the apartment at any time?
+i didn't sign anything be she told me we discussed the terms so its a verbal lease. am i able to leave the apartment?
+i didn't sign anything be she told me we discussed the terms so its a verbal lease. am i able to leave the apartment?
+he told me it was something called a verbal lease. i don't think that exists. can i leave anyways?
+i agreed to stay for a few months but need to leave now
+i swore to him verbally as a lease but i don't think that counts. i can leave right?
+i don't have a lease associated with my dwelling, may i leave the apartment and never come back?
+i never provided my signature and now i want to leave
+i didn't sign a single pice of paper, can i leave and get another apartment?
+the landlord didn't make me sign anything. can i just ditch the apartment?
+i want to leave the apartment becausee i never signed anything
+i never signed a lease. can i leave?
+i don't have a lease, can i leave the unit without any issues
+
+[common_examples: faq_likehome_lease-transfer]
+i need helping transferring my lease
+how can i transfer my lease
+what do i do for a lease transfer
+what are the steps to follow to transfer my lease to someone else
+how do i give my lease to someone else
+what do i do to let someone else move in instead of me
+let someone else have my apartment
+
+[common_examples: ask_nonpayment]
+they have not paid rent
+tenant hasn't paid his rent
+tenant hasn't paid their rent
+tenant hasn't paid her rent
+they owe me for rent
+tenant hasn't paid rent
+tenant hasn't paid rent in a while
+they have not paid me for rent
+my tenant isn't paying rent
+my tenant hasn't paid rent
+i haven't received rent from my tenant
+i haven't received rent
+my tenants owe me rent money
+they are late on rent payments
+rent payments have not gone through
+i haven't received payment
+the tenant has not paid rent recently
+i haven't been paid rent
+i'm injured and i haven't paid rent in 2 months since i got fired from job. i can't afford it.
+i haven't paid rent.
+my tenant hasn't paid in 2 months, can i evict him?
+my tenant hasn't paid in 3 months. i haven't seen him either and i can never catch him.
+my tenant hasn't paid in 2 weeks
+my tenant hasn't paid in 2 days
+i haven't paid rent and my landlord wants to evict me
+i haven't paid rent in 2 weeks and my landlord wants to evict me
+i cannot pay my landlord rent money
+
+
+[common_examples: faq_likehome_spouse-violence]
+i’m trying to cancel the lease after sexual abuse
+me and my child are scared of my lover's violence
+my lover beats me and i can’t take it anymore
+my boyfriend tried to rape me
+i got raped by my ex
+my lover comes back drunk every night and scares my child
+my ex-lover was violent
+my lover hits me
+
+[common_examples: faq_rlq_lease_cancellation_immediately_after_signing]
+can i cancel a lease i just signed
+i signed the lease for an apartment but found a better one afterwards
+i signed for an apartment but changed my mind
+i signed the lease but do not want it anymore
+is there a way that i can return the lease? i don't want the apartment anymore.
+can i revoke the lease? my tenants just signed it
+can i cancel my lease? i only signed it a few days ago.
+can i void my lease? i only recently signed it.
+can i go back on the lease i just signed?
+i signed a lease but i found a better apartment, can i cancel my current lease?
+my tenants are trying to cancel the lease. it has only been 5 days since they signed it. are they allowed?
+my tenant is trying to cancel the lease after they signed it
+can i cancel the lease after it is signed?
+how long do i have to cancel the lease after it is signed?
+
+[common_examples: faq_rlq_landlord_neglects_necessary_repairs]
+the landlord does not intend on fixing the water
+my landlord refuses the fix the windows and it's cold
+my landlord refuses the fix the wall and it's cold
+my landlord didn't fix it
+the landlord does not want to do repairs in the apartment
+the apartment needs sever repairs but the landlord hasn't done anything, is there somethin i can do?
+the unit is falling apart and the landlord won't make any repairs
+my apartment desperately needs repairs and the landlord refuses to do them.
+my landlord didn't do the required repairs
+if my landlord doesn't do the necessary repair, can i pursue them further?
+if my landlord doesn't do the necessary repair, can i pursue them further?
+my landlord didn't repair what i asked him to fix
+
+[common_examples: faq_likehome_personal-info]
+can my landlord ask for my sin
+my landlord asked for a copy of my study permit
+is my landlord allowed to ask for a copy of my driver’s license
+my landlord asked for a picture of my sun card
+my landlord wants me to photocopy my health card and send it to him
+my future landlord is asking for my social insurance number
+my future landlord is asking for my sin
+my future landlord is asking for my social security number
+my landlord keeps asking me for a copy of my birth certificate
+
+[common_examples: ask_rent_change]
+they want to increase the rent for the apartment
+rent change
+rent increase
+increase the current rent price
+my landlord wants to increase the current rent price
+the landlord wants to increase the price of the rent
+the rent for my apartment is being increased
+the rent price increased
+the price of the rent should be higher
+i want to increase the rent
+my landlord increased the rent
+the landlord increased my rent
+the landlord increased the rent
+the landlord raised the rent
+the landlord wants to increase my rent
+the rent is being increased
+my landlord increased my rent
+my landlord raised the rent
+my landlord wants to increase my rent
+my rent is being increased
+my landlord is trying to increase the rent of my apartment during the lease.
+my landlord is increasing rent after i have to renew the lease.
+my landlord is trying to increase rent during the lease. next month will cost 5$ more!
+my landlord is trying to add 5$ to my rent next month. help please
+my landlord increased the rent by 15$ per month after the end of my lease.
+my landlord told me that he'll be increasing rent
+there will be a rent increase
+there will be an increase in rent
+my landlord says that my rent will change soon
+
+
+
+[common_examples: faq_likehome_negligence]
+how do i prove to my landlord this is an issue of wear and tear and not negligence
+it broke and it wasn’t my fault
+how do i ensure the case can’t be spinned into it being negligence
+my pipes burst during winter and it’s not my fault
+my landlord is trying to say i was negligent and i need to pay for the damages
+the ceiling in my bathroom is cracking and my landlord says it’s my fault that i was negligent
+my landlord keeps saying it’s my fault the lock broke, how do i prove it’s not?
+
+[common_examples: faq_likehome_rl31]
+how can I get my rl31 slip
+my landlord won’t give me my rl31 slip
+my landlord still hasn’t sent me my rl31 slip
+my landlord hasn’t provided me with the rl31
+i need to file in my taxes soon.
+i need to submit my taxes and i don’t have my rl31 yet
+i asked my landlord about my rl31 but he still hasn’t answered back
+solidarity tax credit
+
+[common_examples: ask_lease_termination]
+to end my lease
+to terminate my lease
+to resiliate my lease
+to break the lease
+to end the lease
+to terminate the lease
+to resiliate the lease
+i'd like to terminate my lease
+i want to break my lease
+i'm leaving my apartment even though my lease is still ongoing.
+i'm getting evicted
+i'm getting evicted from my apartment.
+i'm kicking out my tenant.
+i'm trying to kick my tenant out. he damaged my property and hasn't paid rent.
+my landlord is trying to evict me.
+my neighbour complained to my landlord about my cat. my landlord is now trying to evict me.
+my landlord is trying to evict me.
+the apartment is disgusting. my roommate won't clean and my landlord won't do anything.
+my apartment is not habitable and my landlord won't do anything to fix the issues. i want to break the lease.
+i want to break the lease.
+i'm getting kicked out of my apartment.
+i want to break the lease.
+my tenant damaged the apartment and won't pay for the damages.
+i want to evict my tenant. he's noisy and i got complaints about him.
+my landlord is not doing any repairs. i want to move out.
+my tenant keeps bringing his dog in the apartment. i specified cats only. i need him out.
+my tenant brought in a noisy parrot that won't stop singing. i need him gone. this can't continue i keep getting complaints and it's keeping his neighbours up.
+i cannot stand my tenant anymore. he's noisy, rude, disrespectful and tardy. he needs to go.
+i need help with my lease. my landlord is not doing anything about my neighbours and i can't sleep at night I want to annul it
+the tenant needs to go. he's making a mess of the apartment and i can't have him damage it further.
+my landlord wants me gone because my dog is too loud and keeps barking. i need help i got no where else to go.
+
+[common_examples: faq_rlq_attending_hearing]
+i'm not able to attend the hearing.
+do i need to attend the hearing?
+i won't be able to make it to the hearing on time.
+i will be late, can we reschedule the hearing?
+how can i move my hearing's date?
+how am i able to postpone my hearing?
+can i postpone the meeting?
+i won't arrive to time to my hearing, can i reschedule?
+i am something to do at the same time as the hearing and can't make it.
+i have something to do on that day. how can i move the hearing back?
+how can i move my hearing?
+i am busy and can't free up time to go to my hearing.
+what if i can't make it to my hearing on time?
+can i reschedule my hearing?
+i'm unable to make it to the hearing, what are my options?
+can i postpone the hearing?
+can i not show up to the hearing?
+i can't make it to the hearing
+i can't attend the hearing
+do i need to go to the hearing?
+i was informed that i must attend a hearing.
+there's a hearing that i can't attend.
+i am supposed to attend a hearing. do i have to?
+my hearing is scheduled soon. do i need to attend it?
+do i need to be at the hearing?
+
+[common_examples: faq_rlq_unreasonable_rent_increase]
+i want to increase the rent of my tenants
+my landlord said rent will go up next year. how much can i expect it to increase? she didn't give me any details
+what is the legal amount by which my landlord can increase the rent?
+is it normal that my rent increase by 10 dollars?
+my rent was increased by 3%. is this legal?
+what is the maximum percentage by which the landlord can increase the rent
+my landlord increased the rent by $5, are they allowed to do this?
+by how much can my landlord increase the rent?
+i want to increase the rent of my tenants significantly
+
+[common_examples: faq_likehome_landlord-harass]
+my landlord is harassing me
+my landlord is constantly bothering me
+my landlord is sexually harassing me
+my landlord keeps trying to date me, i said no but he insists, it’s creepy
+i keep getting asked out by my landlord, i told him no but he keeps insisting
+my landlord calls me all the time and makes lewd comments
+i can’t take my landlord’s harassment anymore
+
+[common_examples: faq_likehome_emergency]
+it’s an emergency
+my apartment is getting destroyed it's an emergency
+there was an emergency where there’s a flood in my apartment
+there was an emergency where my apartment electricity went off 
+help there was an emergency where a fire burned half of my apartment and there’s a hole in the wall now
+water is leaking all over my bathroom it's an emergency
+there is an emergency my lights don’t work and i can’t see anything
+it's an emergency
+there was an emergency
+my whole apartment was flooded in an emergency, i can’t live there anymore
+
+[common_examples: faq_likehome_deposit-request]
+my landlord is asking me for a deposit
+my landlord wants me to pay for one month in advance
+i'm being asked for a deposit
+my landlord wants rent in advance
+my landlord wants payment in advance
+my landlord is asking me for a security deposit
+my landlord is asking me for a key deposit
+my landlord is asking me for a rent deposit
+hey my landlord is asking for a deposit and i heard it's illegal can you help me?
+my landlord is asking me for a key deposit. i heard it's illegal and i need help.
+i need help my landlord is asking me for a deposit before i sign the lease. it was never mentioned before.
+hello my landlord is asking me for a security deposit before i sign the contract
+i need help my landlord is asking me for a key deposit for me to renew my lease
+hey my landlord is asking me for a key deposit before i get to live in my new apartment
+can i ask my tenants for a deposit?
+can my landlord ask a security deposit from me? i really like the apartment.
+hey i saw this advertisement on craigslist and they're asking for a security deposit. is this allowed?
+
+[common_examples: faq_rlq_paying_repairs_for_sink_toilet]
+the toilet overflows every single time i flush, do i have to pay for the repairs?
+the toilet won't flush anymore, who has to pay to repair it?
+the sink doesn't work anymore and i want my landlord to pay for it
+my toilet is overflowing, do i have to pay for it?
+who has to pay for a broken sink or broken toilet?
+who has to pay for a plumber?
+does my landlord have to pay for blocked pipes or plumbing?
+the toilet isn't working but the landlord wants me to repair it
+the toilet is blocked can i ask the landlord to repair it?
+the toilet is clogged can i ask the landlord get it fixed?
+the sink is jammed can i get the landlord to fix it?
+the sink is blocked up and the landlord doesn't want to fix it
+the sink is clogged can i ask the landlord to fix it
+
+[common_examples: faq_rlq_apartment_too_cold]
+i think the apartment is too cold. i can feel a warm breeze but my feet are still frozen. it's only 12c inside. can i force my landlord to put it higher?
+my landlord is cheap and won't put enough heat in. when can they put extra heating on?
+it's too cold in my apartment. it's only 14 degrees. what heat should it legally be at?
+is there a date that my landlord must respect to finally put the heating on?
+i'm in an apartment and the temperature is below 11c. when will my landlord finally put some heating inside of this building?
+what is the precise date that my landlord must start heating my apartment?
+when does my landlord legally have to heat up my apartment?
+when will it get a little warmer, it's freezing
+it's too cold, when does my landlorrd have to put the heat on?
+when does my landlord need to put heat in
+when will my landlord start putting the heat on?
+
+[common_examples: faq_likehome_demand-letter]
+how do i make a request to my landlord
+i want to give my landlord a demand letter
+i need to write a demand letter to my landlord
+how do i write a demand letter to my landlord
+how do i make a demand from my landlord
+what are the steps i need to take to make a proper request out of my landlord
+is there a way i need to ask my landlord for things
+how do i write a letter to my landlord
+
+[common_examples: faq_rlq_noisy_tenant]
+i'm sick of my tenant being so loud
+i can't sleep anymore because my landlord is loud as hell
+is my neighbour allowed to be noisy at night? i can't sleep
+can a tenant be noisy until 10:00pm?
+she is too loud
+after what time the tenant can't make noise?
+i can't sleep because my neighbour is too loud, what are my options?
+am i allowed to make noise during the day?
+my tenant is excessively loud
+my neighboor is making excessive noise
+my tenants are making too much noise
+
+[common_examples: faq_likehome_landlord-contact]
+my landlord disappeared and I need to contact him right now
+i can't find my landlord
+how do i find my landlord’s contact information
+is there a yellowpages for my landlord
+i can’t find my landlord’s phone number on the lease
+i need to email my landlord
+how do i find the representative of the landlord
+is there a way i can get the property manager phone number
+
+[common_examples: faq_likehome_credit-check]
+i am going to have my credit checked
+i have to check my credit
+i need to provide a credit check
+credit check
+how can i provide a credit check to my landlord
+how do i provide a credit check
+how can i get my credit checked
+how can i get my credit score
+how can i generate a credit report
+
+[common_examples: faq_rlq_landlord_entering_occupied_apartment]
+my landlord is giving the lease to another tenant. when are they allowed to visit the apartment?
+in general, when do landlords visit their apartments to check on their condition?
+how much time am i allowed before my landlrod comes to visit my apartment?
+if my landlord wants to see if my apartment is in good condition, how much time do i have?
+if my landlord wants to inspect my apartment, when can she do so?
+my landlord asked me to visit the apartment with the next buyer. can he do that without asking for my permission
+if my landlord wants to inspect my apartment, when can they do so?
+how much time in advance does a landlord need to ask a tenant for permission to visit?
+the landlord entered the backyard without asking me, do they have the right to do so?
+is the landlord allowed to enter the premises without asking me first?
+my landlord entered the apartment without my consent. were they allowed to do that?
+can the landlord enter the apartment without my permission?
+can the landlord enter the apartment without my permission?
+
+[common_examples: faq_likehome_sublet]
+how do i go about subletting my dwelling
+how do i sublet my dwelling
+i want to sublet my dwelling
+can i sublet my place
+how do i sublet my lease to someone
+i’m leaving on vacation, how do i setup subletting
+give me information on subletting
+i’m getting subtenants
+i’m getting subtenants and i don’t know how to manage them
+
+[common_examples: faq_likehome_abandon]
+i want to abandon my apartment
+my apartment is a shithole, i want to abandon
+i have to abandon my apartment due to a family emergency
+do i need to keep paying rent if i abandon my apartment
+my apartment has infestations of bed bugs, i want to abandon
+can i abandon my apartment even though my lease is not finished
+i can’t live in my dwelling anymore i want to go
