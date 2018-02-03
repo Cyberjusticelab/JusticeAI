@@ -1,5 +1,6 @@
 from util.file import Save, Load
 from sklearn.neighbors import NearestNeighbors
+from sklearn.preprocessing import StandardScaler
 import numpy as np
 
 
@@ -17,19 +18,23 @@ class SimilarFinder:
         if not train:
             self.model = Load.load_binary("similarity_model.bin")
             self.case_numbers = Load.load_binary("similarity_case_numbers.bin")
+            self.scaler = Load.load_binary("similarity_scaler.bin")
         elif len(dataset) > 0:
-            sample_set = [np.concatenate([vec['demands_vector'], vec['facts_vector'], vec[
-                                         'outcomes_vector']]) for vec in dataset]
+            sample_set = [np.concatenate(
+                [vec['facts_vector'], vec['outcomes_vector']]) for vec in dataset]
 
             for i in range(len(sample_set)):
                 sample_set[i] = sample_set[i].astype(np.int64)
 
-            self.model = NearestNeighbors(5, metric='mahalanobis', metric_params={'V': np.cov(sample_set)})
+            self.scaler = StandardScaler()
+            sample_set = self.scaler.fit_transform(sample_set)
+            self.model = NearestNeighbors(5, metric='euclidean')
             self.model.fit(sample_set)
             self.case_numbers = [vec['name'] for vec in dataset]
             save = Save()
             save.save_binary("similarity_model.bin", self.model)
             save.save_binary("similarity_case_numbers.bin", self.case_numbers)
+            save.save_binary("similarity_scaler.bin", self.scaler)
         else:
             raise ValueError('Please train or load the classifier first')
 
@@ -40,7 +45,7 @@ class SimilarFinder:
             e.g. {
               'facts_vector' : [1,2,0..],
               'demands_vector' : [1,2,0..],
-              'decisions_vector' : [1,2,0..]
+              'outcomes_vector' : [1,2,0..]
             }
         return: A list of tuples containing the most similar cases and their distance measure.
                 (lower is better)
@@ -52,8 +57,8 @@ class SimilarFinder:
     """
 
     def get_most_similar(self, sample):
-        sample_vector = np.concatenate([sample['demands_vector'], sample[
-                                       'facts_vector'], sample['outcomes_vector']])
-        nearest = self.model.kneighbors([sample_vector])
+        input_vector = self.scaler.transform(
+            [np.concatenate([sample['facts_vector'], sample['outcomes_vector']])])
+        nearest = self.model.kneighbors(input_vector)
         names = [self.case_numbers[index] for index in nearest[1][0]]
         return list(zip(names, nearest[0][0]))
