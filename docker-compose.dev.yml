@@ -17,6 +17,12 @@ services:
     command: gunicorn -w 3 --log-level DEBUG -b 0.0.0.0:3003 app:app
     environment:
       POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
+  task_service:
+    ports:
+      - 3004:3004
+    command: python -m flask run --host 0.0.0.0 -p 3004
+    environment:
+      POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
   web_client:
     command: npm start
     ports:
