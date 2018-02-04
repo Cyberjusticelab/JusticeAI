@@ -305,13 +305,6 @@ class RegexLib:
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
-        ("incorrect_facts", [
-            re.compile(
-                FACT_DIGIT_REGEX + \
-                r".+demande (de la|des) " + TENANT_REGEX + r" est mal fondée",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
         ("landlord_inspector_fees", [
             re.compile(
                 FACT_DIGIT_REGEX + r".*\K" + MONEY_REGEX + r"\s(((pour|représentant)\s(les\s|des\s)?)|en\s)?\(?frais\sde\sdépistage\)?",
@@ -375,20 +368,6 @@ class RegexLib:
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
-        ("landlord_rent_change_piece_justification", [
-            re.compile(
-                FACT_DIGIT_REGEX + \
-                r".+formulaire\s(r|R)enseignements.+loyer.+(pièces\sjustificatives)",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
-        ("landlord_rent_change_receipts", [
-            re.compile(
-                FACT_DIGIT_REGEX + \
-                r".+formulaire\s(r|R)enseignements.+loyer.+(pièces\sjustificatives).+factures",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
         ("landlord_retakes_apartment", [
             re.compile(
                 FACT_DIGIT_REGEX + r".+" + LANDLORD_REGEX + \
@@ -421,7 +400,7 @@ class RegexLib:
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
-        ("lease", [
+        ("tenant_lease_fixed", [
             re.compile(
                 FACT_DIGIT_REGEX + r".+un bail " + \
                 __multiple_words(0, 8) + r"au loyer " + \
@@ -433,16 +412,9 @@ class RegexLib:
                 MONEY_REGEX + r"\spar mois",
                 re.IGNORECASE)
         ], "MONEY_REGEX"),
-        ("proof_of_late", [
+        ("signed_proof_of_rent_debt", [
             re.compile(
                 FACT_DIGIT_REGEX + r".+une reconnaissance de dette",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
-        ("proof_of_revenu", [
-            re.compile(
-                FACT_DIGIT_REGEX + \
-                r".+a fourni (\w+\s){0,10}l'attestation de ses revenu",
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
@@ -530,43 +502,6 @@ class RegexLib:
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
-        ("lack_of_proof", [
-            re.compile(
-                FACT_DIGIT_REGEX + r".+considérant\sl'absence de preuve",
-                re.IGNORECASE
-            ),
-            re.compile(
-                FACT_DIGIT_REGEX + r".+absence de preuve",
-                re.IGNORECASE
-            ),
-            re.compile(
-                FACT_DIGIT_REGEX + r".+aucune preuve au soutien de la demande",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
-        ("tenant_landlord_agreement", [
-            re.compile(
-                FACT_DIGIT_REGEX + r".+entente.+(entre\sles\sdeux\sparties)",
-                re.IGNORECASE
-            ),
-            re.compile(
-                FACT_DIGIT_REGEX + r".+entérine (l'|cette\s)entente",
-                re.IGNORECASE
-            ),
-            re.compile(
-                FACT_DIGIT_REGEX + r".+l'entente intervenue entre les parties",
-                re.IGNORECASE
-            ),
-            re.compile(
-                FACT_DIGIT_REGEX + r".+homologue cette entente",
-                re.IGNORECASE
-            ),
-            re.compile(
-                FACT_DIGIT_REGEX + r".+homologue " + \
-                __multiple_words(0, 3) + r"transaction",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
         ("tenant_lease_fixed", [
             # FIXME
             # re.compile(
@@ -620,19 +555,6 @@ class RegexLib:
                 re.IGNORECASE
             )
         ], "MONEY_REGEX"),
-        ("tenant_negligence", [
-            re.compile(
-                FACT_DIGIT_REGEX + \
-                r".+(causé par la|dû à la|vu la|en raison de la|à cause de la) négligence de la " + TENANT_REGEX,
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
-        ("tenant_not_request_cancel_lease", [
-            re.compile(
-                FACT_DIGIT_REGEX + r".+jamais.+(résiliation\sde\sbail)",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
         ("tenant_owes_rent", [
             # FIXME or SPLIT
             # re.compile(
