@@ -6,15 +6,14 @@ import numpy as np
 
 class SimilarFinder:
 
-    """
-        SimilarFinder is used to obtain the most similar cases to a given
-        sample. It uses Ski-kit learn's nearest neighbor implementation
-        param: train: will train the model
-        param: dataset: numpy array of precedent vectors. Ignored if train
-                        is set to False
-    """
-
     def __init__(self, train=False, dataset=[]):
+        """
+            SimilarFinder is used to obtain the most similar cases to a given
+            sample. It uses Ski-kit learn's nearest neighbor implementation
+            param: train: will train the model
+            param: dataset: numpy array of precedent vectors. Ignored if train
+                            is set to False
+        """
         if not train:
             self.model = Load.load_binary("similarity_model.bin")
             self.case_numbers = Load.load_binary("similarity_case_numbers.bin")
@@ -38,25 +37,24 @@ class SimilarFinder:
         else:
             raise ValueError('Please train or load the classifier first')
 
-    """
-        Calculates the most similar cases by finding the nearest
-        neighbor to the given sample
-        param: sample: a Dict object with fact, demand and decision vectors
-            e.g. {
-              'facts_vector' : [1,2,0..],
-              'demands_vector' : [1,2,0..],
-              'outcomes_vector' : [1,2,0..]
-            }
-        return: A list of tuples containing the most similar cases and their distance measure.
-                (lower is better)
-            e.g. [
-              (AZ-11111, 12),
-              (AZ-12141, 5),
-              (AZ-11315, 1)
-            ]
-    """
-
     def get_most_similar(self, sample):
+        """
+            Calculates the most similar cases by finding the nearest
+            neighbor to the given sample
+            param: sample: a Dict object with fact, demand and decision vectors
+                e.g. {
+                  'facts_vector' : [1,2,0..],
+                  'demands_vector' : [1,2,0..],
+                  'outcomes_vector' : [1,2,0..]
+                }
+            return: A list of tuples containing the most similar cases and their distance measure.
+                    (lower is better)
+                e.g. [
+                  (AZ-11111, 12),
+                  (AZ-12141, 5),
+                  (AZ-11315, 1)
+                ]
+        """
         input_vector = self.scaler.transform(
             [np.concatenate([sample['facts_vector'], sample['outcomes_vector']])])
         nearest = self.model.kneighbors(input_vector)
