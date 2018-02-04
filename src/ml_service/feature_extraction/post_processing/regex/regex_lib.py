@@ -236,14 +236,11 @@ class RegexLib:
                 FACT_DIGIT_REGEX + r".+preuve.*logement.*" +
                 TENANT_REGEX + r".*est.*mauvais.*état",
                 re.IGNORECASE
+            ),
+            re.compile(
+                FACT_DIGIT_REGEX + r".+((infestation(s)?|traitement)\s(soudaine et imprévue )?de (punaise(s)?|rat(s)?|fourmi(s)?|coquerelle(s)?|souri(s))|excrément(s)?)",
+                re.IGNORECASE
             )
-        ], "BOOLEAN"),
-        ("apartment_infestation", [
-            # FIXME
-            # re.compile(
-            #     FACT_DIGIT_REGEX + r".+infestation(s)?|\brat(s)?|fourmi(s)?|coquerelle(s)?|souri(s)?|excrément(s)?",
-            #     re.IGNORECASE
-            # )
         ], "BOOLEAN"),
         ("asker_is_landlord", [
             re.compile(
