@@ -610,30 +610,6 @@ class RegexLib:
             )
 
         ], "BOOLEAN"),
-        ("tenant_rent_paid_before_hearing", [
-            re.compile(
-                FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + \
-                r".*payé.*loyer.*(dû le jour|avant).+(audience)",
-                re.IGNORECASE
-            ),
-            re.compile(
-                FACT_DIGIT_REGEX + \
-                r".+(ont|a|ayant) payé (le|tous les) loyer(s|) (dû|du)",
-                re.IGNORECASE
-            ),
-            re.compile(
-                FACT_DIGIT_REGEX + r".+(ont|a) payé les loyers réclamés",
-                re.IGNORECASE
-            ),
-            re.compile(
-                FACT_DIGIT_REGEX + r".+les loyers ont été payés",
-                re.IGNORECASE
-            ),
-            re.compile(
-                FACT_DIGIT_REGEX + r".+à la date de l'audience, tous les loyers réclamés ont été payés",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
         ("tenant_violence", [
             re.compile(
                 # FIXME
