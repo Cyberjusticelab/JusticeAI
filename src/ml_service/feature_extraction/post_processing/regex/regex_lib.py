@@ -226,14 +226,6 @@ class RegexLib:
     # "landlord_not_prejudice_justified", "tenant_claims_harm",
     # "tenant_is_asshole"
     regex_facts = [
-        ("absent", [
-            re.compile(
-                FACT_DIGIT_REGEX +
-                r".+considérant l'absence (du|de la|des) (" +
-                LANDLORD_REGEX + r"|" + TENANT_REGEX + r")",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
         ("apartment_impropre", [
             re.compile(
                 FACT_DIGIT_REGEX +
