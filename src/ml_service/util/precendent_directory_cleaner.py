@@ -1,35 +1,115 @@
 import os
+import regex as re
 from langdetect import detect
 from util.constant import Path
 
-
-def is_language_type(text, language):
-    """
-    :param text: language detection will be run on this text
-    :param language: desired language to be detected
-    :return: returns true if this text is written in the language specified else false
-    """
-    language_detected = detect(text)
-    if language_detected == language:
-        return True
-    return False
+FACT_DIGIT_REGEX = r"\[\d+\]"
+TENANT_REGEX = r"locataire(s)?"
+LANDLORD_REGEX = r"locat(eur|rice)(s)?"
 
 
-def remove_language_type_from_directory(directory_path, language):
+def __multiple_words(min, max):
+    return r"(\w+(\s|'|,\s)){" + str(min) + "," + str(max) + "}"
+
+
+regexes = [
+    # absent
+    re.compile(
+        FACT_DIGIT_REGEX +
+        r".+considérant l'absence (du|de la|des) (" +
+        LANDLORD_REGEX + r"|" + TENANT_REGEX + r")",
+        re.IGNORECASE
+    ),
+    # incorrect_facts
+    re.compile(
+        FACT_DIGIT_REGEX + \
+        r".+demande (de la|des) " + TENANT_REGEX + r" est mal fondée",
+        re.IGNORECASE
+    ),
+    # tenant_landlord_agreement
+    re.compile(
+        FACT_DIGIT_REGEX + r".+entente.+(entre\sles\sdeux\sparties)",
+        re.IGNORECASE
+    ),
+    re.compile(
+        FACT_DIGIT_REGEX + r".+entérine (l'|cette\s)entente",
+        re.IGNORECASE
+    ),
+    re.compile(
+        FACT_DIGIT_REGEX + r".+l'entente intervenue entre les parties",
+        re.IGNORECASE
+    ),
+    re.compile(
+        FACT_DIGIT_REGEX + r".+homologue cette entente",
+        re.IGNORECASE
+    ),
+    re.compile(
+        FACT_DIGIT_REGEX + r".+homologue " + \
+        __multiple_words(0, 3) + r"transaction",
+        re.IGNORECASE
+    ),
+    # tenant_rent_paid_before_hearing
+    re.compile(
+        FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + \
+        r".*payé.*loyer.*(dû le jour|avant).+(audience)",
+        re.IGNORECASE
+    ),
+    re.compile(
+        FACT_DIGIT_REGEX + \
+        r".+(ont|a|ayant) payé (le|tous les) loyer(s|) (dû|du)",
+        re.IGNORECASE
+    ),
+    re.compile(
+        FACT_DIGIT_REGEX + r".+(ont|a) payé les loyers réclamés",
+        re.IGNORECASE
+    ),
+    re.compile(
+        FACT_DIGIT_REGEX + r".+les loyers ont été payés",
+        re.IGNORECASE
+    ),
+    re.compile(
+        FACT_DIGIT_REGEX + r".+à la date de l'audience, tous les loyers réclamés ont été payés",
+        re.IGNORECASE
+    )
+]
+
+
+def remove_files(directory_path):
     """
-    :param directory_path: directory path to search in
-    :param language: language that needs to be removed
-    :return: total files removed
+    removes precedents that matches the regex list or are written in english
+    :param directory_path: directory where the precedents are located
+    :return: (names of files removed due to regex match, names of files that were in english)
     """
-    count = 0
+    files_matching_regexes = []
+    files_in_english = []
+
     for filename in os.listdir(directory_path):
         if filename.endswith(".txt"):
-            file_content = open(directory_path + filename, "r", encoding="ISO-8859-1").read()
-            if is_language_type(file_content, language):
-                count += 1
+            precedent_file = open(directory_path + filename, "r", encoding="ISO-8859-1")
+            file_removed = False
+
+            # remove precedents that matches regexes
+            for line in precedent_file.readlines():
+                for reg in regexes:
+                    if reg.search(line):
+                        os.remove(Path.raw_data_directory + filename)
+                        file_removed = True
+                        files_matching_regexes.append(filename)
+                        break
+                if file_removed:
+                    break
+            if file_removed:
+                continue
+
+            # remove english precedents
+            precedent_file.seek(0)
+            file_content = precedent_file.read()
+            if detect(file_content) == 'en':
                 os.remove(Path.raw_data_directory + filename)
-    return count
+                files_in_english.append(filename)
+
+    return files_matching_regexes, files_in_english
 
 
-if __file__ == "__main__":
-    remove_language_type_from_directory(Path.raw_data_directory, "en")
+if __name__ == "__main__":
+    remove_files(Path.raw_data_directory)
