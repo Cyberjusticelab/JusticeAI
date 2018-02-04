@@ -3,3 +3,6 @@ flask-marshmallow==0.8.0
 marshmallow-enum==1.4.1
 Flask-SQLAlchemy==2.3.2
 marshmallow-sqlalchemy==0.13.2
+pytesseract==0.2.0
+psycopg2==2.7.3.2
+opencv-python==3.4.0.12
