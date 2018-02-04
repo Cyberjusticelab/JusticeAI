@@ -226,7 +226,7 @@ class RegexLib:
     # "landlord_not_prejudice_justified", "tenant_claims_harm",
     # "tenant_is_asshole"
     regex_facts = [
-        ("apartment_impropre", [
+        ("apartment_dirty", [
             re.compile(
                 FACT_DIGIT_REGEX +
                 r".+(logement(était\s)?(.+impropre|infesté).+l'habitation|(bon\sétat.+propreté))",
@@ -374,18 +374,6 @@ class RegexLib:
             re.compile(
                 FACT_DIGIT_REGEX + r".+" + LANDLORD_REGEX + \
                 r".+demande.+(Régie\sdu\slogement)",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
-        ("landlord_serious_prejudice", [
-            re.compile(
-                FACT_DIGIT_REGEX + \
-                r".+cause un préjudice sérieux au(x|) " + LANDLORD_REGEX + r"",
-                re.IGNORECASE
-            ),
-            re.compile(
-                FACT_DIGIT_REGEX + r".+" + LANDLORD_REGEX + r" " + \
-                __multiple_words(0, 1) + r"}un préjudice sérieux",
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
@@ -599,13 +587,6 @@ class RegexLib:
             )
 
         ], "BOOLEAN"),
-        ("tenant_violence", [
-            re.compile(
-                # FIXME
-                FACT_DIGIT_REGEX + r".+(raison.+)?.*(viol(ent|ence))",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
         ("tenant_withold_rent_without_permission", [
             re.compile(
                 FACT_DIGIT_REGEX + r".+" + TENANT_REGEX + \
@@ -623,7 +604,27 @@ class RegexLib:
                 __multiple_words(
                     0, 6) + r"(sécurité des occupants|l'intégrité du logement)",
                 re.IGNORECASE
-            )
+            ),
+            re.compile(
+                FACT_DIGIT_REGEX + r".+((c|l)es cris(e|es)?|les hurlements|le tapage|les claquages de portes|les chicanes)",
+                re.IGNORECASE
+            ),
+            re.compile(
+                FACT_DIGIT_REGEX + r".+\s(subissait de la|victime(s)? de|sa|propos|(raison\s)?de la|comportement(s)?"
+                                   r"|montre|us(é|er) de|vivre dans la|langage|empreint(s)? de|parfois|est|très|en"
+                                   r"|échange(s)?|cause de|attitude|geste de|si|climat de|acte(s)? de|être|été"
+                                   r"|escalade de|reliées à|altercation(s)?(\sphysique(s)?)|étaient|avec|devenu"
+                                   r"|très|bâton|et|aurait|assez|façon|plus|bruit(s)?|manifestation(s)? (de)?"
+                                   r"|particulièrement|est un (homme|femme)|parole(s)?|coup(s)?|attitude) "
+                                   r"(violen(ce|t(e|é)?)(s)?|(l')?agressi(f|ve|vité)|mena(ce(s)?|çant(s)?)|vulgaire"
+                                   r"|intimida(tion|nt)(s)?|hostile|inadéquat)",
+                re.IGNORECASE
+            ),
+            re.compile(
+                FACT_DIGIT_REGEX + r".+((violen(ce|t(e|é)?))(s)?|agressi(f|ve)|mena(ç|c)(e|ant)(s)?) "
+                                   r"(bagarre(s)?|altercation|verbale(s)?|conjugale(s)?|continue|physique(s|ment)?)",
+                re.IGNORECASE
+            ),
         ], "BOOLEAN")
     ]
     regex_outcomes = [
@@ -652,6 +653,18 @@ class RegexLib:
             ),
             re.compile(
                 r"DÉCLARE le bail résilié"
+            )
+        ], "BOOLEAN"),
+        ("landlord_serious_prejudice", [
+            re.compile(
+                FACT_DIGIT_REGEX + \
+                r".+cause un préjudice sérieux au(x|) " + LANDLORD_REGEX + r"",
+                re.IGNORECASE
+            ),
+            re.compile(
+                FACT_DIGIT_REGEX + r".+" + LANDLORD_REGEX + r" " + \
+                __multiple_words(0, 1) + r"}un préjudice sérieux",
+                re.IGNORECASE
             )
         ], "BOOLEAN"),
         ("orders_expulsion", [
