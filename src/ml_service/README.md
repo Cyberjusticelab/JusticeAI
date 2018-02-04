@@ -63,7 +63,7 @@ main.py <driver for the pipeline (feature extraction + model training>
 
 ### Predict Outcome
 
-Predict the outcome based on given facts and demands. Returns an array of predicted outcomes.
+Predict the outcome based on given facts and demands. Returns an array of predicted outcomes as well as similar precedents. The precedents have distances assigned to them. The lower the distance, the more similar it is.
 
 **URL** : `/predict`
 
@@ -140,7 +140,14 @@ Provide facts_vector and demands_vector, with key values for each fact/demand.
     "outcomes_vector": {
       "lease_resiliation" : 1,
       ...
-    }
+    },
+    "similar_precedents" : [
+        ["AZ-1111111", 1.23123],
+        ["AZ-2222222", 1.23123],
+        ["AZ-3333333", 1.23123],
+        ["AZ-4444444", 1.23123],
+        ["AZ-5555555", 1.23123]
+    ]
 }
 ```
 
