@@ -18,11 +18,17 @@ def test_get_most_similar():
 
         def kneighbors(self, any):
             return (np.array([[1., 2., 3., 4., 5.]]), np.array([[1, 2, 4, 0, 3]]))
+
+    class MockScaler(object):
+
+        def transform(self, any):
+            return any
     similar.model = MockModel()
+    similar.scaler = MockScaler()
 
     # Execute
     result = similar.get_most_similar({'demands_vector': np.zeros(
-        73), 'outcomes_vector': np.zeros(1), 'facts_vector': np.zeros(1)})
+        1), 'outcomes_vector': np.zeros(1), 'facts_vector': np.zeros(1)})
 
     # Verify
     assert result[0] == ('b', 1.)
