@@ -58,7 +58,6 @@ def classify_claim_category(conversation_id, message):
         # Set conversation's claim category
         conversation.claim_category = {
             'ask_lease_termination': ClaimCategory.LEASE_TERMINATION,
-            'ask_rent_change': ClaimCategory.RENT_CHANGE,
             'ask_nonpayment': ClaimCategory.NONPAYMENT
         }[claim_category]
 
