@@ -96,19 +96,6 @@ if i make a repair will i have to pay for it
 can i get the costs reimbursed if i have to make a repair for it
 if i repair the toilet in the apartment, can that cost be deducted from my rent
 
-[common_examples: faq_likehome_housing-committee]
-how do i find a housing committee
-how do i find my local housing committee
-i have housing problems, is there any group that can help me
-i prefer in-person help i think, can anyone help me
-is there a way i can locate the closest housing committee to me
-is there a list somewhere of people that can help me
-i prefer face to face help, where can i go
-je parle pas anglais, ou pouvez-vous m’aidez
-i don’t speak english well help
-is there anyone that can help me about my housing issues that is not a program
-yo no hablo ingles
-
 [common_examples: faq_rlq_leave_apartment_no_lease]
 i don't have a lease, can i leave the apartment at any time?
 i didn't sign anything be she told me we discussed the terms so its a verbal lease. am i able to leave the apartment?
@@ -123,85 +110,6 @@ the landlord didn't make me sign anything. can i just ditch the apartment?
 i want to leave the apartment becausee i never signed anything
 i never signed a lease. can i leave?
 i don't have a lease, can i leave the unit without any issues
-
-[common_examples: faq_likehome_lease-transfer]
-i need helping transferring my lease
-how can i transfer my lease
-what do i do for a lease transfer
-what are the steps to follow to transfer my lease to someone else
-how do i give my lease to someone else
-what do i do to let someone else move in instead of me
-let someone else have my apartment
-
-[common_examples: ask_nonpayment]
-they have not paid rent
-tenant hasn't paid his rent
-tenant hasn't paid their rent
-tenant hasn't paid her rent
-they owe me for rent
-tenant hasn't paid rent
-tenant hasn't paid rent in a while
-they have not paid me for rent
-my tenant isn't paying rent
-my tenant hasn't paid rent
-i haven't received rent from my tenant
-i haven't received rent
-my tenants owe me rent money
-they are late on rent payments
-rent payments have not gone through
-i haven't received payment
-the tenant has not paid rent recently
-i haven't been paid rent
-i'm injured and i haven't paid rent in 2 months since i got fired from job. i can't afford it.
-i haven't paid rent.
-my tenant hasn't paid in 2 months, can i evict him?
-my tenant hasn't paid in 3 months. i haven't seen him either and i can never catch him.
-my tenant hasn't paid in 2 weeks
-my tenant hasn't paid in 2 days
-i haven't paid rent and my landlord wants to evict me
-i haven't paid rent in 2 weeks and my landlord wants to evict me
-i cannot pay my landlord rent money
-
-
-[common_examples: faq_likehome_spouse-violence]
-i’m trying to cancel the lease after sexual abuse
-me and my child are scared of my lover's violence
-my lover beats me and i can’t take it anymore
-my boyfriend tried to rape me
-i got raped by my ex
-my lover comes back drunk every night and scares my child
-my ex-lover was violent
-my lover hits me
-
-[common_examples: faq_rlq_lease_cancellation_immediately_after_signing]
-can i cancel a lease i just signed
-i signed the lease for an apartment but found a better one afterwards
-i signed for an apartment but changed my mind
-i signed the lease but do not want it anymore
-is there a way that i can return the lease? i don't want the apartment anymore.
-can i revoke the lease? my tenants just signed it
-can i cancel my lease? i only signed it a few days ago.
-can i void my lease? i only recently signed it.
-can i go back on the lease i just signed?
-i signed a lease but i found a better apartment, can i cancel my current lease?
-my tenants are trying to cancel the lease. it has only been 5 days since they signed it. are they allowed?
-my tenant is trying to cancel the lease after they signed it
-can i cancel the lease after it is signed?
-how long do i have to cancel the lease after it is signed?
-
-[common_examples: faq_rlq_landlord_neglects_necessary_repairs]
-the landlord does not intend on fixing the water
-my landlord refuses the fix the windows and it's cold
-my landlord refuses the fix the wall and it's cold
-my landlord didn't fix it
-the landlord does not want to do repairs in the apartment
-the apartment needs sever repairs but the landlord hasn't done anything, is there somethin i can do?
-the unit is falling apart and the landlord won't make any repairs
-my apartment desperately needs repairs and the landlord refuses to do them.
-my landlord didn't do the required repairs
-if my landlord doesn't do the necessary repair, can i pursue them further?
-if my landlord doesn't do the necessary repair, can i pursue them further?
-my landlord didn't repair what i asked him to fix
 
 [common_examples: faq_likehome_personal-info]
 can my landlord ask for my sin
@@ -244,7 +152,6 @@ my landlord told me that he'll be increasing rent
 there will be a rent increase
 there will be an increase in rent
 my landlord says that my rent will change soon
-
 
 
 [common_examples: faq_likehome_negligence]
@@ -336,27 +243,6 @@ my landlord increased the rent by $5, are they allowed to do this?
 by how much can my landlord increase the rent?
 i want to increase the rent of my tenants significantly
 
-[common_examples: faq_likehome_landlord-harass]
-my landlord is harassing me
-my landlord is constantly bothering me
-my landlord is sexually harassing me
-my landlord keeps trying to date me, i said no but he insists, it’s creepy
-i keep getting asked out by my landlord, i told him no but he keeps insisting
-my landlord calls me all the time and makes lewd comments
-i can’t take my landlord’s harassment anymore
-
-[common_examples: faq_likehome_emergency]
-it’s an emergency
-my apartment is getting destroyed it's an emergency
-there was an emergency where there’s a flood in my apartment
-there was an emergency where my apartment electricity went off 
-help there was an emergency where a fire burned half of my apartment and there’s a hole in the wall now
-water is leaking all over my bathroom it's an emergency
-there is an emergency my lights don’t work and i can’t see anything
-it's an emergency
-there was an emergency
-my whole apartment was flooded in an emergency, i can’t live there anymore
-
 [common_examples: faq_likehome_deposit-request]
 my landlord is asking me for a deposit
 my landlord wants me to pay for one month in advance
@@ -404,16 +290,6 @@ it's too cold, when does my landlorrd have to put the heat on?
 when does my landlord need to put heat in
 when will my landlord start putting the heat on?
 
-[common_examples: faq_likehome_demand-letter]
-how do i make a request to my landlord
-i want to give my landlord a demand letter
-i need to write a demand letter to my landlord
-how do i write a demand letter to my landlord
-how do i make a demand from my landlord
-what are the steps i need to take to make a proper request out of my landlord
-is there a way i need to ask my landlord for things
-how do i write a letter to my landlord
-
 [common_examples: faq_rlq_noisy_tenant]
 i'm sick of my tenant being so loud
 i can't sleep anymore because my landlord is loud as hell
@@ -426,16 +302,6 @@ am i allowed to make noise during the day?
 my tenant is excessively loud
 my neighboor is making excessive noise
 my tenants are making too much noise
-
-[common_examples: faq_likehome_landlord-contact]
-my landlord disappeared and I need to contact him right now
-i can't find my landlord
-how do i find my landlord’s contact information
-is there a yellowpages for my landlord
-i can’t find my landlord’s phone number on the lease
-i need to email my landlord
-how do i find the representative of the landlord
-is there a way i can get the property manager phone number
 
 [common_examples: faq_likehome_credit-check]
 i am going to have my credit checked
@@ -462,23 +328,3 @@ is the landlord allowed to enter the premises without asking me first?
 my landlord entered the apartment without my consent. were they allowed to do that?
 can the landlord enter the apartment without my permission?
 can the landlord enter the apartment without my permission?
-
-[common_examples: faq_likehome_sublet]
-how do i go about subletting my dwelling
-how do i sublet my dwelling
-i want to sublet my dwelling
-can i sublet my place
-how do i sublet my lease to someone
-i’m leaving on vacation, how do i setup subletting
-give me information on subletting
-i’m getting subtenants
-i’m getting subtenants and i don’t know how to manage them
-
-[common_examples: faq_likehome_abandon]
-i want to abandon my apartment
-my apartment is a shithole, i want to abandon
-i have to abandon my apartment due to a family emergency
-do i need to keep paying rent if i abandon my apartment
-my apartment has infestations of bed bugs, i want to abandon
-can i abandon my apartment even though my lease is not finished
-i can’t live in my dwelling anymore i want to go

@@ -1,0 +1,34 @@
+[meta]
+
+[regex_features]
+
+[entity_synonyms]
+
+[common_examples: ask_nonpayment]
+they have not paid rent
+tenant hasn't paid his rent
+tenant hasn't paid their rent
+tenant hasn't paid her rent
+they owe me for rent
+tenant hasn't paid rent
+tenant hasn't paid rent in a while
+they have not paid me for rent
+my tenant isn't paying rent
+my tenant hasn't paid rent
+i haven't received rent from my tenant
+i haven't received rent
+my tenants owe me rent money
+they are late on rent payments
+rent payments have not gone through
+i haven't received payment
+the tenant has not paid rent recently
+i haven't been paid rent
+i'm injured and i haven't paid rent in 2 months since i got fired from job. i can't afford it.
+i haven't paid rent.
+my tenant hasn't paid in 2 months, can i evict him?
+my tenant hasn't paid in 3 months. i haven't seen him either and i can never catch him.
+my tenant hasn't paid in 2 weeks
+my tenant hasn't paid in 2 days
+i haven't paid rent and my landlord wants to evict me
+i haven't paid rent in 2 weeks and my landlord wants to evict me
+i cannot pay my landlord rent money
