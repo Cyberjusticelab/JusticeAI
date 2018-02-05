@@ -3,9 +3,6 @@ import unittest
 
 from rasa.rasa_classifier import RasaClassifier
 
-from postgresql_db.models import PersonType
-
-
 class TestRasaClassifier(unittest.TestCase):
     rasaClassifier = None
 
@@ -18,7 +15,7 @@ class TestRasaClassifier(unittest.TestCase):
         self.assertIsNotNone(self.rasaClassifier)
 
     def test_classify_claimcategory(self):
-        classifier_output = self.rasaClassifier.classify_problem_category("I am being kicked out.", PersonType.TENANT.value)
+        classifier_output = self.rasaClassifier.classify_problem_category("I am being kicked out.", "TENANT")
         self.assertIsNotNone(classifier_output)
 
     def test_extract_factentities(self):
