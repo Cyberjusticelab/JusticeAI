@@ -46,7 +46,7 @@ def classify_claim_category(conversation_id, message):
     conversation = db.session.query(Conversation).get(conversation_id)
 
     # Classify claim category based on message
-    claim_category = __classify_claim_category(message=message, person_type=conversation.person_type)
+    claim_category = __classify_claim_category(message=message, person_type=conversation.person_type.value)
 
     # Define the message that will be returned
     response = None

@@ -7,10 +7,6 @@ from rasa_nlu.converters import load_data
 from rasa_nlu.model import Trainer, Interpreter
 
 
-# Class which will hold all the Rasa logic from training to parsing
-from postgresql_db.models import PersonType
-
-
 class RasaClassifier:
     # Directories & Files
     config_file = "rasa/config/rasa_config.json"
@@ -48,13 +44,14 @@ class RasaClassifier:
         """
         Classifies a claim category based on a message and person type
         :param message: Message received from user
-        :param person_type: The person type of the user, ie PersonType.LANDLORD
+        :param person_type: The person type of the user AS A STRING, ie: "TENANT".
+                            If passing PersonType, use .value - Ex: PersonType.TENANT.value
         :return: The classified claim category dict from RASA
         """
-        if person_type is PersonType.LANDLORD:
-            return self.category_interpreters['category_landlord'].parse(message.lower())
-        elif person_type is PersonType.TENANT:
+        if person_type.lower() is "tenant":
             return self.category_interpreters['category_tenant'].parse(message.lower())
+        elif person_type.lower() is "landlord":
+            return self.category_interpreters['category_landlord'].parse(message.lower())
 
     def classify_fact(self, fact_name, message):
         """
