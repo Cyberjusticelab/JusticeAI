@@ -46,7 +46,7 @@ def classify_claim_category(conversation_id, message):
     conversation = db.session.query(Conversation).get(conversation_id)
 
     # Classify claim category based on message
-    claim_category = __classify_claim_category(message)
+    claim_category = __classify_claim_category(message=message, person_type=conversation.person_type)
 
     # Define the message that will be returned
     response = None
@@ -149,15 +149,17 @@ def classify_fact_value(conversation_id, message):
     })
 
 
-def __classify_claim_category(message):
+def __classify_claim_category(message, person_type):
     """
     Classifies the claim category based on a message.
     :param message: Message from user
     :return: Claim category key
     """
 
-    classify_dict = rasaClassifier.classify_problem_category(message)
-    log.debug("\nClassify Claim Category\n\tMessage: {}\n\tDict: {}".format(message, classify_dict))
+    classify_dict = rasaClassifier.classify_problem_category(message, person_type)
+    log.debug(
+        "\nClassify Claim Category\n\tPerson Type:{}\n\tMessage: {}\n\tDict: {}".format(person_type.__value__, message,
+                                                                                        classify_dict))
 
     # Return the claim category, or None if the answer was insufficient in determining one
     if intentThreshold.is_sufficient(classify_dict):
