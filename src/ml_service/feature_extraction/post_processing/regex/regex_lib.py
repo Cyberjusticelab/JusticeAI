@@ -240,6 +240,11 @@ class RegexLib:
             re.compile(
                 FACT_DIGIT_REGEX + r".+((infestation(s)?|traitement)\s(soudaine et imprévue )?de (punaise(s)?|rat(s)?|fourmi(s)?|coquerelle(s)?|souri(s))|excrément(s)?)",
                 re.IGNORECASE
+            ),
+            re.compile(
+                FACT_DIGIT_REGEX + \
+                r".+(" + TENANT_REGEX + r".+)?(apartment.+)?insalubre",
+                re.IGNORECASE
             )
         ], "BOOLEAN"),
         ("asker_is_landlord", [
@@ -442,13 +447,6 @@ class RegexLib:
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
-        ("tenant_declare_insalubre", [
-            re.compile(
-                FACT_DIGIT_REGEX + \
-                r".+(" + TENANT_REGEX + r".+)?(apartment.+)?insalubre",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
         ("tenant_financial_problem", [
             re.compile(
                 FACT_DIGIT_REGEX + \
@@ -485,7 +483,17 @@ class RegexLib:
             #     FACT_DIGIT_REGEX + r".+((bail.*(reconduit.*)?(terminant.*)?((\d+?\w*?\s+?|)(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)(\s+\d{2,4}|))((.+au|.*terminant).*(\d+?\w*?\s+?|)(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)(\s+\d{2,4}|))?)|(fixation\sde\sloyer))",
             #     re.IGNORECASE
             # )
-        ], 'BOOLEAN'),
+            re.compile(
+                FACT_DIGIT_REGEX + r".+un bail " + \
+                __multiple_words(0, 8) + r"au loyer " + \
+                __multiple_words(0, 8) + r"mensuel de " + MONEY_REGEX,
+                re.IGNORECASE
+            ),
+            re.compile(
+                FACT_DIGIT_REGEX + r".*bail valide.*loyer.*" + \
+                MONEY_REGEX + r"\spar mois",
+                re.IGNORECASE)
+        ], 'MONEY_REGEX'),
         ("tenant_lease_indeterminate", [
             re.compile(
                 FACT_DIGIT_REGEX + r".+bail.+durée\sindéterminée",
