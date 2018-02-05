@@ -12,7 +12,7 @@ class RegexLib:
     DATE_REGEX = r"(?i)\d{1,2}(er|èr|ere|em|eme|ème)? \w{3,9} \d{4}"
 
     def __multiple_words(min, max):
-        return r"(\w+(\s|'|,\s)){" + str(min) + "," + str(max) + "}"
+        return r"([a-zA-ZÀ-ÿ0-9]+(\s|'|,\s)){" + str(min) + "," + str(max) + "}"
 
     regex_demands = [
         ("demand_lease_modification",
@@ -633,6 +633,19 @@ class RegexLib:
                                    r"(bagarre(s)?|altercation|verbale(s)?|conjugale(s)?|continue|physique(s|ment)?)",
                 re.IGNORECASE
             ),
+            re.compile(
+                FACT_DIGIT_REGEX + r".+(,\s(violen(ce|t(e|é)?)(s)?|(l')?agressi(f|ve|vité)|mena(ce(s)?|çant(s)?)"
+                                   r"|vulgaire|intimida(tion|nt)(s)?|hostile|inadéquat),)+",
+                re.IGNORECASE
+            )
+        ], "BOOLEAN"),
+        ("not_violent",[
+            re.compile(
+                FACT_DIGIT_REGEX + r".+\sn('|e\s)" + __multiple_words(1, 5) +
+                                   r"(violen(ce|t(e|é)?)(s)?|(l')?agressi(f|ve|vité)|mena(ce(s)?|çant(s)?)"
+                                   r"|vulgaire|intimida(tion|nt)(s)?|hostile|inadéquat)",
+                re.IGNORECASE
+            )
         ], "BOOLEAN")
     ]
     regex_outcomes = [
