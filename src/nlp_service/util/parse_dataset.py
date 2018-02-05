@@ -22,6 +22,7 @@ class CreateJson:
     ENTITY_SYNONYM_HEADER = re.compile('\[entity_synonyms\]')
     TEXT_HEADER = re.compile('\[common_examples:.*\]')
     EMPTY_LINE = re.compile('\s*')
+    COMMENTED_LINE = re.compile('#')
 
     nlu_dict = {"rasa_nlu_data":
                 {
@@ -133,6 +134,9 @@ class CreateJson:
                 self.state = StateEnum.TEXT
 
             elif len(line) < 5:
+                pass
+
+            elif self.COMMENTED_LINE.search(line):
                 pass
 
             elif self.state == StateEnum.META:
