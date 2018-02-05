@@ -5,5 +5,6 @@ from util.constant import Path
 
 class PrecendentDirectoryCleanerTest(unittest.TestCase):
     def test_precendent_removal(self):
-        total_files_removed = directory_cleaner.remove_files(Path.test_data_directory)
-        self.assertEqual(total_files_removed, ([], []))
+        total_files_removed = directory_cleaner.remove_files(Path.cluster_directory + 'fact/')
+        self.assertEqual(total_files_removed[0], 0)
+        self.assertEqual(total_files_removed[1], 56)
