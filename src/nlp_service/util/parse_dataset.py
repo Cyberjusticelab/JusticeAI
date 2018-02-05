@@ -22,7 +22,7 @@ class CreateJson:
     ENTITY_SYNONYM_HEADER = re.compile('\[entity_synonyms\]')
     TEXT_HEADER = re.compile('\[common_examples:.*\]')
     EMPTY_LINE = re.compile('\s*')
-    COMMENTED_LINE = re.compile('#')
+    COMMENTED_LINE = re.compile('^#')
 
     nlu_dict = {"rasa_nlu_data":
                 {
