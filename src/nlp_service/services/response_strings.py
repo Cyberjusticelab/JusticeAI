@@ -450,7 +450,10 @@ class Responses:
         #########
         # ERROR #
         #########
-        "missing_response": "Sorry, I'm unable to help you with that at the moment."
+        "missing_response":
+            [
+                "Sorry, I'm unable to help you with that at the moment."
+            ]
     }
 
     @staticmethod
@@ -476,7 +479,7 @@ class Responses:
         """
 
         if person_type not in Responses.static_claim_responses[claim_category_value]:
-            return Responses.static_claim_responses["missing_response"]
+            return Responses.chooseFrom(Responses.static_claim_responses["missing_response"])
 
         return Responses.chooseFrom(Responses.static_claim_responses[claim_category_value][person_type])
 

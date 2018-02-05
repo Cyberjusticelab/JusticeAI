@@ -7,13 +7,28 @@ class TestResponse(unittest.TestCase):
     def setUp(self):
         self.responseInstance = Responses()
 
-    def test_responses_service(self):
+    def test_fact_responses(self):
         question = Responses.fact_question("apartment_impropre")
         self.assertTrue(question in self.responseInstance.fact_questions["apartment_impropre"])
 
-    def test_responses_service_empty(self):
+    def test_fact_responses_empty(self):
         question = Responses.fact_question("does_not_exist")
         self.assertTrue(question in self.responseInstance.fact_questions["missing_response"])
+
+    def test_faq_statement_common(self):
+        statement_landlord = Responses.faq_statement("faq_rlq_noisy_tenant", "LANDLORD")
+        statement_tenant = Responses.faq_statement("faq_rlq_noisy_tenant", "TENANT")
+
+        self.assertTrue(statement_landlord in Responses.static_claim_responses["faq_rlq_noisy_tenant"]["LANDLORD"])
+        self.assertTrue(statement_tenant in Responses.static_claim_responses["faq_rlq_noisy_tenant"]["TENANT"])
+
+    def test_faq_statement_single(self):
+        statement_tenant = Responses.faq_statement("faq_likehome_landlord-harass", "TENANT")
+        self.assertTrue(statement_tenant in Responses.static_claim_responses["faq_likehome_landlord-harass"]["TENANT"])
+
+    def test_faq_statement_missing(self):
+        statement_landlord = Responses.faq_statement("faq_likehome_landlord-harass", "LANDLORD")
+        self.assertTrue(statement_landlord in Responses.static_claim_responses["missing_response"])
 
     def test_responses_prediction(self):
         question = Responses.prediction_statement("LEASE_TERMINATION", {"orders_resiliation": 1})
