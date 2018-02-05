@@ -99,6 +99,7 @@ def remove_files(directory_path):
                 if file_removed:
                     break
             if file_removed:
+                precedent_file.close()
                 continue
 
             # remove english precedents
@@ -107,7 +108,7 @@ def remove_files(directory_path):
             if detect(file_content) == 'en':
                 os.remove(directory_path + filename)
                 files_in_english.append(filename)
-
+            precedent_file.close()
     return files_matching_regexes, files_in_english
 
 
