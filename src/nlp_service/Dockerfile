@@ -27,7 +27,8 @@ RUN pip install http://initd.org/psycopg/upload/psycopg2-2.7.3.1.dev0/psycopg2-2
     pip install -r ./src/nlp_service/requirements_test.txt
 
 # Initialize spacy
-RUN python -m spacy download en
+RUN python -m spacy download en_core_web_md
+RUN python -m spacy link en_core_web_md en
 
 COPY ./src/nlp_service/init_rasa.py ./src/nlp_service
 COPY ./src/nlp_service/outlier ./src/nlp_service/outlier
