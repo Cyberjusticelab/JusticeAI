@@ -227,10 +227,6 @@ class Responses:
             [
                 "No. There is no allowable delay after signing a lease."
             ],
-        "faq_rlq_leave_apartment_no_lease":
-            [
-                "A tenant always has a lease, whether it is written or verbal. If there is no fixed term for the lease, the tenant must give to the landlord a notice of one month before leaving the premises."
-            ],
         "faq_rlq_tenant_urgent_repair_costs_deducted":
             [
                 "He cannot do so without the authorization of the Régie du logement except in the case of a necessary and urgent repair and also in that case the tenant is not able to reach the landlord in order to inform him about the situation."
