@@ -92,7 +92,7 @@ def remove_files(directory_path):
             for line in precedent_file.readlines():
                 for reg in regexes:
                     if reg.search(line):
-                        os.remove(Path.raw_data_directory + filename)
+                        os.remove(directory_path + filename)
                         file_removed = True
                         files_matching_regexes.append(filename)
                         break
@@ -105,7 +105,7 @@ def remove_files(directory_path):
             precedent_file.seek(0)
             file_content = precedent_file.read()
             if detect(file_content) == 'en':
-                os.remove(Path.raw_data_directory + filename)
+                os.remove(directory_path + filename)
                 files_in_english.append(filename)
 
     return files_matching_regexes, files_in_english
