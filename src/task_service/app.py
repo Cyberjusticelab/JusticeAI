@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask import Flask, abort, make_response, jsonify
 from flask import request
 
 from controllers import ocr_controller
@@ -22,5 +22,8 @@ The core functionality of classify_claim_category and classify_fact_value are ex
 @app.route("/ocr/extract_text", methods=['POST'])
 def extract_text():
     request_data = request.get_json()
-    return ocr_controller.extract_text(request_data['conversation_id'], request_data['image_data'])
+    if request_data and 'conversation_id' in request_data and 'image_data' in request_data:
+        return ocr_controller.extract_text(request_data['conversation_id'], request_data['image_data'])
+    return abort(make_response(jsonify(message="JSON must contain 'conversation_id' and 'image_data' keys."), 422))
+
 

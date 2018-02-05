@@ -1,6 +1,7 @@
 from feature_extraction.post_processing.regex.regex_tagger import TagPrecedents
 from model_training.classifier.multi_class_svm import MultiClassSVM
 from model_training.regression.multi_output_regression import MultiOutputRegression
+from model_training.similar_finder.similar_finder import SimilarFinder
 import numpy as np
 
 
@@ -9,6 +10,8 @@ class MlController:
     classifier_labels = MultiClassSVM.load_classifier_labels()
     classifier_model = MultiClassSVM()
     regression_model = MultiOutputRegression()
+    similar_finder = SimilarFinder()
+
 
     @staticmethod
     def predict_outcome(input_json):
@@ -36,7 +39,11 @@ class MlController:
         facts_vector = MlController.dict_to_vector(input_json['facts'])
         outcome_vector = MlController.classifier_model.predict(facts_vector)[0]
         outcome_vector = MlController.regression_model.predict(facts_vector, outcome_vector)
-        return MlController.vector_to_dict(outcome_vector)
+        response = MlController.vector_to_dict(outcome_vector)
+        similar_dict = {'facts_vector': facts_vector, 'outcomes_vector': outcome_vector}
+        response['similar_precedents'] = MlController.similar_finder.get_most_similar(similar_dict)
+        return response
+
 
     @staticmethod
     def dict_to_vector(input_dict):

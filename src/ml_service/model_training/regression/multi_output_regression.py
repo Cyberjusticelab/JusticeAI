@@ -59,5 +59,5 @@ class MultiOutputRegression:
                     outcomes[i] = TenantPaysLandlordRegressor().predict(facts)[0][0]
                 elif column_name == 'tenant_ordered_to_pay_landlord_legal_fees':
                     pass
-                
+
         return outcomes
