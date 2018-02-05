@@ -14,6 +14,7 @@ money: $\d(.)?+|\d(.)?+$
 entity: synonym1, synonym2
 
 [common_examples: true]
+# comment
 my landlord increased my rent by ($500)
 i owe my landlord (40 dollars)
 
