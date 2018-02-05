@@ -122,38 +122,6 @@ my future landlord is asking for my sin
 my future landlord is asking for my social security number
 my landlord keeps asking me for a copy of my birth certificate
 
-[common_examples: ask_rent_change]
-they want to increase the rent for the apartment
-rent change
-rent increase
-increase the current rent price
-my landlord wants to increase the current rent price
-the landlord wants to increase the price of the rent
-the rent for my apartment is being increased
-the rent price increased
-the price of the rent should be higher
-i want to increase the rent
-my landlord increased the rent
-the landlord increased my rent
-the landlord increased the rent
-the landlord raised the rent
-the landlord wants to increase my rent
-the rent is being increased
-my landlord increased my rent
-my landlord raised the rent
-my landlord wants to increase my rent
-my rent is being increased
-my landlord is trying to increase the rent of my apartment during the lease.
-my landlord is increasing rent after i have to renew the lease.
-my landlord is trying to increase rent during the lease. next month will cost 5$ more!
-my landlord is trying to add 5$ to my rent next month. help please
-my landlord increased the rent by 15$ per month after the end of my lease.
-my landlord told me that he'll be increasing rent
-there will be a rent increase
-there will be an increase in rent
-my landlord says that my rent will change soon
-
-
 [common_examples: faq_likehome_negligence]
 how do i prove to my landlord this is an issue of wear and tear and not negligence
 it broke and it wasn’t my fault
