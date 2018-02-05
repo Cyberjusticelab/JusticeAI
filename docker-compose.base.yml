@@ -23,6 +23,17 @@ services:
     restart: always
     networks:
       - procezeus_net
+  task_service:
+    build:
+      context: .
+      dockerfile: ./src/task_service/Dockerfile
+      args:
+      - CJL_USER
+      - CJL_PASS
+    image: procezeus/task_service
+    restart: always
+    networks:
+      - procezeus_net
   backend_service:
     build:
       context: .

@@ -9,6 +9,10 @@ services:
     command: bash -c 'pytest -l --tb=long --timeout=200 &&  autopep8 -dr .'
     environment:
       POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
+  task_service:
+    command: bash -c 'pytest && autopep8 -dr .'
+    environment:
+      POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
   backend_service:
     command: bash -c 'pytest && autopep8 -dr .'
     environment:
