@@ -440,6 +440,26 @@ class RegexLib:
                 r".+" + TENANT_REGEX + \
                 r" (a|ont) causé des dommages",
                 re.IGNORECASE
+            ),
+            re.compile(
+                r"dommage(s|) mat(é|e)riel(s|)",
+                re.IGNORECASE
+            ),
+            re.compile(
+                r"dédommagement",
+                re.IGNORECASE
+            ),
+            re.compile(
+                r"pertes matérielles",
+                re.IGNORECASE
+            ),
+            re.compile(
+                r"dommages-intérêts matériels",
+                re.IGNORECASE
+            ),
+            re.compile(
+                r"dommages-matériels",
+                re.IGNORECASE
             )
         ], "BOOLEAN"),
         ("tenant_dead", [
