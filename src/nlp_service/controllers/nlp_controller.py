@@ -46,19 +46,18 @@ def classify_claim_category(conversation_id, message):
     conversation = db.session.query(Conversation).get(conversation_id)
 
     # Classify claim category based on message
-    claim_category = __classify_claim_category(message)
+    claim_category = __classify_claim_category(message=message, person_type=conversation.person_type.value)
 
     # Define the message that will be returned
     response = None
 
     if claim_category in Responses.static_claim_responses.keys():
-        response = Responses.chooseFrom(Responses.static_claim_responses[claim_category])
+        response = Responses.faq_statement(claim_category, conversation.person_type.value)
 
     elif claim_category:
         # Set conversation's claim category
         conversation.claim_category = {
             'ask_lease_termination': ClaimCategory.LEASE_TERMINATION,
-            'ask_rent_change': ClaimCategory.RENT_CHANGE,
             'ask_nonpayment': ClaimCategory.NONPAYMENT
         }[claim_category]
 
@@ -149,15 +148,18 @@ def classify_fact_value(conversation_id, message):
     })
 
 
-def __classify_claim_category(message):
+def __classify_claim_category(message, person_type):
     """
-    Classifies the claim category based on a message.
+    Classifies the claim category based on a message and person type.
     :param message: Message from user
-    :return: Claim category key
+    :param person_type: User's PersonType AS A STRING. i.e: "TENANT"
+    :return: Classified claim category key
     """
 
-    classify_dict = rasaClassifier.classify_problem_category(message)
-    log.debug("\nClassify Claim Category\n\tMessage: {}\n\tDict: {}".format(message, classify_dict))
+    classify_dict = rasaClassifier.classify_problem_category(message, person_type)
+    log.debug(
+        "\nClassify Claim Category\n\tPerson Type: {}\n\tMessage: {}\n\tOutput: {}".format(person_type, message,
+                                                                                        classify_dict))
 
     # Return the claim category, or None if the answer was insufficient in determining one
     if intentThreshold.is_sufficient(classify_dict):
@@ -184,7 +186,7 @@ def __extract_entity(current_fact_name, current_fact_type, message):
             return None
 
     classify_dict = rasaClassifier.classify_fact(current_fact_name, message)
-    log.debug("\nClassify Fact\n\tMessage: {}\n\tDict: {}".format(message, classify_dict))
+    log.debug("\nClassify Fact\n\tMessage: {}\n\tOutput: {}".format(message, classify_dict))
 
     # Return the fact value, or None if the answer was insufficient in determining one
     if intentThreshold.is_sufficient(classify_dict):

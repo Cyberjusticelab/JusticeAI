@@ -54,8 +54,7 @@ fact_mapping = {
         "tenant_rent_not_paid_more_3_weeks",
         "tenant_rent_paid_before_hearing",
         "landlord_serious_prejudice"
-    ],
-    "rent_change": [],
+    ]
 }
 
 
