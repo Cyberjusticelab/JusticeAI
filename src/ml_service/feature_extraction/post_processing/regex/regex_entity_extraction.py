@@ -1,17 +1,28 @@
-from util.file import Load
+from feature_extraction.post_processing.regex.regex_lib import RegexLib
 import re
 import datetime
 import time
-import util.log as logger
 import unicodedata
+from util.log import Log
 
 
 class EntityExtraction:
-    log = logger.Log()
     regex_bin = None
     one_day = 86400  # unix time for 1 day
-    month_dict = {'janvier': 1, 'fevrier': 2, 'mars': 3, 'avril': 4, 'mai': 5, 'juin': 6,
-                  'juillet': 7, 'aout': 8, 'septembre': 9, "octobre": 10, 'novembre': 11, 'decembre': 12}
+    month_dict = {
+        'janvier': 1,
+        'février': 2,
+        'mars': 3,
+        'avril': 4,
+        'mai': 5,
+        'juin': 6,
+        'juillet': 7,
+        'août': 8,
+        'septembre': 9,
+        "octobre": 10,
+        'novembre': 11,
+        'décembre': 12
+    }
 
     def __init__(self):
         pass
@@ -29,7 +40,7 @@ class EntityExtraction:
         :return: (Boolean, entity<int>)
         """
         if EntityExtraction.regex_bin is None:
-            EntityExtraction.regex_bin = Load.load_binary('regexes.bin')
+            EntityExtraction.regex_bin = RegexLib.model
         for regex in regex_array:
             regex_result = regex.search(text)
             if regex_result:
@@ -72,25 +83,16 @@ class EntityExtraction:
             return True, entity
 
         elif regex_type == 'DATE_REGEX':
-            date_components = sentence.split(" ")
-
-            """
-            the value 3 is used to make sure we have all the required components.
-            1 for the day, 1 for the month and 1 for the year.
-            """
-            if len(date_components) == 3:
-                date_components[0] = re.sub(r"er|ere|em|eme", "", date_components[0])
-
-                try:
-                    date_components[1] = str(EntityExtraction.month_dict[date_components[1]])
-                except KeyError:
-                    EntityExtraction.log.write("mistake in month name : " + date_components[1])
-                    return False, 0
-
-                unix_time = EntityExtraction.__date_to_unix(date_components)
-                if unix_time:
-                    return True, unix_time
-
+            generic_regex = re.compile(EntityExtraction.regex_bin[regex_type])
+            entities = generic_regex.findall(sentence)
+            try:
+                start = EntityExtraction.month_dict[entities[0].replace("d'", '')]
+                end = EntityExtraction.month_dict[entities[len(entities) - 1].replace("d'", '')]
+                start_unix = EntityExtraction.__date_to_unix(['1', str(start), '1970'])
+                end_unix = EntityExtraction.__date_to_unix(['28', str(end), '1970'])
+                return True, EntityExtraction.__get_time_interval_in_days(start_unix, end_unix)
+            except KeyError:
+                Log.write("spelling error: " + str(entities))
         return False, 0
 
     @staticmethod
@@ -104,7 +106,7 @@ class EntityExtraction:
         try:
             unix_time = time.mktime(datetime.datetime.strptime(date_string, '%d %m %Y').timetuple())
         except (ValueError, OverflowError) as error:
-            EntityExtraction.log.write(str(error) + ": " + str(date_string))
+            Log.write(str(error) + ": " + str(date_string))
             return None
 
         return unix_time
@@ -117,4 +119,4 @@ class EntityExtraction:
         :param second_date: date in unix time
         :return: time difference between 2 dates
         """
-        return abs(first_date - second_date) / EntityExtraction.one_day
+        return int(abs(first_date - second_date) / EntityExtraction.one_day)

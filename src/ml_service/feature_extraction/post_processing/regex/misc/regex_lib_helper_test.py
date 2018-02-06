@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
-from feature_extraction.post_processing.regex import regex_lib_helper
+
+from feature_extraction.post_processing.regex.misc import regex_lib_helper
 
 
 class RegexLibHelperTest(unittest.TestCase):
