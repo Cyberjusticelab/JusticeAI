@@ -22,18 +22,18 @@ class TestNLPIntegration(unittest.TestCase):
         data = json.loads(codecs.open(filepath, 'r', 'utf-8').read().encode('utf-8'))
         common_examples = data['rasa_nlu_data']['common_examples']
 
-        self.test_confidence_classification(common_examples)
+        self.test_claim_category_classification(common_examples, "tenant")
 
     def test_all_landlord_claim_category(self):
         filepath = os.getcwd() + '/rasa/data/category/category_landlord.json'
         data = json.loads(codecs.open(filepath, 'r', 'utf-8').read().encode('utf-8'))
         common_examples = data['rasa_nlu_data']['common_examples']
 
-        self.test_confidence_classification(common_examples)
+        self.test_claim_category_classification(common_examples, "landlord")
 
-    def test_confidence_classification(self, common_examples):
+    def test_claim_category_classification(self, common_examples, person_type):
         for example in common_examples:
-            classify_dict = self.rasaClassifier.classify_problem_category(example['text'])
+            classify_dict = self.rasaClassifier.classify_problem_category(example['text'], person_type)
             determined_claim_category = classify_dict['intent']['name']
             self.assertTrue(self.intentThreshold.is_sufficient(classify_dict),
                             "Insufficient Confidence - Intent: {}\nConfidence {}\nExample Sentence: {}"
