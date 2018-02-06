@@ -242,13 +242,11 @@ do i need to provide something for solidarity tax credits
 [common_examples: faq_likehome_deposit-request]
 can i ask my tenant for a deposit
 i want my tenant to pay rent one month in advance
-i'm being asked for a deposit
 i want rent in advance
 i want payment in advance
 i want to get a security deposit
 i want to get a key deposit
 i want to get a rent deposit
-is asking for a deposit legal
 can i ask for a key deposit
 i want rent before my tenants signs the lease
 i want a deposit before my tenant signs the contract
