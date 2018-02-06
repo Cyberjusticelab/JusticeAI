@@ -168,47 +168,16 @@ my landlord wants me gone because my dog is too loud and keeps barking
 ##########
 
 [common_examples: faq_rlq_abandoned_premises]
-the people that i used to lease my dwelling to disappeared 3-4 months ago
-i think the tenants left because i never see them anymore
 i left my apartment without telling anyone
 i left my apartment without telling my landlord
 i left my apartment without notice
-my apartment has been empty for a while and the tenants owe me rent money.
-my tenants are nowhere to be found
-the apartment has been empty for months now
-the apartment has been empty for some time
-my tenants left without paying me awhile ago
-i have not heard anything from them
-my tenant diced without telling me anything, what i do?
-my tenant left without paying last year. what now?
-my tenant bailed some time ago this year
-my previous tenant owes me rent from 24 months ago. can i still claim it?
-can i pursue my previous tenant for unpaid rent? they left 2 years ago.
-my tenant left without telling me 4 months ago
-my tenant left without any notice 3 months ago
-i think my tenants left because i never see them ever
-i am not able to reach any of my tenants
-i can't reach my tenants
-i can't find my tenants
-my tenants are nowhere to be found. what now?
-my tenants left without paying me
 i left my apartment without paying rent
-the people renting my apartment left without paying the rent
-my tenants diced
-my tenants are nowhere to be found
-my tenant left without paying me
-my tenant bailed
-how can i claim unpaid rent from my previous tenant
-my previous tenant owers me rent, can i still claim it?
-can i pursue my previous tenant for unpaid rent?
-my tenant is gone
-my tenant just disappeared.
-my tenant left without telling me.
-my tenant left without any notice
+i couldn't pay and i left my apartment
+i abandoned my apartment
 
 [common_examples: faq_rlq_attending_hearing]
-i'm not able to attend the hearing.
-do i need to attend the hearing?
+i'm not able to attend the hearing
+do i need to attend the hearing
 i won't be able to make it to the hearing on time.
 i will be late, can we reschedule the hearing?
 how can i move my hearing's date?
