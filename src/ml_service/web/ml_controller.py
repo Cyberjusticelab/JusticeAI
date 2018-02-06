@@ -12,7 +12,6 @@ class MlController:
     regression_model = MultiOutputRegression()
     similar_finder = SimilarFinder()
 
-
     @staticmethod
     def predict_outcome(input_json):
         """
@@ -41,9 +40,9 @@ class MlController:
         outcome_vector = MlController.regression_model.predict(facts_vector, outcome_vector)
         response = MlController.vector_to_dict(outcome_vector)
         similar_dict = {'facts_vector': facts_vector, 'outcomes_vector': outcome_vector}
-        response['similar_precedents'] = MlController.similar_finder.get_most_similar(similar_dict)
+        response['similar_precedents'] = MlController.format_similar_precedents(
+            MlController.similar_finder.get_most_similar(similar_dict))
         return response
-
 
     @staticmethod
     def dict_to_vector(input_dict):
@@ -72,3 +71,18 @@ class MlController:
             label = MlController.classifier_labels[outcome_index][0]
             return_dict[label] = str(outcome_vector[outcome_index])
         return {'outcomes_vector': return_dict}
+
+    @staticmethod
+    def format_similar_precedents(similarity_list):
+        """
+        Formats a list such as ["AZ-111111", 1.5] into a list of dicts of the form
+        [{"precedent": "AZ-111111","distance": 1.5}]
+        :param similarity_list: List of lists of the form ["PRECEDENT_NAME"(string), DISTANCE(number)]
+        :return: A formatted list of precedents
+        """
+        formatted_precedents = []
+
+        for precedent_array in similarity_list:
+            formatted_precedents.append({"precedent": precedent_array[0], "distance": precedent_array[1]})
+
+        return formatted_precedents
