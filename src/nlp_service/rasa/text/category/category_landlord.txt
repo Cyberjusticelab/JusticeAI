@@ -7,7 +7,9 @@ has not: hasn't|has not
 will not: won't|will not
 dwelling: dwelling|apartment|house|place|crib
 eviction: evict|evicted|kicked|kick
-personal info: sin|card|copy|photocopy|permit|license
+rlq: rlq|r(e|é)gie(\sdu)?(\slogement)?
+personal info: sin|social (insurance|security)(\snumber)?|card|copy|photocopy|permit|license
+credit check: credit (check|report)
 RL31: rl(-)?31
 
 [entity_synonyms]
@@ -35,7 +37,7 @@ rent payments have not gone through
 i haven't received payment
 the tenant has not paid rent recently
 i haven't been paid rent
-i'm injured and i haven't paid rent in 2 months since i got fired from job. i can't afford it.
+i'm injured and i haven't paid rent in 2 months since i got fired from job
 i haven't paid rent.
 my tenant hasn't paid in 2 months, can i evict him?
 my tenant hasn't paid in 3 months. i haven't seen him either and i can never catch him.
@@ -83,108 +85,106 @@ my landlord wants me gone because my dog is too loud and keeps barking. i need h
 ##########
 
 [common_examples: faq_rlq_abandoned_premises]
-the people that i used to lease my dwelling to disappeared 3-4 months ago
+the people that i used to lease my dwelling to disappeared several months ago
 i think the tenants left because i never see them anymore
-i left my apartment without telling anyone
-i left my apartment without telling my landlord
-i left my apartment without notice
-my apartment has been empty for a while and the tenants owe me rent money.
+tenant left without telling anyone
+tenant left without telling my landlord
+tenant left without notice
+my apartment has been empty for a while and the tenants owe me rent money
 my tenants are nowhere to be found
 the apartment has been empty for months now
 the apartment has been empty for some time
 my tenants left without paying me awhile ago
 i have not heard anything from them
-my tenant diced without telling me anything, what i do?
-my tenant left without paying last year. what now?
+my tenant diced without telling me anything
+my tenant left without paying last year
 my tenant bailed some time ago this year
-my previous tenant owes me rent from 24 months ago. can i still claim it?
-can i pursue my previous tenant for unpaid rent? they left 2 years ago.
+my previous tenant owes me rent from 24 months ago. can i still claim it
+can i pursue my previous tenant for unpaid rent
 my tenant left without telling me 4 months ago
 my tenant left without any notice 3 months ago
 i think my tenants left because i never see them ever
 i am not able to reach any of my tenants
 i can't reach my tenants
 i can't find my tenants
-my tenants are nowhere to be found. what now?
+my tenants are nowhere to be found
 my tenants left without paying me
-i left my apartment without paying rent
 the people renting my apartment left without paying the rent
 my tenants diced
 my tenants are nowhere to be found
 my tenant left without paying me
 my tenant bailed
 how can i claim unpaid rent from my previous tenant
-my previous tenant owers me rent, can i still claim it?
-can i pursue my previous tenant for unpaid rent?
+my previous tenant owers me rent, can i still claim it
+can i pursue my previous tenant for unpaid rent
 my tenant is gone
-my tenant just disappeared.
-my tenant left without telling me.
+my tenant just disappeared
+my tenant left without telling me
 my tenant left without any notice
 
 [common_examples: faq_rlq_attending_hearing]
-i'm not able to attend the hearing.
-do i need to attend the hearing?
-i won't be able to make it to the hearing on time.
-i will be late, can we reschedule the hearing?
-how can i move my hearing's date?
-how am i able to postpone my hearing?
-can i postpone the meeting?
-i won't arrive to time to my hearing, can i reschedule?
-i am something to do at the same time as the hearing and can't make it.
-i have something to do on that day. how can i move the hearing back?
-how can i move my hearing?
-i am busy and can't free up time to go to my hearing.
-what if i can't make it to my hearing on time?
-can i reschedule my hearing?
-i'm unable to make it to the hearing, what are my options?
-can i postpone the hearing?
-can i not show up to the hearing?
+im unable to attend an rlq hearing
+i won't be able to make it to the hearing on time
+i will be late, can we reschedule the hearing
+how can i move my hearing's date
+how am i able to postpone my hearing
+can i postpone the meeting
+i won't arrive to time to my hearing, can i reschedule
+i am something to do at the same time as the hearing and can't make it
+i have something to do on that day. how can i move the hearing back
+how can i move my hearing
+i am busy and can't free up time to go to my hearing
+what if i can't make it to my hearing on time
+can i reschedule my hearing
+i'm unable to make it to the hearing, what are my options
+can i postpone the hearing
+can i not show up to the hearing
 i can't make it to the hearing
 i can't attend the hearing
-do i need to go to the hearing?
-i was informed that i must attend a hearing.
-there's a hearing that i can't attend.
-i am supposed to attend a hearing. do i have to?
-my hearing is scheduled soon. do i need to attend it?
-do i need to be at the hearing?
+do i need to go to the hearing
+i was informed that i must attend a hearing
+there's a hearing that i can't attend
+i am supposed to attend a hearing. do i have to
+my hearing is scheduled soon do i need to attend it
+do i need to be at the hearing
 
 [common_examples: faq_rlq_noisy_tenant]
-i'm sick of my tenant being so loud
-i can't sleep anymore because my landlord is loud as hell
-is my neighbour allowed to be noisy at night? i can't sleep
-can a tenant be noisy until 10:00pm?
-she is too loud
-after what time the tenant can't make noise?
-i can't sleep because my neighbour is too loud, what are my options?
-am i allowed to make noise during the day?
+one of my tenants is being very noisy
+what can i do about a noisy tenant
+a tenant is causing excessive noise, what can i do
+my tenant is being unreasonably noisy
+there is a lot of noise in my buildings
+can i legally tell my tenants to keep quiet
+people are complaining about a noisy tenant
+can noise be made by tenants during the day
 my tenant is excessively loud
-my neighboor is making excessive noise
+tenants are complaining about their neighbors making too much noise
 my tenants are making too much noise
 
 [common_examples: faq_rlq_landlord_entering_occupied_apartment]
-my landlord is giving the lease to another tenant. when are they allowed to visit the apartment?
-in general, when do landlords visit their apartments to check on their condition?
-how much time am i allowed before my landlrod comes to visit my apartment?
-if my landlord wants to see if my apartment is in good condition, how much time do i have?
-if my landlord wants to inspect my apartment, when can she do so?
-my landlord asked me to visit the apartment with the next buyer. can he do that without asking for my permission
-if my landlord wants to inspect my apartment, when can they do so?
-how much time in advance does a landlord need to ask a tenant for permission to visit?
-the landlord entered the backyard without asking me, do they have the right to do so?
-is the landlord allowed to enter the premises without asking me first?
-my landlord entered the apartment without my consent. were they allowed to do that?
-can the landlord enter the apartment without my permission?
-can the landlord enter the apartment without my permission?
+im trying to rent out an apartment to another tenant, can i show them around
+am i allowed to enter my tenants apartment
+when am i allowed to enter my tenants dwelling
+i suspect my tenant is not cleaning their apartment, can i see it without asking
+can i inspect a tenants apartment without their permission
+i want to show a new tenant around an occupied apartment
+when can i give a tour of an occupied dwelling
+do i have to ask in advance if i want to enter a rented dwelling
+my tenant is protesting that i entered their apartment without asking
+i entered a dwelling without asking for permission beforehand
+do i need to obtain consent to enter an apartment
 
 [common_examples: faq_rlq_unreasonable_rent_increase]
-my landlord said rent will go up next year. how much can i expect it to increase? she didn't give me any details
-what is the legal amount by which my landlord can increase the rent?
-is it normal that my rent increase by 10 dollars?
-my rent was increased by 3%. is this legal?
-what is the maximum percentage by which the landlord can increase the rent
-my landlord increased the rent by $5, are they allowed to do this?
-by how much can my landlord increase the rent?
-i want to increase the rent of my tenants significantly
+can i increase my tenants rent
+how much am i allowed to increase rent by
+im trying to increase rent by 10 dollars, am i allowed to
+how can i justify a rent increase to my tenant
+im not breaking even, i need to increase rent to make ends meet
+am i allowed to increase rent
+by how much can i increase rent
+my tenants are angry that i increased rent
+im getting complaints that rent increased too much
+my tenant wants to take legal action against me for increasing their rent
 
 [common_examples: faq_rlq_paying_repairs_for_sink_toilet]
 the toilet overflows every single time i flush, do i have to pay for the repairs?
@@ -202,39 +202,40 @@ the sink is blocked up and the landlord doesn't want to fix it
 the sink is clogged can i ask the landlord to fix it
 
 [common_examples: faq_rlq_apartment_too_cold]
-i think the apartment is too cold. i can feel a warm breeze but my feet are still frozen. it's only 12c inside. can i force my landlord to put it higher?
-my landlord is cheap and won't put enough heat in. when can they put extra heating on?
-it's too cold in my apartment. it's only 14 degrees. what heat should it legally be at?
-is there a date that my landlord must respect to finally put the heating on?
-i'm in an apartment and the temperature is below 11c. when will my landlord finally put some heating inside of this building?
-what is the precise date that my landlord must start heating my apartment?
-when does my landlord legally have to heat up my apartment?
-when will it get a little warmer, it's freezing
-it's too cold, when does my landlorrd have to put the heat on?
-when does my landlord need to put heat in
-when will my landlord start putting the heat on?
+do i have to heat my tenants apartment in the winter
+my tenant says their dwelling is too cold
+im cheap and i dont want to put the heat on
+is there a set date i have to start heating apartments
+do i need to put the heating on if my tenants say they are cold
+i dont want to put the heating on until my tenants are popsicles
+tenants say they are too cold but i feel fine, why do they whine so much
+do i legally have to heat apartments in the winter
+it is very cold but electricity is expensive and i dont want to heat my apartments
+when does i need to put heat in
 
 [common_examples: faq_likehome_credit-check]
-i am going to have my credit checked
-i have to check my credit
-i need to provide a credit check
+i need a credit check
+my tenant needs to get a credit check
+can i ask my tenant to provide a credit check
 credit check
-how can i provide a credit check to my landlord
-how do i provide a credit check
-how can i get my credit checked
-how can i get my credit score
-how can i generate a credit report
+how can my tenant get a credit check
+what is a credit check
+my tenant wont give me a credit report
+how do credit checks work
+where can a credit check be obtained
 
 [common_examples: faq_likehome_personal-info]
-can my landlord ask for my sin
-my landlord asked for a copy of my study permit
-is my landlord allowed to ask for a copy of my driver’s license
-my landlord asked for a picture of my sun card
-my landlord wants me to photocopy my health card and send it to him
-my future landlord is asking for my social insurance number
-my future landlord is asking for my sin
-my future landlord is asking for my social security number
-my landlord keeps asking me for a copy of my birth certificate
+i need my tenants sin
+i need my tenants social insurance number
+can i get a copy of my tenant driver license
+i want a picture of a sun card
+i need some more information about my tenant
+i need some more information about a future tenant
+can i get a social insurance number
+can i get a sin
+can i get a social security number
+my tenant is refusing to give me their birth certificate
+my tenant doesn't want to give me their information
 
 [common_examples: faq_likehome_negligence]
 how do i prove to my landlord this is an issue of wear and tear and not negligence
@@ -246,33 +247,32 @@ the ceiling in my bathroom is cracking and my landlord says it’s my fault that
 my landlord keeps saying it’s my fault the lock broke, how do i prove it’s not?
 
 [common_examples: faq_likehome_rl31]
-how can I get my rl31 slip
-my landlord won’t give me my rl31 slip
-my landlord still hasn’t sent me my rl31 slip
-my landlord hasn’t provided me with the rl31
-i need to file in my taxes soon.
-i need to submit my taxes and i don’t have my rl31 yet
-i asked my landlord about my rl31 but he still hasn’t answered back
-solidarity tax credit
+do i need to give my tenant an rl31
+my tenant is asking for an rl31 slip
+am i required to provide an rl31 to my tenant
+my tenant is pestering me for rl31
+what tax forms do i have to give my tenants
+what is an rl31 form
+im ignoring my tenant because she is asking for an rl31
+my tenant wants to know about solidarity tax credits
+do i need to provide something for solidarity tax credits
 
 [common_examples: faq_likehome_deposit-request]
-my landlord is asking me for a deposit
-my landlord wants me to pay for one month in advance
+can i ask my tenant for a deposit
+i want my tenant to pay rent one month in advance
 i'm being asked for a deposit
-my landlord wants rent in advance
-my landlord wants payment in advance
-my landlord is asking me for a security deposit
-my landlord is asking me for a key deposit
-my landlord is asking me for a rent deposit
-hey my landlord is asking for a deposit and i heard it's illegal can you help me?
-my landlord is asking me for a key deposit. i heard it's illegal and i need help.
-i need help my landlord is asking me for a deposit before i sign the lease. it was never mentioned before.
-hello my landlord is asking me for a security deposit before i sign the contract
-i need help my landlord is asking me for a key deposit for me to renew my lease
-hey my landlord is asking me for a key deposit before i get to live in my new apartment
-can i ask my tenants for a deposit?
-can my landlord ask a security deposit from me? i really like the apartment.
-hey i saw this advertisement on craigslist and they're asking for a security deposit. is this allowed?
+i want rent in advance
+i want payment in advance
+i want to get a security deposit
+i want to get a key deposit
+i want to get a rent deposit
+is asking for a deposit legal
+can i ask for a key deposit
+i want rent before my tenants signs the lease
+i want a deposit before my tenant signs the contract
+my tenants needs to give me a deposit before i let them renew the lease
+can i ask my tenants for a deposit
+can i get a security deposit
 
 [common_examples: faq_rlq_tenant_urgent_repair_costs_deducted]
 if i repair the fridge can i deduct that off the rent?
