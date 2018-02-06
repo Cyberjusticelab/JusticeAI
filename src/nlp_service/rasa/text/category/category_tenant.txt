@@ -217,19 +217,19 @@ other tenants are making too much noise
 these tenants are way too loud
 
 [common_examples: faq_rlq_landlord_entering_occupied_apartment]
-my landlord is giving the lease to another tenant. when are they allowed to visit the apartment?
-in general, when do landlords visit their apartments to check on their condition?
-how much time am i allowed before my landlrod comes to visit my apartment?
-if my landlord wants to see if my apartment is in good condition, how much time do i have?
-if my landlord wants to inspect my apartment, when can she do so?
-my landlord asked me to visit the apartment with the next buyer. can he do that without asking for my permission
-if my landlord wants to inspect my apartment, when can they do so?
-how much time in advance does a landlord need to ask a tenant for permission to visit?
-the landlord entered the backyard without asking me, do they have the right to do so?
-is the landlord allowed to enter the premises without asking me first?
-my landlord entered the apartment without my consent. were they allowed to do that?
-can the landlord enter the apartment without my permission?
-can the landlord enter the apartment without my permission?
+my landlord wants to give the lease to another tenant when are they allowed to visit the apartment
+when do landlords visit their apartments to check on their condition
+how much time am i allowed before my landlord comes to visit my apartment
+if my landlord wants to see if my apartment is in good condition
+if my landlord wants to inspect my apartment
+my landlord asked me to visit the apartment
+my landlord wants to inspect my apartment
+how much time in advance does a landlord need to ask a tenant for permission to visit
+the landlord entered the backyard without asking me
+is the landlord allowed to enter the premises without asking me first
+my landlord entered the apartment without my consent
+can the landlord enter the apartment without my permission
+can the landlord enter the apartment without my permission
 
 [common_examples: faq_rlq_unreasonable_rent_increase]
 my landlord said rent will go up next year. how much can i expect it to increase? she didn't give me any details
