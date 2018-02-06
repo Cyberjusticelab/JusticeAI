@@ -305,11 +305,11 @@ class Responses:
             {
                 "TENANT":
                     [
-                        "I must obtain a postponement of the hearing to a later date and for that I must obtain the written consent of the other party and file it at the Régie. If I cannot obtain that consent, I can send a mandatary who will ask for the postponement or I can write to the Régie du logement and ask for the postponement of the case. The reasons for the asked postponement must be indicated. It would be well advised to remit a copy of that letter to the other party. Except in the case where I have the consent of the other party, the commissioner must decide if he accepts or rejects the asked postponement."
+                        "You must obtain a postponement of the hearing by obtaining a written consent of the other party and by filing it at la Régie.|If you cannot obtain that consent, you can either send a mandatary who will ask for the postponement or write to la Régie du logement and ask for the postponement of the case.|The reasons for the asked postponement must be indicated and a copy sent to the other party."
                     ],
                 "LANDLORD":
                     [
-                        "I must obtain a postponement of the hearing to a later date and for that I must obtain the written consent of the other party and file it at the Régie. If I cannot obtain that consent, I can send a mandatary who will ask for the postponement or I can write to the Régie du logement and ask for the postponement of the case. The reasons for the asked postponement must be indicated. It would be well advised to remit a copy of that letter to the other party. Except in the case where I have the consent of the other party, the commissioner must decide if he accepts or rejects the asked postponement."
+                        "You must obtain a postponement of the hearing by obtaining a written consent of the other party and by filing it at la Régie.|If you cannot obtain that consent, you can either send a mandatary who will ask for the postponement or write to la Régie du logement and ask for the postponement of the case.|The reasons for the asked postponement must be indicated and a copy sent to the other party."
                     ]
             },
         "faq_rlq_abandoned_premises":
@@ -327,11 +327,11 @@ class Responses:
             {
                 "TENANT":
                     [
-                        "He cannot do so without the authorization of the Régie du logement except in the case of a necessary and urgent repair and also in that case the tenant is not able to reach the landlord in order to inform him about the situation."
+                        "Your landlord cannot do so without the authorization of the Régie du logement except in the case of a necessary and urgent repair and also in that case that you are unable to reach the landlord in order to inform him about the situation."
                     ],
                 "LANDLORD":
                     [
-                        "He cannot do so without the authorization of the Régie du logement except in the case of a necessary and urgent repair and also in that case the tenant is not able to reach the landlord in order to inform him about the situation."
+                        "Your tenant cannot do so without the authorization of the Régie du logement except in the case of a necessary and urgent repair and also in that case where your tenant is not able to reach you in order to inform you about the situation."
                     ]
             },
         "faq_rlq_noisy_tenant":
@@ -349,11 +349,11 @@ class Responses:
             {
                 "TENANT":
                     [
-                        "The landlord must pay for the repairs except if they can successfully establish that you are responsible for the problem.|If you are able to prove that you are not responsible for the damages, if the repair is urgent (i.e. no running water), you may take the matter into your own hands and you have the right to be reimbursed or deduct the reasonable expenses from the rent."
+                        "The landlord must pay for the repairs except if they can successfully establish that you are responsible for the damages.|If you are able to prove that you are not responsible for the damages, and if the repair is urgent (i.e. no running water), you may take the matter into your own hands and have the right to be reimbursed.|You may also plead your case in front of la Régie if you were not compensated for your work."
                     ],
                 "LANDLORD":
                     [
-                        "You must pay for the repairs except if you can successfully prove that your tenant is responsible for the problem.|If the tenant is able to prove that they are not responsible for the damages, or if the repair is urgent (i.e. no running water), the tenant may take the matter into their own hands and have the right to be reimbursed or deduct the reasonable expenses from the rent."
+                        "You must pay for the repairs except if you can successfully prove that your tenant is responsible for the damages.|If the tenant is able to prove that they are not responsible for the damages, and if the repair is urgent (i.e. no running water), the tenant may take the matter into their own hands.|Your tenant has the right to be reimbursed and plead in front of la Régie if they were not reasonably financially compensated by you."
                     ]
             },
         "faq_rlq_landlord_entering_occupied_apartment":
