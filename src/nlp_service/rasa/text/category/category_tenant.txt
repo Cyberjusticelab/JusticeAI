@@ -256,15 +256,15 @@ the sink is blocked up and the landlord doesn't want to fix it
 the sink is clogged can i ask the landlord to fix it
 
 [common_examples: faq_rlq_apartment_too_cold]
-i think the apartment is too cold. i can feel a warm breeze but my feet are still frozen. it's only 12c inside. can i force my landlord to put it higher?
-my landlord is cheap and won't put enough heat in. when can they put extra heating on?
-it's too cold in my apartment. it's only 14 degrees. what heat should it legally be at?
-is there a date that my landlord must respect to finally put the heating on?
-i'm in an apartment and the temperature is below 11c. when will my landlord finally put some heating inside of this building?
-what is the precise date that my landlord must start heating my apartment?
-when does my landlord legally have to heat up my apartment?
-when will it get a little warmer, it's freezing
-it's too cold, when does my landlorrd have to put the heat on?
+i think the apartment is too cold
+my landlord is cheap and won't put enough heat in
+it's too cold in my apartment
+date that my landlord must respect to finally put the heating on
+when will my landlord finally put some heating inside of this building
+what is the precise date that my landlord must start heating my apartment
+when does my landlord legally have to heat up my apartment
+when will it get a little warmer it's freezing in my dwelling
+it's too cold when does my landlord have to put the heat on?
 when does my landlord need to put heat in
 when will my landlord start putting the heat on?
 
