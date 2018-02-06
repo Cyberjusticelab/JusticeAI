@@ -65,3 +65,20 @@ def put_subscription():
         id = gateway.insert_anonymous_subscription(data['is_subscribed'])
 
     return jsonify(id=id)
+
+@app.route('/legal', methods=['PUT', 'OPTIONS'])
+@handle_options_method
+@ensure_json
+@ensure_key('is_legal_professional')
+def put_legal_professional():
+    data = request.get_json()
+    if not isinstance(data['is_legal_professional'], int):
+        return make_response(jsonify(message="'is_legal_professional' must be an integer."), 422)
+
+    if 'id' in data and data['id']:
+        id = gateway.update_legal_professional_by_id(data['id'], data['is_legal_professional'])
+    else:
+        id = gateway.insert_anonymous_legal_professional(data['is_legal_professional'])
+
+    return jsonify(id=id)
+
