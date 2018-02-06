@@ -1,6 +1,16 @@
 [meta]
 
 [regex_features]
+gender: (him|he|her|she|they)((')?s)?
+i am: im|i'm|i am
+has not: hasn't|has not
+will not: won't|will not
+dwelling: dwelling|apartment|house|place|crib
+eviction: evict|evicted|kicked|kick
+spouse/lover: (ex)?(-)?(lover|boyfriend|girlfriend|spouse|husband|wife)?('s)?
+spouse-violence: (violen(t|ce)?)|(hit(s/ting)?)|(beat(s|ing)?)|(abus(ive|ed|ing)?)|(rape(d)?)
+personal info: sin|card|copy|photocopy|permit|license
+RL31: rl(-)?31
 
 [entity_synonyms]
 
