@@ -131,7 +131,7 @@ do i need to be at the hearing
 [common_examples: faq_rlq_noisy_tenant]
 one of my tenants is being very noisy
 what can i do about a noisy tenant
-a tenant is causing excessive noise, what can i do
+a tenant is causing excessive noise
 my tenant is being unreasonably noisy
 there is a lot of noise in my buildings
 can i legally tell my tenants to keep quiet
