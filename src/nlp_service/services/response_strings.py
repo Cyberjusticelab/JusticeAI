@@ -316,11 +316,11 @@ class Responses:
             {
                 "TENANT":
                     [
-                        "The landlord must minimize the damages by trying to rent the dwelling to another person. He may claim the tenant who has abandoned the premises a relocation indemnity to recover the lost rent. The landlord has three years to file the application at the Régie du logement."
+                        "The landlord may attempt to minimize the damages by trying to rent the dwelling to another person.|They may claim from the tenant who has abandoned the premises a relocation indemnity to recover the lost rent.|The landlord has three years to file the application at the Régie du logement."
                     ],
                 "LANDLORD":
                     [
-                        "The landlord must minimize the damages by trying to rent the dwelling to another person. He may claim the tenant who has abandoned the premises a relocation indemnity to recover the lost rent. The landlord has three years to file the application at the Régie du logement."
+                        "You should minimize the damages of abandonment by trying to rent the dwelling to another person.|You may claim from the tenant who has abandoned the premises a relocation indemnity to recover the lost rent.| You have three years to file the application at the Régie du logement."
                     ]
             },
         "faq_rlq_tenant_urgent_repair_costs_deducted":
@@ -338,55 +338,55 @@ class Responses:
             {
                 "TENANT":
                     [
-                        "Whatever the time of day, according to reasonable circumstances, a tenant cannot make excessive noise."
+                        "Whatever the time of day, according to reasonable circumstances, another tenant (or you) cannot make excessive noise.|However, if the source of the noise is produced by a tenant or a party that is not on your landlord’s jurisdiction, it is out of their hands."
                     ],
                 "LANDLORD":
                     [
-                        "Whatever the time of day, according to reasonable circumstances, a tenant cannot make excessive noise."
+                        "Whatever the time of day, according to reasonable circumstances, a tenant cannot make excessive noise.|However, if the source of the noise is produced by a tenant or a party that is not on your property, it is out of your hands."
                     ]
             },
         "faq_rlq_paying_repairs_for_sink_toilet":
             {
                 "TENANT":
                     [
-                        "The landlord must pay for the repairs except if they can establish that the tenant is responsible for the problem."
+                        "The landlord must pay for the repairs except if they can successfully establish that you are responsible for the problem.|If you are able to prove that you are not responsible for the damages, if the repair is urgent (i.e. no running water), you may take the matter into your own hands and you have the right to be reimbursed or deduct the reasonable expenses from the rent."
                     ],
                 "LANDLORD":
                     [
-                        "The landlord must pay for the repairs except if they can establish that the tenant is responsible for the problem."
+                        "You must pay for the repairs except if you can successfully prove that your tenant is responsible for the problem.|If the tenant is able to prove that they are not responsible for the damages, or if the repair is urgent (i.e. no running water), the tenant may take the matter into their own hands and have the right to be reimbursed or deduct the reasonable expenses from the rent."
                     ]
             },
         "faq_rlq_landlord_entering_occupied_apartment":
             {
                 "TENANT":
                     [
-                        "The landlord must give the tenant a 24 hour notice and make the visit between 9:00 AM and 9:00 PM."
+                        "Your landlord must give you a 24 hour notice prior to entering your dwelling.|They must make the visit between 9:00 AM and 9:00 PM."
                     ],
                 "LANDLORD":
                     [
-                        "The landlord must give the tenant a 24 hour notice and make the visit between 9:00 AM and 9:00 PM."
+                        "You must give your tenant a 24 hour notice prior to entering their dwelling.|You must make the visit between 9:00 AM and 9:00 PM."
                     ]
             },
         "faq_rlq_apartment_too_cold":
             {
                 "TENANT":
                     [
-                        "There is no specified date for heating the apartment. The landlord must start to heat the dwellings of the building as soon as the climatic conditions justify it. Although neither law or most municipal by-law are specific in this area, the temperature of the dwelling should be around 21C"
+                        "There is no specified date for heating the dwelling.|The landlord must start to heat the dwellings of the building as soon as the climatic conditions justify it.|Although neither law or most municipal by-law are specific in this area, the temperature of the dwelling should be around 21C."
                     ],
                 "LANDLORD":
                     [
-                        "There is no specified date for heating the apartment. The landlord must start to heat the dwellings of the building as soon as the climatic conditions justify it. Although neither law or most municipal by-law are specific in this area, the temperature of the dwelling should be around 21C"
+                        "There is no specified date for heating the dwelling.|You must start to heat the dwellings of the building as soon as the climatic conditions justify it.|Although neither law or most municipal by-law are specific in this area, the temperature of the dwelling should be around 21C."
                     ]
             },
         "faq_rlq_unreasonable_rent_increase":
             {
                 "TENANT":
                     [
-                        "There is no fixed rate increase applied by the Régie du logement. Each case is treated specifically. The Régie takes into account, in calculating the rent variation, the income of the building and the municipal and school taxes, the insurance bills, the energy costs, maintenance and service costs. Also, it sees to apply a return on capital expenditures, if there were such expenditures, and indexes the net income of the building. In order to calculate precisely the rent variation for a dwelling, see the section: https:\/\/www.rdl.gouv.qc.ca\/en\/calculation-for-the-fixing-of-rent"
+                        "There is no fixed rate increase applied by the Régie du logement. Each case is treated specifically.|The Régie takes into account, in calculating the rent variation, the income of the building and the municipal and school taxes, the insurance bills, the energy costs, maintenance and service costs.|Also, it sees to apply a return on capital expenditures, if there were such expenditures, and indexes the net income of the building.|In order to give an estimate of the rent variation for a dwelling, see <a href='https://www.rdl.gouv.qc.ca/en/calculation-for-the-fixing-of-rent'>this</a>."
                     ],
                 "LANDLORD":
                     [
-                        "There is no fixed rate increase applied by the Régie du logement. Each case is treated specifically. The Régie takes into account, in calculating the rent variation, the income of the building and the municipal and school taxes, the insurance bills, the energy costs, maintenance and service costs. Also, it sees to apply a return on capital expenditures, if there were such expenditures, and indexes the net income of the building. In order to calculate precisely the rent variation for a dwelling, see the section: https:\/\/www.rdl.gouv.qc.ca\/en\/calculation-for-the-fixing-of-rent"
+                        "There is no set-in-stone way of calculating a rent increase and each case is treated differently.|When calculating the increase, la Régie takes into account the income of the building, the municipal and school taxes, the insurance bills, the energy costs, maintenance and service costs.|Also, it sees to apply a return on capital expenditures such as maintenance or infrastructure upgrades.|In order to get an estimate of the rent increase of a lease, see <a href='https://www.rdl.gouv.qc.ca/en/calculation-for-the-fixing-of-rent'>this</a>."
                     ]
             },
         "faq_likehome_deposit-request":
@@ -397,18 +397,18 @@ class Responses:
                     ],
                 "LANDLORD":
                     [
-                        "Any key deposits, rent advances, damage deposits, security deposits, etc. are illegal and you are not obliged to pay any of them.|Consider all other requested fees (laundry machine access, pools, kitchen appliances), if already granted in your lease, as illegal too.|Lease transfer fees and sublet fees are also illegal.|However, according to the Civil Code of Quebec (article 1904), your landlord may ask for the first month’s rent to be paid in advance right after the signature of the lease.|Good news though! Even if you signed a document saying you’d pay for any of these fees, they are without effect! You cannot sign away your rights."
+                        "Any key deposits, rent advances, damage deposits, security deposits, etc. are illegal and tenants are not obliged to pay any of them.|Consider all other requested fees (laundry machine access, pools, kitchen appliances), if already granted in their lease, as illegal too.|Lease transfer fees and sublet fees are also illegal.|However, according to the Civil Code of Quebec (article 1904), you may ask for their first month’s rent to be paid in advance right after the signature of the lease.| Even if the tenant signed a document saying they’d pay for any of these fees, they are without effect! They cannot sign away their rights."
                     ]
             },
         "faq_likehome_personal-info":
             {
                 "TENANT":
                     [
-                        "Your landlord is not legally allowed to collect personal information such as copies of your study permit, driver’s license, passports, health cards, bank account numbers or even your social insurance number (SIN).|If you’ve given this kind of sensitive information to your landlord, you can:|1. Demand a copy of every piece of sensitive information in a written demand letter sent by registered mail.|2. Demand in a second letter the destruction of said information.|If the landlord doesn’t abide in full to your demand, file a claim with the Commission d’acces a l’information du Quebec (CAIQ). Even if you signed a clause saying you’ll willingly give this information away, you cannot sign away your rights, making that clause legally invalid."
+                        "Your landlord is not legally allowed to collect personal information such as copies of your study permit, driver’s license, passports, health cards, bank account numbers or even your social insurance number (SIN).|If you’ve given this kind of sensitive information to your landlord, you can:|1. Demand a copy of every piece of sensitive information in a written demand letter sent by registered mail.|2. Demand in a second letter the destruction of said information.|If the landlord doesn’t abide in full to your demand, file a claim with the Commission d'accès à l’information du Québec (CAIQ).| Even if you signed a clause saying you’ll willingly give this information away, you cannot sign away your rights, making that clause legally invalid."
                     ],
                 "LANDLORD":
                     [
-                        "Your landlord is not legally allowed to collect personal information such as copies of your study permit, driver’s license, passports, health cards, bank account numbers or even your social insurance number (SIN).|If you’ve given this kind of sensitive information to your landlord, you can:|1. Demand a copy of every piece of sensitive information in a written demand letter sent by registered mail.|2. Demand in a second letter the destruction of said information.|If the landlord doesn’t abide in full to your demand, file a claim with the Commission d’acces a l’information du Quebec (CAIQ). Even if you signed a clause saying you’ll willingly give this information away, you cannot sign away your rights, making that clause legally invalid."
+                        "Careful, as a landlord you are not legally allowed to collect personal information such as copies of your tenant’s study permit, driver licenses, passports, health cards, bank account numbers or even their social insurance number (SIN).|Your tenant is legally allowed to file a claim with the Commission d'accès à l’information du Québec (CAIQ) if you request such information.|Even if the tenant signed a clause saying they willingly gave this information away, they cannot sign away their rights, making that clause legally invalid."
                     ]
             },
 
@@ -416,34 +416,34 @@ class Responses:
             {
                 "TENANT":
                     [
-                        "The RL-31 allows you to claim your housing as part of the solidarity tax credit. You are eligible to receive the RL-31 if you are a tenant or a subtenant.|Your landlord is responsible for providing you with the RL-31 prior to the last day of February.|If your landlord has not provided you with your RL-31, contact them and ask them to provide one as it is required by law. If they refuse to do so, call Revenu Québec and they will accept a copy of your lease."
+                        "The RL-31 allows you to claim your housing as part of the solidarity tax credit.|You are eligible to receive the RL-31 if you are a tenant or a subtenant.|Your landlord is responsible for providing you with the RL-31 prior to the last day of February.|If your landlord has not provided you with your RL-31, contact them and ask them to provide one as it is required by law.|If they refuse to do so, call Revenu Québec and they will accept a copy of your lease."
                     ],
 
                 "LANDLORD":
                     [
-                        "The RL-31 allows you to claim your housing as part of the solidarity tax credit. You are eligible to receive the RL-31 if you are a tenant or a subtenant.|Your landlord is responsible for providing you with the RL-31 prior to the last day of February.|If your landlord has not provided you with your RL-31, contact them and ask them to provide one as it is required by law. If they refuse to do so, call Revenu Québec and they will accept a copy of your lease."
+                        "The RL-31 allows your tenant to claim the provided housing as part of the solidarity tax credit.|Tenants and subtenants are equally eligible to receive it.|You are responsible by law for providing them with the RL-31 prior to the last day of February."
                     ]
             },
         "faq_likehome_negligence":
             {
                 "TENANT":
                     [
-                        "If you are sure that you were not negligent and damaged was caused due to wear and tear, write your landlord a demand letter stating that something is broken and needs fixing."
+                        "If you are sure that you were not negligent and damage was caused due to wear and tear|write your landlord a demand letter stating that something is broken and needs fixing."
                     ],
                 "LANDLORD":
                     [
-                        "If you are sure that you were not negligent and damaged was caused due to wear and tear, write your landlord a demand letter stating that something is broken and needs fixing."
+                        "If you are sure that the tenant was negligent and damage was not caused due to wear and tear|present your arguments in front of la Régie du logement if the tenant refuses to pay for the damages."
                     ]
             },
         "faq_likehome_credit-check":
             {
                 "TENANT":
                     [
-                        "The easiest way to obtain a credit check is online and typically carries a small fee.|Find a reputable credit score provider online and provide them with your SIN. Your credit report will then immediately be available to print out and submit to your landlord."
+                        "The easiest way to obtain a credit check is to go online.|Find a reputable credit score provider online (which typically costs you a small fee) and provide them with your SIN.| Your credit report will then immediately be available to print out and submit to your landlord."
                     ],
                 "LANDLORD":
                     [
-                        "The easiest way to obtain a credit check is online and typically carries a small fee.|Find a reputable credit score provider online and provide them with your SIN. Your credit report will then immediately be available to print out and submit to your landlord."
+                        "The responsibility of providing a credit report is your tenant’s.|The easiest way to obtain a credit check for your tenant is for them to get it online.|They need to find a reputable credit score provider online (which typically costs them a small fee) and provide them with their SIN.|Their credit report will then immediately be available to print out and submit to you."
                     ]
             },
 

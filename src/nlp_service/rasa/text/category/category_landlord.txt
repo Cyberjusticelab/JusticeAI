@@ -4,6 +4,10 @@
 
 [entity_synonyms]
 
+######################
+# LANDLORD EXCLUSIVE #
+######################
+
 [common_examples: ask_nonpayment]
 they have not paid rent
 tenant hasn't paid his rent
@@ -65,6 +69,10 @@ i cannot stand my tenant anymore. he's noisy, rude, disrespectful and tardy. he 
 i need help with my lease. my landlord is not doing anything about my neighbours and i can't sleep at night I want to annul it
 the tenant needs to go. he's making a mess of the apartment and i can't have him damage it further.
 my landlord wants me gone because my dog is too loud and keeps barking. i need help i got no where else to go.
+
+##########
+# COMMON #
+##########
 
 [common_examples: faq_rlq_abandoned_premises]
 the people that i used to lease my dwelling to disappeared 3-4 months ago
