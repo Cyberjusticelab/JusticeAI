@@ -205,15 +205,16 @@ do i need to be at the hearing
 [common_examples: faq_rlq_noisy_tenant]
 i'm sick of my tenant being so loud
 i can't sleep anymore because my landlord is loud as hell
-is my neighbour allowed to be noisy at night? i can't sleep
-can a tenant be noisy until 10:00pm?
+is my neighbour allowed to be noisy at night i can't sleep
+can a tenant be noisy until 10:00pm
 she is too loud
-after what time the tenant can't make noise?
-i can't sleep because my neighbour is too loud, what are my options?
-am i allowed to make noise during the day?
-my tenant is excessively loud
-my neighboor is making excessive noise
-my tenants are making too much noise
+after what time another tenant can't make noise
+i can't sleep because my neighbour is too loud
+am i allowed to make noise during the day
+a tenant is excessively loud
+my neighbor is making excessive noise
+other tenants are making too much noise
+these tenants are way too loud
 
 [common_examples: faq_rlq_landlord_entering_occupied_apartment]
 my landlord is giving the lease to another tenant. when are they allowed to visit the apartment?
