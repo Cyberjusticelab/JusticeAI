@@ -167,19 +167,17 @@ im getting complaints that rent increased too much
 my tenant wants to take legal action against me for increasing their rent
 
 [common_examples: faq_rlq_paying_repairs_for_sink_toilet]
-the toilet overflows every single time i flush, do i have to pay for the repairs?
-the toilet won't flush anymore, who has to pay to repair it?
-the sink doesn't work anymore and i want my landlord to pay for it
-my toilet is overflowing, do i have to pay for it?
-who has to pay for a broken sink or broken toilet?
-who has to pay for a plumber?
-does my landlord have to pay for blocked pipes or plumbing?
-the toilet isn't working but the landlord wants me to repair it
-the toilet is blocked can i ask the landlord to repair it?
-the toilet is clogged can i ask the landlord get it fixed?
-the sink is jammed can i get the landlord to fix it?
-the sink is blocked up and the landlord doesn't want to fix it
-the sink is clogged can i ask the landlord to fix it
+the toilet won't flush anymore who has to pay to repair it
+the sink doesn't work anymore and i want my tenant to pay for it
+my toilet is overflowing do i have to pay for it
+who has to pay for a broken sink or broken toilet
+who has to pay for a plumber
+the toilet isn't working but i want my tenant to repair it
+the toilet is blocked can i ask my tenant to repair it?
+the toilet is clogged can i ask my tenant to get it fixed?
+the sink is jammed can i get my tenants to fix it?
+the sink is blocked up and my tenant doesn't want to fix it
+the sink is clogged can i ask the tenant to fix it
 
 [common_examples: faq_rlq_apartment_too_cold]
 do i have to heat my tenants apartment in the winter
