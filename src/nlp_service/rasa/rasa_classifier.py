@@ -48,9 +48,9 @@ class RasaClassifier:
                             If passing PersonType, use .value - Ex: PersonType.TENANT.value
         :return: The classified claim category dict from RASA
         """
-        if person_type.lower() is "tenant":
+        if person_type.lower() == "tenant":
             return self.category_interpreters['category_tenant'].parse(message.lower())
-        elif person_type.lower() is "landlord":
+        elif person_type.lower() == "landlord":
             return self.category_interpreters['category_landlord'].parse(message.lower())
 
     def classify_fact(self, fact_name, message):
