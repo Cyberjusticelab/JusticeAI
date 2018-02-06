@@ -36,16 +36,10 @@ they are late on rent payments
 rent payments have not gone through
 i haven't received payment
 the tenant has not paid rent recently
-i haven't been paid rent
-i'm injured and i haven't paid rent in 2 months since i got fired from job
-i haven't paid rent.
-my tenant hasn't paid in 2 months, can i evict him?
-my tenant hasn't paid in 3 months. i haven't seen him either and i can never catch him.
+my tenant hasn't paid in 2 months
+my tenant hasn't paid in 3 months and i never see him
 my tenant hasn't paid in 2 weeks
 my tenant hasn't paid in 2 days
-i haven't paid rent and my landlord wants to evict me
-i haven't paid rent in 2 weeks and my landlord wants to evict me
-i cannot pay my landlord rent money
 
 [common_examples: ask_lease_termination]
 to end my lease
