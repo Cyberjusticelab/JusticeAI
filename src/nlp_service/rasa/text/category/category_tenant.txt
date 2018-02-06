@@ -232,14 +232,13 @@ can the landlord enter the apartment without my permission
 can the landlord enter the apartment without my permission
 
 [common_examples: faq_rlq_unreasonable_rent_increase]
-my landlord said rent will go up next year. how much can i expect it to increase? she didn't give me any details
-what is the legal amount by which my landlord can increase the rent?
-is it normal that my rent increase by 10 dollars?
-my rent was increased by 3%. is this legal?
-what is the maximum percentage by which the landlord can increase the rent
-my landlord increased the rent by $5, are they allowed to do this?
-by how much can my landlord increase the rent?
-i want to increase the rent of my tenants significantly
+my landlord said rent will go up next year how much can i expect it to increase
+the legal amount by which my landlord can increase the rent
+is it normal that my rent increase by 10 dollars
+my rent was increased by 3%
+maximum percentage by which the landlord can increase the rent
+my landlord increased the rent by $5
+my landlord increase the rent
 
 [common_examples: faq_rlq_paying_repairs_for_sink_toilet]
 the toilet overflows every single time i flush, do i have to pay for the repairs?
