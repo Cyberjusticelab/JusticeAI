@@ -170,4 +170,4 @@ class TestMlController(unittest.TestCase):
         ]
 
         formatted_list = MlController.format_similar_precedents(similarity_list)
-        self.assertDictEqual(formatted_list, expected_list)
+        self.assertListEqual(formatted_list, expected_list)
