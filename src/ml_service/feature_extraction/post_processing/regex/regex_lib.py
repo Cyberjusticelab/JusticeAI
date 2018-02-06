@@ -752,6 +752,12 @@ class RegexLib:
                 re.IGNORECASE
             )
         ], "MONEY_REGEX"),
+        ("authorizes_retaking_rental", [
+            re.compile(
+                r"AUTORISE (le|la|les) " + LANDLORD_REGEX + r" à reprendre (possession du|le|des|de leur|de son) (logement|lieux)",
+                re.IGNORECASE
+            )
+        ], "BOOLEAN"),
         ("declares_housing_inhabitable", [
             re.compile(
                 r"DÉCLARE le logement impropre à l'habitation",
