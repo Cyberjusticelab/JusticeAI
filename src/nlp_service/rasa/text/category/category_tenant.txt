@@ -305,11 +305,11 @@ my landlord keeps saying it’s my fault the lock broke, how do i prove it’s n
 [common_examples: faq_likehome_rl31]
 how can I get my rl31 slip
 my landlord won’t give me my rl31 slip
-my landlord still hasn’t sent me my rl31 slip
+my landlord still hasn’t sent me my rl-31 slip
 my landlord hasn’t provided me with the rl31
-i need to file in my taxes soon.
-i need to submit my taxes and i don’t have my rl31 yet
-i asked my landlord about my rl31 but he still hasn’t answered back
+i need to file in my taxes soon
+i need to submit my taxes and i don’t have my rl-31 yet
+i asked my landlord about my rl31
 solidarity tax credit
 
 [common_examples: faq_likehome_deposit-request]
