@@ -83,6 +83,6 @@ class MlController:
         formatted_precedents = []
 
         for precedent_array in similarity_list:
-            formatted_precedents.append({"precedent": precedent_array[0], "distance": precedent_array[1]})
+            formatted_precedents.append({"precedent": precedent_array[0].split(".")[0], "distance": precedent_array[1]})
 
         return formatted_precedents
