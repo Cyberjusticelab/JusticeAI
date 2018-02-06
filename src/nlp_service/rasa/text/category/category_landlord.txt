@@ -10,7 +10,7 @@ eviction: evict|evicted|kicked|kick
 rlq: rlq|r(e|é)gie(\sdu)?(\slogement)?
 personal info: sin|social (insurance|security)(\snumber)?|card|copy|photocopy|permit|license
 credit check: credit (check|report)
-RL31: rl(-)?31
+RL31: (rl(-)?31)|(tax)
 
 [entity_synonyms]
 
