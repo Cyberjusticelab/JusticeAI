@@ -150,14 +150,15 @@ def classify_fact_value(conversation_id, message):
 
 def __classify_claim_category(message, person_type):
     """
-    Classifies the claim category based on a message.
+    Classifies the claim category based on a message and person type.
     :param message: Message from user
-    :return: Claim category key
+    :param person_type: User's PersonType AS A STRING. i.e: "TENANT"
+    :return: Classified claim category key
     """
 
     classify_dict = rasaClassifier.classify_problem_category(message, person_type)
     log.debug(
-        "\nClassify Claim Category\n\tPerson Type:{}\n\tMessage: {}\n\tDict: {}".format(person_type.__value__, message,
+        "\nClassify Claim Category\n\tPerson Type:{}\n\tMessage: {}\n\tDict: {}".format(person_type, message,
                                                                                         classify_dict))
 
     # Return the claim category, or None if the answer was insufficient in determining one
