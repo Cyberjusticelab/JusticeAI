@@ -178,29 +178,29 @@ i abandoned my apartment
 [common_examples: faq_rlq_attending_hearing]
 i'm not able to attend the hearing
 do i need to attend the hearing
-i won't be able to make it to the hearing on time.
-i will be late, can we reschedule the hearing?
-how can i move my hearing's date?
-how am i able to postpone my hearing?
-can i postpone the meeting?
-i won't arrive to time to my hearing, can i reschedule?
-i am something to do at the same time as the hearing and can't make it.
-i have something to do on that day. how can i move the hearing back?
-how can i move my hearing?
-i am busy and can't free up time to go to my hearing.
-what if i can't make it to my hearing on time?
-can i reschedule my hearing?
-i'm unable to make it to the hearing, what are my options?
-can i postpone the hearing?
-can i not show up to the hearing?
+i won't be able to make it to the hearing on time
+i will be late, can we reschedule the hearing
+how can i move my hearing's date
+how am i able to postpone my hearing
+can i postpone the meeting
+i won't arrive to time to my hearing can i reschedule
+i have something to do at the same time as the hearing and can't make it
+i have something to do on that day how can i move the hearing back
+how can i move my hearing
+i am busy and can't free up time to go to my hearing
+what if i can't make it to my hearing on time
+can i reschedule my hearing
+i'm unable to make it to the hearing what are my options
+can i postpone the hearing
+can i not show up to the hearing
 i can't make it to the hearing
 i can't attend the hearing
-do i need to go to the hearing?
-i was informed that i must attend a hearing.
-there's a hearing that i can't attend.
-i am supposed to attend a hearing. do i have to?
-my hearing is scheduled soon. do i need to attend it?
-do i need to be at the hearing?
+do i need to go to the hearing
+i was informed that i must attend a hearing
+there's a hearing that i can't attend
+i am supposed to attend a hearing do i have to
+my hearing is scheduled soon do i need to attend it
+do i need to be at the hearing
 
 [common_examples: faq_rlq_noisy_tenant]
 i'm sick of my tenant being so loud
