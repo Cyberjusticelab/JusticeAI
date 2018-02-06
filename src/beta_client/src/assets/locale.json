@@ -35,6 +35,7 @@
             "question": [
                 "Are you a legal professional?"
             ],
+            "type": "isPro",
             "answer": ["Yes", "No"],
             "val": 4
         },
@@ -80,8 +81,9 @@
         },
         {
             "question": [
-                "Are you a legal professional?"
+                "Êtes-vous un professionnel du droit?"
             ],
+            "type": "isPro",
             "answer": ["Yes", "No"],
             "val": 4
         },

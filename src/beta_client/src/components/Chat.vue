@@ -85,7 +85,6 @@ export default {
       colSize: 24,
       userEmail: null,
       userQuestion: null,
-      userSubscription: false,
       userId: null,
       isInvalidInput: false,
       isZeusThinking: false
@@ -150,10 +149,10 @@ export default {
         } else {
           this.isInvalidInput = true
         }
-      } else if (set.type === 'subscription') {
-        this.$http.put(this.api_url + 'subscription', {
+      } else if (set.type === 'isPro' && skip === 1) {
+        this.$http.put(this.api_url + 'legal', {
           id: this.userId,
-          is_subscribed: 1
+          is_legal_professional: skip
         })
       }
     },
