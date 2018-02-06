@@ -158,7 +158,7 @@ def __classify_claim_category(message, person_type):
 
     classify_dict = rasaClassifier.classify_problem_category(message, person_type)
     log.debug(
-        "\nClassify Claim Category\n\tPerson Type:{}\n\tMessage: {}\n\tDict: {}".format(person_type, message,
+        "\nClassify Claim Category\n\tPerson Type: {}\n\tMessage: {}\n\tOutput: {}".format(person_type, message,
                                                                                         classify_dict))
 
     # Return the claim category, or None if the answer was insufficient in determining one
@@ -186,7 +186,7 @@ def __extract_entity(current_fact_name, current_fact_type, message):
             return None
 
     classify_dict = rasaClassifier.classify_fact(current_fact_name, message)
-    log.debug("\nClassify Fact\n\tMessage: {}\n\tDict: {}".format(message, classify_dict))
+    log.debug("\nClassify Fact\n\tMessage: {}\n\tOutput: {}".format(message, classify_dict))
 
     # Return the fact value, or None if the answer was insufficient in determining one
     if intentThreshold.is_sufficient(classify_dict):
