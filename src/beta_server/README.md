@@ -38,6 +38,9 @@ Inserts a new user-generated question. Returns that user's ID.
 
 Updates a user's email address based on their ID.
 
+If an ID is provided, that ID's record is updated. If no ID is provided, a new record is created.
+
+
 #### Example request payload
 ```json
 {
@@ -57,11 +60,12 @@ Updates a user's email address based on their ID.
 - `415` if request does not contain valid JSON
 - `422` if the `email` key is not present
 - `422` if the `email` value is too long
-- `422` if the `id` key is not present
 
 ### `PUT /subscription`
 
 Updates a user's subscription status based on their ID. `1` is subscribed, `0` is not subscribed.
+
+If an ID is provided, that ID's record is updated. If no ID is provided, a new record is created.
 
 #### Example request payload
 ```json
@@ -82,5 +86,31 @@ Updates a user's subscription status based on their ID. `1` is subscribed, `0` i
 - `415` if request does not contain valid JSON
 - `422` if the `is_subscribed` key is not present
 - `422` if the `is_subscribed` key is not an integer
-- `422` if the `id` key is not present
+
+### `PUT /legal`
+
+Updates a user's status on whether they are a legal professional based on their ID. `1` is a legal professional, `0` is not.
+
+If an ID is provided, that ID's record is updated. If no ID is provided, a new record is created.
+
+#### Example request payload
+```json
+{
+	"id": "5c17bfd0-87d0-4493-a312-f3f32323fff2",
+	"is_legal_professional": 1
+}
+```
+
+#### Success response payload
+```json
+{
+	"id": "5c17bfd0-87d0-4493-a312-f3f32323fff2"
+}
+```
+
+#### Error response status codes
+- `415` if request does not contain valid JSON
+- `422` if the `is_subscribed` key is not present
+- `422` if the `is_subscribed` key is not an integer
+
 
