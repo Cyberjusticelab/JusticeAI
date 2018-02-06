@@ -131,9 +131,11 @@ def classify_fact_value(conversation_id, message):
             # All facts have been resolved, submit request to ML service for prediction
             ml_prediction = ml_service.submit_resolved_fact_list(conversation)
 
-            prediction_dict, similar_precedent_list = ml_service.extract_prediction(
+            prediction_dict = ml_service.extract_prediction(
                 claim_category=conversation.claim_category.value,
                 ml_response=ml_prediction)
+
+            similar_precedent_list = ml_prediction['similar_precedents']
 
             # Generate statement for prediction
             question = Responses.prediction_statement(
