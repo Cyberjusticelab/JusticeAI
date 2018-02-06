@@ -7,7 +7,6 @@ from rasa_nlu.converters import load_data
 from rasa_nlu.model import Trainer, Interpreter
 
 
-# Class which will hold all the Rasa logic from training to parsing
 class RasaClassifier:
     # Directories & Files
     config_file = "rasa/config/rasa_config.json"
@@ -16,7 +15,7 @@ class RasaClassifier:
     category_data_dir = "rasa/data/category/"
 
     # Dicts
-    problem_category_interpreters = {}
+    category_interpreters = {}
     fact_interpreters = {}
 
     # RASA Caching
@@ -38,17 +37,21 @@ class RasaClassifier:
                                  initialize_interpreters=initialize_interpreters)
 
         # Train problem category classifier
-        self.__train_interpreter(self.category_data_dir, self.problem_category_interpreters, force_train=force_train,
+        self.__train_interpreter(self.category_data_dir, self.category_interpreters, force_train=force_train,
                                  initialize_interpreters=initialize_interpreters)
 
-    def classify_problem_category(self, message):
+    def classify_problem_category(self, message, person_type):
         """
-        Classifies a claim category based on a message
+        Classifies a claim category based on a message and person type
         :param message: Message received from user
+        :param person_type: The person type of the user AS A STRING, ie: "TENANT".
+                            If passing PersonType, use .value - Ex: PersonType.TENANT.value
         :return: The classified claim category dict from RASA
         """
-
-        return self.problem_category_interpreters['claim_category'].parse(message.lower())
+        if person_type.lower() == "tenant":
+            return self.category_interpreters['category_tenant'].parse(message.lower())
+        elif person_type.lower() == "landlord":
+            return self.category_interpreters['category_landlord'].parse(message.lower())
 
     def classify_fact(self, fact_name, message):
         """

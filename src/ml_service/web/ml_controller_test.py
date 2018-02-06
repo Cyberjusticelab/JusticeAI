@@ -1,7 +1,6 @@
 import json
 from web.ml_controller import MlController
 from numpy.testing import assert_array_equal
-from prediction.global_predictor import GlobalPredictor
 import unittest
 import numpy as np
 
@@ -136,7 +135,7 @@ class TestMlController(unittest.TestCase):
 
     def test_vector_to_dict(self):
         binary_vector = np.array([0, 1, 0, 0, 0, 1, 1, 0, 1, 0])
-        GlobalPredictor.classifier_labels = self.mock_classifier_index
+        MlController.classifier_labels = self.mock_classifier_index
         result = MlController.vector_to_dict(binary_vector)
         expected_dict = {
             'outcomes_vector': {

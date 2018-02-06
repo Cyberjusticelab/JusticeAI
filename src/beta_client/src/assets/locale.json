@@ -33,10 +33,18 @@
         },
         {
             "question": [
+                "Are you a legal professional?"
+            ],
+            "type": "isPro",
+            "answer": ["Yes", "No"],
+            "val": 4
+        },
+        {
+            "question": [
                 "Well heard!",
                 "And you will hear from me shortly."
             ],
-            "val": 4
+            "val": 5
         }
     ],
     "fr": [
@@ -73,10 +81,18 @@
         },
         {
             "question": [
+                "Êtes-vous un professionnel du droit?"
+            ],
+            "type": "isPro",
+            "answer": ["Yes", "No"],
+            "val": 4
+        },
+        {
+            "question": [
                 "Merci beaucoup!",
                 "Je resterai en contact avec vous. Bonne journée!"
             ],
-            "val": 4
+            "val": 5
         }
     ]
 }
