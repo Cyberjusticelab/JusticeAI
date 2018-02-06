@@ -9,7 +9,6 @@ class RegexLib:
     DEMAND_REGEX = r"(demand|réclam)(ait|e|ent|aient)"
     DATE_REGEX = r"(?i)\d{1,2}(er|èr|ere|em|eme|ème)? \w{3,9} \d{4}"
 
-    @staticmethod
     def __multiple_words(min, max):
         return r"([a-zA-ZÀ-ÿ0-9]+(\s|'|,\s)){" + str(min) + "," + str(max) + "}"
 
@@ -79,7 +78,7 @@ class RegexLib:
         ], "BOOLEAN"),
         ("landlord_demand_retake_apartment", [
             re.compile(
-                + r".+" + LANDLORD_REGEX + r".*" +
+                r".+" + LANDLORD_REGEX + r".*" +
                 DEMAND_REGEX + r".+(autoris(er|ation)).+reprendre.+logement",
                 re.IGNORECASE
             ),
