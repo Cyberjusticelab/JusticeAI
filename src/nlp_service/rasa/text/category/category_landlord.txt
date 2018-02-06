@@ -142,10 +142,10 @@ tenants are complaining about their neighbors making too much noise
 my tenants are making too much noise
 
 [common_examples: faq_rlq_landlord_entering_occupied_apartment]
-im trying to rent out an apartment to another tenant, can i show them around
+im trying to rent out an apartment to another tenant can i show them around
 am i allowed to enter my tenants apartment
 when am i allowed to enter my tenants dwelling
-i suspect my tenant is not cleaning their apartment, can i see it without asking
+i suspect my tenant is not cleaning their apartment can i see it without asking
 can i inspect a tenants apartment without their permission
 i want to show a new tenant around an occupied apartment
 when can i give a tour of an occupied dwelling
