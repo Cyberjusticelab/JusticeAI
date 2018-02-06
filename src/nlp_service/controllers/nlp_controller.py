@@ -131,11 +131,15 @@ def classify_fact_value(conversation_id, message):
             # All facts have been resolved, submit request to ML service for prediction
             ml_prediction = ml_service.submit_resolved_fact_list(conversation)
 
-            prediction_dict = ml_service.extract_prediction(claim_category=conversation.claim_category.value,
-                                                            ml_response=ml_prediction)
+            prediction_dict, similar_precedent_list = ml_service.extract_prediction(
+                claim_category=conversation.claim_category.value,
+                ml_response=ml_prediction)
 
             # Generate statement for prediction
-            question = Responses.prediction_statement(conversation.claim_category.value, prediction_dict)
+            question = Responses.prediction_statement(
+                claim_category_value=conversation.claim_category.value,
+                prediction_dict=prediction_dict,
+                similar_precedent_list=similar_precedent_list)
     else:
         question = Responses.chooseFrom(Responses.clarify).format(
             previous_question=Responses.fact_question(current_fact.name))
@@ -159,7 +163,7 @@ def __classify_claim_category(message, person_type):
     classify_dict = rasaClassifier.classify_problem_category(message, person_type)
     log.debug(
         "\nClassify Claim Category\n\tPerson Type: {}\n\tMessage: {}\n\tOutput: {}".format(person_type, message,
-                                                                                        classify_dict))
+                                                                                           classify_dict))
 
     # Return the claim category, or None if the answer was insufficient in determining one
     if intentThreshold.is_sufficient(classify_dict):
