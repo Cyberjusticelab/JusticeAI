@@ -203,10 +203,11 @@ how do credit checks work
 where can a credit check be obtained
 
 [common_examples: faq_likehome_personal-info]
-i need my tenants sin
-i need my tenants social insurance number
-can i get a copy of my tenant driver license
-i want a picture of a sun card
+i need my tenant's sin
+i need my tenant's social insurance number
+i want my tenant's social security number
+can i get a copy of my tenant's driver license
+i want a picture of his sun card
 i need some more information about my tenant
 i need some more information about a future tenant
 can i get a social insurance number
@@ -214,6 +215,9 @@ can i get a sin
 can i get a social security number
 my tenant is refusing to give me their birth certificate
 my tenant doesn't want to give me their information
+i asked for my tenant's passport
+my tenant says i'm not allowed to ask for his sin
+
 
 [common_examples: faq_likehome_negligence]
 how do i prove to my landlord this is an issue of wear and tear and not negligence
@@ -221,8 +225,8 @@ it broke and it wasn’t my fault
 how do i ensure the case can’t be spinned into it being negligence
 my pipes burst during winter and it’s not my fault
 my landlord is trying to say i was negligent and i need to pay for the damages
-the ceiling in my bathroom is cracking and my landlord says it’s my fault that i was negligent
-my landlord keeps saying it’s my fault the lock broke, how do i prove it’s not?
+the ceiling in my bathroom is cracking and my landlord says it’s my fault
+my landlord keeps saying it’s my fault the lock broke how do i prove it’s not
 
 [common_examples: faq_likehome_rl31]
 do i need to give my tenant an rl31
