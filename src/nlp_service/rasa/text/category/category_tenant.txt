@@ -36,7 +36,6 @@ nonpayment: (didn't)(\s)(pay)
 landlord not repairing: (repair)|(fix)|(remov[^\s])|(deduct[^\s])|(rent)
 landlord harassing: (harass(ing|ed|es)?)|(creep(y)?)|(lewd)
 visitation without permission: (visit)|(enter(ed|ing)*)
-i am: im|i'm|i am
 
 [entity_synonyms]
 
