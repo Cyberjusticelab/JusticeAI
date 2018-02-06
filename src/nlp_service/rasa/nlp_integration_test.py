@@ -22,26 +22,16 @@ class TestNLPIntegration(unittest.TestCase):
         data = json.loads(codecs.open(filepath, 'r', 'utf-8').read().encode('utf-8'))
         common_examples = data['rasa_nlu_data']['common_examples']
 
-        for example in common_examples:
-            classify_dict = self.rasaClassifier.classify_problem_category(example['text'])
-            determined_claim_category = classify_dict['intent']['name']
-            self.assertTrue(self.intentThreshold.is_sufficient(classify_dict),
-                            "Insufficient Confidence - Intent: {}\nConfidence {}\nExample Sentence: {}"
-                            .format(
-                                determined_claim_category,
-                                classify_dict['intent']['confidence'],
-                                example['text'])
-                            )
-            self.assertTrue(determined_claim_category == example['intent'],
-                            "Wrong Intent Classification\nClassified Intent: {}\nActual Intent: {}\nExample Sentence: {}".format(
-                                determined_claim_category, example['intent'], example['text'])
-                            )
+        self.test_confidence_classification(common_examples)
 
     def test_all_landlord_claim_category(self):
         filepath = os.getcwd() + '/rasa/data/category/category_landlord.json'
         data = json.loads(codecs.open(filepath, 'r', 'utf-8').read().encode('utf-8'))
         common_examples = data['rasa_nlu_data']['common_examples']
 
+        self.test_confidence_classification(common_examples)
+
+    def test_confidence_classification(self, common_examples):
         for example in common_examples:
             classify_dict = self.rasaClassifier.classify_problem_category(example['text'])
             determined_claim_category = classify_dict['intent']['name']
