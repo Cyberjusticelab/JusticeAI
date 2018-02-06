@@ -13,6 +13,10 @@ class RegexLib:
     def __multiple_words(min, max):
         return r"([a-zA-ZÀ-ÿ0-9]+(\s|'|,\s)){" + str(min) + "," + str(max) + "}"
 
+    # #############################################################
+    # DEMANDS
+    # #############################################################
+
     regex_demands = [
         ("demand_lease_modification",
          [
@@ -207,6 +211,13 @@ class RegexLib:
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
+        ("case_fee_reimbursement", [
+            re.compile(
+                r".+remboursement.+frais\sjudiciaires.+" + \
+                MONEY_REGEX,
+                re.IGNORECASE
+            )
+        ], "MONEY_REGEX"),
         ("tenant_eviction", [
             re.compile(
                 r".+" + LANDLORD_REGEX +
@@ -216,9 +227,10 @@ class RegexLib:
         ], "BOOLEAN")
     ]
 
-    # TODO "tenant_request_cancel_lease", "tenant_pay_before_judgment",
-    # "landlord_not_prejudice_justified", "tenant_claims_harm",
-    # "tenant_is_asshole"
+    # #############################################################
+    # FACTS
+    # #############################################################
+
     regex_facts = [
         ("apartment_dirty", [
             re.compile(
@@ -260,15 +272,17 @@ class RegexLib:
             re.compile(
                 r".+dérange la jouissance paisible",
                 re.IGNORECASE
-            )
-        ], "BOOLEAN"),
-        ("case_fee_reimbursement", [
+            ),
             re.compile(
-                r".+remboursement.+frais\sjudiciaires.+" + \
-                MONEY_REGEX,
+                r".+dérange la jouissance",
+                re.IGNORECASE
+            ),
+            re.compile(
+                r".+" + TENANT_REGEX + \
+                r" trouble(nt|) la jouissance",
                 re.IGNORECASE
             )
-        ], "MONEY_REGEX"),
+        ], "BOOLEAN"),
         ("disrespect_previous_judgement", [
             re.compile(
                 r".+non-respect d'une ordonnance émise antérieurement",
@@ -313,26 +327,6 @@ class RegexLib:
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
-        ("landlord_prejudice_justified", [
-            re.compile(
-                r".+(cause.+)?préjudice(causé)?.+(" + \
-                LANDLORD_REGEX + \
-                r"|demanderesse)?(justifie.+décision|sérieux)",
-                re.IGNORECASE
-            ),
-            re.compile(
-                r".+préjudice subi justifie",
-                re.IGNORECASE
-            ),
-            re.compile(
-                r".+le préjudice causé au " + LANDLORD_REGEX + r" justifie",
-                re.IGNORECASE
-            ),
-            re.compile(
-                r".+suffise.*" + TENANT_REGEX + r".*article 1863",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
         ("landlord_relocation_indemnity_fees", [
             re.compile(
                 r".+(" + LANDLORD_REGEX + r")?.+réclame.+indemnité de relocation\s" + __multiple_words(0, 5) + MONEY_REGEX,
@@ -358,16 +352,35 @@ class RegexLib:
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
-        ("landlord_retakes_apartment_indemnity", [
-            re.compile(
-                r".+compenser.+frais.+déménagement",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
         ("landlord_sends_demand_regie_logement", [
             re.compile(
                 r".+" + LANDLORD_REGEX + \
-                r".+demande.+(Régie\sdu\slogement)",
+                r".+demande.+ordonnance.+(Régie\sdu\slogement)",
+                re.IGNORECASE
+            ),
+            re.compile(
+                r".+" + LANDLORD_REGEX + \
+                r".+(produit|introduit|déposé|intention de faire|déposent).+demand(e|ent).+(Régie\sdu\slogement)",
+                re.IGNORECASE
+            ),
+            re.compile(
+                LANDLORD_REGEX + r" demande à la Régie du logement",
+                re.IGNORECASE
+            )
+        ], "BOOLEAN"),
+        ("tenant_sends_demand_regie_logement", [
+            re.compile(
+                TENANT_REGEX + r" .+ au " + LANDLORD_REGEX + \
+                r" une mise en demeure .+ (demanderait|demande) .+ Régie du logement",
+                re.IGNORECASE
+            ),
+            re.compile(
+                TENANT_REGEX + r" envoie une mise en demeure au " + LANDLORD_REGEX + \
+                r" .+ (demanderait|demande) .+ Régie du logement",
+                re.IGNORECASE
+            ),
+            re.compile(
+                TENANT_REGEX + r" demande à la Régie du logement",
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
@@ -391,15 +404,17 @@ class RegexLib:
         ], "BOOLEAN"),
         ("rent_increased", [
             re.compile(
-                r".+preuve démontre la réception de l'avis d'augmentation",
+                r"preuve démontre la réception de l'avis d'augmentation",
                 re.IGNORECASE
-            )
-        ], "BOOLEAN"),
-        ("tenant_bad_payment_habits", [
+            ),
             re.compile(
-                r".+(retard(s)?.+)?(loyer.+)?(payé|paient|paiement)(.+loyer)?(.+retard(s)?)?",
+                r"augmentation (du|de) loyer",
                 re.IGNORECASE
-            )
+            ),
+            re.compile(
+                r"augmentation de " + MONEY_REGEX,
+                re.IGNORECASE
+            ),
         ], "BOOLEAN"),
         ("tenant_continuous_late_payment", [
             re.compile(
@@ -631,6 +646,11 @@ class RegexLib:
             )
         ], "BOOLEAN")
     ]
+
+    # #############################################################
+    # OUTCOMES
+    # #############################################################
+
     regex_outcomes = [
         ("additional_indemnity_date", [
             re.compile(
@@ -661,12 +681,32 @@ class RegexLib:
         ], "BOOLEAN"),
         ("landlord_serious_prejudice", [
             re.compile(
-                r".+cause un préjudice sérieux au(x|) " + LANDLORD_REGEX + r"",
+                r"préjudice sérieux au(x|) " + LANDLORD_REGEX + r"",
                 re.IGNORECASE
             ),
             re.compile(
-                r".+" + LANDLORD_REGEX + r" " + \
+                r"préjudice sérieux à la " + LANDLORD_REGEX + r"",
+                re.IGNORECASE
+            ),
+            re.compile(
+                LANDLORD_REGEX + r" " + \
                 __multiple_words(0, 1) + r"}un préjudice sérieux",
+                re.IGNORECASE
+            ),
+            re.compile(
+                LANDLORD_REGEX + r" ayant démontré le préjudice sérieux",
+                re.IGNORECASE
+            ),
+            re.compile(
+               "préjudice sérieux.+retards",
+                re.IGNORECASE
+            ),
+            re.compile(
+                "préjudice sérieux.+gestion.+immeuble",
+                re.IGNORECASE
+            ),
+            re.compile(
+                "caus(e|ent) au(x|) " + LANDLORD_REGEX + r" un préjudice sérieux",
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
@@ -709,5 +749,31 @@ class RegexLib:
                 r"CONDAMNE le locataire à payer aux locateurs \Kles frais judiciaires de " + MONEY_REGEX,
                 re.IGNORECASE
             ),
-        ], "MONEY_REGEX")
+        ], "MONEY_REGEX"),
+        ("landlord_prejudice_justified", [
+            re.compile(
+                r".+(cause.+)?préjudice(causé)?.+(" + \
+                LANDLORD_REGEX + \
+                r"|demanderesse)?(justifie.+décision|sérieux)",
+                re.IGNORECASE
+            ),
+            re.compile(
+                r".+préjudice subi justifie",
+                re.IGNORECASE
+            ),
+            re.compile(
+                r".+le préjudice causé au " + LANDLORD_REGEX + r" justifie",
+                re.IGNORECASE
+            ),
+            re.compile(
+                r".+suffise.*" + TENANT_REGEX + r".*article 1863",
+                re.IGNORECASE
+            )
+        ], "BOOLEAN"),
+        ("landlord_retakes_apartment_indemnity", [
+            re.compile(
+                r".+compenser.+frais.+déménagement",
+                re.IGNORECASE
+            )
+        ], "BOOLEAN")
     ]
