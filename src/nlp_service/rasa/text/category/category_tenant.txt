@@ -150,28 +150,18 @@ to terminate the lease
 to resiliate the lease
 i'd like to terminate my lease
 i want to break my lease
-i'm leaving my apartment even though my lease is still ongoing.
+i'm leaving my apartment even though my lease is still ongoing
 i'm getting evicted
-i'm getting evicted from my apartment.
-i'm kicking out my tenant.
-i'm trying to kick my tenant out. he damaged my property and hasn't paid rent.
-my landlord is trying to evict me.
-my neighbour complained to my landlord about my cat. my landlord is now trying to evict me.
-my landlord is trying to evict me.
-the apartment is disgusting. my roommate won't clean and my landlord won't do anything.
-my apartment is not habitable and my landlord won't do anything to fix the issues. i want to break the lease.
-i want to break the lease.
-i'm getting kicked out of my apartment.
-i want to break the lease.
-my tenant damaged the apartment and won't pay for the damages.
-i want to evict my tenant. he's noisy and i got complaints about him.
-my landlord is not doing any repairs. i want to move out.
-my tenant keeps bringing his dog in the apartment. i specified cats only. i need him out.
-my tenant brought in a noisy parrot that won't stop singing. i need him gone. this can't continue i keep getting complaints and it's keeping his neighbours up.
-i cannot stand my tenant anymore. he's noisy, rude, disrespectful and tardy. he needs to go.
-i need help with my lease. my landlord is not doing anything about my neighbours and i can't sleep at night I want to annul it
-the tenant needs to go. he's making a mess of the apartment and i can't have him damage it further.
-my landlord wants me gone because my dog is too loud and keeps barking. i need help i got no where else to go.
+i'm getting evicted from my apartment
+my landlord is trying to evict me
+my neighbour complained to my landlord about my cat my landlord is now trying to evict me
+my landlord is trying to evict me
+my apartment is not habitable and my landlord won't do anything to fix the issues i want to break the lease
+i want to break the lease
+i'm getting kicked out of my apartment
+i want to break the lease
+my landlord is not doing any repairs i want to move out
+my landlord wants me gone because my dog is too loud and keeps barking
 
 ##########
 # COMMON #
