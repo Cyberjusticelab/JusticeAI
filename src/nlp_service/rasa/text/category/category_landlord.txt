@@ -24,7 +24,7 @@ negligence: (wear and tear)|(negligen(ce|t)?)|(fault)
 hearing-not showing up: (hearing)|(meeting)|(reschedule)
 haven't paid: (haven't)(\s)(paid)
 rent increase: rais(e/es/end/ing)|rais[^\s]*
-nonpayment: didn't pay:(didn't)(\s)(pay)
+nonpayment: (didn't)(\s)(pay)
 landlord not repairing: (repair)|(fix)|(remov[^\s])|(deduct[^\s])|(rent)
 visitation without permission: (visit)|(enter(ed|ing)*)
 
