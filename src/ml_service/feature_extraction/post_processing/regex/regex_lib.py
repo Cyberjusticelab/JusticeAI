@@ -754,7 +754,7 @@ class RegexLib:
         ], "MONEY_REGEX"),
         ("authorizes_retaking_rental", [
             re.compile(
-                r"AUTORISE (le|la|les) " + LANDLORD_REGEX + r" à reprendre (possession du|le|des|de leur|de son) (logement|lieux)",
+                r"AUTORISE (le|la|les) " + LANDLORD_REGEX + r" à reprendre (possession )?(du|le|des|de leur|de son) (logement|lieux)",
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
