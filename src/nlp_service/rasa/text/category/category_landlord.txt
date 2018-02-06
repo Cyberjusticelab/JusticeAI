@@ -51,13 +51,13 @@ to terminate the lease
 to resiliate the lease
 i'd like to terminate the lease
 i want to break the lease
-i'm kicking out my tenant.
-i'm trying to kick my tenant out. he damaged my property and hasn't paid rent.
-my tenant damaged the apartment and won't pay for the damages.
-i want to evict my tenant. he's noisy and i got complaints about him.
-my tenant keeps bringing his dog in the apartment. i specified cats only. i need him out.
+i'm kicking out my tenant
+i'm trying to kick my tenant out he damaged my property and hasn't paid rent
+my tenant damaged the apartment and won't pay for the damages
+i want to evict my tenant he's noisy and i got complaints about him
+my tenant keeps bringing his dog in the apartment. i specified cats only i need him out
 my tenant brought in a noisy parrot that won't stop singing and i need him gone
-i cannot stand my tenant anymore. he's noisy, rude, disrespectful and tardy. he needs to go.
+i cannot stand my tenant anymore he's noisy rude disrespectful and tardy he needs to go
 the tenant needs to go and he's making a mess of the apartment
 
 ##########
