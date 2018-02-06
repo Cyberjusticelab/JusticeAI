@@ -1,8 +1,8 @@
 import unittest
-from model_training.regression.multi_class_svr import MultiClassSVR
+
 import numpy as np
-from util.constant import Path
-import os
+
+from model_training.regression.archive.multi_class_svr import MultiClassSVR
 
 
 class TestLinearSvc(unittest.TestCase):

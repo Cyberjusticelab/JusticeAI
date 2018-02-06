@@ -147,7 +147,8 @@ class MultiClassSVM:
         data = binarize([data], threshold=0)
         return self.model.predict(data)
 
-    def load_classifier_labels(self):
+    @staticmethod
+    def load_classifier_labels():
         """
         The prediction given by the model gives a matrix with less dimensions
         then the total outcomes. The reason being that only boolean outcomes
