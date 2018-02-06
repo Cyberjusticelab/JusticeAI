@@ -1,16 +1,32 @@
 [meta]
 
 [regex_features]
-gender: (him|he|her|she|they)((')?s)?
-i am: im|i'm|i am
-has not: hasn't|has not
-will not: won't|will not
+deposit-in advance: (in)(\s)(advance)
 dwelling: dwelling|apartment|house|place|crib
+rent in advance: (in advance)
 eviction: evict|evicted|kicked|kick
-rlq: rlq|r(e|é)gie(\sdu)?(\slogement)?
-personal info: sin|social (insurance|security)(\snumber)?|card|copy|photocopy|permit|license
-credit check: credit (check|report)
-RL31: (rl(-)?31)|(tax)
+has not: hasn't|has not
+not having a lease: (leav[^\s])|(ditch)|(sign)|(have)
+tenants leave without pay: (left)|(pursu[^\s])|(bail[^\s])|((ow)[^\s])|(diced)|(nowhere)|(disappear[^\s]*)
+RL31: (rl(-)?31)|(tax(es)?)
+abandoning: (abandon)|(leave)
+rent increase: increas(e/es/ed/ing)|increas[^\s]*
+credit check: (credit( score| check| report)?)
+personal info: sin|card|copy|photocopy|permit|license
+termination of lease: end(s/ed/ing)|end[^\s]*
+habitability-temperature: (heat(ing)*)|(cold)|(freez(e|ing)*)|([0-9]+(c|c|f|f))
+repairs landlord pay: (repair)|(fix)|(toilet[^\s])|(sink[^\s])|(broke[^\s])
+habitability-noise: (nois[^\s])|(loud)
+cancel lease: (cancel)|(void)|(revoke[^\s])|(go back on)|(return)
+termination of lease: terminat(ing/e/es/ed)|terminat[^\s]*
+deposit: deposit(s/ed)|deposit[^\s]*
+negligence: (wear and tear)|(negligen(ce|t)?)|(fault)
+hearing-not showing up: (hearing)|(meeting)|(reschedule)
+haven't paid: (haven't)(\s)(paid)
+rent increase: rais(e/es/end/ing)|rais[^\s]*
+nonpayment: didn't pay:(didn't)(\s)(pay)
+landlord not repairing: (repair)|(fix)|(remov[^\s])|(deduct[^\s])|(rent)
+visitation without permission: (visit)|(enter(ed|ing)*)
 
 [entity_synonyms]
 
