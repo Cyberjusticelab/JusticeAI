@@ -118,16 +118,13 @@ can i cancel a lease i just signed
 i signed the lease for an apartment but found a better one afterwards
 i signed for an apartment but changed my mind
 i signed the lease but do not want it anymore
-is there a way that i can return the lease? i don't want the apartment anymore.
-can i revoke the lease? my tenants just signed it
-can i cancel my lease? i only signed it a few days ago.
-can i void my lease? i only recently signed it.
-can i go back on the lease i just signed?
-i signed a lease but i found a better apartment, can i cancel my current lease?
-my tenants are trying to cancel the lease. it has only been 5 days since they signed it. are they allowed?
-my tenant is trying to cancel the lease after they signed it
-can i cancel the lease after it is signed?
-how long do i have to cancel the lease after it is signed?
+is there a way that i can return the lease i don't want the apartment anymore
+can i cancel my lease i only signed it a few days ago
+can i void my lease i only recently signed it
+can i go back on the lease i just signed
+i signed a lease but i found a better apartment can i cancel my current lease
+can i cancel the lease after it is signed
+how long do i have to cancel the lease after it is signed
 
 [common_examples: faq_rlq_landlord_neglects_necessary_repairs]
 the landlord does not intend on fixing the water
