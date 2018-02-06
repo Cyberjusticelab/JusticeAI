@@ -1,41 +1,37 @@
 [meta]
 
 [regex_features]
-deposit-in advance: (in)(\s)(advance)
 dwelling: dwelling|apartment|house|place|crib
-rent in advance: (in advance)
-spouse-violence: (violen(t|ce)?)|(hit(s/ting)?)|(beat(s|ing)?)|(abus(ive|ed|ing)?)|(rape(d)?)
 eviction: evict|evicted|kicked|kick
 has not: hasn't|has not
+spouse-violence: (violen(t|ce)?)|(hit(s/ting)?)|(beat(s|ing)?)|(abus(ive|ed|ing)?)|(rape(d)?)
 spouse/lover: (ex)?(-)?(lover|boyfriend|girlfriend|spouse|husband|wife)?('s)?
-not having a lease: (leav[^\s])|(ditch)|(sign)|(have)
-tenants leave without pay: (left)|(pursu[^\s])|(bail[^\s])|((ow)[^\s])|(diced)|(nowhere)|(disappear[^\s]*)
+not having a lease: (leave)|(ditch)|(sign)
+tenants leave without pay: (left)|(pursue)|(bail(ed)?)|(diced)|(nowhere)|(disappear)
 landlord-contact: (contact)|(yellow page(s)?)|(phone)|(number)|(email)(in touch)
-RL31: (rl(-)?31)|(tax)
+RL31: (rl(-)?31)|(tax(s|es)?)
 abandoning: (abandon)|(leave)
-rent increase: increas(e/es/ed/ing)|increas[^\s]*
-credit check: (credit( score| check| report)?)
-personal info: sin|card|copy|photocopy|permit|license
-termination of lease: end(s/ed/ing)|end[^\s]*
-habitability-temperature: (heat(ing)*)|(cold)|(freez(e|ing)*)|([0-9]+(c|c|f|f))
-repairs landlord pay: (repair)|(fix)|(toilet[^\s])|(sink[^\s])|(broke[^\s])
+rent increase: increas(e/es/ed/ing)
+credit check: (credit (score|check|report)?)
+personal info: sin|social (insurance|security)?|card|permit|license
+termination: end(s/ed/ing)
+habitability-temperature: (heat(ing)?)|(cold)|(freez(e|ing)?)|([0-9]+(c|c|f|f))
 housing-committee: (housing(( committee)|( problems))?)|(help)|(aidez)
 demand-letter: (demand( letter)?)|(request)|(ask)|(letter)
-habitability-noise: (nois[^\s])|(loud)
+habitability-noise: noise|loud
 lease-transfer: (transfer(ring)?)|(give)
-cancel lease: (cancel)|(void)|(revoke[^\s])|(go back on)|(return)
-termination of lease: terminat(ing/e/es/ed)|terminat[^\s]*
-deposit: deposit(s/ed)|deposit[^\s]*
-sublet: (sub(let(ting)?)|(tenant)?)
-termination of lease: kick(s/ed) me out|(kick[^\s]*)(\s)(me)(\s)(out)
+cancel lease: (cancel)|(void)|(revoke)|(go back on)|(return)
+termination of lease: terminat(ing/e/es/ed)
+deposit: deposit(s/ed)|deposit
+sublet: (sub(let(ting)?))
+termination of lease: kick(ed|s)? me out
 negligence: (wear and tear)|(negligen(ce|t)?)|(fault)
 hearing-not showing up: (hearing)|(meeting)|(reschedule)
 haven't paid: (haven't)(\s)(paid)
-rent increase: rais(e/es/end/ing)|rais[^\s]*
-nonpayment: (didn't)(\s)(pay)
-landlord not repairing: (repair)|(fix)|(remov[^\s])|(deduct[^\s])|(rent)
+rent increase: rais(e/es/end/ing)
+landlord not repairing: repair|fix
 landlord harassing: (harass(ing|ed|es)?)|(creep(y)?)|(lewd)
-visitation without permission: (visit)|(enter(ed|ing)*)
+visitation without permission: (visit)|(enter(ed|ing))
 
 [entity_synonyms]
 
