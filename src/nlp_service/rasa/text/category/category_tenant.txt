@@ -22,10 +22,10 @@ RL31: rl(-)?31
 
 [common_examples: faq_likehome_abandon]
 i want to abandon my apartment
-my apartment is a shithole, i want to abandon
+my apartment is a shithole i want to leave
 i have to abandon my apartment due to a family emergency
 do i need to keep paying rent if i abandon my apartment
-my apartment has infestations of bed bugs, i want to abandon
+my apartment has infestations of bed bugs i want to abandon
 can i abandon my apartment even though my lease is not finished
 i can’t live in my dwelling anymore i want to go
 
@@ -35,7 +35,7 @@ how do i sublet my dwelling
 i want to sublet my dwelling
 can i sublet my place
 how do i sublet my lease to someone
-i’m leaving on vacation, how do i setup subletting
+i’m leaving on vacation how do i setup subletting
 give me information on subletting
 i’m getting subtenants
 i’m getting subtenants and i don’t know how to manage them
