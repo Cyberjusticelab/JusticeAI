@@ -44,7 +44,8 @@ class MultiOutputRegression:
                           inputs. In a sense, the classifier serves a filtering layer to know
                           which fields are needed by the regressor.
 
-        :param data: np.array([1, 0, 1, 1, ...])
+        :param facts: np.array([1, 0, 1, 1, ...])
+        :param outcomes: np.array([1, 0, 0, 1, 1, ...])
         :return: np.array([1, 0, 22, 2, ...])
         """
         for i in range(len(outcomes)):
