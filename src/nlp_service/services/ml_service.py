@@ -26,7 +26,7 @@ def extract_prediction(claim_category, ml_response):
     Given a claim category and the ml service response, will extract the prediction performing any necessary mappings.
     :param claim_category: The current conversation's claim category as a string
     :param ml_response: The response dict received from ml service
-    :return: Dict of relevant outcomes for the claim category returned my ML service
+    :return: Dict of relevant outcomes for the claim category returned by ML service
     """
 
     relevant_outcomes = {
