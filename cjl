@@ -7,7 +7,7 @@ fi
 
 # Destroy all containers/images
 if [ "$1" == "clean" ]; then
-  echo "WARNING: This command is destructive. It removes all containers, images and volumes installed on your local machine."
+  echo "WARNING: This command is destructive. It removes all containers and images installed on your local machine."
   read -r -p "Are you SURE you want to continue? [y/N]" clean_confirmation
   if [[ $clean_confirmation =~ ^(y|Y)$ ]]; then
 
@@ -20,6 +20,18 @@ if [ "$1" == "clean" ]; then
   fi
   exit
 fi
+
+if [ "$1" == "reset-db" ]; then
+  echo "WARNING: This command is destructive. It removes all database data on your local machine."
+  read -r -p "Are you SURE you want to continue? [y/N]" clean_confirmation
+  if [[ $clean_confirmation =~ ^(y|Y)$ ]]; then
+    sudo rm -rf ~/.procezeus/*
+  else
+    echo "Reset aborted."
+  fi
+  exit
+fi
+
 
 # Runs all tests and lints across all services
 if [ "$1" == "test" ]; then
@@ -62,6 +74,7 @@ if [ "$1" == "lint-fix" ]; then
   echo "Done!"
   exit
 fi
+
 
 # Choose an environment, default is dev
 if [ -z "$COMPOSE_FILE" ]; then
