@@ -1,5 +1,6 @@
 import unittest
-import util.precendent_directory_cleaner as directory_cleaner
+
+import feature_extraction.pre_processing.filter_precedent.precendent_directory_cleaner as directory_cleaner
 from util.constant import Path
 
 

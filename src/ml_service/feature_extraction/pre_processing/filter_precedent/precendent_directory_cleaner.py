@@ -112,5 +112,5 @@ def remove_files(directory_path):
     return files_matching_regexes, files_in_english
 
 
-if __name__ == "__main__":
+def run(command):
     remove_files(Path.raw_data_directory)

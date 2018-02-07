@@ -1,8 +1,8 @@
 import numpy
 
-from feature_extraction.pre_processing.pre_processor import PreProcessor
-from util.file import Save
+from feature_extraction.pre_processing.processor.pre_processor import PreProcessor
 from util.constant import Path
+from util.file import Save
 from util.log import Log
 
 

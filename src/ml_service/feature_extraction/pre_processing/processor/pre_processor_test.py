@@ -1,8 +1,10 @@
 import os
-import unittest
-import numpy
 import shutil
-from feature_extraction.pre_processing.pre_processor import PreProcessor
+import unittest
+
+import numpy
+
+from feature_extraction.pre_processing.processor.pre_processor import PreProcessor
 from feature_extraction.pre_processing.word_vector.french_vector import FrenchVector
 from util.constant import Path
 

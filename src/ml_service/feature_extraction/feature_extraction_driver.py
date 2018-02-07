@@ -1,4 +1,4 @@
-from feature_extraction.pre_processing import pre_processing_driver
+from feature_extraction.pre_processing.filter_precedent import precendent_directory_cleaner
 from feature_extraction.clustering import clustering_driver
 from feature_extraction.post_processing import post_processing_driver
 from util.log import Log
@@ -18,7 +18,7 @@ def run(command_list):
     """
     command = command_list[0]
     if command == CommandEnum.PRE_PROCESSING:
-        pre_processing_driver.run(command_list[1:])
+        precendent_directory_cleaner.run(command_list[1:])
 
     elif command == CommandEnum.CLUSTERING:
         clustering_driver.run(command_list[1:])
