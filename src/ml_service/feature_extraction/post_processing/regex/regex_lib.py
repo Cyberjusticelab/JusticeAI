@@ -777,6 +777,10 @@ class RegexLib:
             re.compile(
                 r"ORDONNE (au|à la|aux) " + TENANT_REGEX + " de payer ses loyers à échoir le premier jour de chaque mois",
                 re.IGNORECASE
+            ),
+            re.compile(
+                r"ORDONNE (au|à la|aux) " + TENANT_REGEX + " de payer son loyer le 1er de chaque mois",
+                re.IGNORECASE
             )
         ], "BOOLEAN"),
         ("tenant_ordered_to_pay_landlord", [
