@@ -152,3 +152,22 @@ class TestMlController(unittest.TestCase):
             }
         }
         self.assertEqual(expected_dict, result)
+
+    def test_format_similar_precedents(self):
+        similarity_list = [
+            ["AZ-11111.txt", 1.5],
+            ["AZ-22222", 1.0]
+        ]
+        expected_list = [
+            {
+                "precedent": "AZ-11111",
+                "distance": 1.5
+            },
+            {
+                "precedent": "AZ-22222",
+                "distance": 1.0
+            }
+        ]
+
+        formatted_list = MlController.format_similar_precedents(similarity_list)
+        self.assertListEqual(formatted_list, expected_list)
