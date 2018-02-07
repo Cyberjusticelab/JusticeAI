@@ -2,6 +2,8 @@ import os
 import regex as re
 from langdetect import detect
 from util.constant import Path
+from sys import stdout
+
 
 FACT_DIGIT_REGEX = r"\[\d+\]"
 TENANT_REGEX = r"locataire(s)?"
@@ -82,8 +84,15 @@ def remove_files(directory_path):
     """
     files_matching_regexes = []
     files_in_english = []
+    files_parse = 0
+    nb_of_files = len(os.listdir(directory_path))
 
     for filename in os.listdir(directory_path):
+        percent = float(files_parse / nb_of_files) * 100
+        stdout.write("\rINFO: Data Extraction: %f " % percent + "%")
+        stdout.flush()
+        files_parse += 1
+        
         if filename.endswith(".txt"):
             precedent_file = open(directory_path + filename, "r", encoding="ISO-8859-1")
             file_removed = False
