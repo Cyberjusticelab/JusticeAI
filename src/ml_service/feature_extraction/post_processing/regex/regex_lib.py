@@ -752,11 +752,15 @@ class RegexLib:
         ("orders_expulsion", [
             re.compile(
                 r"ORDONNE l'expulsion"
+            ),
+            re.compile(
+                r"ORDONNE au(x|) " + TENANT_REGEX + " et à tous les occupants du logement de quitter les lieux",
+                re.IGNORECASE
             )
         ], "BOOLEAN"),
         ("orders_immediate_execution", [
             re.compile(
-                r"ORDONNE l'exécution provisoire, malgré l'appel",
+                r"ORDONNE l'exécution provisoire.+malgré l'appel",
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
@@ -768,6 +772,10 @@ class RegexLib:
         ("orders_tenant_pay_first_of_month", [
             re.compile(
                 r"ORDONNE (au|à la|aux) " + TENANT_REGEX + " de payer le loyer le premier jour",
+                re.IGNORECASE
+            ),
+            re.compile(
+                r"ORDONNE (au|à la|aux) " + TENANT_REGEX + " de payer ses loyers à échoir le premier jour de chaque mois",
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
@@ -812,6 +820,22 @@ class RegexLib:
         ("landlord_retakes_apartment_indemnity", [
             re.compile(
                 r".+compenser.+frais.+déménagement",
+                re.IGNORECASE
+            )
+        ], "BOOLEAN"),
+        ("orders_landlord_notify_tenant_when_habitable", [
+            re.compile(
+                r"ORDONNE au " + LANDLORD_REGEX + ".+d'aviser la locataire dès que le logement sera redevenu propre à l'habitation",
+                re.IGNORECASE
+            )
+        ], "BOOLEAN"),
+        ("authorize_landlord_retake_apartment", [
+            re.compile(
+                "AUTORISE (le|la|les) " + LANDLORD_REGEX + " à reprendre le logement ",
+                re.IGNORECASE
+            ),
+            re.compile(
+                "AUTORISE (le|la|les) " + LANDLORD_REGEX + " à reprendre possession du logement",
                 re.IGNORECASE
             )
         ], "BOOLEAN")

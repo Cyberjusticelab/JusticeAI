@@ -10,45 +10,102 @@ from util.file import Load
 
 class RegexLibTest(unittest.TestCase):
 
-    def setUp(self):
-        self.fact_cluster_regex_dict = Load().load_binary('cluster_regex_dict.bin')
+    def boolean_test(self, sentences, regex_name):
+        # Find the regex corresponding to the test
+        regex_list = RegexLib.regex_outcomes
+        generic_regex = None
+        for regex in regex_list:
+            if regex[0] == regex_name:
+                generic_regex = regex[1]
 
-    def test_fact_demand_regexes(self):
-        """
-        NEVER USE A .bin file for unittest unless you create it within the test
+        count = 0
+        for line in sentences:
+            for regex in generic_regex:
+                if regex.search(line):
+                    count += 1
+        return count == len(sentences)
 
-        regex_types = ['fact', 'demand']
-        for regex_type in regex_types:
-            for regex_name in self.fact_cluster_regex_dict[regex_type].keys():
-                regexes = regex_lib_helper.get_regexes(regex_name)
-                test_file_names = self.fact_cluster_regex_dict[regex_type][regex_name]
-                total_lines_matched = 0
-                total_nb_lines_in_file = 0
-                file = open(Path.cluster_directory + regex_type + '/' + test_file_names[0], 'r', encoding='utf-8')
+    def money_test(self, sentences, regex_name, expected_match):
+        # Find the regex corresponding to the test
+        regex_list = RegexLib.regex_outcomes
+        additional_indemnity_money = None
+        for regex in regex_list:
+            if regex[0] == regex_name:
+                additional_indemnity_money = regex[1]
 
-                for line in file:
-                    if line == '\n':
-                        break
-                    total_nb_lines_in_file += 1
-                file.seek(0)
+        money_matched = []
+        for line in sentences:
+            for regex in additional_indemnity_money:
+                result = regex.search(line)
+                if result:
+                    money_regex = re.compile(RegexLib.MONEY_REGEX, re.IGNORECASE)
+                    money_matched.append(money_regex.search(result.group(0)).group(0))
+        return money_matched == expected_match
 
-                for line in file:
-                    if line == '\n':
-                        break
-                    line = '[1] ' + line
-                    for regex in regexes:
-                        if regex.search(line):
-                            total_lines_matched += 1
-                            break
-                file.close()
-                self.assertTrue(total_lines_matched > 0 and total_lines_matched / total_nb_lines_in_file > 0.5)
-        """
+    # ######################################################################
+    #
+    # OUTCOMES
+    #
+    # ######################################################################
 
-    """
-    
-    tenant_not_paid_lease_timespan
-    
-    """
+    def test_additional_indemnity_money(self):
+        sentences = [
+            "indemnité additionnelle prévue à l'article 1619 C.c.Q., à compter du 17 octobre 2013 sur la somme " + \
+            "de 1 495 $, et sur le solde à "
+        ]
+        regex_name = 'additional_indemnity_money'
+        expected_match = ['1 495 $']
+        self.assertTrue(self.money_test(sentences, regex_name, expected_match))
+
+    def test_orders_immediate_execution(self):
+        sentences = [
+            "ORDONNE l'exécution provisoire immédiate de la décision rectifiée, malgré l'appel. ",
+            "ORDONNE l'exécution provisoire, malgré l'appel, de l'ordonnance d'expulsion à compter du 11e jour de sa date;"
+        ]
+        regex_name = 'orders_immediate_execution'
+        self.assertTrue(self.boolean_test(sentences, regex_name))
+
+    def test_orders_expulsion(self):
+        sentences = [
+            "RÉSILIE le bail et ORDONNE l'expulsion des locataires et de tous les occupants du logement;",
+            "ORDONNE aux locataires et à tous les occupants du logement de quitter les lieux"
+        ]
+        regex_name = 'orders_expulsion'
+        self.assertTrue(self.boolean_test(sentences, regex_name))
+
+    def test_orders_tenant_pay_first_of_month(self):
+        sentences = [
+            "ORDONNE au locataire de payer son loyer le 1er de chaque mois, pour la durée du présent bail et du" + \
+            "prochain renouvellement;",
+            "En cas de paiement avant jugement, ORDONNE à la locataire de payer le loyer le premier jour de chaque terme;",
+            "ORDONNE à la locataire de payer ses loyers à échoir le premier jour de chaque mois et ce jusqu'au 31 décembre 2015"
+        ]
+        regex_name = 'orders_tenant_pay_first_of_month'
+        self.assertTrue(self.boolean_test(sentences, regex_name))
+
+    def test_orders_landlord_notify_tenant_when_habitable(self):
+        sentences = [
+            "ORDONNE au locateur sous toute peine que de droit, d'aviser la locataire dès que le " + \
+            "logement sera redevenu propre à l'habitation;"
+        ]
+        regex_name = 'orders_landlord_notify_tenant_when_habitable'
+        self.assertTrue(self.boolean_test(sentences, regex_name))
+
+    def test_authorize_landlord_retake_apartment(self):
+        sentences = [
+            "AUTORISE le locateur à reprendre le logement à compter du 1er juillet 2015 afin de s'y loger;",
+            "AUTORISE le locateur à reprendre possession du logement concerné afin d'y loger",
+            "AUTORISE les locateurs à reprendre le logement de la locataire",
+            "AUTORISE la locatrice à reprendre possession du logement"
+        ]
+        regex_name = 'authorize_landlord_retake_apartment'
+        self.assertTrue(self.boolean_test(sentences, regex_name))
+
+    # ######################################################################
+    #
+    # COMPLICATED CASE OF DATES
+    #
+    # ######################################################################
 
     def test_tenant_not_paid_lease_timespan(self):
         sentences = [
@@ -120,31 +177,4 @@ class RegexLibTest(unittest.TestCase):
         self.assertEqual(match_count, expected_matches)
         self.assertEqual(month_matched, expected_months)
 
-    """
 
-    additional_indemnity_money
-
-    """
-
-    def test_additional_indemnity_money(self):
-        sentences = [
-            "indemnité additionnelle prévue à l'article 1619 C.c.Q., à compter du 17 octobre 2013 sur la somme " + \
-            "de 1 495 $, et sur le solde à "
-        ]
-
-        # Find the regex corresponding to the test
-        regex_list = RegexLib.regex_outcomes
-        additional_indemnity_money = None
-        for regex in regex_list:
-            if regex[0] == 'additional_indemnity_money':
-                additional_indemnity_money = regex[1]
-
-        expected_match = ['1 495 $']
-        money_matched = []
-        for line in sentences:
-            for regex in additional_indemnity_money:
-                result = regex.search(line)
-                if result:
-                    money_regex = re.compile(RegexLib.MONEY_REGEX, re.IGNORECASE)
-                    money_matched.append(money_regex.search(result.group(0)).group(0))
-        self.assertEqual(money_matched, expected_match)
