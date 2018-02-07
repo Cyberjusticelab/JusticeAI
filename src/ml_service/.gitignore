@@ -17,3 +17,4 @@ server.log
 !/data/binary/regexes.bin
 **/**.csv
 !/data/binary/facts_pre_processed.bin
+!/data/binary/decisions_pre_processed.bin
