@@ -3,6 +3,7 @@ import regex as re
 from langdetect import detect
 from util.constant import Path
 from sys import stdout
+from util.log import Log
 
 
 FACT_DIGIT_REGEX = r"\[\d+\]"
@@ -86,13 +87,13 @@ def remove_files(directory_path):
     files_in_english = []
     files_parse = 0
     nb_of_files = len(os.listdir(directory_path))
-
+    Log.write('Filtering precedents')
     for filename in os.listdir(directory_path):
         percent = float(files_parse / nb_of_files) * 100
-        stdout.write("\rINFO: Data Extraction: %f " % percent + "%")
+        stdout.write("\rINFO: Filtering: %f " % percent + "%")
         stdout.flush()
         files_parse += 1
-        
+
         if filename.endswith(".txt"):
             precedent_file = open(directory_path + filename, "r", encoding="ISO-8859-1")
             file_removed = False
@@ -118,7 +119,10 @@ def remove_files(directory_path):
                 os.remove(directory_path + filename)
                 files_in_english.append(filename)
             precedent_file.close()
-    return files_matching_regexes, files_in_english
+    print('')
+    Log.write('Done filtering precedents')
+    Log.write('Removed {} file in english'.format(str(len(files_in_english))))
+    Log.write('Removed {} files without value'.format(str(len(files_matching_regexes))))
 
 
 def run(command):
