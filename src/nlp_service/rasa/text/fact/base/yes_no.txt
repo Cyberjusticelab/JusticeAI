@@ -1,9 +1,8 @@
 [meta]
 
 [regex_features]
-false: (no)|(No)|(NO)
-true: (yes)|(YES)|(Yes)
-that's: that is|that's 
+false: (no(t)?(pe)?( way)?( chance)?)|(false)|(uh-uh)|(niet)|(nah)|(nay)|(out of (the)? question)|(no sir)|(no siree)|(no chance)|(fat chance)|(incorrect)
+true: (yes)|(true)|(correct)|(yeah)|(yea)|(yup(pers)?)|(right)|(surely)|(exactly)|(alright)|(mhmm)|(aye)|(roger)|(10-4)|(uh-huh)|(ja)|(undoubtedly)|(absolutely)
 
 [entity_synonyms]
 
@@ -13,6 +12,24 @@ true
 that's correct
 yeah
 yes
+yea
+aye aye
+roger
+10-4
+uh-huh
+righto
+right
+yup
+yuppers
+right on
+ja
+surely
+exactly
+yessir
+yes sir
+alright
+undoubtedly
+mhmm
 
 [common_examples: false]
 that is incorrect
@@ -21,3 +38,18 @@ absolutely not
 nope
 no way
 no
+no that's out of the question
+uh-uh
+niet
+nay
+nah
+no absolutely not
+no way Jose
+out of the question
+no siree
+no sir
+not on your life
+under no circumstances
+not likely
+fat chance
+no chance in hell

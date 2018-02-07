@@ -15,7 +15,7 @@ marshmallow_enum==1.4.1
 joblib==0.11
 
 # Rasa Dependencies
-rasa_nlu==0.11.0
+rasa_nlu==0.11.2
 gevent==1.2.2
 klein==17.10.0
 boto3==1.5.20
@@ -37,4 +37,4 @@ scipy==1.0.0
 sklearn-crfsuite==0.3.6
 
 # Rasa Duckling
-duckling==1.7.2
+duckling==1.7.3
