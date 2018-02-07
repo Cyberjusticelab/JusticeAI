@@ -31,16 +31,25 @@ class TestResponse(unittest.TestCase):
         self.assertTrue(statement_landlord in Responses.static_claim_responses["missing_response"])
 
     def test_responses_prediction(self):
-        question = Responses.prediction_statement("LEASE_TERMINATION", {"orders_resiliation": 1})
+        question = Responses.prediction_statement("LEASE_TERMINATION", {"orders_resiliation": 1}, [])
         self.assertTrue(question in self.responseInstance.prediction["LEASE_TERMINATION"]["orders_resiliation"][True])
 
     def test_responses_prediction_false(self):
-        question = Responses.prediction_statement("LEASE_TERMINATION", {"orders_resiliation": 0})
+        question = Responses.prediction_statement("LEASE_TERMINATION", {"orders_resiliation": 0}, [])
         self.assertTrue(question in self.responseInstance.prediction["LEASE_TERMINATION"]["orders_resiliation"][False])
 
     def test_responses_prediction_empty(self):
-        question_bad_category = Responses.prediction_statement("does_not_exist", {})
-        question_empty_predictions = Responses.prediction_statement("LEASE_TERMINATION", {})
+        question_bad_category = Responses.prediction_statement("does_not_exist", {}, [])
+        question_empty_predictions = Responses.prediction_statement("LEASE_TERMINATION", {}, [])
 
         self.assertTrue(question_bad_category in self.responseInstance.prediction["missing_category"])
         self.assertTrue(question_empty_predictions in self.responseInstance.prediction["missing_category"])
+
+    def test_responses_prediction_precedent(self):
+        question = Responses.prediction_statement("LEASE_TERMINATION", {"orders_resiliation": 1}, [
+            {
+                "precedent": "AZ-11111",
+                "distance": 1.5
+            }
+        ])
+        self.assertIn("AZ-11111", question)
