@@ -699,7 +699,7 @@ class RegexLib:
         ("additional_indemnity_money", [
             re.compile(
                 r"(l'|)indemnité additionnelle prévue à l'article 1619 C\.c\.Q\., à compter du \d{0,2}(er|èr|" + \
-                r"ere|em|eme|ème)? " + DATE_REGEX + " \d{0,4} sur la somme de " + MONEY_REGEX,
+                r"ere|em|eme|ème)? " + DATE_REGEX + " \d{0,4} sur (la somme|le montant) de " + MONEY_REGEX,
                 re.IGNORECASE
             )
         ], "MONEY_REGEX"),
@@ -781,10 +781,10 @@ class RegexLib:
         ], "BOOLEAN"),
         ("tenant_ordered_to_pay_landlord", [
             re.compile(
-                r"CONDAMNE le(s)? " + TENANT_REGEX + " " + __multiple_words(0, 3) + r"à payer (au|à la|aux) " +
+                r"CONDAMNE (le|la|les)? " + TENANT_REGEX + " " + __multiple_words(0, 4) + r"à payer (au|à la|aux) " +
                 LANDLORD_REGEX + r" la somme de " + MONEY_REGEX,
                 re.IGNORECASE
-            )
+            ),
         ], "MONEY_REGEX"),
         ("tenant_ordered_to_pay_landlord_legal_fees", [
             re.compile(
@@ -793,9 +793,17 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
-                r"CONDAMNE le locataire à payer aux locateurs \Kles frais judiciaires de " + MONEY_REGEX,
+                r"CONDAMNE (le|la|les) " + TENANT_REGEX + " à payer aux locateurs \Kles frais judiciaires de " + MONEY_REGEX,
                 re.IGNORECASE
             ),
+            re.compile(
+                r"frais judiciaires et de signification de " + MONEY_REGEX,
+                re.IGNORECASE
+            ),
+            re.compile(
+                r"les frais judiciaires de " + MONEY_REGEX,
+                re.IGNORECASE
+            )
         ], "MONEY_REGEX"),
         ("landlord_prejudice_justified", [
             re.compile(
