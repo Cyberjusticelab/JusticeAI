@@ -46,6 +46,12 @@ class Responses:
         "missing_category": ["Sorry, I cannot yet make a prediction for this claim category yet."]
     }
 
+    similar_outcome = [
+        "By the way, I know of {} cases similar to yours.|They are {}.",
+        "I've found {} cases that are a lot like yours.|I know them as {}.",
+        "You're not alone! I've seen {} cases much like the one you've described.|Their names are {}."
+    ]
+
     # Fact Questions
     fact_questions = {
         "apartment_impropre":
@@ -484,27 +490,39 @@ class Responses:
         return Responses.chooseFrom(Responses.static_claim_responses[claim_category_value][person_type])
 
     @staticmethod
-    def prediction_statement(claim_category_value, prediction_dict):
+    def prediction_statement(claim_category_value, prediction_dict, similar_precedent_list):
         """
         Gets a statement for a prediction for a particular claim
         :param claim_category_value: The string value of the claim category
         :param prediction_dict: A dict of prediction keys from the ML service
-        :return: A string of predictions based on determined outcomes
+        :param similar_precedent_list: A list of dicts containing precedent, distance key pairs
+        :return: A string of predictions based on determined outcomes. If similar precedents exist, they will be enumerated as well.
         """
 
         # Check if dict is empty
         if not bool(prediction_dict) or claim_category_value not in Responses.prediction:
             return Responses.chooseFrom(Responses.prediction["missing_category"])
 
-        all_predictions = []
+        # Generate all prediction text
+        all_responses = []
         for prediction in prediction_dict:
             prediction_value = prediction_dict[prediction]
             prediction_predicate = int(prediction_value) > 0
             prediction_text = Responses.chooseFrom(
                 Responses.prediction[claim_category_value][prediction][prediction_predicate]).format(prediction_value)
-            all_predictions.append(prediction_text)
+            all_responses.append(prediction_text)
 
-        return "|".join(all_predictions)
+        # Generate similar outcome text
+        if len(similar_precedent_list) > 0:
+            similar_count = len(similar_precedent_list)
+            similar_outcome_list = sorted(similar_precedent_list,
+                                          key=lambda k: k["distance"])  # Sort outcomes by distance ascending
+
+            similar_keys = ", ".join(outcome["precedent"] for outcome in similar_outcome_list)
+            similar_response = Responses.chooseFrom(Responses.similar_outcome).format(similar_count, similar_keys)
+            all_responses.append(similar_response)
+
+        return "|".join(all_responses)
 
     @staticmethod
     def chooseFrom(strings):

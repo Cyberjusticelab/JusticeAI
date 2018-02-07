@@ -138,15 +138,22 @@ Provide facts_vector and demands_vector, with key values for each fact/demand.
 ```json
 {
     "outcomes_vector": {
-      "lease_resiliation" : 1,
+      "orders_resiliation" : 1,
       ...
     },
     "similar_precedents" : [
-        ["AZ-1111111", 1.23123],
-        ["AZ-2222222", 1.23123],
-        ["AZ-3333333", 1.23123],
-        ["AZ-4444444", 1.23123],
-        ["AZ-5555555", 1.23123]
+    	{
+    		"precedent": "AZ-1111111",
+    		"distance": 1.23123
+    	},
+    	{
+    		"precedent": "AZ-2222222",
+    		"distance": 1.23123
+    	},
+    	{
+    		"precedent": "AZ-3333333",
+    		"distance": 1.23123
+    	}
     ]
 }
 ```
