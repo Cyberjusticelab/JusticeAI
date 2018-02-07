@@ -71,29 +71,70 @@ class EntityExtraction:
             return True, 1
 
         elif regex_type == 'MONEY_REGEX':
-            generic_regex = re.compile(EntityExtraction.regex_bin[regex_type])
-            entity = generic_regex.search(sentence).group(0)
-
-            # Functional but not sure about how optimal it is
-            entity = entity.replace("$", "")
-            entity = entity.replace(" ", "")
-            entity = entity.replace(",", ".")
-            if entity[-1] == '.':
-                entity = entity[:-1]
-            return True, entity
+            return EntityExtraction.__regex_money(regex_type, sentence)
 
         elif regex_type == 'DATE_REGEX':
-            generic_regex = re.compile(EntityExtraction.regex_bin[regex_type])
-            entities = generic_regex.findall(sentence)
-            try:
-                start = EntityExtraction.month_dict[entities[0].replace("d'", '')]
-                end = EntityExtraction.month_dict[entities[len(entities) - 1].replace("d'", '')]
-                start_unix = EntityExtraction.__date_to_unix(['1', str(start), '1970'])
-                end_unix = EntityExtraction.__date_to_unix(['28', str(end), '1970'])
-                return True, EntityExtraction.__get_time_interval_in_days(start_unix, end_unix)
-            except KeyError:
-                Log.write("spelling error: " + str(entities))
+            return EntityExtraction.__regex_date(regex_type, sentence)
         return False, 0
+
+    @staticmethod
+    def __regex_date(regex_type, sentence):
+        """
+
+        1) create the date regex --> re.compile(regex string)
+        2) find all date entities in the sentence --> returns a list
+        3) get all the integer values associated to dates
+        4) sort the dates in ascending order
+        5) start date is the first element of the list
+        6) end date is the last element
+        7) convert to unix. ** We don't care about the year
+            7.1) start date we assume is the first day of a month
+            7.2) end date we assume the last day of the month. 28 is chosen because
+                 every month have at least 28 days
+            7.3) some dates have a "d'" such as d'octobre... so we replace d' with ''
+        8)get the time difference from unix to days
+
+        :param regex_type: str(DATE_REGEX)
+        :param sentence: sentence to extract entities
+        :return: boolean, integer
+        """
+        generic_regex = re.compile(EntityExtraction.regex_bin[regex_type])
+        entities = generic_regex.findall(sentence)
+        try:
+            months_to_num = [EntityExtraction.month_dict[x] for x in entities]
+            months_to_num.sort()
+            start = EntityExtraction.month_dict[entities[0].replace("d'", '')]
+            end = EntityExtraction.month_dict[entities[len(entities) - 1].replace("d'", '')]
+            start_unix = EntityExtraction.__date_to_unix(['1', str(start), '1970'])
+            end_unix = EntityExtraction.__date_to_unix(['28', str(end), '1970'])
+            return True, EntityExtraction.__get_time_interval_in_days(start_unix, end_unix)
+        except KeyError:
+            Log.write("spelling error: " + str(entities))
+        return False, 0
+
+    @staticmethod
+    def __regex_money(regex_type, sentence):
+        """
+
+        1) create the date regex --> re.compile(regex string)
+        2) Find the dollar amount in the sentence
+        3) filter the string by removing unecessary characters
+        4) return the entity
+
+        :param regex_type: str(MONEY_REGEX)
+        :param sentence: boolean, integer
+        :return:
+        """
+        generic_regex = re.compile(EntityExtraction.regex_bin[regex_type])
+        entity = generic_regex.search(sentence).group(0)
+
+        # Functional but not sure about how optimal it is
+        entity = entity.replace("$", "")
+        entity = entity.replace(" ", "")
+        entity = entity.replace(",", ".")
+        if entity[-1] == '.':
+            entity = entity[:-1]
+        return True, entity
 
     @staticmethod
     def __date_to_unix(date):
