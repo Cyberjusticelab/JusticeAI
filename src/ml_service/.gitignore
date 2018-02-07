@@ -18,3 +18,4 @@ server.log
 **/**.csv
 !/data/binary/facts_pre_processed.bin
 !/data/binary/decisions_pre_processed.bin
+/*.csv
