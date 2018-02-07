@@ -1,10 +1,37 @@
 [meta]
 
 [regex_features]
+gender: (him|he|her|she|they)((')?s)?
 
 [entity_synonyms]
 
 [common_examples: true]
+absolutely
+affirmative
+totally
+true
+that's correct
+yeah
+yes
+yea
+yep
+aye aye
+roger
+10-4
+uh-huh
+righto
+right
+yup
+yuppers
+right on
+ja
+surely
+exactly
+yessir
+yes sir
+alright
+undoubtedly
+mhmm
 the tenant has been continuously late on payments
 the tenant has not paid in a long time
 the tenant last paid a long time ago
@@ -17,13 +44,31 @@ the tenant refuses to pay on time
 he pays but it is always late
 i have never received a payment on time.
 their payments are often late
-yes
-affirmative
-roger
 he always pays in an untimely manner.
 
 [common_examples: false]
 negative
+that is incorrect
+false
+absolutely not
+nope
+no way
+no
+no that's out of the question
+uh-uh
+niet
+nay
+nah
+no absolutely not
+no way jose
+out of the question
+no siree
+no sir
+not on your life
+under no circumstances
+not likely
+fat chance
+no chance in hell
 their payment habits are good
 he always pays on time
 it is rare that he pays late
