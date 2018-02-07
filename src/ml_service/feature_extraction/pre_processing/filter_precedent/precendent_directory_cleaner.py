@@ -123,6 +123,7 @@ def remove_files(directory_path):
     Log.write('Done filtering precedents')
     Log.write('Removed {} file in english'.format(str(len(files_in_english))))
     Log.write('Removed {} files without value'.format(str(len(files_matching_regexes))))
+    return files_in_english, files_matching_regexes
 
 
 def run(command):

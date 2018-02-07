@@ -369,13 +369,13 @@ class RegexLib:
         ], "BOOLEAN"),
         ("tenant_sends_demand_regie_logement", [
             re.compile(
-                TENANT_REGEX + r" .+ au " + LANDLORD_REGEX + \
-                r" une mise en demeure .+ (demanderait|demande) .+ Régie du logement",
+                TENANT_REGEX + r".+au " + LANDLORD_REGEX + \
+                r" une mise en demeure.+(demanderait|demande).+Régie du logement",
                 re.IGNORECASE
             ),
             re.compile(
                 TENANT_REGEX + r" envoie une mise en demeure au " + LANDLORD_REGEX + \
-                r" .+ (demanderait|demande) .+ Régie du logement",
+                r".+ (demanderait|demande) .+ Régie du logement",
                 re.IGNORECASE
             ),
             re.compile(
@@ -820,5 +820,7 @@ class RegexLib:
     model = {
         'regex_demands': regex_demands,
         'regex_facts': regex_facts,
-        'regex_outcomes': regex_outcomes
+        'regex_outcomes': regex_outcomes,
+        'MONEY_REGEX': MONEY_REGEX,
+        'DATE_REGEX': DATE_REGEX
     }

@@ -14,6 +14,9 @@ class RegexLibTest(unittest.TestCase):
         self.fact_cluster_regex_dict = Load().load_binary('cluster_regex_dict.bin')
 
     def test_fact_demand_regexes(self):
+        """
+        NEVER USE A .bin file for unittest unless you create it within the test
+
         regex_types = ['fact', 'demand']
         for regex_type in regex_types:
             for regex_name in self.fact_cluster_regex_dict[regex_type].keys():
@@ -39,6 +42,7 @@ class RegexLibTest(unittest.TestCase):
                             break
                 file.close()
                 self.assertTrue(total_lines_matched > 0 and total_lines_matched / total_nb_lines_in_file > 0.5)
+        """
 
     """
     

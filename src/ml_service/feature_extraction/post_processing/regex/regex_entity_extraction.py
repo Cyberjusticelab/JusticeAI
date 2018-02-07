@@ -100,16 +100,19 @@ class EntityExtraction:
         """
         generic_regex = re.compile(EntityExtraction.regex_bin[regex_type])
         entities = generic_regex.findall(sentence)
+        entities = [x.replace("d'", '') for x in entities]
         try:
             months_to_num = [EntityExtraction.month_dict[x] for x in entities]
             months_to_num.sort()
-            start = EntityExtraction.month_dict[entities[0].replace("d'", '')]
-            end = EntityExtraction.month_dict[entities[len(entities) - 1].replace("d'", '')]
+            start = EntityExtraction.month_dict[entities[0]]
+            end = EntityExtraction.month_dict[entities[len(entities) - 1]]
             start_unix = EntityExtraction.__date_to_unix(['1', str(start), '1970'])
             end_unix = EntityExtraction.__date_to_unix(['28', str(end), '1970'])
             return True, EntityExtraction.__get_time_interval_in_days(start_unix, end_unix)
         except KeyError:
             Log.write("spelling error: " + str(entities))
+        except IndexError:
+            pass
         return False, 0
 
     @staticmethod
