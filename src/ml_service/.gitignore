@@ -16,3 +16,4 @@ server.log
 /data/cluster/demand/*.txt
 !/data/binary/regexes.bin
 **/**.csv
+!/data/binary/facts_pre_processed.bin
