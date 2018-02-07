@@ -849,6 +849,11 @@ class RegexLib:
             re.compile(
                 "AUTORISE (le|la|les) " + LANDLORD_REGEX + " à reprendre possession du logement",
                 re.IGNORECASE
+            ),
+            re.compile(
+                r"AUTORISE (le|la|les) " + LANDLORD_REGEX + r" à reprendre (possession )?(du|le|des|de leur|de son)" + \
+                "(logement|lieux)",
+                re.IGNORECASE
             )
         ], "BOOLEAN")
     ]
