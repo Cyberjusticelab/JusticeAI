@@ -178,10 +178,7 @@ export COMPOSE_FILE=ci
 * denotes optional arguments
 
 1-  Commands
-
-    python main.py -cluster --hdbscan --fact|decision [min cluster size] [min sample size]
-    python main.py -cluster --kmeans --fact|decision [cluster number]
-    python main.py -cluster --hdbscan --fact|decision [min cluster size] [epsilon]
+    
     python main.py -train [data size | empty for all] --svm* --sf* --weights* --evaluate*
     python main.py -pre [number of files | empty for all]
     python main.py -post [number of files | empty for all]
