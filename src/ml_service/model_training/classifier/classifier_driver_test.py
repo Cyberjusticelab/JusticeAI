@@ -8,3 +8,9 @@ class TestRegressionDriver(unittest.TestCase):
         dataset = None
         result = classifier_driver.run(command_list, dataset)
         self.assertFalse(result)
+
+    def test_weights(self):
+        command_list = ['--weights']
+        dataset = None
+        result = classifier_driver.run(command_list, dataset)
+        self.assertTrue(result)

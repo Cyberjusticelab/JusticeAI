@@ -14,5 +14,5 @@ server.log
 /data/cluster/fact/*.txt
 /data/cluster/decision/*.txt
 /data/cluster/demand/*.txt
-**/**.csv
-/*.csv
+/**/**.csv
+
