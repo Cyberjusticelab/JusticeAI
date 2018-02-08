@@ -21,7 +21,7 @@ from util.log import Log
 
 class TenantPaysLandlordRegressor:
 
-    def __init__(self, dataset=None):
+    def __init__(self, dataset=None, outcome_index = 0):
         """
         Constructor
         :param data_set: [{
@@ -36,7 +36,8 @@ class TenantPaysLandlordRegressor:
         """
         if dataset is not None:
             self.dataset = [precedent for precedent in dataset if precedent[
-                'outcomes_vector'][10] > 1]
+                'outcomes_vector'][outcome_index] > 1]
+            self.outcome_index = outcome_index
         else:
             self.load()
 
@@ -46,7 +47,7 @@ class TenantPaysLandlordRegressor:
             Defines Regressor architecture. To be used internally
         """
         model = Sequential()
-        model.add(Dense(13, input_dim=51,
+        model.add(Dense(13, input_dim=36,
                         kernel_initializer='normal', activation='relu'))
         model.add(Dense(6, kernel_initializer='normal', activation='relu'))
         model.add(Dense(6, kernel_initializer='normal', activation='relu'))
@@ -83,7 +84,7 @@ class TenantPaysLandlordRegressor:
         """
         Log.write("Size of dataset: %d" % (len(self.dataset)))
         X = np.array([precedent['facts_vector'] for precedent in self.dataset])
-        Y = np.array([precedent['outcomes_vector'][10]
+        Y = np.array([precedent['outcomes_vector'][self.outcome_index]
                       for precedent in self.dataset])
         regressor = KerasRegressor(
             build_fn=TenantPaysLandlordRegressor.__nn_architecture, epochs=100, batch_size=128, verbose=0)
@@ -111,7 +112,7 @@ class TenantPaysLandlordRegressor:
         seed = 7
         np.random.seed(seed)
         X = np.array([precedent['facts_vector'] for precedent in self.dataset])
-        Y = np.array([precedent['outcomes_vector'][10]
+        Y = np.array([precedent['outcomes_vector'][self.outcome_index]
                       for precedent in self.dataset])
         kfold = KFold(n_splits=10, random_state=seed)
         results = cross_val_score(self.model, X, Y, cv=kfold)
