@@ -1,5 +1,5 @@
 from model_training.classifier.multi_class_svm import MultiClassSVM
-from model_training.regression.single_output_regression.tenant_pays_landlord_regressor import TenantPaysLandlordRegressor
+from model_training.regression.multi_output_regression import MultiOutputRegression
 from model_training.similar_finder.similar_finder import SimilarFinder
 from util.file import Load
 from util.log import Log
@@ -93,9 +93,8 @@ def run(command_list):
             linear_svm.save()
 
     if CommandEnum.SVR in command_list:
-        regression_svr = TenantPaysLandlordRegressor(precedent_vector)
+        regression_svr = MultiOutputRegression(precedent_vector)
         regression_svr.train()
-        regression_svr.save()
 
     if CommandEnum.SIMILARITY_FINDER in command_list:
         SimilarFinder(train=True, dataset=precedent_vector)
