@@ -34,12 +34,28 @@ i’m waiting for him to give me my (twenty dollar bill)
 yeah i’m still waiting for my (8523.24$)
 
 [common_examples: false]
+negative
 that is incorrect
-no
 false
 absolutely not
 nope
 no way
+no
+no that's out of the question
+uh-uh
+niet
+nay
+nah
+no absolutely not
+no way jose
+out of the question
+no siree
+no sir
+not on your life
+under no circumstances
+not likely
+fat chance
+no chance in hell
 no he always pays on time
 they pay on time
 i’m not owed any rent

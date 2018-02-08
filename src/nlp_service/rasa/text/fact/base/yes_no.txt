@@ -8,11 +8,14 @@ true: (yes)|(true)|(correct)|(yeah)|(yea)|(yup(pers)?)|(right)|(surely)|(exactly
 
 [common_examples: true]
 absolutely
+affirmative
+totally
 true
 that's correct
 yeah
 yes
 yea
+yep
 aye aye
 roger
 10-4
@@ -32,6 +35,7 @@ undoubtedly
 mhmm
 
 [common_examples: false]
+negative
 that is incorrect
 false
 absolutely not
@@ -44,7 +48,7 @@ niet
 nay
 nah
 no absolutely not
-no way Jose
+no way jose
 out of the question
 no siree
 no sir
