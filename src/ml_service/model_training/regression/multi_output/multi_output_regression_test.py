@@ -1,6 +1,8 @@
 import unittest
-from model_training.regression.multi_output_regression import MultiOutputRegression
+
 import numpy as np
+
+from model_training.regression.multi_output.multi_output_regression import MultiOutputRegression
 
 
 class TestMultiOutputRegression(unittest.TestCase):

@@ -1,6 +1,6 @@
+from model_training.classifier.multi_output.multi_class_svm import MultiClassSVM
 from model_training.regression.single_output_regression.tenant_pays_landlord_regressor \
     import TenantPaysLandlordRegressor
-from model_training.classifier.multi_class_svm import MultiClassSVM
 
 
 class MultiOutputRegression:
