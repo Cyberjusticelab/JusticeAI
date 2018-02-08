@@ -13,12 +13,6 @@ class TestFeatureExtraction(unittest.TestCase):
         command_list = ["-pre", "10"]
         self.assertTrue(feature_extraction_driver.run(command_list))
 
-        # clustering
-        command_list = ["-cluster", "--kmeans", "--fact", "1"]
-        self.assertTrue(feature_extraction_driver.run(command_list))
-        command_list = ["-cluster", "--kmeans", "--decision", "1"]
-        self.assertTrue(feature_extraction_driver.run(command_list))
-
         # post processing
         command_list = ["-post", "10"]
         self.assertTrue(feature_extraction_driver.run(command_list))
