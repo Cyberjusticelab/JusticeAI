@@ -1,8 +1,9 @@
-from feature_extraction.post_processing.regex.regex_tagger import TagPrecedents
-from model_training.classifier.multi_class_svm import MultiClassSVM
-from model_training.regression.multi_output_regression import MultiOutputRegression
-from model_training.similar_finder.similar_finder import SimilarFinder
 import numpy as np
+
+from feature_extraction.post_processing.regex.regex_tagger import TagPrecedents
+from model_training.classifier.multi_output.multi_class_svm import MultiClassSVM
+from model_training.regression.multi_output.multi_output_regression import MultiOutputRegression
+from model_training.similar_finder.similar_finder import SimilarFinder
 
 
 class MlController:

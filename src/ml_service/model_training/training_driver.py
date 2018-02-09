@@ -1,5 +1,5 @@
-from model_training.classifier.multi_class_svm import MultiClassSVM
-from model_training.regression.single_output_regression.tenant_pays_landlord_regressor import TenantPaysLandlordRegressor
+from model_training.regression import regression_driver
+from model_training.classifier import classifier_driver
 from model_training.similar_finder.similar_finder import SimilarFinder
 from util.file import Load
 from util.log import Log
@@ -43,9 +43,7 @@ class CommandEnum:
     SVM = "--svm"
     SIMILARITY_FINDER = "--sf"
     SVR = "--svr"
-    EVALUATE = "--evaluate"
-    WEIGHTS = '--weights'
-    command_list = [SVM, SIMILARITY_FINDER, SVR, EVALUATE, WEIGHTS]
+    command_list = [SVM, SIMILARITY_FINDER, SVR]
 
 
 def run(command_list):
@@ -59,11 +57,10 @@ def run(command_list):
     """
 
     # ------------------- COMMAND LINE SYNTAX --------------------------
-    for command in command_list:
-        if '--' == command[:2]:
-            if command not in CommandEnum.command_list:
-                Log.write(command + " not recognized")
-                return False
+    if '--' == command_list[0][:2]:
+        if command_list[0] not in CommandEnum.command_list:
+            Log.write(command_list[0] + " not recognized")
+            return False
 
     precedent_vector = __dictionary_to_list()
     if len(precedent_vector) == 0:
@@ -83,23 +80,12 @@ def run(command_list):
         return False
 
     # ------------------- TRAINING --------------------------
-    Log.write("Executing train model.")
     if CommandEnum.SVM in command_list:
-        linear_svm = MultiClassSVM(precedent_vector)
-        if CommandEnum.WEIGHTS in command_list:
-            linear_svm.display_weights()
-        else:
-            linear_svm.train()
-            linear_svm.save()
+        classifier_driver.run(command_list[1:], precedent_vector)
 
     if CommandEnum.SVR in command_list:
-        regression_svr = TenantPaysLandlordRegressor(precedent_vector)
-        regression_svr.train()
-        regression_svr.save()
+        regression_driver.run(command_list[1:], precedent_vector)
 
     if CommandEnum.SIMILARITY_FINDER in command_list:
         SimilarFinder(train=True, dataset=precedent_vector)
-
-    precedent_vector = None  # deallocate memory
-
     return True

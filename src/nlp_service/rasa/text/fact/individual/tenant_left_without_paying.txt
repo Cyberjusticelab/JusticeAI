@@ -11,10 +11,31 @@ notabandon: (still (t)?here)|(not gone)|(in (his|the) apartment)|(present)|(arou
 
 [common_examples: true]
 absolutely
+affirmative
+totally
 true
 that's correct
 yeah
 yes
+yea
+yep
+aye aye
+roger
+10-4
+uh-huh
+righto
+right
+yup
+yuppers
+right on
+ja
+surely
+exactly
+yessir
+yes sir
+alright
+undoubtedly
+mhmm
 i haven’t been able to contact the tenant
 i haven’t seen the tenant in weeks
 the guy disappeared completely

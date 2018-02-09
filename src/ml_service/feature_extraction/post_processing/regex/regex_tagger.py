@@ -5,8 +5,8 @@ from util.file import Save
 from util.log import Log
 from util.constant import Path
 from sys import stdout
-from util.file import Load
 from feature_extraction.post_processing.regex.regex_entity_extraction import EntityExtraction
+from feature_extraction.post_processing.regex.regex_lib import RegexLib
 
 
 class TagPrecedents:
@@ -18,7 +18,7 @@ class TagPrecedents:
         self.text_tagged = 0
         self.nb_lines = 0
         self.nb_text = 0
-        self.regexes = Load.load_binary("regexes.bin")
+        self.regexes = RegexLib.model
         self.precedents_directory_path = Path.raw_data_directory
 
     def get_intent_index(self):

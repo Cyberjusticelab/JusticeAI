@@ -1,6 +1,6 @@
+from model_training.classifier.multi_output.multi_class_svm import MultiClassSVM
 from model_training.regression.single_output_regression.tenant_pays_landlord_regressor \
     import TenantPaysLandlordRegressor
-from model_training.classifier.multi_class_svm import MultiClassSVM
 
 
 class MultiOutputRegression:
@@ -23,13 +23,34 @@ class MultiOutputRegression:
 
     def train(self):
         """
+
         Trains all models
         Simply insert your regression model --> train --> save
+
+        The index of the outcome may change over time so for this reason,
+        iterate all the columns of 1 outcome and see if its label matches
+        the regression we are trying to perform. Pass that index to the
+        constructor so that the regression training knows which column to use.
+
         :return: None
         """
-        regression = TenantPaysLandlordRegressor(self.dataset)
-        regression.train()
-        regression.save()
+        outcomes = self.dataset[0]['outcomes_vector']
+        for i in range(len(outcomes)):
+            column_name = MultiOutputRegression.classifier_labels[i][0]
+
+            if column_name == 'additional_indemnity_date':
+                pass
+
+            elif column_name == 'additional_indemnity_money':
+                pass
+
+            elif column_name == 'tenant_ordered_to_pay_landlord':
+                regression = TenantPaysLandlordRegressor(self.dataset, i)
+                regression.train()
+                regression.save()
+
+            elif column_name == 'tenant_ordered_to_pay_landlord_legal_fees':
+                pass
 
     def predict(self, facts, outcomes):
         """

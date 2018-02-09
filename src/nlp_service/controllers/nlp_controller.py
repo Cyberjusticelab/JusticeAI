@@ -192,7 +192,8 @@ def __extract_entity(current_fact_name, current_fact_type, message):
             return None
 
     classify_dict = rasaClassifier.classify_fact(current_fact_name, message)
-    log.debug("\nClassify Fact\n\tMessage: {}\n\tOutput: {}".format(message, classify_dict))
+    log.debug("\nClassify Fact\n\tMessage: {}\n\tFact Name: {}\n\tOutput: {}".format(message, current_fact_name,
+                                                                                     classify_dict))
 
     # Return the fact value, or None if the answer was insufficient in determining one
     if intentThreshold.is_sufficient(classify_dict):
