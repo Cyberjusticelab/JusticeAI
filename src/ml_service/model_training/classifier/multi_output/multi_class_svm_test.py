@@ -1,6 +1,8 @@
 import unittest
-from model_training.classifier.multi_class_svm import MultiClassSVM
+
 import numpy as np
+
+from model_training.classifier.multi_output.multi_class_svm import MultiClassSVM
 
 
 class TestLinearSvc(unittest.TestCase):

@@ -1,17 +1,28 @@
-from util.file import Load
+from feature_extraction.post_processing.regex.regex_lib import RegexLib
 import re
 import datetime
 import time
-import util.log as logger
 import unicodedata
+from util.log import Log
 
 
 class EntityExtraction:
-    log = logger.Log()
     regex_bin = None
     one_day = 86400  # unix time for 1 day
-    month_dict = {'janvier': 1, 'fevrier': 2, 'mars': 3, 'avril': 4, 'mai': 5, 'juin': 6,
-                  'juillet': 7, 'aout': 8, 'septembre': 9, "octobre": 10, 'novembre': 11, 'decembre': 12}
+    month_dict = {
+        'janvier': 1,
+        'février': 2,
+        'mars': 3,
+        'avril': 4,
+        'mai': 5,
+        'juin': 6,
+        'juillet': 7,
+        'août': 8,
+        'septembre': 9,
+        "octobre": 10,
+        'novembre': 11,
+        'décembre': 12
+    }
 
     def __init__(self):
         pass
@@ -29,7 +40,7 @@ class EntityExtraction:
         :return: (Boolean, entity<int>)
         """
         if EntityExtraction.regex_bin is None:
-            EntityExtraction.regex_bin = Load.load_binary('regexes.bin')
+            EntityExtraction.regex_bin = RegexLib.model
         for regex in regex_array:
             regex_result = regex.search(text)
             if regex_result:
@@ -60,38 +71,73 @@ class EntityExtraction:
             return True, 1
 
         elif regex_type == 'MONEY_REGEX':
-            generic_regex = re.compile(EntityExtraction.regex_bin[regex_type])
-            entity = generic_regex.search(sentence).group(0)
-
-            # Functional but not sure about how optimal it is
-            entity = entity.replace("$", "")
-            entity = entity.replace(" ", "")
-            entity = entity.replace(",", ".")
-            if entity[-1] == '.':
-                entity = entity[:-1]
-            return True, entity
+            return EntityExtraction.__regex_money(regex_type, sentence)
 
         elif regex_type == 'DATE_REGEX':
-            date_components = sentence.split(" ")
-
-            """
-            the value 3 is used to make sure we have all the required components.
-            1 for the day, 1 for the month and 1 for the year.
-            """
-            if len(date_components) == 3:
-                date_components[0] = re.sub(r"er|ere|em|eme", "", date_components[0])
-
-                try:
-                    date_components[1] = str(EntityExtraction.month_dict[date_components[1]])
-                except KeyError:
-                    EntityExtraction.log.write("mistake in month name : " + date_components[1])
-                    return False, 0
-
-                unix_time = EntityExtraction.__date_to_unix(date_components)
-                if unix_time:
-                    return True, unix_time
-
+            return EntityExtraction.__regex_date(regex_type, sentence)
         return False, 0
+
+    @staticmethod
+    def __regex_date(regex_type, sentence):
+        """
+
+        1) create the date regex --> re.compile(regex string)
+        2) find all date entities in the sentence --> returns a list
+        3) get all the integer values associated to dates
+        4) sort the dates in ascending order
+        5) start date is the first element of the list
+        6) end date is the last element
+        7) convert to unix. ** We don't care about the year
+            7.1) start date we assume is the first day of a month
+            7.2) end date we assume the last day of the month. 28 is chosen because
+                 every month have at least 28 days
+            7.3) some dates have a "d'" such as d'octobre... so we replace d' with ''
+        8)get the time difference from unix to days
+
+        :param regex_type: str(DATE_REGEX)
+        :param sentence: sentence to extract entities
+        :return: boolean, integer
+        """
+        generic_regex = re.compile(EntityExtraction.regex_bin[regex_type])
+        entities = generic_regex.findall(sentence)
+        entities = [x.replace("d'", '') for x in entities]
+        try:
+            months_to_num = [EntityExtraction.month_dict[x] for x in entities]
+            months_to_num.sort()
+            start = EntityExtraction.month_dict[entities[0]]
+            end = EntityExtraction.month_dict[entities[len(entities) - 1]]
+            start_unix = EntityExtraction.__date_to_unix(['1', str(start), '1970'])
+            end_unix = EntityExtraction.__date_to_unix(['28', str(end), '1970'])
+            return True, EntityExtraction.__get_time_interval_in_days(start_unix, end_unix)
+        except KeyError:
+            Log.write("spelling error: " + str(entities))
+        except IndexError:
+            pass
+        return False, 0
+
+    @staticmethod
+    def __regex_money(regex_type, sentence):
+        """
+
+        1) create the date regex --> re.compile(regex string)
+        2) Find the dollar amount in the sentence
+        3) filter the string by removing unecessary characters
+        4) return the entity
+
+        :param regex_type: str(MONEY_REGEX)
+        :param sentence: boolean, integer
+        :return:
+        """
+        generic_regex = re.compile(EntityExtraction.regex_bin[regex_type])
+        entity = generic_regex.search(sentence).group(0)
+
+        # Functional but not sure about how optimal it is
+        entity = entity.replace("$", "")
+        entity = entity.replace(" ", "")
+        entity = entity.replace(",", ".")
+        if entity[-1] == '.':
+            entity = entity[:-1]
+        return True, entity
 
     @staticmethod
     def __date_to_unix(date):
@@ -104,7 +150,7 @@ class EntityExtraction:
         try:
             unix_time = time.mktime(datetime.datetime.strptime(date_string, '%d %m %Y').timetuple())
         except (ValueError, OverflowError) as error:
-            EntityExtraction.log.write(str(error) + ": " + str(date_string))
+            Log.write(str(error) + ": " + str(date_string))
             return None
 
         return unix_time
@@ -117,4 +163,4 @@ class EntityExtraction:
         :param second_date: date in unix time
         :return: time difference between 2 dates
         """
-        return abs(first_date - second_date) / EntityExtraction.one_day
+        return int(abs(first_date - second_date) / EntityExtraction.one_day)
