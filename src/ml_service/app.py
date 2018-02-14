@@ -10,6 +10,6 @@ def classify_claim_category():
     return jsonify(MlController.predict_outcome(input_json))
 
 
-@app.route("/weights", methods=['POST'])
+@app.route("/weights", methods=['GET'])
 def get_ordered_weights():
     return jsonify(MlController.get_classifier_weights())

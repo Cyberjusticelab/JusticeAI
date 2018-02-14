@@ -170,7 +170,7 @@ Get the weights of every outcome sorted by descending order of importance
 
 **URL**: `/weights`
 
-**Method**: `POST`
+**Method**: `GET`
 
 **Data constraints**
 
