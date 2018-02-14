@@ -12,5 +12,4 @@ def classify_claim_category():
 
 @app.route("/weights", methods=['POST'])
 def get_ordered_weights():
-    input_json = request.get_json()
     return jsonify(MlController.get_classifier_weights())
