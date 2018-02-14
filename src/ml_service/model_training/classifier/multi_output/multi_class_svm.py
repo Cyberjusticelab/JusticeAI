@@ -31,7 +31,7 @@ class MultiClassSVM:
         self.mlb = None
         self.classifier_labels = None
 
-    def display_weights(self):
+    def weights_to_csv(self):
         """
         Writes all the weights to .csv format
         1) get the facts
@@ -61,8 +61,41 @@ class MultiClassSVM:
                 for j in range(len(weights)):
                     outcome_list.append(weights[j])
                 writer.writerow(outcome_list)
-
         Log.write('Weights saved to .csv')
+
+    def get_ordered_weights(self):
+        """
+        Sort all the facts by importance for every outcome
+
+        1) If the classifier model isn't loaded then load it
+        2) Load labels of the outcomes
+        3) obtain labels of every fact
+        4) for every estimator append all it's fact weights
+        5) sort the fact in descending order by weight
+        6) remove the weights and only keep the fact string
+
+        :return: {
+                'outcome 1': [fact1, fact2, ..., fact n]
+                ...
+            }
+        """
+        if self.model is None:
+            self.model = Load.load_binary('multi_class_svm_model.bin')
+            self.classifier_labels = Load.load_binary('classifier_labels.bin')
+        labels = TagPrecedents().get_intent_index()
+        weight_dict = {}
+
+        for i in range(len(self.model.estimators_)):
+            outcome_list = []
+            estimator = self.model.estimators_[i]
+            weights = estimator.coef_[0]
+            for j in range(len(weights)):
+                outcome_list.append([labels['facts_vector'][j][1], weights[j]])
+
+            outcome_list.sort(key=lambda x: abs(x[1]), reverse=True)
+            outcome_list = [x[0] for x in outcome_list]
+            weight_dict[self.classifier_labels[i][0]] = outcome_list
+        return weight_dict
 
     def __test(self, x_test, y_test):
         """

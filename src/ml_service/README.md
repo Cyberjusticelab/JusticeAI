@@ -164,6 +164,43 @@ Provide facts_vector and demands_vector, with key values for each fact/demand.
 
 **Code** : `404 Not Found` - *Conversation doesn't exist*
 
+### Get Fact Weights
+
+Get the weights of every outcome sorted by descending order of importance
+
+**URL**: `/weights`
+
+**Method**: `GET`
+
+**Data constraints**
+
+None
+
+#### Success Response
+
+**Code** : `200 OK`
+
+**Content examples**
+
+```json
+{
+   "additional_indemnity_money": [
+        "tenant_rent_not_paid_less_3_weeks",
+        "landlord_retakes_apartment",
+        "asker_is_landlord",
+        "tenant_rent_not_paid_more_3_weeks",
+        "tenant_owes_rent"
+    ],                    
+   "authorize_landlord_retake_apartment": [
+        "landlord_retakes_apartment",
+        "asker_is_landlord",
+        "tenant_rent_not_paid_more_3_weeks",
+        "tenant_owes_rent",
+        "tenant_rent_not_paid_less_3_weeks"
+    ]
+}
+```
+
 ---
 
 

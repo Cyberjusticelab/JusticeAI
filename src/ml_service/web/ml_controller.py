@@ -87,3 +87,8 @@ class MlController:
             formatted_precedents.append({"precedent": precedent_array[0].split(".")[0], "distance": precedent_array[1]})
 
         return formatted_precedents
+
+    @staticmethod
+    def get_classifier_weights():
+        weight_dict = MlController.classifier_model.get_ordered_weights()
+        return weight_dict
