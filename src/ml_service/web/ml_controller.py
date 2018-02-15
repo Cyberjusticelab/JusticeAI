@@ -90,7 +90,7 @@ class MlController:
 
     @staticmethod
     def get_weighted_facts():
-        """        
+        """
         :return:
             {
             'additional_indemnity_money': {
