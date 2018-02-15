@@ -89,6 +89,30 @@ class MlController:
         return formatted_precedents
 
     @staticmethod
-    def get_classifier_weights():
-        weight_dict = MlController.classifier_model.get_ordered_weights()
-        return weight_dict
+    def get_facts():
+        """
+        IMPORTANT --> initialize left hand side to 1 and right hand side to 0
+
+        :return:
+            {
+            'additional_indemnity_money': {
+                'important_facts': [
+                    ...
+                ],
+                'not_important_facts': [
+                    ...
+                ]
+            },
+            'anti_facts': {
+                ...
+                }
+            }
+        """
+        fact_dict = MlController.classifier_model.get_ordered_weights()
+        fact_dict['anti_facts'] = {
+            'tenant_individual_responsability': 'tenant_group_responsability',
+            'tenant_lease_fixed': 'tenant_lease_indeterminate',
+            'tenant_rent_not_paid_less_3_weeks': 'tenant_rent_not_paid_more_3_weeks',
+            'not_violent': 'violent'
+        }
+        return fact_dict

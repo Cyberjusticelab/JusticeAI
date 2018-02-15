@@ -162,7 +162,7 @@ Provide facts_vector and demands_vector, with key values for each fact/demand.
 
 **Code** : `400 Bad Request` - *Inputs not provided*
 
-**Code** : `404 Not Found` - *Conversation doesn't exist*
+**Code** : `404 Not Found` - *Conversation doesn"t exist*
 
 ### Get Fact Weights
 
@@ -183,27 +183,33 @@ None
 **Content examples**
 
 ```json
- {
+{
     "additional_indemnity_money": {
         "important_facts": [
             "asker_is_landlord",
-            "tenant_rent_not_paid_more_3_weeks",
-            "tenant_owes_rent",
-            "tenant_left_without_paying",
-            "not_violent"
+            "tenant_withold_rent_without_permission",
+            "tenant_refuses_retake_apartment",
+            "tenant_monthly_payment",
+            "tenant_not_paid_lease_timespan"
         ],
         "not_important_facts": [
-            "tenant_dead",
-            "tenant_monthly_payment",
+            "tenant_financial_problem",
+            "tenant_owes_rent",
             "asker_is_tenant",
-            "tenant_continuous_late_payment",
-            "tenant_group_responsability",
-            "tenant_lease_fixed",
-            "tenant_lease_fixed",
             "tenant_damaged_rental",
             "tenant_individual_responsability",
+            "signed_proof_of_rent_debt",
+            "tenant_lease_indeterminate",
+            "tenant_dead",
+            "tenant_is_bothered",
             "bothers_others"
         ]
+    },
+    "anti_facts": {
+        "tenant_rent_not_paid_less_3_weeks": "tenant_rent_not_paid_more_3_weeks",
+        "tenant_lease_fixed": "tenant_lease_indeterminate",
+        "not_violent": "violent",
+        "tenant_individual_responsability": "tenant_group_responsability"
     }
 }
 ```

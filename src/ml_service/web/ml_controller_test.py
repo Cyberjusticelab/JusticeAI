@@ -176,6 +176,13 @@ class TestMlController(unittest.TestCase):
     def test_get_ordered_weights(self):
         expected_results = {
             'additional_indemnity_money': {
+                'important_facts': [
+                    'asker_is_landlord',
+                    'tenant_withold_rent_without_permission',
+                    'tenant_refuses_retake_apartment',
+                    'tenant_monthly_payment',
+                    'tenant_not_paid_lease_timespan'
+                ],
                 'not_important_facts': [
                     'tenant_financial_problem',
                     'tenant_owes_rent',
@@ -187,14 +194,13 @@ class TestMlController(unittest.TestCase):
                     'tenant_dead',
                     'tenant_is_bothered',
                     'bothers_others'
-                ],
-                'important_facts': [
-                    'asker_is_landlord',
-                    'tenant_withold_rent_without_permission',
-                    'tenant_refuses_retake_apartment',
-                    'tenant_monthly_payment',
-                    'tenant_not_paid_lease_timespan'
                 ]
+            },
+            'anti_facts': {
+                'tenant_rent_not_paid_less_3_weeks': 'tenant_rent_not_paid_more_3_weeks',
+                'tenant_lease_fixed': 'tenant_lease_indeterminate',
+                'not_violent': 'violent',
+                'tenant_individual_responsability': 'tenant_group_responsability'
             }
         }
 
@@ -229,7 +235,7 @@ class TestMlController(unittest.TestCase):
 
         MlController.classifier_model = linear_svc
 
-        result = MlController.get_classifier_weights()
+        result = MlController.get_facts()
         self.assertEqual(result, expected_results)
 
 
