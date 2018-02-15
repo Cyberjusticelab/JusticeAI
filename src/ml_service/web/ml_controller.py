@@ -89,7 +89,7 @@ class MlController:
         return formatted_precedents
 
     @staticmethod
-    def get_facts():
+    def get_weighted_facts():
         """
         IMPORTANT --> initialize left hand side to 1 and right hand side to 0
 
@@ -102,17 +102,15 @@ class MlController:
                 'not_important_facts': [
                     ...
                 ]
-            },
-            'anti_facts': {
-                ...
-                }
             }
         """
-        fact_dict = MlController.classifier_model.get_ordered_weights()
-        fact_dict['anti_facts'] = {
+        return MlController.classifier_model.get_ordered_weights()
+
+    @staticmethod
+    def get_anti_facts():
+        return {
             'tenant_individual_responsability': 'tenant_group_responsability',
             'tenant_lease_fixed': 'tenant_lease_indeterminate',
             'tenant_rent_not_paid_less_3_weeks': 'tenant_rent_not_paid_more_3_weeks',
             'not_violent': 'violent'
         }
-        return fact_dict

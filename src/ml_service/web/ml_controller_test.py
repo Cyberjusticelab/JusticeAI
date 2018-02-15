@@ -196,12 +196,6 @@ class TestMlController(unittest.TestCase):
                     'bothers_others'
                 ]
             },
-            'anti_facts': {
-                'tenant_rent_not_paid_less_3_weeks': 'tenant_rent_not_paid_more_3_weeks',
-                'tenant_lease_fixed': 'tenant_lease_indeterminate',
-                'not_violent': 'violent',
-                'tenant_individual_responsability': 'tenant_group_responsability'
-            }
         }
 
         class MockClassifierModel:
@@ -235,7 +229,11 @@ class TestMlController(unittest.TestCase):
 
         MlController.classifier_model = linear_svc
 
-        result = MlController.get_facts()
+        result = MlController.get_weighted_facts()
         self.assertEqual(result, expected_results)
+
+    def test_get_anti_fact(self):
+        anti_facts = MlController.get_anti_facts()
+        self.assertTrue(type(anti_facts) is dict)
 
 
