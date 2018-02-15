@@ -47,7 +47,7 @@ class TenantPaysLandlordRegressor:
             Defines Regressor architecture. To be used internally
         """
         model = Sequential()
-        model.add(Dense(13, input_dim=36,
+        model.add(Dense(13, input_dim=35,
                         kernel_initializer='normal', activation='relu'))
         model.add(Dense(6, kernel_initializer='normal', activation='relu'))
         model.add(Dense(6, kernel_initializer='normal', activation='relu'))
