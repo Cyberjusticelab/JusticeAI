@@ -383,18 +383,6 @@ class RegexLib:
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
-        ("tenant_lease_fixed", [
-            re.compile(
-                r".+un bail " + \
-                __multiple_words(0, 8) + r"au loyer " + \
-                __multiple_words(0, 8) + r"mensuel de " + MONEY_REGEX,
-                re.IGNORECASE
-            ),
-            re.compile(
-                r".*bail valide.*loyer.*" + \
-                MONEY_REGEX + r"\spar mois",
-                re.IGNORECASE)
-        ], "MONEY_REGEX"),
         ("signed_proof_of_rent_debt", [
             re.compile(
                 r".+une reconnaissance de dette",
