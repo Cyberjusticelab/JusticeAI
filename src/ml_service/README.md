@@ -204,16 +204,38 @@ None
             "tenant_is_bothered",
             "bothers_others"
         ]
-    },
-    "anti_facts": {
-        "tenant_rent_not_paid_less_3_weeks": "tenant_rent_not_paid_more_3_weeks",
-        "tenant_lease_fixed": "tenant_lease_indeterminate",
-        "not_violent": "violent",
-        "tenant_individual_responsability": "tenant_group_responsability"
-    }
+    }   
 }
 ```
 
+### Get Anti Facts
+
+Get the anti facts
+
+Left hand side always initialized to 1 and right hand side to 0
+
+**URL**: `/antifacts`
+
+**Method**: `GET`
+
+**Data constraints**
+
+None
+
+#### Success Response
+
+**Code** : `200 OK`
+
+**Content examples**
+
+```json
+{
+    "tenant_rent_not_paid_less_3_weeks": "tenant_rent_not_paid_more_3_weeks",
+    "tenant_lease_fixed": "tenant_lease_indeterminate",
+    "not_violent": "violent",
+    "tenant_individual_responsability": "tenant_group_responsability"
+}
+```
 ---
 
 
