@@ -1,7 +1,15 @@
 import requests
 
-from postgresql_db.models import Fact, FactEntity, PersonType
+from postgresql_db.models import PersonType, FactType
 
+# Logging
+import logging
+import sys
+
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+log = logging.getLogger(__name__)
+
+# ML Api Url
 ML_URL = "http://ml_service:3001"
 
 outcome_facts = {}
@@ -40,8 +48,11 @@ def submit_resolved_fact_list(conversation):
     :return: Outcomes vector from ML service
     """
 
+    fact_dict = generate_fact_dict(conversation)
+    log.debug("Submitting Resolved Fact Dict\n\tFact Dict: {}".format(fact_dict))
+
     req_dict = {
-        "facts": generate_fact_dict(conversation)
+        "facts": fact_dict
     }
     res = requests.post("{}/{}".format(ML_URL, "predict"), json=req_dict)
     return res.json()
@@ -89,12 +100,15 @@ def generate_fact_dict(conversation):
     # Add all resolved facts
     for fact_entity in conversation.fact_entities:
         fact_entity_name = fact_entity.fact.name
-        if fact_entity.value == "true":
-            resolved_facts[fact_entity_name] = True
-        elif fact_entity.value == "false":
-            resolved_facts[fact_entity_name] = False
-        else:
-            resolved_facts[fact_entity_name] = fact_entity.value
+        fact_entity_type = fact_entity.fact.type
+
+        if fact_entity_type == FactType.BOOLEAN:
+            if fact_entity.value == "true":
+                resolved_facts[fact_entity_name] = True
+            elif fact_entity.value == "false":
+                resolved_facts[fact_entity_name] = False
+        elif fact_entity_type == FactType.MONEY:
+            resolved_facts[fact_entity_name] = int(fact_entity.value)
 
     ############
     # Mappings #
@@ -120,9 +134,9 @@ def generate_fact_dict(conversation):
 
     # Convert true and false to 1 and 0
     for fact_entity in resolved_facts:
-        if resolved_facts[fact_entity]:
+        if resolved_facts[fact_entity] is True:
             resolved_facts[fact_entity] = 1
-        else:
+        elif resolved_facts[fact_entity] is False:
             resolved_facts[fact_entity] = 0
 
     return resolved_facts
