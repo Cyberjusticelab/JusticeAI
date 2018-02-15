@@ -12,7 +12,7 @@ from feature_extraction.post_processing.regex.regex_lib import RegexLib
 
 class TagPrecedents:
     empty_line_length = 6
-    fact_match = re.compile('\[\d\]')
+    fact_match = re.compile('\[\d{0,3}\]')
 
     def __init__(self):
         self.precedent_vector = {}
