@@ -108,7 +108,7 @@ def generate_fact_dict(conversation):
             elif fact_entity.value == "false":
                 resolved_facts[fact_entity_name] = False
         elif fact_entity_type == FactType.MONEY:
-            resolved_facts[fact_entity_name] = int(fact_entity.value)
+            resolved_facts[fact_entity_name] = float(fact_entity.value)
 
     ############
     # Mappings #
