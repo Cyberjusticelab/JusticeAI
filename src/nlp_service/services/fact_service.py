@@ -1,4 +1,5 @@
-from nlp_service.services import ml_service
+from nlp_service.services import ml_service, response_strings
+from nlp_service.services.response_strings import Responses
 from postgresql_db.models import FactEntity, Fact, FactType
 
 
@@ -35,8 +36,11 @@ def submit_resolved_fact(conversation, current_fact, entity_value):
     }
 
 
-# This can be replaced with a more dynamic solution using MLService to obtain fact lists
+# Dictionary containing outcome -> list(fact) mappings. Obtained from ML service endpoint
 outcome_facts = {}
+
+# Dictionary that maps claim categories to outcomes. Facts from these outcomes will be used to
+# ask questions to users for a particular claim category
 outcome_mapping = {
     "lease_termination": [
         "orders_resiliation"
@@ -71,14 +75,19 @@ def get_category_fact_list(claim_category):
     }
     all_category_outcomes = outcome_mapping[claim_category.value.lower()]
 
-    for outcome in get_outcome_facts():
+    outcome_facts = get_outcome_facts()
+    for outcome in outcome_facts:
         if outcome in all_category_outcomes:
-            category_fact_dict["facts"].append(outcome["important_facts"])
-            category_fact_dict["not_important_facts"].append(outcome["not_important_facts"])
+            category_fact_dict["facts"].extend(outcome_facts[outcome]["important_facts"])
+            category_fact_dict["not_important_facts"].extend(outcome_facts[outcome]["not_important_facts"])
 
     # Remove Duplicates
     category_fact_dict["facts"] = list(set(category_fact_dict["facts"]))
     category_fact_dict["not_important_facts"] = list(set(category_fact_dict["not_important_facts"]))
+
+    # Filter out unaskable facts
+    category_fact_dict["facts"] = [fact for fact in category_fact_dict["facts"] if fact in Responses.fact_questions.keys()] #Tentative Measure
+    category_fact_dict["not_important_facts"] = [fact for fact in category_fact_dict["not_important_facts"] if fact in Responses.fact_questions.keys()] #Tentative Measure
 
     return category_fact_dict
 

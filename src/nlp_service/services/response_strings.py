@@ -182,10 +182,6 @@ class Responses:
             [
                 "Is the tenant withholding rent without having received permission from the Regie du logement?"
             ],
-        "landlord_prejudice_justified":
-            [
-                ""
-            ],
         "landlord_serious_prejudice":
             [
                 "Has the tenant’s payment habits caused you any prejudice?"
