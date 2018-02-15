@@ -90,9 +90,7 @@ class MlController:
 
     @staticmethod
     def get_weighted_facts():
-        """
-        IMPORTANT --> initialize left hand side to 1 and right hand side to 0
-
+        """        
         :return:
             {
             'additional_indemnity_money': {
