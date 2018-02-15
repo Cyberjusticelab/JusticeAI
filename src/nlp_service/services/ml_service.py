@@ -4,23 +4,32 @@ from postgresql_db.models import Fact, FactEntity, PersonType
 
 ML_URL = "http://ml_service:3001"
 
+outcome_facts = {}
+
 
 def get_outcome_facts():
     """
     :return: Dict of outcomes with relevant facts from the ML endpoint
     """
+    global outcome_facts
+    if not outcome_facts:
+        outcome_facts = requests.get("{}/{}".format(ML_URL, "weights")).json()
 
-    res = requests.get("{}/{}".format(ML_URL, "weights"))
-    return res.json()
+    return outcome_facts
+
+
+anti_facts = {}
 
 
 def get_anti_facts():
     """
     :return: Dict of antifacts from the ML endpoint.
     """
+    global anti_facts
+    if not anti_facts:
+        anti_facts = requests.get("{}/{}".format(ML_URL, "antifacts")).json()
 
-    res = requests.get("{}/{}".format(ML_URL, "antifacts"))
-    return res.json()
+    return anti_facts
 
 
 def submit_resolved_fact_list(conversation):
@@ -32,7 +41,6 @@ def submit_resolved_fact_list(conversation):
     """
 
     req_dict = {
-        "demands": generate_demand_dict(),
         "facts": generate_fact_dict(conversation)
     }
     res = requests.post("{}/{}".format(ML_URL, "predict"), json=req_dict)
@@ -66,41 +74,6 @@ def extract_prediction(claim_category, ml_response):
             resolved_outcomes[outcome] = ml_response['outcomes_vector'][outcome]
 
     return resolved_outcomes
-
-
-def generate_demand_dict():
-    """
-    Generates demand dictionary with default values for ML service input
-    :return: Demand dictionary with default values
-    """
-
-    demand_dict = {
-        "demand_lease_modification": 0,
-        "demand_resiliation": 0,
-        "landlord_claim_interest_damage": 0,
-        "landlord_demand_access_rental": 0,
-        "landlord_demand_bank_fee": 0,
-        "landlord_demand_damage": 0,
-        "landlord_demand_legal_fees": 0,
-        "landlord_demand_retake_apartment": 0,
-        "landlord_demand_utility_fee": 0,
-        "landlord_fix_rent": 0,
-        "landlord_lease_termination": 0,
-        "landlord_money_cover_rent": 0,
-        "paid_judicial_fees": 0,
-        "tenant_claims_harassment": 0,
-        "tenant_cover_rent": 0,
-        "tenant_demands_decision_retraction": 0,
-        "tenant_demand_indemnity_Code_Civil": 0,
-        "tenant_demand_indemnity_damage": 0,
-        "tenant_demand_indemnity_judicial_fee": 0,
-        "tenant_demand_interest_damage": 0,
-        "tenant_demands_money": 0,
-        "tenant_demand_rent_decrease": 0,
-        "tenant_respect_of_contract": 0,
-        "tenant_eviction": 0
-    }
-    return demand_dict
 
 
 all_ml_facts = [

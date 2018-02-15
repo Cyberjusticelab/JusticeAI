@@ -36,9 +36,6 @@ def submit_resolved_fact(conversation, current_fact, entity_value):
     }
 
 
-# Dictionary containing outcome -> list(fact) mappings. Obtained from ML service endpoint
-outcome_facts = {}
-
 # Dictionary that maps claim categories to outcomes. Facts from these outcomes will be used to
 # ask questions to users for a particular claim category
 outcome_mapping = {
@@ -53,15 +50,15 @@ outcome_mapping = {
 }
 
 
-def get_outcome_facts():
-    """
-    Gets the outcome facts dict with data from ml service
-    """
+def replace_anti_facts(fact_list, anti_fact_list):
+    for fact in fact_list:
+        if fact not in Responses.fact_questions.keys():
+            if fact in anti_fact_list.keys():
+                fact_list[fact] = anti_fact_list[fact]
+            else:
+                fact_list[fact] = [k for k, v in anti_fact_list.items() if v == fact][0]
 
-    global outcome_facts
-    if not outcome_facts:
-        outcome_facts = ml_service.get_outcome_facts()
-    return outcome_facts
+    return fact_list
 
 
 def get_category_fact_list(claim_category):
@@ -75,7 +72,7 @@ def get_category_fact_list(claim_category):
     }
     all_category_outcomes = outcome_mapping[claim_category.value.lower()]
 
-    outcome_facts = get_outcome_facts()
+    outcome_facts = ml_service.get_outcome_facts()
     for outcome in outcome_facts:
         if outcome in all_category_outcomes:
             category_fact_dict["facts"].extend(outcome_facts[outcome]["important_facts"])
@@ -85,9 +82,16 @@ def get_category_fact_list(claim_category):
     category_fact_dict["facts"] = list(set(category_fact_dict["facts"]))
     category_fact_dict["not_important_facts"] = list(set(category_fact_dict["not_important_facts"]))
 
+    # Replace anti facts with askable facts, if applicable
+    category_fact_dict["facts"] = replace_anti_facts(category_fact_dict["facts"], ml_service.get_anti_facts())
+    category_fact_dict["not_important_facts"] = replace_anti_facts(category_fact_dict["not_important_facts"],
+                                                                   ml_service.get_anti_facts())
+
     # Filter out unaskable facts
-    category_fact_dict["facts"] = [fact for fact in category_fact_dict["facts"] if fact in Responses.fact_questions.keys()] #Tentative Measure
-    category_fact_dict["not_important_facts"] = [fact for fact in category_fact_dict["not_important_facts"] if fact in Responses.fact_questions.keys()] #Tentative Measure
+    category_fact_dict["facts"] = [fact for fact in category_fact_dict["facts"] if
+                                   fact in Responses.fact_questions.keys()]
+    category_fact_dict["not_important_facts"] = [fact for fact in category_fact_dict["not_important_facts"] if
+                                                 fact in Responses.fact_questions.keys()]
 
     return category_fact_dict
 
