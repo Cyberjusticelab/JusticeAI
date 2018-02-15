@@ -1,3 +1,4 @@
+from nlp_service.services import ml_service
 from postgresql_db.models import FactEntity, Fact, FactType
 
 
@@ -35,6 +36,7 @@ def submit_resolved_fact(conversation, current_fact, entity_value):
 
 
 # This can be replaced with a more dynamic solution using MLService to obtain fact lists
+fact_weights = {}
 fact_mapping = {
     "lease_termination": [
         "tenant_rent_not_paid_more_3_weeks",
@@ -56,6 +58,17 @@ fact_mapping = {
         "landlord_serious_prejudice"
     ]
 }
+
+
+def get_fact_weights():
+    """
+    Gets the fact_weights dict with data from ml service
+    """
+
+    global fact_weights
+    if not bool(fact_weights):
+        fact_weights = ml_service.get_fact_weights()
+    return fact_weights
 
 
 def get_next_fact(claim_category, facts_resolved):

@@ -5,6 +5,24 @@ from postgresql_db.models import Fact, FactEntity, PersonType
 ML_URL = "http://ml_service:3001"
 
 
+def get_fact_weights():
+    """
+    :return: Dict of facts for every outcome from the ML endpoint
+    """
+
+    res = requests.get("{}/{}".format(ML_URL, "weights"))
+    return res.json()
+
+
+def get_anti_facts():
+    """
+    :return: Dict of antifacts from the ML endpoint.
+    """
+
+    res = requests.get("{}/{}".format(ML_URL, "antifacts"))
+    return res.json()
+
+
 def submit_resolved_fact_list(conversation):
     """
     Submits list of resolved facts to ML endpoint.
