@@ -36,39 +36,51 @@ def submit_resolved_fact(conversation, current_fact, entity_value):
 
 
 # This can be replaced with a more dynamic solution using MLService to obtain fact lists
-fact_weights = {}
-fact_mapping = {
+outcome_facts = {}
+outcome_mapping = {
     "lease_termination": [
-        "tenant_rent_not_paid_more_3_weeks",
-        "tenant_violence",
-        "tenant_owes_rent",
-        "tenant_monthly_payment",
-        "landlord_retakes_apartment",
-        "tenant_bad_payment_habits",
-        "apartment_impropre",
-        "landlord_rent_change",
-        "tenant_left_without_paying",
+        "orders_resiliation"
     ],
     "nonpayment": [
-        "tenant_owes_rent",
-        "tenant_withold_rent_without_permission",
-        "tenant_continuous_late_payment",
-        "tenant_rent_not_paid_more_3_weeks",
-        "tenant_rent_paid_before_hearing",
-        "landlord_serious_prejudice"
+        "tenant_ordered_to_pay_landlord",
+        "tenant_ordered_to_pay_landlord_legal_fees",
+        "additional_indemnity_money"
     ]
 }
 
 
-def get_fact_weights():
+def get_outcome_facts():
     """
-    Gets the fact_weights dict with data from ml service
+    Gets the outcome facts dict with data from ml service
     """
 
-    global fact_weights
-    if not bool(fact_weights):
-        fact_weights = ml_service.get_fact_weights()
-    return fact_weights
+    global outcome_facts
+    if not outcome_facts:
+        outcome_facts = ml_service.get_outcome_facts()
+    return outcome_facts
+
+
+def get_category_fact_list(claim_category):
+    """
+    Returns a dict containing a list fo important facts "facts", and non-important facts "not_important_facts" for a claim category
+    :param claim_category: Claim category as a string
+    """
+    category_fact_dict = {
+        "facts": [],
+        "not_important_facts": []
+    }
+    all_category_outcomes = outcome_mapping[claim_category.value.lower()]
+
+    for outcome in get_outcome_facts():
+        if outcome in all_category_outcomes:
+            category_fact_dict["facts"].append(outcome["important_facts"])
+            category_fact_dict["not_important_facts"].append(outcome["not_important_facts"])
+
+    # Remove Duplicates
+    category_fact_dict["facts"] = list(set(category_fact_dict["facts"]))
+    category_fact_dict["not_important_facts"] = list(set(category_fact_dict["not_important_facts"]))
+
+    return category_fact_dict
 
 
 def get_next_fact(claim_category, facts_resolved):
@@ -79,8 +91,8 @@ def get_next_fact(claim_category, facts_resolved):
     :return: Next fact id to ask a question for
     """
 
-    all_category_facts = fact_mapping[claim_category.value.lower()]
-    facts_unresolved = [fact for fact in all_category_facts if fact not in facts_resolved]
+    all_category_facts = get_category_fact_list(claim_category)
+    facts_unresolved = [fact for fact in all_category_facts["facts"] if fact not in facts_resolved]
 
     # Pick the first unresolved fact, return None if none remain
     if len(facts_unresolved) == 0:

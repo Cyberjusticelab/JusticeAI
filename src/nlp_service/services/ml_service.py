@@ -5,9 +5,9 @@ from postgresql_db.models import Fact, FactEntity, PersonType
 ML_URL = "http://ml_service:3001"
 
 
-def get_fact_weights():
+def get_outcome_facts():
     """
-    :return: Dict of facts for every outcome from the ML endpoint
+    :return: Dict of outcomes with relevant facts from the ML endpoint
     """
 
     res = requests.get("{}/{}".format(ML_URL, "weights"))
