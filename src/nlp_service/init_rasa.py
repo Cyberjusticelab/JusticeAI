@@ -9,8 +9,7 @@ jsonCreator.parse_directory("/rasa/text/category/", "/rasa/data/category/")
 
 # Facts generated from base file
 fact_names = [
-    "apartment_impropre",
-    "apartment_infestation",
+    "apartment_dirty",
     "bothers_others",
     "disrespect_previous_judgement",
     "landlord_inspector_fees",
@@ -18,25 +17,20 @@ fact_names = [
     "landlord_relocation_indemnity_fees",
     "landlord_rent_change_doc_renseignements",
     "landlord_rent_change",
-    "landlord_retakes_apartment_indemnity",
     "landlord_retakes_apartment",
     "landlord_sends_demand_regie_logement",
-    "proof_of_late",
-    "proof_of_revenu",
+    "tenant_sends_demand_regie_logement",
+    "signed_proof_of_rent_debt",
     "rent_increased",
     "tenant_bad_payment_habits",
     "tenant_damaged_rental",
     "tenant_dead",
-    "tenant_declare_insalubre",
-    "tenant_landlord_agreement",
+    "tenant_individual_responsability",
+    "tenant_is_bothered",
     "tenant_lease_fixed",
     "tenant_monthly_payment",
-    "tenant_negligence",
-    "tenant_not_request_cancel_lease",
     "tenant_refuses_retake_apartment",
-    "tenant_violence",
-    "tenant_group_responsability",
-    "tenant_individual_responsability"
+    "violent",
 ]
 jsonCreator.identical_fact_list("/rasa/text/fact/base/yes_no.txt", fact_names, "/rasa/data/fact/")
 
