@@ -175,44 +175,27 @@ class TestMlController(unittest.TestCase):
 
     def test_get_ordered_weights(self):
         expected_results = {
-            'additional_indemnity_money': [
-                'tenant_rent_not_paid_less_3_weeks',
-                'landlord_retakes_apartment',
-                'asker_is_landlord',
-                'tenant_rent_not_paid_more_3_weeks',
-                'tenant_owes_rent',
-                'tenant_left_without_paying',
-                'violent',
-                'landlord_rent_change',
-                'not_violent',
-                'tenant_dead',
-                'tenant_refuses_retake_apartment',
-                'tenant_not_paid_lease_timespan',
-                'landlord_sends_demand_regie_logement',
-                'tenant_monthly_payment',
-                'landlord_inspector_fees',
-                'landlord_relocation_indemnity_fees',
-                'asker_is_tenant',
-                'tenant_continuous_late_payment',
-                'tenant_group_responsability',
-                'rent_increased',
-                'tenant_withold_rent_without_permission',
-                'tenant_lease_indeterminate',
-                'disrespect_previous_judgement',
-                'tenant_lease_fixed',
-                'tenant_lease_fixed',
-                'tenant_financial_problem',
-                'apartment_dirty',
-                'tenant_damaged_rental',
-                'tenant_individual_responsability',
-                'bothers_others',
-                'signed_proof_of_rent_debt',
-                'landlord_notifies_tenant_retake_apartment',
-                'landlord_pays_indemnity',
-                'landlord_rent_change_doc_renseignements',
-                'tenant_sends_demand_regie_logement',
-                'tenant_is_bothered'
-            ]
+            'additional_indemnity_money': {
+                'important_facts': [
+                    'asker_is_landlord',
+                    'tenant_rent_not_paid_more_3_weeks',
+                    'tenant_owes_rent',
+                    'tenant_left_without_paying',
+                    'not_violent'
+                ],
+                'not_important_facts': [
+                    'tenant_dead',
+                    'tenant_monthly_payment',
+                    'asker_is_tenant',
+                    'tenant_continuous_late_payment',
+                    'tenant_group_responsability',
+                    'tenant_lease_fixed',
+                    'tenant_lease_fixed',
+                    'tenant_damaged_rental',
+                    'tenant_individual_responsability',
+                    'bothers_others'
+                ]
+            }
         }
 
         class MockClassifierModel:

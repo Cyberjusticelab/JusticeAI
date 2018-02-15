@@ -183,21 +183,28 @@ None
 **Content examples**
 
 ```json
-{
-   "additional_indemnity_money": [
-        "tenant_rent_not_paid_less_3_weeks",
-        "landlord_retakes_apartment",
-        "asker_is_landlord",
-        "tenant_rent_not_paid_more_3_weeks",
-        "tenant_owes_rent"
-    ],                    
-   "authorize_landlord_retake_apartment": [
-        "landlord_retakes_apartment",
-        "asker_is_landlord",
-        "tenant_rent_not_paid_more_3_weeks",
-        "tenant_owes_rent",
-        "tenant_rent_not_paid_less_3_weeks"
-    ]
+ {
+    "additional_indemnity_money": {
+        "important_facts": [
+            "asker_is_landlord",
+            "tenant_rent_not_paid_more_3_weeks",
+            "tenant_owes_rent",
+            "tenant_left_without_paying",
+            "not_violent"
+        ],
+        "not_important_facts": [
+            "tenant_dead",
+            "tenant_monthly_payment",
+            "asker_is_tenant",
+            "tenant_continuous_late_payment",
+            "tenant_group_responsability",
+            "tenant_lease_fixed",
+            "tenant_lease_fixed",
+            "tenant_damaged_rental",
+            "tenant_individual_responsability",
+            "bothers_others"
+        ]
+    }
 }
 ```
 
