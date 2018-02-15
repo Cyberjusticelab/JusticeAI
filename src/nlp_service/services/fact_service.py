@@ -50,13 +50,14 @@ outcome_mapping = {
 }
 
 
-def replace_anti_facts(fact_list, anti_fact_list):
+def replace_anti_facts(fact_list, anti_fact_dict):
     for fact in fact_list:
         if fact not in Responses.fact_questions.keys():
-            if fact in anti_fact_list.keys():
-                fact_list[fact] = anti_fact_list[fact]
-            else:
-                fact_list[fact] = [k for k, v in anti_fact_list.items() if v == fact][0]
+            fact_list.remove(fact)
+            if fact in anti_fact_dict.keys():
+                fact_list.append(anti_fact_dict[fact])
+            elif fact in anti_fact_dict.values():
+                fact_list.append([k for k, v in anti_fact_dict.items() if v == fact][0])
 
     return fact_list
 

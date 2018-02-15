@@ -76,61 +76,6 @@ def extract_prediction(claim_category, ml_response):
     return resolved_outcomes
 
 
-all_ml_facts = [
-    "absent",
-    "apartment_impropre",
-    "apartment_infestation",
-    "asker_is_landlord",
-    "asker_is_tenant",
-    "bothers_others",
-    "case_fee_reimbursement",
-    "disrespect_previous_judgement",
-    "incorrect_facts",
-    "landlord_inspector_fees",
-    "landlord_notifies_tenant_retake_apartment",
-    "landlord_pays_indemnity",
-    "landlord_prejudice_justified",
-    "landlord_relocation_indemnity_fees",
-    "landlord_rent_change",
-    "landlord_rent_change_doc_renseignements",
-    "landlord_rent_change_piece_justification",
-    "landlord_rent_change_receipts",
-    "landlord_retakes_apartment",
-    "landlord_retakes_apartment_indemnity",
-    "landlord_sends_demand_regie_logement",
-    "landlord_serious_prejudice",
-    "lease",
-    "proof_of_late",
-    "proof_of_revenu",
-    "rent_increased",
-    "tenant_bad_payment_habits",
-    "tenant_continuous_late_payment",
-    "tenant_damaged_rental",
-    "tenant_dead",
-    "tenant_declare_insalubre",
-    "tenant_financial_problem",
-    "tenant_group_responsability",
-    "tenant_individual_responsability",
-    "tenant_is_bothered",
-    "lack_of_proof",
-    "tenant_landlord_agreement",
-    "tenant_lease_fixed",
-    "tenant_lease_indeterminate",
-    "tenant_left_without_paying",
-    "tenant_monthly_payment",
-    "tenant_negligence",
-    "tenant_not_request_cancel_lease",
-    "tenant_owes_rent",
-    "tenant_refuses_retake_apartment",
-    "tenant_rent_not_paid_less_3_weeks",
-    "tenant_rent_not_paid_more_3_weeks",
-    "tenant_rent_paid_before_hearing",
-    "tenant_violence",
-    "tenant_withold_rent_without_permission",
-    "violent"
-]
-
-
 def generate_fact_dict(conversation):
     """
     Generates fact dictionary for ML service.
@@ -141,10 +86,6 @@ def generate_fact_dict(conversation):
 
     resolved_facts = {}
 
-    # Initialize expected facts with all false
-    for expected_fact in all_ml_facts:
-        resolved_facts[expected_fact] = False
-
     # Add all resolved facts
     for fact_entity in conversation.fact_entities:
         fact_entity_name = fact_entity.fact.name
@@ -152,6 +93,8 @@ def generate_fact_dict(conversation):
             resolved_facts[fact_entity_name] = True
         elif fact_entity.value == "false":
             resolved_facts[fact_entity_name] = False
+        else:
+            resolved_facts[fact_entity_name] = fact_entity.value
 
     ############
     # Mappings #
@@ -165,22 +108,15 @@ def generate_fact_dict(conversation):
         resolved_facts['asker_is_landlord'] = False
         resolved_facts['asker_is_tenant'] = True
 
-    # Perform one to one mappings
-    resolved_facts['landlord_prejudice_justified'] = resolved_facts['landlord_serious_prejudice']
-    resolved_facts['violent'] = resolved_facts['tenant_violence']
-
-    resolved_facts['landlord_rent_change_piece_justification'] = resolved_facts[
-        'landlord_rent_change_doc_renseignements']
-    resolved_facts['landlord_rent_change_receipts'] = resolved_facts[
-        'landlord_rent_change_doc_renseignements']
-
-    # Perform mappings with dependencies
-    resolved_facts['tenant_lease_indeterminate'] = not resolved_facts['tenant_lease_fixed']
-    resolved_facts['lease'] = resolved_facts['tenant_lease_fixed']
-    resolved_facts['tenant_rent_not_paid_less_3_weeks'] = not resolved_facts['tenant_rent_not_paid_more_3_weeks']
-
-    # Type mappings
-    resolved_facts['tenant_owes_rent'] = int(resolved_facts['tenant_owes_rent'])
+    # Perform anti-fact mappings
+    anti_facts = get_anti_facts()
+    for fact in list(resolved_facts):  # This is done because a dict cannot be changed while iterating through it
+        if fact in anti_facts.keys():
+            anti_fact_key_name = anti_facts[fact]
+            resolved_facts[anti_fact_key_name] = not resolved_facts[fact]
+        elif fact in anti_facts.values():
+            anti_fact_key_name = [k for k, v in anti_facts.items() if v == fact][0]
+            resolved_facts[anti_fact_key_name] = not resolved_facts[fact]
 
     # Convert true and false to 1 and 0
     for fact_entity in resolved_facts:
