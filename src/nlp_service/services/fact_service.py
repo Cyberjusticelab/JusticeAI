@@ -64,12 +64,12 @@ def replace_anti_facts(fact_list, anti_fact_dict):
 
 def get_category_fact_list(claim_category):
     """
-    Returns a dict containing a list fo important facts "facts", and non-important facts "not_important_facts" for a claim category
+    Returns a dict containing a list fo important facts "facts", and non-important facts "additional_facts" for a claim category
     :param claim_category: Claim category as a string
     """
     category_fact_dict = {
         "facts": [],
-        "not_important_facts": []
+        "additional_facts": []
     }
     all_category_outcomes = outcome_mapping[claim_category.value.lower()]
 
@@ -77,21 +77,21 @@ def get_category_fact_list(claim_category):
     for outcome in outcome_facts:
         if outcome in all_category_outcomes:
             category_fact_dict["facts"].extend(outcome_facts[outcome]["important_facts"])
-            category_fact_dict["not_important_facts"].extend(outcome_facts[outcome]["not_important_facts"])
+            category_fact_dict["additional_facts"].extend(outcome_facts[outcome]["additional_facts"])
 
     # Remove Duplicates
     category_fact_dict["facts"] = list(set(category_fact_dict["facts"]))
-    category_fact_dict["not_important_facts"] = list(set(category_fact_dict["not_important_facts"]))
+    category_fact_dict["additional_facts"] = list(set(category_fact_dict["additional_facts"]))
 
     # Replace anti facts with askable facts, if applicable
     category_fact_dict["facts"] = replace_anti_facts(category_fact_dict["facts"], ml_service.get_anti_facts())
-    category_fact_dict["not_important_facts"] = replace_anti_facts(category_fact_dict["not_important_facts"],
+    category_fact_dict["additional_facts"] = replace_anti_facts(category_fact_dict["additional_facts"],
                                                                    ml_service.get_anti_facts())
 
     # Filter out unaskable facts
     category_fact_dict["facts"] = [fact for fact in category_fact_dict["facts"] if
                                    fact in Responses.fact_questions.keys()]
-    category_fact_dict["not_important_facts"] = [fact for fact in category_fact_dict["not_important_facts"] if
+    category_fact_dict["additional_facts"] = [fact for fact in category_fact_dict["additional_facts"] if
                                                  fact in Responses.fact_questions.keys()]
 
     return category_fact_dict
