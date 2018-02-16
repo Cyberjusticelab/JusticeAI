@@ -87,7 +87,7 @@ class MultiClassSVM:
                             'tenant_left_without_paying',
                             'not_violent'
                         ],
-                        'not_important_facts': [
+                        'additional_facts': [
                             ...
                         ]
                     }
@@ -111,10 +111,10 @@ class MultiClassSVM:
             weights = [abs(x[1]) for x in outcome_list]
             mean_power = math.log10(np.mean(np.array(weights)))
             important_facts = [x[0] for x in outcome_list if math.log10(abs(x[1])) >= mean_power]
-            not_important_facts = [x[0] for x in outcome_list if math.log10(abs(x[1])) < mean_power]
+            additional_facts = [x[0] for x in outcome_list if math.log10(abs(x[1])) < mean_power]
             weight_dict[self.classifier_labels[i][0]] = {}
             weight_dict[self.classifier_labels[i][0]]['important_facts'] = important_facts
-            weight_dict[self.classifier_labels[i][0]]['not_important_facts'] = not_important_facts
+            weight_dict[self.classifier_labels[i][0]]['additional_facts'] = additional_facts
         return weight_dict
 
     def __test(self, x_test, y_test):

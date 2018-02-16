@@ -19,7 +19,7 @@ class TestRasaClassifier(unittest.TestCase):
         self.assertIsNotNone(classifier_output)
 
     def test_extract_factentities(self):
-        classifier_output = self.rasaClassifier.classify_fact("apartment_impropre", "No")
+        classifier_output = self.rasaClassifier.classify_fact("apartment_dirty", "No")
         self.assertIsNotNone(classifier_output)
 
     def test_nonexistent_factentities(self):

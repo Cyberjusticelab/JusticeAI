@@ -117,6 +117,14 @@ def get_next_fact(claim_category, facts_resolved):
     return fact.id
 
 
+def has_important_facts(claim_category, facts_resolved):
+    pass
+
+
+def has_additional_facts(claim_category, facts_resolved):
+    pass
+
+
 def extract_fact_by_type(fact_type, intent, entities):
     """
     Returns the relevant information for a particular FactType based on rasa nlu classification data.

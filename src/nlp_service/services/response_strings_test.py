@@ -8,8 +8,8 @@ class TestResponse(unittest.TestCase):
         self.responseInstance = Responses()
 
     def test_fact_responses(self):
-        question = Responses.fact_question("apartment_impropre")
-        self.assertTrue(question in self.responseInstance.fact_questions["apartment_impropre"])
+        question = Responses.fact_question("apartment_dirty")
+        self.assertTrue(question in self.responseInstance.fact_questions["apartment_dirty"])
 
     def test_fact_responses_empty(self):
         question = Responses.fact_question("does_not_exist")

@@ -32,7 +32,7 @@ class MlServiceTest(unittest.TestCase):
         db.session.add(conversation)
         db.session.commit()
 
-        fact1 = Fact.query.filter_by(name="apartment_impropre").first()
+        fact1 = Fact.query.filter_by(name="apartment_dirty").first()
         fact2 = Fact.query.filter_by(name="tenant_rent_not_paid_more_3_weeks").first()
 
         fact_entity_true = FactEntity(fact=fact1, value="true")
@@ -46,5 +46,5 @@ class MlServiceTest(unittest.TestCase):
         fact_dict = ml_service.generate_fact_dict(conversation)
         self.assertTrue(len(fact_dict) != 0)
 
-        self.assertTrue(fact_dict["apartment_impropre"] == 1)
+        self.assertTrue(fact_dict["apartment_dirty"] == 1)
         self.assertTrue(fact_dict["tenant_rent_not_paid_more_3_weeks"] == 0)

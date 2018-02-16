@@ -97,7 +97,7 @@ class MlController:
                 'important_facts': [
                     ...
                 ],
-                'not_important_facts': [
+                'additional_facts': [
                     ...
                 ]
             }
