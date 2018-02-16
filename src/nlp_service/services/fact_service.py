@@ -86,13 +86,13 @@ def get_category_fact_list(claim_category):
     # Replace anti facts with askable facts, if applicable
     category_fact_dict["facts"] = replace_anti_facts(category_fact_dict["facts"], ml_service.get_anti_facts())
     category_fact_dict["additional_facts"] = replace_anti_facts(category_fact_dict["additional_facts"],
-                                                                   ml_service.get_anti_facts())
+                                                                ml_service.get_anti_facts())
 
     # Filter out unaskable facts
     category_fact_dict["facts"] = [fact for fact in category_fact_dict["facts"] if
                                    fact in Responses.fact_questions.keys()]
     category_fact_dict["additional_facts"] = [fact for fact in category_fact_dict["additional_facts"] if
-                                                 fact in Responses.fact_questions.keys()]
+                                              fact in Responses.fact_questions.keys()]
 
     return category_fact_dict
 
@@ -106,11 +106,12 @@ def get_next_fact(claim_category, facts_resolved):
     """
 
     all_category_facts = get_category_fact_list(claim_category)
-    facts_unresolved = [fact for fact in all_category_facts["facts"] if fact not in facts_resolved]
 
-    # Pick the first unresolved fact, return None if none remain
-    if len(facts_unresolved) == 0:
-        return None
+    facts_unresolved = []
+    if has_important_facts(claim_category, facts_resolved):
+        facts_unresolved = [fact for fact in all_category_facts["facts"] if fact not in facts_resolved]
+    elif has_additional_facts:
+        facts_unresolved = [fact for fact in all_category_facts["additional_facts"] if fact not in facts_resolved]
 
     fact_name = facts_unresolved[0]
     fact = Fact.query.filter_by(name=fact_name).first()
@@ -118,11 +119,31 @@ def get_next_fact(claim_category, facts_resolved):
 
 
 def has_important_facts(claim_category, facts_resolved):
-    pass
+    """
+    Returns true of important facts still exist for this conversation
+    :param claim_category: Claim category of the conversation as a string
+    :param facts_resolved: List of all resolved fact keys for the conversation
+    :return:
+    """
+    all_category_facts = get_category_fact_list(claim_category)
+    facts_unresolved = [fact for fact in all_category_facts["facts"] if fact not in facts_resolved]
+    if len(facts_unresolved) == 0:
+        return False
+    return True
 
 
 def has_additional_facts(claim_category, facts_resolved):
-    pass
+    """
+    Returns true of additional facts still exist for this conversation
+    :param claim_category: Claim category of the conversation as a string
+    :param facts_resolved: List of all resolved fact keys for the conversation
+    :return:
+    """
+    all_category_facts = get_category_fact_list(claim_category)
+    facts_unresolved = [fact for fact in all_category_facts["additional_facts"] if fact not in facts_resolved]
+    if len(facts_unresolved) == 0:
+        return False
+    return True
 
 
 def extract_fact_by_type(fact_type, intent, entities):

@@ -114,7 +114,7 @@ def classify_fact_value(conversation_id, message):
 
     fact_entity_value = __extract_entity(current_fact.name, current_fact.type, message)
     if fact_entity_value is not None:
-        # Pass fact with extracted entity to ML service
+        # Pass extracted entity to fact_service for persistence, and to obtain a new fact
         next_fact = fact_service.submit_resolved_fact(conversation, current_fact, fact_entity_value)
         new_fact_id = next_fact['fact_id']
 
