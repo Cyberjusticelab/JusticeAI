@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import numpy
+import re
 from util.file import Save
 from util.log import Log
 from util.constant import Path
@@ -11,6 +12,7 @@ from feature_extraction.post_processing.regex.regex_lib import RegexLib
 
 class TagPrecedents:
     empty_line_length = 6
+    fact_match = re.compile('\[\d{0,3}\]')
 
     def __init__(self):
         self.precedent_vector = {}
@@ -143,7 +145,7 @@ class TagPrecedents:
         text_tagged = False
         file_contents = file.read()
         statement_tagged = False
-        self.nb_lines += len(file_contents.split('\n'))
+        self.nb_lines += len(TagPrecedents.fact_match.findall(file_contents))
 
         # ----------------------- 2 -----------------------------#
         for i, (_, regex_array, regex_type) in enumerate(self.regexes["regex_facts"]):
@@ -182,19 +184,6 @@ class TagPrecedents:
             'demands_vector': demands_vector,
             'outcomes_vector': outcomes_vector
         }
-
-    def __ignore_line(self, line):
-        """
-        Verifies if we should ignore line from total count
-        Add constraints to make covered lines more realistic
-        :param line: String
-        :return: Boolean
-        """
-        if len(line) < self.empty_line_length:
-            return True
-        elif 'No dossier' in line:
-            return True
-        return False
 
 
 def run(nb_files=-1):
