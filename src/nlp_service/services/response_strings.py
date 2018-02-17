@@ -21,6 +21,12 @@ class Responses:
         "I'm afraid I don't understand. Could you please rephrase? {previous_question}"
     ]
 
+    # Asking whether they want to answer more questions
+    prompt_additional = [
+        "I could give you a better prediction if you answer {} more questions, are you interested?",
+        "If you don't mind answering {} more questions, I may be able to give you a better prediction."
+    ]
+
     # Giving a prediction
     prediction = {
         "LEASE_TERMINATION": {
@@ -486,6 +492,10 @@ class Responses:
             all_responses.append(similar_response)
 
         return "|".join(all_responses)
+
+    @staticmethod
+    def prompt_additional_questions(question_count):
+        return "|{}".format(Responses.chooseFrom(Responses.prompt_additional).format(question_count))
 
     @staticmethod
     def chooseFrom(strings):

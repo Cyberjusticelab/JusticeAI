@@ -53,7 +53,6 @@ def classify_claim_category(conversation_id, message):
 
     if claim_category in Responses.static_claim_responses.keys():
         response = Responses.faq_statement(claim_category, conversation.person_type.value)
-
     elif claim_category:
         # Set conversation's claim category
         conversation.claim_category = {
@@ -71,6 +70,9 @@ def classify_claim_category(conversation_id, message):
 
             # Save first fact as current fact
             conversation.current_fact = first_fact
+
+            # Set conversation bot state
+            conversation.bot_state = BotState.RESOLVING_FACTS
 
             # Commit
             db.session.commit()
@@ -105,45 +107,64 @@ def classify_fact_value(conversation_id, message):
 
     # Retrieve conversation
     conversation = db.session.query(Conversation).get(conversation_id)
+    bot_state = conversation.bot_state
 
-    # Retrieve current_fact from conversation
-    current_fact = conversation.current_fact
-
-    # Extract entity from message based on current fact
+    # Question to return
     question = None
 
-    fact_entity_value = __extract_entity(current_fact.name, current_fact.type, message)
-    if fact_entity_value is not None:
-        # Pass extracted entity to fact_service for persistence, and to obtain a new fact
-        next_fact = fact_service.submit_resolved_fact(conversation, current_fact, fact_entity_value)
-        new_fact_id = next_fact['fact_id']
+    if bot_state is BotState.RESOLVING_FACTS or bot_state is BotState.RESOLVING_ADDITIONAL_FACTS:
+        # Retrieve current_fact from conversation
+        current_fact = conversation.current_fact
 
-        if new_fact_id:
-            new_fact = db.session.query(Fact).get(new_fact_id)
+        # Extract entity from message based on current fact
+        fact_entity_value = __extract_entity(current_fact.name, current_fact.type, message)
 
-            # Set current_fact to new_fact (returned from ML service)
-            conversation.current_fact = new_fact
+        if fact_entity_value is not None:
+            next_fact = fact_service.submit_resolved_fact(conversation, current_fact, fact_entity_value)
+            new_fact_id = next_fact['fact_id']
 
-            # Generate question for next fact (returned from ML service)
-            question = Responses.fact_question(new_fact.name)
+            if conversation.bot_state is BotState.RESOLVING_FACTS:
+                if fact_service.has_important_facts(conversation):
+                    # Important facts remain to be asked
+                    question = __generate_fact_question(conversation, new_fact_id)
+                else:
+                    # There are no more important facts! Give a prediction
+                    conversation.bot_state = BotState.GIVING_PREDICTION
+            elif conversation.bot_state is BotState.RESOLVING_ADDITIONAL_FACTS:
+                if fact_service.has_additional_facts(conversation):
+                    # Additional facts remain to be asked
+                    question = __generate_fact_question(conversation, new_fact_id)
+                else:
+                    # There are no more additional facts! Give a prediction
+                    conversation.bot_state = BotState.GIVING_PREDICTION
         else:
-            # All facts have been resolved, submit request to ML service for prediction
-            ml_prediction = ml_service.submit_resolved_fact_list(conversation)
+            question = Responses.chooseFrom(Responses.clarify).format(
+                previous_question=Responses.fact_question(current_fact.name))
 
-            prediction_dict = ml_service.extract_prediction(
-                claim_category=conversation.claim_category.value,
-                ml_response=ml_prediction)
+    if bot_state is BotState.GIVING_PREDICTION:
+        # Submit request to ML service for prediction
+        ml_prediction = ml_service.submit_resolved_fact_list(conversation)
 
-            similar_precedent_list = ml_prediction['similar_precedents']
+        prediction_dict = ml_service.extract_prediction(
+            claim_category=conversation.claim_category.value,
+            ml_response=ml_prediction)
 
-            # Generate statement for prediction
-            question = Responses.prediction_statement(
-                claim_category_value=conversation.claim_category.value,
-                prediction_dict=prediction_dict,
-                similar_precedent_list=similar_precedent_list)
-    else:
-        question = Responses.chooseFrom(Responses.clarify).format(
-            previous_question=Responses.fact_question(current_fact.name))
+        similar_precedent_list = ml_prediction['similar_precedents']
+
+        # Generate statement for prediction
+        question = Responses.prediction_statement(
+            claim_category_value=conversation.claim_category.value,
+            prediction_dict=prediction_dict,
+            similar_precedent_list=similar_precedent_list)
+
+        # If there are additional questions to be asked
+        if fact_service.has_additional_facts(conversation):
+            # Set the bot state
+            conversation.bot_state = BotState.AWAITING_ACKNOWLEDGEMENT
+
+            # Append to the question
+            additional_question_count = fact_service.get_additional_fact_count(conversation)
+            question = question + Responses.prompt_additional_questions(additional_question_count)
 
     # Commit
     db.session.commit()
@@ -151,6 +172,16 @@ def classify_fact_value(conversation_id, message):
     return jsonify({
         "message": question
     })
+
+
+def __generate_fact_question(conversation, new_fact_id):
+    new_fact = db.session.query(Fact).get(new_fact_id)
+
+    # Set current_fact to new_fact (returned from ML service)
+    conversation.current_fact = new_fact
+
+    # Generate question for next fact (returned from ML service)
+    return Responses.fact_question(new_fact.name)
 
 
 def __classify_claim_category(message, person_type):

@@ -29,6 +29,14 @@ class PersonType(Enum):
     TENANT = "TENANT"
 
 
+class BotState(Enum):
+    DETERMINE_CLAIM_CATEGORY = "DETERMINE_CLAIM_CATEGORY"
+    RESOLVING_FACTS = "RESOLVING_FACTS"
+    RESOLVING_ADDITIONAL_FACTS = "RESOLVING_ADDITIONAL_FACTS"
+    AWAITING_ACKNOWLEDGEMENT = "AWAITING_ACKNOWLEDGEMENT"
+    GIVING_PREDICTION = "GIVING_PREDICTION"
+
+
 class ClaimCategory(Enum):
     LEASE_TERMINATION = "LEASE_TERMINATION"
     NONPAYMENT = "NONPAYMENT"
@@ -68,6 +76,7 @@ class Conversation(db.Model):
     name = db.Column(db.String(40), nullable=False)
     person_type = db.Column(db.Enum(PersonType))
     claim_category = db.Column(db.Enum(ClaimCategory))
+    bot_state = db.Column(db.Enum(BotState))
 
     # One to one
     current_fact_id = db.Column(db.Integer, db.ForeignKey('fact.id'))

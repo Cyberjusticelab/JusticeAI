@@ -36,7 +36,8 @@ def init_conversation(name, person_type):
     if person_type.upper() not in PersonType.__members__:
         return abort(make_response(jsonify(message="Invalid person type provided"), 400))
 
-    conversation = Conversation(name=name, person_type=PersonType[person_type.upper()])
+    conversation = Conversation(name=name, person_type=PersonType[person_type.upper()],
+                                bot_state=BotState.DETERMINE_CLAIM_CATEGORY)
 
     # Persist new conversation to DB
     db.session.add(conversation)
