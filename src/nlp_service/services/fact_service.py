@@ -83,6 +83,10 @@ def get_category_fact_list(claim_category):
     category_fact_dict["facts"] = list(OrderedDict.fromkeys(category_fact_dict["facts"]))
     category_fact_dict["additional_facts"] = list(OrderedDict.fromkeys(category_fact_dict["additional_facts"]))
 
+    # Remove any additional facts that are important facts
+    category_fact_dict["additional_facts"] = [fact for fact in category_fact_dict["additional_facts"] if
+                                              fact not in category_fact_dict["facts"]]
+
     # Replace anti facts with askable facts, if applicable
     anti_facts = ml_service.get_anti_facts()
     category_fact_dict["facts"] = replace_anti_facts(category_fact_dict["facts"], anti_facts)
@@ -172,11 +176,19 @@ def has_additional_facts(conversation):
     return True
 
 
-def get_additional_fact_count(conversation):
+def count_additional_facts_unresolved(conversation):
     all_category_facts = get_category_fact_list(conversation.claim_category.value)
     facts_resolved = get_resolved_fact_keys(conversation)
-    facts_unresolved = [fact for fact in all_category_facts["additional_facts"] if fact not in facts_resolved]
-    return len(facts_unresolved)
+    additional_facts_unresolved = [fact for fact in all_category_facts["additional_facts"] if
+                                   fact not in facts_resolved]
+    return len(additional_facts_unresolved)
+
+
+def count_additional_facts_resolved(conversation):
+    all_category_facts = get_category_fact_list(conversation.claim_category.value)
+    facts_resolved = get_resolved_fact_keys(conversation)
+    additional_facts_resolved = [fact for fact in all_category_facts["additional_facts"] if fact in facts_resolved]
+    return len(additional_facts_resolved)
 
 
 def extract_fact_by_type(fact_type, intent, entities):

@@ -94,6 +94,10 @@ def classify_claim_category(conversation_id, message):
     })
 
 
+# The maximum of additional facts to ask before giving a new prediction
+MAX_ADDITIONAL_FACTS = 5
+
+
 def classify_fact_value(conversation_id, message):
     """
     Classifies the value of the Conversation's current fact, based on the user's message.
@@ -139,7 +143,6 @@ def classify_fact_value(conversation_id, message):
             next_fact = fact_service.submit_resolved_fact(conversation, current_fact, fact_entity_value)
             new_fact_id = next_fact['fact_id']
 
-            new_fact = None
             if new_fact_id:
                 new_fact = db.session.query(Fact).get(new_fact_id)
                 conversation.current_fact = new_fact
@@ -177,10 +180,16 @@ def classify_fact_value(conversation_id, message):
                     new_fact = db.session.query(Fact).get(new_fact_id)
                     conversation.current_fact = new_fact
 
+                # Additional facts remain to be asked
                 if fact_service.has_additional_facts(conversation):
-                    # Additional facts remain to be asked
-                    if new_fact:
-                        question = Responses.fact_question(new_fact.name)
+                    # Additional fact limit reached, time for a new prediction
+                    log.debug(
+                        "ADDITIONAL RESOLVED: {}".format(fact_service.count_additional_facts_resolved(conversation)))
+                    if fact_service.count_additional_facts_resolved(conversation) % MAX_ADDITIONAL_FACTS == 0:
+                        conversation.bot_state = BotState.GIVING_PREDICTION
+                    else:
+                        if new_fact:
+                            question = Responses.fact_question(new_fact.name)
                 else:
                     # There are no more additional facts! Give a prediction
                     conversation.bot_state = BotState.GIVING_PREDICTION
@@ -210,7 +219,19 @@ def classify_fact_value(conversation_id, message):
             conversation.bot_state = BotState.AWAITING_ACKNOWLEDGEMENT
 
             # Append to the question
-            additional_question_count = fact_service.get_additional_fact_count(conversation)
+            additional_question_count = 0
+            total_unresolved_additional = fact_service.count_additional_facts_unresolved(conversation)
+            total_resolved_additional = fact_service.count_additional_facts_resolved(conversation)
+
+            log.debug("total_unresolved_additional: {}".format(total_unresolved_additional))
+            log.debug("total_resolved_additional: {}".format(total_resolved_additional))
+            log.debug("DIFFERENCE: {}".format(total_unresolved_additional - total_resolved_additional))
+            
+            if total_unresolved_additional - total_resolved_additional >= MAX_ADDITIONAL_FACTS:
+                additional_question_count = MAX_ADDITIONAL_FACTS
+            else:
+                additional_question_count = total_unresolved_additional - total_resolved_additional
+
             question = question + Responses.prompt_additional_questions(additional_question_count)
 
     # Commit
