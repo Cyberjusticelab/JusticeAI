@@ -122,6 +122,10 @@ def get_next_fact(conversation):
     elif has_additional_facts(conversation):
         facts_unresolved = [fact for fact in all_category_facts["additional_facts"] if fact not in facts_resolved]
 
+    # Pick the first unresolved fact, return None if none remain
+    if len(facts_unresolved) == 0:
+        return None
+    
     fact_name = facts_unresolved[0]
     fact = Fact.query.filter_by(name=fact_name).first()
     return fact.id
