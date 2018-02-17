@@ -62,7 +62,7 @@ def classify_claim_category(conversation_id, message):
         }[claim_category]
 
         # Get first fact based on claim category
-        first_fact = fact_service.submit_claim_category(conversation.claim_category)
+        first_fact = fact_service.submit_claim_category(conversation)
         first_fact_id = first_fact['fact_id']
 
         if first_fact_id:

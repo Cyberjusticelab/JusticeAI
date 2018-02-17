@@ -3,15 +3,24 @@ from nlp_service.services.response_strings import Responses
 from postgresql_db.models import FactEntity, Fact, FactType
 
 
-def submit_claim_category(claim_category):
+def get_resolved_fact_keys(conversation):
+    """
+    Returns a list of all the resolved facts for a conversation as string keys
+    :param conversation: The current conversation
+    :return: List of all resolved fact names as strings
+    """
+    return [fact_entity_row.fact.name for fact_entity_row in conversation.fact_entities]
+
+
+def submit_claim_category(conversation):
     """
     Returns the first fact after submitting a determined claim category
-    :param claim_category: The claim category determined from user input as a string
+    :param conversation: The current conversation
     :return: First fact id to ask a question for
     """
 
     return {
-        'fact_id': get_next_fact(claim_category, [])
+        'fact_id': get_next_fact(conversation)
     }
 
 
@@ -29,10 +38,10 @@ def submit_resolved_fact(conversation, current_fact, entity_value):
     conversation.fact_entities.append(fact_entity)
 
     # Get all resolved facts for Conversation
-    facts_resolved = [fact_entity_row.fact.name for fact_entity_row in conversation.fact_entities]
+    facts_resolved = get_resolved_fact_keys(conversation)
 
     return {
-        'fact_id': get_next_fact(conversation.claim_category, facts_resolved)
+        'fact_id': get_next_fact(conversation)
     }
 
 
@@ -97,20 +106,20 @@ def get_category_fact_list(claim_category):
     return category_fact_dict
 
 
-def get_next_fact(claim_category, facts_resolved):
+def get_next_fact(conversation):
     """
     Returns next fact id based on claim category given the resolved facts.
-    :param claim_category: Claim category of the conversation as a string
-    :param facts_resolved: List of all resolved fact keys for the conversation
+    :param conversation: The current conversation
     :return: Next fact id to ask a question for
     """
 
-    all_category_facts = get_category_fact_list(claim_category)
-
+    all_category_facts = get_category_fact_list(conversation.claim_category.value)
+    facts_resolved = get_resolved_fact_keys(conversation)
     facts_unresolved = []
-    if has_important_facts(claim_category, facts_resolved):
+
+    if has_important_facts(conversation):
         facts_unresolved = [fact for fact in all_category_facts["facts"] if fact not in facts_resolved]
-    elif has_additional_facts:
+    elif has_additional_facts(conversation):
         facts_unresolved = [fact for fact in all_category_facts["additional_facts"] if fact not in facts_resolved]
 
     fact_name = facts_unresolved[0]
@@ -118,28 +127,28 @@ def get_next_fact(claim_category, facts_resolved):
     return fact.id
 
 
-def has_important_facts(claim_category, facts_resolved):
+def has_important_facts(conversation):
     """
     Returns true of important facts still exist for this conversation
-    :param claim_category: Claim category of the conversation as a string
-    :param facts_resolved: List of all resolved fact keys for the conversation
+    :param conversation: The current conversation
     :return:
     """
-    all_category_facts = get_category_fact_list(claim_category)
+    all_category_facts = get_category_fact_list(conversation.claim_category.value)
+    facts_resolved = get_resolved_fact_keys(conversation)
     facts_unresolved = [fact for fact in all_category_facts["facts"] if fact not in facts_resolved]
     if len(facts_unresolved) == 0:
         return False
     return True
 
 
-def has_additional_facts(claim_category, facts_resolved):
+def has_additional_facts(conversation):
     """
     Returns true of additional facts still exist for this conversation
-    :param claim_category: Claim category of the conversation as a string
-    :param facts_resolved: List of all resolved fact keys for the conversation
+    :param conversation: The current conversation
     :return:
     """
-    all_category_facts = get_category_fact_list(claim_category)
+    all_category_facts = get_category_fact_list(conversation.claim_category.value)
+    facts_resolved = get_resolved_fact_keys(conversation)
     facts_unresolved = [fact for fact in all_category_facts["additional_facts"] if fact not in facts_resolved]
     if len(facts_unresolved) == 0:
         return False
