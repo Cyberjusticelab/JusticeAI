@@ -13,10 +13,12 @@ class RasaClassifier:
     model_dir = "rasa/projects/justiceai/"
     fact_data_dir = "rasa/data/fact/"
     category_data_dir = "rasa/data/category/"
+    acknowledgement_data_dir = "rasa/data/acknowledgement/"
 
     # Dicts
     category_interpreters = {}
     fact_interpreters = {}
+    acknowledgement_interpreters = {}
 
     # RASA Caching
     builder = ComponentBuilder(use_cache=True)
@@ -38,6 +40,11 @@ class RasaClassifier:
 
         # Train problem category classifier
         self.__train_interpreter(self.category_data_dir, self.category_interpreters, force_train=force_train,
+                                 initialize_interpreters=initialize_interpreters)
+
+        # Train acknowledgement classifier
+        self.__train_interpreter(self.acknowledgement_data_dir, self.acknowledgement_interpreters,
+                                 force_train=force_train,
                                  initialize_interpreters=initialize_interpreters)
 
     def classify_problem_category(self, message, person_type):
@@ -64,6 +71,9 @@ class RasaClassifier:
         if fact_name in self.fact_interpreters:
             return self.fact_interpreters[fact_name].parse(message.lower())
         return None
+
+    def classify_acknowledgement(self, message):
+        return self.acknowledgement_interpreters['additional_fact_acknowledgement'].parse(message.lower())
 
     def __train_interpreter(self, training_data_dir, interpreter_dict, force_train, initialize_interpreters):
         """

@@ -4,6 +4,9 @@ from util.parse_dataset import CreateJson
 # Generate RASA training data from text files
 jsonCreator = CreateJson()
 
+# Acknowledgements
+jsonCreator.parse_directory("/rasa/text/acknowledgement/", "/rasa/data/acknowledgement/")
+
 # Claim Categories
 jsonCreator.parse_directory("/rasa/text/category/", "/rasa/data/category/")
 
@@ -14,6 +17,7 @@ fact_names = [
     "disrespect_previous_judgement",
     "landlord_inspector_fees",
     "landlord_notifies_tenant_retake_apartment",
+    "landlord_pays_indemnity",
     "landlord_relocation_indemnity_fees",
     "landlord_rent_change_doc_renseignements",
     "landlord_rent_change",
@@ -30,6 +34,7 @@ fact_names = [
     "tenant_lease_fixed",
     "tenant_monthly_payment",
     "tenant_refuses_retake_apartment",
+    "tenant_not_paid_lease_timespan",
     "violent",
 ]
 jsonCreator.identical_fact_list("/rasa/text/fact/base/yes_no.txt", fact_names, "/rasa/data/fact/")

@@ -107,12 +107,28 @@ def classify_fact_value(conversation_id, message):
 
     # Retrieve conversation
     conversation = db.session.query(Conversation).get(conversation_id)
-    bot_state = conversation.bot_state
 
     # Question to return
     question = None
 
-    if bot_state is BotState.RESOLVING_FACTS or bot_state is BotState.RESOLVING_ADDITIONAL_FACTS:
+    ############################
+    # AWAITING_ACKNOWLEDGEMENT #
+    ############################
+    just_acknowledged = False
+    if conversation.bot_state is BotState.AWAITING_ACKNOWLEDGEMENT:
+        should_continue = rasaClassifier.classify_acknowledgement(message)
+
+        if should_continue is not None:
+            if should_continue:
+                conversation.bot_state = BotState.RESOLVING_ADDITIONAL_FACTS
+                just_acknowledged = True
+        else:
+            question = Responses.chooseFrom(Responses.clarify)
+
+    ###################
+    # RESOLVING_FACTS #
+    ###################
+    if conversation.bot_state is BotState.RESOLVING_FACTS:
         # Retrieve current_fact from conversation
         current_fact = conversation.current_fact
 
@@ -123,25 +139,56 @@ def classify_fact_value(conversation_id, message):
             next_fact = fact_service.submit_resolved_fact(conversation, current_fact, fact_entity_value)
             new_fact_id = next_fact['fact_id']
 
-            if conversation.bot_state is BotState.RESOLVING_FACTS:
+            new_fact = None
+            if new_fact_id:
+                new_fact = db.session.query(Fact).get(new_fact_id)
+                conversation.current_fact = new_fact
+
                 if fact_service.has_important_facts(conversation):
                     # Important facts remain to be asked
-                    question = __generate_fact_question(conversation, new_fact_id)
+                    if new_fact:
+                        question = Responses.fact_question(new_fact.name)
                 else:
                     # There are no more important facts! Give a prediction
-                    conversation.bot_state = BotState.GIVING_PREDICTION
-            elif conversation.bot_state is BotState.RESOLVING_ADDITIONAL_FACTS:
-                if fact_service.has_additional_facts(conversation):
-                    # Additional facts remain to be asked
-                    question = __generate_fact_question(conversation, new_fact_id)
-                else:
-                    # There are no more additional facts! Give a prediction
                     conversation.bot_state = BotState.GIVING_PREDICTION
         else:
             question = Responses.chooseFrom(Responses.clarify).format(
                 previous_question=Responses.fact_question(current_fact.name))
 
-    if bot_state is BotState.GIVING_PREDICTION:
+    ##############################
+    # RESOLVING_ADDITIONAL_FACTS #
+    ##############################
+    if conversation.bot_state == BotState.RESOLVING_ADDITIONAL_FACTS:
+        # Retrieve current_fact from conversation
+        current_fact = conversation.current_fact
+
+        if just_acknowledged:
+            question = Responses.fact_question(current_fact.name)
+        else:
+            # Extract entity from message based on current fact
+            fact_entity_value = __extract_entity(current_fact.name, current_fact.type, message)
+
+            if fact_entity_value is not None:
+                next_fact = fact_service.submit_resolved_fact(conversation, current_fact, fact_entity_value)
+                new_fact_id = next_fact['fact_id']
+
+                new_fact = None
+                if new_fact_id:
+                    new_fact = db.session.query(Fact).get(new_fact_id)
+                    conversation.current_fact = new_fact
+
+                if fact_service.has_additional_facts(conversation):
+                    # Additional facts remain to be asked
+                    if new_fact:
+                        question = Responses.fact_question(new_fact.name)
+                else:
+                    # There are no more additional facts! Give a prediction
+                    conversation.bot_state = BotState.GIVING_PREDICTION
+
+    #####################
+    # GIVING_PREDICTION #
+    #####################
+    if conversation.bot_state is BotState.GIVING_PREDICTION:
         # Submit request to ML service for prediction
         ml_prediction = ml_service.submit_resolved_fact_list(conversation)
 
@@ -174,14 +221,19 @@ def classify_fact_value(conversation_id, message):
     })
 
 
-def __generate_fact_question(conversation, new_fact_id):
-    new_fact = db.session.query(Fact).get(new_fact_id)
+def __classify_acknowledgement(message):
+    classify_dict = rasaClassifier.classify_acknowledgement(message)
+    log.debug(
+        "\nClassify Acknowledgement\n\tMessage: {}\n\tOutput: {}".format(message, classify_dict))
 
-    # Set current_fact to new_fact (returned from ML service)
-    conversation.current_fact = new_fact
+    if intentThreshold.is_sufficient(classify_dict):
+        determined_acknowledgement = classify_dict['intent']
+        if determined_acknowledgement == "true":
+            return True
+        elif determined_acknowledgement == "false":
+            return False
 
-    # Generate question for next fact (returned from ML service)
-    return Responses.fact_question(new_fact.name)
+    return None
 
 
 def __classify_claim_category(message, person_type):
@@ -201,8 +253,8 @@ def __classify_claim_category(message, person_type):
     if intentThreshold.is_sufficient(classify_dict):
         determined_claim_category = classify_dict['intent']
         return determined_claim_category['name']
-    else:
-        return None
+
+    return None
 
 
 def __extract_entity(current_fact_name, current_fact_type, message):
@@ -228,5 +280,5 @@ def __extract_entity(current_fact_name, current_fact_type, message):
     # Return the fact value, or None if the answer was insufficient in determining one
     if intentThreshold.is_sufficient(classify_dict):
         return fact_service.extract_fact_by_type(current_fact_type, classify_dict['intent'], classify_dict['entities'])
-    else:
-        return None
+
+    return None

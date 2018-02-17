@@ -70,7 +70,7 @@ def get_category_fact_list(claim_category):
         "facts": [],
         "additional_facts": []
     }
-    all_category_outcomes = outcome_mapping[claim_category.value.lower()]
+    all_category_outcomes = outcome_mapping[claim_category.lower()]
 
     # Filter out only facts relevant to those defined in outcome_mapping for each outcome
     outcome_facts = ml_service.get_outcome_facts()

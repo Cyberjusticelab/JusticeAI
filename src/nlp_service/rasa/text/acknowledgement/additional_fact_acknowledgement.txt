@@ -1,0 +1,75 @@
+[meta]
+
+[regex_features]
+
+[entity_synonyms]
+
+[common_examples: true]
+absolutely
+affirmative
+totally
+true
+yeah
+yes
+yea
+yep
+aye aye
+roger
+10-4
+uh-huh
+righto
+right
+yup
+yuppers
+right on
+ja
+surely
+exactly
+yessir
+yes sir
+alright
+undoubtedly
+mhmm
+yeah sure
+alright i'll answer more
+yeah ok
+i'd love to
+i would love to
+no problem
+ok if it helps
+
+[common_examples: false]
+negative
+false
+absolutely not
+nope
+no way
+no
+no that's out of the question
+uh-uh
+niet
+nay
+nah
+no absolutely not
+no way jose
+out of the question
+no siree
+no sir
+not on your life
+under no circumstances
+not likely
+fat chance
+no chance in hell
+no i'm done
+i don't want to
+i do not want to
+go away
+screw you
+you suck
+no freaking way
+nah i'm done
+i'm done
+i am done
+i'm finished
+i think that is enough
+that's enough
