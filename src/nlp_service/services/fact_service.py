@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from nlp_service.services import ml_service, response_strings
 from nlp_service.services.response_strings import Responses
 from postgresql_db.models import FactEntity, Fact, FactType
@@ -88,9 +90,9 @@ def get_category_fact_list(claim_category):
             category_fact_dict["facts"].extend(outcome_facts[outcome]["important_facts"])
             category_fact_dict["additional_facts"].extend(outcome_facts[outcome]["additional_facts"])
 
-    # Remove Duplicates
-    category_fact_dict["facts"] = list(set(category_fact_dict["facts"]))
-    category_fact_dict["additional_facts"] = list(set(category_fact_dict["additional_facts"]))
+    # Remove Duplicates while maintaining order
+    category_fact_dict["facts"] = list(OrderedDict.fromkeys(category_fact_dict["facts"]))
+    category_fact_dict["additional_facts"] = list(OrderedDict.fromkeys(category_fact_dict["additional_facts"]))
 
     # Replace anti facts with askable facts, if applicable
     category_fact_dict["facts"] = replace_anti_facts(category_fact_dict["facts"], ml_service.get_anti_facts())
@@ -125,7 +127,7 @@ def get_next_fact(conversation):
     # Pick the first unresolved fact, return None if none remain
     if len(facts_unresolved) == 0:
         return None
-    
+
     fact_name = facts_unresolved[0]
     fact = Fact.query.filter_by(name=fact_name).first()
     return fact.id

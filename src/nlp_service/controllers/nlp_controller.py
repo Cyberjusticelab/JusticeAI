@@ -118,7 +118,6 @@ def classify_fact_value(conversation_id, message):
         next_fact = fact_service.submit_resolved_fact(conversation, current_fact, fact_entity_value)
         new_fact_id = next_fact['fact_id']
 
-        # Retrieve the Fact from DB
         if new_fact_id:
             new_fact = db.session.query(Fact).get(new_fact_id)
 
