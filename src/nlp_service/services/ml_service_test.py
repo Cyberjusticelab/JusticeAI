@@ -23,10 +23,6 @@ class MlServiceTest(unittest.TestCase):
         prediction_dict = ml_service.extract_prediction("bad_key", mock_ml_response)
         self.assertFalse(bool(prediction_dict))
 
-    def test_generate_demand_dict(self):
-        demand_dict = ml_service.generate_demand_dict()
-        self.assertTrue(len(demand_dict) != 0)
-
     def test_generate_fact_dict(self):
         conversation = Conversation(name="Bob", person_type=PersonType.TENANT)
         db.session.add(conversation)

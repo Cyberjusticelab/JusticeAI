@@ -12,7 +12,11 @@ log = logging.getLogger(__name__)
 # ML Api Url
 ML_URL = "http://ml_service:3001"
 
+# Dict containing outcome fact mappings
 outcome_facts = {}
+
+# Dict containing antifact mappings
+anti_facts = {}
 
 
 def get_outcome_facts():
@@ -24,9 +28,6 @@ def get_outcome_facts():
         outcome_facts = requests.get("{}/{}".format(ML_URL, "weights")).json()
 
     return outcome_facts
-
-
-anti_facts = {}
 
 
 def get_anti_facts():

@@ -6,7 +6,12 @@ from postgresql_db.models import ClaimCategory, Conversation, PersonType, db, Fa
 
 class FactServiceTest(unittest.TestCase):
     def test_submit_claim_category(self):
-        next_fact = fact_service.submit_claim_category(ClaimCategory.LEASE_TERMINATION)
+        conversation = Conversation(name="Bob", person_type=PersonType.TENANT,
+                                    claim_category=ClaimCategory.LEASE_TERMINATION)
+        db.session.add(conversation)
+        db.session.commit()
+
+        next_fact = fact_service.submit_claim_category(conversation)
         self.assertIsNotNone(next_fact["fact_id"])
 
     def test_submit_resolved_fact(self):
@@ -15,13 +20,18 @@ class FactServiceTest(unittest.TestCase):
         db.session.add(conversation)
         db.session.commit()
 
-        fact = Fact.query.filter_by(name="apartment_impropre").first()
+        fact = Fact.query.filter_by(name="apartment_dirty").first()
         next_fact = fact_service.submit_resolved_fact(conversation=conversation, current_fact=fact, entity_value="true")
 
         self.assertIsNotNone(next_fact["fact_id"])
 
     def get_next_fact(self):
-        next_fact = fact_service.get_next_fact(ClaimCategory.LEASE_TERMINATION, ["apartment_impropre"])
+        conversation = Conversation(name="Bob", person_type=PersonType.TENANT,
+                                    claim_category=ClaimCategory.LEASE_TERMINATION)
+        db.session.add(conversation)
+        db.session.commit()
+
+        next_fact = fact_service.get_next_fact(conversation)
         self.assertIsNotNone(next_fact)
 
     def get_next_fact_all_resolved(self):
