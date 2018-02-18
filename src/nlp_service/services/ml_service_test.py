@@ -1,14 +1,12 @@
 import unittest
-from unittest import mock
+from unittest.mock import Mock
 
 from nlp_service.services import ml_service
 from postgresql_db.models import db, Conversation, PersonType, Fact, FactEntity
 
-
-def mock_get_anti_facts():
-    return {
-        "tenant_rent_not_paid_more_3_weeks": "tenant_rent_not_paid_less_3_weeks"
-    }
+ml_service.get_anti_facts = Mock(return_value={
+    "tenant_rent_not_paid_more_3_weeks": "tenant_rent_not_paid_less_3_weeks"
+})
 
 
 class MlServiceTest(unittest.TestCase):
@@ -30,8 +28,7 @@ class MlServiceTest(unittest.TestCase):
         prediction_dict = ml_service.extract_prediction("bad_key", mock_ml_response)
         self.assertFalse(bool(prediction_dict))
 
-    @mock.patch('ml_service.get_anti_facts', side_effect=mock_get_anti_facts)
-    def test_generate_fact_dict(self, antifact_mock):
+    def test_generate_fact_dict(self):
         conversation = Conversation(name="Bob", person_type=PersonType.TENANT)
         db.session.add(conversation)
         db.session.commit()
