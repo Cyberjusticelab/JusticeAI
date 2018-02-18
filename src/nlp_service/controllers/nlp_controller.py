@@ -183,8 +183,6 @@ def classify_fact_value(conversation_id, message):
                 # Additional facts remain to be asked
                 if fact_service.has_additional_facts(conversation):
                     # Additional fact limit reached, time for a new prediction
-                    log.debug(
-                        "ADDITIONAL RESOLVED: {}".format(fact_service.count_additional_facts_resolved(conversation)))
                     if fact_service.count_additional_facts_resolved(conversation) % MAX_ADDITIONAL_FACTS == 0:
                         conversation.bot_state = BotState.GIVING_PREDICTION
                     else:
@@ -221,16 +219,11 @@ def classify_fact_value(conversation_id, message):
             # Append to the question
             additional_question_count = 0
             total_unresolved_additional = fact_service.count_additional_facts_unresolved(conversation)
-            total_resolved_additional = fact_service.count_additional_facts_resolved(conversation)
 
-            log.debug("total_unresolved_additional: {}".format(total_unresolved_additional))
-            log.debug("total_resolved_additional: {}".format(total_resolved_additional))
-            log.debug("DIFFERENCE: {}".format(total_unresolved_additional - total_resolved_additional))
-            
-            if total_unresolved_additional - total_resolved_additional >= MAX_ADDITIONAL_FACTS:
+            if total_unresolved_additional >= MAX_ADDITIONAL_FACTS:
                 additional_question_count = MAX_ADDITIONAL_FACTS
             else:
-                additional_question_count = total_unresolved_additional - total_resolved_additional
+                additional_question_count = total_unresolved_additional
 
             question = question + Responses.prompt_additional_questions(additional_question_count)
 

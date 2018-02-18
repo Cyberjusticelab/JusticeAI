@@ -1,6 +1,6 @@
 from collections import OrderedDict
 
-from nlp_service.services import ml_service, response_strings
+from nlp_service.services import ml_service
 from nlp_service.services.response_strings import Responses
 from postgresql_db.models import FactEntity, Fact, FactType
 
@@ -39,9 +39,6 @@ def submit_resolved_fact(conversation, current_fact, entity_value):
     fact_entity = FactEntity(fact=current_fact, value=entity_value)
     conversation.fact_entities.append(fact_entity)
 
-    # Get all resolved facts for Conversation
-    facts_resolved = get_resolved_fact_keys(conversation)
-
     return {
         'fact_id': get_next_fact(conversation)
     }
@@ -79,18 +76,18 @@ def get_category_fact_list(claim_category):
             category_fact_dict["facts"].extend(outcome_facts[outcome]["important_facts"])
             category_fact_dict["additional_facts"].extend(outcome_facts[outcome]["additional_facts"])
 
-    # Remove Duplicates while maintaining order
-    category_fact_dict["facts"] = list(OrderedDict.fromkeys(category_fact_dict["facts"]))
-    category_fact_dict["additional_facts"] = list(OrderedDict.fromkeys(category_fact_dict["additional_facts"]))
+    # Replace anti facts with askable facts, if applicable
+    anti_facts = ml_service.get_anti_facts()
+    category_fact_dict["facts"] = replace_anti_facts(category_fact_dict["facts"], anti_facts)
+    category_fact_dict["additional_facts"] = replace_anti_facts(category_fact_dict["additional_facts"], anti_facts)
 
     # Remove any additional facts that are important facts
     category_fact_dict["additional_facts"] = [fact for fact in category_fact_dict["additional_facts"] if
                                               fact not in category_fact_dict["facts"]]
 
-    # Replace anti facts with askable facts, if applicable
-    anti_facts = ml_service.get_anti_facts()
-    category_fact_dict["facts"] = replace_anti_facts(category_fact_dict["facts"], anti_facts)
-    category_fact_dict["additional_facts"] = replace_anti_facts(category_fact_dict["additional_facts"], anti_facts)
+    # Remove Duplicates while maintaining order
+    category_fact_dict["facts"] = list(OrderedDict.fromkeys(category_fact_dict["facts"]))
+    category_fact_dict["additional_facts"] = list(OrderedDict.fromkeys(category_fact_dict["additional_facts"]))
 
     # Filter out unaskable facts
     askable_facts = Responses.fact_questions.keys()
