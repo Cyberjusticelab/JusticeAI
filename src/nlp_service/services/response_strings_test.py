@@ -53,3 +53,9 @@ class TestResponse(unittest.TestCase):
             }
         ])
         self.assertIn("AZ-11111", question)
+
+    def test_responses_prompt_additional(self):
+        prompt = Responses.prompt_additional_questions(5)
+        prompt = prompt.replace("|", "")  # Remove the pipe
+        self.assertTrue(prompt in self.responseInstance.prompt_additional)
+        self.assertTrue("5" in prompt)
