@@ -73,6 +73,11 @@ class RasaClassifier:
         return None
 
     def classify_acknowledgement(self, message):
+        """
+        Classifies a true/false acknowledgement based on a message. Ie: "sure thing", "yeah ok", "nah"
+        :param message: Message received from use
+        :return: The classified fact dict from RASA
+        """
         return self.acknowledgement_interpreters['additional_fact_acknowledgement'].parse(message.lower())
 
     def __train_interpreter(self, training_data_dir, interpreter_dict, force_train, initialize_interpreters):
