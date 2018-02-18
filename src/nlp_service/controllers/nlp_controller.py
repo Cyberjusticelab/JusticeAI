@@ -217,7 +217,6 @@ def classify_fact_value(conversation_id, message):
             conversation.bot_state = BotState.AWAITING_ACKNOWLEDGEMENT
 
             # Append to the question
-            additional_question_count = 0
             total_unresolved_additional = fact_service.count_additional_facts_unresolved(conversation)
 
             if total_unresolved_additional >= MAX_ADDITIONAL_FACTS:
