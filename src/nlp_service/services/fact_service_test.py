@@ -1,11 +1,41 @@
 import unittest
+from unittest import mock
 
 from nlp_service.services import fact_service
 from postgresql_db.models import ClaimCategory, Conversation, PersonType, db, Fact, FactType
 
 
+def mock_get_outcome_facts():
+    return {
+        "orders_resiliation": {
+            "important_facts": [
+                "tenant_rent_not_paid_more_3_weeks",
+                "bothers_others",
+                "disrespect_previous_judgement"
+            ],
+            "additional_facts": [
+                "asker_is_landlord",
+                "rent_increased",
+                "tenant_monthly_payment",
+                "tenant_financial_problem"
+            ]
+        }
+    }
+
+
+def mock_get_anti_facts():
+    return {
+        "not_violent": "violent",
+        "tenant_individual_responsability": "tenant_group_responsability",
+        "tenant_lease_fixed": "tenant_lease_indeterminate",
+        "tenant_rent_not_paid_less_3_weeks": "tenant_rent_not_paid_more_3_weeks"
+    }
+
+
 class FactServiceTest(unittest.TestCase):
-    def test_submit_claim_category(self):
+    @mock.patch('ml_service.get_outcome_facts', side_effect=mock_get_outcome_facts)
+    @mock.patch('ml_service.get_anti_facts', side_effect=mock_get_anti_facts)
+    def test_submit_claim_category(self, outcomefacts_mock, antifacts_mock):
         conversation = Conversation(name="Bob", person_type=PersonType.TENANT,
                                     claim_category=ClaimCategory.LEASE_TERMINATION)
         db.session.add(conversation)
@@ -14,7 +44,9 @@ class FactServiceTest(unittest.TestCase):
         next_fact = fact_service.submit_claim_category(conversation)
         self.assertIsNotNone(next_fact["fact_id"])
 
-    def test_submit_resolved_fact(self):
+    @mock.patch('ml_service.get_outcome_facts', side_effect=mock_get_outcome_facts)
+    @mock.patch('ml_service.get_anti_facts', side_effect=mock_get_anti_facts)
+    def test_submit_resolved_fact(self, outcomefacts_mock, antifacts_mock):
         conversation = Conversation(name="Bob", person_type=PersonType.TENANT,
                                     claim_category=ClaimCategory.LEASE_TERMINATION)
         db.session.add(conversation)
@@ -25,7 +57,9 @@ class FactServiceTest(unittest.TestCase):
 
         self.assertIsNotNone(next_fact["fact_id"])
 
-    def get_next_fact(self):
+    @mock.patch('ml_service.get_outcome_facts', side_effect=mock_get_outcome_facts)
+    @mock.patch('ml_service.get_anti_facts', side_effect=mock_get_anti_facts)
+    def get_next_fact(self, outcomefacts_mock, antifacts_mock):
         conversation = Conversation(name="Bob", person_type=PersonType.TENANT,
                                     claim_category=ClaimCategory.LEASE_TERMINATION)
         db.session.add(conversation)
@@ -34,10 +68,10 @@ class FactServiceTest(unittest.TestCase):
         next_fact = fact_service.get_next_fact(conversation)
         self.assertIsNotNone(next_fact)
 
-    def get_next_fact_all_resolved(self):
-        all_lease_termination_facts = list(fact_service.fact_mapping["lease_termination"])
-        next_fact = fact_service.get_next_fact(ClaimCategory.LEASE_TERMINATION, all_lease_termination_facts)
-        self.assertIsNone(next_fact)
+    # def get_next_fact_all_resolved(self):
+    #     all_lease_termination_facts = list(fact_service.fact_mapping["lease_termination"])
+    #     next_fact = fact_service.get_next_fact(ClaimCategory.LEASE_TERMINATION, all_lease_termination_facts)
+    #     self.assertIsNone(next_fact)
 
     def test_extract_fact_bool(self):
         intent = {'name': 'true', 'confidence': 0.90}
