@@ -121,10 +121,10 @@ def classify_fact_value(conversation_id, message):
     if conversation.bot_state is BotState.RESOLVING_FACTS:
         question = __state_resolving_facts(conversation, message)
 
-    if conversation.bot_state == BotState.RESOLVING_ADDITIONAL_FACTS:
+    if conversation.bot_state is BotState.RESOLVING_ADDITIONAL_FACTS:
         question = __state_resolving_additional_facts(conversation, message, just_acknowledged)
 
-    if conversation.bot_state == BotState.GIVING_PREDICTION:
+    if conversation.bot_state is BotState.GIVING_PREDICTION:
         question = __state_giving_prediction(conversation)
 
     # Commit
