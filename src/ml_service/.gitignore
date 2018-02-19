@@ -15,5 +15,4 @@ server.log
 /data/cluster/decision/*.txt
 /data/cluster/demand/*.txt
 /**/**.csv
-**.csv
-
+/untagged_sent.txt
