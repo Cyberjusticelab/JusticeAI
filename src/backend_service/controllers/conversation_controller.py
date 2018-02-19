@@ -36,7 +36,8 @@ def init_conversation(name, person_type):
     if person_type.upper() not in PersonType.__members__:
         return abort(make_response(jsonify(message="Invalid person type provided"), 400))
 
-    conversation = Conversation(name=name, person_type=PersonType[person_type.upper()])
+    conversation = Conversation(name=name, person_type=PersonType[person_type.upper()],
+                                bot_state=BotState.DETERMINE_CLAIM_CATEGORY)
 
     # Persist new conversation to DB
     db.session.add(conversation)
@@ -267,14 +268,14 @@ def __generate_response(conversation, message):
 
     if __has_just_accepted_disclaimer(conversation):
         return __ask_initial_question(conversation)
-    elif conversation.claim_category is None:
+    elif conversation.bot_state is BotState.DETERMINE_CLAIM_CATEGORY:
         nlp_request = nlp_service.claim_category(conversation.id, message)
 
         # Refresh the session, since nlp_service may have modified conversation
         db.session.refresh(conversation)
 
         return {'response_text': nlp_request['message']}
-    elif conversation.current_fact is not None:
+    else:
         nlp_request = nlp_service.submit_message(conversation.id, message)
 
         # Refresh the session, since nlp_service may have modified conversation

@@ -192,7 +192,7 @@ None
             "tenant_monthly_payment",
             "tenant_not_paid_lease_timespan"
         ],
-        "not_important_facts": [
+        "additional_facts": [
             "tenant_financial_problem",
             "tenant_owes_rent",
             "asker_is_tenant",

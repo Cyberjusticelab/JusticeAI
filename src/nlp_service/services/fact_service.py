@@ -1,15 +1,28 @@
+from collections import OrderedDict
+
+from nlp_service.services import ml_service
+from nlp_service.services.response_strings import Responses
 from postgresql_db.models import FactEntity, Fact, FactType
 
 
-def submit_claim_category(claim_category):
+def get_resolved_fact_keys(conversation):
+    """
+    Returns a list of all the resolved facts for a conversation as string keys
+    :param conversation: The current conversation
+    :return: List of all resolved fact names as strings
+    """
+    return [fact_entity_row.fact.name for fact_entity_row in conversation.fact_entities]
+
+
+def submit_claim_category(conversation):
     """
     Returns the first fact after submitting a determined claim category
-    :param claim_category: The claim category determined from user input as a string
+    :param conversation: The current conversation
     :return: First fact id to ask a question for
     """
 
     return {
-        'fact_id': get_next_fact(claim_category, [])
+        'fact_id': get_next_fact(conversation)
     }
 
 
@@ -26,48 +39,104 @@ def submit_resolved_fact(conversation, current_fact, entity_value):
     fact_entity = FactEntity(fact=current_fact, value=entity_value)
     conversation.fact_entities.append(fact_entity)
 
-    # Get all resolved facts for Conversation
-    facts_resolved = [fact_entity_row.fact.name for fact_entity_row in conversation.fact_entities]
-
     return {
-        'fact_id': get_next_fact(conversation.claim_category, facts_resolved)
+        'fact_id': get_next_fact(conversation)
     }
 
 
-# This can be replaced with a more dynamic solution using MLService to obtain fact lists
-fact_mapping = {
+# Dictionary that maps claim categories to outcomes. Facts from these outcomes will be used to
+# ask questions to users for a particular claim category
+outcome_mapping = {
     "lease_termination": [
-        "tenant_rent_not_paid_more_3_weeks",
-        "tenant_violence",
-        "tenant_owes_rent",
-        "tenant_monthly_payment",
-        "landlord_retakes_apartment",
-        "tenant_bad_payment_habits",
-        "apartment_impropre",
-        "landlord_rent_change",
-        "tenant_left_without_paying",
+        "orders_resiliation"
     ],
     "nonpayment": [
-        "tenant_owes_rent",
-        "tenant_withold_rent_without_permission",
-        "tenant_continuous_late_payment",
-        "tenant_rent_not_paid_more_3_weeks",
-        "tenant_rent_paid_before_hearing",
-        "landlord_serious_prejudice"
+        "tenant_ordered_to_pay_landlord",
+        "tenant_ordered_to_pay_landlord_legal_fees",
+        "additional_indemnity_money"
     ]
 }
 
 
-def get_next_fact(claim_category, facts_resolved):
+def get_category_fact_list(claim_category):
+    """
+    Returns a dict containing a list fo important facts "facts", and non-important facts "additional_facts" for a claim category
+    :param claim_category: Claim category as a string
+    """
+    category_fact_dict = {
+        "facts": [],
+        "additional_facts": []
+    }
+    all_category_outcomes = outcome_mapping[claim_category.lower()]
+
+    # Filter out only facts relevant to those defined in outcome_mapping for each outcome
+    outcome_facts = ml_service.get_outcome_facts()
+    for outcome in outcome_facts:
+        if outcome in all_category_outcomes:
+            category_fact_dict["facts"].extend(outcome_facts[outcome]["important_facts"])
+            category_fact_dict["additional_facts"].extend(outcome_facts[outcome]["additional_facts"])
+
+    # Replace anti facts with askable facts, if applicable
+    anti_facts = ml_service.get_anti_facts()
+    category_fact_dict["facts"] = replace_anti_facts(category_fact_dict["facts"], anti_facts)
+    category_fact_dict["additional_facts"] = replace_anti_facts(category_fact_dict["additional_facts"], anti_facts)
+
+    # Remove any additional facts that are important facts
+    category_fact_dict["additional_facts"] = [fact for fact in category_fact_dict["additional_facts"] if
+                                              fact not in category_fact_dict["facts"]]
+
+    # Remove Duplicates while maintaining order
+    category_fact_dict["facts"] = list(OrderedDict.fromkeys(category_fact_dict["facts"]))
+    category_fact_dict["additional_facts"] = list(OrderedDict.fromkeys(category_fact_dict["additional_facts"]))
+
+    # Filter out unaskable facts
+    askable_facts = Responses.fact_questions.keys()
+    category_fact_dict["facts"] = [fact for fact in category_fact_dict["facts"] if fact in askable_facts]
+    category_fact_dict["additional_facts"] = [fact for fact in category_fact_dict["additional_facts"] if
+                                              fact in askable_facts]
+
+    return category_fact_dict
+
+
+def replace_anti_facts(fact_list, anti_fact_dict):
+    """
+    Since anti-facts are returned in a dict, either the key or the value is the askable fact. This function replaces
+    all unaskable facts with ones that can have questions asked for them
+    :param fact_list: A list of facts
+    :param anti_fact_dict: A dict of fact:anti-fact, anti-fact:fact pairs
+    :return: List of facts that can be asked, and not their mappable antifact
+    """
+
+    filtered_fact_list = []
+    askable_facts = Responses.fact_questions.keys()
+    for fact in fact_list:
+        if fact not in askable_facts:
+            if fact in anti_fact_dict.keys():
+                filtered_fact_list.append(anti_fact_dict[fact])
+            elif fact in anti_fact_dict.values():
+                fact_key_value = [k for k, v in anti_fact_dict.items() if v == fact][0]
+                filtered_fact_list.append(fact_key_value)
+        else:
+            filtered_fact_list.append(fact)
+
+    return filtered_fact_list
+
+
+def get_next_fact(conversation):
     """
     Returns next fact id based on claim category given the resolved facts.
-    :param claim_category: Claim category of the conversation as a string
-    :param facts_resolved: List of all resolved fact keys for the conversation
+    :param conversation: The current conversation
     :return: Next fact id to ask a question for
     """
 
-    all_category_facts = fact_mapping[claim_category.value.lower()]
-    facts_unresolved = [fact for fact in all_category_facts if fact not in facts_resolved]
+    all_category_facts = get_category_fact_list(conversation.claim_category.value)
+    facts_resolved = get_resolved_fact_keys(conversation)
+    facts_unresolved = []
+
+    if has_important_facts(conversation):
+        facts_unresolved = [fact for fact in all_category_facts["facts"] if fact not in facts_resolved]
+    elif has_additional_facts(conversation):
+        facts_unresolved = [fact for fact in all_category_facts["additional_facts"] if fact not in facts_resolved]
 
     # Pick the first unresolved fact, return None if none remain
     if len(facts_unresolved) == 0:
@@ -76,6 +145,61 @@ def get_next_fact(claim_category, facts_resolved):
     fact_name = facts_unresolved[0]
     fact = Fact.query.filter_by(name=fact_name).first()
     return fact.id
+
+
+def has_important_facts(conversation):
+    """
+    :param conversation: The current conversation
+    :return: True if important facts still exist for this conversation
+    """
+
+    all_category_facts = get_category_fact_list(conversation.claim_category.value)
+    facts_resolved = get_resolved_fact_keys(conversation)
+    facts_unresolved = [fact for fact in all_category_facts["facts"] if fact not in facts_resolved]
+
+    if len(facts_unresolved) == 0:
+        return False
+    return True
+
+
+def has_additional_facts(conversation):
+    """
+    :param conversation: The current conversation
+    :return: True if additional facts still exist for this conversation
+    """
+
+    all_category_facts = get_category_fact_list(conversation.claim_category.value)
+    facts_resolved = get_resolved_fact_keys(conversation)
+    facts_unresolved = [fact for fact in all_category_facts["additional_facts"] if fact not in facts_resolved]
+
+    if len(facts_unresolved) == 0:
+        return False
+    return True
+
+
+def count_additional_facts_resolved(conversation):
+    """
+    :param conversation: The current conversation
+    :return: Returns the count of how many additional facts have been resolved
+    """
+
+    all_category_facts = get_category_fact_list(conversation.claim_category.value)
+    facts_resolved = get_resolved_fact_keys(conversation)
+    additional_facts_resolved = [fact for fact in all_category_facts["additional_facts"] if fact in facts_resolved]
+    return len(additional_facts_resolved)
+
+
+def count_additional_facts_unresolved(conversation):
+    """
+    :param conversation: The current conversation
+    :return: Returns the count of how many additional facts have not been resolved yet
+    """
+
+    all_category_facts = get_category_fact_list(conversation.claim_category.value)
+    facts_resolved = get_resolved_fact_keys(conversation)
+    additional_facts_unresolved = [fact for fact in all_category_facts["additional_facts"] if
+                                   fact not in facts_resolved]
+    return len(additional_facts_unresolved)
 
 
 def extract_fact_by_type(fact_type, intent, entities):

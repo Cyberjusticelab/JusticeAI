@@ -8,8 +8,8 @@ class TestResponse(unittest.TestCase):
         self.responseInstance = Responses()
 
     def test_fact_responses(self):
-        question = Responses.fact_question("apartment_impropre")
-        self.assertTrue(question in self.responseInstance.fact_questions["apartment_impropre"])
+        question = Responses.fact_question("apartment_dirty")
+        self.assertTrue(question in self.responseInstance.fact_questions["apartment_dirty"])
 
     def test_fact_responses_empty(self):
         question = Responses.fact_question("does_not_exist")
@@ -53,3 +53,13 @@ class TestResponse(unittest.TestCase):
             }
         ])
         self.assertIn("AZ-11111", question)
+
+    def test_responses_prompt_additional(self):
+        prompt = Responses.prompt_additional_questions(5)
+        self.assertIsNotNone(prompt)
+
+    def test_responses_prompt_reset_flow(self):
+        prompt1 = Responses.prompt_reset_flow("landlord")
+        prompt2 = Responses.prompt_reset_flow("landlord", separate_message=True)
+        self.assertIsNotNone(prompt1)
+        self.assertIsNotNone(prompt2)

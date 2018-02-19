@@ -29,6 +29,14 @@ class PersonType(Enum):
     TENANT = "TENANT"
 
 
+class BotState(Enum):
+    DETERMINE_CLAIM_CATEGORY = "DETERMINE_CLAIM_CATEGORY"
+    RESOLVING_FACTS = "RESOLVING_FACTS"
+    RESOLVING_ADDITIONAL_FACTS = "RESOLVING_ADDITIONAL_FACTS"
+    AWAITING_ACKNOWLEDGEMENT = "AWAITING_ACKNOWLEDGEMENT"
+    GIVING_PREDICTION = "GIVING_PREDICTION"
+
+
 class ClaimCategory(Enum):
     LEASE_TERMINATION = "LEASE_TERMINATION"
     NONPAYMENT = "NONPAYMENT"
@@ -68,6 +76,7 @@ class Conversation(db.Model):
     name = db.Column(db.String(40), nullable=False)
     person_type = db.Column(db.Enum(PersonType))
     claim_category = db.Column(db.Enum(ClaimCategory))
+    bot_state = db.Column(db.Enum(BotState))
 
     # One to one
     current_fact_id = db.Column(db.Integer, db.ForeignKey('fact.id'))
@@ -183,62 +192,41 @@ def get_or_create(session, model, **kwargs):
 
 
 defined_facts = [
-    {'name': 'absent', 'summary': '', 'type': FactType.BOOLEAN},
-    {'name': 'apartment_impropre', 'summary': 'Dwelling unfit for habitation', 'type': FactType.BOOLEAN},
-    {'name': 'apartment_infestation', 'summary': 'Dwelling pest infestation', 'type': FactType.BOOLEAN},
-    {'name': 'asker_is_landlord', 'summary': 'Landlord', 'type': FactType.BOOLEAN},
-    {'name': 'asker_is_tenant', 'summary': 'Tenant', 'type': FactType.BOOLEAN},
+    {'name': 'apartment_dirty', 'summary': 'Dwelling unfit for habitation', 'type': FactType.BOOLEAN},
     {'name': 'bothers_others', 'summary': 'Tenant is disruptive', 'type': FactType.BOOLEAN},
-    {'name': 'case_fee_reimbursement', 'summary': 'Reimbursement  of judicial fees', 'type': FactType.BOOLEAN},
     {'name': 'disrespect_previous_judgement', 'summary': 'Previous regie judgements disrespected',
      'type': FactType.BOOLEAN},
-    {'name': 'incorrect_facts', 'summary': '', 'type': FactType.BOOLEAN},
     {'name': 'landlord_inspector_fees', 'summary': 'Inspector hired', 'type': FactType.BOOLEAN},
     {'name': 'landlord_notifies_tenant_retake_apartment', 'summary': 'Notified tenant of dwelling retake',
      'type': FactType.BOOLEAN},
     {'name': 'landlord_pays_indemnity', 'summary': '', 'type': FactType.BOOLEAN},
-    {'name': 'landlord_prejudice_justified', 'summary': '', 'type': FactType.BOOLEAN},
     {'name': 'landlord_relocation_indemnity_fees', 'summary': 'Relocation reimbursed following inhabitability',
      'type': FactType.BOOLEAN},
     {'name': 'landlord_rent_change', 'summary': 'Rent change attempted', 'type': FactType.BOOLEAN},
     {'name': 'landlord_rent_change_doc_renseignements', 'summary': 'Rent change documents filed',
      'type': FactType.BOOLEAN},
-    {'name': 'landlord_rent_change_piece_justification', 'summary': '', 'type': FactType.BOOLEAN},
-    {'name': 'landlord_rent_change_receipts', 'summary': '', 'type': FactType.BOOLEAN},
     {'name': 'landlord_retakes_apartment', 'summary': 'Landlord intends to retake dwelling', 'type': FactType.BOOLEAN},
-    {'name': 'landlord_retakes_apartment_indemnity', 'summary': 'Relocation reimbursed following retake',
+    {'name': 'landlord_sends_demand_regie_logement', 'summary': 'Landlord filed regie inquiry',
      'type': FactType.BOOLEAN},
-    {'name': 'landlord_sends_demand_regie_logement', 'summary': 'Regie inquiry filed', 'type': FactType.BOOLEAN},
-    {'name': 'landlord_serious_prejudice', 'summary': 'Tenant caused serious harm', 'type': FactType.BOOLEAN},
-    {'name': 'lease', 'summary': '', 'type': FactType.BOOLEAN},
-    {'name': 'proof_of_late', 'summary': 'Debt acknowledgement provided', 'type': FactType.BOOLEAN},
-    {'name': 'proof_of_revenu', 'summary': 'Proof of revenue provided', 'type': FactType.BOOLEAN},
     {'name': 'rent_increased', 'summary': 'Rent increased during lease term', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_bad_payment_habits', 'summary': 'Rent payments continuously late', 'type': FactType.BOOLEAN},
     {'name': 'tenant_continuous_late_payment', 'summary': 'Tenant continually pays rent late',
      'type': FactType.BOOLEAN},
+    {'name': 'tenant_sends_demand_regie_logement', 'summary': 'Tenant filed regie inquiry', 'type': FactType.BOOLEAN},
+    {'name': 'signed_proof_of_rent_debt', 'summary': 'Debt acknowledgement provided', 'type': FactType.BOOLEAN},
     {'name': 'tenant_damaged_rental', 'summary': 'Rental property damaged', 'type': FactType.BOOLEAN},
     {'name': 'tenant_dead', 'summary': 'Tenant deceased', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_declare_insalubre', 'summary': 'Dwelling dirty', 'type': FactType.BOOLEAN},
     {'name': 'tenant_financial_problem', 'summary': 'Financial issues impeding rent payment', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_group_responsability', 'summary': 'Multiple tenants on lease', 'type': FactType.BOOLEAN},
     {'name': 'tenant_individual_responsability', 'summary': 'Single tenant on lease', 'type': FactType.BOOLEAN},
     {'name': 'tenant_is_bothered', 'summary': '', 'type': FactType.BOOLEAN},
-    {'name': 'lack_of_proof', 'summary': '', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_landlord_agreement', 'summary': 'Parties came to agreement', 'type': FactType.BOOLEAN},
     {'name': 'tenant_lease_fixed', 'summary': 'Lease end date well defined', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_lease_indeterminate', 'summary': '', 'type': FactType.BOOLEAN},
     {'name': 'tenant_left_without_paying', 'summary': 'Tenant left without paying', 'type': FactType.BOOLEAN},
     {'name': 'tenant_monthly_payment', 'summary': 'Monthly rent payment', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_negligence', 'summary': 'Tenant was negligent', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_not_request_cancel_lease', 'summary': 'Cancellation request made', 'type': FactType.BOOLEAN},
     {'name': 'tenant_owes_rent', 'summary': 'Tenant owes rent money', 'type': FactType.MONEY},
     {'name': 'tenant_refuses_retake_apartment', 'summary': 'Tenant refused dwelling retake', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_rent_not_paid_less_3_weeks', 'summary': '', 'type': FactType.BOOLEAN},
     {'name': 'tenant_rent_not_paid_more_3_weeks', 'summary': 'Rent not paid over 3 weeks', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_rent_paid_before_hearing', 'summary': 'Rent paid before RLQ hearing', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_violence', 'summary': 'Tenant has been violent', 'type': FactType.BOOLEAN},
     {'name': 'tenant_withold_rent_without_permission', 'summary': 'Rent withheld rent without RLQ permission',
+     'type': FactType.BOOLEAN},
+    {'name': 'tenant_not_paid_lease_timespan', 'summary': '',
      'type': FactType.BOOLEAN},
     {'name': 'violent', 'summary': '', 'type': FactType.BOOLEAN}
 ]

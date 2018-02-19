@@ -68,7 +68,7 @@ class TestLinearSvc(unittest.TestCase):
     def test_get_ordered_weights(self):
         expected_results = {
             'additional_indemnity_money': {
-                'not_important_facts': [
+                'additional_facts': [
                     'tenant_financial_problem',
                     'tenant_owes_rent',
                     'asker_is_tenant',
