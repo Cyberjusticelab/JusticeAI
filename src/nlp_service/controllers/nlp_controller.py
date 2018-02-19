@@ -119,7 +119,7 @@ def classify_fact_value(conversation_id, message):
         question, just_acknowledged = __state_awaiting_acknowledgement(conversation, message)
 
     if conversation.bot_state is BotState.RESOLVING_FACTS:
-        question = __state_awaiting_acknowledgement(conversation, message)
+        question = __state_resolving_facts(conversation, message)
 
     if conversation.bot_state == BotState.RESOLVING_ADDITIONAL_FACTS:
         question = __state_resolving_additional_facts(conversation, message, just_acknowledged)
