@@ -114,9 +114,36 @@ def classify_fact_value(conversation_id, message):
     # Question to return
     question = None
 
-    ############################
-    # AWAITING_ACKNOWLEDGEMENT #
-    ############################
+    just_acknowledged = False
+    if conversation.bot_state is BotState.AWAITING_ACKNOWLEDGEMENT:
+        question, just_acknowledged = __state_awaiting_acknowledgement(conversation, message)
+
+    if conversation.bot_state is BotState.RESOLVING_FACTS:
+        question = __state_awaiting_acknowledgement(conversation, message)
+
+    if conversation.bot_state == BotState.RESOLVING_ADDITIONAL_FACTS:
+        question = __state_resolving_additional_facts(conversation, message, just_acknowledged)
+
+    if conversation.bot_state == BotState.GIVING_PREDICTION:
+        question = __state_giving_prediction(conversation)
+
+    # Commit
+    db.session.commit()
+
+    return jsonify({
+        "message": question
+    })
+
+
+def __state_awaiting_acknowledgement(conversation, message):
+    """
+    Bot is waiting for an acknowledgement from the user
+    :param conversation: The current conversation
+    :param message: The user's message
+    :return: Tuple: a question to ask, a flag determining whether or not an acknowledgement has just happened
+    """
+
+    question = None
     just_acknowledged = False
     if conversation.bot_state is BotState.AWAITING_ACKNOWLEDGEMENT:
         should_continue = __classify_acknowledgement(message)
@@ -131,13 +158,64 @@ def classify_fact_value(conversation_id, message):
         else:
             question = Responses.chooseFrom(Responses.clarify)
 
-    ###################
-    # RESOLVING_FACTS #
-    ###################
-    if conversation.bot_state is BotState.RESOLVING_FACTS:
-        # Retrieve current_fact from conversation
-        current_fact = conversation.current_fact
+    return question, just_acknowledged
 
+
+def __state_resolving_facts(conversation, message):
+    """
+    Bot is asking the user question to resolve important facts
+    :param conversation: The current conversation
+    :param message: The user's message
+    :return: A question to ask
+    """
+
+    question = None
+
+    # Retrieve current_fact from conversation
+    current_fact = conversation.current_fact
+
+    # Extract entity from message based on current fact
+    fact_entity_value = __extract_entity(current_fact.name, current_fact.type, message)
+
+    if fact_entity_value is not None:
+        next_fact = fact_service.submit_resolved_fact(conversation, current_fact, fact_entity_value)
+        new_fact_id = next_fact['fact_id']
+
+        if new_fact_id:
+            new_fact = db.session.query(Fact).get(new_fact_id)
+            conversation.current_fact = new_fact
+
+            if fact_service.has_important_facts(conversation):
+                # Important facts remain to be asked
+                question = Responses.fact_question(new_fact.name)
+            else:
+                # There are no more important facts! Give a prediction
+                conversation.bot_state = BotState.GIVING_PREDICTION
+    else:
+        question = Responses.chooseFrom(Responses.clarify).format(
+            previous_question=Responses.fact_question(current_fact.name))
+
+    return question
+
+
+def __state_resolving_additional_facts(conversation, message, just_acknowledged):
+    """
+    Bot is asking the user questions to resolve additional facts
+    :param conversation: The current conversation
+    :param message: The user's message
+    :param just_acknowledged: Whether or not an acknowledgement just happened.
+        Used to skip fact resolution and instead asks a question immediately.
+    :return: A question to as
+    """
+
+    question = None
+
+    # Retrieve current_fact from conversation
+    current_fact = conversation.current_fact
+
+    if just_acknowledged:
+        question = Responses.fact_question(current_fact.name)
+    else:
         # Extract entity from message based on current fact
         fact_entity_value = __extract_entity(current_fact.name, current_fact.type, message)
 
@@ -145,104 +223,79 @@ def classify_fact_value(conversation_id, message):
             next_fact = fact_service.submit_resolved_fact(conversation, current_fact, fact_entity_value)
             new_fact_id = next_fact['fact_id']
 
+            new_fact = None
             if new_fact_id:
                 new_fact = db.session.query(Fact).get(new_fact_id)
                 conversation.current_fact = new_fact
 
-                if fact_service.has_important_facts(conversation):
-                    # Important facts remain to be asked
-                    if new_fact:
-                        question = Responses.fact_question(new_fact.name)
-                else:
-                    # There are no more important facts! Give a prediction
+            # Additional facts remain to be asked
+            if fact_service.has_additional_facts(conversation):
+                # Additional fact limit reached, time for a new prediction
+                if fact_service.count_additional_facts_resolved(conversation) % MAX_ADDITIONAL_FACTS == 0:
                     conversation.bot_state = BotState.GIVING_PREDICTION
-        else:
-            question = Responses.chooseFrom(Responses.clarify).format(
-                previous_question=Responses.fact_question(current_fact.name))
-
-    ##############################
-    # RESOLVING_ADDITIONAL_FACTS #
-    ##############################
-    if conversation.bot_state == BotState.RESOLVING_ADDITIONAL_FACTS:
-        # Retrieve current_fact from conversation
-        current_fact = conversation.current_fact
-
-        if just_acknowledged:
-            question = Responses.fact_question(current_fact.name)
-        else:
-            # Extract entity from message based on current fact
-            fact_entity_value = __extract_entity(current_fact.name, current_fact.type, message)
-
-            if fact_entity_value is not None:
-                next_fact = fact_service.submit_resolved_fact(conversation, current_fact, fact_entity_value)
-                new_fact_id = next_fact['fact_id']
-
-                new_fact = None
-                if new_fact_id:
-                    new_fact = db.session.query(Fact).get(new_fact_id)
-                    conversation.current_fact = new_fact
-
-                # Additional facts remain to be asked
-                if fact_service.has_additional_facts(conversation):
-                    # Additional fact limit reached, time for a new prediction
-                    if fact_service.count_additional_facts_resolved(conversation) % MAX_ADDITIONAL_FACTS == 0:
-                        conversation.bot_state = BotState.GIVING_PREDICTION
-                    else:
-                        if new_fact:
-                            question = Responses.fact_question(new_fact.name)
                 else:
-                    # There are no more additional facts! Give a prediction
-                    conversation.bot_state = BotState.GIVING_PREDICTION
-
-    #####################
-    # GIVING_PREDICTION #
-    #####################
-    if conversation.bot_state is BotState.GIVING_PREDICTION:
-        # Submit request to ML service for prediction
-        ml_prediction = ml_service.submit_resolved_fact_list(conversation)
-
-        prediction_dict = ml_service.extract_prediction(
-            claim_category=conversation.claim_category.value,
-            ml_response=ml_prediction)
-
-        similar_precedent_list = ml_prediction['similar_precedents']
-
-        # Generate statement for prediction
-        question = Responses.prediction_statement(
-            claim_category_value=conversation.claim_category.value,
-            prediction_dict=prediction_dict,
-            similar_precedent_list=similar_precedent_list)
-
-        # If there are additional questions to be asked
-        if fact_service.has_additional_facts(conversation):
-            # Set the bot state
-            conversation.bot_state = BotState.AWAITING_ACKNOWLEDGEMENT
-
-            # Append to the question
-            total_unresolved_additional = fact_service.count_additional_facts_unresolved(conversation)
-
-            if total_unresolved_additional >= MAX_ADDITIONAL_FACTS:
-                additional_question_count = MAX_ADDITIONAL_FACTS
+                    question = Responses.fact_question(new_fact.name)
             else:
-                additional_question_count = total_unresolved_additional
+                # There are no more additional facts! Give a prediction
+                conversation.bot_state = BotState.GIVING_PREDICTION
 
-            question = question + Responses.prompt_additional_questions(additional_question_count)
+    return question
+
+
+def __state_giving_prediction(conversation):
+    """
+    Bot has been told to give a prediction. If additional questions remain, will set the bot to wait for an acknowledgement.
+    :param conversation: The current conversation
+    :return: A prediction given answered facts
+    """
+    question = None
+
+    # Submit request to ML service for prediction
+    ml_prediction = ml_service.submit_resolved_fact_list(conversation)
+
+    prediction_dict = ml_service.extract_prediction(
+        claim_category=conversation.claim_category.value,
+        ml_response=ml_prediction)
+
+    similar_precedent_list = ml_prediction['similar_precedents']
+
+    # Generate statement for prediction
+    question = Responses.prediction_statement(
+        claim_category_value=conversation.claim_category.value,
+        prediction_dict=prediction_dict,
+        similar_precedent_list=similar_precedent_list)
+
+    # If there are additional questions to be asked
+    if fact_service.has_additional_facts(conversation):
+        # Set the bot state
+        conversation.bot_state = BotState.AWAITING_ACKNOWLEDGEMENT
+
+        # Append to the question
+        total_unresolved_additional = fact_service.count_additional_facts_unresolved(conversation)
+
+        if total_unresolved_additional >= MAX_ADDITIONAL_FACTS:
+            additional_question_count = MAX_ADDITIONAL_FACTS
         else:
-            # Set the bot state
-            conversation.bot_state = BotState.DETERMINE_CLAIM_CATEGORY
+            additional_question_count = total_unresolved_additional
 
-            # Append to the question
-            question = question + Responses.prompt_reset_flow(conversation.person_type.value, separate_message=True)
+        question = question + Responses.prompt_additional_questions(additional_question_count)
+    else:
+        # Set the bot state
+        conversation.bot_state = BotState.DETERMINE_CLAIM_CATEGORY
 
-    # Commit
-    db.session.commit()
+        # Append to the question
+        question = question + Responses.prompt_reset_flow(conversation.person_type.value, separate_message=True)
 
-    return jsonify({
-        "message": question
-    })
+    return question
 
 
 def __classify_acknowledgement(message):
+    """
+    Classifies an acknowledgement. Can result in a True or False. Uses the additional_fact_acknowledgement data set.
+    :param message: A user's message
+    :return: True or False if classification was successful. None if clarification required.
+    """
+
     classify_dict = rasaClassifier.classify_acknowledgement(message)
     log.debug(
         "\nClassify Acknowledgement\n\tMessage: {}\n\tOutput: {}".format(message, classify_dict))
@@ -262,7 +315,7 @@ def __classify_claim_category(message, person_type):
     Classifies the claim category based on a message and person type.
     :param message: Message from user
     :param person_type: User's PersonType AS A STRING. i.e: "TENANT"
-    :return: Classified claim category key
+    :return: Classified claim category key. None if clarification required.
     """
 
     classify_dict = rasaClassifier.classify_problem_category(message, person_type)
@@ -284,7 +337,7 @@ def __extract_entity(current_fact_name, current_fact_type, message):
     :param current_fact_name: Which fact we are checking for i.e. is_student
     :param current_fact_type: The type of the fact we are checking i.e. FactType.BOOLEAN
     :param message: Message given by the user
-    :return: The determined value for the fact specified
+    :return: The determined value for the fact specified. None if clarification required.
     """
 
     # First pass: outlier detection
