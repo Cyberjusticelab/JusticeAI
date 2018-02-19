@@ -97,12 +97,69 @@ class FactServiceTest(unittest.TestCase):
 
         self.assertListEqual(processed_fact_list, expected_fact_list)
 
-    def test_extract_fact_bool(self):
+    def test_has_additional_facts(self):
+        conversation = Conversation(name="Bob", person_type=PersonType.TENANT,
+                                    claim_category=ClaimCategory.LEASE_TERMINATION)
+        db.session.add(conversation)
+        db.session.commit()
+        self.assertTrue(fact_service.has_additional_facts(conversation))
+
+    def test_has_no_additional_facts(self):
+        all_lease_termination_facts = fact_service.get_category_fact_list("lease_termination")
+
+        # Concat all the facts
+        all_facts = []
+        all_facts.extend(all_lease_termination_facts["facts"])
+        all_facts.extend(all_lease_termination_facts["additional_facts"])
+
+        # Define a conversation
+        conversation = Conversation(name="Bob", person_type=PersonType.TENANT,
+                                    claim_category=ClaimCategory.LEASE_TERMINATION)
+
+        # Add all facts to the conversation as resolved
+        for fact_key in all_facts:
+            fact = Fact.query.filter_by(name=fact_key).first()
+            fact_entity = FactEntity(fact=fact, value="false")
+            conversation.fact_entities.append(fact_entity)
+
+        db.session.add(conversation)
+        db.session.commit()
+
+        self.assertFalse(fact_service.has_additional_facts(conversation))
+
+    def test_count_additional_facts_resolved(self):
+        conversation = Conversation(name="Bob", person_type=PersonType.TENANT,
+                                    claim_category=ClaimCategory.LEASE_TERMINATION)
+        db.session.add(conversation)
+        db.session.commit()
+
+        resolved_additional_fact_count = fact_service.count_additional_facts_resolved(conversation)
+        self.assertTrue(resolved_additional_fact_count == 0)
+
+    def test_count_additional_facts_unresolved(self):
+        conversation = Conversation(name="Bob", person_type=PersonType.TENANT,
+                                    claim_category=ClaimCategory.LEASE_TERMINATION)
+        db.session.add(conversation)
+        db.session.commit()
+
+        # Based on fact_service.ml_service.get_outcome_facts (asker_is_landlord is filtered out since its auto-mapped
+        # thus there are only 3 additional facts
+        resolved_additional_fact_count = fact_service.count_additional_facts_unresolved(conversation)
+        self.assertTrue(resolved_additional_fact_count == 3)
+
+    def test_extract_fact_bool_true(self):
         intent = {'name': 'true', 'confidence': 0.90}
         entities = []
 
         fact_value = fact_service.extract_fact_by_type(FactType.BOOLEAN, intent, entities)
         self.assertTrue(fact_value == 'true')
+
+    def test_extract_fact_bool_false(self):
+        intent = {'name': 'false', 'confidence': 0.90}
+        entities = []
+
+        fact_value = fact_service.extract_fact_by_type(FactType.BOOLEAN, intent, entities)
+        self.assertTrue(fact_value == 'false')
 
     def test_extract_fact_money(self):
         intent = {'name': 'true', 'confidence': 0.90}

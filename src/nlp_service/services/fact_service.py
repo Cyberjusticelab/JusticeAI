@@ -107,15 +107,17 @@ def replace_anti_facts(fact_list, anti_fact_dict):
     :return: List of facts that can be asked, and not their mappable antifact
     """
 
+    filtered_fact_list = []
+    askable_facts = Responses.fact_questions.keys()
     for fact in fact_list:
-        if fact not in Responses.fact_questions.keys():
-            fact_list.remove(fact)
+        if fact not in askable_facts:
             if fact in anti_fact_dict.keys():
-                fact_list.append(anti_fact_dict[fact])
+                filtered_fact_list.append(anti_fact_dict[fact])
             elif fact in anti_fact_dict.values():
-                fact_list.append([k for k, v in anti_fact_dict.items() if v == fact][0])
+                fact_key_value = [k for k, v in anti_fact_dict.items() if v == fact][0]
+                filtered_fact_list.append(fact_key_value)
 
-    return fact_list
+    return filtered_fact_list
 
 
 def get_next_fact(conversation):
@@ -173,19 +175,29 @@ def has_additional_facts(conversation):
     return True
 
 
+def count_additional_facts_resolved(conversation):
+    """
+    :param conversation: The current conversation
+    :return: Returns the count of how many additional facts have been resolved
+    """
+
+    all_category_facts = get_category_fact_list(conversation.claim_category.value)
+    facts_resolved = get_resolved_fact_keys(conversation)
+    additional_facts_resolved = [fact for fact in all_category_facts["additional_facts"] if fact in facts_resolved]
+    return len(additional_facts_resolved)
+
+
 def count_additional_facts_unresolved(conversation):
+    """
+    :param conversation: The current conversation
+    :return: Returns the count of how many additional facts have not been resolved yet
+    """
+
     all_category_facts = get_category_fact_list(conversation.claim_category.value)
     facts_resolved = get_resolved_fact_keys(conversation)
     additional_facts_unresolved = [fact for fact in all_category_facts["additional_facts"] if
                                    fact not in facts_resolved]
     return len(additional_facts_unresolved)
-
-
-def count_additional_facts_resolved(conversation):
-    all_category_facts = get_category_fact_list(conversation.claim_category.value)
-    facts_resolved = get_resolved_fact_keys(conversation)
-    additional_facts_resolved = [fact for fact in all_category_facts["additional_facts"] if fact in facts_resolved]
-    return len(additional_facts_resolved)
 
 
 def extract_fact_by_type(fact_type, intent, entities):
