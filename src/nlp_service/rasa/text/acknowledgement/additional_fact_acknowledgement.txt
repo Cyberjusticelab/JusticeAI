@@ -28,6 +28,7 @@ exactly
 yessir
 yes sir
 alright
+yeah alright
 undoubtedly
 mhmm
 yeah sure
@@ -37,6 +38,9 @@ i'd love to
 i would love to
 no problem
 ok if it helps
+sure
+sure thing
+
 
 [common_examples: false]
 negative
