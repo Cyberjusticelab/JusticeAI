@@ -58,6 +58,32 @@ class FactServiceTest(unittest.TestCase):
         next_fact = fact_service.get_next_fact(conversation)
         self.assertIsNotNone(next_fact)
 
+    def test_get_next_fact_additional(self):
+        all_lease_termination_facts = fact_service.get_category_fact_list("lease_termination")
+        all_important_facts = all_lease_termination_facts["facts"]
+        all_additional_facts = all_lease_termination_facts["additional_facts"]
+
+        # Define a conversation
+        conversation = Conversation(name="Bob", person_type=PersonType.TENANT,
+                                    claim_category=ClaimCategory.LEASE_TERMINATION)
+
+        # Add all important facts to the conversation as resolved
+        for fact_key in all_important_facts:
+            fact = Fact.query.filter_by(name=fact_key).first()
+            fact_entity = FactEntity(fact=fact, value="false")
+            conversation.fact_entities.append(fact_entity)
+
+        db.session.add(conversation)
+        db.session.commit()
+
+        next_fact = fact_service.get_next_fact(conversation)
+        self.assertIsNotNone(next_fact)
+
+        # Make sure it's an additional fact
+        fact = db.session.query(Fact).get(next_fact)
+        fact_name = fact.name
+        self.assertTrue(fact_name in all_additional_facts)
+
     def test_get_next_fact_all_resolved(self):
         all_lease_termination_facts = fact_service.get_category_fact_list("lease_termination")
 
@@ -161,7 +187,7 @@ class FactServiceTest(unittest.TestCase):
         fact_value = fact_service.extract_fact_by_type(FactType.BOOLEAN, intent, entities)
         self.assertTrue(fact_value == 'false')
 
-    def test_extract_fact_money(self):
+    def test_extract_fact_money_true(self):
         intent = {'name': 'true', 'confidence': 0.90}
         entities = [
             {
@@ -177,3 +203,10 @@ class FactServiceTest(unittest.TestCase):
 
         fact_value = fact_service.extract_fact_by_type(FactType.MONEY, intent, entities)
         self.assertTrue(fact_value == 50.0)
+
+    def test_extract_fact_money_false(self):
+        intent = {'name': 'false', 'confidence': 0.90}
+        entities = []
+
+        fact_value = fact_service.extract_fact_by_type(FactType.MONEY, intent, entities)
+        self.assertTrue(fact_value == 0)
