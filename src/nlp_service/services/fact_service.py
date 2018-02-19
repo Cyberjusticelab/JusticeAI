@@ -116,6 +116,8 @@ def replace_anti_facts(fact_list, anti_fact_dict):
             elif fact in anti_fact_dict.values():
                 fact_key_value = [k for k, v in anti_fact_dict.items() if v == fact][0]
                 filtered_fact_list.append(fact_key_value)
+        else:
+            filtered_fact_list.append(fact)
 
     return filtered_fact_list
 

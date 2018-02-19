@@ -144,8 +144,8 @@ class FactServiceTest(unittest.TestCase):
 
         # Based on fact_service.ml_service.get_outcome_facts (asker_is_landlord is filtered out since its auto-mapped
         # thus there are only 3 additional facts
-        resolved_additional_fact_count = fact_service.count_additional_facts_unresolved(conversation)
-        self.assertTrue(resolved_additional_fact_count == 3)
+        unresolved_additional_fact_count = fact_service.count_additional_facts_unresolved(conversation)
+        self.assertTrue(unresolved_additional_fact_count == 3)
 
     def test_extract_fact_bool_true(self):
         intent = {'name': 'true', 'confidence': 0.90}
