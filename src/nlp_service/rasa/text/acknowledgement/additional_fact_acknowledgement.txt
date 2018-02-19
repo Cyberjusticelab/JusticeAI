@@ -73,3 +73,6 @@ i am done
 i'm finished
 i think that is enough
 that's enough
+no thanks
+not interested
+i am not interested

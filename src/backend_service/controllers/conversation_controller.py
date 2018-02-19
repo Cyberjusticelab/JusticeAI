@@ -268,14 +268,14 @@ def __generate_response(conversation, message):
 
     if __has_just_accepted_disclaimer(conversation):
         return __ask_initial_question(conversation)
-    elif conversation.claim_category is None:
+    elif conversation.bot_state is BotState.DETERMINE_CLAIM_CATEGORY:
         nlp_request = nlp_service.claim_category(conversation.id, message)
 
         # Refresh the session, since nlp_service may have modified conversation
         db.session.refresh(conversation)
 
         return {'response_text': nlp_request['message']}
-    elif conversation.current_fact is not None:
+    else:
         nlp_request = nlp_service.submit_message(conversation.id, message)
 
         # Refresh the session, since nlp_service may have modified conversation

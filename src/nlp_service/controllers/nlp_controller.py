@@ -29,6 +29,9 @@ intentThreshold = IntentThreshold(min_percent_difference=0.0, min_confidence_thr
 # Outlier detector - Predicts if the new message is a clear outlier based on a model trained with fact messages
 outlier_detector = OutlierDetection()
 
+# The maximum of additional facts to ask before giving a new prediction
+MAX_ADDITIONAL_FACTS = 5
+
 
 def classify_claim_category(conversation_id, message):
     """
@@ -94,10 +97,6 @@ def classify_claim_category(conversation_id, message):
     })
 
 
-# The maximum of additional facts to ask before giving a new prediction
-MAX_ADDITIONAL_FACTS = 5
-
-
 def classify_fact_value(conversation_id, message):
     """
     Classifies the value of the Conversation's current fact, based on the user's message.
@@ -120,12 +119,15 @@ def classify_fact_value(conversation_id, message):
     ############################
     just_acknowledged = False
     if conversation.bot_state is BotState.AWAITING_ACKNOWLEDGEMENT:
-        should_continue = rasaClassifier.classify_acknowledgement(message)
+        should_continue = __classify_acknowledgement(message)
 
         if should_continue is not None:
             if should_continue:
                 conversation.bot_state = BotState.RESOLVING_ADDITIONAL_FACTS
                 just_acknowledged = True
+            else:
+                conversation.bot_state = BotState.DETERMINE_CLAIM_CATEGORY
+                question = Responses.prompt_reset_flow(conversation.person_type.value)
         else:
             question = Responses.chooseFrom(Responses.clarify)
 
@@ -225,6 +227,12 @@ def classify_fact_value(conversation_id, message):
                 additional_question_count = total_unresolved_additional
 
             question = question + Responses.prompt_additional_questions(additional_question_count)
+        else:
+            # Set the bot state
+            conversation.bot_state = BotState.DETERMINE_CLAIM_CATEGORY
+
+            # Append to the question
+            question = question + Responses.prompt_reset_flow(conversation.person_type.value, separate_message=True)
 
     # Commit
     db.session.commit()
@@ -240,7 +248,7 @@ def __classify_acknowledgement(message):
         "\nClassify Acknowledgement\n\tMessage: {}\n\tOutput: {}".format(message, classify_dict))
 
     if intentThreshold.is_sufficient(classify_dict):
-        determined_acknowledgement = classify_dict['intent']
+        determined_acknowledgement = classify_dict['intent']['name']
         if determined_acknowledgement == "true":
             return True
         elif determined_acknowledgement == "false":

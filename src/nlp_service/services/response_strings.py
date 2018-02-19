@@ -27,6 +27,12 @@ class Responses:
         "If you don't mind answering {} more questions, I may be able to give you a better prediction."
     ]
 
+    # Flow finished, reset to claim category
+    prompt_continue = [
+        "Maybe there's another {} issue I can help you with?",
+        "I can help you with a lot of other {} problems! Are you having any other problems?"
+    ]
+
     # Giving a prediction
     prediction = {
         "LEASE_TERMINATION": {
@@ -496,6 +502,15 @@ class Responses:
     @staticmethod
     def prompt_additional_questions(question_count):
         return "|{}".format(Responses.chooseFrom(Responses.prompt_additional).format(question_count))
+
+    @staticmethod
+    def prompt_reset_flow(person_type, separate_message=False):
+        response = Responses.chooseFrom(Responses.prompt_continue).format(person_type.lower())
+
+        if separate_message:
+            response = "|{}".format(response)
+
+        return response
 
     @staticmethod
     def chooseFrom(strings):

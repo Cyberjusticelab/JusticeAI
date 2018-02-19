@@ -57,3 +57,9 @@ class TestResponse(unittest.TestCase):
     def test_responses_prompt_additional(self):
         prompt = Responses.prompt_additional_questions(5)
         self.assertIsNotNone(prompt)
+
+    def test_responses_prompt_reset_flow(self):
+        prompt1 = Responses.prompt_reset_flow("landlord")
+        prompt2 = Responses.prompt_reset_flow("landlord", separate_message=True)
+        self.assertIsNotNone(prompt1)
+        self.assertIsNotNone(prompt2)
