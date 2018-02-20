@@ -45,8 +45,6 @@ def classify_claim_category(conversation_id, message):
     if conversation_id is None or message is None:
         abort(make_response(jsonify(message="Must provide conversation_id and message"), 400))
 
-    conversation_progress = None
-
     # Retrieve conversation
     conversation = db.session.query(Conversation).get(conversation_id)
 
@@ -82,9 +80,6 @@ def classify_claim_category(conversation_id, message):
             # Commit
             db.session.commit()
 
-            # Set the conversation progress
-            conversation_progress = __calculate_conversation_progress(conversation)
-
             # Generate next message
             first_fact_question = Responses.fact_question(first_fact.name)
             response = Responses.chooseFrom(Responses.category_acknowledge).format(
@@ -99,7 +94,7 @@ def classify_claim_category(conversation_id, message):
 
     return jsonify({
         "message": response,
-        "conversation_progress": conversation_progress
+        "conversation_progress": __calculate_conversation_progress(conversation)
     })
 
 
