@@ -11,13 +11,6 @@ from app import db
 ########################
 # Conversation Handling
 ########################
-# Logging
-import logging
-import sys
-
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
-log = logging.getLogger(__name__)
-
 
 def get_conversation(conversation_id):
     """
@@ -128,7 +121,6 @@ def receive_message(conversation_id, message):
         response = __generate_response(conversation, user_message.text)
         response_text = response.get('response_text')
         conversation_progress = response.get('conversation_progress')
-        log.debug("Progress: {}".format(conversation_progress))
         file_request = response.get('file_request')
         possible_answers = response.get('possible_answers')
 

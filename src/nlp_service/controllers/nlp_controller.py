@@ -136,7 +136,6 @@ def classify_fact_value(conversation_id, message):
     # Commit
     db.session.commit()
 
-    log.debug("Progress: {}".format(__calculate_conversation_progress(conversation)))
     return jsonify({
         "message": question,
         "conversation_progress": __calculate_conversation_progress(conversation)
