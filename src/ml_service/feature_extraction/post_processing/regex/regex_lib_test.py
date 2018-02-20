@@ -9,29 +9,39 @@ from util.file import Load
 
 
 class RegexLibTest(unittest.TestCase):
+    regex_name_index = 0
+    regex_index = 1
+
+    def get_regexes(self, name):
+        for fact in RegexLib.regex_facts:
+            if fact[self.regex_name_index] == name:
+                return fact[self.regex_index]
+        for demand in RegexLib.regex_demands:
+            if demand[self.regex_name_index] == name:
+                return demand[self.regex_index]
+        for outcome in RegexLib.regex_outcomes:
+            if outcome[self.regex_name_index] == name:
+                return outcome[self.regex_index]
+
+        # if name was not found in demands, facts or outcomes
+        return None
 
     def boolean_test(self, sentences, regex_name):
         # Find the regex corresponding to the test
-        regex_list = RegexLib.regex_outcomes
-        generic_regex = None
-        for regex in regex_list:
-            if regex[0] == regex_name:
-                generic_regex = regex[1]
+        generic_regex = self.get_regexes(regex_name)
 
         count = 0
         for line in sentences:
             for regex in generic_regex:
                 if regex.search(line):
                     count += 1
+                else:
+                    count = 0
         return count == len(sentences)
 
     def money_test(self, sentences, regex_name, expected_match):
         # Find the regex corresponding to the test
-        regex_list = RegexLib.regex_outcomes
-        additional_indemnity_money = None
-        for regex in regex_list:
-            if regex[0] == regex_name:
-                additional_indemnity_money = regex[1]
+        additional_indemnity_money = self.get_regexes(regex_name)
 
         money_matched = []
         for line in sentences:
@@ -41,6 +51,27 @@ class RegexLibTest(unittest.TestCase):
                     money_regex = re.compile(RegexLib.MONEY_REGEX, re.IGNORECASE)
                     money_matched.append(money_regex.search(result.group(0)).group(0))
         return money_matched == expected_match
+
+    # ######################################################################
+    #
+    # FACTS
+    #
+    # ######################################################################
+    def test_not_violent(self):
+        sentences = [
+            "Il précise que le locateur l'a insulté et qu'il n'a jamais utilisé de violence.",
+            "Or, pourquoi a-t-il demandé à son neveu d'écrire une lettre, confirmant qu'il n'y a pas eu de violence s'il est persuadé que l'audition de ce soir ne portera pas sur ce sujet ?",
+            "Il précise que le locateur l'a insulté et qu'il n'a jamais utilisé de violence.",
+            "Or, pourquoi a-t-il demandé à son neveu d'écrire une lettre, confirmant qu'il n'y a pas eu de violence s'il est persuadé que l'audition de ce soir ne portera pas sur ce sujet ?",
+            "Il prétend cependant que cet avis est invalide puisque la plainte pour agression sexuelle logée au Service de police n'a pas été retenue. Au surplus, il estime que la locataire a agi ainsi pour se soustraire à ses obligations et qu'il n'y a aucune preuve de violence.",
+            "Bien que l'individu en question n'ait pas été violent ni agressif, elle fut non seulement surprise par sa présence, mais apeurée et inquiète pour l'avenir, étant une jeune femme vivant seule.",
+            "déclare qu'il a de ' bons rapports ' dans l'immeuble depuis 20 ans et que ' ça va très bien ', ajoutant qu'il n'a pas d'antécédents de violence. Toutefois, la preuve prépondérante démontre des faits et gestes inquiétants, multiples et sérieux depuis au moins 2012.",
+            "Il nie avoir pris la locatrice par le bras; il déclare l'avoir poussé hors du logement par le bras droit et ajoute que ce geste n'était pas violent.",
+            "Cette dernière n'avait pas de marque de violence, n'avait pas de blessures et il n'y avait pas de dégâts. La locataire n'aurait pas déposé de plainte.",
+            "Monsieur T n'a pas fait preuve de violence et ne démontre pas une propension à adopter ce type de comportement. ",
+            "Sûrement, savait-elle que le locataire prendrait mal la nouvelle, ce qui fut le cas, bien qu'il a été en mesure de se contrôler et de ne pas recourir à la violence."
+        ]
+        self.assertTrue(self.boolean_test(sentences, 'not_violent'))
 
     # ######################################################################
     #
