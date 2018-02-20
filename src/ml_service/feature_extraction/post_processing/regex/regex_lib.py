@@ -242,7 +242,8 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
-                r".+((infestation(s)?|traitement)\s(soudaine et imprévue )?de (punaise(s)?|rat(s)?|fourmi(s)?|coquerelle(s)?|souri(s))|excrément(s)?)",
+                r".+((infestation(s)?|traitement)\s(soudaine et imprévue )?de " + __multiple_words(0,1) +
+                "(insecte(s)?|punaise(s)?|rat(s)?|fourmi(s)?|coquerelle(s)?|souri(s))|excrément(s)?)",
                 re.IGNORECASE
             ),
             re.compile(
