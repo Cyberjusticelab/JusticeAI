@@ -45,6 +45,8 @@ def classify_claim_category(conversation_id, message):
     if conversation_id is None or message is None:
         abort(make_response(jsonify(message="Must provide conversation_id and message"), 400))
 
+    conversation_progress = None
+
     # Retrieve conversation
     conversation = db.session.query(Conversation).get(conversation_id)
 
@@ -80,6 +82,9 @@ def classify_claim_category(conversation_id, message):
             # Commit
             db.session.commit()
 
+            # Set the conversation progress
+            conversation_progress = __calculate_conversation_progress(conversation)
+
             # Generate next message
             first_fact_question = Responses.fact_question(first_fact.name)
             response = Responses.chooseFrom(Responses.category_acknowledge).format(
@@ -94,7 +99,7 @@ def classify_claim_category(conversation_id, message):
 
     return jsonify({
         "message": response,
-        "conversation_progress": __calculate_conversation_progress(conversation)
+        "conversation_progress": conversation_progress
     })
 
 
@@ -131,6 +136,7 @@ def classify_fact_value(conversation_id, message):
     # Commit
     db.session.commit()
 
+    log.debug("Progress: {}".format(__calculate_conversation_progress(conversation)))
     return jsonify({
         "message": question,
         "conversation_progress": __calculate_conversation_progress(conversation)
@@ -298,14 +304,27 @@ def __calculate_conversation_progress(conversation):
     :return: A percentage number that is set to 100% once all important facts are resolved.
     Then decreased if additional facts should be answered.
     """
+    conversation_progress = 0
     important_fact_count = len(fact_service.get_category_fact_list(conversation.claim_category.value)["facts"])
+    resolved_important_fact_count = fact_service.count_important_facts_resolved(conversation)
 
-    if fact_service.has_important_facts(conversation):
-        resolved_fact_count = fact_service.count_important_facts_resolved(conversation)
-        conversation_progress = resolved_fact_count / important_fact_count
+    if conversation.bot_state is BotState.GIVING_PREDICTION or conversation.bot_state is BotState.AWAITING_ACKNOWLEDGEMENT:
+        conversation_progress = 1
+    elif conversation.bot_state is BotState.DETERMINE_CLAIM_CATEGORY:
+        conversation_progress = None
+    elif conversation.bot_state is BotState.RESOLVING_FACTS:
+        conversation_progress = resolved_important_fact_count / important_fact_count
     elif conversation.bot_state is BotState.RESOLVING_ADDITIONAL_FACTS:
         resolved_additional_fact_count = fact_service.count_additional_facts_resolved(conversation)
-        conversation_progress = resolved_additional_fact_count / (important_fact_count + MAX_ADDITIONAL_FACTS)
+
+        unresolved_additional_fact_count = fact_service.count_additional_facts_unresolved(conversation)
+        if unresolved_additional_fact_count >= MAX_ADDITIONAL_FACTS:
+            additional_facts = MAX_ADDITIONAL_FACTS
+        else:
+            additional_facts = unresolved_additional_fact_count
+
+        conversation_progress = (resolved_important_fact_count + resolved_additional_fact_count) / \
+                                (important_fact_count + additional_facts)
 
     return conversation_progress * 100
 

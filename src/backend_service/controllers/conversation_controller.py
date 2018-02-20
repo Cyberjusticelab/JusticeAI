@@ -11,6 +11,12 @@ from app import db
 ########################
 # Conversation Handling
 ########################
+# Logging
+import logging
+import sys
+
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+log = logging.getLogger(__name__)
 
 
 def get_conversation(conversation_id):
@@ -121,7 +127,8 @@ def receive_message(conversation_id, message):
         # Generate response text & optional parameters
         response = __generate_response(conversation, user_message.text)
         response_text = response.get('response_text')
-        conversation_progress = response.get('conversation_progress', default=0)
+        conversation_progress = response.get('conversation_progress')
+        log.debug("Progress: {}".format(conversation_progress))
         file_request = response.get('file_request')
         possible_answers = response.get('possible_answers')
 
@@ -279,7 +286,7 @@ def __generate_response(conversation, message):
         # Refresh the session, since nlp_service may have modified conversation
         db.session.refresh(conversation)
 
-        return {'response_text': nlp_request['message']}
+        return {'response_text': nlp_request['message'], 'conversation_progress': nlp_request['conversation_progress']}
     else:
         nlp_request = nlp_service.submit_message(conversation.id, message)
 
