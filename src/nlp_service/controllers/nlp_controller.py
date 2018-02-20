@@ -326,7 +326,7 @@ def __calculate_conversation_progress(conversation):
         conversation_progress = (resolved_important_fact_count + resolved_additional_fact_count) / \
                                 (important_fact_count + additional_facts)
 
-    return conversation_progress * 100
+    return int(conversation_progress * 100)
 
 
 def __classify_acknowledgement(message):
