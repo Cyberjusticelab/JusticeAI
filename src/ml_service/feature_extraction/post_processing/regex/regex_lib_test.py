@@ -35,8 +35,6 @@ class RegexLibTest(unittest.TestCase):
             for regex in generic_regex:
                 if regex.search(line):
                     count += 1
-                else:
-                    count = 0
         return count == len(sentences)
 
     def money_test(self, sentences, regex_name, expected_match):
@@ -73,48 +71,24 @@ class RegexLibTest(unittest.TestCase):
         ]
         self.assertTrue(self.boolean_test(sentences, 'not_violent'))
 
-    def test_apartment_impropre(self):
+    def test_apartment_dirty(self):
         sentences = [
-            "la preuve prépondérante (incluant une preuve photographique et le témoignage de la fille de la locataire à l'effet que le clsc envoyait une femme de ménage à toutes les deux semaines dans le logement) "
             "a démontré que le problème d'infestation de fourmis était d'une part beaucoup plus important que ce que le locateur croyait et d'autre part, qu'il ne pouvait résulter d'un mauvais entretien du logement",
-
-            "en ce qui concerne la demande en dommage pour troubles et inconvénients, la preuve est à l'effet qu'il y avait une infestation de punaises dans le logement du locataire qui somme toute semble avoir été contrôlé rapidement puisque"
-            " les rapports de la compagnie d'extermination démontrent que de décembre 2014 à avril 2015, il n'y avait plus de punaises dans le logement",
-
-            "cependant, le tribunal estime qu'en raison des inconvénients tout de même importants de la présence de punaises de lit qui trouble la jouissance paisible des lieux loués, il y a lieu d'accorder à la locataire "
-            "le remboursement d'une somme de 1512 $ représentant un mois de loyer pour les désagréments qu'elle a vécus pendant la période de juillet à octobre 2012, puisque bien qu'à certains égards, les bordereaux d'intervention de "
-            "la firme d'extermination mentionnent qu'il n'y a qu'une faible infestation de rat de lit à certains moments, il n'en demeure pas moins que dans les circonstances propres du présent dossier, c'est-à-dire que "
-            "la locataire est en fait une personne âgée habitant dans une résidence spécifique à un tel groupe de personnes, le locateur doit s'attendre à ce que les inconvénients de la présence de punaises de lit "
-            "puissent être davantage perturbants lorsque vécus par une locataire telle que celle en l'espèce qui, sans l'ombre d'un doute, a été inquiétée d'une manière importante par l'infestation de ces insectes, "
-            "s'abstenant même d'entrer dans la maison de sa fille pour éviter de la contaminer également",
-
-            "cependant, il est anormal de trouver des excréments d'oiseau dans une résidence à la prise de possession des lieux et, à ce titre, le tribunal estime qu'il est justifié d'accorder aux locataires "
-            "une somme de 150 $ pour compenser l'ensemble du nettoyage requis pour rendre les lieux en bon état au moment de leur arrivée, ce qui aurait dû être fait préalablement par la locatrice",
-
+            "en ce qui concerne la demande en dommage pour troubles et inconvénients, la preuve est à l'effet qu'il y avait une infestation de punaises dans le logement du locataire qui somme toute semble avoir été contrôlé rapidement",
+            "cependant, le tribunal estime qu'en raison des inconvénients tout de même importants de la présence de punaises de lit qui trouble la jouissance paisible des lieux loués, il y a lieu d'accorder à la locataire ",
+            "la firme d'extermination mentionnent qu'il n'y a qu'une faible infestation de rat de lit à certains moments, il n'en demeure pas moins que dans les circonstances propres du présent dossier, c'est-à-dire que ",
+            "la locataire est en fait une personne âgée habitant dans une résidence spécifique à un tel groupe de personnes, le locateur doit s'attendre à ce que les inconvénients de la présence de punaises de lit ",
+            "puissent être davantage perturbants lorsque vécus par une locataire telle que celle en l'espèce qui, sans l'ombre d'un doute, a été inquiétée d'une manière importante par l'infestation de ces insectes",
+            "cependant, il est anormal de trouver des excréments d'oiseau dans une résidence à la prise de possession des lieux et, à ce titre, le tribunal estime qu'il est justifié d'accorder aux locataires ",
             "le tribunal estime qu'en raison de l'importance de l'infestation de punaises de lit et qu'au surplus, plusieurs traitements n'ont donné aucun résultat jusqu'à ce jour, la locataire justifie l'ordonnance d'exécution "
             "provisoire de la présente décision afin que son bail soit résilié sur-le-champ et qu'elle cesse de vivre dans un logement où elle n'a plus aucun meuble ni aucuns biens d'importance, ces derniers ayant été mis au rebut en raison de la présence de punaises de lit",
-
             "quant aux dommages réclamés du locataire et à une diminution de loyer, le tribunal doit trancher le présent litige en disposant des obligations réciproques des parties lorsque le logement concerné est victime d'une infestation soudaine et imprévue de punaises de lit",
-
-            "quant aux dommages et à la diminution réclamés des locataires, le tribunal doit trancher le présent litige en disposant des obligations réciproques des parties lorsque le logement concerné est victime d'une infestation soudaine et imprévue de punaises de lit",
-
-            "le tribunal doit trancher le présent litige en disposant des obligations réciproques des parties lorsque le logement concerné est victime d'une infestation soudaine et imprévue de souris",
-
-            "quant aux dommages réclamés de la locataire et la diminution de loyer, le tribunal doit trancher le présent litige en disposant des obligations réciproques des parties lorsque le logement concerné est l'objet d'une infestation soudaine et imprévue de punaises de lit",
-
-            "quant aux dommages réclamés des locataires et à une diminution de loyer, le tribunal doit trancher le présent litige en disposant des obligations réciproques des parties lorsque le logement concerné est victime d'une infestation soudaine et imprévue de punaises de lit",
-
             "le tribunal accorde à la locataire une diminution de loyer globale de 750 $ pour les cinq mois qu'a duré l'infestation de punaises",
-
-            "la représentante de la locatrice réclame des factures de traitement de punaises de lit qu'elle a dû débourser, soit plus de 3 000 $ en 2016 pour des traitements d'un 4 à 5 logements dont celui du locataire et "
-            "c'est autour de 5 899 $ en 2017, pour trois logements dont celui du locataire",
-
+            "la représentante de la locatrice réclame des factures de traitement de punaises de lit qu'elle a dû débourser, soit plus de 3 000 $ en 2016 pour des traitements d'un 4 à 5 logements dont celui du locataire",
             "la locataire a produit à la régie du logement une demande de diminution mensuelle de loyer de 100 $ à compter du 17 mai 2016 et de dommages-intérêts de 1 500 $ à la suite d'une infestation de fourmis",
-
             "le locataire prétend qu'une diminution de 250 $ par mois rétablirait l'équilibre entre son loyer mensuel (515 $) et le fait que le locateur n'a pas réussi à mettre fin à une infestation de punaises de lit dans son logement",
-            "le locataire a produit une demande en diminution de loyer à compter du 4 juin 2010 de 295 $ par mois à cause d'une infestation de punaises et 15 000 $ en dommages-intérêts"
         ]
-        self.assertTrue(self.boolean_test(sentences, 'apartment_impropre'))
+        self.assertTrue(self.boolean_test(sentences, 'apartment_dirty'))
 
     # ######################################################################
     #

@@ -246,6 +246,10 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
+                r".+présence de punaise(s)? de lit",
+                re.IGNORECASE
+            ),
+            re.compile(
                 r".+(" + TENANT_REGEX + r".+)?(apartment.+)?insalubre",
                 re.IGNORECASE
             )
