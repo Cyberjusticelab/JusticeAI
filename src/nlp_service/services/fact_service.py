@@ -177,6 +177,18 @@ def has_additional_facts(conversation):
     return True
 
 
+def count_important_facts_resolved(conversation):
+    """
+    :param conversation: The current conversation
+    :return: Returns the count of how many additional facts have been resolved
+    """
+
+    all_category_facts = get_category_fact_list(conversation.claim_category.value)
+    facts_resolved = get_resolved_fact_keys(conversation)
+    important_facts_resolved = [fact for fact in all_category_facts["facts"] if fact in facts_resolved]
+    return len(important_facts_resolved)
+
+
 def count_additional_facts_resolved(conversation):
     """
     :param conversation: The current conversation
