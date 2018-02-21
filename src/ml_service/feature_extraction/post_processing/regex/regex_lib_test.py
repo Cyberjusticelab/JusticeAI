@@ -2,47 +2,26 @@
 import re
 import unittest
 
-from feature_extraction.post_processing.regex.misc import regex_lib_helper
 from feature_extraction.post_processing.regex.regex_lib import RegexLib
-from util.constant import Path
-from util.file import Load
+from feature_extraction.post_processing.regex.regex_lib_helper import get_regexes
 
 
 class RegexLibTest(unittest.TestCase):
-    regex_name_index = 0
-    regex_index = 1
-
-    def get_regexes(self, name):
-        for fact in RegexLib.regex_facts:
-            if fact[self.regex_name_index] == name:
-                return fact[self.regex_index]
-        for demand in RegexLib.regex_demands:
-            if demand[self.regex_name_index] == name:
-                return demand[self.regex_index]
-        for outcome in RegexLib.regex_outcomes:
-            if outcome[self.regex_name_index] == name:
-                return outcome[self.regex_index]
-
-        # if name was not found in demands, facts or outcomes
-        return None
 
     def boolean_test(self, sentences, regex_name):
         # Find the regex corresponding to the test
-        generic_regex = self.get_regexes(regex_name)
+        generic_regex = get_regexes(regex_name)
 
         count = 0
         for line in sentences:
-            prev_count =  count
             for regex in generic_regex:
                 if regex.search(line):
                     count += 1
-            if prev_count == count:
-                test = 0
         return count == len(sentences)
 
     def money_test(self, sentences, regex_name, expected_match):
         # Find the regex corresponding to the test
-        additional_indemnity_money = self.get_regexes(regex_name)
+        additional_indemnity_money = get_regexes(regex_name)
 
         money_matched = []
         for line in sentences:
