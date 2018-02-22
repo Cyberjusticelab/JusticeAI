@@ -38,7 +38,6 @@ class RegexLibTest(unittest.TestCase):
                     money_matched.append(money_regex.search(result.group(0)).group(0))
         return money_matched == expected_match
 
-
     def test_regexes(self):
         for file_name in os.listdir(Path.test_regex_directory):
             if file_name == '.DS_Store':
@@ -52,12 +51,6 @@ class RegexLibTest(unittest.TestCase):
                 sentences.append(line)
             file.close()
             self.assertTrue(self.boolean_test(sentences, regex_name))
-
-    # ######################################################################
-    #
-    # OUTCOMES
-    #
-    # ######################################################################
 
     def test_tenant_ordered_to_pay_landlord(self):
         sentences = [
@@ -93,48 +86,6 @@ class RegexLibTest(unittest.TestCase):
         regex_name = "tenant_ordered_to_pay_landlord_legal_fees"
         expected_match = ['72 $', '80 $', '81 $']
         self.assertTrue(self.money_test(sentences, regex_name, expected_match))
-
-    def test_orders_immediate_execution(self):
-        sentences = [
-            "ORDONNE l'exécution provisoire immédiate de la décision rectifiée, malgré l'appel. ",
-            "ORDONNE l'exécution provisoire, malgré l'appel, de l'ordonnance d'expulsion à compter du 11e jour de sa date;"
-        ]
-        regex_name = 'orders_immediate_execution'
-        self.assertTrue(self.boolean_test(sentences, regex_name))
-
-    def test_orders_tenant_pay_first_of_month(self):
-        sentences = [
-            "ORDONNE au locataire de payer son loyer le 1er de chaque mois, pour la durée du présent bail et du" + \
-            "prochain renouvellement;",
-            "En cas de paiement avant jugement, ORDONNE à la locataire de payer le loyer le premier jour de chaque terme;",
-            "ORDONNE à la locataire de payer ses loyers à échoir le premier jour de chaque mois et ce jusqu'au 31 décembre 2015"
-        ]
-        regex_name = 'orders_tenant_pay_first_of_month'
-        self.assertTrue(self.boolean_test(sentences, regex_name))
-
-    def test_orders_landlord_notify_tenant_when_habitable(self):
-        sentences = [
-            "ORDONNE au locateur sous toute peine que de droit, d'aviser la locataire dès que le " + \
-            "logement sera redevenu propre à l'habitation;"
-        ]
-        regex_name = 'orders_landlord_notify_tenant_when_habitable'
-        self.assertTrue(self.boolean_test(sentences, regex_name))
-
-    def test_authorize_landlord_retake_apartment(self):
-        sentences = [
-            "AUTORISE le locateur à reprendre le logement à compter du 1er juillet 2015 afin de s'y loger;",
-            "AUTORISE le locateur à reprendre possession du logement concerné afin d'y loger",
-            "AUTORISE les locateurs à reprendre le logement de la locataire",
-            "AUTORISE la locatrice à reprendre possession du logement"
-        ]
-        regex_name = 'authorize_landlord_retake_apartment'
-        self.assertTrue(self.boolean_test(sentences, regex_name))
-
-    # ######################################################################
-    #
-    # COMPLICATED CASE OF DATES
-    #
-    # ######################################################################
 
     def test_tenant_not_paid_lease_timespan(self):
         sentences = [
