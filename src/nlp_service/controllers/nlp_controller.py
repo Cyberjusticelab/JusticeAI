@@ -93,7 +93,8 @@ def classify_claim_category(conversation_id, message):
         response = Responses.chooseFrom(Responses.clarify).format(previous_question="")
 
     return jsonify({
-        "message": response
+        "message": response,
+        "conversation_progress": __calculate_conversation_progress(conversation)
     })
 
 
@@ -131,7 +132,8 @@ def classify_fact_value(conversation_id, message):
     db.session.commit()
 
     return jsonify({
-        "message": question
+        "message": question,
+        "conversation_progress": __calculate_conversation_progress(conversation)
     })
 
 
@@ -287,6 +289,38 @@ def __state_giving_prediction(conversation):
         question = question + Responses.prompt_reset_flow(conversation.person_type.value, separate_message=True)
 
     return question
+
+
+def __calculate_conversation_progress(conversation):
+    """
+    Calculates the conversation progress for a conversation.
+    :param conversation: The current conversation
+    :return: A percentage number that is set to 100% once all important facts are resolved.
+    Then decreased if additional facts should be answered.
+    """
+    conversation_progress = 0
+    important_fact_count = len(fact_service.get_category_fact_list(conversation.claim_category.value)["facts"])
+    resolved_important_fact_count = fact_service.count_important_facts_resolved(conversation)
+
+    if conversation.bot_state is BotState.GIVING_PREDICTION or conversation.bot_state is BotState.AWAITING_ACKNOWLEDGEMENT:
+        conversation_progress = 1
+    elif conversation.bot_state is BotState.DETERMINE_CLAIM_CATEGORY:
+        conversation_progress = None
+    elif conversation.bot_state is BotState.RESOLVING_FACTS:
+        conversation_progress = resolved_important_fact_count / important_fact_count
+    elif conversation.bot_state is BotState.RESOLVING_ADDITIONAL_FACTS:
+        resolved_additional_fact_count = fact_service.count_additional_facts_resolved(conversation)
+
+        unresolved_additional_fact_count = fact_service.count_additional_facts_unresolved(conversation)
+        if unresolved_additional_fact_count >= MAX_ADDITIONAL_FACTS:
+            additional_facts = MAX_ADDITIONAL_FACTS
+        else:
+            additional_facts = unresolved_additional_fact_count
+
+        conversation_progress = (resolved_important_fact_count + resolved_additional_fact_count) / \
+                                (important_fact_count + additional_facts)
+
+    return int(conversation_progress * 100)
 
 
 def __classify_acknowledgement(message):

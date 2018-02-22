@@ -36,7 +36,8 @@ Provide the conversation id and the message.
 
 ```json
 {
-    "message": "I see you're having problems with lease termination. Have you kept up with your rent payments?"
+    "message": "I see you're having problems with lease termination. Have you kept up with your rent payments?",
+    "progress": 0
 }
 ```
 
@@ -73,7 +74,8 @@ Provide the conversation id and the message.
 
 ```json
 {
-    "message": "Have you kept up with your rent payments?"
+    "message": "Have you kept up with your rent payments?",
+    "progress": 10
 }
 ```
 
@@ -91,8 +93,8 @@ The **util.parse_dataset.py** module and the associated **CreateJson** class can
 #### Format
 ```
 [meta]
-() = entity_name1,entity_extractor(optional)
-{} = entity_name2,entity_extractor(optional)
+() = entity_name1, entity_extractor(optional)
+{} = entity_name2, entity_extractor(optional)
 
 [regex_features]
 name:regex
@@ -100,13 +102,14 @@ name:regex
 [entity_synonyms]
 entity:synonym1, synonym2
 
-[common_examples:intent_name1]
+[common_examples: intent_name1]
 sentence1
 sentence2
 
-[common_examples:intent_name2]
+[common_examples: intent_name2]
 sentence1
 sentence2
+
 ```
 
 - **[]** are reserved characters used to identify sections
@@ -119,19 +122,20 @@ sentence2
 #### Example
 ```
 [meta]
-() = money,ner_duckling
+() = money, ner_duckling
 
 [regex_features]
 money:$\d(.)?+|\d(.)?+$
 
-[common_examples:true]
+[common_examples: true]
 my landlord increased my rent by ($500)
 i owe my landlord (40 dollars)
 
-[common_examples:false]
+[common_examples: false]
 i don't owe my landlord any money
 i dont have any debts
 no
+
 ```
 
 ### Command Line Use

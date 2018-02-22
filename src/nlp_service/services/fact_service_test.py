@@ -153,6 +153,15 @@ class FactServiceTest(unittest.TestCase):
 
         self.assertFalse(fact_service.has_additional_facts(conversation))
 
+    def test_count_important_facts_resolved(self):
+        conversation = Conversation(name="Bob", person_type=PersonType.TENANT,
+                                    claim_category=ClaimCategory.LEASE_TERMINATION)
+        db.session.add(conversation)
+        db.session.commit()
+
+        important_fact_count = fact_service.count_important_facts_resolved(conversation)
+        self.assertTrue(important_fact_count == 0)
+
     def test_count_additional_facts_resolved(self):
         conversation = Conversation(name="Bob", person_type=PersonType.TENANT,
                                     claim_category=ClaimCategory.LEASE_TERMINATION)
