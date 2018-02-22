@@ -41,6 +41,10 @@ def regex_finder(sentence):
         for reg in demand[regex_index]:
             if re.search(reg, sentence):
                 regex_match_list.append(demand[regex_name_index])
+    for outcome in RegexLib.regex_outcomes:
+        for reg in outcome[regex_index]:
+            if re.search(reg, sentence):
+                regex_match_list.append(outcome[regex_name_index])
 
     return regex_match_list
 
