@@ -77,10 +77,3 @@ def sentence_finder(regex_name, nb_of_files):
                 regex_index += 1
         file.close()
     return regex_dict
-
-# dict = sentence_finder('violent',40000)
-#
-# for key in dict.keys():
-#     print("\n\n" + str(key) + " ------------------------")
-#     for sentence in dict[key]:
-#         print('"'+sentence+'",')
