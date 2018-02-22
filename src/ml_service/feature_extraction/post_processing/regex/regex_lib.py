@@ -237,6 +237,12 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
+                r".+menace " + \
+                __multiple_words(
+                    0, 6) + r"(sécurité des occupants|l'intégrité du logement)",
+                re.IGNORECASE
+            ),
+            re.compile(
                 r".+preuve.*logement.*" +
                 TENANT_REGEX + r".*est.*mauvais.*état",
                 re.IGNORECASE
@@ -613,16 +619,11 @@ class RegexLib:
             )
         ], "BOOLEAN"),
         ("violent", [
-            re.compile(
-                r".+violentée|violent(e)?|menaçant(e)?",
-                re.IGNORECASE
-            ),
-            re.compile(
-                r".+menace " + \
-                __multiple_words(
-                    0, 6) + r"(sécurité des occupants|l'intégrité du logement)",
-                re.IGNORECASE
-            ),
+            # TODO this is too vague, need to redo this
+            # re.compile(
+            #     r".+violentée|violent(e)?|menaçant(e)?",
+            #     re.IGNORECASE
+            # ),
             re.compile(
                 r".+((c|l)es cris(e|es)?|les hurlements|le tapage|les claquages de portes|les chicanes)",
                 re.IGNORECASE
@@ -653,7 +654,7 @@ class RegexLib:
             re.compile(
                 r".+\sn('|e\s)" + __multiple_words(1, 5) +
                                    r"(violen(ce|t(e|é)?)(s)?|(l')?agressi(f|ve|vité)|mena(ce(s)?|çant(s)?)"
-                                   r"|vulgaire|intimida(tion|nt)(s)?|hostile|inadéquat)",
+                                   r"|vulgaire|intimida(tion|nt)(s)?|hostile|inadéquat|abusi(ve|f)(s)?)",
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
