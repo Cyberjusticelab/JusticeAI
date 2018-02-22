@@ -28,14 +28,14 @@ class RegexLibTest(unittest.TestCase):
     def money_test(self, sentences, regex_name, expected_match):
         # Find the regex corresponding to the test
         regex_list = RegexLib.regex_outcomes
-        additional_indemnity_money = None
+        money = None
         for regex in regex_list:
             if regex[0] == regex_name:
-                additional_indemnity_money = regex[1]
+                money = regex[1]
 
         money_matched = []
         for line in sentences:
-            for regex in additional_indemnity_money:
+            for regex in money:
                 result = regex.search(line)
                 if result:
                     money_regex = re.compile(RegexLib.MONEY_REGEX, re.IGNORECASE)
