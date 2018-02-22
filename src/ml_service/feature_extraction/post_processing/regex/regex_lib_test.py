@@ -16,13 +16,10 @@ class RegexLibTest(unittest.TestCase):
 
         count = 0
         for line in sentences:
-            prev_count = count
             for regex in generic_regex:
                 if regex.search(line):
                     count += 1
                     break
-            if prev_count == count:
-                test = 0
         return count == len(sentences)
 
     def money_test(self, sentences, regex_name, expected_match):
@@ -40,8 +37,6 @@ class RegexLibTest(unittest.TestCase):
 
     def test_regexes(self):
         for file_name in os.listdir(Path.test_regex_directory):
-            if file_name == '.DS_Store':
-                continue
             regex_name = file_name.replace('.txt', '')
             file = open(Path.test_regex_directory + file_name, "r", encoding="utf-8")
             sentences = []
@@ -156,5 +151,3 @@ class RegexLibTest(unittest.TestCase):
                     month_matched.append(date_regex.findall(line))
         self.assertEqual(match_count, expected_matches)
         self.assertEqual(month_matched, expected_months)
-
-
