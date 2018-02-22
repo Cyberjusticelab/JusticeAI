@@ -38,49 +38,28 @@ class RegexLibTest(unittest.TestCase):
     def test_regexes(self):
         for file_name in os.listdir(Path.test_regex_directory):
             regex_name = file_name.replace('.txt', '')
+
             file = open(Path.test_regex_directory + file_name, "r", encoding="utf-8")
+
             sentences = []
+            expected_match = None
+
             for line in file:
                 if line == '\n':
                     continue
+
+                if line.startswith('expected_match ='):
+                    match_data = line.replace('expected_match =', '').strip()
+                    expected_match = match_data.split(',')
+                    continue
                 sentences.append(line)
             file.close()
-            self.assertTrue(self.boolean_test(sentences, regex_name))
 
-    def test_tenant_ordered_to_pay_landlord(self):
-        sentences = [
-            "CONDAMNE la locataire à payer au locateur la somme de 710 $",
-            "CONDAMNE les locataires solidairement à payer au locateur la somme de 1 603 $",
-            "CONDAMNE le locataire à payer à la locatrice la somme de 4 800 $",
-            "CONDAMNE le locataire et la caution solidairement à payer au locateur la somme de 2 497 $"
-        ]
-        regex_name = 'tenant_ordered_to_pay_landlord'
-        expected_match = ['710 $', '1 603 $', '4 800 $', '2 497 $']
-        self.assertTrue(self.money_test(sentences, regex_name, expected_match))
+            if expected_match:
+                self.assertTrue(self.money_test(sentences, regex_name, expected_match))
+            else:
+                self.assertTrue(self.boolean_test(sentences, regex_name))
 
-    def test_additional_indemnity_money(self):
-        sentences = [
-            "indemnité additionnelle prévue à l'article 1619 C.c.Q., à compter du 17 octobre 2013 sur la somme " + \
-            "de 1 495 $, et sur le solde à ",
-            "l'indemnité additionnelle prévue à l'article 1619 C.c.Q., à compter du 7 janvier 2015 sur le montant " + \
-            "de 247 $, et"
-        ]
-        regex_name = 'additional_indemnity_money'
-        expected_match = ['1 495 $', '247 $']
-        self.assertTrue(self.money_test(sentences, regex_name, expected_match))
-
-    def test_tenant_ordered_to_pay_landlord_legal_fees(self):
-        sentences = [
-            "CONDAMNE la locataire à payer au locateur la somme de 750 $, plus les frais judiciaires de 72 $",
-            "payer au locateur les frais judiciaires de 80 $;",
-            "CONDAMNE les locataires à payer au locateur la somme de 1 800 $, le tout avec les intérêts au taux" + \
-            " légal et l'indemnité additionnelle prévue à l'article 1619 C.c.Q., à compter du 25 février 2015 sur" + \
-            " le montant de 600 $, et, sur le solde, à compter de la date d'échéance de chaque loyer, plus les frais" + \
-            " judiciaires et de signification de 81 $"
-        ]
-        regex_name = "tenant_ordered_to_pay_landlord_legal_fees"
-        expected_match = ['72 $', '80 $', '81 $']
-        self.assertTrue(self.money_test(sentences, regex_name, expected_match))
 
     def test_tenant_not_paid_lease_timespan(self):
         sentences = [

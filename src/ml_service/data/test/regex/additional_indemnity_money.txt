@@ -1,0 +1,5 @@
+indemnité additionnelle prévue à l'article 1619 C.c.Q., à compter du 17 octobre 2013 sur la somme de 1 495 $"
+
+l'indemnité additionnelle prévue à l'article 1619 C.c.Q., à compter du 7 janvier 2015 sur le montant de 247 $"
+
+expected_match = 1 495 $,247 $
