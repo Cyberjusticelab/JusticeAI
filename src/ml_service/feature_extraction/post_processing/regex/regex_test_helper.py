@@ -1,3 +1,6 @@
+"""
+
+"""
 import regex as re
 import os
 from feature_extraction.post_processing.regex.regex_lib import RegexLib
@@ -51,15 +54,33 @@ def sentence_finder(regex_name, nb_of_files):
     """
     regexes = get_regexes(regex_name)
     count = 0
-    sentences_matched = []
+    regex_dict = {}
+
     for i in os.listdir(Path.raw_data_directory):
         if count > nb_of_files:
             break
         count += 1
         file = open(Path.raw_data_directory + i, "r", encoding="ISO-8859-1")
         for line in file:
+            regex_index = 0
             for reg in regexes:
                 if reg.search(line):
-                    sentences_matched.append(line)
+                    line = re.sub(r'\[\d+\]', '', line)
+                    line = line.replace('"', '')
+                    line = line.strip()
+                    if regex_index in regex_dict.keys():
+                        if line in regex_dict[regex_index]:
+                            continue
+                        regex_dict[regex_index].append(line)
+                    else:
+                        regex_dict[regex_index] = []
+                regex_index += 1
         file.close()
-    return sentences_matched
+    return regex_dict
+
+# dict = sentence_finder('violent',40000)
+#
+# for key in dict.keys():
+#     print("\n\n" + str(key) + " ------------------------")
+#     for sentence in dict[key]:
+#         print('"'+sentence+'",')

@@ -4,7 +4,7 @@ import unittest
 import os
 
 from feature_extraction.post_processing.regex.regex_lib import RegexLib
-from feature_extraction.post_processing.regex.regex_lib_helper import get_regexes
+from feature_extraction.post_processing.regex.regex_test_helper import get_regexes
 from util.constant import Path
 
 
@@ -59,7 +59,6 @@ class RegexLibTest(unittest.TestCase):
                 self.assertTrue(self.money_test(sentences, regex_name, expected_match))
             else:
                 self.assertTrue(self.boolean_test(sentences, regex_name))
-
 
     def test_tenant_not_paid_lease_timespan(self):
         sentences = [
