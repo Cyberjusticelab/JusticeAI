@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 import re
 import unittest
+import os
 
 from feature_extraction.post_processing.regex.regex_lib import RegexLib
 from feature_extraction.post_processing.regex.regex_lib_helper import get_regexes
+from util.constant import Path
 
 
 class RegexLibTest(unittest.TestCase):
@@ -36,213 +38,20 @@ class RegexLibTest(unittest.TestCase):
                     money_matched.append(money_regex.search(result.group(0)).group(0))
         return money_matched == expected_match
 
-    # ######################################################################
-    #
-    # FACTS
-    #
-    # ######################################################################
 
-    def test_violent(self):
-        sentences = [
-            "La source des bruits provenant du logement des locataires fautifs et qui avait cours sur une base "
-            "quotidienne et à toute heure du jour comme de la nuit étaient les conflits conjugaux, "
-            "les chicanes constantes appuyés de cris, de hurlements, de pleurs d'enfants, de crises des occupants, "
-            "de claquage de portes, d'objets lancés dans le logement et d'enfants qui courent "
-            "dans le logement sans objection de la part des parents.",
-
-            "Les cris, les pleurs, les hurlements, le tapage, les claquages de portes et les chicanes constantes "
-            "et répétées entre la mère et son conjoint mais aussi avec ses trois jeunes enfants étaient le lot "
-            "quotidien de ces locataires fautifs. La violence et la fréquence de leurs conflits ont eu raison de "
-            "la sérénité de la locataire qui s'est finalement effondrée. Épuisée par la situation, son médecin traitant"
-            " posait un diagnostic de dépression et l'obligeait à une prise de médicaments.",
-
-            "La soussignée a conclu de même dans l'affaire Coopérative d'Habitation. "
-            "Le fils de la locataire avait séquestré et violé une voisine alors que la locataire qui dormait "
-            "dans la chambre voisine n'est pas intervenue malgré les cris de la victime. Il s'agissait aussi "
-            "d'un évènement qui ne s'est produit qu'une seule fois, mais dont la "
-            "gravité justifiait la résiliation du bail.",
-
-            "Tous les jours elle devait subir les cris et autres bruits de chicane chez ses voisins. "
-            " À cela s'ajoutaient le son de la musique forte et de la télévision.",
-
-            "Le 24 novembre 2014, le locateur intervient auprès des locataires, "
-            "pour leur demander de cesser les bruits et le tapage nocturne qu'ils produisent.",
-
-            "Elle ajoute avoir été victime de violence conjugale de la part du locataire, "
-            "que ce dernier a quitté le logement depuis et qu'il a sorti tous ses effets personnels "
-            "le soir du 2 septembre 2014, version contredite par la locatrice.",
-
-            "En l'instance, il ne fait aucun doute que la locataire trouble la jouissance paisible "
-            "des autres occupants de l'immeuble par ses bruits intempestifs, ses crises, "
-            "sa violence et le climat de crainte qu'elle sème dans l'immeuble.",
-
-            "Le locataire a failli causé des blessures graves à un enfant en lançant des "
-            "glacières du balcon de son logement. Le défendeur est dangereux et menace les locataires de l'immeuble.",
-
-            "De façon répétée, de mauvaise foi, sous de faux prétextes, en faisant des déclarations mensongères, "
-            "en propageant sur le compte du demandeur plus particulièrement des faussetés qui ont eu comme "
-            "conséquence de nuire à sa réputation, en violant la résidence privée, en menaçant les demandeurs, "
-            "en l'obligeant à instituer des procédures qu'il conteste pour des motifs loufoques et proprement faux",
-
-            "Il est très intimidant, il crie et donne des ordres aux employés du locateur.",
-
-            "Il mentionne que le locateur ne voulait rien savoir de leur plainte et que sa mère, qui est une "
-            "dame âgée, aurait été non seulement victime de menaces par un des locataires mais aurait aussi été "
-            "bousculée par celui-ci.",
-
-            "Le locateur ajoute que tant son concierge et que certains locataires ne veulent plus avoir à "
-            "faire avec le locataire qui agit avec agressivité et intimidation.",
-
-            "Le témoin corrobore les faits énoncés par le locateur : le bruit jusqu'à 4 et 5 heures du matin, "
-            "les disputes et bagarres parfois violentes et aussi bruyantes.",
-
-            "Il prétend en outre que le locateur est agressif et il nie être la cause des bagarres.",
-
-            "La locataire admet devoir cette somme. Elle déclare qu'elle fut victime de vol et de violence conjugale.",
-
-            "Le Tribunal ne peut taire le haut niveau de violence verbale dont faisait usage, sur une base "
-            "régulière, les adultes et parents entre eux ou à l'égard de leurs jeunes enfants.",
-
-            "La preuve que la locataire a souffert à plus d'un point de vue de cette violence "
-            "continue provenant des locataires fautifs mais aussi de l'inertie des locateurs à qui elle "
-            "avait pourtant offert, dès le début d'écouter les enregistrements des bruits excessifs"
-            " pendant toute la durée de sa présence au logement est indéniable.",
-
-            "Ses agissements, tels que rapportés, soit la violence physique et les menaces de mort, "
-            "sont inadmissibles dans une relation saine avec les autres locataires et génèrent du "
-            "stress et de l'angoisse, rendant la relation difficile avec les autres locataires.",
-
-            "Les violences verbales et les menaces contre la personne sont graves et "
-            "tout à fait inacceptables; ils sont incompatibles avec l'obligation d'un locataire de se "
-            "comporter de manière à ne pas troubler la jouissance normale des autres locataires.",
-
-
-            "Depuis le 26 novembre 2010, le locateur a reçu plusieurs plaintes écrites et verbales des autres "
-            "locataires de l'immeuble concernant des cris, insultes, menaces et violences physiques "
-            "provenant du logement de la locataire.",
-
-            "L'Office municipal d'habitation de Montréal a dû aviser la locataire que le fils de la "
-            "locataire avait un comportement abusif et faisait des menaces verbales envers ses employés.",
-
-            "Il peut se manifester,notamment par des propos, ou des actes "
-            "insultants, intimidants, illicites, malveillants, discriminants,"
-            " ou injurieux lesquels portent atteinte à la dignité du locataire.",
-
-            "Elle réclame aussi la somme de 35 000 $ pour atteinte "
-            "à un droit en vertu de la Charte des droits et libertés de la personne soit aggravation des "
-            "problèmes de santé, abus des personnes vulnérables, encaissement des loyers sans débourser "
-            "aucun frais pour les locataires, intimidation, etc.",
-
-            "Les locataires me font un préjudice insupportable par voie de agressivité, intimidation, violence verbal,"
-            " violence physique, mauvais comportement, senteur provenant du logement"
-            
-            "En l'instance, le mandataire du locateur réclame des dommages moraux pour des troubles et "
-            "inconvénients résultant de harcèlement à son égard, des insultes, menaces, intimidation,"
-            " agression et voies de fait à l'encontre de sa conjointe et atteinte à sa dignité par les locataires.",
-
-            "Finalement, la locataire déplore le fait que le mandataire du locateur ait été impoli, "
-            "menaçant, harcelant et irrespectueux envers elle."
-        ]
-        self.assertTrue(self.boolean_test(sentences, 'violent'))
-
-    def test_not_violent(self):
-        sentences = [
-            "Or, pourquoi a-t-il demandé à son neveu d'écrire une lettre, confirmant qu'il n'y a pas eu de "
-            "violence s'il est persuadé que l'audition de ce soir ne portera pas sur ce sujet ?",
-
-            "Il précise que le locateur l'a insulté et qu'il n'a jamais utilisé de violence.",
-
-            "Or, pourquoi a-t-il demandé à son neveu d'écrire une lettre, confirmant qu'il n'y a pas eu de "
-            "violence s'il est persuadé que l'audition de ce soir ne portera pas sur ce sujet ?",
-
-            "Il prétend cependant que cet avis est invalide puisque la plainte pour agression sexuelle logée au "
-            "Service de police n'a pas été retenue. Au surplus, il estime que la locataire a agi ainsi "
-            "pour se soustraire à ses obligations et qu'il n'y a aucune preuve de violence.",
-
-            "Bien que l'individu en question n'ait pas été violent ni agressif, elle fut non seulement "
-            "surprise par sa présence, mais apeurée et inquiète pour l'avenir, étant une jeune femme vivant seule.",
-
-            "déclare qu'il a de ' bons rapports ' dans l'immeuble depuis 20 ans et que ' ça va très bien ',"
-            " ajoutant qu'il n'a pas d'antécédents de violence. Toutefois, la preuve prépondérante démontre "
-            "des faits et gestes inquiétants, multiples et sérieux depuis au moins 2012.",
-
-            "Il nie avoir pris la locatrice par le bras; il déclare l'avoir poussé hors du logement par "
-            "le bras droit et ajoute que ce geste n'était pas violent.",
-
-            "Cette dernière n'avait pas de marque de violence, n'avait pas de blessures et il n'y "
-            "avait pas de dégâts. La locataire n'aurait pas déposé de plainte.",
-
-            "Monsieur T n'a pas fait preuve de violence et ne démontre "
-            "pas une propension à adopter ce type de comportement. ",
-
-            "Sûrement, savait-elle que le locataire prendrait mal la nouvelle, ce qui fut le cas,"
-            " bien qu'il a été en mesure de se contrôler et de ne pas recourir à la violence."
-        ]
-        self.assertTrue(self.boolean_test(sentences, 'not_violent'))
-
-    def test_apartment_dirty(self):
-        sentences = [
-            "a démontré que le problème d'infestation de fourmis était d'une part beaucoup plus important que ce que "
-            "le locateur croyait et d'autre part, qu'il ne pouvait résulter d'un mauvais entretien du logement",
-
-            "en ce qui concerne la demande en dommage pour troubles et inconvénients, la preuve est à l'effet "
-            "qu'il y avait une infestation de punaises dans le logement du locataire qui somme toute semble avoir "
-            "été contrôlé rapidement",
-
-            "cependant, le tribunal estime qu'en raison des inconvénients tout de même importants de la présence de "
-            "punaises de lit qui trouble la jouissance paisible des lieux loués, il y a lieu d'accorder à la locataire",
-
-            "la firme d'extermination mentionnent qu'il n'y a qu'une faible infestation de rat de lit à "
-            "certains moments, il n'en demeure pas moins que dans les circonstances propres du présent "
-            "dossier, c'est-à-dire que ",
-
-            "la locataire est en fait une personne âgée habitant dans une résidence spécifique à un tel groupe de"
-            " personnes, le locateur doit s'attendre à ce que les inconvénients de la présence de punaises de lit",
-
-            "puissent être davantage perturbants lorsque vécus par une locataire telle que celle en l'espèce qui,"
-            " sans l'ombre d'un doute, a été inquiétée d'une manière importante par l'infestation de ces insectes",
-
-            "cependant, il est anormal de trouver des excréments d'oiseau dans une résidence à la prise de possession "
-            "des lieux et, à ce titre, le tribunal estime qu'il est justifié d'accorder aux locataires ",
-
-            "le tribunal estime qu'en raison de l'importance de l'infestation de punaises de lit et qu'au surplus, "
-            "plusieurs traitements n'ont donné aucun résultat jusqu'à ce jour, "
-            "la locataire justifie l'ordonnance d'exécution ",
-
-            "provisoire de la présente décision afin que son bail soit résilié sur-le-champ et qu'elle cesse de vivre "
-            "dans un logement où elle n'a plus aucun meuble ni aucuns biens d'importance, ces derniers "
-            "ayant été mis au rebut en raison de la présence de punaises de lit",
-
-            "quant aux dommages réclamés du locataire et à une diminution de loyer, le tribunal doit trancher "
-            "le présent litige en disposant des obligations réciproques des parties lorsque le logement concerné "
-            "est victime d'une infestation soudaine et imprévue de punaises de lit",
-
-            "le tribunal accorde à la locataire une diminution de loyer globale "
-            "de 750 $ pour les cinq mois qu'a duré l'infestation de punaises",
-
-            "la représentante de la locatrice réclame des factures de traitement de "
-            "punaises de lit qu'elle a dû débourser, soit plus de 3 000 $ en 2016 pour "
-            "des traitements d'un 4 à 5 logements dont celui du locataire",
-
-            "la locataire a produit à la régie du logement une demande de diminution "
-            "mensuelle de loyer de 100 $ à compter du 17 mai 2016 et de dommages-intérêts "
-            "de 1 500 $ à la suite d'une infestation de fourmis",
-
-            "le locataire prétend qu'une diminution de 250 $ par mois rétablirait "
-            "l'équilibre entre son loyer mensuel (515 $) et le fait que le locateur n'a pas "
-            "réussi à mettre fin à une infestation de punaises de lit dans son logement",
-
-            "En d'autres termes, est-ce le logement constituait une menace sérieuse pour la santé et la "
-            "sécurité des occupants ?",
-
-            "La preuve présentée ne permet aucunement de conclure que l'état actuel du logement "
-            "constitue objectivement une menace sérieuse pour la santé et la sécurité des occupants.",
-
-            "Malgré les allégués de la procédure de la locatrice, aucune preuve n'a été soumise pour "
-            "établir que le logement constituait une menace réelle pour "
-            "la santé ou la sécurité des occupants ou du public1.",
-        ]
-        self.assertTrue(self.boolean_test(sentences, 'apartment_dirty'))
+    def test_regexes(self):
+        for file_name in os.listdir(Path.test_regex_directory):
+            if file_name == '.DS_Store':
+                continue
+            regex_name = file_name.replace('.txt', '')
+            file = open(Path.test_regex_directory + file_name, "r", encoding="utf-8")
+            sentences = []
+            for line in file:
+                if line == '\n':
+                    continue
+                sentences.append(line)
+            file.close()
+            self.assertTrue(self.boolean_test(sentences, regex_name))
 
     # ######################################################################
     #
@@ -291,14 +100,6 @@ class RegexLibTest(unittest.TestCase):
             "ORDONNE l'exécution provisoire, malgré l'appel, de l'ordonnance d'expulsion à compter du 11e jour de sa date;"
         ]
         regex_name = 'orders_immediate_execution'
-        self.assertTrue(self.boolean_test(sentences, regex_name))
-
-    def test_orders_expulsion(self):
-        sentences = [
-            "RÉSILIE le bail et ORDONNE l'expulsion des locataires et de tous les occupants du logement;",
-            "ORDONNE aux locataires et à tous les occupants du logement de quitter les lieux"
-        ]
-        regex_name = 'orders_expulsion'
         self.assertTrue(self.boolean_test(sentences, regex_name))
 
     def test_orders_tenant_pay_first_of_month(self):
