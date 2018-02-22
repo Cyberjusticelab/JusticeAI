@@ -1,16 +1,10 @@
-from util.file import Load, Save
-from util.constant import Path
-from keras.models import Sequential
-from keras.layers import Dense
-from keras.models import load_model
-from keras.wrappers.scikit_learn import KerasRegressor
-from sklearn.model_selection import cross_val_score
-from sklearn.model_selection import KFold
-from sklearn.preprocessing import StandardScaler
-from sklearn.pipeline import Pipeline
-import os
 import numpy as np
 from util.log import Log
+from model_training.regression.single_output_regression.abstract_regressor import AbstractRegressor
+from keras.wrappers.scikit_learn import KerasRegressor
+from sklearn.preprocessing import StandardScaler
+from keras.models import Sequential
+from keras.layers import Dense
 
 """
     This regressor is used to determine how much money a tenant is
@@ -19,63 +13,10 @@ from util.log import Log
 """
 
 
-class TenantPaysLandlordRegressor:
+class TenantPaysLandlordRegressor(AbstractRegressor):
 
     def __init__(self, dataset=None, outcome_index = 0):
-        """
-        Constructor
-        :param data_set: [{
-            name: 'AZ-XXXXXXX.txt',
-            demands_vector: [...],
-            facts_vector: [...],
-            outcomes_vector: [...]
-        },
-        {
-            ...
-        }]
-        """
-        if dataset is not None:
-            self.dataset = [precedent for precedent in dataset if precedent[
-                'outcomes_vector'][outcome_index] > 1]
-            self.outcome_index = outcome_index
-        else:
-            self.load()
-
-    @staticmethod
-    def __nn_architecture():
-        """
-            Defines Regressor architecture. To be used internally
-        """
-        model = Sequential()
-        model.add(Dense(13, input_dim=35,
-                        kernel_initializer='normal', activation='relu'))
-        model.add(Dense(6, kernel_initializer='normal', activation='relu'))
-        model.add(Dense(6, kernel_initializer='normal', activation='relu'))
-        model.add(Dense(1, kernel_initializer='normal'))
-        model.compile(loss='mean_absolute_percentage_error', optimizer='adam')
-        return model
-
-    def save(self):
-        """
-            Saves the scaler and regressor. Does not use joblib
-            for the regressor as it is not supported
-        """
-        file_path = os.path.join(Path.binary_directory, 'tenant_pays_landlord_regressor.bin')
-        Log.write("saving" + 'tenant_pays_landlord_regressor.bin' + " to: " + file_path)
-        Log.write('tenant_pays_landlord_regressor.bin' + " saved to: " + file_path)
-        self.model.steps[1][1].model.save(file_path)
-        Save().save_binary('tenant_pays_landlord_scaler.bin', self.model.steps[0][1])
-
-    def load(self):
-        """
-            Loads the regressors different components
-        """
-        Log.write("Loading " + 'tenant_pays_landlord_regressor.bin')
-        file_path = os.path.join(Path.binary_directory, 'tenant_pays_landlord_regressor.bin')
-        Log.write('tenant_pays_landlord_regressor.bin' + " is successfully loaded")
-        regressor = load_model(file_path)
-        scaler = Load.load_binary('tenant_pays_landlord_scaler.bin')
-        self.model = TenantPaysLandlordRegressor.__create_pipeline(scaler, regressor)
+        AbstractRegressor.__init__(self, 'tenant_pays_landlord', dataset, outcome_index)
 
     def train(self):
         """
@@ -86,44 +27,23 @@ class TenantPaysLandlordRegressor:
         X = np.array([precedent['facts_vector'] for precedent in self.dataset])
         Y = np.array([precedent['outcomes_vector'][self.outcome_index]
                       for precedent in self.dataset])
+        self.input_dimensions = len(X[0])
         regressor = KerasRegressor(
-            build_fn=TenantPaysLandlordRegressor.__nn_architecture, epochs=100, batch_size=128, verbose=0)
+            build_fn=self._nn_architecture, epochs=100, batch_size=128, verbose=0)
         scaler = StandardScaler()
-        self.model = TenantPaysLandlordRegressor.__create_pipeline(scaler, regressor)
+        self.model = AbstractRegressor._create_pipeline(scaler, regressor)
         self.model.fit(X, Y)
         self.dataset = None
 
-    @staticmethod
-    def __create_pipeline(scaler, regressor):
+    def _nn_architecture(self):
         """
-            Creates the pipeline of scaler + regressor
-            and returns it.
-        """
-        estimators = []
-        estimators.append(('standardize', scaler))
-        estimators.append(('mlp', regressor))
-        return Pipeline(estimators)
-
-    def test(self):
-        """
-            Tests the regressor using the dataset and writes
-            the mean and MSE of the deviation
-        """
-        seed = 7
-        np.random.seed(seed)
-        X = np.array([precedent['facts_vector'] for precedent in self.dataset])
-        Y = np.array([precedent['outcomes_vector'][self.outcome_index]
-                      for precedent in self.dataset])
-        kfold = KFold(n_splits=10, random_state=seed)
-        results = cross_val_score(self.model, X, Y, cv=kfold)
-        Log.write("Mean: %.2f (%.2f) MSE" %
-                  (results.mean(), results.std()))
-
-    def predict(self, precedent):
-        """
-            Predicts the tenant_ordered_to_pay_landlord outcome
-            and returns it
-            param: precedent: fact vector in the form of np.array([1,0,1,0,2])
-            returns: predicted integer value of tenant_ordered_to_pay_landlord
-        """
-        return self.model.predict([precedent])
+                    Defines Regressor architecture. To be used internally
+                """
+        model = Sequential()
+        model.add(Dense(13, input_dim=self.input_dimensions,
+                        kernel_initializer='normal', activation='relu'))
+        model.add(Dense(6, kernel_initializer='normal', activation='relu'))
+        model.add(Dense(6, kernel_initializer='normal', activation='relu'))
+        model.add(Dense(1, kernel_initializer='normal'))
+        model.compile(loss='mean_absolute_percentage_error', optimizer='adam')
+        return model
