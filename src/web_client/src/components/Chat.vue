@@ -113,6 +113,11 @@
         </el-row>
       </div>
       <!-- End of Zeus Chat -->
+      <!-- Progress Bar -->
+      <div id="chat-progress-bar" v-if="zeus.progress != null">
+        <el-progress :text-inside="true" :stroke-width="30" :percentage="zeus.progress" status="success"></el-progress>
+      </div>
+      <!-- End of Progress Bar -->
     </div>
     <!-- End of Chat Window -->
     <!-- Input Window - Mobile -->
@@ -147,7 +152,8 @@ export default {
         filePrompt: false,
         suggestion: new Array,
         isThinking: false,
-        isSpeaking: false
+        isSpeaking: false,
+        progress: 20
       },
       user: {
         name: null,
