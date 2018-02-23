@@ -187,6 +187,7 @@ Gets the message history for a conversation
 ```json
 {
 	"claim_category": "NONPAYMENT",
+	"bot_state": "RESOLVING_FACTS",
 	"current_fact": {
 		"name": "landlord_retakes_apartment",
 		"summary": "Landlord intends to retake dwelling",

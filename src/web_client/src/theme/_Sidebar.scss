@@ -9,6 +9,7 @@
 #sidebar-component {
     background-color: rgba(74,74,74,.8);
     overflow-y: hidden;
+    z-index: 2;
     #sidebar-min {
         background-color: $main-grey-1;
         padding: 5px;

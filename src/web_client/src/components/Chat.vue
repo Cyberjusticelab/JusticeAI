@@ -113,6 +113,13 @@
         </el-row>
       </div>
       <!-- End of Zeus Chat -->
+    <!-- Progress Bar -->
+    <transition name="el-fade-in-linear">
+      <div id="chat-progress-bar" v-if="zeus.progress && zeus.progress != 0">
+        <el-progress :text-inside="true" :stroke-width="20" :percentage="zeus.progress" status="success"></el-progress>
+      </div>
+      <!-- End of Progress Bar -->
+    </transition>
     </div>
     <!-- End of Chat Window -->
     <!-- Input Window - Mobile -->
@@ -147,7 +154,8 @@ export default {
         filePrompt: false,
         suggestion: new Array,
         isThinking: false,
-        isSpeaking: false
+        isSpeaking: false,
+        progress: null
       },
       user: {
         name: null,
@@ -271,10 +279,12 @@ export default {
       } else {
         this.zeus.suggestion = JSON.parse(conversation.possible_answers) || []
       }
-      // 5. set feedback prompt
+      // 5. set progress
+      this.zeus.progress = conversation.progress
+      // 6. set feedback prompt
       this.numMessageSinceChatHistory += 1
       this.promptFeedback = this.numMessageSinceChatHistory > 4
-      // 6. reset user input to empty
+      // 7. reset user input to empty
       this.user.input = null
       this.user.disableInput = conversation.enforce_possible_answer
     },
