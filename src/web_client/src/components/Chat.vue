@@ -114,10 +114,10 @@
       </div>
       <!-- End of Zeus Chat -->
       <!-- Progress Bar -->
-      <div id="chat-progress-bar" v-if="zeus.progress != null">
-        <el-progress :text-inside="true" :stroke-width="30" :percentage="zeus.progress" status="success"></el-progress>
-      </div>
-      <!-- End of Progress Bar -->
+    <div id="chat-progress-bar" v-if="zeus.progress != null">
+      <el-progress :text-inside="true" :stroke-width="20" :percentage="zeus.progress" status="success"></el-progress>
+    </div>
+    <!-- End of Progress Bar -->
     </div>
     <!-- End of Chat Window -->
     <!-- Input Window - Mobile -->
