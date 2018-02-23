@@ -7,7 +7,7 @@ class TestFeatureExtraction(unittest.TestCase):
     def test_feature_extraction(self):
 
         raw_data_directory = Path.raw_data_directory
-        Path.raw_data_directory = Path.test_data_directory
+        Path.raw_data_directory = Path.test_mock_precedent_directory
 
         # preprocessing
         command_list = ["-pre", "10"]

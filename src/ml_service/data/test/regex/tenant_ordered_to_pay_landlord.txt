@@ -1,0 +1,9 @@
+CONDAMNE la locataire à payer au locateur la somme de 710 $
+
+CONDAMNE les locataires solidairement à payer au locateur la somme de 1 603 $
+
+CONDAMNE le locataire à payer à la locatrice la somme de 4 800 $
+
+CONDAMNE le locataire et la caution solidairement à payer au locateur la somme de 2 497 $
+
+expected_match = 710 $,1 603 $,4 800 $,2 497 $
