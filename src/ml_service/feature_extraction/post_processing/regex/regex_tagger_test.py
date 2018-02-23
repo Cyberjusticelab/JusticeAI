@@ -16,8 +16,8 @@ class RegexTaggerTest(unittest.TestCase):
 
     def test_regex_model(self):
         binary_directory = Path.binary_directory
-        Path.binary_directory = Path.test_data_directory
-        self.precedent_tagger.precedents_directory_path = Path.test_data_directory
+        Path.binary_directory = Path.test_mock_precedent_directory
+        self.precedent_tagger.precedents_directory_path = Path.test_mock_precedent_directory
 
         self.precedent_tagger.tag_precedents(10)
         binary_model_path = Path.binary_directory + r'precedent_vectors.bin'
@@ -28,8 +28,8 @@ class RegexTaggerTest(unittest.TestCase):
 
     def test_tag_precedents(self):
         binary_directory = Path.binary_directory
-        self.precedent_tagger.precedents_directory_path = Path.test_data_directory
-        Path.binary_directory = Path.test_data_directory
+        self.precedent_tagger.precedents_directory_path = Path.test_mock_precedent_directory
+        Path.binary_directory = Path.test_mock_precedent_directory
 
         facts_found = self.precedent_tagger.tag_precedents(2)
 
@@ -42,7 +42,7 @@ class RegexTaggerTest(unittest.TestCase):
 
     def test_intent_indice(self):
         binary_directory = Path.binary_directory
-        Path.binary_directory = Path.test_data_directory
+        Path.binary_directory = Path.test_mock_precedent_directory
 
         regex_list = self.precedent_tagger.get_intent_index()
         self.assertEqual(regex_list["facts_vector"][0], (0, "some_fact", 'bool'))
