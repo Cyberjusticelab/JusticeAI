@@ -1,8 +1,9 @@
 @import "./Utils";
 
 #chat-component {
+  margin-right: -15px;
   height: 100%;
-  width: 100%;
+  width: 110%;
   font-family: $zeus-font;
   background-color: rgba(74,74,74,0.8);
   .generic-input {
@@ -210,6 +211,14 @@
           }
         }
       }
+    }
+    #chat-progress-bar {
+      position: fixed;
+      height: 20px;
+      width: 105%;
+      bottom: 0;
+      margin-left: -10px;
+      margin-right: -10px;
     }
     @media screen and (max-width: $break-width-phone) {
       height: 80%;

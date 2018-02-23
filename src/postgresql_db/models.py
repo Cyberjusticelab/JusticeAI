@@ -292,6 +292,7 @@ class ConversationSchema(ma.ModelSchema):
     # Enum
     person_type = EnumField(PersonType, by_value=True)
     claim_category = EnumField(ClaimCategory, by_value=True)
+    bot_state = EnumField(BotState, by_value=True)
 
     # One to one
     current_fact = ma.Nested(FactSchema)
