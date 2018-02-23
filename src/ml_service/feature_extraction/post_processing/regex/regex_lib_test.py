@@ -26,9 +26,10 @@ class RegexLibTest(unittest.TestCase):
         # Find the regex corresponding to the test
         additional_indemnity_money = get_regexes(regex_name)
 
+
         money_matched = []
         for line in sentences:
-            for regex in additional_indemnity_money:
+            for regex in money:
                 result = regex.search(line)
                 if result:
                     money_regex = re.compile(RegexLib.MONEY_REGEX, re.IGNORECASE)
