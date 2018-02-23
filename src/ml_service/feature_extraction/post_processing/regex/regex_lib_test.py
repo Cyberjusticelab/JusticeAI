@@ -29,7 +29,7 @@ class RegexLibTest(unittest.TestCase):
 
         money_matched = []
         for line in sentences:
-            for regex in money:
+            for regex in additional_indemnity_money:
                 result = regex.search(line)
                 if result:
                     money_regex = re.compile(RegexLib.MONEY_REGEX, re.IGNORECASE)
