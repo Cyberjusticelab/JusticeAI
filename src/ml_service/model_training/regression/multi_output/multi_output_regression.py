@@ -38,10 +38,7 @@ class MultiOutputRegression:
         for i in range(len(outcomes)):
             column_name = MultiOutputRegression.classifier_labels[i][0]
 
-            if column_name == 'additional_indemnity_date':
-                pass
-
-            elif column_name == 'additional_indemnity_money':
+            if column_name == 'additional_indemnity_money':
                 pass
 
             elif column_name == 'tenant_ordered_to_pay_landlord':
@@ -72,14 +69,11 @@ class MultiOutputRegression:
         for i in range(len(outcomes)):
             if outcomes[i] == 1:
                 column_name = MultiOutputRegression.classifier_labels[i][0]
-
-                if column_name == 'additional_indemnity_date':
-                    pass
-                elif column_name == 'additional_indemnity_money':
+                if column_name == 'additional_indemnity_money':
                     pass
                 elif column_name == 'tenant_ordered_to_pay_landlord':
                     outcomes[i] = TenantPaysLandlordRegressor().predict(facts)[0][0]
                 elif column_name == 'tenant_ordered_to_pay_landlord_legal_fees':
-                    pass
+                    outcomes[i] = 80 # for now
 
         return outcomes
