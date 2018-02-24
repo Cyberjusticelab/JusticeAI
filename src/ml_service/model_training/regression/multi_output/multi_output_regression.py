@@ -1,6 +1,8 @@
 from model_training.classifier.multi_output.multi_class_svm import MultiClassSVM
-from model_training.regression.single_output_regression.tenant_pays_landlord_regressor \
-    import TenantPaysLandlordRegressor
+from model_training.regression.single_output_regression.tenant_pays_landlord \
+    import TenantPaysLandlord
+from model_training.regression.single_output_regression.additional_indemnity_money \
+    import AdditionalIndemnityMoney
 
 
 class MultiOutputRegression:
@@ -39,10 +41,12 @@ class MultiOutputRegression:
             column_name = MultiOutputRegression.classifier_labels[i][0]
 
             if column_name == 'additional_indemnity_money':
-                pass
+                regression = AdditionalIndemnityMoney(self.dataset, i)
+                regression.train()
+                regression.save()
 
             elif column_name == 'tenant_ordered_to_pay_landlord':
-                regression = TenantPaysLandlordRegressor(self.dataset, i)
+                regression = TenantPaysLandlord(self.dataset, i)
                 regression.train()
                 regression.save()
 
@@ -70,9 +74,9 @@ class MultiOutputRegression:
             if outcomes[i] == 1:
                 column_name = MultiOutputRegression.classifier_labels[i][0]
                 if column_name == 'additional_indemnity_money':
-                    pass
+                    outcomes[i] = AdditionalIndemnityMoney().predict(facts)[0][0]
                 elif column_name == 'tenant_ordered_to_pay_landlord':
-                    outcomes[i] = TenantPaysLandlordRegressor().predict(facts)[0][0]
+                    outcomes[i] = TenantPaysLandlord().predict(facts)[0][0]
                 elif column_name == 'tenant_ordered_to_pay_landlord_legal_fees':
                     outcomes[i] = 80 # for now
 

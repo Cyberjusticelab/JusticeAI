@@ -55,12 +55,10 @@ class AbstractRegressor:
         :param precedent_vector: numpy.array([1, 2, 5, 0, 223, 0, 0...])
         :return: [[int]]
         """
-        data = []
+        data = self.mean_vector.copy()
         for i in range(len(precedent_vector)):
-            if precedent_vector[i] == 0:
-                data.append(self.mean_vector[i])
-            else:
-                data.append(precedent_vector[i])
+            if precedent_vector[i] > 0:
+                data[i] = precedent_vector[i]
         return self.model.predict([data])
 
     def save(self):

@@ -5,18 +5,12 @@ from keras.wrappers.scikit_learn import KerasRegressor
 from sklearn.preprocessing import StandardScaler
 from keras.models import Sequential
 from keras.layers import Dense
-
-"""
-    This regressor is used to determine how much money a tenant is
-    supposed to pay a landlord. An implicit assumption of this regressor
-    is that the tenant IS SUPPOSED TO PAY the landlord (i.e. non-zero value)
-"""
+from sklearn.model_selection import train_test_split
 
 
-class TenantPaysLandlordRegressor(AbstractRegressor):
-
-    def __init__(self, dataset=None, outcome_index = 0):
-        AbstractRegressor.__init__(self, 'tenant_pays_landlord', dataset, outcome_index)
+class AdditionalIndemnityMoney(AbstractRegressor):
+    def __init__(self, dataset=None, outcome_index=0):
+        AbstractRegressor.__init__(self, 'additional_indemnity_money', dataset, outcome_index)
 
     def train(self):
         """
@@ -37,8 +31,8 @@ class TenantPaysLandlordRegressor(AbstractRegressor):
 
     def _nn_architecture(self):
         """
-                    Defines Regressor architecture. To be used internally
-                """
+            Defines Regressor architecture. To be used internally
+        """
         model = Sequential()
         model.add(Dense(13, input_dim=self.input_dimensions,
                         kernel_initializer='normal', activation='relu'))
