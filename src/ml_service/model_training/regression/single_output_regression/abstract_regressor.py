@@ -31,8 +31,8 @@ class AbstractRegressor:
         if dataset is not None:
             self.dataset = [precedent for precedent in dataset if precedent[
                 'outcomes_vector'][outcome_index] > 1]
-            self.mean_vector = [x['facts_vector'] for x in self.dataset]
-            self.mean_vector = np.mean(self.mean_vector, axis=0)
+            facts_vector = [x['facts_vector'] for x in self.dataset]
+            self.mean_vector = np.mean(facts_vector, axis=0)
             mean_dict = Load.load_binary('regressor_means.bin')
             mean_dict[regressor_name] = self.mean_vector
             Save().save_binary('regressor_means.bin', mean_dict)
