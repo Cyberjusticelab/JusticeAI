@@ -27,9 +27,15 @@ class AbstractRegressor:
         self.input_dimensions = None
         self.model = None
         self.regressor_name = regressor_name
+        self.mean_vector = None
         if dataset is not None:
             self.dataset = [precedent for precedent in dataset if precedent[
                 'outcomes_vector'][outcome_index] > 1]
+            facts_vector = [x['facts_vector'] for x in self.dataset]
+            self.mean_vector = np.mean(facts_vector, axis=0)
+            mean_dict = Load.load_binary('regressor_means.bin')
+            mean_dict[regressor_name] = self.mean_vector
+            Save().save_binary('regressor_means.bin', mean_dict)
             self.outcome_index = outcome_index
         else:
             self.load()
@@ -40,14 +46,22 @@ class AbstractRegressor:
     def train(self):
         raise NotImplementedError
 
-    def predict(self, precedent):
+    def predict(self, precedent_vector):
         """
-            Predicts the tenant_ordered_to_pay_landlord outcome
-            and returns it
-            param: precedent: fact vector in the form of np.array([1,0,1,0,2])
-            returns: predicted integer value of tenant_ordered_to_pay_landlord
+
+        Predicts an outcome given a vector. Because the model is a regressive one,
+        we replace all 0's with the average value of all the precedents.
+
+        :param precedent_vector: numpy.array([1, 2, 5, 0, 223, 0, 0...])
+        :return: [[int]]
         """
-        return self.model.predict([precedent])
+        data = []
+        for i in range(len(precedent_vector)):
+            if precedent_vector[i] == 0:
+                data.append(self.mean_vector[i])
+            else:
+                data.append(precedent_vector[i])
+        return self.model.predict([data])
 
     def save(self):
         """
@@ -72,6 +86,7 @@ class AbstractRegressor:
         regressor = load_model(file_path)
         scaler = Load.load_binary('{}_scaler.bin'.format(regressor_name))
         self.model = AbstractRegressor._create_pipeline(scaler, regressor)
+        self.mean_vector = Load.load_binary('regressor_means.bin')[self.regressor_name]
 
     @staticmethod
     def _create_pipeline(scaler, regressor):
