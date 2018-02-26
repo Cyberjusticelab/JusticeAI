@@ -31,6 +31,7 @@ class MultiClassSVM:
         self.model = None
         self.mlb = None
         self.classifier_labels = None
+        self.label_column_index = None
 
     def weights_to_csv(self):
         """
@@ -96,7 +97,7 @@ class MultiClassSVM:
         if self.model is None:
             self.model = Load.load_binary('multi_class_svm_model.bin')
             self.classifier_labels = Load.load_binary('classifier_labels.bin')
-        labels = TagPrecedents().get_intent_index()
+            self.label_column_index = TagPrecedents().get_intent_index()
         weight_dict = {}
 
         for i in range(len(self.model.estimators_)):
@@ -105,7 +106,7 @@ class MultiClassSVM:
             weights = estimator.coef_[0]
             for j in range(len(weights)):
                 if weights[j] > 0:
-                    outcome_list.append([labels['facts_vector'][j][1], weights[j]])
+                    outcome_list.append([self.label_column_index['facts_vector'][j][1], weights[j]])
 
             outcome_list.sort(key=lambda x: abs(x[1]), reverse=True)
             weights = [abs(x[1]) for x in outcome_list]
