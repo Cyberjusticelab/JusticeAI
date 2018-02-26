@@ -1,8 +1,7 @@
 from util.file import Load, Save
 from util.constant import Path
 from keras.models import load_model
-from sklearn.model_selection import cross_val_score
-from sklearn.model_selection import KFold
+from sklearn import metrics
 from sklearn.pipeline import Pipeline
 import os
 import numpy as np
@@ -99,15 +98,23 @@ class AbstractRegressor:
 
     def test(self):
         """
-            Tests the regressor using the dataset and writes
-            the mean and MSE of the deviation
+        Tests the regressor using the dataset and writes:
+            1- coefficient r2
+            2- explained variance
+            3- mean absolute error
+            4- mean squared error
+
+        :return: None
         """
-        seed = 7
-        np.random.seed(seed)
         X = np.array([precedent['facts_vector'] for precedent in self.dataset])
-        Y = np.array([precedent['outcomes_vector'][self.outcome_index]
+        y_pred = self.model.predict(X)
+        y_true = np.array([precedent['outcomes_vector'][self.outcome_index]
                       for precedent in self.dataset])
-        kfold = KFold(n_splits=10, random_state=seed)
-        results = cross_val_score(self.model, X, Y, cv=kfold)
-        Log.write("Mean: %.2f (%.2f) MSE" %
-                  (results.mean(), results.std()))
+        r2 = metrics.r2_score(y_true, y_pred)
+        variance = metrics.explained_variance_score(y_true, y_pred)
+        mean_abs_error = metrics.mean_absolute_error(y_true, y_pred)
+        mean_squared_error = metrics.mean_squared_error(y_true, y_pred)
+        Log.write('R2: {0:.2f}'.format(r2))
+        Log.write('Explained Variance: {0:.2f}'.format(variance))
+        Log.write('Mean Absolute Error: {0:.2f}'.format(mean_abs_error))
+        Log.write('Mean Squared Error: {0:.2f}'.format(mean_squared_error))

@@ -33,6 +33,7 @@ class TenantPaysLandlord(AbstractRegressor):
         scaler = StandardScaler()
         self.model = AbstractRegressor._create_pipeline(scaler, regressor)
         self.model.fit(X, Y)
+        self.test()
         self.dataset = None
 
     def _nn_architecture(self):
@@ -45,5 +46,5 @@ class TenantPaysLandlord(AbstractRegressor):
         model.add(Dense(6, kernel_initializer='normal', activation='relu'))
         model.add(Dense(6, kernel_initializer='normal', activation='relu'))
         model.add(Dense(1, kernel_initializer='normal'))
-        model.compile(loss='mean_absolute_percentage_error', optimizer='adam')
+        model.compile(loss='mean_squared_error', optimizer='adam')
         return model

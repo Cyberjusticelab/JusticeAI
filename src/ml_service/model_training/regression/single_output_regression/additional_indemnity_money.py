@@ -5,7 +5,6 @@ from keras.wrappers.scikit_learn import KerasRegressor
 from sklearn.preprocessing import StandardScaler
 from keras.models import Sequential
 from keras.layers import Dense
-from sklearn.model_selection import train_test_split
 
 
 class AdditionalIndemnityMoney(AbstractRegressor):
@@ -27,6 +26,7 @@ class AdditionalIndemnityMoney(AbstractRegressor):
         scaler = StandardScaler()
         self.model = AbstractRegressor._create_pipeline(scaler, regressor)
         self.model.fit(X, Y)
+        self.test()
         self.dataset = None
 
     def _nn_architecture(self):
@@ -34,10 +34,13 @@ class AdditionalIndemnityMoney(AbstractRegressor):
             Defines Regressor architecture. To be used internally
         """
         model = Sequential()
-        model.add(Dense(13, input_dim=self.input_dimensions,
+        model.add(Dense(14, input_dim=self.input_dimensions,
                         kernel_initializer='normal', activation='relu'))
+        model.add(Dense(12, kernel_initializer='normal', activation='relu'))
+        model.add(Dense(10, kernel_initializer='normal', activation='relu'))
+        model.add(Dense(8, kernel_initializer='normal', activation='relu'))
         model.add(Dense(6, kernel_initializer='normal', activation='relu'))
-        model.add(Dense(6, kernel_initializer='normal', activation='relu'))
+        model.add(Dense(4, kernel_initializer='normal', activation='linear'))
         model.add(Dense(1, kernel_initializer='normal'))
-        model.compile(loss='mean_absolute_percentage_error', optimizer='adam')
+        model.compile(loss='mean_squared_error', optimizer='adam')
         return model
