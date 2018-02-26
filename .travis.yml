@@ -18,7 +18,7 @@ before_script: echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 script:
   - "COMPOSE_FILE=ci ./cjl run --no-deps -d postgresql_db && ./cjl build $SERVICE && COMPOSE_FILE=ci ./cjl run --no-deps $CI_ENV $SERVICE"
 after_success:
-  - if [ $TRAVIS_BRANCH == "master" ]; then sudo apt-get update -y && sudo apt-get install software-properties-common -y && sudo apt-get install sshpass ansible -y && sudo bash -c "echo \"capstone.cyberjustice.ca ansible_host=capstone.cyberjustice.ca ansible_user=$CAPSTONE_SSH_USER ansible_ssh_user=$CAPSTONE_SSH_USER ansible_pass=$CAPSTONE_SSH_PASS ansible_ssh_pass=$CAPSTONE_SSH_PASS\" >> /etc/ansible/hosts"ansible all -u "$CAPSTONE_SSH_USER" -m shell -a "cd /home/$CAPSTONE_SSH_USER/JusticeAI && git pull && ./cjl down && ./cjl build --no-cache && ./cjl up -d"; fi;
+  - if [ $TRAVIS_BRANCH == "master" ]; then sudo apt-get update -y && sudo apt-get install software-properties-common -y && sudo apt-get install sshpass ansible -y && sudo bash -c "echo \"capstone.cyberjustice.ca ansible_host=capstone.cyberjustice.ca ansible_user=$CAPSTONE_SSH_USER ansible_ssh_user=$CAPSTONE_SSH_USER ansible_pass=$CAPSTONE_SSH_PASS ansible_ssh_pass=$CAPSTONE_SSH_PASS\" >> /etc/ansible/hosts"ansible all -u "$CAPSTONE_SSH_USER" -m shell -a "cd /home/$CAPSTONE_SSH_USER/JusticeAI && echo '>>> Fetching latest commits on master <<<' && git pull && echo '>>> Removing running containers <<<' && ./cjl down && echo '>>> Removing all Docker images <<<' && ./cjl clean -y && echo '>>> Nuking the database <<<' && ./cjl reset-db -y && echo '>>> Rebuilding Docker images <<<' && ./cjl build --no-cache && echo '>>> Running new Docker images <<<' && ./cjl up -d && echo '>>> Successfully deployed Procezeus!'"; fi;
 
 
 
