@@ -496,23 +496,6 @@ class RegexLib:
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
-        ("tenant_lease_fixed", [
-            # FIXME
-            # re.compile(
-            #     r".+((bail.*(reconduit.*)?(terminant.*)?((\d+?\w*?\s+?|)(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)(\s+\d{2,4}|))((.+au|.*terminant).*(\d+?\w*?\s+?|)(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)(\s+\d{2,4}|))?)|(fixation\sde\sloyer))",
-            #     re.IGNORECASE
-            # )
-            re.compile(
-                r".+un bail " + \
-                __multiple_words(0, 8) + r"au loyer " + \
-                __multiple_words(0, 8) + r"mensuel de " + MONEY_REGEX,
-                re.IGNORECASE
-            ),
-            re.compile(
-                r".*bail valide.*loyer.*" + \
-                MONEY_REGEX + r"\spar mois",
-                re.IGNORECASE)
-        ], 'MONEY_REGEX'),
         ("tenant_lease_indeterminate", [
             re.compile(
                 r".+bail.+durée\sindéterminée",
@@ -590,13 +573,6 @@ class RegexLib:
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
-        ("tenant_rent_not_paid_less_3_weeks", [
-            re.compile(
-                r".+" + TENANT_REGEX + \
-                r".+pas.+retard.+(trois\ssemaines).+paiement.+loyer",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
         ("tenant_rent_not_paid_more_3_weeks", [
             re.compile(
                 r".+" + TENANT_REGEX + \
@@ -647,14 +623,6 @@ class RegexLib:
             re.compile(
                 r".+(,\s(violen(ce|t(e|é)?)(s)?|(l')?agressi(f|ve|vité)|mena(ce(s)?|çant(s)?)"
                                    r"|vulgaire|intimida(tion|nt)(s)?|hostile|inadéquat),)+",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
-        ("not_violent",[
-            re.compile(
-                r".+\sn('|e\s)" + __multiple_words(1, 5) +
-                                   r"(violen(ce|t(e|é)?)(s)?|(l')?agressi(f|ve|vité)|mena(ce(s)?|çant(s)?)"
-                                   r"|vulgaire|intimida(tion|nt)(s)?|hostile|inadéquat|abusi(ve|f)(s)?)",
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
