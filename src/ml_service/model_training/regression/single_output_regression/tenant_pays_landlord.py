@@ -29,7 +29,7 @@ class TenantPaysLandlord(AbstractRegressor):
                       for precedent in self.dataset])
         self.input_dimensions = len(X[0])
         regressor = KerasRegressor(
-            build_fn=self._nn_architecture, epochs=7500, batch_size=1024, verbose=1)
+            build_fn=self._nn_architecture, epochs=2000, batch_size=1024, verbose=0)
         scaler = StandardScaler()
         self.model = AbstractRegressor._create_pipeline(scaler, regressor)
         self.model.fit(X, Y)
