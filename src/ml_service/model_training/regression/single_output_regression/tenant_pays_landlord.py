@@ -4,7 +4,7 @@ from model_training.regression.single_output_regression.abstract_regressor impor
 from keras.wrappers.scikit_learn import KerasRegressor
 from sklearn.preprocessing import StandardScaler
 from keras.models import Sequential
-from keras.layers import Dense, Dropout
+from keras.layers import Dense
 
 """
     This regressor is used to determine how much money a tenant is
