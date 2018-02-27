@@ -4,7 +4,7 @@ from model_training.regression.single_output_regression.abstract_regressor impor
 from keras.wrappers.scikit_learn import KerasRegressor
 from sklearn.preprocessing import StandardScaler
 from keras.models import Sequential
-from keras.layers import Dense
+from keras.layers import Dense, Dropout
 
 """
     This regressor is used to determine how much money a tenant is
@@ -29,7 +29,7 @@ class TenantPaysLandlord(AbstractRegressor):
                       for precedent in self.dataset])
         self.input_dimensions = len(X[0])
         regressor = KerasRegressor(
-            build_fn=self._nn_architecture, epochs=100, batch_size=128, verbose=0)
+            build_fn=self._nn_architecture, epochs=7500, batch_size=1024, verbose=1)
         scaler = StandardScaler()
         self.model = AbstractRegressor._create_pipeline(scaler, regressor)
         self.model.fit(X, Y)
@@ -41,10 +41,13 @@ class TenantPaysLandlord(AbstractRegressor):
                     Defines Regressor architecture. To be used internally
                 """
         model = Sequential()
-        model.add(Dense(13, input_dim=self.input_dimensions,
+        model.add(Dense(128, input_dim=self.input_dimensions,
                         kernel_initializer='normal', activation='relu'))
-        model.add(Dense(6, kernel_initializer='normal', activation='relu'))
-        model.add(Dense(6, kernel_initializer='normal', activation='relu'))
+        model.add(Dense(128, kernel_initializer='normal', activation='relu'))
+        model.add(Dense(64, kernel_initializer='normal', activation='relu'))
+        model.add(Dense(64, kernel_initializer='normal', activation='relu'))
+        model.add(Dense(32, kernel_initializer='normal', activation='relu'))
+        model.add(Dense(32, kernel_initializer='normal', activation='relu'))
         model.add(Dense(1, kernel_initializer='normal'))
         model.compile(loss='mean_squared_error', optimizer='adam')
         return model
