@@ -12,7 +12,6 @@ from app import db
 # Conversation Handling
 ########################
 
-
 def get_conversation(conversation_id):
     """
     Returns a json representation of the Conversation
@@ -36,7 +35,8 @@ def init_conversation(name, person_type):
     if person_type.upper() not in PersonType.__members__:
         return abort(make_response(jsonify(message="Invalid person type provided"), 400))
 
-    conversation = Conversation(name=name, person_type=PersonType[person_type.upper()])
+    conversation = Conversation(name=name, person_type=PersonType[person_type.upper()],
+                                bot_state=BotState.DETERMINE_CLAIM_CATEGORY)
 
     # Persist new conversation to DB
     db.session.add(conversation)
@@ -102,6 +102,7 @@ def receive_message(conversation_id, message):
     enforce_possible_answer = False
 
     user_message = None
+    conversation_progress = 0
 
     # First message in the conversation
     if len(conversation.messages) == 0:
@@ -119,6 +120,7 @@ def receive_message(conversation_id, message):
         # Generate response text & optional parameters
         response = __generate_response(conversation, user_message.text)
         response_text = response.get('response_text')
+        conversation_progress = response.get('conversation_progress')
         file_request = response.get('file_request')
         possible_answers = response.get('possible_answers')
 
@@ -144,7 +146,10 @@ def receive_message(conversation_id, message):
     db.session.commit()
 
     # Build response dict
-    response_dict = {'conversation_id': conversation.id}
+    response_dict = {
+        'conversation_id': conversation.id,
+        'progress': conversation_progress
+    }
 
     if response_text is not None:
         response_dict['message'] = response_text
@@ -267,20 +272,20 @@ def __generate_response(conversation, message):
 
     if __has_just_accepted_disclaimer(conversation):
         return __ask_initial_question(conversation)
-    elif conversation.claim_category is None:
+    elif conversation.bot_state is BotState.DETERMINE_CLAIM_CATEGORY:
         nlp_request = nlp_service.claim_category(conversation.id, message)
 
         # Refresh the session, since nlp_service may have modified conversation
         db.session.refresh(conversation)
 
-        return {'response_text': nlp_request['message']}
-    elif conversation.current_fact is not None:
+        return {'response_text': nlp_request['message'], 'conversation_progress': nlp_request['conversation_progress']}
+    else:
         nlp_request = nlp_service.submit_message(conversation.id, message)
 
         # Refresh the session, since nlp_service may have modified conversation
         db.session.refresh(conversation)
 
-        return {'response_text': nlp_request['message']}
+        return {'response_text': nlp_request['message'], 'conversation_progress': nlp_request['conversation_progress']}
 
 
 def __ask_initial_question(conversation):

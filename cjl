@@ -7,27 +7,46 @@ fi
 
 # Destroy all containers/images
 if [ "$1" == "clean" ]; then
-  echo "WARNING: This command is destructive. It removes all containers and images installed on your local machine."
-  read -r -p "Are you SURE you want to continue? [y/N]" clean_confirmation
-  if [[ $clean_confirmation =~ ^(y|Y)$ ]]; then
-
+  function clean {
     echo "  >>> Killing all docker containers <<<" && echo "" && docker ps -qa | xargs docker kill && echo ""
     echo "  >>> Removing all stopped containers <<<" && echo "" && docker ps -qa | xargs docker rm -v && echo ""
     echo "  >>> Removing all images <<<" && echo "" && docker images -qa | xargs docker rmi && echo ""
+  }
 
+  if [ "$2" != "-y" ]; then
+    echo "WARNING: This command is destructive. It removes all containers and images installed on your local machine."
+    read -r -p "Are you SURE you want to continue? [y/N]" clean_confirmation
+    if [[ $clean_confirmation =~ ^(y|Y)$ ]]; then
+      clean
+      clean
+    else
+      echo "Clean aborted."
+    fi
   else
-    echo "Clean aborted."
+      clean
+      clean
   fi
   exit
 fi
 
+# Destroy the database
 if [ "$1" == "reset-db" ]; then
-  echo "WARNING: This command is destructive. It removes all database data on your local machine."
-  read -r -p "Are you SURE you want to continue? [y/N]" clean_confirmation
-  if [[ $clean_confirmation =~ ^(y|Y)$ ]]; then
-    sudo rm -rf ~/.procezeus/*
+  function reset_db {
+    echo "  >>> Removing all database data <<<" && \
+      sudo rm -rf ~/.procezeus/* && \
+      echo "  >>> Database removed <<<"
+  }
+
+  if [ "$2" != "-y" ]; then
+    echo "WARNING: This command is destructive. It removes all database data on your local machine."
+    read -r -p "Are you SURE you want to continue? [y/N]" clean_confirmation
+    if [[ $clean_confirmation =~ ^(y|Y)$ ]]; then
+      reset_db
+    else
+      echo "Database reset aborted."
+    fi
   else
-    echo "Reset aborted."
+      reset_db
   fi
   exit
 fi

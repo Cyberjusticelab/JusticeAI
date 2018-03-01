@@ -19,5 +19,11 @@ class Path:
     __rel_path = r'data/cache/'
     cache_directory = os.path.join(root_directory, __rel_path)
 
+    __rel_path = r'data/test/'
+    test_directory = os.path.join(root_directory, __rel_path)
+
     __rel_path = r'data/test/mock_precedent/'
-    test_data_directory = os.path.join(root_directory, __rel_path)
+    test_mock_precedent_directory = os.path.join(root_directory, __rel_path)
+
+    __rel_path = r'data/test/regex/'
+    test_regex_directory = os.path.join(root_directory, __rel_path)

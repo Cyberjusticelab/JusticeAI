@@ -15,5 +15,5 @@ server.log
 /data/cluster/decision/*.txt
 /data/cluster/demand/*.txt
 /**/**.csv
-**.csv
-
+/untagged_sent.txt
+!/data/binary/regressor_means.bin

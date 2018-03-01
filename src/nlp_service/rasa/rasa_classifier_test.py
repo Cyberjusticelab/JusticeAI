@@ -14,12 +14,20 @@ class TestRasaClassifier(unittest.TestCase):
     def test_instantiate(self):
         self.assertIsNotNone(self.rasaClassifier)
 
-    def test_classify_claimcategory(self):
-        classifier_output = self.rasaClassifier.classify_problem_category("I am being kicked out.", "TENANT")
+    def test_classify_claimcategory_tenant(self):
+        classifier_output = self.rasaClassifier.classify_problem_category("i am being kicked out", "TENANT")
+        self.assertIsNotNone(classifier_output)
+
+    def test_classify_claimcategory_landlord(self):
+        classifier_output = self.rasaClassifier.classify_problem_category("my tenant owes me rent money", "LANDLORD")
+        self.assertIsNotNone(classifier_output)
+
+    def test_classify_acknowledgement(self):
+        classifier_output = self.rasaClassifier.classify_acknowledgement("sure")
         self.assertIsNotNone(classifier_output)
 
     def test_extract_factentities(self):
-        classifier_output = self.rasaClassifier.classify_fact("apartment_impropre", "No")
+        classifier_output = self.rasaClassifier.classify_fact("apartment_dirty", "No")
         self.assertIsNotNone(classifier_output)
 
     def test_nonexistent_factentities(self):

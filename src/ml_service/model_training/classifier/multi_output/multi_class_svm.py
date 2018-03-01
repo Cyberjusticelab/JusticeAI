@@ -9,6 +9,7 @@ from util.log import Log
 from feature_extraction.post_processing.regex.regex_tagger import TagPrecedents
 from sklearn.preprocessing import binarize
 import csv
+import math
 
 
 class MultiClassSVM:
@@ -30,8 +31,9 @@ class MultiClassSVM:
         self.model = None
         self.mlb = None
         self.classifier_labels = None
+        self.label_column_index = None
 
-    def display_weights(self):
+    def weights_to_csv(self):
         """
         Writes all the weights to .csv format
         1) get the facts
@@ -61,8 +63,60 @@ class MultiClassSVM:
                 for j in range(len(weights)):
                     outcome_list.append(weights[j])
                 writer.writerow(outcome_list)
-
         Log.write('Weights saved to .csv')
+
+    def get_ordered_weights(self):
+        """
+        Sort all the facts by importance for every outcome
+
+        1) If the classifier model isn't loaded then load it
+        2) Load labels of the outcomes
+        3) obtain labels of every fact
+        4) for every estimator append all it's fact weights
+        5) sort the fact in descending order by weight
+        6) do not append facts with weight of 0
+        7) threshold facts by using the logarithmic power of the mean
+           7.1) any number with greater or equal power of magnitude is important
+           7.2) other numbers make a fact unimportant
+
+        :return: {
+                    'additional_indemnity_money': {
+                        'important_facts': [
+                            'asker_is_landlord',
+                            'tenant_rent_not_paid_more_3_weeks',
+                            'tenant_owes_rent',
+                            'tenant_left_without_paying',
+                            'not_violent'
+                        ],
+                        'additional_facts': [
+                            ...
+                        ]
+                    }
+                }
+        """
+        if self.model is None:
+            self.model = Load.load_binary('multi_class_svm_model.bin')
+            self.classifier_labels = Load.load_binary('classifier_labels.bin')
+            self.label_column_index = TagPrecedents().get_intent_index()
+        weight_dict = {}
+
+        for i in range(len(self.model.estimators_)):
+            outcome_list = []
+            estimator = self.model.estimators_[i]
+            weights = estimator.coef_[0]
+            for j in range(len(weights)):
+                if weights[j] > 0:
+                    outcome_list.append([self.label_column_index['facts_vector'][j][1], weights[j]])
+
+            outcome_list.sort(key=lambda x: abs(x[1]), reverse=True)
+            weights = [abs(x[1]) for x in outcome_list]
+            mean_power = math.log10(np.mean(np.array(weights)))
+            important_facts = [x[0] for x in outcome_list if math.log10(abs(x[1])) >= mean_power]
+            additional_facts = [x[0] for x in outcome_list if math.log10(abs(x[1])) < mean_power]
+            weight_dict[self.classifier_labels[i][0]] = {}
+            weight_dict[self.classifier_labels[i][0]]['important_facts'] = important_facts
+            weight_dict[self.classifier_labels[i][0]]['additional_facts'] = additional_facts
+        return weight_dict
 
     def __test(self, x_test, y_test):
         """

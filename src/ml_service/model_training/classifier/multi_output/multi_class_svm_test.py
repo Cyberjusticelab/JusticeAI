@@ -63,4 +63,58 @@ class TestLinearSvc(unittest.TestCase):
 
     def test_get_weights(self):
         linear_svc = MultiClassSVM(self.data)
-        self.assertIsNone(linear_svc.display_weights())
+        self.assertIsNone(linear_svc.weights_to_csv())
+
+    def test_get_ordered_weights(self):
+        expected_results = {
+            'additional_indemnity_money': {
+                'additional_facts': [
+                    'asker_is_tenant',
+                    'bothers_others'
+                ],
+                'important_facts': [
+                    'asker_is_landlord'
+                ]
+            }
+        }
+
+        class MockClassifierModel:
+            def __init__(self):
+                self.estimators_ = []
+
+        class MockEstimator:
+            def __init__(self):
+                self.coef_ = np.array([[
+                    -1.52808095e-05,  1.99961642e+00,  1.85962826e-04,  3.77475828e-15,
+                     -3.83904518e-05, -4.15205874e-04
+                ]])
+        mock_classifier_labels = {
+            0: ('additional_indemnity_money', 'int'),
+        }
+
+        mock_label_column_index = {
+             'outcomes_vector': [
+                 (0, 'additional_indemnity_money', 'int'),
+                 (1, 'declares_housing_inhabitable', 'bool'),
+                 (2, 'declares_resiliation_is_correct', 'bool')
+                 ],
+            'facts_vector': [
+                (0, 'apartment_dirty', 'bool'),
+                (1, 'asker_is_landlord', 'bool'),
+                (2, 'asker_is_tenant', 'bool'),
+                (3, 'bothers_others', 'bool'),
+                (4, 'disrespect_previous_judgement', 'bool'),
+                (5, 'landlord_inspector_fees', 'int')
+            ]
+        }
+        mock_estimator = MockEstimator()
+        mock_classifier_model = MockClassifierModel()
+        mock_classifier_model.estimators_.append(mock_estimator)
+
+        linear_svc = MultiClassSVM(None)
+        linear_svc.model = mock_classifier_model
+        linear_svc.classifier_labels = mock_classifier_labels
+        linear_svc.label_column_index = mock_label_column_index
+
+        result = linear_svc.get_ordered_weights()
+        self.assertEqual(result, expected_results)

@@ -1,8 +1,44 @@
 import requests
 
-from postgresql_db.models import Fact, FactEntity, PersonType
+from postgresql_db.models import PersonType, FactType
 
+# Logging
+import logging
+import sys
+
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+log = logging.getLogger(__name__)
+
+# ML Api Url
 ML_URL = "http://ml_service:3001"
+
+# Dict containing outcome fact mappings
+outcome_facts = {}
+
+# Dict containing antifact mappings
+anti_facts = {}
+
+
+def get_outcome_facts():
+    """
+    :return: Dict of outcomes with relevant facts from the ML endpoint
+    """
+    global outcome_facts
+    if not outcome_facts:
+        outcome_facts = requests.get("{}/{}".format(ML_URL, "weights")).json()
+
+    return outcome_facts
+
+
+def get_anti_facts():
+    """
+    :return: Dict of antifacts from the ML endpoint.
+    """
+    global anti_facts
+    if not anti_facts:
+        anti_facts = requests.get("{}/{}".format(ML_URL, "antifacts")).json()
+
+    return anti_facts
 
 
 def submit_resolved_fact_list(conversation):
@@ -13,9 +49,11 @@ def submit_resolved_fact_list(conversation):
     :return: Outcomes vector from ML service
     """
 
+    fact_dict = generate_fact_dict(conversation)
+    log.debug("Submitting Resolved Fact Dict\n\tFact Dict: {}".format(fact_dict))
+
     req_dict = {
-        "demands": generate_demand_dict(),
-        "facts": generate_fact_dict(conversation)
+        "facts": fact_dict
     }
     res = requests.post("{}/{}".format(ML_URL, "predict"), json=req_dict)
     return res.json()
@@ -50,96 +88,6 @@ def extract_prediction(claim_category, ml_response):
     return resolved_outcomes
 
 
-def generate_demand_dict():
-    """
-    Generates demand dictionary with default values for ML service input
-    :return: Demand dictionary with default values
-    """
-
-    demand_dict = {
-        "demand_lease_modification": 0,
-        "demand_resiliation": 0,
-        "landlord_claim_interest_damage": 0,
-        "landlord_demand_access_rental": 0,
-        "landlord_demand_bank_fee": 0,
-        "landlord_demand_damage": 0,
-        "landlord_demand_legal_fees": 0,
-        "landlord_demand_retake_apartment": 0,
-        "landlord_demand_utility_fee": 0,
-        "landlord_fix_rent": 0,
-        "landlord_lease_termination": 0,
-        "landlord_money_cover_rent": 0,
-        "paid_judicial_fees": 0,
-        "tenant_claims_harassment": 0,
-        "tenant_cover_rent": 0,
-        "tenant_demands_decision_retraction": 0,
-        "tenant_demand_indemnity_Code_Civil": 0,
-        "tenant_demand_indemnity_damage": 0,
-        "tenant_demand_indemnity_judicial_fee": 0,
-        "tenant_demand_interest_damage": 0,
-        "tenant_demands_money": 0,
-        "tenant_demand_rent_decrease": 0,
-        "tenant_respect_of_contract": 0,
-        "tenant_eviction": 0
-    }
-    return demand_dict
-
-
-all_ml_facts = [
-    "absent",
-    "apartment_impropre",
-    "apartment_infestation",
-    "asker_is_landlord",
-    "asker_is_tenant",
-    "bothers_others",
-    "case_fee_reimbursement",
-    "disrespect_previous_judgement",
-    "incorrect_facts",
-    "landlord_inspector_fees",
-    "landlord_notifies_tenant_retake_apartment",
-    "landlord_pays_indemnity",
-    "landlord_prejudice_justified",
-    "landlord_relocation_indemnity_fees",
-    "landlord_rent_change",
-    "landlord_rent_change_doc_renseignements",
-    "landlord_rent_change_piece_justification",
-    "landlord_rent_change_receipts",
-    "landlord_retakes_apartment",
-    "landlord_retakes_apartment_indemnity",
-    "landlord_sends_demand_regie_logement",
-    "landlord_serious_prejudice",
-    "lease",
-    "proof_of_late",
-    "proof_of_revenu",
-    "rent_increased",
-    "tenant_bad_payment_habits",
-    "tenant_continuous_late_payment",
-    "tenant_damaged_rental",
-    "tenant_dead",
-    "tenant_declare_insalubre",
-    "tenant_financial_problem",
-    "tenant_group_responsability",
-    "tenant_individual_responsability",
-    "tenant_is_bothered",
-    "lack_of_proof",
-    "tenant_landlord_agreement",
-    "tenant_lease_fixed",
-    "tenant_lease_indeterminate",
-    "tenant_left_without_paying",
-    "tenant_monthly_payment",
-    "tenant_negligence",
-    "tenant_not_request_cancel_lease",
-    "tenant_owes_rent",
-    "tenant_refuses_retake_apartment",
-    "tenant_rent_not_paid_less_3_weeks",
-    "tenant_rent_not_paid_more_3_weeks",
-    "tenant_rent_paid_before_hearing",
-    "tenant_violence",
-    "tenant_withold_rent_without_permission",
-    "violent"
-]
-
-
 def generate_fact_dict(conversation):
     """
     Generates fact dictionary for ML service.
@@ -150,17 +98,18 @@ def generate_fact_dict(conversation):
 
     resolved_facts = {}
 
-    # Initialize expected facts with all false
-    for expected_fact in all_ml_facts:
-        resolved_facts[expected_fact] = False
-
     # Add all resolved facts
     for fact_entity in conversation.fact_entities:
         fact_entity_name = fact_entity.fact.name
-        if fact_entity.value == "true":
-            resolved_facts[fact_entity_name] = True
-        elif fact_entity.value == "false":
-            resolved_facts[fact_entity_name] = False
+        fact_entity_type = fact_entity.fact.type
+
+        if fact_entity_type == FactType.BOOLEAN:
+            if fact_entity.value == "true":
+                resolved_facts[fact_entity_name] = True
+            elif fact_entity.value == "false":
+                resolved_facts[fact_entity_name] = False
+        elif fact_entity_type == FactType.MONEY:
+            resolved_facts[fact_entity_name] = float(fact_entity.value)
 
     ############
     # Mappings #
@@ -174,28 +123,21 @@ def generate_fact_dict(conversation):
         resolved_facts['asker_is_landlord'] = False
         resolved_facts['asker_is_tenant'] = True
 
-    # Perform one to one mappings
-    resolved_facts['landlord_prejudice_justified'] = resolved_facts['landlord_serious_prejudice']
-    resolved_facts['violent'] = resolved_facts['tenant_violence']
-
-    resolved_facts['landlord_rent_change_piece_justification'] = resolved_facts[
-        'landlord_rent_change_doc_renseignements']
-    resolved_facts['landlord_rent_change_receipts'] = resolved_facts[
-        'landlord_rent_change_doc_renseignements']
-
-    # Perform mappings with dependencies
-    resolved_facts['tenant_lease_indeterminate'] = not resolved_facts['tenant_lease_fixed']
-    resolved_facts['lease'] = resolved_facts['tenant_lease_fixed']
-    resolved_facts['tenant_rent_not_paid_less_3_weeks'] = not resolved_facts['tenant_rent_not_paid_more_3_weeks']
-
-    # Type mappings
-    resolved_facts['tenant_owes_rent'] = int(resolved_facts['tenant_owes_rent'])
+    # Perform anti-fact mappings
+    anti_facts = get_anti_facts()
+    for fact in list(resolved_facts):  # This is done because a dict cannot be changed while iterating through it
+        if fact in anti_facts.keys():
+            anti_fact_key_name = anti_facts[fact]
+            resolved_facts[anti_fact_key_name] = not resolved_facts[fact]
+        elif fact in anti_facts.values():
+            anti_fact_key_name = [k for k, v in anti_facts.items() if v == fact][0]
+            resolved_facts[anti_fact_key_name] = not resolved_facts[fact]
 
     # Convert true and false to 1 and 0
     for fact_entity in resolved_facts:
-        if resolved_facts[fact_entity]:
+        if resolved_facts[fact_entity] is True:
             resolved_facts[fact_entity] = 1
-        else:
+        elif resolved_facts[fact_entity] is False:
             resolved_facts[fact_entity] = 0
 
     return resolved_facts

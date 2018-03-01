@@ -109,14 +109,17 @@ Provide the conversation_id and a message. Message should be empty string for fi
 
 **Content examples**
 
-Simple response containing a message. Messages may contain pipe characters (|) which indicate that a sentence should be split into separate conversation windows. Note that the first message will not contain a pipe character. Each subsequent sentence will begin with a pipe character if it is meant to be split.
+Simple response containing a message and conversation progress. Messages may contain pipe characters (|) which indicate that a sentence should be split into separate conversation windows. Note that the first message will not contain a pipe character. Each subsequent sentence will begin with a pipe character if it is meant to be split.
+
+Converation progress will be null at the beginning of the conversation, and if the user ends up asking a FAQ question (which have no progress). However, if the user asks a question that requires the bot to resolve facts, progress will indicate a percentage of how far along the conversation is to getting a prediction.
 
 ### Example 1:
 
 ```json
 {
     "conversation_id": 1,
-    "message": "Hello Tim Timmens!|What kind of problem are you having?"
+    "message": "Hello Tim Timmens!|What kind of problem are you having?",
+    "progress": null
 }
 ```
 
@@ -131,7 +134,8 @@ Message 2: What kind of problem are you having?
 ```json
 {
     "conversation_id": 5,
-    "message": "Oh I see you're having problems with lease termination!|I have a few questions for you.|Do you have a lease?"
+    "message": "Oh I see you're having problems with lease termination!|I have a few questions for you.|Do you have a lease?",
+    "progress": 0
 }
 ```
 
@@ -183,6 +187,7 @@ Gets the message history for a conversation
 ```json
 {
 	"claim_category": "NONPAYMENT",
+	"bot_state": "RESOLVING_FACTS",
 	"current_fact": {
 		"name": "landlord_retakes_apartment",
 		"summary": "Landlord intends to retake dwelling",
@@ -396,7 +401,7 @@ Removes a resolved fact from the conversation
 
 ---
 
-# Upload a file 
+# Upload a file
 
 Upload a file that serves as evidence for a particular conversation.
 
@@ -461,7 +466,7 @@ Gets a list of file metadata for a conversation
 			"type": "application/pdf",
 			"timestamp": "2017-10-24T00:01:30.000000+00:00"
 		}
-	]	
+	]
 }
 ```
 

@@ -7,7 +7,7 @@ class TestMain(unittest.TestCase):
 
     def test_command_line(self):
         raw_data_directory = Path.raw_data_directory
-        Path.raw_data_directory = Path.test_data_directory
+        Path.raw_data_directory = Path.test_mock_precedent_directory
 
         # preprocessing
         command_list = ["python3", "-pre", "10"]

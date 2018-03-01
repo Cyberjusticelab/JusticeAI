@@ -19,15 +19,14 @@ sem = threading.Semaphore()
 
 binary_names_dict = {
     'classifier_labels': ['https://capstone.cyberjustice.ca/data/bin/classifier_labels.bin', 638],
-    'fact_cluster': ['https://capstone.cyberjustice.ca/data/bin/fact_cluster.zip', 13337193],
-    'demand_cluster': ['https://capstone.cyberjustice.ca/data/bin/demand_cluster.zip', 1209757],
-    'multi_class_svm_model': ['https://capstone.cyberjustice.ca/data/bin/multi_class_svm_model.bin', 20774588],
-    'non-lem': ['https://capstone.cyberjustice.ca/data/frWac_non_lem_no_postag_no_phrase_200_skip_cut100.bin', 126052447],
-    'tenant_pays_landlord_regressor': ['https://capstone.cyberjustice.ca/data/bin/tenant_pays_landlord_regressor.bin', 36680],
-    'tenant_pays_landlord_scaler': ['https://capstone.cyberjustice.ca/data/bin/tenant_pays_landlord_scaler.bin', 1346],
+    'additional_indemnity_money_regressor': ['https://capstone.cyberjustice.ca/data/bin/additional_indemnity_money_regressor.bin', 54384],
+    'additional_indemnity_money_scaler': ['https://capstone.cyberjustice.ca/data/bin/additional_indemnity_money_scaler.bin', 1250],
+    'multi_class_svm_model': ['https://capstone.cyberjustice.ca/data/bin/multi_class_svm_model.bin', 20180973],
+    'tenant_pays_landlord_regressor': ['https://capstone.cyberjustice.ca/data/bin/tenant_pays_landlord_regressor.bin', 36728],
+    'tenant_pays_landlord_scaler': ['https://capstone.cyberjustice.ca/data/bin/tenant_pays_landlord_scaler.bin', 1250],
     'similarity_case_numbers': ['https://capstone.cyberjustice.ca/data/bin/similarity_case_numbers.bin', 999398],
-    'similarity_model': ['https://capstone.cyberjustice.ca/data/bin/similarity_model.bin', 34026746],
-    'similarity_scaler': ['https://capstone.cyberjustice.ca/data/bin/similarity_scaler.bin', 1682]
+    'similarity_model': ['https://capstone.cyberjustice.ca/data/bin/similarity_model.bin', 33353946],
+    'similarity_scaler': ['https://capstone.cyberjustice.ca/data/bin/similarity_scaler.bin', 1658]
 }
 
 

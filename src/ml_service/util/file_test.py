@@ -7,7 +7,7 @@ from util.constant import Path
 class TestStringMethods(unittest.TestCase):
     def test_binarize_model(self):
         binary_directory = Path.binary_directory
-        Path.binary_directory = Path.test_data_directory
+        Path.binary_directory = Path.test_mock_precedent_directory
 
         s = Save()
         model = {'key': 'value'}

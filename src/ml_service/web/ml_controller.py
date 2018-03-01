@@ -87,3 +87,28 @@ class MlController:
             formatted_precedents.append({"precedent": precedent_array[0].split(".")[0], "distance": precedent_array[1]})
 
         return formatted_precedents
+
+    @staticmethod
+    def get_weighted_facts():
+        """
+        :return:
+            {
+            'additional_indemnity_money': {
+                'important_facts': [
+                    ...
+                ],
+                'additional_facts': [
+                    ...
+                ]
+            }
+        """
+        return MlController.classifier_model.get_ordered_weights()
+
+    @staticmethod
+    def get_anti_facts():
+        return {
+            'tenant_individual_responsability': 'tenant_group_responsability',
+            'tenant_lease_fixed': 'tenant_lease_indeterminate',
+            'tenant_rent_not_paid_less_3_weeks': 'tenant_rent_not_paid_more_3_weeks',
+            'not_violent': 'violent'
+        }

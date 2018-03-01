@@ -17,7 +17,7 @@ def run(command_list, dataset):
     if CommandEnum.WEIGHTS in command_list:
         Log.write('Obtaining weights')
         svm = MultiClassSVM(None)
-        svm.display_weights()
+        svm.weights_to_csv()
 
     else:
         Log.write('Training SVM classifier')

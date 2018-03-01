@@ -237,12 +237,23 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
+                r".+menace " + \
+                __multiple_words(
+                    0, 6) + r"(sécurité des occupants|l'intégrité du logement)",
+                re.IGNORECASE
+            ),
+            re.compile(
                 r".+preuve.*logement.*" +
                 TENANT_REGEX + r".*est.*mauvais.*état",
                 re.IGNORECASE
             ),
             re.compile(
-                r".+((infestation(s)?|traitement)\s(soudaine et imprévue )?de (punaise(s)?|rat(s)?|fourmi(s)?|coquerelle(s)?|souri(s))|excrément(s)?)",
+                r".+((infestation(s)?|traitement)\s(soudaine et imprévue )?de " + __multiple_words(0,1) +
+                "(insecte(s)?|punaise(s)?|rat(s)?|fourmi(s)?|coquerelle(s)?|souri(s))|excrément(s)?)",
+                re.IGNORECASE
+            ),
+            re.compile(
+                r".+présence de punaise(s)? de lit",
                 re.IGNORECASE
             ),
             re.compile(
@@ -383,18 +394,6 @@ class RegexLib:
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
-        ("tenant_lease_fixed", [
-            re.compile(
-                r".+un bail " + \
-                __multiple_words(0, 8) + r"au loyer " + \
-                __multiple_words(0, 8) + r"mensuel de " + MONEY_REGEX,
-                re.IGNORECASE
-            ),
-            re.compile(
-                r".*bail valide.*loyer.*" + \
-                MONEY_REGEX + r"\spar mois",
-                re.IGNORECASE)
-        ], "MONEY_REGEX"),
         ("signed_proof_of_rent_debt", [
             re.compile(
                 r".+une reconnaissance de dette",
@@ -497,23 +496,6 @@ class RegexLib:
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
-        ("tenant_lease_fixed", [
-            # FIXME
-            # re.compile(
-            #     r".+((bail.*(reconduit.*)?(terminant.*)?((\d+?\w*?\s+?|)(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)(\s+\d{2,4}|))((.+au|.*terminant).*(\d+?\w*?\s+?|)(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)(\s+\d{2,4}|))?)|(fixation\sde\sloyer))",
-            #     re.IGNORECASE
-            # )
-            re.compile(
-                r".+un bail " + \
-                __multiple_words(0, 8) + r"au loyer " + \
-                __multiple_words(0, 8) + r"mensuel de " + MONEY_REGEX,
-                re.IGNORECASE
-            ),
-            re.compile(
-                r".*bail valide.*loyer.*" + \
-                MONEY_REGEX + r"\spar mois",
-                re.IGNORECASE)
-        ], 'MONEY_REGEX'),
         ("tenant_lease_indeterminate", [
             re.compile(
                 r".+bail.+durée\sindéterminée",
@@ -591,13 +573,6 @@ class RegexLib:
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
-        ("tenant_rent_not_paid_less_3_weeks", [
-            re.compile(
-                r".+" + TENANT_REGEX + \
-                r".+pas.+retard.+(trois\ssemaines).+paiement.+loyer",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
         ("tenant_rent_not_paid_more_3_weeks", [
             re.compile(
                 r".+" + TENANT_REGEX + \
@@ -620,16 +595,11 @@ class RegexLib:
             )
         ], "BOOLEAN"),
         ("violent", [
-            re.compile(
-                r".+violentée|violent(e)?|menaçant(e)?",
-                re.IGNORECASE
-            ),
-            re.compile(
-                r".+menace " + \
-                __multiple_words(
-                    0, 6) + r"(sécurité des occupants|l'intégrité du logement)",
-                re.IGNORECASE
-            ),
+            # TODO this is too vague, need to redo this
+            # re.compile(
+            #     r".+violentée|violent(e)?|menaçant(e)?",
+            #     re.IGNORECASE
+            # ),
             re.compile(
                 r".+((c|l)es cris(e|es)?|les hurlements|le tapage|les claquages de portes|les chicanes)",
                 re.IGNORECASE
@@ -653,14 +623,6 @@ class RegexLib:
             re.compile(
                 r".+(,\s(violen(ce|t(e|é)?)(s)?|(l')?agressi(f|ve|vité)|mena(ce(s)?|çant(s)?)"
                                    r"|vulgaire|intimida(tion|nt)(s)?|hostile|inadéquat),)+",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
-        ("not_violent",[
-            re.compile(
-                r".+\sn('|e\s)" + __multiple_words(1, 5) +
-                                   r"(violen(ce|t(e|é)?)(s)?|(l')?agressi(f|ve|vité)|mena(ce(s)?|çant(s)?)"
-                                   r"|vulgaire|intimida(tion|nt)(s)?|hostile|inadéquat)",
                 re.IGNORECASE
             )
         ], "BOOLEAN"),

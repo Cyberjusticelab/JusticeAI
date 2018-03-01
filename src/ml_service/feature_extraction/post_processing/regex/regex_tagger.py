@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import numpy
+import re
 from util.file import Save
 from util.log import Log
 from util.constant import Path
@@ -11,6 +12,7 @@ from feature_extraction.post_processing.regex.regex_lib import RegexLib
 
 class TagPrecedents:
     empty_line_length = 6
+    fact_match = re.compile('\[\d{0,3}\]')
 
     def __init__(self):
         self.precedent_vector = {}
@@ -20,6 +22,7 @@ class TagPrecedents:
         self.nb_text = 0
         self.regexes = RegexLib.model
         self.precedents_directory_path = Path.raw_data_directory
+        self.untagged_sent = []
 
     def get_intent_index(self):
         """
@@ -96,7 +99,7 @@ class TagPrecedents:
                 percent = float(self.nb_text / nb_files) * 100
                 if self.nb_text > nb_files:
                     break
-            stdout.write("\rPrecedents taged: %f " % percent)
+            stdout.write("\rPrecedents tagged: %f " % percent)
             stdout.flush()
 
             # ----------------------- 2 -----------------------------#
@@ -143,35 +146,43 @@ class TagPrecedents:
         text_tagged = False
         file_contents = file.read()
         statement_tagged = False
-        self.nb_lines += len(file_contents.split('\n'))
+        statement_list = re.split(TagPrecedents.fact_match, file_contents)
+        self.nb_lines += len(statement_list)
+        for j in range(len(statement_list)):
+            # ----------------------- 2 -----------------------------#
+            for i, (_, regex_array, regex_type) in enumerate(self.regexes["regex_facts"]):
+                match = EntityExtraction.match_any_regex(statement_list[j], regex_array, regex_type)
+                if match[0]:
+                    facts_vector[i] = match[1]
+                    statement_tagged = True
+                    text_tagged = True
 
-        # ----------------------- 2 -----------------------------#
-        for i, (_, regex_array, regex_type) in enumerate(self.regexes["regex_facts"]):
-            match = EntityExtraction.match_any_regex(file_contents, regex_array, regex_type)
-            if match[0]:
-                facts_vector[i] = match[1]
-                statement_tagged = True
-                text_tagged = True
+            # ----------------------- 3 -----------------------------#
+            for i, (_, regex_array, regex_type) in enumerate(self.regexes["regex_demands"]):
+                match = EntityExtraction.match_any_regex(statement_list[j], regex_array, regex_type)
+                if match[0]:
+                    demands_vector[i] = match[1]
+                    statement_tagged = True
+                    text_tagged = True
 
-        # ----------------------- 3 -----------------------------#
-        for i, (_, regex_array, regex_type) in enumerate(self.regexes["regex_demands"]):
-            match = EntityExtraction.match_any_regex(file_contents, regex_array, regex_type)
-            if match[0]:
-                demands_vector[i] = match[1]
-                statement_tagged = True
-                text_tagged = True
+            # ----------------------- 4 -----------------------------#
+            for i, (_, regex_array, regex_type) in enumerate(self.regexes["regex_outcomes"]):
+                match = EntityExtraction.match_any_regex(statement_list[j], regex_array, regex_type)
+                if match[0]:
+                    outcomes_vector[i] = match[1]
+                    statement_tagged = True
+                    text_tagged = True
 
-        # ----------------------- 4 -----------------------------#
-        for i, (_, regex_array, regex_type) in enumerate(self.regexes["regex_outcomes"]):
-            match = EntityExtraction.match_any_regex(file_contents, regex_array, regex_type)
-            if match[0]:
-                outcomes_vector[i] = match[1]
-                statement_tagged = True
-                text_tagged = True
+            # ----------------------- 5 -----------------------------#
+            if statement_tagged:
+                self.statements_tagged += 1
+            elif j == 0:
+                pass
+            elif "No dossier" in statement_list[j]:
+                pass
+            else:
+                self.untagged_sent.append(statement_list[j])
 
-        # ----------------------- 5 -----------------------------#
-        if statement_tagged:
-            self.statements_tagged += 1
         file.close()
         if text_tagged:
             self.text_tagged += 1
@@ -183,18 +194,19 @@ class TagPrecedents:
             'outcomes_vector': outcomes_vector
         }
 
-    def __ignore_line(self, line):
+    def untagged_sentences_to_text(self):
         """
-        Verifies if we should ignore line from total count
-        Add constraints to make covered lines more realistic
-        :param line: String
-        :return: Boolean
+        Writes untagged sentences to text file for later review
+
+        :return: None
         """
-        if len(line) < self.empty_line_length:
-            return True
-        elif 'No dossier' in line:
-            return True
-        return False
+        sentence_set = set(self.untagged_sent)
+        sentence_list = list(sentence_set)
+        sentence_file = open('untagged_sent.txt', 'w')
+        sentence_file.truncate()
+        for sentence in sentence_list:
+            sentence_file.writelines(sentence)
+        sentence_file.close()
 
 
 def run(nb_files=-1):
@@ -225,3 +237,5 @@ def run(nb_files=-1):
         total_fact = len([1 for val in precedent_vector.values() if val['outcomes_vector'][i] != 0])
         Log.write("Total precedents with {:41} : {}".format(indexes['outcomes_vector'][i][1], total_fact))
     Log.write("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+    Log.write("Saving untagged sentences to text file")
+    tag.untagged_sentences_to_text()
