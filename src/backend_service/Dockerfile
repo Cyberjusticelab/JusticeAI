@@ -17,4 +17,4 @@ COPY . .
 
 WORKDIR /usr/src/app/src/backend_service
 
-CMD [ "gunicorn", "-w 3", "-b 0.0.0.0:3003", "app:app" ]
+CMD [ "python", "-m", "flask", "run", "--host", "0.0.0.0", "-p", "3003" ]
