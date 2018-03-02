@@ -99,7 +99,7 @@ class TagPrecedents:
                 percent = float(self.nb_text / nb_files) * 100
                 if self.nb_text > nb_files:
                     break
-            stdout.write("\rPrecedents taged: %f " % percent)
+            stdout.write("\rPrecedents tagged: %f " % percent)
             stdout.flush()
 
             # ----------------------- 2 -----------------------------#
