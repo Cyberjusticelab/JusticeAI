@@ -2,7 +2,7 @@ import json
 from flask import jsonify, abort, make_response
 
 from postgresql_db.models import *
-from services import nlp_service, file_service
+from services import nlp_service, file_service, task_service
 from services.static_strings import StaticStrings
 
 from app import db
@@ -225,6 +225,11 @@ def upload_file(conversation_id, file):
         abort(make_response(jsonify(message="No file selected"), 400))
 
     if file_service.is_accepted_format(file):
+
+        task_service.ocr_extract_text(file)
+        # TODO: Evaluate whether commiting the file to DB
+        # makes sense once OCR is complete fully integrated
+
         # Create the file and commit it to generate id
         new_file = File(name=file_service.sanitize_name(file), type=file.content_type)
         conversation.files.append(new_file)

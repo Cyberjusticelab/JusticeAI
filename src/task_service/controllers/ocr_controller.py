@@ -1,21 +1,10 @@
 from flask import jsonify, abort, make_response
 import base64
 
-# Logging
-import logging
-import sys
-
 import pytesseract
 import cv2
 import numpy as np
-
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
-log = logging.getLogger(__name__)
-
-
-SUPPORTED_IMAGE_DATA_FORMATS = [
-    b'data:image/png;base64,'
-]
+import io
 
 # This is the height of the image used to align the document
 # A lower value is faster to compute but less accurate than a higher value
@@ -25,11 +14,11 @@ ALIGNMENT_RESIZE_HEIGHT = 500
 ALIGNMENT_PERCENT_AREA_DOCUMENT_MUST_COVER = 0.25
 
 
-def extract_text(image_data):
+def extract_text(file_storage):
     # TODO: document controller method
     """
     """
-    img = _get_image_from_data(image_data)
+    img = _get_image_from_file_storage(file_storage)
     img = _align_document_from_img(img)
     if img.any():
         text = _get_string_from_np_img(img)
@@ -40,27 +29,16 @@ def extract_text(image_data):
 
 
 def _get_image_from_file(file_path):
-    return cv2.imread(file_path)
+    return cv2.imread(file_path, 0) # 0 indicates grayscale
 
 
-def _get_image_from_data(data):
+def _get_image_from_file_storage(file_storage):
     '''
-    Although the method is meant to operate on base64-encoded png image data as bytes, it will attempt to convert the data given to it to this format.
-
-    Currently, the only supported image data type is 'data:image/png,base64,'
+    Please refer to backend_service's conversation_controller.upload_file for supported image formats.
     '''
-    if isinstance(data, str):
-        data = data.encode('utf-8')
-    if data.startswith(b'data:'):
-        for supported_format in SUPPORTED_IMAGE_DATA_FORMATS:
-            if data.startswith(supported_format):
-                data = data[len(supported_format):]
-                break
-        if data.startswith(b'data:'):
-            return None
-
-    data = base64.b64decode(data)
-    np_data = np.fromstring(data, np.uint8)
+    in_memory_file = io.BytesIO()
+    file_storage.save(in_memory_file)
+    np_data = np.fromstring(in_memory_file.getvalue(), dtype=np.uint8)
     return cv2.imdecode(np_data, 0) # 0 indicates grayscale
 
 
@@ -71,10 +49,6 @@ def _get_string_from_np_img(np_img):
 def _resize(img, height):
     ratio = height / img.shape[0]
     return cv2.resize(img, (int(ratio * img.shape[1]), height))
-
-
-def _convert_to_grascale(img):
-    return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
 
 def _filter_blur(img):
@@ -173,7 +147,6 @@ def _get_transformed_dimensions_of_tilted_document(corners):
 def _align_document_from_img(img):
     original_height, original_width = _get_img_dimensions(img)
     resized_img = _resize(img, ALIGNMENT_RESIZE_HEIGHT)
-    resized_img = _convert_to_grascale(resized_img)
     resized_img = _binarize(resized_img)
 
     initial_corners = _find_document_corners(resized_img)
@@ -190,5 +163,4 @@ def _align_document_from_img(img):
 if __name__ == '__main__':
     original_img = _get_image_from_file('/home/lancelafontaine/repos/JusticeAI/src/task_service/test/ocr/images/lease_tilted.jpg')
     new_image = _align_document_from_img(original_img)
-    new_image = _convert_to_grascale(new_image)
     cv2.imwrite("output.png", new_image)
