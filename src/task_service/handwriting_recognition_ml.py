@@ -61,17 +61,17 @@ def norm_input(x): return (x-mean_px)/std_px
 def create_model():
     model = Sequential([
         Lambda(norm_input, input_shape=(1,28,28), output_shape=(1,28,28)),
-        Conv2D(32, (3,3)),
+        Conv2D(32, (3,3), data_format='channels_first'),
         LeakyReLU(),
         BatchNormalization(axis=1),
-        Conv2D(32, (3,3)),
+        Conv2D(32, (3,3), data_format='channels_first'),
         LeakyReLU(),
         MaxPooling2D(),
         BatchNormalization(axis=1),
-        Conv2D(64, (3,3)),
+        Conv2D(64, (3,3), data_format='channels_first'),
         LeakyReLU(),
         BatchNormalization(axis=1),
-        Conv2D(64, (3,3)),
+        Conv2D(64, (3,3), data_format='channels_first'),
         LeakyReLU(),
         MaxPooling2D(),
         Flatten(),
@@ -100,6 +100,7 @@ models.append(create_model())
 eval_batch_size = 512
 num_iterations = 1
 num_epochs = 1
+weights_epoch = 0
 
 for iteration in range(num_iterations):
     cur_epoch = (iteration+1)*num_epochs + weights_epoch
