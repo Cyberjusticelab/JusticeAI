@@ -1,0 +1,7 @@
+CONDAMNE la locataire à payer au locateur la somme de 750 $, plus les frais judiciaires de 72 $
+
+payer au locateur les frais judiciaires de 80 $;
+
+CONDAMNE les locataires à payer au locateur la somme de 1 800 $, le tout avec les intérêts au taux légal et l'indemnité additionnelle prévue à l'article 1619 C.c.Q., à compter du 25 février 2015 sur le montant de 600 $, et, sur le solde, à compter de la date d'échéance de chaque loyer, plus les frais judiciaires et de signification de 81 $
+
+expected_match = 72 $,80 $,81 $
