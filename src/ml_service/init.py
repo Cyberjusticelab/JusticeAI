@@ -24,9 +24,9 @@ binary_names_dict = {
     'multi_class_svm_model': ['https://capstone.cyberjustice.ca/data/bin/multi_class_svm_model.bin', 20180973],
     'tenant_pays_landlord_regressor': ['https://capstone.cyberjustice.ca/data/bin/tenant_pays_landlord_regressor.bin', 478584],
     'tenant_pays_landlord_scaler': ['https://capstone.cyberjustice.ca/data/bin/tenant_pays_landlord_scaler.bin', 1250],
-    'similarity_case_numbers': ['https://capstone.cyberjustice.ca/data/bin/similarity_case_numbers.bin', 999398],
-    'similarity_model': ['https://capstone.cyberjustice.ca/data/bin/similarity_model.bin', 33353946],
-    'similarity_scaler': ['https://capstone.cyberjustice.ca/data/bin/similarity_scaler.bin', 1658]
+    'similarity_case_numbers': ['https://capstone.cyberjustice.ca/data/bin/similarity_case_numbers.bin', 999347],
+    'similarity_model': ['https://capstone.cyberjustice.ca/data/bin/similarity_model.bin', 31334058],
+    'similarity_scaler': ['https://capstone.cyberjustice.ca/data/bin/similarity_scaler.bin', 1586]
 }
 
 
