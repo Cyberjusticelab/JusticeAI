@@ -15,15 +15,14 @@ db = database.connect(app, 'postgres', os.environ['POSTGRES_PASSWORD'], 'postgre
 
 """
 These functions establishes HTTP routes for the core functionality of the src/task_service/controllers/ocrController.py
-The core functionality of classify_claim_category and classify_fact_value are explained further in the file mentioned above
+The core functionality of ocr/extract_text are explained further in the file mentioned above
 """
 
 
 @app.route("/ocr/extract_text", methods=['POST'])
 def extract_text():
-    request_data = request.get_json()
-    if request_data and 'conversation_id' in request_data and 'image_data' in request_data:
-        return ocr_controller.extract_text(request_data['conversation_id'], request_data['image_data'])
-    return abort(make_response(jsonify(message="JSON must contain 'conversation_id' and 'image_data' keys."), 422))
+    if 'file' not in request.files:
+        abort(make_response(jsonify(message="No file provided"), 400))
+    return ocr_controller.extract_text(request.files['file'])
 
 
