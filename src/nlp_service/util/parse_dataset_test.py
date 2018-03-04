@@ -123,7 +123,7 @@ i don't owe my landlord any (money)
              },
             {
                 'intent': 'false',
-                'text': "i don't owe my landlord any money    ",
+                'text': "i don't owe my landlord any money",
                 'entities': [
                     {
                         'extractor': 'ner_duckling',
