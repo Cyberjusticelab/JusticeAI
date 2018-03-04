@@ -4,7 +4,7 @@ services:
   ml_service:
     ports:
       - 3001:3001
-    command: gunicorn -w 3 --log-level DEBUG -b 0.0.0.0:3001 app:app
+    command: python -m flask run --host 0.0.0.0 -p 3001
   nlp_service:
     ports:
       - 3002:3002
@@ -14,7 +14,7 @@ services:
   backend_service:
     ports:
       - 3003:3003
-    command: gunicorn -w 3 --log-level DEBUG -b 0.0.0.0:3003 app:app
+    command: python -m flask run --host 0.0.0.0 -p 3003
     environment:
       POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
   task_service:
