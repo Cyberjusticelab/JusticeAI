@@ -19,7 +19,7 @@ sem = threading.Semaphore()
 
 binary_names_dict = {
     'classifier_labels': ['https://capstone.cyberjustice.ca/data/bin/classifier_labels.bin', 638],
-    'additional_indemnity_money_regressor': ['https://capstone.cyberjustice.ca/data/bin/additional_indemnity_money_regressor.bin', 54384],
+    'additional_indemnity_money_regressor': ['https://capstone.cyberjustice.ca/data/bin/additional_indemnity_money_regressor.bin', 478368],
     'additional_indemnity_money_scaler': ['https://capstone.cyberjustice.ca/data/bin/additional_indemnity_money_scaler.bin', 1250],
     'multi_class_svm_model': ['https://capstone.cyberjustice.ca/data/bin/multi_class_svm_model.bin', 20180973],
     'tenant_pays_landlord_regressor': ['https://capstone.cyberjustice.ca/data/bin/tenant_pays_landlord_regressor.bin', 478584],
