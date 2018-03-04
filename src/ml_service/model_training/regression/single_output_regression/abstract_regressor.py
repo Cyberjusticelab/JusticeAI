@@ -10,7 +10,7 @@ from util.log import Log
 
 class AbstractRegressor:
 
-    def __init__(self, regressor_name, dataset = None, outcome_index = 0):
+    def __init__(self, regressor_name, dataset=None, outcome_index=0):
         """
         Constructor
         :param data_set: [{
@@ -109,7 +109,7 @@ class AbstractRegressor:
         X = np.array([precedent['facts_vector'] for precedent in self.dataset])
         y_pred = self.model.predict(X)
         y_true = np.array([precedent['outcomes_vector'][self.outcome_index]
-                      for precedent in self.dataset])
+                           for precedent in self.dataset])
         r2 = metrics.r2_score(y_true, y_pred)
         variance = metrics.explained_variance_score(y_true, y_pred)
         mean_abs_error = metrics.mean_absolute_error(y_true, y_pred)

@@ -19,7 +19,7 @@ my landlord increased my rent by ($500)
 i owe my landlord (40 dollars)
 
 [common_examples: false]
-i don't owe my landlord any (money)    
+i don't owe my landlord any (money)
     """
 
     def test_find_meta_characters(self):

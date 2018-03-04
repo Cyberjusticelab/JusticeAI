@@ -85,19 +85,19 @@ class TestLinearSvc(unittest.TestCase):
         class MockEstimator:
             def __init__(self):
                 self.coef_ = np.array([[
-                    -1.52808095e-05,  1.99961642e+00,  1.85962826e-04,  3.77475828e-15,
-                     -3.83904518e-05, -4.15205874e-04
+                    -1.52808095e-05, 1.99961642e+00, 1.85962826e-04, 3.77475828e-15,
+                    -3.83904518e-05, -4.15205874e-04
                 ]])
         mock_classifier_labels = {
             0: ('additional_indemnity_money', 'int'),
         }
 
         mock_label_column_index = {
-             'outcomes_vector': [
-                 (0, 'additional_indemnity_money', 'int'),
-                 (1, 'declares_housing_inhabitable', 'bool'),
-                 (2, 'declares_resiliation_is_correct', 'bool')
-                 ],
+            'outcomes_vector': [
+                (0, 'additional_indemnity_money', 'int'),
+                (1, 'declares_housing_inhabitable', 'bool'),
+                (2, 'declares_resiliation_is_correct', 'bool')
+            ],
             'facts_vector': [
                 (0, 'apartment_dirty', 'bool'),
                 (1, 'asker_is_landlord', 'bool'),

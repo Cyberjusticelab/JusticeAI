@@ -212,7 +212,7 @@ class RegexLib:
         ], "BOOLEAN"),
         ("case_fee_reimbursement", [
             re.compile(
-                r".+remboursement.+frais\sjudiciaires.+" + \
+                r".+remboursement.+frais\sjudiciaires.+" +
                 MONEY_REGEX,
                 re.IGNORECASE
             )
@@ -237,7 +237,7 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
-                r".+menace " + \
+                r".+menace " +
                 __multiple_words(
                     0, 6) + r"(sécurité des occupants|l'intégrité du logement)",
                 re.IGNORECASE
@@ -248,7 +248,7 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
-                r".+((infestation(s)?|traitement)\s(soudaine et imprévue )?de " + __multiple_words(0,1) +
+                r".+((infestation(s)?|traitement)\s(soudaine et imprévue )?de " + __multiple_words(0, 1) +
                 "(insecte(s)?|punaise(s)?|rat(s)?|fourmi(s)?|coquerelle(s)?|souri(s))|excrément(s)?)",
                 re.IGNORECASE
             ),
@@ -275,7 +275,7 @@ class RegexLib:
         ], "BOOLEAN"),
         ("bothers_others", [
             re.compile(
-                r".+" + TENANT_REGEX + \
+                r".+" + TENANT_REGEX +
                 r" trouble(nt|) la jouissance normale des lieux loués",
                 re.IGNORECASE
             ),
@@ -288,7 +288,7 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
-                r".+" + TENANT_REGEX + \
+                r".+" + TENANT_REGEX +
                 r" trouble(nt|) la jouissance",
                 re.IGNORECASE
             )
@@ -299,7 +299,7 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
-                r".+pas respecté l'ordonnance de payer " + \
+                r".+pas respecté l'ordonnance de payer " +
                 __multiple_words(0, 4) + r"loyer",
                 re.IGNORECASE
             ),
@@ -308,7 +308,7 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
-                r".+" + TENANT_REGEX + r" " + \
+                r".+" + TENANT_REGEX + r" " +
                 __multiple_words(0, 3) + r"pas respecté l'ordonnance",
                 re.IGNORECASE
             )
@@ -326,7 +326,7 @@ class RegexLib:
         ], "MONEY_REGEX"),
         ("landlord_notifies_tenant_retake_apartment", [
             re.compile(
-                r".+" + LANDLORD_REGEX + r".+" + \
+                r".+" + LANDLORD_REGEX + r".+" +
                 TENANT_REGEX + r".+(reprendre|reprise).+logement",
                 re.IGNORECASE
             )
@@ -357,19 +357,19 @@ class RegexLib:
         ], "BOOLEAN"),
         ("landlord_retakes_apartment", [
             re.compile(
-                r".+" + LANDLORD_REGEX + \
+                r".+" + LANDLORD_REGEX +
                 r".+(reprendre|reprise)(.+logement)?",
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
         ("landlord_sends_demand_regie_logement", [
             re.compile(
-                r".+" + LANDLORD_REGEX + \
+                r".+" + LANDLORD_REGEX +
                 r".+demande.+ordonnance.+(Régie\sdu\slogement)",
                 re.IGNORECASE
             ),
             re.compile(
-                r".+" + LANDLORD_REGEX + \
+                r".+" + LANDLORD_REGEX +
                 r".+(produit|introduit|déposé|intention de faire|déposent).+demand(e|ent).+(Régie\sdu\slogement)",
                 re.IGNORECASE
             ),
@@ -380,12 +380,12 @@ class RegexLib:
         ], "BOOLEAN"),
         ("tenant_sends_demand_regie_logement", [
             re.compile(
-                TENANT_REGEX + r".+au " + LANDLORD_REGEX + \
+                TENANT_REGEX + r".+au " + LANDLORD_REGEX +
                 r" une mise en demeure.+(demanderait|demande).+Régie du logement",
                 re.IGNORECASE
             ),
             re.compile(
-                TENANT_REGEX + r" envoie une mise en demeure au " + LANDLORD_REGEX + \
+                TENANT_REGEX + r" envoie une mise en demeure au " + LANDLORD_REGEX +
                 r".+ (demanderait|demande) .+ Régie du logement",
                 re.IGNORECASE
             ),
@@ -420,7 +420,7 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
-                r".+" + TENANT_REGEX + \
+                r".+" + TENANT_REGEX +
                 r" paie(nt|) (\w+\s){0,4}loyer(s|) (\w+\s){0,4}en retard",
                 re.IGNORECASE
             ),
@@ -435,7 +435,7 @@ class RegexLib:
         ], "BOOLEAN"),
         ("tenant_damaged_rental", [
             re.compile(
-                r".+" + TENANT_REGEX + \
+                r".+" + TENANT_REGEX +
                 r" (a|ont) causé des dommages",
                 re.IGNORECASE
             ),
@@ -462,28 +462,28 @@ class RegexLib:
         ], "BOOLEAN"),
         ("tenant_dead", [
             re.compile(
-                r".+" + TENANT_REGEX + \
+                r".+" + TENANT_REGEX +
                 r" (est|sont) décédé(e|s|es)",
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
         ("tenant_financial_problem", [
             re.compile(
-                r".+(" + TENANT_REGEX + \
+                r".+(" + TENANT_REGEX +
                 r".+)?difficultés.+financières(.+" + TENANT_REGEX + r")?",
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
         ("tenant_group_responsability", [
             re.compile(
-                r".+bail.+(prévoit\spas).+" + TENANT_REGEX + \
+                r".+bail.+(prévoit\spas).+" + TENANT_REGEX +
                 r".+(solidairement\sresponsables).+" + LANDLORD_REGEX + r"",
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
         ("tenant_individual_responsability", [
             re.compile(
-                r".+bail.+(prévoit).+" + TENANT_REGEX + \
+                r".+bail.+(prévoit).+" + TENANT_REGEX +
                 r".+(solidairement\sresponsables).+" + LANDLORD_REGEX + r"",
                 re.IGNORECASE
             )
@@ -491,7 +491,7 @@ class RegexLib:
         ("tenant_is_bothered", [
             re.compile(
                 \
-                r".+(le|la|les) " + TENANT_REGEX + \
+                r".+(le|la|les) " + TENANT_REGEX +
                 r" (a|ont) subi(ent|) une perte de jouissance",
                 re.IGNORECASE
             )
@@ -504,23 +504,23 @@ class RegexLib:
         ], "BOOLEAN"),
         ("tenant_left_without_paying", [
             re.compile(
-                r".+suite au déguerpissement (des|de la|du) " + \
+                r".+suite au déguerpissement (des|de la|du) " +
                 TENANT_REGEX + r"",
                 re.IGNORECASE
             ),
             re.compile(
-                r".+" + TENANT_REGEX + r" " + \
-                __multiple_words(0, 6) + \
+                r".+" + TENANT_REGEX + r" " +
+                __multiple_words(0, 6) +
                 r"(a|ont|aurait|auraient) quitté le logement",
                 re.IGNORECASE
             ),
             re.compile(
-                r".+" + TENANT_REGEX + \
+                r".+" + TENANT_REGEX +
                 r" (a|ont|aurait|auraient) quitté les lieux loué",
                 re.IGNORECASE
             ),
             re.compile(
-                r".+" + TENANT_REGEX + \
+                r".+" + TENANT_REGEX +
                 r" (a|ont) déguerpi (du logement|des lieux loué)",
                 re.IGNORECASE
             ),
@@ -529,7 +529,7 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
-                r".+suite du (départ|déguerpissement) (de la|du|des) " + \
+                r".+suite du (départ|déguerpissement) (de la|du|des) " +
                 TENANT_REGEX,
                 re.IGNORECASE
             )
@@ -606,27 +606,27 @@ class RegexLib:
             ),
             re.compile(
                 r".+\s(subissait de la|victime(s)? de|sa|propos|(raison\s)?de la|comportement(s)?"
-                                   r"|montre|us(é|er) de|vivre dans la|langage|empreint(s)? de|parfois|est|très|en"
-                                   r"|échange(s)?|cause de|attitude|geste de|si|climat de|acte(s)? de|être|été"
-                                   r"|escalade de|reliées à|altercation(s)?(\sphysique(s)?)|étaient|avec|devenu"
-                                   r"|très|bâton|et|aurait|assez|façon|plus|bruit(s)?|manifestation(s)? (de)?"
-                                   r"|particulièrement|est un (homme|femme)|parole(s)?|coup(s)?|attitude) "
-                                   r"(violen(ce|t(e|é)?)(s)?|(l')?agressi(f|ve|vité)|mena(ce(s)?|çant(s)?)|vulgaire"
-                                   r"|intimida(tion|nt)(s)?|hostile|inadéquat)",
+                r"|montre|us(é|er) de|vivre dans la|langage|empreint(s)? de|parfois|est|très|en"
+                r"|échange(s)?|cause de|attitude|geste de|si|climat de|acte(s)? de|être|été"
+                r"|escalade de|reliées à|altercation(s)?(\sphysique(s)?)|étaient|avec|devenu"
+                r"|très|bâton|et|aurait|assez|façon|plus|bruit(s)?|manifestation(s)? (de)?"
+                r"|particulièrement|est un (homme|femme)|parole(s)?|coup(s)?|attitude) "
+                r"(violen(ce|t(e|é)?)(s)?|(l')?agressi(f|ve|vité)|mena(ce(s)?|çant(s)?)|vulgaire"
+                r"|intimida(tion|nt)(s)?|hostile|inadéquat)",
                 re.IGNORECASE
             ),
             re.compile(
                 r".+((violen(ce|t(e|é)?))(s)?|agressi(f|ve)|mena(ç|c)(e|ant)(s)?) "
-                                   r"(bagarre(s)?|altercation|verbale(s)?|conjugale(s)?|continue|physique(s|ment)?)",
+                r"(bagarre(s)?|altercation|verbale(s)?|conjugale(s)?|continue|physique(s|ment)?)",
                 re.IGNORECASE
             ),
             re.compile(
                 r".+(,\s(violen(ce|t(e|é)?)(s)?|(l')?agressi(f|ve|vité)|mena(ce(s)?|çant(s)?)"
-                                   r"|vulgaire|intimida(tion|nt)(s)?|hostile|inadéquat),)+",
+                r"|vulgaire|intimida(tion|nt)(s)?|hostile|inadéquat),)+",
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
-        ("tenant_not_paid_lease_timespan",[
+        ("tenant_not_paid_lease_timespan", [
             re.compile(
                 DATE_REGEX + r".+n'est pas payé",
                 re.IGNORECASE
@@ -660,7 +660,7 @@ class RegexLib:
     regex_outcomes = [
         ("additional_indemnity_money", [
             re.compile(
-                r"(l'|)indemnité additionnelle prévue à l'article 1619 C\.c\.Q\., à compter du \d{0,2}(er|èr|" + \
+                r"(l'|)indemnité additionnelle prévue à l'article 1619 C\.c\.Q\., à compter du \d{0,2}(er|èr|" +
                 r"ere|em|eme|ème)? " + DATE_REGEX + " \d{0,4} sur (la somme|le montant) de " + MONEY_REGEX,
                 re.IGNORECASE
             )
@@ -690,7 +690,7 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
-                LANDLORD_REGEX + r" " + \
+                LANDLORD_REGEX + r" " +
                 __multiple_words(0, 1) + r"}un préjudice sérieux",
                 re.IGNORECASE
             ),
@@ -699,7 +699,7 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
-               "préjudice sérieux.+retards",
+                "préjudice sérieux.+retards",
                 re.IGNORECASE
             ),
             re.compile(
@@ -773,8 +773,8 @@ class RegexLib:
         ], "MONEY_REGEX"),
         ("landlord_prejudice_justified", [
             re.compile(
-                r".+(cause.+)?préjudice(causé)?.+(" + \
-                LANDLORD_REGEX + \
+                r".+(cause.+)?préjudice(causé)?.+(" +
+                LANDLORD_REGEX +
                 r"|demanderesse)?(justifie.+décision|sérieux)",
                 re.IGNORECASE
             ),
@@ -813,7 +813,7 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
-                r"AUTORISE (le|la|les) " + LANDLORD_REGEX + r" à reprendre (possession )?(du|le|des|de leur|de son)" + \
+                r"AUTORISE (le|la|les) " + LANDLORD_REGEX + r" à reprendre (possession )?(du|le|des|de leur|de son)" +
                 "(logement|lieux)",
                 re.IGNORECASE
             )
