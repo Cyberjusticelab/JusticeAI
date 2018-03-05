@@ -66,6 +66,7 @@ def put_subscription():
 
     return jsonify(id=id)
 
+
 @app.route('/legal', methods=['PUT', 'OPTIONS'])
 @handle_options_method
 @ensure_json
@@ -81,4 +82,3 @@ def put_legal_professional():
         id = gateway.insert_anonymous_legal_professional(data['is_legal_professional'])
 
     return jsonify(id=id)
-

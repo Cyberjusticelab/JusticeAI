@@ -102,8 +102,7 @@ class EntityExtraction:
         entities = generic_regex.findall(sentence)
         entities = [x.replace("d'", '') for x in entities]
         try:
-            months_to_num = [EntityExtraction.month_dict[x] for x in entities]
-            months_to_num.sort()
+            months_to_num = sorted([EntityExtraction.month_dict[x] for x in entities])
             start = EntityExtraction.month_dict[entities[0]]
             end = EntityExtraction.month_dict[entities[len(entities) - 1]]
             start_unix = EntityExtraction.__date_to_unix(['1', str(start), '1970'])

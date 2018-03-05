@@ -62,14 +62,14 @@ class RegexPostLogicTest(unittest.TestCase):
 
     def test_match_date(self):
         EntityExtraction.regex_bin = {
-            'DATE_REGEX': r"(janvier|février|mars|avril|d'avril|mai|juin|juillet|d'août|août|septembre|d'octobre|" + \
+            'DATE_REGEX': r"(janvier|février|mars|avril|d'avril|mai|juin|juillet|d'août|août|septembre|d'octobre|" +
                           r"octobre|novembre|décembre)"
         }
         text = "[3] l'indemnité additionnelle prévue à l'article 1619 C.c.Q., à compter du 9 octobre 2014"
         regex_array = [
             re.compile(
-                r"(l'|)indemnité additionnelle prévue à l'article 1619 C\.c\.Q\., à compter du \d{0,2}" + \
-                r"(er|èr|ere|em|eme|ème)? (janvier|février|mars|avril|d'avril|mai|juin|" + \
+                r"(l'|)indemnité additionnelle prévue à l'article 1619 C\.c\.Q\., à compter du \d{0,2}" +
+                r"(er|èr|ere|em|eme|ème)? (janvier|février|mars|avril|d'avril|mai|juin|" +
                 r"juillet|d'août|août|septembre|d'octobre|octobre|novembre|décembre) \d{0,4}",
                 re.IGNORECASE
             )
