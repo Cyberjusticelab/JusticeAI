@@ -78,6 +78,6 @@ class MultiOutputRegression:
                 elif column_name == 'tenant_ordered_to_pay_landlord':
                     outcomes[i] = TenantPaysLandlord().predict(facts)[0][0]
                 elif column_name == 'tenant_ordered_to_pay_landlord_legal_fees':
-                    outcomes[i] = 80 # for now
+                    outcomes[i] = 80  # for now
 
         return outcomes

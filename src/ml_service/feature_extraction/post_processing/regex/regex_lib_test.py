@@ -26,7 +26,6 @@ class RegexLibTest(unittest.TestCase):
         # Find the regex corresponding to the test
         additional_indemnity_money = get_regexes(regex_name)
 
-
         money_matched = []
         for line in sentences:
             for regex in additional_indemnity_money:
@@ -63,39 +62,39 @@ class RegexLibTest(unittest.TestCase):
 
     def test_tenant_not_paid_lease_timespan(self):
         sentences = [
-            "La preuve a établi que le loyer réclamé pour les mois de juin, juillet, août et septembre 2014 n'est " +\
+            "La preuve a établi que le loyer réclamé pour les mois de juin, juillet, août et septembre 2014 n'est " +
             "pas payé et que la somme de 1 620 $ est encore en souffrance.",
 
-            "Les sous-locataires ont quitté le logement concerné au mois de novembre 2014 et les locataires n'ont " +\
+            "Les sous-locataires ont quitté le logement concerné au mois de novembre 2014 et les locataires n'ont " +
             "pas payé au locateur le loyer du mois d'octobre (850 $) et novembre 2014.",
 
-            "qu'ils n'ont pas payé les loyers dus pour les mois de décembre 2014 et janvier 2015 à ce jour " +\
+            "qu'ils n'ont pas payé les loyers dus pour les mois de décembre 2014 et janvier 2015 à ce jour " +
             "non plus",
 
             "La locataire devrait maintenant cinq (5) mois de loyer",
 
             "La locataire n'a pas payé ce dernier mois de loyer exigible",
 
-            "La preuve a établi que le loyer réclamé pour le mois de janvier 2013 n'est pas payé et que " +\
+            "La preuve a établi que le loyer réclamé pour le mois de janvier 2013 n'est pas payé et que " +
             "la somme de 400 $ est encore en souffrance.",
 
             "la preuve révèle que la locataire n'a pas payé le loyer d'octobre 2012 au montant de 720 $",
 
-            "À ce titre, il soumet que le loyer de décembre 2014 a été payé seulement la veille de l'audience soit " +\
+            "À ce titre, il soumet que le loyer de décembre 2014 a été payé seulement la veille de l'audience soit " +
             "le 7 janvier 2015 alors que le loyer de janvier 2015 n'est toujours pas payé.",
 
-            "La locatrice démontre toutefois que le loyer est fréquemment payé en retard, ce qui lui cause un " +\
-            "préjudice sérieux dans la gestion de son immeuble. Le bail n'a débuté qu'en juillet 2014. Déjà en " +\
-            "août, la locatrice a été contrainte de s'adresser au Tribunal parce que le loyer n'était pas payé. " +\
+            "La locatrice démontre toutefois que le loyer est fréquemment payé en retard, ce qui lui cause un " +
+            "préjudice sérieux dans la gestion de son immeuble. Le bail n'a débuté qu'en juillet 2014. Déjà en " +
+            "août, la locatrice a été contrainte de s'adresser au Tribunal parce que le loyer n'était pas payé. " +
             "Le bail a été résilié parce que deux mois n'étaient pas payés",
 
-            "il mentionne que la locataire a retenu un montant de 250 $ lors du paiement du loyer du mois de mai et " +\
+            "il mentionne que la locataire a retenu un montant de 250 $ lors du paiement du loyer du mois de mai et " +
             "qu'un autre mois n'est pas payé (500 $).",
 
-            "mais qu'elle n'a pas payé les loyers dus pour les mois d'avril et mai 2017 à ce jour non plus, " +\
+            "mais qu'elle n'a pas payé les loyers dus pour les mois d'avril et mai 2017 à ce jour non plus, " +
             "devant ainsi au locateur une somme additionnelle de 1 500 $.",
 
-            "La preuve a établi que le loyer réclamé pour les mois de septembre (344,17 $) et octobre 2014 " +\
+            "La preuve a établi que le loyer réclamé pour les mois de septembre (344,17 $) et octobre 2014 " +
             "n'est pas payé"
         ]
 

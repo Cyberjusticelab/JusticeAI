@@ -29,7 +29,7 @@ def extract_text(file_storage):
 
 
 def _get_image_from_file(file_path):
-    return cv2.imread(file_path, 0) # 0 indicates grayscale
+    return cv2.imread(file_path, 0)  # 0 indicates grayscale
 
 
 def _get_image_from_file_storage(file_storage):
@@ -39,7 +39,7 @@ def _get_image_from_file_storage(file_storage):
     in_memory_file = io.BytesIO()
     file_storage.save(in_memory_file)
     np_data = np.fromstring(in_memory_file.getvalue(), dtype=np.uint8)
-    return cv2.imdecode(np_data, 0) # 0 indicates grayscale
+    return cv2.imdecode(np_data, 0)  # 0 indicates grayscale
 
 
 def _get_string_from_np_img(np_img):
@@ -52,8 +52,8 @@ def _resize(img, height):
 
 
 def _filter_blur(img):
-    img = cv2.bilateralFilter(img, 5, 250, 250) # reduces noise but preserves edges
-    return cv2.GaussianBlur(img,(5,5),0) # blurs entire image
+    img = cv2.bilateralFilter(img, 5, 250, 250)  # reduces noise but preserves edges
+    return cv2.GaussianBlur(img, (5, 5), 0)  # blurs entire image
 
 
 def _binarize(img):
@@ -61,7 +61,7 @@ def _binarize(img):
     Uses Otsu' adaptive thresholding to convert the image to black/white pixels based on its immediate surroundings
     """
     img = _filter_blur(img)
-    _, img = cv2.threshold(img,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+    _, img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
     return img
 
 
