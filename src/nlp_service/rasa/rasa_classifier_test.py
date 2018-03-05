@@ -3,6 +3,7 @@ import unittest
 
 from rasa.rasa_classifier import RasaClassifier
 
+
 class TestRasaClassifier(unittest.TestCase):
     rasaClassifier = None
 

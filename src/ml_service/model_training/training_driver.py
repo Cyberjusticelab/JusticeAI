@@ -8,7 +8,7 @@ from util.log import Log
 def __dictionary_to_list():
     """
 
-    Converts the binarize structured_data_dict to a list format 
+    Converts the binarize structured_data_dict to a list format
 
     precedent_vectors:{
         filename:{

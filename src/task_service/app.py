@@ -24,5 +24,3 @@ def extract_text():
     if 'file' not in request.files:
         abort(make_response(jsonify(message="No file provided"), 400))
     return ocr_controller.extract_text(request.files['file'])
-
-
