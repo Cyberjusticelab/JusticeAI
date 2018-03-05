@@ -22,7 +22,7 @@ class AdditionalIndemnityMoney(AbstractRegressor):
                       for precedent in self.dataset])
         self.input_dimensions = len(X[0])
         regressor = KerasRegressor(
-            build_fn=self._nn_architecture, epochs=100, batch_size=128, verbose=0)
+            build_fn=self._nn_architecture, epochs=6000, batch_size=128, verbose=0)
         scaler = StandardScaler()
         self.model = AbstractRegressor._create_pipeline(scaler, regressor)
         self.model.fit(X, Y)
@@ -34,13 +34,13 @@ class AdditionalIndemnityMoney(AbstractRegressor):
             Defines Regressor architecture. To be used internally
         """
         model = Sequential()
-        model.add(Dense(14, input_dim=self.input_dimensions,
+        model.add(Dense(128, input_dim=self.input_dimensions,
                         kernel_initializer='normal', activation='relu'))
-        model.add(Dense(12, kernel_initializer='normal', activation='relu'))
-        model.add(Dense(10, kernel_initializer='normal', activation='relu'))
-        model.add(Dense(8, kernel_initializer='normal', activation='relu'))
-        model.add(Dense(6, kernel_initializer='normal', activation='relu'))
-        model.add(Dense(4, kernel_initializer='normal', activation='linear'))
+        model.add(Dense(128, kernel_initializer='normal', activation='relu'))
+        model.add(Dense(64, kernel_initializer='normal', activation='relu'))
+        model.add(Dense(64, kernel_initializer='normal', activation='relu'))
+        model.add(Dense(32, kernel_initializer='normal', activation='relu'))
+        model.add(Dense(32, kernel_initializer='normal', activation='linear'))
         model.add(Dense(1, kernel_initializer='normal'))
         model.compile(loss='mean_squared_error', optimizer='adam')
         return model
