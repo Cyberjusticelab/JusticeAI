@@ -49,6 +49,14 @@
             }
         }
     }
+    #landing-page-git-master-sha {
+        span {
+            color: $main-white-1;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+    }
     .el-dialog{
         height: 200px !important;
         width: 400px !important;
