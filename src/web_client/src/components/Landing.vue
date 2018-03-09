@@ -25,6 +25,9 @@
                     </el-col>
                 </el-row>
             </div>
+            <div id="landing-page-git-master-sha">
+              <span id="git-master-sha"> {{ gitMasterSHA }} </span>
+            </div>
             <!-- el-dialog for username -->
             <el-dialog :visible.sync="promptUsername" center>
                 <h2>PLEASE ENTER YOUR NAME</h2>
@@ -45,7 +48,8 @@ export default {
     data () {
         return {
             promptUsername: false,
-            username: null
+            username: null,
+            gitMasterSHA: process.env.GIT_LATEST_MASTER_COMMIT
         }
     },
     created () {
