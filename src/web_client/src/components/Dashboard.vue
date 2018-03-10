@@ -19,6 +19,11 @@ import Sidebar from './Sidebar'
 export default {
     components: {
         Chat, Sidebar
+    },
+    created () {
+        if (!this.$localStorage.get('zeusId')) {
+            this.$router.push('/')
+        }
     }
 }
 </script>
