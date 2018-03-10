@@ -21,11 +21,12 @@ binary_names_dict = {
     'classifier_labels': ['https://capstone.cyberjustice.ca/data/bin/classifier_labels.bin', 638],
     'additional_indemnity_money_regressor': ['https://capstone.cyberjustice.ca/data/bin/additional_indemnity_money_regressor.bin', 478368],
     'additional_indemnity_money_scaler': ['https://capstone.cyberjustice.ca/data/bin/additional_indemnity_money_scaler.bin', 1250],
-    'multi_class_svm_model': ['https://capstone.cyberjustice.ca/data/bin/multi_class_svm_model.bin', 20180973],
+    'multi_class_svm_model': ['https://capstone.cyberjustice.ca/data/bin/multi_class_svm_model.bin', 20739501],
+    'regressor_means': ['https://capstone.cyberjustice.ca/data/bin/regressor_means.bin', 871],
     'tenant_pays_landlord_regressor': ['https://capstone.cyberjustice.ca/data/bin/tenant_pays_landlord_regressor.bin', 478584],
     'tenant_pays_landlord_scaler': ['https://capstone.cyberjustice.ca/data/bin/tenant_pays_landlord_scaler.bin', 1250],
-    'similarity_case_numbers': ['https://capstone.cyberjustice.ca/data/bin/similarity_case_numbers.bin', 999347],
-    'similarity_model': ['https://capstone.cyberjustice.ca/data/bin/similarity_model.bin', 31334058],
+    'similarity_case_numbers': ['https://capstone.cyberjustice.ca/data/bin/similarity_case_numbers.bin', 999398],
+    'similarity_model': ['https://capstone.cyberjustice.ca/data/bin/similarity_model.bin', 31335546],
     'similarity_scaler': ['https://capstone.cyberjustice.ca/data/bin/similarity_scaler.bin', 1586]
 }
 

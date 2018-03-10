@@ -72,7 +72,7 @@ The following services can run individually or tested against:
 
 ## Deployment
 
-We intend to deploy our application with continuous delivery. This is a task is expected to be completed by Iteration #2.
+Deployment is done via Travis CI and Ansible. The most current version of the master branch is reflected on the [Demo Page](https://capstone.cyberjustice.ca)
 
 ## Architecture
 
@@ -85,11 +85,19 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ## Versioning
 
-There are currently no releases versions of our software.
+See the [releases tab](https://github.com/Cyberjusticelab/JusticeAI/releases)
 
 ## Authors
 
-TBD
+The following is a list of team members that are contributing to the project:
+- [Samuel-Campbell](https://github.com/Samuel-Campbell)
+- [TaimoorRana](https://github.com/TaimoorRana)
+- [Vynny](https://github.com/Vynny)
+- [lancelafontaine](https://github.com/lancelafontaine)
+- [choitwao](https://github.com/choitwao)
+- [arekmano](https://github.com/arekmano)
+- [mihaiqc](https://github.com/mihaiqc)
+
 
 ## License
 
