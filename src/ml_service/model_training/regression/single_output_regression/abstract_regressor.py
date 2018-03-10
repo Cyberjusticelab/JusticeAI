@@ -1,6 +1,6 @@
 from util.file import Load, Save
 from util.constant import Path
-#from keras.models import load_model
+from keras.models import load_model
 from sklearn import metrics
 from sklearn.pipeline import Pipeline
 import os
