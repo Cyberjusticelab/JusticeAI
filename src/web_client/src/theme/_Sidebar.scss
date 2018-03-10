@@ -65,60 +65,11 @@
                 cursor: pointer;
             }
         }
-        #sidebar-menu {
-            height: 50%;
-            .sidebar-menu {
-                background-color: $main-grey-2;
-                height: 70px;
-                border-top: solid 0.005em $main-grey-3;
-                border-bottom: solid 0.005em $main-grey-3;
-                margin-top: -1px;
-                padding: 0px;
-                color: $main-grey-3;
-                h3 {
-                    font-size: 20px;
-                    margin: 0px;
-                    margin-top: 22px;
-                }
-                &:hover {
-                    border-color: $main-gold-1;
-                    background-color: $main-grey-3;
-                    color: $main-gold-1;
-                    cursor: pointer;
-                }
-                &:active {
-                    background-color: $main-gold-1;
-                    color: $main-white-1;
-                }
-            }
-            ul {
-                li {
-                    list-style: none;
-                    width: 90%;
-                    text-align: left;
-                    .el-col {
-                        height: 40px;
-                        p {
-                            display: inline-block;
-                            color: $main-grey-3;
-                            width: 100%;
-                            overflow: hidden;
-                            margin: 0px;
-                        }
-                        .sidebar-file-view {
-                            display: inline-block;
-                            margin-top: 3px;
-                        }
-                    }
-                }
-            }
-        }
-        #sidebar-reset {
-            height: 15%;
+        .sidebar-option {
             font-size: 10px;
             color: $main-grey-5;
             font-style: italic;
-            padding-top: 20px;
+            padding-top: 5px;
             &:hover {
                 color: $main-gold-2;
                 cursor: pointer;

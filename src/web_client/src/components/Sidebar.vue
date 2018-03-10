@@ -64,15 +64,15 @@
                         </ul>
                     </transition>
                     <!-- End Report List -->
-                    <!-- Feedback -->
-                    <div id="sidebar-feedback" class="sidebar-menu" v-on:click="openFeedbackModal = true">
-                        <h3>FEEDBACK</h3>
-                    </div>
-                    <!-- End of Feedback -->
                 </div>
                 <!-- End of Toggle Menu -->
+                <!-- Feedback -->
+                <div v-on:click="openFeedbackModal = true" class="sidebar-option">
+                    <p>FEEDBACK</p>
+                </div>
+                <!-- End of Feedback -->
                 <!-- Reset -->
-                <div v-on:click="resetChat()" id="sidebar-reset">
+                <div v-on:click="resetChat()" class="sidebar-option">
                     <p>RESET CONVERSATION</p>
                 </div>
                 <!-- End of Reset -->
