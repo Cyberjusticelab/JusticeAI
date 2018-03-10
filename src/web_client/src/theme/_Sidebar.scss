@@ -65,12 +65,35 @@
         width: 100%;
         height: 100%;
         background-color: rgba(255, 255, 255, 0.9);
+        font-family: $zeus-font;
         #sidebar-dashboard-logo {
             background-color: rgba(41,41,41,0.9);
-            height: 10%;
             img {
-                padding-top: 20px;
+                height: 75px;
             }
+        }
+        #sidebar-dashboard-header {
+            padding: 40px;
+            h2 {
+                font-weight: 500;
+                font-size: 30px;
+                color: main-grey-1;
+                span {
+                    color: $main-gold-2;
+                }
+            }
+        }
+        .sidebar-dashboard-item {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            h3 {
+                font-size: 30px;
+                font-weight: 300;
+            }
+        }
+        #sidebar-dashboard-accuracy {
+            @extend .sidebar-dashboard-item;
+            color: green;
         }
     }
     #feedback-input {

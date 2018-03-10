@@ -1,36 +1,36 @@
-<style lang='scss' scoped>
-@import '../theme/Sidebar'
+<style lang="scss" scoped>
+@import "../theme/Sidebar"
 </style>
 
 <template>
-    <div id='sidebar-component' v-bind:class='{ "burger-menu": !openSidebar }'>
+    <div id="sidebar-component" v-bind:class="{ 'burger-menu': !openSidebar }">
         <!-- 1. Menu Close -->
-        <div v-if='!openSidebar' v-on:click='view()' id='sidebar-min'>
-            <img alt='' src='../assets/sidebar-toggle.png'>
+        <div v-if="!openSidebar" v-on:click="view()" id="sidebar-min">
+            <img alt="" src="../assets/sidebar-toggle.png">
         </div>
         <!-- 1. End of Menu Close -->
         <!-- 2.1 Menu Open -->
-        <transition name='translate'>
-            <div v-if='openSidebar && !isPredicted' id='sidebar-full'>
+        <transition name="translate">
+            <div v-if="openSidebar && !isPredicted" id="sidebar-full">
                 <!-- LOGO -->
-                <div id='sidebar-logo'>
-                    <img alt='' src='../assets/logo.png' v-on:click='openSidebar = false'>
+                <div id="sidebar-logo">
+                    <img alt="" src="../assets/logo.png" v-on:click="openSidebar = false">
                     <p>Beta</p>
                 </div>
                 <!-- End of LOGO -->
                 <!-- Pending Info -->
-                <div id='sidebar-info'>
-                    <el-progress type='circle' :percentage='progress'></el-progress>
+                <div id="sidebar-info">
+                    <el-progress type="circle" :percentage="progress"></el-progress>
                     <p>Provide more information to Zeus to get a prediction on your case</p>
                 </div>
                 <!-- End of Pending Info -->
                 <!-- Feedback -->
-                <div v-on:click='openFeedbackModal = true' class='sidebar-option'>
+                <div v-on:click="openFeedbackModal = true" class="sidebar-option">
                     <p>FEEDBACK</p>
                 </div>
                 <!-- End of Feedback -->
                 <!-- Reset -->
-                <div v-on:click='resetChat()' class='sidebar-option'>
+                <div v-on:click="resetChat()" class="sidebar-option">
                     <p>RESET CONVERSATION</p>
                 </div>
                 <!-- End of Reset -->
@@ -38,21 +38,52 @@
         </transition>
         <!-- 2.1 End of Menu Open -->
         <!-- 2.2 Stat Dashboard -->
-        <transition name='el-zoom-in-center'>
-            <div v-if='openSidebar && isPredicted' id='sidebar-dashboard'>
-                <div id="sidebar-dashboard-logo">
-                    <img alt='' src='../assets/logo.png'>
-                </div>
+        <transition name="el-zoom-in-center">
+            <div v-if="openSidebar && isPredicted" id="sidebar-dashboard">
+                <el-row>
+                    <el-col :sm="{span: 24, offset: 0}">
+                        <div id="sidebar-dashboard-logo">
+                            <img alt="" src="../assets/logo.png">
+                        </div>
+                    </el-col>
+                    <el-col :sm="{span: 24, offset: 0}">
+                        <div id="sidebar-dashboard-header">
+                            <h2>Here is our prediction after analyzing <span>{{ report.data_set }}</span> Régie du logement"s precedents:</h2>
+                        </div>
+                    </el-col>
+                    <el-col :sm="{span: 4, offset: 1}">
+                        <div id="sidebar-dashboard-accuracy">
+                            <el-progress type="circle" :percentage="report.accuracy" :stroke-width="40" :width="300"></el-progress>
+                            <h3>Prediction Accuracy</h3>
+                        </div>
+                    </el-col>
+                    <el-col :sm="{span: 4, offset: 2}">
+                        <div id="sidebar-dashboard-curve">
+                            <h1>bell curve placeholder</h1>
+                        </div>
+                    </el-col>
+                    <el-col :sm="{span: 9, offset: 2}">
+                        <div id="sidebar-dashboard-outcome">
+                            <el-collapse accordion>
+                                <div v-for="value,key in report.outcomes">
+                                    <el-collapse-item title="{{key}}">
+                                        <div>{{ key }} is most likely in your case.</div>
+                                    </el-collapse-item>
+                                </div>
+                            </el-collapse>
+                        </div>
+                    </el-col>
+                </el-row>
             </div>
         </transition>
         <!-- 2.2 End of Stat Dashboard -->
         <!-- el-dialog for feedback -->
-        <el-dialog title='Feedback' :visible.sync='openFeedbackModal'>
-            <textarea id='feedback-input' v-model='feedback'>
+        <el-dialog title="Feedback" :visible.sync="openFeedbackModal">
+            <textarea id="feedback-input" v-model="feedback">
             </textarea>
-            <span slot='footer' class='dialog-footer'>
-                <el-button v-on:click='openFeedbackModal = false'>Cancel</el-button>
-                <el-button type='primary' v-on:click='submitFeedback()'>Submit</el-button>
+            <span slot="footer" class="dialog-footer">
+                <el-button v-on:click="openFeedbackModal = false">Cancel</el-button>
+                <el-button type="primary" v-on:click="submitFeedback()">Submit</el-button>
             </span>
         </el-dialog>
         <!-- End of el-dialog for feedback -->
@@ -74,13 +105,13 @@ export default {
             //TODO: set report to new object and modify by report api callback. Now mock data.
             //This is the expected payload format
             report: {
-                accuracy: 98,
+                accuracy: 96,
                 data_set: 350000,
                 similar_case: 50,
                 curves: {
                     legal_fees: ['whatever data is needed to create a bell curve']
                 },
-                outcome: {
+                outcomes: {
                     lease_termination: 1,
                     order_resiliation: 1,
                     apartment_impropre: 1,
@@ -149,7 +180,7 @@ export default {
             this.openSidebar = true
             this.isPredicted = true // TODO: remove this dev code. change to true for testing dashboard UI
             if (this.isPredicted) {
-
+                //TODO
             }
         },
         submitFeedback () {
