@@ -15,7 +15,7 @@
         padding: 5px;
         border: 1px solid $main-grey-1;
         img {
-            width: 50px;
+            width: 30px;
         }
         &:hover {
             background-color: $main-grey-1;
@@ -24,15 +24,17 @@
         }
     }
     #sidebar-full {
+        position: fixed;
+        width: 10%;
         height: 100%;
         background-color: $main-grey-1;
         font-family: $zeus-font;
         border-right: 5px solid $main-gold-2;
         #sidebar-logo {
-            height: 20%;
+            height: 40%;
             img {
                 margin-top: 40px;
-                width: 70%;
+                width: 90%;
                 &:hover {
                     cursor: pointer;
                 }
@@ -44,27 +46,19 @@
                 font-style: italic;
             }
         }
-        #sidebar-account {
-            height: 15%;
-            color: $main-grey-5;
-            h2 {
-                font-size: 26px;
-                margin-top: 20px;
-            }
+        #sidebar-dashboard {
+            height: 45%;
             p {
-                font-style: italic;
-            }
-            img {
-                margin-top: 25px;
-                height: 80px;
-                cursor: pointer;
+                padding: 2px;
+                color: $main-grey-6;
+                font-size: 12px;
             }
         }
         .sidebar-option {
-            font-size: 10px;
+            font-size: 8px;
             color: $main-grey-5;
             font-style: italic;
-            padding-top: 5px;
+            padding-top: 3px;
             &:hover {
                 color: $main-gold-2;
                 cursor: pointer;

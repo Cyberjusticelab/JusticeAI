@@ -4,12 +4,12 @@
 
 <template>
     <div id="sidebar-component" v-bind:class="{ 'burger-menu': !openSidebar }">
-        <!-- Menu Close -->
+        <!-- 1. Menu Close -->
         <div v-if="!openSidebar" v-on:click="openSidebar = true" id="sidebar-min">
             <img alt="" src="../assets/sidebar-toggle.png">
         </div>
-        <!-- End of Menu Close -->
-        <!-- Menu Open -->
+        <!-- 1. End of Menu Close -->
+        <!-- 2.1 Menu Open -->
         <transition name="translate">
             <div v-if="openSidebar" id="sidebar-full">
                 <!-- LOGO -->
@@ -18,12 +18,11 @@
                     <p>Beta</p>
                 </div>
                 <!-- End of LOGO -->
-                <!-- User Information -->
-                <div id="sidebar-account">
-                    <h2>{{ username }}</h2>
-                    <p>{{ usertype }}</p>
+                <!-- Pending Info -->
+                <div id="sidebar-dashboard">
+                    <p>Provide more information to Zeus to get a prediction on your case</p>
                 </div>
-                <!-- End of User Information -->
+                <!-- End of Pending Info -->
                 <!-- Feedback -->
                 <div v-on:click="openFeedbackModal = true" class="sidebar-option">
                     <p>FEEDBACK</p>
@@ -36,7 +35,10 @@
                 <!-- End of Reset -->
             </div>
         </transition>
-        <!-- End of Menu Open -->
+        <!-- 2.1 End of Menu Open -->
+        <!-- 2.2 Stat Dashboard -->
+
+        <!-- 2.2 End of Stat Dashboard -->
         <!-- el-dialog for feedback -->
         <el-dialog title="Feedback" :visible.sync="openFeedbackModal">
             <textarea id="feedback-input" v-model="feedback">
@@ -51,6 +53,7 @@
 </template>
 
 <script>
+import { EventBus } from './EventBus.js'
 export default {
     data () {
         return {
@@ -63,6 +66,11 @@ export default {
             api_url: process.env.API_URL,
             connectionError: false
         }
+    },
+    created () {
+        EventBus.$on('hideSidebar', () => {
+            this.openSidebar = false
+        })
     },
     methods: {
         submitFeedback(){

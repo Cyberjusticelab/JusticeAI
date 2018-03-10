@@ -3,7 +3,7 @@
 </style>
 
 <template>
-  <div id="chat-component" v-loading="initLoading" element-loading-text="Let's Talk!" element-loading-spinner="el-icon-loading" fullscreen="true" v-autoscroll="'bottom'">
+  <div id="chat-component" v-loading="initLoading" element-loading-text="Let's Talk!" element-loading-spinner="el-icon-loading" fullscreen="true" v-autoscroll="'bottom'" v-on:click="hideSidebar()">
     <!-- Resolved Fact Overlay -->
     <transition name="fade">
       <div id="chat-resolved-fact" v-if="user.openChatHistory">
@@ -134,6 +134,7 @@
 </template>
 
 <script>
+import { EventBus } from './EventBus.js'
 export default {
   data () {
     return {
@@ -325,6 +326,9 @@ export default {
           console.log("Connection Fail: remove resolved fact")
         }
       )
+    },
+    hideSidebar () {
+      EventBus.$emit('hideSidebar')
     }
   }
 }
