@@ -27,7 +27,6 @@ class AdditionalIndemnityMoney(AbstractRegressor):
         self.model = AbstractRegressor._create_pipeline(scaler, regressor)
         self.model.fit(X, Y)
         self.test()
-        self.dataset = None
 
     def _nn_architecture(self):
         """

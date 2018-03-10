@@ -49,7 +49,7 @@ class AbstractRegressor:
         :param precedent_vector: numpy.array([1, 2, 5, 0, 223, 0, 0...])
         :return: [[int]]
         """
-        data = self.mean_fact_vector.copy()
+        data = self.mean_facts_vector.copy()
         for i in range(len(precedent_vector)):
             if precedent_vector[i] > 0:
                 data[i] = precedent_vector[i]
@@ -67,6 +67,7 @@ class AbstractRegressor:
         self.model.steps[1][1].model.save(file_path)
         Save().save_binary('{}_scaler.bin'.format(regressor_name), self.model.steps[0][1])
         Save().save_binary('model_metrics.bin', self.data_metrics())
+        self.dataset = None
 
     def load(self):
         """
