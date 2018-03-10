@@ -1,16 +1,12 @@
 @import "./Utils";
 
-.burger-menu {
-    z-index: 999;
-    position: fixed;
-    left: 0px;
-    top: 0px;
-}
 #sidebar-component {
+    width: 10%;
     background-color: rgba(74,74,74,.8);
     overflow-y: hidden;
     z-index: 2;
     #sidebar-min {
+        width: 50%;
         background-color: $main-grey-1;
         padding: 5px;
         border: 1px solid $main-grey-1;
@@ -24,8 +20,6 @@
         }
     }
     #sidebar-full {
-        position: fixed;
-        width: 10%;
         height: 100%;
         background-color: $main-grey-1;
         font-family: $zeus-font;
@@ -46,7 +40,7 @@
                 font-style: italic;
             }
         }
-        #sidebar-dashboard {
+        #sidebar-info {
             height: 45%;
             p {
                 padding: 2px;
@@ -64,6 +58,11 @@
                 cursor: pointer;
             }
         }
+    }
+    #sidebar-dashboard {
+        position: fixed;
+        width: 100%;
+        height: 100%;
     }
     #feedback-input {
         width: 100%;
