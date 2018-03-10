@@ -97,7 +97,9 @@ class MlController:
             precedent = {
                 "precedent": precedent_array[0].split(".")[0],
                 "distance": precedent_array[1],
-                "facts": MlController.fact_vector_to_dict(MlController.precedent_vectors[precedent_array[0]]['facts_vector'])['facts'],
+                "facts": MlController.fact_vector_to_dict(
+                    MlController.precedent_vectors[precedent_array[0]]['facts_vector']
+                )['facts'],
                 "outcomes": MlController.outcome_vector_to_dict(
                     MlController.precedent_vectors[precedent_array[0]]['outcomes_vector']
                 )['outcomes_vector'],
