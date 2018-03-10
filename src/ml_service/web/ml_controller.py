@@ -1,5 +1,6 @@
 import numpy as np
 
+from util.file import Load
 from feature_extraction.post_processing.regex.regex_tagger import TagPrecedents
 from model_training.classifier.multi_output.multi_class_svm import MultiClassSVM
 from model_training.regression.multi_output.multi_output_regression import MultiOutputRegression
@@ -12,6 +13,7 @@ class MlController:
     classifier_model = MultiClassSVM()
     regression_model = MultiOutputRegression()
     similar_finder = SimilarFinder()
+    precedent_vectors = Load.load_binary("precedent_vectors.bin")
 
     @staticmethod
     def predict_outcome(input_json):
@@ -36,17 +38,17 @@ class MlController:
                      "lease_resiliation" : 1 or 0
                  }
         """
-        facts_vector = MlController.dict_to_vector(input_json['facts'])
+        facts_vector = MlController.fact_dict_to_vector(input_json['facts'])
         outcome_vector = MlController.classifier_model.predict(facts_vector)[0]
         outcome_vector = MlController.regression_model.predict(facts_vector, outcome_vector)
-        response = MlController.vector_to_dict(outcome_vector)
+        response = MlController.outcome_vector_to_dict(outcome_vector)
         similar_dict = {'facts_vector': facts_vector, 'outcomes_vector': outcome_vector}
         response['similar_precedents'] = MlController.format_similar_precedents(
             MlController.similar_finder.get_most_similar(similar_dict))
         return response
 
     @staticmethod
-    def dict_to_vector(input_dict):
+    def fact_dict_to_vector(input_dict):
         """
         Converts a dictionary to vector form, readable by ML
         input_dict: dictionary containing all facts or demands
@@ -66,12 +68,20 @@ class MlController:
         return output_vector
 
     @staticmethod
-    def vector_to_dict(outcome_vector):
+    def outcome_vector_to_dict(outcome_vector):
         return_dict = {}
         for outcome_index in MlController.classifier_labels:
             label = MlController.classifier_labels[outcome_index][0]
             return_dict[label] = str(outcome_vector[outcome_index])
         return {'outcomes_vector': return_dict}
+
+    @staticmethod
+    def fact_vector_to_dict(fact_vector):
+        return_dict = {}
+        for fact_tuple in MlController.indexes['facts_vector']:
+            label = fact_tuple[1]
+            return_dict[label] = str(fact_vector[fact_tuple[0]])
+        return {'facts': return_dict}
 
     @staticmethod
     def format_similar_precedents(similarity_list):
@@ -84,8 +94,21 @@ class MlController:
         formatted_precedents = []
 
         for precedent_array in similarity_list:
-            formatted_precedents.append({"precedent": precedent_array[0].split(".")[0], "distance": precedent_array[1]})
-
+            precedent = {
+                "precedent": precedent_array[0].split(".")[0],
+                "distance": precedent_array[1],
+                "facts": MlController.fact_vector_to_dict(MlController.precedent_vectors[precedent_array[0]]['facts_vector'])['facts'],
+                "outcomes": MlController.outcome_vector_to_dict(
+                    MlController.precedent_vectors[precedent_array[0]]['outcomes_vector']
+                )['outcomes_vector'],
+            }
+            for fact_tuple in MlController.indexes['facts_vector']:
+                if fact_tuple[2] == 'bool':
+                    precedent['facts'][fact_tuple[1]] = bool(float(precedent['facts'][fact_tuple[1]]))
+            for outcome_tuple in MlController.classifier_labels.values():
+                if outcome_tuple[1] == 'bool':
+                    precedent['outcomes'][outcome_tuple[0]] = bool(float(precedent['outcomes'][outcome_tuple[0]]))
+            formatted_precedents.append(precedent)
         return formatted_precedents
 
     @staticmethod
