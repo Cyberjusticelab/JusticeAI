@@ -139,8 +139,6 @@ class MultiClassSVM:
             'classifier':{
                 'classifier name':{
                     'prediction_accuracy': 0.92,
-                    'recall': 0.32, 0.31,
-                    'f1': 0.23, 0.2
                 }
             }
         }
