@@ -38,7 +38,11 @@ class MultiOutputRegression:
         """
         outcomes = self.dataset[0]['outcomes_vector']
         for i in range(len(outcomes)):
-            column_name = MultiOutputRegression.classifier_labels[i][0]
+            try:
+                column_name = MultiOutputRegression.classifier_labels[i][0]
+            except KeyError:
+                MultiOutputRegression.classifier_labels = MultiClassSVM.load_classifier_labels()
+                column_name = MultiOutputRegression.classifier_labels[i][0]
 
             if column_name == 'additional_indemnity_money':
                 regression = AdditionalIndemnityMoney(self.dataset, i)
