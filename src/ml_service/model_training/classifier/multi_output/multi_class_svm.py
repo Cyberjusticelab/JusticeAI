@@ -125,6 +125,9 @@ class MultiClassSVM:
 
         model_metrics -->
         {
+            'data_set':{
+                'size': 5000
+            },
             'regressor':{
                 'regressor name':{
                     'std': 4,
@@ -135,7 +138,9 @@ class MultiClassSVM:
             },
             'classifier':{
                 'classifier name':{
-                    'prediction_accuracy': 0.92
+                    'prediction_accuracy': 0.92,
+                    'recall': 0.32, 0.31,
+                    'f1': 0.23, 0.2
                 }
             }
         }
@@ -146,7 +151,13 @@ class MultiClassSVM:
         """
         model_metrics = Load.load_binary('model_metrics.bin')
         if model_metrics is None:
-            model_metrics = {}
+            model_metrics = {
+                'classifier': {}
+            }
+
+        model_metrics['data_set'] = {
+            'size': len(self.data_set)
+        }
 
         index = TagPrecedents().get_intent_index()['outcomes_vector']
         Log.write("Testing Classifier")
@@ -163,7 +174,13 @@ class MultiClassSVM:
             Log.write('Precision: {}'.format(precision))
             Log.write('Recall: {}'.format(recall))
             Log.write('F1: {}\n'.format(f1))
-            model_metrics['classifier'][column_name]['prediction_accuracy'] = accuracy
+
+            model_metrics['classifier'][column_name] = {
+                'prediction_accuracy': accuracy,
+                'precision': precision,
+                'recall': recall,
+                'f1': f1
+            }
         Save().save_binary('model_metrics.bin', model_metrics)
 
     def train(self):

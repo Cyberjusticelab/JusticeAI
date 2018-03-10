@@ -129,6 +129,9 @@ class AbstractRegressor:
 
         model_metrics -->
         {
+            'data_set':{
+                'size': 5000
+            },
             'regressor':{
                 'regressor name':{
                     'std': 4,
@@ -139,7 +142,9 @@ class AbstractRegressor:
             },
             'classifier':{
                 'classifier name':{
-                    'prediction_accuracy': 0.92
+                    'prediction_accuracy': 0.92,
+                    'recall': 0.32, 0.31,
+                    'f1': 0.23, 0.2
                 }
             }
         }
