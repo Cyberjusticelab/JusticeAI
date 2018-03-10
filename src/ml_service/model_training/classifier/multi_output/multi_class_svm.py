@@ -120,11 +120,34 @@ class MultiClassSVM:
 
     def __test(self, x_test, y_test):
         """
+        1) Tests model
+        2) Save the accuracy to the model metrics binary
 
-        :param x_test:
-        :param y_test:
+        model_metrics -->
+        {
+            'regressor':{
+                'regressor name':{
+                    'std': 4,
+                    'mean': 5,
+                    'variance': 42,
+                    'mean_fact_vector': [3, 1, 5, 6, 2]
+                }
+            },
+            'classifier':{
+                'classifier name':{
+                    'prediction_accuracy': 0.92
+                }
+            }
+        }
+
+        :param x_test: numpy array
+        :param y_test: numpy array
         :return: None
         """
+        model_metrics = Load.load_binary('model_metrics.bin')
+        if model_metrics is None:
+            model_metrics = {}
+
         index = TagPrecedents().get_intent_index()['outcomes_vector']
         Log.write("Testing Classifier")
         y_predict = self.model.predict(x_test)
@@ -132,14 +155,16 @@ class MultiClassSVM:
         for i in range(len(y_predict[0])):
             yp = y_predict[:, [i]]
             yt = y_test[:, [i]]
-            num_correct = np.sum(yp == yt)
+            accuracy = np.sum(yp == yt) * 100.0 / len(yt)
+            column_name = index[self.mlb.classes_[i]][1]
             (precision, recall, f1, _) = precision_recall_fscore_support(yt, yp)
-            Log.write('Column: {}'.format(index[self.mlb.classes_[i]][1]))
-            Log.write('Test accuracy: {}%'.format(
-                num_correct * 100.0 / len(yt)))
+            Log.write('Column: {}'.format(column_name))
+            Log.write('Test accuracy: {}%'.format(accuracy))
             Log.write('Precision: {}'.format(precision))
             Log.write('Recall: {}'.format(recall))
             Log.write('F1: {}\n'.format(f1))
+            model_metrics['classifier'][column_name]['prediction_accuracy'] = accuracy
+        Save().save_binary('model_metrics.bin', model_metrics)
 
     def train(self):
         """

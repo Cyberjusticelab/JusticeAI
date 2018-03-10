@@ -16,4 +16,3 @@ server.log
 /data/cluster/demand/*.txt
 /**/**.csv
 /untagged_sent.txt
-!/data/binary/regressor_means.bin
