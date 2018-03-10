@@ -43,7 +43,8 @@ class CommandEnum:
     SVM = "--svm"
     SIMILARITY_FINDER = "--sf"
     SVR = "--svr"
-    command_list = [SVM, SIMILARITY_FINDER, SVR]
+    ALL = "--all"
+    command_list = [SVM, SIMILARITY_FINDER, SVR, ALL]
 
 
 def run(command_list):
@@ -80,6 +81,12 @@ def run(command_list):
         return False
 
     # ------------------- TRAINING --------------------------
+    if CommandEnum.ALL in command_list:
+        classifier_driver.run(command_list[1:], precedent_vector)
+        regression_driver.run(command_list[1:], precedent_vector)
+        SimilarFinder(train=True, dataset=precedent_vector)
+        return True
+
     if CommandEnum.SVM in command_list:
         classifier_driver.run(command_list[1:], precedent_vector)
 
