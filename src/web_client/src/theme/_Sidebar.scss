@@ -64,10 +64,10 @@
         position: fixed;
         width: 100%;
         height: 100%;
-        background-color: rgba(255, 255, 255, 0.9);
+        background-color: rgba(255,255,255,0.95);
         font-family: $zeus-font;
         #sidebar-dashboard-logo {
-            background-color: rgba(41,41,41,0.9);
+            background-color: $main-grey-1;
             img {
                 height: 75px;
             }
@@ -95,10 +95,29 @@
             @extend .sidebar-dashboard-item;
             color: green;
         }
+        #sidebar-dashboard-curve {
+            @extend .sidebar-dashboard-item;
+            img {
+                height: 100%;
+                width: 100%;
+            }
+            h3 {
+                margin-top: 2px;
+                color: firebrick;
+            }
+        }
         #sidebar-dashboard-outcome {
+            @extend .sidebar-dashboard-item;
+            text-align: left;
+            h2 {
+                text-align: center;
+                font-size: 30px;
+                color: cadetblue;
+            }
             h3 {
                 display: inline-block;
-                font-size: 30px;
+                font-weight: 100;
+                font-size: 25px;
                 margin: 10px;
             }
             .outcome-check {

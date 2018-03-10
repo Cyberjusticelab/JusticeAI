@@ -59,11 +59,19 @@
                     </el-col>
                     <el-col :sm="{span: 8, offset: 2}">
                         <div id="sidebar-dashboard-curve">
-                            <h1>bell curve placeholder</h1>
+                            <el-carousel indicator-position="outside">
+                                <div v-for="value,key in report.curves">
+                                    <el-carousel-item :key="key" :name="key">
+                                        <img src="https://3.bp.blogspot.com/-3xBM54SLMRE/VWHUtRACydI/AAAAAAAADb4/YYFrBkQncuwZkEYLHu7_xpH8re2bFyEIgCKgB/s1600/Slide2.jpg">
+                                    </el-carousel-item>
+                                </div>
+                            </el-carousel>
+                            <h3>Verdict Payment</h3>
                         </div>
                     </el-col>
                     <el-col :sm="{span: 6, offset: 2}">
                         <div id="sidebar-dashboard-outcome">
+                            <h2>Case Verdict:</h2>
                             <div v-for="value,key in report.outcomes">
                                 <el-col :sm="{span: 20, offset: 0}">
                                     <h3>{{ key }}</h3>
@@ -110,7 +118,8 @@ export default {
                 data_set: 350000,
                 similar_case: 50,
                 curves: {
-                    legal_fees: ['whatever data is needed to create a bell curve']
+                    legal_fees: ['whatever data is needed to create a bell curve'],
+                    additional_indemnity_fees: ['whatever data is needed to create a bell curve']
                 },
                 outcomes: {
                     lease_termination: 1,
