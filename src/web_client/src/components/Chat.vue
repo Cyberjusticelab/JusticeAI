@@ -178,10 +178,9 @@ export default {
         response => {
           // 1.1 save chat history in local and parse the sentences
           this.chatHistory.history = response.body.messages
-          var self = this
           for (let i = 0; i < this.chatHistory.history.length; i++) {
             this.chatHistory.history[i].text = this.chatHistory.history[i].text.split('|')
-              .map((sentence) => { return self.addHover(sentence) })
+              .map((sentence) => { return this.addHover(sentence) })
           }
           // 1.2 save resolved fact in local
           this.chatHistory.fact = response.body.fact_entities
@@ -227,7 +226,6 @@ export default {
   },
   methods: {
     addHover (text) {
-      console.log(text)
       return text
         .split(' ')
         .map((word) => {
@@ -269,8 +267,7 @@ export default {
       }
       // 2. set current zeus response
       let zeusResponseText = conversation.message || conversation.text
-      var self = this
-      zeusResponseText = zeusResponseText.map((sentence) => { return self.addHover(sentence) })
+      zeusResponseText = zeusResponseText.map((sentence) => { return this.addHover(sentence) })
       // 2.1 if from history, show the last sentence
       if (!this.zeus.input && this.chatHistory.history.length > 0) {
         this.zeus.input = zeusResponseText.slice(-1)[0]
