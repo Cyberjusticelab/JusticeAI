@@ -3,7 +3,7 @@
 </style>
 
 <template>
-  <div id="chat-component" v-loading="initLoading" element-loading-text="Let's Talk!" element-loading-spinner="el-icon-loading" fullscreen="true" v-autoscroll="'bottom'" v-on:click="updateSidebarEvent()">
+  <div id="chat-component" v-autoscroll="'bottom'" v-on:click="updateSidebarEvent()">
     <!-- Resolved Fact Overlay -->
     <transition name="fade">
       <div id="chat-resolved-fact" v-if="user.openChatHistory">
@@ -36,7 +36,7 @@
     </transition>
     <!-- End of Resolved Fact Overlay -->
     <!-- Chat Window -->
-    <div id="chat-window" v-if="!initLoading" v-autoscroll="'bottom'" ref="mainWindow">
+    <div id="chat-window" v-autoscroll="'bottom'" ref="mainWindow">
       <!-- Zeus Chat -->
       <div id="chat-history-container">
         <div v-for="(history, index1) in chatHistory.history" :key="index1">
@@ -144,7 +144,6 @@ export default {
       numMessageSinceChatHistory: 0,
       promptFeedback: false,
       isLoggedIn: false, //TODO: account feature
-      initLoading: true,
       chatHistory: {
         history: new Array,
         fact: new Array
@@ -190,7 +189,7 @@ export default {
           // 1.5 resume conversation from last message
           this.configChat(this.chatHistory.history[this.chatHistory.history.length - 1])
           // 1.6 disable loading bar
-          this.initLoading = false
+          EventBus.$emit('initLoading', false)
         },
         response => {
           this.connectionError = true
@@ -213,7 +212,7 @@ export default {
           this.sendUserMessage()
           // 2.3 config url and remove loading
           this.uploadUrl = this.api_url + 'conversation/' + response.body.conversation_id + '/files'
-          this.initLoading = false
+          EventBus.$emit('initLoading', false)
         },
         response => {
           this.connectionError = true

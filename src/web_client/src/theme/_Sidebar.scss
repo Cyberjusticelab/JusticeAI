@@ -60,9 +60,18 @@
         }
     }
     #sidebar-dashboard {
+        z-index: 2000;
         position: fixed;
         width: 100%;
         height: 100%;
+        background-color: rgba(255, 255, 255, 0.9);
+        #sidebar-dashboard-logo {
+            background-color: rgba(41,41,41,0.9);
+            height: 10%;
+            img {
+                padding-top: 20px;
+            }
+        }
     }
     #feedback-input {
         width: 100%;

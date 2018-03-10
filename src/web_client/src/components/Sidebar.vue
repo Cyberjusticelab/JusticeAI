@@ -11,7 +11,7 @@
         <!-- 1. End of Menu Close -->
         <!-- 2.1 Menu Open -->
         <transition name='translate'>
-            <div v-if='openSidebar && !openDashboard' id='sidebar-full'>
+            <div v-if='openSidebar && !isPredicted' id='sidebar-full'>
                 <!-- LOGO -->
                 <div id='sidebar-logo'>
                     <img alt='' src='../assets/logo.png' v-on:click='openSidebar = false'>
@@ -39,8 +39,10 @@
         <!-- 2.1 End of Menu Open -->
         <!-- 2.2 Stat Dashboard -->
         <transition name='el-zoom-in-center'>
-            <div v-if='openSidebar && openDashboard' id='sidebar-dashboard'>
-
+            <div v-if='openSidebar && isPredicted' id='sidebar-dashboard'>
+                <div id="sidebar-dashboard-logo">
+                    <img alt='' src='../assets/logo.png'>
+                </div>
             </div>
         </transition>
         <!-- 2.2 End of Stat Dashboard -->
@@ -64,7 +66,7 @@ export default {
         return {
             openFeedbackModal: false,
             openSidebar: false,
-            openDashboard: false,
+            isPredicted: false,
             username: this.$localStorage.get('username'),
             usertype: this.$localStorage.get('usertype'),
             feedback: '',
@@ -138,15 +140,15 @@ export default {
         EventBus.$on('hideSidebar', (status) => {
             this.openSidebar = false
             this.progress = status.progress
-            this.openDashboard = status.prediction
+            this.isPredicted = status.prediction
         })
     },
     methods: {
         view () {
             // TODO: do some black magic here to call report endpoint
             this.openSidebar = true
-            this.openDashboard = true // TODO: remove this dev code. change to true for testing dashboard UI
-            if (this.openDashboard) {
+            this.isPredicted = true // TODO: remove this dev code. change to true for testing dashboard UI
+            if (this.isPredicted) {
 
             }
         },
