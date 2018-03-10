@@ -28,11 +28,6 @@
         background-color: $main-grey-1;
         font-family: $zeus-font;
         border-right: 5px solid $main-gold-2;
-        .active-menu {
-            background-color: $main-grey-3 !important;
-            color: $main-gold-1 !important;
-            cursor: pointer;
-        }
         #sidebar-logo {
             height: 20%;
             img {
