@@ -137,24 +137,294 @@ Provide facts_vector and demands_vector, with key values for each fact/demand.
 
 ```json
 {
-    "outcomes_vector": {
-      "orders_resiliation" : 1,
-      ...
+  "outcomes_vector": {
+    "additional_indemnity_money": "221",
+    "authorize_landlord_retake_apartment": "0",
+    "declares_housing_inhabitable": "0",
+    "declares_resiliation_is_correct": "0",
+    "landlord_prejudice_justified": "1",
+    "landlord_retakes_apartment_indemnity": "0",
+    "landlord_serious_prejudice": "0",
+    "orders_expulsion": "1",
+    "orders_immediate_execution": "1",
+    "orders_landlord_notify_tenant_when_habitable": "0",
+    "orders_resiliation": "1",
+    "orders_tenant_pay_first_of_month": "0",
+    "tenant_ordered_to_pay_landlord": "643",
+    "tenant_ordered_to_pay_landlord_legal_fees": "80"
+  },
+  "similar_precedents": [
+    {
+      "distance": 0.3423500835013649,
+      "facts": {
+        "apartment_dirty": false,
+        "asker_is_landlord": true,
+        "asker_is_tenant": false,
+        "bothers_others": false,
+        "disrespect_previous_judgement": false,
+        "landlord_inspector_fees": "0.0",
+        "landlord_notifies_tenant_retake_apartment": false,
+        "landlord_pays_indemnity": false,
+        "landlord_relocation_indemnity_fees": "0.0",
+        "landlord_rent_change": false,
+        "landlord_rent_change_doc_renseignements": false,
+        "landlord_retakes_apartment": false,
+        "landlord_sends_demand_regie_logement": false,
+        "rent_increased": false,
+        "signed_proof_of_rent_debt": false,
+        "tenant_continuous_late_payment": false,
+        "tenant_damaged_rental": false,
+        "tenant_dead": false,
+        "tenant_financial_problem": false,
+        "tenant_group_responsability": false,
+        "tenant_individual_responsability": true,
+        "tenant_is_bothered": false,
+        "tenant_lease_indeterminate": false,
+        "tenant_left_without_paying": false,
+        "tenant_monthly_payment": "900.0",
+        "tenant_not_paid_lease_timespan": "0.0",
+        "tenant_owes_rent": "970.0",
+        "tenant_refuses_retake_apartment": false,
+        "tenant_rent_not_paid_more_3_weeks": true,
+        "tenant_sends_demand_regie_logement": false,
+        "tenant_withold_rent_without_permission": false,
+        "violent": false
+      },
+      "outcomes": {
+        "additional_indemnity_money": "70.0",
+        "authorize_landlord_retake_apartment": false,
+        "declares_housing_inhabitable": false,
+        "declares_resiliation_is_correct": false,
+        "landlord_prejudice_justified": true,
+        "landlord_retakes_apartment_indemnity": false,
+        "landlord_serious_prejudice": false,
+        "orders_expulsion": true,
+        "orders_immediate_execution": true,
+        "orders_landlord_notify_tenant_when_habitable": false,
+        "orders_resiliation": true,
+        "orders_tenant_pay_first_of_month": false,
+        "tenant_ordered_to_pay_landlord": "970.0",
+        "tenant_ordered_to_pay_landlord_legal_fees": "88.0"
+      },
+      "precedent": "AZ-51211608"
     },
-    "similar_precedents" : [
-    	{
-    		"precedent": "AZ-1111111",
-    		"distance": 1.23123
-    	},
-    	{
-    		"precedent": "AZ-2222222",
-    		"distance": 1.23123
-    	},
-    	{
-    		"precedent": "AZ-3333333",
-    		"distance": 1.23123
-    	}
-    ]
+    {
+      "distance": 0.3429019324281239,
+      "facts": {
+        "apartment_dirty": false,
+        "asker_is_landlord": true,
+        "asker_is_tenant": false,
+        "bothers_others": false,
+        "disrespect_previous_judgement": false,
+        "landlord_inspector_fees": "0.0",
+        "landlord_notifies_tenant_retake_apartment": false,
+        "landlord_pays_indemnity": false,
+        "landlord_relocation_indemnity_fees": "0.0",
+        "landlord_rent_change": false,
+        "landlord_rent_change_doc_renseignements": false,
+        "landlord_retakes_apartment": false,
+        "landlord_sends_demand_regie_logement": false,
+        "rent_increased": false,
+        "signed_proof_of_rent_debt": false,
+        "tenant_continuous_late_payment": false,
+        "tenant_damaged_rental": false,
+        "tenant_dead": false,
+        "tenant_financial_problem": false,
+        "tenant_group_responsability": false,
+        "tenant_individual_responsability": true,
+        "tenant_is_bothered": false,
+        "tenant_lease_indeterminate": false,
+        "tenant_left_without_paying": false,
+        "tenant_monthly_payment": "735.0",
+        "tenant_not_paid_lease_timespan": "0.0",
+        "tenant_owes_rent": "873.0",
+        "tenant_refuses_retake_apartment": false,
+        "tenant_rent_not_paid_more_3_weeks": true,
+        "tenant_sends_demand_regie_logement": false,
+        "tenant_withold_rent_without_permission": false,
+        "violent": false
+      },
+      "outcomes": {
+        "additional_indemnity_money": "0.0",
+        "authorize_landlord_retake_apartment": false,
+        "declares_housing_inhabitable": false,
+        "declares_resiliation_is_correct": false,
+        "landlord_prejudice_justified": true,
+        "landlord_retakes_apartment_indemnity": false,
+        "landlord_serious_prejudice": false,
+        "orders_expulsion": true,
+        "orders_immediate_execution": true,
+        "orders_landlord_notify_tenant_when_habitable": false,
+        "orders_resiliation": true,
+        "orders_tenant_pay_first_of_month": false,
+        "tenant_ordered_to_pay_landlord": "873.0",
+        "tenant_ordered_to_pay_landlord_legal_fees": "80.0"
+      },
+      "precedent": "AZ-51176404"
+    },
+    {
+      "distance": 0.49114649102172725,
+      "facts": {
+        "apartment_dirty": false,
+        "asker_is_landlord": true,
+        "asker_is_tenant": false,
+        "bothers_others": false,
+        "disrespect_previous_judgement": false,
+        "landlord_inspector_fees": "0.0",
+        "landlord_notifies_tenant_retake_apartment": false,
+        "landlord_pays_indemnity": false,
+        "landlord_relocation_indemnity_fees": "0.0",
+        "landlord_rent_change": false,
+        "landlord_rent_change_doc_renseignements": false,
+        "landlord_retakes_apartment": false,
+        "landlord_sends_demand_regie_logement": false,
+        "rent_increased": false,
+        "signed_proof_of_rent_debt": false,
+        "tenant_continuous_late_payment": false,
+        "tenant_damaged_rental": false,
+        "tenant_dead": false,
+        "tenant_financial_problem": false,
+        "tenant_group_responsability": false,
+        "tenant_individual_responsability": true,
+        "tenant_is_bothered": false,
+        "tenant_lease_indeterminate": false,
+        "tenant_left_without_paying": false,
+        "tenant_monthly_payment": "770.0",
+        "tenant_not_paid_lease_timespan": "0.0",
+        "tenant_owes_rent": "1360.0",
+        "tenant_refuses_retake_apartment": false,
+        "tenant_rent_not_paid_more_3_weeks": true,
+        "tenant_sends_demand_regie_logement": false,
+        "tenant_withold_rent_without_permission": false,
+        "violent": false
+      },
+      "outcomes": {
+        "additional_indemnity_money": "590.0",
+        "authorize_landlord_retake_apartment": false,
+        "declares_housing_inhabitable": false,
+        "declares_resiliation_is_correct": false,
+        "landlord_prejudice_justified": true,
+        "landlord_retakes_apartment_indemnity": false,
+        "landlord_serious_prejudice": false,
+        "orders_expulsion": true,
+        "orders_immediate_execution": true,
+        "orders_landlord_notify_tenant_when_habitable": false,
+        "orders_resiliation": true,
+        "orders_tenant_pay_first_of_month": false,
+        "tenant_ordered_to_pay_landlord": "1360.0",
+        "tenant_ordered_to_pay_landlord_legal_fees": "81.0"
+      },
+      "precedent": "AZ-51212451"
+    },
+    {
+      "distance": 0.49200755901067444,
+      "facts": {
+        "apartment_dirty": false,
+        "asker_is_landlord": true,
+        "asker_is_tenant": false,
+        "bothers_others": false,
+        "disrespect_previous_judgement": false,
+        "landlord_inspector_fees": "0.0",
+        "landlord_notifies_tenant_retake_apartment": false,
+        "landlord_pays_indemnity": false,
+        "landlord_relocation_indemnity_fees": "0.0",
+        "landlord_rent_change": false,
+        "landlord_rent_change_doc_renseignements": false,
+        "landlord_retakes_apartment": false,
+        "landlord_sends_demand_regie_logement": false,
+        "rent_increased": false,
+        "signed_proof_of_rent_debt": false,
+        "tenant_continuous_late_payment": false,
+        "tenant_damaged_rental": false,
+        "tenant_dead": false,
+        "tenant_financial_problem": false,
+        "tenant_group_responsability": false,
+        "tenant_individual_responsability": true,
+        "tenant_is_bothered": false,
+        "tenant_lease_indeterminate": false,
+        "tenant_left_without_paying": false,
+        "tenant_monthly_payment": "945.0",
+        "tenant_not_paid_lease_timespan": "0.0",
+        "tenant_owes_rent": "1290.0",
+        "tenant_refuses_retake_apartment": false,
+        "tenant_rent_not_paid_more_3_weeks": true,
+        "tenant_sends_demand_regie_logement": false,
+        "tenant_withold_rent_without_permission": false,
+        "violent": false
+      },
+      "outcomes": {
+        "additional_indemnity_money": "345.0",
+        "authorize_landlord_retake_apartment": false,
+        "declares_housing_inhabitable": false,
+        "declares_resiliation_is_correct": false,
+        "landlord_prejudice_justified": true,
+        "landlord_retakes_apartment_indemnity": false,
+        "landlord_serious_prejudice": false,
+        "orders_expulsion": true,
+        "orders_immediate_execution": true,
+        "orders_landlord_notify_tenant_when_habitable": false,
+        "orders_resiliation": true,
+        "orders_tenant_pay_first_of_month": false,
+        "tenant_ordered_to_pay_landlord": "1290.0",
+        "tenant_ordered_to_pay_landlord_legal_fees": "72.0"
+      },
+      "precedent": "AZ-51201834"
+    },
+    {
+      "distance": 0.4933548500076463,
+      "facts": {
+        "apartment_dirty": false,
+        "asker_is_landlord": true,
+        "asker_is_tenant": false,
+        "bothers_others": false,
+        "disrespect_previous_judgement": false,
+        "landlord_inspector_fees": "0.0",
+        "landlord_notifies_tenant_retake_apartment": false,
+        "landlord_pays_indemnity": false,
+        "landlord_relocation_indemnity_fees": "0.0",
+        "landlord_rent_change": false,
+        "landlord_rent_change_doc_renseignements": false,
+        "landlord_retakes_apartment": false,
+        "landlord_sends_demand_regie_logement": false,
+        "rent_increased": false,
+        "signed_proof_of_rent_debt": false,
+        "tenant_continuous_late_payment": false,
+        "tenant_damaged_rental": false,
+        "tenant_dead": false,
+        "tenant_financial_problem": false,
+        "tenant_group_responsability": false,
+        "tenant_individual_responsability": true,
+        "tenant_is_bothered": false,
+        "tenant_lease_indeterminate": false,
+        "tenant_left_without_paying": false,
+        "tenant_monthly_payment": "800.0",
+        "tenant_not_paid_lease_timespan": "0.0",
+        "tenant_owes_rent": "1400.0",
+        "tenant_refuses_retake_apartment": false,
+        "tenant_rent_not_paid_more_3_weeks": true,
+        "tenant_sends_demand_regie_logement": false,
+        "tenant_withold_rent_without_permission": false,
+        "violent": false
+      },
+      "outcomes": {
+        "additional_indemnity_money": "0.0",
+        "authorize_landlord_retake_apartment": false,
+        "declares_housing_inhabitable": false,
+        "declares_resiliation_is_correct": false,
+        "landlord_prejudice_justified": true,
+        "landlord_retakes_apartment_indemnity": false,
+        "landlord_serious_prejudice": false,
+        "orders_expulsion": true,
+        "orders_immediate_execution": true,
+        "orders_landlord_notify_tenant_when_habitable": false,
+        "orders_resiliation": true,
+        "orders_tenant_pay_first_of_month": false,
+        "tenant_ordered_to_pay_landlord": "0.0",
+        "tenant_ordered_to_pay_landlord_legal_fees": "92.0"
+      },
+      "precedent": "AZ-51391660"
+    }
+  ]
 }
 ```
 
@@ -204,7 +474,7 @@ None
             "tenant_is_bothered",
             "bothers_others"
         ]
-    }   
+    }
 }
 ```
 
@@ -250,7 +520,7 @@ export COMPOSE_FILE=ci
 * denotes optional arguments
 
 1-  Commands
-    
+
     python main.py -train [data size | empty for all] --svm* --sf* --weights* --evaluate*
     python main.py -pre [number of files | empty for all]
     python main.py -post [number of files | empty for all]
