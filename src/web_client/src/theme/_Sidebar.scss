@@ -95,6 +95,19 @@
             @extend .sidebar-dashboard-item;
             color: green;
         }
+        #sidebar-dashboard-outcome {
+            h3 {
+                display: inline-block;
+                font-size: 30px;
+                margin: 10px;
+            }
+            .outcome-check {
+                height: 2em;
+                width: 2em;
+                color: $main-gold-2;
+                margin-top: 12px;
+            }
+        }
     }
     #feedback-input {
         width: 100%;

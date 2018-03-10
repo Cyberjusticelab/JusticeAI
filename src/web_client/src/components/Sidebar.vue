@@ -57,20 +57,21 @@
                             <h3>Prediction Accuracy</h3>
                         </div>
                     </el-col>
-                    <el-col :sm="{span: 4, offset: 2}">
+                    <el-col :sm="{span: 8, offset: 2}">
                         <div id="sidebar-dashboard-curve">
                             <h1>bell curve placeholder</h1>
                         </div>
                     </el-col>
-                    <el-col :sm="{span: 9, offset: 2}">
+                    <el-col :sm="{span: 6, offset: 2}">
                         <div id="sidebar-dashboard-outcome">
-                            <el-collapse accordion>
-                                <div v-for="value,key in report.outcomes">
-                                    <el-collapse-item title="{{key}}">
-                                        <div>{{ key }} is most likely in your case.</div>
-                                    </el-collapse-item>
-                                </div>
-                            </el-collapse>
+                            <div v-for="value,key in report.outcomes">
+                                <el-col :sm="{span: 20, offset: 0}">
+                                    <h3>{{ key }}</h3>
+                                </el-col>
+                                <el-col :sm="{span: 2, offset: 2}">
+                                    <icon name="check-square" class="outcome-check"></icon>
+                                </el-col>
+                            </div>
                         </div>
                     </el-col>
                 </el-row>
