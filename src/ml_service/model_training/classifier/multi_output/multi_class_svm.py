@@ -154,6 +154,8 @@ class MultiClassSVM:
             model_metrics = {
                 'classifier': {}
             }
+        elif 'classifier' not in model_metrics:
+            model_metrics['classifier'] = {}
 
         model_metrics['data_set'] = {
             'size': len(self.data_set)

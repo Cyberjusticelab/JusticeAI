@@ -26,12 +26,11 @@ class AbstractRegressor:
         self.regressor_name = regressor_name
         self.input_dimensions = None
         self.model = None
-        self.mean_fact_vector = None
+        self.mean_facts_vector = None
         if dataset is not None:
             self.dataset = [precedent for precedent in dataset if precedent[
                 'outcomes_vector'][outcome_index] > 1]
             self.outcome_index = outcome_index
-            self.data_metrics()
         else:
             self.load()
 
@@ -80,7 +79,7 @@ class AbstractRegressor:
         regressor = load_model(file_path)
         scaler = Load.load_binary('{}_scaler.bin'.format(regressor_name))
         self.model = AbstractRegressor._create_pipeline(scaler, regressor)
-        self.mean_fact_vector = Load.load_binary('model_metrics.bin')['regressor'][regressor_name]['mean_facts_vector']
+        self.mean_facts_vector = Load.load_binary('model_metrics.bin')['regressor'][regressor_name]['mean_facts_vector']
 
     @staticmethod
     def _create_pipeline(scaler, regressor):
@@ -163,10 +162,15 @@ class AbstractRegressor:
                     }
                 }
             }
+        elif 'regressor' not in model_metrics:
+            model_metrics['regressor'] = {}
+
         self.mean_facts_vector = np.mean(facts_vector, axis=0)
-        model_metrics['regressor'][self.regressor_name]['mean_facts_vector'] = self.mean_facts_vector
-        model_metrics['regressor'][self.regressor_name]['std'] = np.std(outcomes_vector)
-        model_metrics['regressor'][self.regressor_name]['variance'] = np.var(outcomes_vector)
-        model_metrics['regressor'][self.regressor_name]['mean'] = np.mean(outcomes_vector)
+        model_metrics['regressor'][self.regressor_name] = {
+            'mean_facts_vector': self.mean_facts_vector,
+            'std': np.std(outcomes_vector),
+            'variance': np.var(outcomes_vector),
+            'mean': np.mean(outcomes_vector)
+        }
 
         return model_metrics
