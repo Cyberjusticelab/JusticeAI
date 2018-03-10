@@ -82,6 +82,21 @@
                             </div>
                         </div>
                     </el-col>
+                    <el-col :sm="{span: 13, offset: 1}">
+                        <div id="sidebar-dashboard-similarity">
+                            <el-table :data="report.similar_precedents">
+                              <el-table-column
+                                prop="precedent"
+                                label="Case Number">
+                              </el-table-column>
+                            </el-table>
+                        </div>
+                    </el-col>
+                    <el-col :sm="{span: 7, offset: 2}">
+                        <div id="sidebar-dashboard-contact">
+                            <p>info</p>
+                        </div>
+                    </el-col>
                 </el-row>
             </div>
         </transition>
@@ -188,7 +203,7 @@ export default {
         view () {
             // TODO: do some black magic here to call report endpoint
             this.openSidebar = true
-            this.isPredicted = true // TODO: remove this dev code. change to true for testing dashboard UI
+            //this.isPredicted = true // TODO: remove this dev code. change to true for testing dashboard UI
             if (this.isPredicted) {
                 //TODO
             }
