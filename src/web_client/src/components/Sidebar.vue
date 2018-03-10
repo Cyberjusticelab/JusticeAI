@@ -11,7 +11,7 @@
         <!-- 1. End of Menu Close -->
         <!-- 2.1 Menu Open -->
         <transition name="translate">
-            <div v-if="openSidebar" id="sidebar-full">
+            <div v-if="openSidebar && !openDashboard" id="sidebar-full">
                 <!-- LOGO -->
                 <div id="sidebar-logo">
                     <img alt="" src="../assets/logo.png" v-on:click="openSidebar = false">
@@ -20,6 +20,7 @@
                 <!-- End of LOGO -->
                 <!-- Pending Info -->
                 <div id="sidebar-dashboard">
+                    <el-progress type="circle" :percentage="progress"></el-progress>
                     <p>Provide more information to Zeus to get a prediction on your case</p>
                 </div>
                 <!-- End of Pending Info -->
@@ -37,7 +38,9 @@
         </transition>
         <!-- 2.1 End of Menu Open -->
         <!-- 2.2 Stat Dashboard -->
-
+        <transition name="el-zoom-in-center">
+            <div v-if="openSidebar && openDashboard"
+        </transition>
         <!-- 2.2 End of Stat Dashboard -->
         <!-- el-dialog for feedback -->
         <el-dialog title="Feedback" :visible.sync="openFeedbackModal">
@@ -59,17 +62,21 @@ export default {
         return {
             openFeedbackModal: false,
             openSidebar: false,
+            openDashboard: false,
             username: this.$localStorage.get('username'),
             usertype: this.$localStorage.get('usertype'),
             feedback: '',
+            progress: 0,
             //TODO: fetch username from conversation, now use usertype instead
             api_url: process.env.API_URL,
             connectionError: false
         }
     },
     created () {
-        EventBus.$on('hideSidebar', () => {
+        EventBus.$on('hideSidebar', (status) => {
             this.openSidebar = false
+            this.progress = status.progress
+            this.openDashboard = status.prediction
         })
     },
     methods: {

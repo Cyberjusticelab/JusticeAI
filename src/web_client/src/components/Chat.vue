@@ -3,7 +3,7 @@
 </style>
 
 <template>
-  <div id="chat-component" v-loading="initLoading" element-loading-text="Let's Talk!" element-loading-spinner="el-icon-loading" fullscreen="true" v-autoscroll="'bottom'" v-on:click="hideSidebar()">
+  <div id="chat-component" v-loading="initLoading" element-loading-text="Let's Talk!" element-loading-spinner="el-icon-loading" fullscreen="true" v-autoscroll="'bottom'" v-on:click="updateSidebarEvent()">
     <!-- Resolved Fact Overlay -->
     <transition name="fade">
       <div id="chat-resolved-fact" v-if="user.openChatHistory">
@@ -282,6 +282,10 @@ export default {
       }
       // 5. set progress
       this.zeus.progress = conversation.progress
+      this.updateSidebarEvent({
+        progress: this.zeus.progress,
+        prediction: this.zeus.progress == 100
+      })
       // 6. set feedback prompt
       this.numMessageSinceChatHistory += 1
       this.promptFeedback = this.numMessageSinceChatHistory > 4
@@ -327,8 +331,9 @@ export default {
         }
       )
     },
-    hideSidebar () {
-      EventBus.$emit('hideSidebar')
+    updateSidebarEvent (status) {
+      let currentStatus = status || {progress: 0, prediction: false}
+      EventBus.$emit('hideSidebar', currentStatus)
     }
   }
 }
