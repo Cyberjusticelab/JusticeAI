@@ -179,9 +179,6 @@ class MultiClassSVM:
 
             model_metrics['classifier'][column_name] = {
                 'prediction_accuracy': accuracy,
-                'precision': precision,
-                'recall': recall,
-                'f1': f1
             }
         Save().save_binary('model_metrics.bin', model_metrics)
 
