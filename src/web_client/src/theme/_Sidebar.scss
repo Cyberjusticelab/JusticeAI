@@ -119,23 +119,26 @@
         #sidebar-dashboard-outcome {
             @extend .sidebar-dashboard-item;
             text-align: left;
-            h2 {
-                text-align: center;
-                font-size: 30px;
-                font-weight: 300;
-                color: cadetblue;
-            }
-            h3 {
-                display: inline-block;
-                font-weight: 100;
-                font-size: 14px;
-                margin: 10px;
-            }
-            .outcome-check {
-                height: 1em;
-                width: 1em;
-                color: $main-gold-2;
-                margin-top: 12px;
+            .sidebar-dashboard-outcome-item {
+                border-bottom: 1px solid $main-grey-3;
+                h2 {
+                    text-align: center;
+                    font-size: 30px;
+                    font-weight: 300;
+                    color: cadetblue;
+                }
+                h3 {
+                    display: inline-block;
+                    font-weight: 100;
+                    font-size: 14px;
+                    margin: 10px;
+                }
+                .outcome-check {
+                    height: 1em;
+                    width: 1em;
+                    color: $main-gold-2;
+                    margin-top: 12px;
+                }
             }
         }
         #sidebar-dashboard-contact {

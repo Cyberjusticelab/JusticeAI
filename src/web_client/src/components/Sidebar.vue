@@ -81,7 +81,7 @@
                     <el-col :sm="{span: 4, offset: 2}">
                         <div id="sidebar-dashboard-outcome">
                             <h2>Case Verdict</h2>
-                            <div v-for="value,key in report.outcomes">
+                            <div v-for="value,key in report.outcomes" class="sidebar-dashboard-outcome-item">
                                 <el-col :sm="{span: 20, offset: 0}">
                                     <h3>{{ key }}</h3>
                                 </el-col>
