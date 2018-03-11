@@ -16,7 +16,6 @@
     "element-ui": "^2.0.2",
     "tippy.js": "^2.2.3",
     "vue": "^2.4.2",
-    "vue-autoscroll": "^1.1.1",
     "vue-localstorage": "^0.5.0",
     "vue-router": "^3.0.1",
     "vue-upload-component": "^2.6.3",
