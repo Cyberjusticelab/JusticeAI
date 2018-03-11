@@ -91,7 +91,7 @@ class Responses:
             True: ["orders_tenant_pay_first_of_month - True"],
             False: ["orders_tenant_pay_first_of_month - False"]
         },
-        "missing_category": ["Sorry, I cannot yet make a prediction for this claim category yet."]
+        "cant_predict": ["Sorry, I wasn't able to come up with any predictions."]
     }
 
     similar_outcome = [
@@ -501,18 +501,17 @@ class Responses:
         return Responses.chooseFrom(Responses.static_claim_responses[claim_category_value][person_type])
 
     @staticmethod
-    def prediction_statement(claim_category_value, prediction_dict, similar_precedent_list):
+    def prediction_statement(prediction_dict, similar_precedent_list):
         """
         Gets a statement for a prediction for a particular claim
-        :param claim_category_value: The string value of the claim category
         :param prediction_dict: A dict of prediction keys from the ML service
         :param similar_precedent_list: A list of dicts containing precedent, distance key pairs
         :return: A string of predictions based on determined outcomes. If similar precedents exist, they will be enumerated as well.
         """
 
         # Check if dict is empty
-        if not bool(prediction_dict) or claim_category_value not in Responses.prediction:
-            return Responses.chooseFrom(Responses.prediction["missing_category"])
+        if not bool(prediction_dict):
+            return Responses.chooseFrom(Responses.prediction["cant_predict"])
 
         # Generate all prediction text
         all_responses = []

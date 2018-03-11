@@ -269,7 +269,6 @@ def __state_giving_prediction(conversation):
 
     # Generate statement for prediction
     question = Responses.prediction_statement(
-        claim_category_value=conversation.claim_category.value,
         prediction_dict=ml_prediction,
         similar_precedent_list=similar_precedent_list)
 

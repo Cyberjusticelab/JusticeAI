@@ -79,8 +79,8 @@ def extract_prediction(claim_category, ml_response):
     all_outcomes = ml_response['outcomes_vector']
     relevant_outcomes = {}
     for outcome in all_outcomes:
-        if outcome in essential_outcome_list or all_outcomes[outcome] != 0:
-            relevant_outcomes[outcome] = all_outcomes[outcome]
+        if outcome in essential_outcome_list or int(all_outcomes[outcome]) != 0:
+            relevant_outcomes[outcome] = int(all_outcomes[outcome])
 
     return relevant_outcomes
 
