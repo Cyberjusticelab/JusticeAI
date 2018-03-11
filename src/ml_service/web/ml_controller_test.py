@@ -134,10 +134,10 @@ class TestMlController(unittest.TestCase):
                                     674., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
                                     0., 0., 0.])
 
-    def test_vector_to_dict(self):
+    def test_outcome_vector_to_dict(self):
         binary_vector = np.array([0, 1, 0, 0, 0, 1, 1, 0, 1, 0])
         MlController.classifier_labels = self.mock_classifier_index
-        result = MlController.vector_to_dict(binary_vector)
+        result = MlController.outcome_vector_to_dict(binary_vector)
         expected_dict = {
             'outcomes_vector': {
                 'rejects_tenant_demand': '1',
