@@ -186,6 +186,13 @@ my landlord wants me gone because my dog is too loud and keeps barking
 # COMMON #
 ##########
 
+[common_examples: ask_retake_rental]
+my landlord is trying to retake my rental
+my landlord wants to house a family member in my apartment
+can my landlord retake my apartment
+my landlord is kicking me out to house a family member
+
+
 [common_examples: faq_rlq_abandoned_premises]
 i left my apartment without telling anyone
 i left my apartment without telling my landlord
