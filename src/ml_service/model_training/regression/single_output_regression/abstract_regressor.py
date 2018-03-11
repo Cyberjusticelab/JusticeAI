@@ -23,18 +23,13 @@ class AbstractRegressor:
             ...
         }]
         """
+        self.regressor_name = regressor_name
         self.input_dimensions = None
         self.model = None
-        self.regressor_name = regressor_name
-        self.mean_vector = None
+        self.mean_facts_vector = None
         if dataset is not None:
             self.dataset = [precedent for precedent in dataset if precedent[
                 'outcomes_vector'][outcome_index] > 1]
-            facts_vector = [x['facts_vector'] for x in self.dataset]
-            self.mean_vector = np.mean(facts_vector, axis=0)
-            mean_dict = Load.load_binary('regressor_means.bin')
-            mean_dict[regressor_name] = self.mean_vector
-            Save().save_binary('regressor_means.bin', mean_dict)
             self.outcome_index = outcome_index
         else:
             self.load()
@@ -54,7 +49,7 @@ class AbstractRegressor:
         :param precedent_vector: numpy.array([1, 2, 5, 0, 223, 0, 0...])
         :return: [[int]]
         """
-        data = self.mean_vector.copy()
+        data = self.mean_facts_vector.copy()
         for i in range(len(precedent_vector)):
             if precedent_vector[i] > 0:
                 data[i] = precedent_vector[i]
@@ -71,6 +66,8 @@ class AbstractRegressor:
         Log.write('{}_regressor.bin'.format(regressor_name) + " saved to: " + file_path)
         self.model.steps[1][1].model.save(file_path)
         Save().save_binary('{}_scaler.bin'.format(regressor_name), self.model.steps[0][1])
+        Save().save_binary('model_metrics.bin', self.data_metrics())
+        self.dataset = None
 
     def load(self):
         """
@@ -83,7 +80,7 @@ class AbstractRegressor:
         regressor = load_model(file_path)
         scaler = Load.load_binary('{}_scaler.bin'.format(regressor_name))
         self.model = AbstractRegressor._create_pipeline(scaler, regressor)
-        self.mean_vector = Load.load_binary('regressor_means.bin')[self.regressor_name]
+        self.mean_facts_vector = Load.load_binary('model_metrics.bin')['regressor'][regressor_name]['mean_facts_vector']
 
     @staticmethod
     def _create_pipeline(scaler, regressor):
@@ -118,3 +115,61 @@ class AbstractRegressor:
         Log.write('Explained Variance: {0:.2f}'.format(variance))
         Log.write('Mean Absolute Error: {0:.2f}'.format(mean_abs_error))
         Log.write('Mean Squared Error: {0:.2f}'.format(mean_squared_error))
+
+    def data_metrics(self):
+        """
+        1) Obtain the fact vectors
+        2) Obtain the outcome vectors pertaining to the regressor in question
+        3) Collect data metrics
+            3.1) mean_fact_vector --> the average of every fact column
+            3.2) standard deviation of outcomes
+            3.3) variance of outcomes
+            3.4) mean of outcomes
+        4) persist data into a dictionary which will be binarized
+
+        model_metrics -->
+        {
+            'data_set':{
+                'size': 5000
+            },
+            'regressor':{
+                'regressor name':{
+                    'std': 4,
+                    'mean': 5,
+                    'variance': 42,
+                    'mean_fact_vector': [3, 1, 5, 6, 2]
+                }
+            },
+            'classifier':{
+                'classifier name':{
+                    'prediction_accuracy': 0.92,
+                }
+            }
+        }
+        :return: model_metrics
+        """
+
+        facts_vector = [x['facts_vector'] for x in self.dataset]
+        outcomes_vector = [x['outcomes_vector'][self.outcome_index] for x in self.dataset]
+
+        model_metrics = Load.load_binary('model_metrics.bin')
+        if model_metrics is None:
+            model_metrics = {
+                'regressor': {
+                    self.regressor_name:{
+
+                    }
+                }
+            }
+        elif 'regressor' not in model_metrics:
+            model_metrics['regressor'] = {}
+
+        self.mean_facts_vector = np.mean(facts_vector, axis=0)
+        model_metrics['regressor'][self.regressor_name] = {
+            'mean_facts_vector': self.mean_facts_vector,
+            'std': np.std(outcomes_vector),
+            'variance': np.var(outcomes_vector),
+            'mean': np.mean(outcomes_vector)
+        }
+
+        return model_metrics
