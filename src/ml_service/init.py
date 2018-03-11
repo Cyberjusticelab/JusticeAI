@@ -22,7 +22,7 @@ binary_names_dict = {
     'additional_indemnity_money_regressor': ['https://capstone.cyberjustice.ca/data/bin/additional_indemnity_money_regressor.bin', 478368],
     'additional_indemnity_money_scaler': ['https://capstone.cyberjustice.ca/data/bin/additional_indemnity_money_scaler.bin', 1250],
     'multi_class_svm_model': ['https://capstone.cyberjustice.ca/data/bin/multi_class_svm_model.bin', 20739501],
-    'model_metrics': ['https://capstone.cyberjustice.ca/data/bin/regressor_means.bin', 2170],
+    'model_metrics': ['https://capstone.cyberjustice.ca/data/bin/model_metrics.bin', 2170],
     'tenant_pays_landlord_regressor': ['https://capstone.cyberjustice.ca/data/bin/tenant_pays_landlord_regressor.bin', 478584],
     'tenant_pays_landlord_scaler': ['https://capstone.cyberjustice.ca/data/bin/tenant_pays_landlord_scaler.bin', 1250],
     'similarity_case_numbers': ['https://capstone.cyberjustice.ca/data/bin/similarity_case_numbers.bin', 999398],
