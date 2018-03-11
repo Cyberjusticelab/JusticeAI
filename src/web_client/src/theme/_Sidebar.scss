@@ -66,6 +66,16 @@
         height: 100%;
         background-color: rgba(255,255,255,0.95);
         font-family: $zeus-font;
+        #sidebar-dashboard-close {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            width: 45px;
+            z-index: 2000;
+            &:hover {
+                cursor: pointer;
+            }
+        }
         #sidebar-dashboard-logo {
             background-color: $main-grey-1;
             img {
@@ -128,9 +138,9 @@
                 color: $main-gold-2;
                 margin-top: 12px;
             }
-            .cell {
-                text-align: center !important;
-            }
+        }
+        #sidebar-dashboard-contact {
+            @extend .sidebar-dashboard-item;
         }
     }
     #feedback-input {
@@ -161,4 +171,3 @@
 .translate-enter {
     transform: translateX(-125%);
 }
-

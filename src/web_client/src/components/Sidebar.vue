@@ -40,6 +40,7 @@
         <!-- 2.2 Stat Dashboard -->
         <transition name="el-zoom-in-center">
             <div v-if="openSidebar && isPredicted" id="sidebar-dashboard">
+                <img id="sidebar-dashboard-close" v-on:click="openSidebar = false" alt="" src="../assets/history_disable.png">
                 <el-row>
                     <el-col :sm="{span: 24, offset: 0}">
                         <div id="sidebar-dashboard-logo">
@@ -103,9 +104,9 @@
                                 </el-table>
                         </div>
                     </el-col>
-                    <el-col :sm="{span: 7, offset: 2}">
+                    <el-col :sm="{span: 22, offset: 1}">
                         <div id="sidebar-dashboard-contact">
-                            <p>info</p>
+                            <h3>Need professional legal support? Contact us at 514-123-4567</h3>
                         </div>
                     </el-col>
                 </el-row>
@@ -140,7 +141,7 @@ export default {
             //TODO: set report to new object and modify by report api callback. Now mock data.
             //This is the expected payload format
             report: {
-                accuracy: 96,
+                accuracy: 90,
                 data_set: 350000,
                 similar_case: 50,
                 curves: {
