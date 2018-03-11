@@ -119,12 +119,12 @@ class TestMlController(unittest.TestCase):
     MlController.classifier_index = mock_classifier_index
     MlController.indexes = mock_index
 
-    def test_dict_to_vector(self):
+    def test_fact_dict_to_vector(self):
         # Test data
         input_json = json.loads(self.test_json)
 
         # Execute
-        result = MlController.dict_to_vector(input_json['facts'])
+        result = MlController.fact_dict_to_vector(input_json['facts'])
         # Verify
 
         assert_array_equal(result, [0., 0., 0., 1., 0., 0., 0., 0., 48.,
@@ -153,25 +153,6 @@ class TestMlController(unittest.TestCase):
             }
         }
         self.assertEqual(expected_dict, result)
-
-    def test_format_similar_precedents(self):
-        similarity_list = [
-            ["AZ-11111.txt", 1.5],
-            ["AZ-22222", 1.0]
-        ]
-        expected_list = [
-            {
-                "precedent": "AZ-11111",
-                "distance": 1.5
-            },
-            {
-                "precedent": "AZ-22222",
-                "distance": 1.0
-            }
-        ]
-
-        formatted_list = MlController.format_similar_precedents(similarity_list)
-        self.assertListEqual(formatted_list, expected_list)
 
     def test_get_ordered_weights(self):
         expected_results = {
