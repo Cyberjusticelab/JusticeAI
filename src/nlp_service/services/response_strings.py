@@ -35,25 +35,25 @@ class Responses:
 
     # Giving a prediction
     prediction = {
-        "LEASE_TERMINATION": {
-            "orders_resiliation": {
-                True: ["I have determined that it is likely that the lease will be terminated."],
-                False: ["I have determined that it is unlikely that the lease will be terminated."]
-            }
+        "orders_resiliation": {
+            True: ["I have determined that it is likely that the lease will be terminated."],
+            False: ["I have determined that it is unlikely that the lease will be terminated."]
         },
-        "NONPAYMENT": {
-            "tenant_ordered_to_pay_landlord": {
-                True: ["I have determined that the tenant will likely have to pay the landlord ${} in late rent."],
-                False: ["I have determined that the tenant will likely not owe any late rent payments to the landlord."]
-            },
-            "tenant_ordered_to_pay_landlord_legal_fees": {
-                True: ["In terms of legal fees, the tenant will likely owe ${} to the landlord."],
-                False: ["I don't suspect that the tenant will owe the landlord any legal fees."]
-            },
-            "additional_indemnity_money": {
-                True: ["The tenant may owe ${} to the landlord due as compensation for prejudice."],
-                False: ["It is unlikely that the tenant will owe the landlord any compensation for prejudice."]
-            }
+        "tenant_ordered_to_pay_landlord": {
+            True: ["I have determined that the tenant will likely have to pay the landlord ${} in late rent."],
+            False: ["I have determined that the tenant will likely not owe any late rent payments to the landlord."]
+        },
+        "tenant_ordered_to_pay_landlord_legal_fees": {
+            True: ["In terms of legal fees, the tenant will likely owe ${} to the landlord."],
+            False: ["I don't suspect that the tenant will owe the landlord any legal fees."]
+        },
+        "additional_indemnity_money": {
+            True: ["The tenant may owe ${} to the landlord due as compensation for prejudice."],
+            False: ["It is unlikely that the tenant will owe the landlord any compensation for prejudice."]
+        },
+        "authorize_landlord_retake_apartment": {
+            True: ["I have determined that it is likely that the landlord will be able to retake the rental."],
+            False: ["I have determined that it is unlikely that the landlord will be able to retake the rental."]
         },
         "missing_category": ["Sorry, I cannot yet make a prediction for this claim category yet."]
     }
@@ -484,7 +484,8 @@ class Responses:
             prediction_value = prediction_dict[prediction]
             prediction_predicate = int(prediction_value) > 0
             prediction_text = Responses.chooseFrom(
-                Responses.prediction[claim_category_value][prediction][prediction_predicate]).format(prediction_value)
+                Responses.prediction[prediction][prediction_predicate]
+            ).format(prediction_value)
             all_responses.append(prediction_text)
 
         # Generate similar outcome text

@@ -261,7 +261,10 @@ def __state_giving_prediction(conversation):
     ml_response = ml_service.submit_resolved_fact_list(conversation)
 
     # Extract relevant data from the ml response
-    ml_prediction = ml_service.extract_prediction(ml_response=ml_response)
+    ml_prediction = ml_service.extract_prediction(
+        claim_category=conversation.claim_category.value,
+        ml_response=ml_response
+    )
     similar_precedent_list = ml_response['similar_precedents']
 
     # Generate statement for prediction
