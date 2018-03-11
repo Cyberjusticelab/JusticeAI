@@ -51,13 +51,13 @@
                             <h2>Here is our prediction after analyzing <span>{{ report.data_set }}</span> Régie du logement"s precedents:</h2>
                         </div>
                     </el-col>
-                    <el-col :sm="{span: 5, offset: 1}">
+                    <el-col :sm="{span: 5, offset: 2}">
                         <div id="sidebar-dashboard-accuracy">
-                            <el-progress type="circle" :percentage="report.accuracy" :stroke-width="40" :width="300"></el-progress>
+                            <el-progress type="circle" :percentage="report.accuracy" :stroke-width="30" :width="250"></el-progress>
                             <h3>Prediction Accuracy</h3>
                         </div>
                     </el-col>
-                    <el-col :sm="{span: 8, offset: 1}">
+                    <el-col :sm="{span: 8, offset: 2}">
                         <div id="sidebar-dashboard-curve">
                             <el-carousel indicator-position="outside">
                                 <div v-for="value,key in report.curves">
@@ -72,12 +72,12 @@
                                     </el-carousel-item>
                                 </div>
                             </el-carousel>
-                            <h3>Verdict Payment</h3>
+                            <h3>Payment Verdict</h3>
                         </div>
                     </el-col>
-                    <el-col :sm="{span: 7, offset: 1}">
+                    <el-col :sm="{span: 4, offset: 2}">
                         <div id="sidebar-dashboard-outcome">
-                            <h2>Case Verdict:</h2>
+                            <h2>Case Verdict</h2>
                             <div v-for="value,key in report.outcomes">
                                 <el-col :sm="{span: 20, offset: 0}">
                                     <h3>{{ key }}</h3>
@@ -88,14 +88,19 @@
                             </div>
                         </div>
                     </el-col>
-                    <el-col :sm="{span: 13, offset: 1}">
+                    <el-col :sm="{span: 22, offset: 1}">
                         <div id="sidebar-dashboard-similarity">
-                            <el-table :data="report.similar_precedents">
-                              <el-table-column
-                                prop="precedent"
-                                label="Case Number">
-                              </el-table-column>
-                            </el-table>
+                                <el-table :data="report.similar_precedents_table" stripe>
+                                    <div>
+                                        <el-table-column prop="name" label="Case Number"></el-table-column>
+                                    </div>
+                                    <div v-for="fact in report.similar_precedents_fact_index">
+                                        <el-table-column :prop="fact" :label="fact"></el-table-column>
+                                    </div>
+                                    <div v-for="outcome in report.similar_precedents_outcome_index">
+                                        <el-table-column :prop="outcome" :label="outcome"></el-table-column>
+                                    </div>
+                                </el-table>
                         </div>
                     </el-col>
                     <el-col :sm="{span: 7, offset: 2}">
@@ -153,43 +158,31 @@ export default {
                     {
                         precedent: 'AZ-1111111',
                         facts: {
-                            absent : 1,
-                            apartment_impropre : 0,
-                            apartment_infestation : 1,
-                            asker_is_landlord : 1,
-                            asker_is_tenant : 1,
-                            bothers_others : 1,
-                            disrespect_previous_judgement : 1
+                            f1: 1,
+                            f2: 1,
+                            f3: 1,
+                            f4: 1,
+                            f5: 1
                         },
                         outcomes: {
-                            absent : 1,
-                            apartment_impropre : 0,
-                            apartment_infestation : 0,
-                            asker_is_landlord : 0,
-                            asker_is_tenant : 1,
-                            bothers_others : 1,
-                            disrespect_previous_judgement : 1
+                            o1: 1,
+                            o2: 1,
+                            o3: 1
                         }
                     },
                     {
                         precedent: 'AZ-222222',
                         facts: {
-                            absent : 1,
-                            apartment_impropre : 0,
-                            apartment_infestation : 1,
-                            asker_is_landlord : 1,
-                            asker_is_tenant : 1,
-                            bothers_others : 1,
-                            disrespect_previous_judgement : 1
+                            f1: 0,
+                            f2: 0,
+                            f3: 0,
+                            f4: 0,
+                            f5: 1
                         },
                         outcomes: {
-                            absent : 1,
-                            apartment_impropre : 0,
-                            apartment_infestation : 0,
-                            asker_is_landlord : 0,
-                            asker_is_tenant : 1,
-                            bothers_others : 1,
-                            disrespect_previous_judgement : 1
+                            o1: 0,
+                            o2: 0,
+                            o3: 1
                         }
                     }
                 ]
@@ -212,6 +205,7 @@ export default {
             this.isPredicted = true // TODO: remove this dev code. change to true for testing dashboard UI
             if (this.isPredicted) {
                 //TODO:
+                this.createPrecedentTable()
             }
         },
         submitFeedback () {
@@ -240,6 +234,28 @@ export default {
             this.$localStorage.remove('username')
             this.$localStorage.remove('usertype')
             this.$router.push('/')
+        },
+        createPrecedentTable () {
+            this.report.similar_precedents_fact_index = []
+            for (let key in this.report.similar_precedents[0].facts) {
+                this.report.similar_precedents_fact_index.push(key)
+            }
+            this.report.similar_precedents_outcome_index = []
+            for (let key in this.report.similar_precedents[0].outcomes) {
+                this.report.similar_precedents_outcome_index.push(key)
+            }
+            this.report.similar_precedents_table = []
+            for (let i = 0; i < this.report.similar_precedents.length; i++) {
+                let row = {}
+                row.name = this.report.similar_precedents[i].precedent
+                for (let key in this.report.similar_precedents[i].facts) {
+                    row[key] = this.report.similar_precedents[i].facts[key]
+                }
+                for (let key in this.report.similar_precedents[i].outcomes) {
+                    row[key] = this.report.similar_precedents[i].outcomes[key]
+                }
+                this.report.similar_precedents_table.push(row)
+            }
         }
     }
 }

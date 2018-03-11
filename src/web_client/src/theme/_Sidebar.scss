@@ -3,7 +3,6 @@
 #sidebar-component {
     width: 12%;
     background-color: rgba(74,74,74,.8);
-    overflow-y: hidden;
     z-index: 2;
     #sidebar-min {
         width: 50%;
@@ -60,6 +59,7 @@
         }
     }
     #sidebar-dashboard {
+        overflow-y: scroll;
         z-index: 2000;
         position: fixed;
         width: 100%;
@@ -113,19 +113,23 @@
             h2 {
                 text-align: center;
                 font-size: 30px;
+                font-weight: 300;
                 color: cadetblue;
             }
             h3 {
                 display: inline-block;
                 font-weight: 100;
-                font-size: 25px;
+                font-size: 14px;
                 margin: 10px;
             }
             .outcome-check {
-                height: 2em;
-                width: 2em;
+                height: 1em;
+                width: 1em;
                 color: $main-gold-2;
                 margin-top: 12px;
+            }
+            .cell {
+                text-align: center !important;
             }
         }
     }
