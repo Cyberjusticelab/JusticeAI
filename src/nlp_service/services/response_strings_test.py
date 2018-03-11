@@ -43,7 +43,7 @@ class TestResponse(unittest.TestCase):
         self.assertTrue(question_empty_predictions in self.responseInstance.prediction["cant_predict"])
 
     def test_responses_prediction_precedent(self):
-        question = Responses.prediction_statement("LEASE_TERMINATION", {"orders_resiliation": 1}, [
+        question = Responses.prediction_statement({"orders_resiliation": 1}, [
             {
                 "precedent": "AZ-11111",
                 "distance": 1.5
