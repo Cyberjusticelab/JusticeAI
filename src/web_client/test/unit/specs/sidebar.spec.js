@@ -32,7 +32,6 @@ describe('Sidebar.vue', () => {
         vm.feedback = 'Hello'
         vm.submitFeedback()
         expect(vm.connectionError).to.be.false
-        expect(vm.openFileList).to.be.false
         Vue.http.post.restore()
     })
 
@@ -44,7 +43,6 @@ describe('Sidebar.vue', () => {
         vm.feedback = 'Hello'
         vm.submitFeedback()
         expect(vm.connectionError).to.be.true
-        expect(vm.openFileList).to.be.false
         Vue.http.post.restore()
     })
 
@@ -54,7 +52,6 @@ describe('Sidebar.vue', () => {
         vm.feedback = ''
         vm.submitFeedback()
         expect(vm.connectionError).to.be.false
-        expect(vm.openFileList).to.be.false
     })
 
     it('should reset chat', () => {
