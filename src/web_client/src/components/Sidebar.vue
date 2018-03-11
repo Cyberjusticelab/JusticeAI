@@ -213,7 +213,7 @@ export default {
         view () {
             // TODO: do some black magic here to call report endpoint
             this.openSidebar = true
-            this.isPredicted = true // TODO: remove this dev code. change to true for testing dashboard UI
+            //this.isPredicted = true // TODO: remove this dev code. change to true for testing dashboard UI
             if (this.isPredicted) {
                 //TODO:
                 this.createPrecedentTable()
