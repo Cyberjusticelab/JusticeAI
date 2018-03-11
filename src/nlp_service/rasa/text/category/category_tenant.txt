@@ -32,6 +32,7 @@ rent increase: rais(e/es/end/ing)
 landlord not repairing: repair|fix
 landlord harassing: (harass(ing|ed|es)?)|(creep(y)?)|(lewd)
 visitation without permission: (visit)|(enter(ed|ing))
+retaking rental as a tenant: ((rent)(al)+)|(take back)|(retake)|(move in)|(move out)|(apartment back)|(family)|(relocate)|(move his)|(move her)|(house ((his)|(her)|(a)))|(move into)
 
 [entity_synonyms]
 
