@@ -109,6 +109,14 @@
                     <el-col :sm="{span: 22, offset: 1}">
                         <div id="sidebar-dashboard-contact">
                             <h3>Need professional legal support? Contact us at 514-123-4567</h3>
+                            <div v-on:click="openFeedbackModal = true" class="sidebar-dashboard-footer">
+                                <p>FEEDBACK</p>
+                            </div>
+                            <!-- End of Feedback -->
+                            <!-- Reset -->
+                            <div v-on:click="resetChat()" class="sidebar-dashboard-footer">
+                                <p>RESET CONVERSATION</p>
+                            </div>
                         </div>
                     </el-col>
                 </el-row>
