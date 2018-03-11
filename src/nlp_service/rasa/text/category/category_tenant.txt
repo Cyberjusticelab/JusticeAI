@@ -191,7 +191,11 @@ my landlord is trying to retake my rental
 my landlord wants to house a family member in my apartment
 can my landlord retake my apartment
 my landlord is kicking me out to house a family member
-
+my landlord wants to relocate into my dwelling
+my landlord wants to move his mother into my apartment
+my landlord wants his brother to move into my apartment
+my landlord wants to take back the apartment so he can move in his children
+my landlord wants the apartment back for his wife
 
 [common_examples: faq_rlq_abandoned_premises]
 i left my apartment without telling anyone

@@ -23,6 +23,7 @@ haven't paid: (haven't)(\s)(paid)
 rent increase: rais(e/es/end/ing)
 landlord not repairing: repair|fix
 visitation without permission: (visit)|(enter(ed|ing)?)
+retaking the rental: ((rent)(al)+)|(take back)|(retake)|(move in)|(move out)|(apartment back)
 
 [entity_synonyms]
 
@@ -81,7 +82,12 @@ i want to take a rental from my tenant
 i want to retake a rental
 can i take back a dwelling from my tenant
 housing a relative in my rental
-
+i want to move in my apartment
+my tenant doesn't want to move out i need my apartment
+i need the apartment my family is going to move in
+i need the apartment back for my wife
+i want to move in my children into my tenant's apartment
+i want to take back the apartment
 
 [common_examples: faq_rlq_abandoned_premises]
 the people that i used to lease my dwelling to disappeared several months ago
