@@ -14,11 +14,6 @@ services:
       - 3003:3003
     environment:
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
-  task_service:
-    ports:
-      - 3004:3004
-    environment:
-      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
   web_client:
     command: npm start
     ports:

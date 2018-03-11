@@ -7,7 +7,6 @@ env:
   matrix:
     - SERVICE=ml_service
     - SERVICE=nlp_service
-    - SERVICE=task_service
     - SERVICE=web_client
     - SERVICE=backend_service
 
