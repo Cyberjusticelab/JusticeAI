@@ -54,6 +54,7 @@ def classify_claim_category(conversation_id, message):
     # Define the message that will be returned
     response = None
 
+    conversation_progress = None
     if claim_category in Responses.static_claim_responses.keys():
         response = Responses.faq_statement(claim_category, conversation.person_type.value)
     elif claim_category:
@@ -86,6 +87,9 @@ def classify_claim_category(conversation_id, message):
             response = Responses.chooseFrom(Responses.category_acknowledge).format(
                 claim_category=conversation.claim_category.value.lower().replace("_", " "),
                 first_question=first_fact_question)
+
+            # Calculate the conversation progress
+            conversation_progress = __calculate_conversation_progress(conversation)
         else:
             response = Responses.chooseFrom(Responses.category_acknowledge).format(
                 claim_category=conversation.claim_category.value.lower().replace("_", " "),
@@ -95,7 +99,7 @@ def classify_claim_category(conversation_id, message):
 
     return jsonify({
         "message": response,
-        "conversation_progress": __calculate_conversation_progress(conversation)
+        "conversation_progress": conversation_progress
     })
 
 
