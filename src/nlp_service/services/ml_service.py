@@ -59,33 +59,21 @@ def submit_resolved_fact_list(conversation):
     return res.json()
 
 
-def extract_prediction(claim_category, ml_response):
+def extract_prediction(ml_response):
     """
-    Given a claim category and the ml service response, will extract the prediction performing any necessary mappings.
-    :param claim_category: The current conversation's claim category as a string
+    Given the ml service response, will extract the non zero predictions
     :param ml_response: The response dict received from ml service
     :return: Dict of relevant outcomes for the claim category returned by ML service
     """
 
-    relevant_outcomes = {
-        "lease_termination": ['orders_resiliation'],
-        "nonpayment": ['tenant_ordered_to_pay_landlord',
-                       'tenant_ordered_to_pay_landlord_legal_fees',
-                       'additional_indemnity_money']
-    }
+    all_outcomes = ml_response['outcomes_vector']
+    relevant_outcomes = {}
 
-    claim_category = claim_category.lower()
-    outcome_list = []
+    for outcome in all_outcomes:
+        if all_outcomes[outcome] != 0:
+            relevant_outcomes[outcome] = all_outcomes[outcome]
 
-    if claim_category in relevant_outcomes:
-        outcome_list = relevant_outcomes[claim_category]
-
-    resolved_outcomes = {}
-    if len(outcome_list) > 0:
-        for outcome in outcome_list:
-            resolved_outcomes[outcome] = ml_response['outcomes_vector'][outcome]
-
-    return resolved_outcomes
+    return relevant_outcomes
 
 
 def generate_fact_dict(conversation):
