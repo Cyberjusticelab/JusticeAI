@@ -30,7 +30,7 @@ export default {
         EventBus.$on('initLoading', (isLoading) => {
             this.initLoading = isLoading
         })
-        if (!this.$localStorage.get('zeusId')) {
+        if (!this.$localStorage.get('username')) {
             this.$router.push('/')
         }
     }

@@ -149,7 +149,8 @@ export default {
         filePrompt: false,
         suggestion: new Array,
         isThinking: false,
-        isSpeaking: false
+        isSpeaking: false,
+        progress: 0
       },
       user: {
         name: null,
@@ -291,9 +292,10 @@ export default {
         this.zeus.suggestion = JSON.parse(conversation.possible_answers) || []
       }
       // 5. set progress
+      this.zeus.progress = conversation.progress || 0
       this.updateSidebarEvent({
-        progress: conversation.progress || 0,
-        prediction: conversation.progress == 100
+        progress: this.zeus.progress,
+        prediction: this.zeus.progress == 100
       })
       // 6. set feedback prompt
       this.numMessageSinceChatHistory += 1
@@ -342,7 +344,7 @@ export default {
       )
     },
     updateSidebarEvent (status) {
-      let currentStatus = status || {progress: 0, prediction: false}
+      let currentStatus = status || {progress: this.zeus.progress, prediction: false}
       EventBus.$emit('hideSidebar', currentStatus)
     }
   }
