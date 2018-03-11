@@ -55,6 +55,42 @@ class Responses:
             True: ["I have determined that it is likely that the landlord will be able to retake the rental."],
             False: ["I have determined that it is unlikely that the landlord will be able to retake the rental."]
         },
+        "declares_housing_inhabitable": {
+            True: ["declares_housing_inhabitable - True"],
+            False: ["declares_housing_inhabitable - False"]
+        },
+        "declares_resiliation_is_correct": {
+            True: ["declares_resiliation_is_correct - True"],
+            False: ["declares_resiliation_is_correct - False"]
+        },
+        "landlord_prejudice_justified": {
+            True: ["landlord_prejudice_justified - True"],
+            False: ["landlord_prejudice_justified - False"]
+        },
+        "landlord_retakes_apartment_indemnity": {
+            True: ["landlord_retakes_apartment_indemnity - True"],
+            False: ["landlord_retakes_apartment_indemnity - False"]
+        },
+        "landlord_serious_prejudice": {
+            True: ["landlord_serious_prejudice - True"],
+            False: ["landlord_serious_prejudice - False"]
+        },
+        "orders_expulsion": {
+            True: ["orders_expulsion - True"],
+            False: ["orders_expulsion - False"]
+        },
+        "orders_immediate_execution": {
+            True: ["orders_immediate_execution - True"],
+            False: ["orders_immediate_execution - False"]
+        },
+        "orders_landlord_notify_tenant_when_habitable": {
+            True: ["orders_landlord_notify_tenant_when_habitable - True"],
+            False: ["orders_landlord_notify_tenant_when_habitable - False"]
+        },
+        "orders_tenant_pay_first_of_month": {
+            True: ["orders_tenant_pay_first_of_month - True"],
+            False: ["orders_tenant_pay_first_of_month - False"]
+        },
         "missing_category": ["Sorry, I cannot yet make a prediction for this claim category yet."]
     }
 
