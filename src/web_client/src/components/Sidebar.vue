@@ -40,12 +40,14 @@
         <!-- 2.2 Stat Dashboard -->
         <transition name="el-zoom-in-center">
             <div v-if="openSidebar && isPredicted" id="sidebar-dashboard">
-                <img id="sidebar-dashboard-close" v-on:click="openSidebar = false" alt="" src="../assets/history_disable.png">
                 <el-row>
                     <el-col :sm="{span: 24, offset: 0}">
                         <div id="sidebar-dashboard-logo">
                             <img alt="" src="../assets/logo.png">
                         </div>
+                    </el-col>
+                    <el-col :sm="{span: 1, offset: 23}">
+                        <img id="sidebar-dashboard-close" v-on:click="openSidebar = false" alt="" src="../assets/history_disable.png">
                     </el-col>
                     <el-col :sm="{span: 24, offset: 0}">
                         <div id="sidebar-dashboard-header">
