@@ -4,7 +4,7 @@ services:
   ml_service:
     build:
       context: .
-      dockerfile: ./src/ml_service/Dockerfile
+      dockerfile: src/ml_service/Dockerfile
       args:
       - CJL_USER
       - CJL_PASS
@@ -15,7 +15,7 @@ services:
   nlp_service:
     build:
       context: .
-      dockerfile: ./src/nlp_service/Dockerfile
+      dockerfile: src/nlp_service/Dockerfile
       args:
       - CJL_USER
       - CJL_PASS
@@ -26,7 +26,7 @@ services:
   backend_service:
     build:
       context: .
-      dockerfile: ./src/backend_service/Dockerfile
+      dockerfile: src/backend_service/Dockerfile
     image: procezeus/backend_service
     restart: always
     depends_on:
@@ -37,7 +37,7 @@ services:
   web_client:
     build:
       context: .
-      dockerfile: ./src/web_client/Dockerfile
+      dockerfile: src/web_client/Dockerfile
     restart: always
     image: procezeus/web_client
     depends_on:
