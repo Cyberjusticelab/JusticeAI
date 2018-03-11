@@ -1,7 +1,7 @@
 @import "./Utils";
 
 #sidebar-component {
-    width: 10%;
+    width: 12%;
     background-color: rgba(74,74,74,.8);
     overflow-y: hidden;
     z-index: 2;
@@ -84,7 +84,7 @@
             }
         }
         .sidebar-dashboard-item {
-            padding-top: 20px;
+            padding-top: 25px;
             padding-bottom: 20px;
             h3 {
                 font-size: 30px;
@@ -104,6 +104,7 @@
             h3 {
                 margin-top: 2px;
                 color: firebrick;
+                padding-top: 6px;
             }
         }
         #sidebar-dashboard-outcome {

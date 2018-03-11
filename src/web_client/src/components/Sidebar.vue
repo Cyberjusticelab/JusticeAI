@@ -14,7 +14,7 @@
             <div v-if="openSidebar && !isPredicted" id="sidebar-full">
                 <!-- LOGO -->
                 <div id="sidebar-logo">
-                    <img alt="" src="../assets/logo.png" v-on:click="openSidebar = false">
+                    <img alt="" src="../assets/logo.png">
                     <p>Beta</p>
                 </div>
                 <!-- End of LOGO -->
@@ -51,25 +51,31 @@
                             <h2>Here is our prediction after analyzing <span>{{ report.data_set }}</span> Régie du logement"s precedents:</h2>
                         </div>
                     </el-col>
-                    <el-col :sm="{span: 4, offset: 1}">
+                    <el-col :sm="{span: 5, offset: 1}">
                         <div id="sidebar-dashboard-accuracy">
                             <el-progress type="circle" :percentage="report.accuracy" :stroke-width="40" :width="300"></el-progress>
                             <h3>Prediction Accuracy</h3>
                         </div>
                     </el-col>
-                    <el-col :sm="{span: 8, offset: 2}">
+                    <el-col :sm="{span: 8, offset: 1}">
                         <div id="sidebar-dashboard-curve">
                             <el-carousel indicator-position="outside">
                                 <div v-for="value,key in report.curves">
                                     <el-carousel-item :key="key" :name="key">
-                                        <img src="https://3.bp.blogspot.com/-3xBM54SLMRE/VWHUtRACydI/AAAAAAAADb4/YYFrBkQncuwZkEYLHu7_xpH8re2bFyEIgCKgB/s1600/Slide2.jpg">
+                                        <vue-chart
+                                            type="bar"
+                                            :data="chartData"
+                                            :options="{scales: {yAxes: [{ticks: {beginAtZero: true}}]}}"
+                                            :update-config="{duration: 800, easing: 'easeOutBounce'}"
+                                        ></vue-chart>
+                                        properties
                                     </el-carousel-item>
                                 </div>
                             </el-carousel>
                             <h3>Verdict Payment</h3>
                         </div>
                     </el-col>
-                    <el-col :sm="{span: 6, offset: 2}">
+                    <el-col :sm="{span: 7, offset: 1}">
                         <div id="sidebar-dashboard-outcome">
                             <h2>Case Verdict:</h2>
                             <div v-for="value,key in report.outcomes">
@@ -203,9 +209,9 @@ export default {
         view () {
             // TODO: do some black magic here to call report endpoint
             this.openSidebar = true
-            //this.isPredicted = true // TODO: remove this dev code. change to true for testing dashboard UI
+            this.isPredicted = true // TODO: remove this dev code. change to true for testing dashboard UI
             if (this.isPredicted) {
-                //TODO
+                //TODO:
             }
         },
         submitFeedback () {

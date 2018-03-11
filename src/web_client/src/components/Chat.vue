@@ -41,12 +41,12 @@
       <div id="chat-history-container">
         <div v-for="(history, index1) in chatHistory.history" :key="index1">
           <el-row v-for="(sentence, index2) in history.text" :key="index2" v-if="!(index1 == chatHistory.history.length-1 && index2 == history.text.length-1)">
-            <el-col :sm="{span: 14, offset: 2}">
+            <el-col :sm="{span: 14, offset: 1}">
               <div class="chat-history-zeus" v-if="history.sender_type == 'BOT'">
                 <p v-html="sentence"></p>
               </div>
             </el-col>
-            <el-col :sm="{span: 14, offset: 8}" v-if="history.sender_type == 'USER'">
+            <el-col :sm="{span: 12, offset: 8}" v-if="history.sender_type == 'USER'">
               <div class="chat-history-user">
                 <p v-html="sentence"></p>
               </div>
@@ -56,7 +56,7 @@
       </div>
       <div id="chat-current-container">
         <el-row>
-          <el-col :sm="{span: 3, offset: 2}">
+          <el-col :sm="{span: 3, offset: 1}">
             <div id="chat-zeus-avatar" v-on:click="user.openChatHistory = !user.openChatHistory; getFact()"></div>
           </el-col>
           <el-col :sm="{span: 12, offset: 0}">
