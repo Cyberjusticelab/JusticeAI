@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 from web.ml_controller import MlController
-from util.log import Log
 app = Flask(__name__)
 
 
@@ -18,3 +17,8 @@ def get_ordered_weights():
 @app.route("/antifacts", methods=['GET'])
 def get_anti_facts():
     return jsonify(MlController.get_anti_facts())
+
+
+@app.route("/statistics", methods=['GET'])
+def get_ml_metrics():
+    return jsonify(MlController.get_ml_statistics())
