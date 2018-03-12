@@ -93,10 +93,10 @@ def get_report(conversation_id):
     """
 
     conversation = __get_conversation(conversation_id)
-    report = {}
-
     if conversation.report is not None:
         report = json.loads(conversation.report)
+    else:
+        return abort(make_response(jsonify(message="No reports found for this conversation."), 404))
 
     return jsonify(
         {
