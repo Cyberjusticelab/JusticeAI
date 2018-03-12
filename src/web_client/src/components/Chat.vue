@@ -3,7 +3,7 @@
 </style>
 
 <template>
-  <div id="chat-component" v-loading="initLoading" element-loading-text="Let's Talk!" element-loading-spinner="el-icon-loading" fullscreen="true" v-autoscroll="'bottom'">
+  <div id="chat-component" v-on:click="updateSidebarEvent()">
     <!-- Resolved Fact Overlay -->
     <transition name="fade">
       <div id="chat-resolved-fact" v-if="user.openChatHistory">
@@ -36,17 +36,17 @@
     </transition>
     <!-- End of Resolved Fact Overlay -->
     <!-- Chat Window -->
-    <div id="chat-window" v-if="!initLoading" v-autoscroll="'bottom'" ref="mainWindow">
+    <div id="chat-window" ref="mainWindow">
       <!-- Zeus Chat -->
       <div id="chat-history-container">
         <div v-for="(history, index1) in chatHistory.history" :key="index1">
           <el-row v-for="(sentence, index2) in history.text" :key="index2" v-if="!(index1 == chatHistory.history.length-1 && index2 == history.text.length-1)">
-            <el-col :sm="{span: 14, offset: 2}">
+            <el-col :sm="{span: 14, offset: 1}">
               <div class="chat-history-zeus" v-if="history.sender_type == 'BOT'">
                 <p v-html="sentence"></p>
               </div>
             </el-col>
-            <el-col :sm="{span: 14, offset: 8}" v-if="history.sender_type == 'USER'">
+            <el-col :sm="{span: 12, offset: 8}" v-if="history.sender_type == 'USER'">
               <div class="chat-history-user">
                 <p v-html="sentence"></p>
               </div>
@@ -56,7 +56,7 @@
       </div>
       <div id="chat-current-container">
         <el-row>
-          <el-col :sm="{span: 3, offset: 4}">
+          <el-col :sm="{span: 3, offset: 1}">
             <div id="chat-zeus-avatar" v-on:click="user.openChatHistory = !user.openChatHistory; getFact()"></div>
           </el-col>
           <el-col :sm="{span: 12, offset: 0}">
@@ -113,13 +113,6 @@
         </el-row>
       </div>
       <!-- End of Zeus Chat -->
-    <!-- Progress Bar -->
-    <transition name="el-fade-in-linear">
-      <div id="chat-progress-bar" v-if="zeus.progress && zeus.progress != 0">
-        <el-progress :text-inside="true" :stroke-width="20" :percentage="zeus.progress" status="success"></el-progress>
-      </div>
-      <!-- End of Progress Bar -->
-    </transition>
     </div>
     <!-- End of Chat Window -->
     <!-- Input Window - Mobile -->
@@ -134,6 +127,7 @@
 </template>
 
 <script>
+import { EventBus } from './EventBus.js'
 import tippy from 'tippy.js'
 import Constants from '@/constants'
 export default {
@@ -145,7 +139,6 @@ export default {
       numMessageSinceChatHistory: 0,
       promptFeedback: false,
       isLoggedIn: false, //TODO: account feature
-      initLoading: true,
       chatHistory: {
         history: new Array,
         fact: new Array
@@ -157,7 +150,7 @@ export default {
         suggestion: new Array,
         isThinking: false,
         isSpeaking: false,
-        progress: null
+        progress: 0
       },
       user: {
         name: null,
@@ -192,7 +185,7 @@ export default {
           // 1.5 resume conversation from last message
           this.configChat(this.chatHistory.history[this.chatHistory.history.length - 1])
           // 1.6 disable loading bar
-          this.initLoading = false
+          EventBus.$emit('initLoading', false)
         },
         response => {
           this.connectionError = true
@@ -215,7 +208,7 @@ export default {
           this.sendUserMessage()
           // 2.3 config url and remove loading
           this.uploadUrl = this.api_url + 'conversation/' + response.body.conversation_id + '/files'
-          this.initLoading = false
+          EventBus.$emit('initLoading', false)
         },
         response => {
           this.connectionError = true
@@ -235,9 +228,6 @@ export default {
           return word
         })
         .join(' ')
-    },
-    hoverWord (word) {
-      console.log(word)
     },
     sendUserMessage () {
       this.$http.post(this.api_url + 'conversation', {
@@ -267,7 +257,11 @@ export default {
       }
       // 2. set current zeus response
       let zeusResponseText = conversation.message || conversation.text
-      zeusResponseText = zeusResponseText.map((sentence) => { return this.addHover(sentence) })
+      if (typeof zeusResponseText === 'string') {
+        zeusResponseText = this.addHover(zeusResponseText)
+      } else {
+        zeusResponseText = zeusResponseText.map((sentence) => { return this.addHover(sentence) })
+      }
       // 2.1 if from history, show the last sentence
       if (!this.zeus.input && this.chatHistory.history.length > 0) {
         this.zeus.input = zeusResponseText.slice(-1)[0]
@@ -298,14 +292,17 @@ export default {
         this.zeus.suggestion = JSON.parse(conversation.possible_answers) || []
       }
       // 5. set progress
-      this.zeus.progress = conversation.progress
+      this.zeus.progress = conversation.progress || 0
+      this.updateSidebarEvent({
+        progress: this.zeus.progress,
+        prediction: this.zeus.progress == 100
+      })
       // 6. set feedback prompt
       this.numMessageSinceChatHistory += 1
       this.promptFeedback = this.numMessageSinceChatHistory > 4
       // 7. reset user input to empty
       this.user.input = null
       this.user.disableInput = conversation.enforce_possible_answer
-
       tippy('.hoverable')
     },
     sendFeedback (confirmation) {
@@ -345,6 +342,10 @@ export default {
           console.log("Connection Fail: remove resolved fact")
         }
       )
+    },
+    updateSidebarEvent (status) {
+      let currentStatus = status || {progress: this.zeus.progress, prediction: false}
+      EventBus.$emit('hideSidebar', currentStatus)
     }
   }
 }

@@ -9,7 +9,6 @@ import VueResource from 'vue-resource'
 import VueLocalStorage from 'vue-localstorage'
 import VueUpload from 'vue-upload-component'
 import VueRouter from 'vue-router'
-import VueAutoscroll from 'vue-autoscroll'
 
 /*
 inject dependencies
@@ -19,7 +18,6 @@ Vue.use(ElementUI)
 Vue.use(VueLocalStorage)
 Vue.use(VueResource)
 Vue.use(VueRouter)
-Vue.use(VueAutoscroll)
 Vue.component('file-upload', VueUpload)
 
 /*
