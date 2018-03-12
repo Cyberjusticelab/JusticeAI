@@ -59,10 +59,13 @@ class MultiClassSVM:
             for i in range(len(self.model.estimators_)):
                 outcome_list = [self.classifier_labels[i]]
                 estimator = self.model.estimators_[i]
-                weights = estimator.coef_[0]
-                for j in range(len(weights)):
-                    outcome_list.append(weights[j])
-                writer.writerow(outcome_list)
+                try:
+                    weights = estimator.coef_[0]
+                    for j in range(len(weights)):
+                        outcome_list.append(weights[j])
+                    writer.writerow(outcome_list)
+                except AttributeError:
+                    pass
         Log.write('Weights saved to .csv')
 
     def get_ordered_weights(self):
@@ -103,19 +106,22 @@ class MultiClassSVM:
         for i in range(len(self.model.estimators_)):
             outcome_list = []
             estimator = self.model.estimators_[i]
-            weights = estimator.coef_[0]
-            for j in range(len(weights)):
-                if weights[j] > 0:
-                    outcome_list.append([self.label_column_index['facts_vector'][j][1], weights[j]])
+            try:
+                weights = estimator.coef_[0]
+                for j in range(len(weights)):
+                    if weights[j] > 0:
+                        outcome_list.append([self.label_column_index['facts_vector'][j][1], weights[j]])
 
-            outcome_list.sort(key=lambda x: abs(x[1]), reverse=True)
-            weights = [abs(x[1]) for x in outcome_list]
-            mean_power = math.log10(np.mean(np.array(weights)))
-            important_facts = [x[0] for x in outcome_list if math.log10(abs(x[1])) >= mean_power]
-            additional_facts = [x[0] for x in outcome_list if math.log10(abs(x[1])) < mean_power]
-            weight_dict[self.classifier_labels[i][0]] = {}
-            weight_dict[self.classifier_labels[i][0]]['important_facts'] = important_facts
-            weight_dict[self.classifier_labels[i][0]]['additional_facts'] = additional_facts
+                outcome_list.sort(key=lambda x: abs(x[1]), reverse=True)
+                weights = [abs(x[1]) for x in outcome_list]
+                mean_power = math.log10(np.mean(np.array(weights)))
+                important_facts = [x[0] for x in outcome_list if math.log10(abs(x[1])) >= mean_power]
+                additional_facts = [x[0] for x in outcome_list if math.log10(abs(x[1])) < mean_power]
+                weight_dict[self.classifier_labels[i][0]] = {}
+                weight_dict[self.classifier_labels[i][0]]['important_facts'] = important_facts
+                weight_dict[self.classifier_labels[i][0]]['additional_facts'] = additional_facts
+            except AttributeError:
+                print('Problem with {} prediction'.format(self.classifier_labels[i][0]))
         return weight_dict
 
     def __test(self, x_test, y_test):
