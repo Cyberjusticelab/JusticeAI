@@ -79,6 +79,9 @@ class Conversation(db.Model):
     claim_category = db.Column(db.Enum(ClaimCategory))
     bot_state = db.Column(db.Enum(BotState))
 
+    # Documents
+    report = db.Column(db.BLOB)
+
     # One to one
     current_fact_id = db.Column(db.Integer, db.ForeignKey('fact.id'))
     current_fact = db.relationship('Fact', uselist=False, backref='conversation')
@@ -303,4 +306,5 @@ class ConversationSchema(ma.ModelSchema):
     fact_entities = ma.Nested(FactEntitySchema, many=True)
 
     class Meta:
-        model = Conversation
+        fields = (
+        'id', 'name', 'person_type', 'claim_category', 'bot_state', 'current_fact', 'messages', 'fact_entities')
