@@ -1,3 +1,4 @@
+import json
 import unittest
 
 from werkzeug.exceptions import HTTPException
@@ -32,6 +33,30 @@ class ConversationControllerTest(unittest.TestCase):
         with app.test_request_context():
             with self.assertRaises(HTTPException):
                 init_response = conversation_controller.init_conversation("Bob", "bad_person_type")
+
+    def test_get_report(self):
+        with app.test_request_context():
+            conversation = Conversation(name="Bob", person_type=PersonType.TENANT,
+                                        claim_category=ClaimCategory.LEASE_TERMINATION)
+            db.session.add(conversation)
+            db.session.commit()
+
+            report_dict = {'a': 1}
+            conversation.report = json.dumps(report_dict)
+            db.session.commit()
+
+            report = conversation_controller.get_report(conversation.id)
+            self.assertIsNotNone(report)
+
+    def test_get_report_error(self):
+        with app.test_request_context():
+            conversation = Conversation(name="Bob", person_type=PersonType.TENANT,
+                                        claim_category=ClaimCategory.LEASE_TERMINATION)
+            db.session.add(conversation)
+            db.session.commit()
+
+            with self.assertRaises(HTTPException):
+                report = conversation_controller.get_report(conversation.id)
 
     def test_get_fact_entities(self):
         with app.test_request_context():
