@@ -9,20 +9,15 @@ class MlServiceTest(unittest.TestCase):
     def test_extract_prediction(self):
         mock_ml_response = {
             "outcomes_vector": {
-                "orders_resiliation": 1
+                "orders_resiliation": 1,
+                "orders_immediate_execution": 1,
+                "additional_indemnity_money": 0
             }
         }
         prediction_dict = ml_service.extract_prediction("lease_termination", mock_ml_response)
         self.assertTrue("orders_resiliation" in prediction_dict)
-
-    def test_extract_prediction_bad_key(self):
-        mock_ml_response = {
-            "outcomes_vector": {
-                "orders_resiliation": 1
-            }
-        }
-        prediction_dict = ml_service.extract_prediction("bad_key", mock_ml_response)
-        self.assertFalse(bool(prediction_dict))
+        self.assertTrue("orders_immediate_execution" in prediction_dict)
+        self.assertTrue("additional_indemnity_money" not in prediction_dict)
 
     def test_generate_fact_dict_tenant(self):
         # Setup Mock

@@ -35,27 +35,63 @@ class Responses:
 
     # Giving a prediction
     prediction = {
-        "LEASE_TERMINATION": {
-            "orders_resiliation": {
-                True: ["I have determined that it is likely that the lease will be terminated."],
-                False: ["I have determined that it is unlikely that the lease will be terminated."]
-            }
+        "orders_resiliation": {
+            True: ["I have determined that it is likely that the lease will be terminated."],
+            False: ["I have determined that it is unlikely that the lease will be terminated."]
         },
-        "NONPAYMENT": {
-            "tenant_ordered_to_pay_landlord": {
-                True: ["I have determined that the tenant will likely have to pay the landlord ${} in late rent."],
-                False: ["I have determined that the tenant will likely not owe any late rent payments to the landlord."]
-            },
-            "tenant_ordered_to_pay_landlord_legal_fees": {
-                True: ["In terms of legal fees, the tenant will likely owe ${} to the landlord."],
-                False: ["I don't suspect that the tenant will owe the landlord any legal fees."]
-            },
-            "additional_indemnity_money": {
-                True: ["The tenant may owe ${} to the landlord due as compensation for prejudice."],
-                False: ["It is unlikely that the tenant will owe the landlord any compensation for prejudice."]
-            }
+        "tenant_ordered_to_pay_landlord": {
+            True: ["I have determined that the tenant will likely have to pay the landlord ${} in late rent."],
+            False: ["I have determined that the tenant will likely not owe any late rent payments to the landlord."]
         },
-        "missing_category": ["Sorry, I cannot yet make a prediction for this claim category yet."]
+        "tenant_ordered_to_pay_landlord_legal_fees": {
+            True: ["In terms of legal fees, the tenant will likely owe ${} to the landlord."],
+            False: ["I don't suspect that the tenant will owe the landlord any legal fees."]
+        },
+        "additional_indemnity_money": {
+            True: ["The tenant may owe ${} to the landlord due as compensation for prejudice."],
+            False: ["It is unlikely that the tenant will owe the landlord any compensation for prejudice."]
+        },
+        "authorize_landlord_retake_apartment": {
+            True: ["I have determined that it is likely that the landlord will be able to retake the rental."],
+            False: ["I have determined that it is unlikely that the landlord will be able to retake the rental."]
+        },
+        "declares_housing_inhabitable": {
+            True: ["declares_housing_inhabitable - True"],
+            False: ["declares_housing_inhabitable - False"]
+        },
+        "declares_resiliation_is_correct": {
+            True: ["declares_resiliation_is_correct - True"],
+            False: ["declares_resiliation_is_correct - False"]
+        },
+        "landlord_prejudice_justified": {
+            True: ["landlord_prejudice_justified - True"],
+            False: ["landlord_prejudice_justified - False"]
+        },
+        "landlord_retakes_apartment_indemnity": {
+            True: ["landlord_retakes_apartment_indemnity - True"],
+            False: ["landlord_retakes_apartment_indemnity - False"]
+        },
+        "landlord_serious_prejudice": {
+            True: ["landlord_serious_prejudice - True"],
+            False: ["landlord_serious_prejudice - False"]
+        },
+        "orders_expulsion": {
+            True: ["orders_expulsion - True"],
+            False: ["orders_expulsion - False"]
+        },
+        "orders_immediate_execution": {
+            True: ["orders_immediate_execution - True"],
+            False: ["orders_immediate_execution - False"]
+        },
+        "orders_landlord_notify_tenant_when_habitable": {
+            True: ["orders_landlord_notify_tenant_when_habitable - True"],
+            False: ["orders_landlord_notify_tenant_when_habitable - False"]
+        },
+        "orders_tenant_pay_first_of_month": {
+            True: ["orders_tenant_pay_first_of_month - True"],
+            False: ["orders_tenant_pay_first_of_month - False"]
+        },
+        "cant_predict": ["Sorry, I wasn't able to come up with any predictions."]
     }
 
     similar_outcome = [
@@ -465,18 +501,17 @@ class Responses:
         return Responses.chooseFrom(Responses.static_claim_responses[claim_category_value][person_type])
 
     @staticmethod
-    def prediction_statement(claim_category_value, prediction_dict, similar_precedent_list):
+    def prediction_statement(prediction_dict, similar_precedent_list):
         """
         Gets a statement for a prediction for a particular claim
-        :param claim_category_value: The string value of the claim category
         :param prediction_dict: A dict of prediction keys from the ML service
         :param similar_precedent_list: A list of dicts containing precedent, distance key pairs
         :return: A string of predictions based on determined outcomes. If similar precedents exist, they will be enumerated as well.
         """
 
         # Check if dict is empty
-        if not bool(prediction_dict) or claim_category_value not in Responses.prediction:
-            return Responses.chooseFrom(Responses.prediction["missing_category"])
+        if not bool(prediction_dict):
+            return Responses.chooseFrom(Responses.prediction["cant_predict"])
 
         # Generate all prediction text
         all_responses = []
@@ -484,7 +519,8 @@ class Responses:
             prediction_value = prediction_dict[prediction]
             prediction_predicate = int(prediction_value) > 0
             prediction_text = Responses.chooseFrom(
-                Responses.prediction[claim_category_value][prediction][prediction_predicate]).format(prediction_value)
+                Responses.prediction[prediction][prediction_predicate]
+            ).format(prediction_value)
             all_responses.append(prediction_text)
 
         # Generate similar outcome text

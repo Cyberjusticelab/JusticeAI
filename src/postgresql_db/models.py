@@ -40,6 +40,7 @@ class BotState(Enum):
 class ClaimCategory(Enum):
     LEASE_TERMINATION = "LEASE_TERMINATION"
     NONPAYMENT = "NONPAYMENT"
+    RETAKE_RENTAL = "RETAKE_RENTAL"
 
 
 class FactType(Enum):
