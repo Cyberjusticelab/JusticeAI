@@ -506,8 +506,96 @@ None
     "tenant_individual_responsability": "tenant_group_responsability"
 }
 ```
----
 
+### Get Machine Learning Statistics
+
+Get the ml stats
+
+Used to obtain:
+1) Size of data set
+2) Variance of regression outcomes
+3) Standard deviation of regression outcomes
+4) Mean of regression outcomes
+5) Prediction accuracy of each classifier
+
+**URL**: `/statistics`
+
+**Method**: `GET`
+
+**Data constraints**
+
+None
+
+#### Success Response
+
+**Code** : `200 OK`
+
+**Content examples**
+
+```json
+{
+    "classifier": {
+        "additional_indemnity_money": {
+            "prediction_accuracy": 79.8400199975003
+        },
+        "authorize_landlord_retake_apartment": {
+            "prediction_accuracy": 99.48756405449319
+        },
+        "declares_housing_inhabitable": {
+            "prediction_accuracy": 99.95000624921884
+        },
+        "declares_resiliation_is_correct": {
+            "prediction_accuracy": 91.83852018497687
+        },
+        "landlord_prejudice_justified": {
+            "prediction_accuracy": 81.07736532933383
+        },
+        "landlord_retakes_apartment_indemnity": {
+            "prediction_accuracy": 99.72503437070367
+        },
+        "landlord_serious_prejudice": {
+            "prediction_accuracy": 96.35045619297588
+        },
+        "orders_expulsion": {
+            "prediction_accuracy": 91.55105611798525
+        },
+        "orders_immediate_execution": {
+            "prediction_accuracy": 84.32695913010873
+        },
+        "orders_landlord_notify_tenant_when_habitable": {
+            "prediction_accuracy": 100
+        },
+        "orders_resiliation": {
+            "prediction_accuracy": 93.48831396075491
+        },
+        "orders_tenant_pay_first_of_month": {
+            "prediction_accuracy": 98.05024371953506
+        },
+        "tenant_ordered_to_pay_landlord": {
+            "prediction_accuracy": 83.82702162229721
+        },
+        "tenant_ordered_to_pay_landlord_legal_fees": {
+            "prediction_accuracy": 90.32620922384702
+        }
+    },
+    "data_set": {
+        "size": 40003
+    },
+    "regressor": {
+        "additional_indemnity_money": {
+            "mean": 1477.7728467101024,
+            "std": 1927.8147997893939,
+            "variance": 3716469.9022870203
+        },
+        "tenant_pays_landlord": {
+            "mean": 2148.867088064977,
+            "std": 2129.510243010276,
+            "variance": 4534813.8750856845
+        }
+    }
+}
+```
+---
 
 ## Run Tests and Lints
 
