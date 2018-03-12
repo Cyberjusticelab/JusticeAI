@@ -54,13 +54,15 @@ def classify_claim_category(conversation_id, message):
     # Define the message that will be returned
     response = None
 
+    conversation_progress = None
     if claim_category in Responses.static_claim_responses.keys():
         response = Responses.faq_statement(claim_category, conversation.person_type.value)
     elif claim_category:
         # Set conversation's claim category
         conversation.claim_category = {
             'ask_lease_termination': ClaimCategory.LEASE_TERMINATION,
-            'ask_nonpayment': ClaimCategory.NONPAYMENT
+            'ask_nonpayment': ClaimCategory.NONPAYMENT,
+            'ask_retake_rental': ClaimCategory.RETAKE_RENTAL
         }[claim_category]
 
         # Get first fact based on claim category
@@ -85,6 +87,9 @@ def classify_claim_category(conversation_id, message):
             response = Responses.chooseFrom(Responses.category_acknowledge).format(
                 claim_category=conversation.claim_category.value.lower().replace("_", " "),
                 first_question=first_fact_question)
+
+            # Calculate the conversation progress
+            conversation_progress = __calculate_conversation_progress(conversation)
         else:
             response = Responses.chooseFrom(Responses.category_acknowledge).format(
                 claim_category=conversation.claim_category.value.lower().replace("_", " "),
@@ -94,7 +99,7 @@ def classify_claim_category(conversation_id, message):
 
     return jsonify({
         "message": response,
-        "conversation_progress": __calculate_conversation_progress(conversation)
+        "conversation_progress": conversation_progress
     })
 
 
@@ -253,18 +258,18 @@ def __state_giving_prediction(conversation):
     question = None
 
     # Submit request to ML service for prediction
-    ml_prediction = ml_service.submit_resolved_fact_list(conversation)
+    ml_response = ml_service.submit_resolved_fact_list(conversation)
 
-    prediction_dict = ml_service.extract_prediction(
+    # Extract relevant data from the ml response
+    ml_prediction = ml_service.extract_prediction(
         claim_category=conversation.claim_category.value,
-        ml_response=ml_prediction)
-
-    similar_precedent_list = ml_prediction['similar_precedents']
+        ml_response=ml_response
+    )
+    similar_precedent_list = ml_response['similar_precedents']
 
     # Generate statement for prediction
     question = Responses.prediction_statement(
-        claim_category_value=conversation.claim_category.value,
-        prediction_dict=prediction_dict,
+        prediction_dict=ml_prediction,
         similar_precedent_list=similar_precedent_list)
 
     # If there are additional questions to be asked

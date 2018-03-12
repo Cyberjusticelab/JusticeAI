@@ -1,5 +1,6 @@
 import requests
 
+from nlp_service.services import fact_service
 from postgresql_db.models import PersonType, FactType
 
 # Logging
@@ -61,31 +62,27 @@ def submit_resolved_fact_list(conversation):
 
 def extract_prediction(claim_category, ml_response):
     """
-    Given a claim category and the ml service response, will extract the prediction performing any necessary mappings.
+    Given the ml service response and a claim category, will extract the non zero predictions
+    and the essential outcomes for that claim category.
     :param claim_category: The current conversation's claim category as a string
     :param ml_response: The response dict received from ml service
     :return: Dict of relevant outcomes for the claim category returned by ML service
     """
-
-    relevant_outcomes = {
-        "lease_termination": ['orders_resiliation'],
-        "nonpayment": ['tenant_ordered_to_pay_landlord',
-                       'tenant_ordered_to_pay_landlord_legal_fees',
-                       'additional_indemnity_money']
-    }
+    essential_outcomes = fact_service.outcome_mapping
 
     claim_category = claim_category.lower()
-    outcome_list = []
+    essential_outcome_list = []
 
-    if claim_category in relevant_outcomes:
-        outcome_list = relevant_outcomes[claim_category]
+    if claim_category in essential_outcomes:
+        essential_outcome_list = essential_outcomes[claim_category]
 
-    resolved_outcomes = {}
-    if len(outcome_list) > 0:
-        for outcome in outcome_list:
-            resolved_outcomes[outcome] = ml_response['outcomes_vector'][outcome]
+    all_outcomes = ml_response['outcomes_vector']
+    relevant_outcomes = {}
+    for outcome in all_outcomes:
+        if outcome in essential_outcome_list or int(all_outcomes[outcome]) != 0:
+            relevant_outcomes[outcome] = int(all_outcomes[outcome])
 
-    return resolved_outcomes
+    return relevant_outcomes
 
 
 def generate_fact_dict(conversation):

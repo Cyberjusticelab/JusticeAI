@@ -54,6 +54,9 @@ outcome_mapping = {
         "tenant_ordered_to_pay_landlord",
         "tenant_ordered_to_pay_landlord_legal_fees",
         "additional_indemnity_money"
+    ],
+    "retake_rental": [
+        "authorize_landlord_retake_apartment"
     ]
 }
 
