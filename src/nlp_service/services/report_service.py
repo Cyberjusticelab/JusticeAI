@@ -1,13 +1,19 @@
+import statistics
+
 from nlp_service.services import ml_service, fact_service
 
 
-def generate_report(conversation, ml_prediction, similar_precedents):
+def generate_report(conversation, ml_prediction, similar_precedents, probabilities_dict):
     report = {}
     ml_statistics = ml_service.get_statistics()
     conversation_facts = fact_service.get_resolved_fact_keys(conversation)
 
     # Prediction accuracy
     report['accuracy'] = 0
+
+    relevant_probabilities_dict = {k: v for k, v in probabilities_dict.items() if k in ml_prediction}
+    accuracy_mean = statistics.mean([float(v) for k, v in relevant_probabilities_dict.items()])
+    report['accuracy'] = accuracy_mean
 
     # Data set size
     report['data_set'] = ml_statistics['data_set']['size']

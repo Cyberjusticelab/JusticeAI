@@ -268,12 +268,14 @@ def __state_giving_prediction(conversation):
         ml_response=ml_response
     )
     similar_precedent_list = ml_response['similar_precedents']
+    probabilities_dict = ml_response['probabilities_vector']
 
     # Generate a report from the prediction
     report_dict = report_service.generate_report(
         conversation=conversation,
         ml_prediction=ml_prediction,
-        similar_precedents=similar_precedent_list)
+        similar_precedents=similar_precedent_list,
+        probabilities_dict=probabilities_dict)
     conversation.report = json.dumps(report_dict)
 
     # Generate statement for prediction
