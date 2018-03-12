@@ -59,10 +59,13 @@ class MultiClassSVM:
             for i in range(len(self.model.estimators_)):
                 outcome_list = [self.classifier_labels[i]]
                 estimator = self.model.estimators_[i]
-                weights = estimator.coef_[0]
-                for j in range(len(weights)):
-                    outcome_list.append(weights[j])
-                writer.writerow(outcome_list)
+                try:
+                    weights = estimator.coef_[0]
+                    for j in range(len(weights)):
+                        outcome_list.append(weights[j])
+                    writer.writerow(outcome_list)
+                except AttributeError:
+                    pass
         Log.write('Weights saved to .csv')
 
     def get_ordered_weights(self):
