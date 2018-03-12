@@ -28,7 +28,7 @@ class ReportServiceTest(unittest.TestCase):
         mock_ml_prediction = {
             "orders_resiliation": 1,
             "orders_immediate_execution": 1,
-            "additional_indemnity_money": "500.0"
+            "additional_indemnity_money": 500
         }
         mock_ml_probabilities = {
             "orders_resiliation": "0.5",
