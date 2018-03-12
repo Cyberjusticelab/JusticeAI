@@ -233,3 +233,7 @@ class TestMlController(unittest.TestCase):
     def test_get_anti_fact(self):
         anti_facts = MlController.get_anti_facts()
         self.assertTrue(isinstance(anti_facts, dict))
+
+    def test_get_ml_statistics(self):
+        result = MlController.get_ml_statistics()
+        self.assertTrue(isinstance(result, dict))
