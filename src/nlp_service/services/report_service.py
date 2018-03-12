@@ -18,10 +18,11 @@ def generate_report(conversation, ml_prediction, similar_precedents):
     # Curves
     report['curves'] = {}
 
-    possible_curve_facts = ml_statistics['regressor']
-    for fact in conversation_facts:
-        if fact in possible_curve_facts:
-            report['curves'][fact] = possible_curve_facts[fact]
+    possible_curve_outcomes = ml_statistics['regressor']
+    for outcome in ml_prediction.keys():
+        if outcome in possible_curve_outcomes:
+            report['curves'][outcome] = dict(possible_curve_outcomes[outcome])
+            report['curves'][outcome]['outcome_value'] = ml_prediction[outcome]
 
     # Outcomes
     report['outcomes'] = dict(ml_prediction)

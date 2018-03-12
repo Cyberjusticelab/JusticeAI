@@ -1,7 +1,9 @@
+import json
+
 from flask import jsonify, abort, make_response
 
 from nlp_service.rasa.intent_threshold import IntentThreshold
-from nlp_service.services import fact_service
+from nlp_service.services import fact_service, report_service
 from postgresql_db.models import *
 from rasa.rasa_classifier import RasaClassifier
 from services import ml_service
@@ -266,6 +268,13 @@ def __state_giving_prediction(conversation):
         ml_response=ml_response
     )
     similar_precedent_list = ml_response['similar_precedents']
+
+    # Generate a report from the prediction
+    report_dict = report_service.generate_report(
+        conversation=conversation,
+        ml_prediction=ml_prediction,
+        similar_precedents=similar_precedent_list)
+    conversation.report = json.dumps(report_dict)
 
     # Generate statement for prediction
     question = Responses.prediction_statement(
