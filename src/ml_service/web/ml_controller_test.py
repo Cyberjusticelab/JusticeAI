@@ -140,16 +140,16 @@ class TestMlController(unittest.TestCase):
         result = MlController.outcome_vector_to_dict(binary_vector)
         expected_dict = {
             'outcomes_vector': {
-                'rejects_tenant_demand': '1',
-                'orders_expulsion': '0',
-                'declares_resiliation_is_correct': '0',
-                'tenant_ordered_to_pay_landlord': '0',
-                'orders_tenant_pay_first_of_month': '1',
-                'orders_immediate_execution': '0',
-                'rejects_landlord_demand': '0',
-                'declares_housing_inhabitable': '1',
-                'orders_resiliation': '1',
-                'additional_indemnity_money': '0'
+                'rejects_tenant_demand': 1,
+                'orders_expulsion': 0,
+                'declares_resiliation_is_correct': 0,
+                'tenant_ordered_to_pay_landlord': 0,
+                'orders_tenant_pay_first_of_month': 1,
+                'orders_immediate_execution': 0,
+                'rejects_landlord_demand': 0,
+                'declares_housing_inhabitable': 1,
+                'orders_resiliation': 1,
+                'additional_indemnity_money': 0
             }
         }
         self.assertEqual(expected_dict, result)
@@ -159,16 +159,16 @@ class TestMlController(unittest.TestCase):
         MlController.classifier_labels = self.mock_classifier_index
         result = MlController.probability_vector_to_dict(probability_vector)
         expected_dict = {
-                'rejects_tenant_demand': '1',
-                'orders_expulsion': '0',
-                'declares_resiliation_is_correct': '0',
-                'tenant_ordered_to_pay_landlord': '0',
-                'orders_tenant_pay_first_of_month': '1',
-                'orders_immediate_execution': '0',
-                'rejects_landlord_demand': '0',
-                'declares_housing_inhabitable': '1',
-                'orders_resiliation': '1',
-                'additional_indemnity_money': '0'
+                'rejects_tenant_demand': 1,
+                'orders_expulsion': 0,
+                'declares_resiliation_is_correct': 0,
+                'tenant_ordered_to_pay_landlord': 0,
+                'orders_tenant_pay_first_of_month': 1,
+                'orders_immediate_execution': 0,
+                'rejects_landlord_demand': 0,
+                'declares_housing_inhabitable': 1,
+                'orders_resiliation': 1,
+                'additional_indemnity_money': 0
         }
         self.assertEqual(expected_dict, result)
 
