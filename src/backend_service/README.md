@@ -327,6 +327,161 @@ Gets the message history for a conversation
 **Code** : `404 Not Found`
 
 ---
+
+# Get a report for a conversation
+
+Retrieves a report for a conversation once at least one prediction has been returned. Will return 404 if a report has not been generated yet.
+
+**URL** : `/conversation/:conversation_id/report`
+
+**Method** : `GET`
+
+## Success Response
+
+**Code** : `200 OK`
+
+**Content examples**
+
+```json
+{
+	"report": {
+		"accuracy": 0.8114285714285714,
+		"curves": {
+			"additional_indemnity_money": {
+				"mean": 1477.7728467101024,
+				"outcome_value": 6038,
+				"std": 1927.8147997893939,
+				"variance": 3716469.9022870203
+			}
+		},
+		"data_set": 8,
+		"outcomes": {
+			"additional_indemnity_money": 6038,
+			"landlord_prejudice_justified": true,
+			"orders_expulsion": true,
+			"orders_immediate_execution": true,
+			"orders_resiliation": true,
+			"tenant_ordered_to_pay_landlord": 3092,
+			"tenant_ordered_to_pay_landlord_legal_fees": 80
+		},
+		"similar_case": 5,
+		"similar_precedents": [
+			{
+				"distance": 2.6080129205467784,
+				"facts": {
+					"landlord_relocation_indemnity_fees": 0,
+					"tenant_dead": false,
+					"tenant_is_bothered": false,
+					"tenant_left_without_paying": false,
+					"tenant_owes_rent": 0,
+					"tenant_rent_not_paid_more_3_weeks": true
+				},
+				"outcomes": {
+					"additional_indemnity_money": 5850,
+					"landlord_prejudice_justified": true,
+					"orders_expulsion": true,
+					"orders_immediate_execution": true,
+					"orders_resiliation": true,
+					"tenant_ordered_to_pay_landlord": 7150,
+					"tenant_ordered_to_pay_landlord_legal_fees": 74
+				},
+				"precedent": "AZ-51412066"
+			},
+			{
+				"distance": 2.6543730465072035,
+				"facts": {
+					"landlord_relocation_indemnity_fees": 0,
+					"tenant_dead": false,
+					"tenant_is_bothered": false,
+					"tenant_left_without_paying": false,
+					"tenant_owes_rent": 2460,
+					"tenant_rent_not_paid_more_3_weeks": true
+				},
+				"outcomes": {
+					"additional_indemnity_money": 3620,
+					"landlord_prejudice_justified": true,
+					"orders_expulsion": true,
+					"orders_immediate_execution": true,
+					"orders_resiliation": true,
+					"tenant_ordered_to_pay_landlord": 2460,
+					"tenant_ordered_to_pay_landlord_legal_fees": 81
+				},
+				"precedent": "AZ-51163532"
+			},
+			{
+				"distance": 2.6969256661279988,
+				"facts": {
+					"landlord_relocation_indemnity_fees": 0,
+					"tenant_dead": false,
+					"tenant_is_bothered": false,
+					"tenant_left_without_paying": false,
+					"tenant_owes_rent": 0,
+					"tenant_rent_not_paid_more_3_weeks": true
+				},
+				"outcomes": {
+					"additional_indemnity_money": 2463,
+					"landlord_prejudice_justified": true,
+					"orders_expulsion": true,
+					"orders_immediate_execution": true,
+					"orders_resiliation": true,
+					"tenant_ordered_to_pay_landlord": 2886,
+					"tenant_ordered_to_pay_landlord_legal_fees": 83
+				},
+				"precedent": "AZ-51395624"
+			},
+			{
+				"distance": 2.719885995641093,
+				"facts": {
+					"landlord_relocation_indemnity_fees": 0,
+					"tenant_dead": false,
+					"tenant_is_bothered": false,
+					"tenant_left_without_paying": false,
+					"tenant_owes_rent": 0,
+					"tenant_rent_not_paid_more_3_weeks": true
+				},
+				"outcomes": {
+					"additional_indemnity_money": 3180,
+					"landlord_prejudice_justified": true,
+					"orders_expulsion": true,
+					"orders_immediate_execution": true,
+					"orders_resiliation": true,
+					"tenant_ordered_to_pay_landlord": 3830,
+					"tenant_ordered_to_pay_landlord_legal_fees": 74
+				},
+				"precedent": "AZ-51395655"
+			},
+			{
+				"distance": 2.7806288394504484,
+				"facts": {
+					"landlord_relocation_indemnity_fees": 0,
+					"tenant_dead": false,
+					"tenant_is_bothered": false,
+					"tenant_left_without_paying": false,
+					"tenant_owes_rent": 3600,
+					"tenant_rent_not_paid_more_3_weeks": true
+				},
+				"outcomes": {
+					"additional_indemnity_money": 3750,
+					"landlord_prejudice_justified": true,
+					"orders_expulsion": true,
+					"orders_immediate_execution": true,
+					"orders_resiliation": true,
+					"tenant_ordered_to_pay_landlord": 3600,
+					"tenant_ordered_to_pay_landlord_legal_fees": 78
+				},
+				"precedent": "AZ-51187376"
+			}
+		]
+	}
+}
+```
+
+## Error Response
+
+**Code** : `400 Bad Request`
+
+**Code** : `404 Not Found`
+---
 # Get facts resolved during conversation
 
 Gets only the list of resolved facts for the conversation

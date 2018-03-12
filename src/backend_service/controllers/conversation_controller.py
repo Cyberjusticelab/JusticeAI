@@ -85,6 +85,26 @@ def delete_fact_entity(conversation_id, fact_entity_id):
         abort(make_response(jsonify(message="Fact entity does not exist"), 404))
 
 
+def get_report(conversation_id):
+    """
+    Returns a report for the conversation
+    :param conversation_id: ID of the conversation
+    :return: JSON report of the conversation
+    """
+
+    conversation = __get_conversation(conversation_id)
+    if conversation.report is not None:
+        report = json.loads(conversation.report)
+    else:
+        return abort(make_response(jsonify(message="No reports found for this conversation."), 404))
+
+    return jsonify(
+        {
+            'report': report
+        }
+    )
+
+
 def receive_message(conversation_id, message):
     """
     Process an incoming message from the user
@@ -302,12 +322,6 @@ def __ask_initial_question(conversation):
 
     person_type = conversation.person_type
 
-    file_request = None
-    if person_type is PersonType.TENANT:
-        file_request = FileRequest(document_type=DocumentType.LEASE)
-
-    db.session.commit()
-
     # Generate response based on person type
     response = None
     if person_type is PersonType.TENANT:
@@ -315,7 +329,7 @@ def __ask_initial_question(conversation):
     elif person_type is PersonType.LANDLORD:
         response = StaticStrings.chooseFrom(StaticStrings.problem_inquiry_landlord).format(name=conversation.name)
 
-    return {'response_text': response, 'file_request': file_request}
+    return {'response_text': response}
 
 
 def __has_just_accepted_disclaimer(conversation):
