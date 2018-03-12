@@ -2,7 +2,14 @@
 
 # Ensure dependencies are installed
 if ! [ -x "$(command -v docker)" ] || ! [ -x "$(command -v docker-compose)" ]; then
-  echo "You must install docker and docker-compose to use this script."
+  (>&2 echo 'You must install docker and docker-compose to use this script.')
+  exit 1
+fi
+
+# Ensure required environment variables are passed
+if [ -z "$CJL_USER" ] || [ -z "$CJL_PASS" ]; then
+  (>&2 echo 'You must provide the $CJL_USER and $CJL_PASS environment variables to use this script.')
+  exit 1
 fi
 
 # Destroy all containers/images
