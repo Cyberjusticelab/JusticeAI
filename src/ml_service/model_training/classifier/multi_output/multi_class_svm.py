@@ -202,7 +202,7 @@ class MultiClassSVM:
         Log.write("Test size: {}".format(len(x_test)))
         Log.write("Training Classifier Using Multi Class SVM")
 
-        clf = OneVsRestClassifier(SVC(kernel='linear', random_state=42))  # 4
+        clf = OneVsRestClassifier(SVC(kernel='linear', random_state=42, probability=True))  # 4
         clf.fit(x_train, y_train)
         self.model = clf
         self.__test(x_test, y_test)  # 5
@@ -231,14 +231,27 @@ class MultiClassSVM:
 
     def predict(self, data):
         """
-        Predicts an outcome given facts
+        1) Predicts an outcome given facts
+        2) Predicts probability that prediction is correct
+            2.1) Range goes from [0-1] where x < 0.5 is False
+            2.2) The model only returns the probability that a fact is 1
+            2.3) therefore to predict that the probability that a fact is 0 we do
+                 1 - x when x < 0.5
+
         :param data: numpy([1, 0, 0, ...])
         :return: np.array([...])
         """
         if self.model is None:
             self.model = Load.load_binary("multi_class_svm_model.bin")
         data = binarize([data], threshold=0)
-        return self.model.predict(data)
+        probabilities = self.model.predict_proba(data)[0]
+        predictions = self.model.predict(data)
+        for i in range(len(probabilities)):
+            prediction = predictions[0][i]
+            if prediction == 0:
+                probabilities[i] = 1 - probabilities[i]
+            probabilities[i] = format(probabilities[i], '.2f')
+        return self.model.predict(data), probabilities
 
     @staticmethod
     def load_classifier_labels():
