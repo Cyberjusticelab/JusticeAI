@@ -15,9 +15,9 @@ class StaticStrings:
     ]
 
     problem_inquiry_tenant = [
-        "I see you're a tenant, {name}. If you have it on hand, it would be very helpful if you could upload your lease. What issue can I help you with today?",
-        "What kind of issue are you having as a tenant, {name}? Upload your lease if you have it, it might help in resolving your issues.",
-        "I can help you with all sorts of tenant issues, {name}! Describe your problem to me and upload your lease if available."
+        "I see you're a tenant, {name}. What issue can I help you with today?",
+        "What kind of issue are you having as a tenant, {name}?",
+        "I can help you with all sorts of tenant issues, {name}. Describe your problem to me!"
     ]
 
     @staticmethod

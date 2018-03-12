@@ -317,12 +317,6 @@ def __ask_initial_question(conversation):
 
     person_type = conversation.person_type
 
-    file_request = None
-    if person_type is PersonType.TENANT:
-        file_request = FileRequest(document_type=DocumentType.LEASE)
-
-    db.session.commit()
-
     # Generate response based on person type
     response = None
     if person_type is PersonType.TENANT:
@@ -330,7 +324,7 @@ def __ask_initial_question(conversation):
     elif person_type is PersonType.LANDLORD:
         response = StaticStrings.chooseFrom(StaticStrings.problem_inquiry_landlord).format(name=conversation.name)
 
-    return {'response_text': response, 'file_request': file_request}
+    return {'response_text': response}
 
 
 def __has_just_accepted_disclaimer(conversation):
