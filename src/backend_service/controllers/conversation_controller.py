@@ -85,6 +85,21 @@ def delete_fact_entity(conversation_id, fact_entity_id):
         abort(make_response(jsonify(message="Fact entity does not exist"), 404))
 
 
+def get_report(conversation_id):
+    """
+    Returns a report for the conversation
+    :param conversation_id: ID of the conversation
+    :return: JSON report of the conversation
+    """
+
+    # conversation = __get_conversation(conversation_id)
+    return jsonify(
+        {
+            'report': {}
+        }
+    )
+
+
 def receive_message(conversation_id, message):
     """
     Process an incoming message from the user

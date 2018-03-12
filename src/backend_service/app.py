@@ -41,6 +41,14 @@ def get_conversation(conversation_id=None):
         abort(make_response(jsonify(message="Invalid request"), 400))
 
 
+@app.route("/conversation/<conversation_id>/report", methods=['GET'])
+def get_conversation_report(conversation_id=None):
+    if conversation_id:
+        return conversation_controller.get_report(conversation_id)
+    else:
+        abort(make_response(jsonify(message="Invalid request"), 400))
+
+
 @app.route("/conversation/<conversation_id>/resolved", methods=['GET'])
 def get_conversation_resolved_facts(conversation_id=None):
     if conversation_id:
