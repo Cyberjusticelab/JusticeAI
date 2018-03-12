@@ -153,6 +153,22 @@ Provide facts_vector and demands_vector, with key values for each fact/demand.
     "tenant_ordered_to_pay_landlord": "643",
     "tenant_ordered_to_pay_landlord_legal_fees": "80"
   },
+  "probabilities_vector": {
+    "additional_indemnity_money": "0.93",
+    "authorize_landlord_retake_apartment": "1.0",
+    "declares_housing_inhabitable": "1.0",
+    "declares_resiliation_is_correct": "0.94",
+    "landlord_prejudice_justified": "0.74",
+    "landlord_retakes_apartment_indemnity": "1.0",
+    "landlord_serious_prejudice": "1.0",
+    "orders_expulsion": "0.88",
+    "orders_immediate_execution": "0.72",
+    "orders_landlord_notify_tenant_when_habitable": "1.0",
+    "orders_resiliation": "0.91",
+    "orders_tenant_pay_first_of_month": "0.99",
+    "tenant_ordered_to_pay_landlord": "0.99",
+    "tenant_ordered_to_pay_landlord_legal_fees": "0.91"
+  },
   "similar_precedents": [
     {
       "distance": 0.3423500835013649,

@@ -31,7 +31,7 @@ class TestLinearSvc(unittest.TestCase):
         linear_svc.train()
         data = np.array([1, 0, 0, 0])
         expected_result = np.array([0, 1, 0])
-        predicted_result = linear_svc.predict(data)[0]
+        predicted_result = linear_svc.predict(data)[0][0]
         for i in range(len(expected_result)):
             print(expected_result[i])
             self.assertEqual(expected_result[i], predicted_result[i])
