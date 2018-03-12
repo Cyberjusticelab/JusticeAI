@@ -137,3 +137,33 @@ class MlController:
             'tenant_rent_not_paid_less_3_weeks': 'tenant_rent_not_paid_more_3_weeks',
             'not_violent': 'violent'
         }
+
+    @staticmethod
+    def get_ml_statistics():
+        """
+        Remove unecessary data for the endpoint.
+
+        :return:
+        {
+            'data_set':{
+                'size': 5000
+            },
+            'regressor':{
+                'regressor name':{
+                    'std': 4,
+                    'mean': 5,
+                    'variance': 42,
+                    'mean_fact_vector': [3, 1, 5, 6, 2]
+                }
+            },
+            'classifier':{
+                'classifier name':{
+                    'prediction_accuracy': 0.92,
+                }
+            }
+        }
+        """
+        stat_dict =  Load.load_binary('model_metrics.bin')
+        for regressor_type in stat_dict['regressor']:
+            stat_dict['regressor'][regressor_type].pop('mean_facts_vector', None)
+        return stat_dict
