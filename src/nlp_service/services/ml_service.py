@@ -19,6 +19,9 @@ outcome_facts = {}
 # Dict containing antifact mappings
 anti_facts = {}
 
+# Dict containing ML statistics
+ml_statistics = {}
+
 
 def get_outcome_facts():
     """
@@ -40,6 +43,17 @@ def get_anti_facts():
         anti_facts = requests.get("{}/{}".format(ML_URL, "antifacts")).json()
 
     return anti_facts
+
+
+def get_statistics():
+    """
+    :return: Dict of antifacts from the ML endpoint.
+    """
+    global ml_statistics
+    if not ml_statistics:
+        ml_statistics = requests.get("{}/{}".format(ML_URL, "statistics")).json()
+
+    return ml_statistics
 
 
 def submit_resolved_fact_list(conversation):
