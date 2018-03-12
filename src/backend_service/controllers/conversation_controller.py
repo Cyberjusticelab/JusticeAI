@@ -92,10 +92,15 @@ def get_report(conversation_id):
     :return: JSON report of the conversation
     """
 
-    # conversation = __get_conversation(conversation_id)
+    conversation = __get_conversation(conversation_id)
+    report = {}
+
+    if conversation.report is not None:
+        report = json.loads(conversation.report)
+
     return jsonify(
         {
-            'report': {}
+            'report': report
         }
     )
 

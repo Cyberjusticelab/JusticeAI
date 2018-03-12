@@ -80,7 +80,7 @@ class Conversation(db.Model):
     bot_state = db.Column(db.Enum(BotState))
 
     # Documents
-    report = db.Column(db.BLOB)
+    report = db.Column(db.Text)
 
     # One to one
     current_fact_id = db.Column(db.Integer, db.ForeignKey('fact.id'))
