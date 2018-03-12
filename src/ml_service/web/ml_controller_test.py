@@ -154,6 +154,24 @@ class TestMlController(unittest.TestCase):
         }
         self.assertEqual(expected_dict, result)
 
+    def test_probability_vector_to_dict(self):
+        probability_vector = np.array([0, 1, 0, 0, 0, 1, 1, 0, 1, 0])
+        MlController.classifier_labels = self.mock_classifier_index
+        result = MlController.probability_vector_to_dict(probability_vector)
+        expected_dict = {
+                'rejects_tenant_demand': '1',
+                'orders_expulsion': '0',
+                'declares_resiliation_is_correct': '0',
+                'tenant_ordered_to_pay_landlord': '0',
+                'orders_tenant_pay_first_of_month': '1',
+                'orders_immediate_execution': '0',
+                'rejects_landlord_demand': '0',
+                'declares_housing_inhabitable': '1',
+                'orders_resiliation': '1',
+                'additional_indemnity_money': '0'
+        }
+        self.assertEqual(expected_dict, result)
+
     def test_get_ordered_weights(self):
         expected_results = {
             'additional_indemnity_money': {

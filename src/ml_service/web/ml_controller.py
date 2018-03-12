@@ -39,9 +39,11 @@ class MlController:
                  }
         """
         facts_vector = MlController.fact_dict_to_vector(input_json['facts'])
-        outcome_vector = MlController.classifier_model.predict(facts_vector)[0]
+        outcome_vector, probabilities = MlController.classifier_model.predict(facts_vector)
+        outcome_vector = outcome_vector[0]
         outcome_vector = MlController.regression_model.predict(facts_vector, outcome_vector)
         response = MlController.outcome_vector_to_dict(outcome_vector)
+        response['probabilities_vector'] = MlController.probability_vector_to_dict(probabilities)
         similar_dict = {'facts_vector': facts_vector, 'outcomes_vector': outcome_vector}
         response['similar_precedents'] = MlController.format_similar_precedents(
             MlController.similar_finder.get_most_similar(similar_dict))
@@ -72,15 +74,23 @@ class MlController:
         return_dict = {}
         for outcome_index in MlController.classifier_labels:
             label = MlController.classifier_labels[outcome_index][0]
-            return_dict[label] = str(outcome_vector[outcome_index])
+            return_dict[label] = outcome_vector[outcome_index]
         return {'outcomes_vector': return_dict}
+
+    @staticmethod
+    def probability_vector_to_dict(probabilities_vector):
+        return_dict = {}
+        for outcome_index in MlController.classifier_labels:
+            label = MlController.classifier_labels[outcome_index][0]
+            return_dict[label] = probabilities_vector[outcome_index]
+        return return_dict
 
     @staticmethod
     def fact_vector_to_dict(fact_vector):
         return_dict = {}
         for fact_tuple in MlController.indexes['facts_vector']:
             label = fact_tuple[1]
-            return_dict[label] = str(fact_vector[fact_tuple[0]])
+            return_dict[label] = fact_vector[fact_tuple[0]]
         return {'facts': return_dict}
 
     @staticmethod
