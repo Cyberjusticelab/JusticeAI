@@ -4,6 +4,15 @@ from nlp_service.services import ml_service, fact_service
 
 
 def generate_report(conversation, ml_prediction, similar_precedents, probabilities_dict):
+    """
+    Generates a report for a prediction based on ML input
+    :param conversation: The current Conversation
+    :param ml_prediction: A dictionary of outcomes for the conversation received from ml_service
+    :param similar_precedents: A list of dicts containing precedents similar to the current case
+    :param probabilities_dict: A dict of probabilities for every outcome classifier
+    :return: A dict of a report detailing the prediction made by the ml_service
+    """
+
     report = {}
     ml_statistics = ml_service.get_statistics()
     conversation_facts = fact_service.get_resolved_fact_keys(conversation)
