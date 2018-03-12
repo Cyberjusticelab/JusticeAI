@@ -74,7 +74,7 @@ class MlController:
         return_dict = {}
         for outcome_index in MlController.classifier_labels:
             label = MlController.classifier_labels[outcome_index][0]
-            return_dict[label] = outcome_vector[outcome_index]
+            return_dict[label] = str(outcome_vector[outcome_index])
         return {'outcomes_vector': return_dict}
 
     @staticmethod
@@ -82,7 +82,7 @@ class MlController:
         return_dict = {}
         for outcome_index in MlController.classifier_labels:
             label = MlController.classifier_labels[outcome_index][0]
-            return_dict[label] = probabilities_vector[outcome_index]
+            return_dict[label] = str(probabilities_vector[outcome_index])
         return return_dict
 
     @staticmethod
@@ -90,7 +90,7 @@ class MlController:
         return_dict = {}
         for fact_tuple in MlController.indexes['facts_vector']:
             label = fact_tuple[1]
-            return_dict[label] = fact_vector[fact_tuple[0]]
+            return_dict[label] = str(fact_vector[fact_tuple[0]])
         return {'facts': return_dict}
 
     @staticmethod

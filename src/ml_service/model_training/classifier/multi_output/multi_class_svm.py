@@ -234,7 +234,9 @@ class MultiClassSVM:
         1) Predicts an outcome given facts
         2) Predicts probability that prediction is correct
             2.1) Range goes from [0-1] where x < 0.5 is False
-            2.2) If predicted False then probability is 1 - x
+            2.2) The model only returns the probability that a fact is 1
+            2.3) therefore to predict that the probability that a fact is 0 we do
+                 1 - x when x < 0.5
 
         :param data: numpy([1, 0, 0, ...])
         :return: np.array([...])
