@@ -119,8 +119,11 @@
         #sidebar-dashboard-outcome {
             @extend .sidebar-dashboard-item;
             text-align: left;
+            h2 {
+                margin-bottom: 5px;
+                border-bottom: 2px solid $main-grey-1;
+            }
             .sidebar-dashboard-outcome-item {
-                border-bottom: 1px solid $main-grey-3;
                 h2 {
                     text-align: center;
                     font-size: 30px;
@@ -141,6 +144,16 @@
                     color: $main-gold-2;
                     margin-top: 12px;
                 }
+            }
+        }
+        #sidebar-dashboard-similarity {
+            @extend .sidebar-dashboard-item;
+            h3 {
+                font-size: 22px;
+                color: $main-gold-2;
+            }
+            .verdict-table {
+                background: bisque;
             }
         }
         #sidebar-dashboard-contact {
@@ -190,3 +203,6 @@
 .translate-enter {
     transform: translateX(-125%);
 }
+.sidebar-dashboard-similarity-case {
+            background-color: red;
+        }

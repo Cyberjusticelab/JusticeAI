@@ -75,7 +75,6 @@
                                     </el-carousel-item>
                                 </div>
                             </el-carousel>
-                            <h3>Payment Verdict</h3>
                         </div>
                     </el-col>
                     <el-col :sm="{span: 4, offset: 2}">
@@ -96,15 +95,14 @@
                                 <h3>Here are <span>{{ report.similar_case }}</span> most similar precendents to your case</h3>
                                 <el-table :data="report.similar_precedents_table" stripe>
                                     <div>
-                                        <el-table-column prop="name" label="Case Number"></el-table-column>
+                                        <el-table-column prop="name" label="Case Number" align="center" fixed="left"></el-table-column>
                                     </div>
                                     <div v-for="fact in report.similar_precedents_fact_index">
-                                        <el-table-column :prop="fact" :label="fact"></el-table-column>
+                                        <el-table-column :prop="fact" :label="fact" align="center"></el-table-column>
                                     </div>
-                                    <!--
                                     <div v-for="outcome in report.similar_precedents_outcome_index">
-                                        <el-table-column :prop="outcome" :label="outcome"></el-table-column>
-                                    </div>-->
+                                        <el-table-column :prop="outcome" :label="outcome" align="center"></el-table-column>
+                                    </div>
                                 </el-table>
                         </div>
                     </el-col>
@@ -164,21 +162,20 @@ export default {
     },
     methods: {
         view () {
-            this.openSidebar = true
             let zeusId = this.$localStorage.get('zeusId')
             this.$http.get(this.api_url + 'conversation/' + zeusId + '/report').then(
                 response => {
                     this.report = response.body.report
                     this.report.accuracy = parseFloat((this.report.accuracy * 100).toFixed(2))
-                    console.log(typeof(this.report.accuracy))
                     this.createPrecedentTable()
                     this.openDashboard = true
-                    console.log(this.report)
+                    this.openSidebar = true
                 },
                 response => {
                     console.log('Connection Fail: get report')
                     this.connectionError = true
                     this.openDashboard = false
+                    this.openSidebar = true
                 }
             )
         },
@@ -223,10 +220,10 @@ export default {
                 let row = {}
                 row.name = this.report.similar_precedents[i].precedent
                 for (let key in this.report.similar_precedents[i].facts) {
-                    row[key] = this.report.similar_precedents[i].facts[key]
+                    row[key] = this.report.similar_precedents[i].facts[key].toString()
                 }
                 for (let key in this.report.similar_precedents[i].outcomes) {
-                    row[key] = this.report.similar_precedents[i].outcomes[key]
+                    row[key] = this.report.similar_precedents[i].outcomes[key].toString()
                 }
                 this.report.similar_precedents_table.push(row)
             }
