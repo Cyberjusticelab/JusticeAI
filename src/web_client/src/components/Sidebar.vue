@@ -93,6 +93,7 @@
                     </el-col>
                     <el-col :sm="{span: 22, offset: 1}">
                         <div id="sidebar-dashboard-similarity">
+                                <h3>Here are <span>{{ report.similar_case }}</span> most similar precendents to your case</h3>
                                 <el-table :data="report.similar_precedents_table" stripe>
                                     <div>
                                         <el-table-column prop="name" label="Case Number"></el-table-column>
@@ -100,9 +101,10 @@
                                     <div v-for="fact in report.similar_precedents_fact_index">
                                         <el-table-column :prop="fact" :label="fact"></el-table-column>
                                     </div>
+                                    <!--
                                     <div v-for="outcome in report.similar_precedents_outcome_index">
                                         <el-table-column :prop="outcome" :label="outcome"></el-table-column>
-                                    </div>
+                                    </div>-->
                                 </el-table>
                         </div>
                     </el-col>
@@ -162,14 +164,16 @@ export default {
     },
     methods: {
         view () {
-            // TODO: do some black magic here to call report endpoint
             this.openSidebar = true
             let zeusId = this.$localStorage.get('zeusId')
             this.$http.get(this.api_url + 'conversation/' + zeusId + '/report').then(
                 response => {
                     this.report = response.body.report
-                    this.report.accuracy = (this.report.accuracy * 100).toFixed(2)
+                    this.report.accuracy = parseFloat((this.report.accuracy * 100).toFixed(2))
+                    console.log(typeof(this.report.accuracy))
+                    this.createPrecedentTable()
                     this.openDashboard = true
+                    console.log(this.report)
                 },
                 response => {
                     console.log('Connection Fail: get report')
