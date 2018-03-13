@@ -11,7 +11,7 @@
         <!-- 1. End of Menu Close -->
         <!-- 2.1 Menu Open -->
         <transition name="translate">
-            <div v-if="openSidebar && !isPredicted" id="sidebar-full">
+            <div v-if="openSidebar && !openDashboard" id="sidebar-full">
                 <!-- LOGO -->
                 <div id="sidebar-logo">
                     <img alt="" src="../assets/logo.png">
@@ -39,7 +39,7 @@
         <!-- 2.1 End of Menu Open -->
         <!-- 2.2 Stat Dashboard -->
         <transition name="el-zoom-in-center">
-            <div v-if="openSidebar && isPredicted" id="sidebar-dashboard">
+            <div v-if="openSidebar && openDashboard" id="sidebar-dashboard">
                 <el-row>
                     <el-col :sm="{span: 24, offset: 0}">
                         <div id="sidebar-dashboard-logo">
@@ -143,61 +143,12 @@ export default {
         return {
             openFeedbackModal: false,
             openSidebar: false,
-            isPredicted: false,
+            openDashboard: false,
             username: this.$localStorage.get('username'),
             usertype: this.$localStorage.get('usertype'),
             feedback: '',
             progress: 0,
-            //TODO: set report to new object and modify by report api callback. Now mock data.
-            //This is the expected payload format
-            report: {
-                accuracy: 90,
-                data_set: 350000,
-                similar_case: 50,
-                curves: {
-                    legal_fees: ['whatever data is needed to create a bell curve'],
-                    additional_indemnity_fees: ['whatever data is needed to create a bell curve']
-                },
-                outcomes: {
-                    lease_termination: 1,
-                    order_resiliation: 1,
-                    apartment_impropre: 1,
-                    legal_fees: 82,
-                    additional_indemnity_fees: 1000
-                },
-                similar_precedents: [
-                    {
-                        precedent: 'AZ-1111111',
-                        facts: {
-                            f1: 1,
-                            f2: 1,
-                            f3: 1,
-                            f4: 1,
-                            f5: 1
-                        },
-                        outcomes: {
-                            o1: 1,
-                            o2: 1,
-                            o3: 1
-                        }
-                    },
-                    {
-                        precedent: 'AZ-222222',
-                        facts: {
-                            f1: 0,
-                            f2: 0,
-                            f3: 0,
-                            f4: 0,
-                            f5: 1
-                        },
-                        outcomes: {
-                            o1: 0,
-                            o2: 0,
-                            o3: 1
-                        }
-                    }
-                ]
-            },
+            report: new Object,
             api_url: process.env.API_URL,
             connectionError: false
         }
@@ -206,18 +157,26 @@ export default {
         EventBus.$on('hideSidebar', (status) => {
             this.openSidebar = false
             this.progress = status.progress
-            this.isPredicted = status.prediction
+            this.openDashboard = status.prediction
         })
     },
     methods: {
         view () {
             // TODO: do some black magic here to call report endpoint
             this.openSidebar = true
-            //this.isPredicted = true // TODO: remove this dev code. change to true for testing dashboard UI
-            if (this.isPredicted) {
-                //TODO:
-                this.createPrecedentTable()
-            }
+            let zeusId = this.$localStorage.get('zeusId')
+            this.$http.get(this.api_url + 'conversation/' + zeusId + '/report').then(
+                response => {
+                    this.report = response.body.report
+                    this.report.accuracy = (this.report.accuracy * 100).toFixed(2)
+                    this.openDashboard = true
+                },
+                response => {
+                    console.log('Connection Fail: get report')
+                    this.connectionError = true
+                    this.openDashboard = false
+                }
+            )
         },
         submitFeedback () {
             if (this.feedback) {
