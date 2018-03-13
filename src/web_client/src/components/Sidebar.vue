@@ -5,13 +5,13 @@
 <template>
     <div id="sidebar-component" v-bind:class="{ 'burger-menu': !openSidebar }">
         <!-- 1. Menu Close -->
-        <div v-if="!openSidebar" v-on:click="view()" id="sidebar-min">
+        <div v-if="!openSidebar && !openDashboard" v-on:click="view()" id="sidebar-min">
             <img alt="" src="../assets/sidebar-toggle.png">
         </div>
         <!-- 1. End of Menu Close -->
         <!-- 2.1 Menu Open -->
         <transition name="translate">
-            <div v-if="openSidebar && !isPredicted" id="sidebar-full">
+            <div v-if="openSidebar && !openDashboard" id="sidebar-full">
                 <!-- LOGO -->
                 <div id="sidebar-logo">
                     <img alt="" src="../assets/logo.png">
@@ -21,7 +21,8 @@
                 <!-- Pending Info -->
                 <div id="sidebar-info">
                     <el-progress type="circle" :percentage="progress"></el-progress>
-                    <p>Provide more information to Zeus to get a prediction on your case</p>
+                    <p v-if="progress < 100">Provide more information to Zeus to get a prediction on your case</p>
+                    <h2 v-if="isPredicted" v-on:click="openDashboard = true">See Latest Prediction</h2>
                 </div>
                 <!-- End of Pending Info -->
                 <!-- Feedback -->
@@ -39,7 +40,7 @@
         <!-- 2.1 End of Menu Open -->
         <!-- 2.2 Stat Dashboard -->
         <transition name="el-zoom-in-center">
-            <div v-if="openSidebar && isPredicted" id="sidebar-dashboard">
+            <div v-if="openDashboard" id="sidebar-dashboard">
                 <el-row>
                     <el-col :sm="{span: 24, offset: 0}">
                         <div id="sidebar-dashboard-logo">
@@ -47,7 +48,7 @@
                         </div>
                     </el-col>
                     <el-col :sm="{span: 1, offset: 23}">
-                        <img id="sidebar-dashboard-close" v-on:click="openSidebar = false" alt="" src="../assets/history_disable.png">
+                        <img id="sidebar-dashboard-close" v-on:click="openDashboard = false" alt="" src="../assets/history_disable.png">
                     </el-col>
                     <el-col :sm="{span: 24, offset: 0}">
                         <div id="sidebar-dashboard-header">
@@ -75,7 +76,6 @@
                                     </el-carousel-item>
                                 </div>
                             </el-carousel>
-                            <h3>Payment Verdict</h3>
                         </div>
                     </el-col>
                     <el-col :sm="{span: 4, offset: 2}">
@@ -93,15 +93,16 @@
                     </el-col>
                     <el-col :sm="{span: 22, offset: 1}">
                         <div id="sidebar-dashboard-similarity">
+                                <h3>Here are <span>{{ report.similar_case }}</span> most similar precendents to your case</h3>
                                 <el-table :data="report.similar_precedents_table" stripe>
                                     <div>
-                                        <el-table-column prop="name" label="Case Number"></el-table-column>
+                                        <el-table-column prop="name" label="Case Number" align="center" fixed="left"></el-table-column>
                                     </div>
                                     <div v-for="fact in report.similar_precedents_fact_index">
-                                        <el-table-column :prop="fact" :label="fact"></el-table-column>
+                                        <el-table-column :prop="fact" :label="fact" align="center"></el-table-column>
                                     </div>
                                     <div v-for="outcome in report.similar_precedents_outcome_index">
-                                        <el-table-column :prop="outcome" :label="outcome"></el-table-column>
+                                        <el-table-column :prop="outcome" :label="outcome" align="center"></el-table-column>
                                     </div>
                                 </el-table>
                         </div>
@@ -143,61 +144,13 @@ export default {
         return {
             openFeedbackModal: false,
             openSidebar: false,
+            openDashboard: false,
             isPredicted: false,
             username: this.$localStorage.get('username'),
             usertype: this.$localStorage.get('usertype'),
             feedback: '',
             progress: 0,
-            //TODO: set report to new object and modify by report api callback. Now mock data.
-            //This is the expected payload format
-            report: {
-                accuracy: 90,
-                data_set: 350000,
-                similar_case: 50,
-                curves: {
-                    legal_fees: ['whatever data is needed to create a bell curve'],
-                    additional_indemnity_fees: ['whatever data is needed to create a bell curve']
-                },
-                outcomes: {
-                    lease_termination: 1,
-                    order_resiliation: 1,
-                    apartment_impropre: 1,
-                    legal_fees: 82,
-                    additional_indemnity_fees: 1000
-                },
-                similar_precedents: [
-                    {
-                        precedent: 'AZ-1111111',
-                        facts: {
-                            f1: 1,
-                            f2: 1,
-                            f3: 1,
-                            f4: 1,
-                            f5: 1
-                        },
-                        outcomes: {
-                            o1: 1,
-                            o2: 1,
-                            o3: 1
-                        }
-                    },
-                    {
-                        precedent: 'AZ-222222',
-                        facts: {
-                            f1: 0,
-                            f2: 0,
-                            f3: 0,
-                            f4: 0,
-                            f5: 1
-                        },
-                        outcomes: {
-                            o1: 0,
-                            o2: 0,
-                            o3: 1
-                        }
-                    }
-                ]
-            },
+            report: new Object,
             api_url: process.env.API_URL,
             connectionError: false
         }
@@ -206,18 +159,35 @@ export default {
         EventBus.$on('hideSidebar', (status) => {
             this.openSidebar = false
             this.progress = status.progress
-            this.isPredicted = status.prediction
         })
     },
     methods: {
         view () {
-            // TODO: do some black magic here to call report endpoint
             this.openSidebar = true
-            //this.isPredicted = true // TODO: remove this dev code. change to true for testing dashboard UI
-            if (this.isPredicted) {
-                //TODO:
-                this.createPrecedentTable()
-            }
+            let zeusId = this.$localStorage.get('zeusId')
+            this.$http.get(this.api_url + 'conversation/' + zeusId + '/report').then(
+                response => {
+                    this.report = response.body.report
+                    this.report.accuracy = parseFloat((this.report.accuracy * 100).toFixed(2))
+                    this.createPrecedentTable()
+                    //TODO: get data for bell curve
+                    if (this.report.curves.length < 1) {
+                        this.report.curve.push({
+                            outcome: {
+                                mean: 1,
+                                std: 1,
+                                variance: 1
+                            }
+                        })
+                    }
+                    this.isPredicted = true
+                },
+                response => {
+                    console.log('Connection Fail: get report')
+                    this.connectionError = true
+                    this.isPredicted = false
+                }
+            )
         },
         submitFeedback () {
             if (this.feedback) {
@@ -260,10 +230,10 @@ export default {
                 let row = {}
                 row.name = this.report.similar_precedents[i].precedent
                 for (let key in this.report.similar_precedents[i].facts) {
-                    row[key] = this.report.similar_precedents[i].facts[key]
+                    row[key] = this.report.similar_precedents[i].facts[key].toString()
                 }
                 for (let key in this.report.similar_precedents[i].outcomes) {
-                    row[key] = this.report.similar_precedents[i].outcomes[key]
+                    row[key] = this.report.similar_precedents[i].outcomes[key].toString()
                 }
                 this.report.similar_precedents_table.push(row)
             }

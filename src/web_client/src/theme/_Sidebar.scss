@@ -24,7 +24,7 @@
         font-family: $zeus-font;
         border-right: 5px solid $main-gold-2;
         #sidebar-logo {
-            height: 40%;
+            height: 35%;
             img {
                 margin-top: 40px;
                 width: 90%;
@@ -40,11 +40,20 @@
             }
         }
         #sidebar-info {
-            height: 45%;
+            height: 50%;
             p {
                 padding: 2px;
                 color: $main-grey-6;
                 font-size: 12px;
+            }
+            h2 {
+                font-size: 23px;
+                color: $main-gold-2;
+                font-weight: 600;
+                &:hover {
+                    cursor: pointer;
+                    color: $main-white-1;
+                }
             }
         }
         .sidebar-option {
@@ -119,8 +128,11 @@
         #sidebar-dashboard-outcome {
             @extend .sidebar-dashboard-item;
             text-align: left;
+            h2 {
+                margin-bottom: 5px;
+                border-bottom: 2px solid $main-grey-1;
+            }
             .sidebar-dashboard-outcome-item {
-                border-bottom: 1px solid $main-grey-3;
                 h2 {
                     text-align: center;
                     font-size: 30px;
@@ -132,6 +144,8 @@
                     font-weight: 100;
                     font-size: 14px;
                     margin: 10px;
+                    max-width: 100%;
+                    word-wrap: break-word;
                 }
                 .outcome-check {
                     height: 1em;
@@ -139,6 +153,16 @@
                     color: $main-gold-2;
                     margin-top: 12px;
                 }
+            }
+        }
+        #sidebar-dashboard-similarity {
+            @extend .sidebar-dashboard-item;
+            h3 {
+                font-size: 22px;
+                color: $main-gold-2;
+            }
+            .verdict-table {
+                background: bisque;
             }
         }
         #sidebar-dashboard-contact {
@@ -188,3 +212,6 @@
 .translate-enter {
     transform: translateX(-125%);
 }
+.sidebar-dashboard-similarity-case {
+            background-color: red;
+        }

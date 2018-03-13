@@ -294,8 +294,7 @@ export default {
       // 5. set progress
       this.zeus.progress = conversation.progress || 0
       this.updateSidebarEvent({
-        progress: this.zeus.progress,
-        prediction: this.zeus.progress == 100
+        progress: this.zeus.progress
       })
       // 6. set feedback prompt
       this.numMessageSinceChatHistory += 1
@@ -344,7 +343,7 @@ export default {
       )
     },
     updateSidebarEvent (status) {
-      let currentStatus = status || {progress: this.zeus.progress, prediction: false}
+      let currentStatus = status || {progress: this.zeus.progress}
       EventBus.$emit('hideSidebar', currentStatus)
     }
   }
