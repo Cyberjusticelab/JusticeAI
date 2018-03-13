@@ -181,7 +181,6 @@ export default {
                         })
                     }
                     this.isPredicted = true
-                    console.log(this.report.curves)
                 },
                 response => {
                     console.log('Connection Fail: get report')
