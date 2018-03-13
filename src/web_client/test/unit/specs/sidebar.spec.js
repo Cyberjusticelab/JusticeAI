@@ -8,6 +8,7 @@ import ElementUI from 'element-ui'
 import VueResource from 'vue-resource'
 import VueLocalStorage from 'vue-localstorage'
 import VueRouter from 'vue-router'
+import { EventBus } from '@/components/EventBus.js'
 
 /*
 inject dependencies
@@ -23,6 +24,14 @@ test
 */
 
 describe('Sidebar.vue', () => {
+
+    it('should successfully listen to event', () => {
+        const vm = new Vue(Sidebar).$mount()
+        EventBus.$emit('hideSidebar', {
+            progress: 50
+        })
+        expect(vm.progress).to.equal(50)
+    })
 
     it('should successfully get report', () => {
         Vue.localStorage.set('zeusId', 1)
