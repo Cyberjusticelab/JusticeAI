@@ -24,6 +24,45 @@ test
 
 describe('Sidebar.vue', () => {
 
+    var report = {
+        accuracy: '0',
+        similar_case: '5',
+        similar_precedents: [
+            {
+                precedent: 'AZ-1',
+                outcomes: {
+                    o1: true
+                },
+                facts: {
+                    f1: true
+                }
+            }
+        ],
+        curves: [],
+        data_set: '1000',
+        outcomes: {
+            o1: true
+        }
+
+    }
+
+    it('should successfully get report', () => {
+        Vue.localStorage.set('zeusId', 1)
+        const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
+        promiseCall.resolves({
+            body: {
+                report: report
+            }
+        })
+        const spy = sinon.spy(Sidebar.methods, 'createPrecedentTable')
+        const vm = new Vue(Sidebar).$mount()
+        vm.view()
+        expect(spy.called).to.be.true
+        Sidebar.methods.createPrecedentTable.restore()
+        Vue.localStorage.remove('zeusId')
+        Vue.http.get.restore()
+    })
+
     it('should successfully submit feedback', () => {
         const promiseCall = sinon.stub(Vue.http, 'post').returnsPromise()
         promiseCall.resolves()
@@ -72,6 +111,9 @@ describe('Sidebar.vue', () => {
         expect(Vue.localStorage.get('zeusId')).to.be.equal(null)
         expect(Vue.localStorage.get('username')).to.be.equal(null)
         expect(Vue.localStorage.get('usertype')).to.be.equal(null)
+        Vue.localStorage.remove('zeusId')
+        Vue.localStorage.remove('username')
+        Vue.localStorage.remove('usertype')
     })
 
 })
