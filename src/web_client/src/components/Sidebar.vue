@@ -168,8 +168,19 @@ export default {
                     this.report = response.body.report
                     this.report.accuracy = parseFloat((this.report.accuracy * 100).toFixed(2))
                     this.createPrecedentTable()
+                    //TODO: get data for bell curve
+                    if (this.report.curves.length < 1) {
+                        this.report.curve.push({
+                            outcome: {
+                                mean: 1,
+                                std: 1,
+                                variance: 1
+                            }
+                        })
+                    }
                     this.openDashboard = true
                     this.openSidebar = true
+                    console.log(this.report.curves)
                 },
                 response => {
                     console.log('Connection Fail: get report')
