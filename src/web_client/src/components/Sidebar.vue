@@ -5,7 +5,7 @@
 <template>
     <div id="sidebar-component" v-bind:class="{ 'burger-menu': !openSidebar }">
         <!-- 1. Menu Close -->
-        <div v-if="!openSidebar" v-on:click="view()" id="sidebar-min">
+        <div v-if="!openSidebar && !openDashboard" v-on:click="view()" id="sidebar-min">
             <img alt="" src="../assets/sidebar-toggle.png">
         </div>
         <!-- 1. End of Menu Close -->
@@ -21,7 +21,8 @@
                 <!-- Pending Info -->
                 <div id="sidebar-info">
                     <el-progress type="circle" :percentage="progress"></el-progress>
-                    <p>Provide more information to Zeus to get a prediction on your case</p>
+                    <p v-if="progress < 100">Provide more information to Zeus to get a prediction on your case</p>
+                    <h2 v-if="isPredicted" v-on:click="openDashboard = true">See Latest Prediction</h2>
                 </div>
                 <!-- End of Pending Info -->
                 <!-- Feedback -->
@@ -39,7 +40,7 @@
         <!-- 2.1 End of Menu Open -->
         <!-- 2.2 Stat Dashboard -->
         <transition name="el-zoom-in-center">
-            <div v-if="openSidebar && openDashboard" id="sidebar-dashboard">
+            <div v-if="openDashboard" id="sidebar-dashboard">
                 <el-row>
                     <el-col :sm="{span: 24, offset: 0}">
                         <div id="sidebar-dashboard-logo">
@@ -47,7 +48,7 @@
                         </div>
                     </el-col>
                     <el-col :sm="{span: 1, offset: 23}">
-                        <img id="sidebar-dashboard-close" v-on:click="openSidebar = false" alt="" src="../assets/history_disable.png">
+                        <img id="sidebar-dashboard-close" v-on:click="openDashboard = false" alt="" src="../assets/history_disable.png">
                     </el-col>
                     <el-col :sm="{span: 24, offset: 0}">
                         <div id="sidebar-dashboard-header">
@@ -144,6 +145,7 @@ export default {
             openFeedbackModal: false,
             openSidebar: false,
             openDashboard: false,
+            isPredicted: false,
             username: this.$localStorage.get('username'),
             usertype: this.$localStorage.get('usertype'),
             feedback: '',
@@ -157,11 +159,11 @@ export default {
         EventBus.$on('hideSidebar', (status) => {
             this.openSidebar = false
             this.progress = status.progress
-            this.openDashboard = status.prediction
         })
     },
     methods: {
         view () {
+            this.openSidebar = true
             let zeusId = this.$localStorage.get('zeusId')
             this.$http.get(this.api_url + 'conversation/' + zeusId + '/report').then(
                 response => {
@@ -178,15 +180,13 @@ export default {
                             }
                         })
                     }
-                    this.openDashboard = true
-                    this.openSidebar = true
+                    this.isPredicted = true
                     console.log(this.report.curves)
                 },
                 response => {
                     console.log('Connection Fail: get report')
                     this.connectionError = true
-                    this.openDashboard = false
-                    this.openSidebar = true
+                    this.isPredicted = false
                 }
             )
         },
