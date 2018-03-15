@@ -13,13 +13,13 @@
     "lintfix": "eslint --ext .js,.vue src test/unit/specs --fix"
   },
   "dependencies": {
+    "d3": "3.5.17",
     "element-ui": "^2.0.2",
     "tippy.js": "^2.2.3",
     "vue": "^2.4.2",
     "vue-localstorage": "^0.5.0",
     "vue-router": "^3.0.1",
-    "vue-upload-component": "^2.6.3",
-    "vuechart": "^18.3.1"
+    "vue-upload-component": "^2.6.3"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
