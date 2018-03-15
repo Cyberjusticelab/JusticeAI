@@ -240,11 +240,11 @@ export default {
                     .attr("transform", "translate(" + MARGIN_SIZE + "," + MARGIN_SIZE + ")");
 
                 // Create standardized normal distribution data
-                let data = generateData(0, standardDeviation / mean);
-                let verticalValueData = generateVerticalData((value - mean)/standardDeviation);
-                let verticalMeanData = generateVerticalData(0);
-                let verticalLine = createLine();
-                let bell_line = createLine();
+                let data = self._generateBellCurveData(0, standardDeviation / mean);
+                let verticalValueData = self._generateBellCurveVerticalData((value - mean)/standardDeviation);
+                let verticalMeanData = self._generateBellCurveVerticalData(0);
+                let verticalLine = _createD3Line();
+                let bell_line = _createD3Line();
 
                 // Fit chart size to data
                 x.domain(d3.extent(data, function(d) {
@@ -277,20 +277,7 @@ export default {
                     .style("stroke-width", "1px");
             });
 
-            function generateVerticalData(value) {
-                return [
-                    {
-                        "q": value,
-                        "p": 0
-                    },
-                    {
-                        "q": value,
-                        "p": 1
-                    }
-                ]
-            }
-
-            function createLine() {
+            function _createD3Line() {
                 return d3.svg.line()
                     .x(function(d) {
                         return x(d.q);
@@ -300,44 +287,53 @@ export default {
                     });
             }
 
-            function generateData(mean, standardDeviation) {
-                let temp_data = []
-                for (let i = 0; i < 10000; i++) {
-                    let q = normal()
-                    let p = gaussian(mean, standardDeviation, q)
-                    // probability - quantile pairs
-                    let el = {
-                        "q": q,
-                        "p": p
-                    }
-                    temp_data.push(el)
-                };
-
-                return temp_data.sort(function(x, y) {
-                    return x.q - y.q;
-                });
-            }
-
-            function normal() {
-                let x = 0;
-                let y = 0;
-                let rds;
-                let c;
-                do {
-                    x = Math.random() * 2 - 1;
-                    y = Math.random() * 2 - 1;
-                    rds = x * x + y * y;
-                } while (rds == 0 || rds > 1);
-                c = Math.sqrt(-2 * Math.log(rds) / rds); // Box-Muller transform
-                return x * c; // throw away extra sample y * c
-            }
-
-            function gaussian(mean, sigma, x) {
-                let gaussianConstant = 1 / Math.sqrt(2 * Math.PI);
-                x = (x - mean) / sigma;
-                return gaussianConstant * Math.exp(-.5 * x * x) / sigma;
+        },
+        _generateBellCurveVerticalData (value) {
+            return [
+                {
+                    "q": value,
+                    "p": 0
+                },
+                {
+                    "q": value,
+                    "p": 1
+                }
+            ]
+        },
+        _generateBellCurveData (mean, standardDeviation) {
+            let temp_data = []
+            for (let i = 0; i < 10000; i++) {
+                let q = this._bellCurveNormal()
+                let p = this._bellCurveGaussian(mean, standardDeviation, q)
+                // probability - quantile pairs
+                let el = {
+                    "q": q,
+                    "p": p
+                }
+                temp_data.push(el)
             };
 
+            return temp_data.sort(function(x, y) {
+                return x.q - y.q;
+            });
+        },
+        _bellCurveNormal () {
+            let x = 0;
+            let y = 0;
+            let rds;
+            let c;
+            do {
+                x = Math.random() * 2 - 1;
+                y = Math.random() * 2 - 1;
+                rds = x * x + y * y;
+            } while (rds == 0 || rds > 1);
+            c = Math.sqrt(-2 * Math.log(rds) / rds); // Box-Muller transform
+            return x * c; // throw away extra sample y * c
+        },
+        _bellCurveGaussian (mean, sigma, x) {
+            let gaussianConstant = 1 / Math.sqrt(2 * Math.PI);
+            x = (x - mean) / sigma;
+            return gaussianConstant * Math.exp(-.5 * x * x) / sigma;
         },
         createPrecedentTable () {
             this.report.similar_precedents_fact_index = []
