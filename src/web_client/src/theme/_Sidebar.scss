@@ -124,6 +124,11 @@
                 color: firebrick;
                 padding-top: 6px;
             }
+            .bellcurve {
+                width: 100%;
+                height: 100%;
+                display: inline-block;
+            }
         }
         #sidebar-dashboard-outcome {
             @extend .sidebar-dashboard-item;

@@ -40,7 +40,7 @@
         <!-- 2.1 End of Menu Open -->
         <!-- 2.2 Stat Dashboard -->
         <transition name="el-zoom-in-center">
-            <div v-if="openDashboard" id="sidebar-dashboard">
+            <div v-show="openDashboard" id="sidebar-dashboard">
                 <el-row>
                     <el-col :sm="{span: 24, offset: 0}">
                         <div id="sidebar-dashboard-logo">
@@ -65,15 +65,9 @@
                         <div id="sidebar-dashboard-curve">
                             <el-carousel indicator-position="outside">
                                 <div v-for="value,key in report.curves">
-                                    <el-carousel-item :key="key" :name="key">
-                                        <vue-chart
-                                            type="bar"
-                                            :data="chartData"
-                                            :options="{scales: {yAxes: [{ticks: {beginAtZero: true}}]}}"
-                                            :update-config="{duration: 800, easing: 'easeOutBounce'}"
-                                        ></vue-chart>
-                                        properties
-                                    </el-carousel-item>
+                                  <el-carousel-item :key="key" :name="key">
+                                      <div class="bellcurve" ref="bellcurve"></div>
+                                  </el-carousel-item>
                                 </div>
                             </el-carousel>
                         </div>
@@ -139,6 +133,7 @@
 
 <script>
 import { EventBus } from './EventBus.js'
+import * as d3 from "d3";
 export default {
     data () {
         return {
@@ -170,17 +165,14 @@ export default {
                     this.report = response.body.report
                     this.report.accuracy = parseFloat((this.report.accuracy * 100).toFixed(2))
                     this.createPrecedentTable()
-                    //TODO: get data for bell curve
-                    if (this.report.curves.length < 1) {
-                        this.report.curve.push({
-                            outcome: {
-                                mean: 1,
-                                std: 1,
-                                variance: 1
-                            }
-                        })
-                    }
                     this.isPredicted = true
+
+                    // D3 chart required manual DOM manipulation
+                    // SetTimeout to wait until Vue renders it
+                    setTimeout(() => {
+                        this.createBellCurves()
+                    }, 50);
+
                 },
                 response => {
                     console.log('Connection Fail: get report')
@@ -215,6 +207,133 @@ export default {
             this.$localStorage.remove('username')
             this.$localStorage.remove('usertype')
             this.$router.push('/')
+        },
+        createBellCurves() {
+            // Data common to all normal distributions
+            const NUMBER_OF_DECIMALS_REPORTED = 2
+            let MARGIN_SIZE = 20;
+            let width = 450 - (2 * MARGIN_SIZE);
+            let height = 275 - (2 * MARGIN_SIZE);
+            let x = d3.scale.linear().range([0, width]);
+            let y = d3.scale.linear().range([height, 0]);
+
+            // Data specific to each normal distribution
+            let self = this;
+            Object.keys(this.report.curves).forEach(function(ranged_outcome, i) {
+                // Obtaine values from report
+                let mean = self.report.curves[ranged_outcome].mean;
+                let standardDeviation = self.report.curves[ranged_outcome].std;
+                let value = self.report.curves[ranged_outcome].outcome_value;
+
+                // Show values and legend above chart
+                // Styling must be applied here due to dynamic DOM node creation
+                d3.select(self.$refs.bellcurve[i]).insert("div")[0][0].innerHTML = ranged_outcome + "<br/>" +
+                    "<span style='color: green;'>mean</span>: " +  mean.toFixed(NUMBER_OF_DECIMALS_REPORTED) +
+                    " <span style='color: steelblue;'>std</span>: " + standardDeviation.toFixed(NUMBER_OF_DECIMALS_REPORTED) +
+                    " <span style='color: red;'>value</span>: " + value.toFixed(NUMBER_OF_DECIMALS_REPORTED);
+
+                // Create chart
+                let svg = d3.select(self.$refs.bellcurve[i]).append("svg")
+                    .attr("width", width + (2 * MARGIN_SIZE))
+                    .attr("height", height + (2 * MARGIN_SIZE))
+                    .append("g")
+                    .attr("transform", "translate(" + MARGIN_SIZE + "," + MARGIN_SIZE + ")");
+
+                // Create standardized normal distribution data
+                let data = self._generateBellCurveData(0, standardDeviation / mean);
+                let verticalValueData = self._generateBellCurveVerticalData((value - mean)/standardDeviation);
+                let verticalMeanData = self._generateBellCurveVerticalData(0);
+                let verticalLine = _createD3Line();
+                let bell_line = _createD3Line();
+
+                // Fit chart size to data
+                x.domain(d3.extent(data, function(d) {
+                    return d.q;
+                }));
+                y.domain(d3.extent(data, function(d) {
+                    return d.p;
+                }));
+
+                // Generate lines based on data sets
+                svg.append("path")
+                    .datum(data)
+                    .attr("d", bell_line)
+                    .style("fill", "none")
+                    .style("stroke", "steelblue")
+                    .style("stroke-width", "2px");
+
+                svg.append("path")
+                    .datum(verticalValueData)
+                    .attr("d", verticalLine)
+                    .style("fill", "none")
+                    .style("stroke", "red")
+                    .style("stroke-width", "1px");
+
+                svg.append("path")
+                    .datum(verticalMeanData)
+                    .attr("d", verticalLine)
+                    .style("fill", "none")
+                    .style("stroke", "green")
+                    .style("stroke-width", "1px");
+            });
+
+            function _createD3Line() {
+                return d3.svg.line()
+                    .x(function(d) {
+                        return x(d.q);
+                    })
+                    .y(function(d) {
+                        return y(d.p);
+                    });
+            }
+
+        },
+        _generateBellCurveVerticalData (value) {
+            return [
+                {
+                    "q": value,
+                    "p": 0
+                },
+                {
+                    "q": value,
+                    "p": 1
+                }
+            ]
+        },
+        _generateBellCurveData (mean, standardDeviation) {
+            let temp_data = []
+            for (let i = 0; i < 10000; i++) {
+                let q = this._bellCurveNormal()
+                let p = this._bellCurveGaussian(mean, standardDeviation, q)
+                // probability - quantile pairs
+                let el = {
+                    "q": q,
+                    "p": p
+                }
+                temp_data.push(el)
+            };
+
+            return temp_data.sort(function(x, y) {
+                return x.q - y.q;
+            });
+        },
+        _bellCurveNormal () {
+            let x = 0;
+            let y = 0;
+            let rds;
+            let c;
+            do {
+                x = Math.random() * 2 - 1;
+                y = Math.random() * 2 - 1;
+                rds = x * x + y * y;
+            } while (rds == 0 || rds > 1);
+            c = Math.sqrt(-2 * Math.log(rds) / rds); // Box-Muller transform
+            return x * c; // throw away extra sample y * c
+        },
+        _bellCurveGaussian (mean, sigma, x) {
+            let gaussianConstant = 1 / Math.sqrt(2 * Math.PI);
+            x = (x - mean) / sigma;
+            return gaussianConstant * Math.exp(-.5 * x * x) / sigma;
         },
         createPrecedentTable () {
             this.report.similar_precedents_fact_index = []

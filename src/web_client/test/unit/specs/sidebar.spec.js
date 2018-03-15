@@ -52,7 +52,14 @@ describe('Sidebar.vue', () => {
                             }
                         }
                     ],
-                    curves: [],
+                    curves: {
+                        additional_indemnity_money: {
+                            mean: 1477.7728467101024,
+                            outcome_value: 600,
+                            std: 1927.8147997893939,
+                            variance: 3716469.9022870203
+                        }
+                    },
                     data_set: '1000',
                     outcomes: {
                         o1: true
@@ -89,14 +96,18 @@ describe('Sidebar.vue', () => {
                             }
                         }
                     ],
-                    curves: [{
-                        name: {}
-                    }],
+                    curves: {
+                        additional_indemnity_money: {
+                            mean: 1477.7728467101024,
+                            outcome_value: 600,
+                            std: 1927.8147997893939,
+                            variance: 3716469.9022870203
+                        }
+                    },
                     data_set: '1000',
                     outcomes: {
                         o1: true
                     }
-
                 }
             }
         })
@@ -175,4 +186,25 @@ describe('Sidebar.vue', () => {
         Vue.localStorage.remove('usertype')
     })
 
+    it('should generate data corresponding to a vertical line', () => {
+        const vm = new Vue(Sidebar).$mount()
+        let data = vm._generateBellCurveVerticalData(0)
+        expect(data.length == 2).to.be.true
+        expect(data[0]).to.be.an('object').that.is.not.empty
+        expect(data[0]).to.have.own.property('q')
+        expect(data[0]).to.have.own.property('p')
+        expect(data[0].p).to.equal(0)
+        expect(data[1].p).to.equal(1)
+    })
+
+    it('should generate data corresponding to a normal distribution with mean and standard deviation', () => {
+        const vm = new Vue(Sidebar).$mount()
+        let data = vm._generateBellCurveData(0, 1)
+        expect(data.length > 500).to.be.true // Expect reasonable sample size
+        expect(data[0]).to.be.an('object').that.is.not.empty
+        expect(data[0]).to.have.own.property('q')
+        expect(data[0]).to.have.own.property('p')
+        expect(data[0].p <= data[1].p).to.be.true
+        expect(data[0].q <= data[1].q).to.be.true
+    })
 })
