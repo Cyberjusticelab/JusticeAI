@@ -143,11 +143,19 @@ export default {
         }
     },
     created () {
-        console.log(this.$localStorage.get('progress'))
-        this.progress = this.$localStorage.get('progress') | 0
-        EventBus.$on('updateSidebar', () => {
-            this.progress = this.$localStorage.get('progress')
+        // resume progress bar
+        this.progress = parseInt(this.$localStorage.get('progress')) | 0
+        // resume dashboard
+        if (this.$localStorage.get('isPredicted')) {
             this.view()
+        }
+        // capture event to set progress bar and update dashboard
+        EventBus.$on('updateSidebar', () => {
+            this.progress = parseInt(this.$localStorage.get('progress'))
+            console.log(typeof this.progress)
+            if (this.progress == 100) {
+                this.view()
+            }
         })
     },
     methods: {
@@ -159,17 +167,16 @@ export default {
                     this.report.accuracy = parseFloat((this.report.accuracy * 100).toFixed(2))
                     this.createPrecedentTable()
                     this.isPredicted = true
+                    this.$localStorage.set('isPredicted', true)
                     // D3 chart required manual DOM manipulation
                     // SetTimeout to wait until Vue renders it
                     setTimeout(() => {
                         this.createBellCurves()
                     }, 50);
-
                 },
                 response => {
                     console.log('Connection Fail: get report')
                     this.connectionError = true
-                    this.isPredicted = false
                 }
             )
         },
@@ -198,6 +205,8 @@ export default {
             this.$localStorage.remove('zeusId')
             this.$localStorage.remove('username')
             this.$localStorage.remove('usertype')
+            this.$localStorage.remove('progress')
+            this.$localStorage.remove('isPredicted')
             this.$router.push('/')
         },
         createBellCurves() {
