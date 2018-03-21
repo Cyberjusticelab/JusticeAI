@@ -3,15 +3,10 @@
 </style>
 
 <template>
-    <div id="sidebar-component" v-bind:class="{ 'burger-menu': !openSidebar }">
-        <!-- 1. Menu Close -->
-        <div v-if="!openSidebar && !openDashboard" v-on:click="view()" id="sidebar-min">
-            <img alt="" src="../assets/sidebar-toggle.png">
-        </div>
-        <!-- 1. End of Menu Close -->
-        <!-- 2.1 Menu Open -->
+    <div id="sidebar-component">
+        <!-- 1. Default Sidebar -->
         <transition name="translate">
-            <div v-if="openSidebar && !openDashboard" id="sidebar-full">
+            <div v-if="!openDashboard" id="sidebar-full">
                 <!-- LOGO -->
                 <div id="sidebar-logo">
                     <img alt="" src="../assets/logo.png">
@@ -37,8 +32,8 @@
                 <!-- End of Reset -->
             </div>
         </transition>
-        <!-- 2.1 End of Menu Open -->
-        <!-- 2.2 Stat Dashboard -->
+        <!-- 1. End of Default Sidebar -->
+        <!-- 2. Stat Dashboard -->
         <transition name="el-zoom-in-center">
             <div v-show="openDashboard" id="sidebar-dashboard">
                 <el-row>
@@ -117,7 +112,7 @@
                 </el-row>
             </div>
         </transition>
-        <!-- 2.2 End of Stat Dashboard -->
+        <!-- 2. End of Stat Dashboard -->
         <!-- el-dialog for feedback -->
         <el-dialog title="Feedback" :visible.sync="openFeedbackModal">
             <textarea id="feedback-input" v-model="feedback">
@@ -138,7 +133,6 @@ export default {
     data () {
         return {
             openFeedbackModal: false,
-            openSidebar: false,
             openDashboard: false,
             isPredicted: false,
             username: this.$localStorage.get('username'),
@@ -152,13 +146,11 @@ export default {
     },
     created () {
         EventBus.$on('hideSidebar', (status) => {
-            this.openSidebar = false
             this.progress = status.progress
         })
     },
     methods: {
         view () {
-            this.openSidebar = true
             let zeusId = this.$localStorage.get('zeusId')
             this.$http.get(this.api_url + 'conversation/' + zeusId + '/report').then(
                 response => {
