@@ -85,7 +85,7 @@
                                 <h3>Here are <span>{{ report.similar_case }}</span> most similar precendents to your case</h3>
                                 <el-table :data="report.similar_precedents_table" stripe>
                                     <div>
-                                        <el-table-column prop="name" label="Case Number" align="center" fixed="left"></el-table-column>
+                                        <el-table-column prop="fact_name" align="center" fixed="left"></el-table-column>
                                     </div>
                                     <div v-for="fact in report.similar_precedents_fact_index">
                                         <el-table-column :prop="fact" :label="fact" align="center"></el-table-column>
@@ -152,7 +152,6 @@ export default {
         // capture event to set progress bar and update dashboard
         EventBus.$on('updateSidebar', () => {
             this.progress = parseInt(this.$localStorage.get('progress'))
-            console.log(typeof this.progress)
             if (this.progress == 100) {
                 this.view()
             }
@@ -200,6 +199,28 @@ export default {
             } else {
                 alert('No feedback entered');
             }
+        },
+        createPrecedentTable () {
+            let precedent_table = []
+            // extract data from similar precedent as fact vector
+            for (let key in this.report.similar_precedents[0].facts) {
+                let fact_vector = {}
+                fact_vector.name = key
+                for (let i = 0; i < this.report.similar_precedents.length; i++) {
+                    fact_vector[this.report.similar_precedents[i].precedent] = this.report.similar_precedents[i].facts[key]
+                }
+                precedent_table.push(fact_vector)
+            }
+            // extract data from similar precedent as fact vector
+            for (let key in this.report.similar_precedents[0].outcomes) {
+                let outcome_vector = {}
+                outcome_vector.name = key
+                for (let i = 0; i < this.report.similar_precedents.length; i++) {
+                    outcome_vector[this.report.similar_precedents[i].precedent] = this.report.similar_precedents[i].outcomes[key]
+                }
+                precedent_table.push(outcome_vector)
+            }
+            console.log(precedent_table)
         },
         resetChat () {
             this.$localStorage.remove('zeusId')
@@ -335,28 +356,6 @@ export default {
             let gaussianConstant = 1 / Math.sqrt(2 * Math.PI);
             x = (x - mean) / sigma;
             return gaussianConstant * Math.exp(-.5 * x * x) / sigma;
-        },
-        createPrecedentTable () {
-            this.report.similar_precedents_fact_index = []
-            for (let key in this.report.similar_precedents[0].facts) {
-                this.report.similar_precedents_fact_index.push(key)
-            }
-            this.report.similar_precedents_outcome_index = []
-            for (let key in this.report.similar_precedents[0].outcomes) {
-                this.report.similar_precedents_outcome_index.push(key)
-            }
-            this.report.similar_precedents_table = []
-            for (let i = 0; i < this.report.similar_precedents.length; i++) {
-                let row = {}
-                row.name = this.report.similar_precedents[i].precedent
-                for (let key in this.report.similar_precedents[i].facts) {
-                    row[key] = this.report.similar_precedents[i].facts[key].toString()
-                }
-                for (let key in this.report.similar_precedents[i].outcomes) {
-                    row[key] = this.report.similar_precedents[i].outcomes[key].toString()
-                }
-                this.report.similar_precedents_table.push(row)
-            }
         }
     }
 }
