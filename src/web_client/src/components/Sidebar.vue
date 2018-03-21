@@ -201,26 +201,52 @@ export default {
             }
         },
         createPrecedentTable () {
-            let precedent_table = []
-            // extract data from similar precedent as fact vector
-            for (let key in this.report.similar_precedents[0].facts) {
-                let fact_vector = {}
-                fact_vector.name = key
-                for (let i = 0; i < this.report.similar_precedents.length; i++) {
-                    fact_vector[this.report.similar_precedents[i].precedent] = this.report.similar_precedents[i].facts[key]
+            // create user case data vector
+            let zeusId = this.$localStorage.get('zeusId')
+            this.$http.get(this.api_url + 'conversation/' + zeusId + '/resolved').then(
+                response => {
+                    // append user case outcomes
+                    let user_data = this.report.outcomes
+                    // append user case facts
+                    for (let i = 0; i < response.body.fact_entities.length; i++) {
+                        user_data[response.body.fact_entities[i].fact.name] = response.body.fact_entities[i].value
+                    }
+                    // prep the precedent table
+                    let precedent_table = []
+                    // extract data from similar precedent as fact vector
+                    for (let key in this.report.similar_precedents[0].facts) {
+                        let fact_vector = {}
+                        fact_vector.name = key
+                        for (let i = 0; i < this.report.similar_precedents.length; i++) {
+                            fact_vector[this.report.similar_precedents[i].precedent] = this.report.similar_precedents[i].facts[key]
+                        }
+                        precedent_table.push(fact_vector)
+                    }
+                    // extract data from similar precedent as fact vector
+                    for (let key in this.report.similar_precedents[0].outcomes) {
+                        let outcome_vector = {}
+                        outcome_vector.name = key
+                        for (let i = 0; i < this.report.similar_precedents.length; i++) {
+                            outcome_vector[this.report.similar_precedents[i].precedent] = this.report.similar_precedents[i].outcomes[key]
+                        }
+                        precedent_table.push(outcome_vector)
+                    }
+                    // add all user data to the table and format the table
+                    for (let i = 0; i < precedent_table.length; i++) {
+                        precedent_table[i]['Your Case'] = user_data[precedent_table[i].name]
+                        for (let key in precedent_table[i]) {
+                            if (typeof precedent_table[i][key] !== 'string') {
+                                precedent_table[i][key] = precedent_table[i][key].toString()
+                            }
+                        }
+                    }
+                    this.report.precedent_table = precedent_table
+                },
+                response => {
+                    this.connectionError = true
+                    console.log("Connection Fail: get user resolved fact")
                 }
-                precedent_table.push(fact_vector)
-            }
-            // extract data from similar precedent as fact vector
-            for (let key in this.report.similar_precedents[0].outcomes) {
-                let outcome_vector = {}
-                outcome_vector.name = key
-                for (let i = 0; i < this.report.similar_precedents.length; i++) {
-                    outcome_vector[this.report.similar_precedents[i].precedent] = this.report.similar_precedents[i].outcomes[key]
-                }
-                precedent_table.push(outcome_vector)
-            }
-            console.log(precedent_table)
+            )
         },
         resetChat () {
             this.$localStorage.remove('zeusId')
