@@ -135,8 +135,6 @@ export default {
             openFeedbackModal: false,
             openDashboard: false,
             isPredicted: false,
-            username: this.$localStorage.get('username'),
-            usertype: this.$localStorage.get('usertype'),
             feedback: '',
             progress: 0,
             report: new Object,
@@ -145,8 +143,11 @@ export default {
         }
     },
     created () {
-        EventBus.$on('hideSidebar', (status) => {
-            this.progress = status.progress
+        console.log(this.$localStorage.get('progress'))
+        this.progress = this.$localStorage.get('progress') | 0
+        EventBus.$on('updateSidebar', () => {
+            this.progress = this.$localStorage.get('progress')
+            this.view()
         })
     },
     methods: {
@@ -158,7 +159,6 @@ export default {
                     this.report.accuracy = parseFloat((this.report.accuracy * 100).toFixed(2))
                     this.createPrecedentTable()
                     this.isPredicted = true
-
                     // D3 chart required manual DOM manipulation
                     // SetTimeout to wait until Vue renders it
                     setTimeout(() => {
