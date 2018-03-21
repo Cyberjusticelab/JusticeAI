@@ -3,21 +3,6 @@
 #sidebar-component {
     width: 12%;
     background-color: rgba(74,74,74,.8);
-    z-index: 2;
-    #sidebar-min {
-        width: 50%;
-        background-color: $main-grey-1;
-        padding: 5px;
-        border: 1px solid $main-grey-1;
-        img {
-            width: 30px;
-        }
-        &:hover {
-            background-color: $main-grey-1;
-            border: 2px solid $main-gold-1;
-            cursor: pointer;
-        }
-    }
     #sidebar-full {
         height: 100%;
         background-color: $main-grey-1;
