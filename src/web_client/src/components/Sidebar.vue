@@ -83,15 +83,12 @@
                     <el-col :sm="{span: 22, offset: 1}">
                         <div id="sidebar-dashboard-similarity">
                                 <h3>Here are <span>{{ report.similar_case }}</span> most similar precendents to your case</h3>
-                                <el-table :data="report.similar_precedents_table" stripe>
+                                <el-table :data="report.precedent_table" stripe>
                                     <div>
-                                        <el-table-column prop="fact_name" align="center" fixed="left"></el-table-column>
+                                        <el-table-column prop="name" align="center" fixed="left"></el-table-column>
                                     </div>
-                                    <div v-for="fact in report.similar_precedents_fact_index">
-                                        <el-table-column :prop="fact" :label="fact" align="center"></el-table-column>
-                                    </div>
-                                    <div v-for="outcome in report.similar_precedents_outcome_index">
-                                        <el-table-column :prop="outcome" :label="outcome" align="center"></el-table-column>
+                                    <div v-for="header in report.precedent_table_header">
+                                        <el-table-column :prop="header" :label="header" align="center"></el-table-column>
                                     </div>
                                 </el-table>
                         </div>
@@ -205,14 +202,14 @@ export default {
             let zeusId = this.$localStorage.get('zeusId')
             this.$http.get(this.api_url + 'conversation/' + zeusId + '/resolved').then(
                 response => {
+                    // prep the precedent table
+                    let precedent_table = []
                     // append user case outcomes
                     let user_data = this.report.outcomes
                     // append user case facts
                     for (let i = 0; i < response.body.fact_entities.length; i++) {
                         user_data[response.body.fact_entities[i].fact.name] = response.body.fact_entities[i].value
                     }
-                    // prep the precedent table
-                    let precedent_table = []
                     // extract data from similar precedent as fact vector
                     for (let key in this.report.similar_precedents[0].facts) {
                         let fact_vector = {}
@@ -240,6 +237,15 @@ export default {
                             }
                         }
                     }
+                    // create header list
+                    let header_list = ['Your Case']
+                    for (let key in precedent_table[0]) {
+                        if (key !== 'name' && key !== 'Your Case') {
+                            header_list.push(key)
+                        }
+                    }
+                    // settle the table data
+                    this.report.precedent_table_header = header_list
                     this.report.precedent_table = precedent_table
                 },
                 response => {
