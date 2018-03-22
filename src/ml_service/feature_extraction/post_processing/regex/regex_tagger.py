@@ -45,15 +45,6 @@ class TagPrecedents:
                 data_type = 'int'
             facts_vector.append((i, name, data_type))
 
-        demands_vector = []
-        for i in range(len(self.regexes["regex_demands"])):
-            name = self.regexes["regex_demands"][i][0]
-            if self.regexes["regex_demands"][i][2] == 'BOOLEAN':
-                data_type = 'bool'
-            else:
-                data_type = 'int'
-            demands_vector.append((i, name, data_type))
-
         outcomes_vector = []
         for i in range(len(self.regexes["regex_outcomes"])):
             name = self.regexes["regex_outcomes"][i][0]
@@ -65,7 +56,6 @@ class TagPrecedents:
 
         return {
             'facts_vector': facts_vector,
-            'demands_vector': demands_vector,
             'outcomes_vector': outcomes_vector
         }
 
@@ -123,22 +113,19 @@ class TagPrecedents:
         """
         1) Create vectors of 0's
         2) Create fact vector
-        3) create demands vector
-        4) create outcomes vector
-        5) updates line / text coverage
+        3) create outcomes vector
+        4) updates line / text coverage
 
         :param filename: string
         :return: {
             'name': filename,
             'facts_vector': facts_vector,
-            'demands_vector': demands_vector,
             'outcomes_vector': outcomes_vector
             }
         """
 
         # ----------------------- 1 -----------------------------#
         facts_vector = numpy.zeros(len(self.regexes["regex_facts"]))
-        demands_vector = numpy.zeros(len(self.regexes["regex_demands"]))
         outcomes_vector = numpy.zeros(len(self.regexes["regex_outcomes"]))
 
         file = open(self.precedents_directory_path + "/" +
@@ -158,14 +145,6 @@ class TagPrecedents:
                     text_tagged = True
 
             # ----------------------- 3 -----------------------------#
-            for i, (_, regex_array, regex_type) in enumerate(self.regexes["regex_demands"]):
-                match = EntityExtraction.match_any_regex(statement_list[j], regex_array, regex_type)
-                if match[0]:
-                    demands_vector[i] = match[1]
-                    statement_tagged = True
-                    text_tagged = True
-
-            # ----------------------- 4 -----------------------------#
             for i, (_, regex_array, regex_type) in enumerate(self.regexes["regex_outcomes"]):
                 match = EntityExtraction.match_any_regex(statement_list[j], regex_array, regex_type)
                 if match[0]:
@@ -173,7 +152,7 @@ class TagPrecedents:
                     statement_tagged = True
                     text_tagged = True
 
-            # ----------------------- 5 -----------------------------#
+            # ----------------------- 4 -----------------------------#
             if statement_tagged:
                 self.statements_tagged += 1
             elif j == 0:
@@ -190,7 +169,6 @@ class TagPrecedents:
         return {
             'name': filename,
             'facts_vector': facts_vector,
-            'demands_vector': demands_vector,
             'outcomes_vector': outcomes_vector
         }
 
@@ -226,11 +204,6 @@ def run(nb_files=-1):
     for i in range(len(next(iter(precedent_vector.values()))['facts_vector'])):
         total_fact = len([1 for val in precedent_vector.values() if val['facts_vector'][i] != 0])
         Log.write("Total precedents with {:41} : {}".format(indexes['facts_vector'][i][1], total_fact))
-    Log.write("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-
-    for i in range(len(next(iter(precedent_vector.values()))['demands_vector'])):
-        total_fact = len([1 for val in precedent_vector.values() if val['demands_vector'][i] != 0])
-        Log.write("Total precedents with {:41} : {}".format(indexes['demands_vector'][i][1], total_fact))
     Log.write("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
     for i in range(len(next(iter(precedent_vector.values()))['outcomes_vector'])):

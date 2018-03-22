@@ -14,9 +14,6 @@ def get_regexes(name):
     for fact in RegexLib.regex_facts:
         if fact[regex_name_index] == name:
             return fact[regex_index]
-    for demand in RegexLib.regex_demands:
-        if demand[regex_name_index] == name:
-            return demand[regex_index]
     for outcome in RegexLib.regex_outcomes:
         if outcome[regex_name_index] == name:
             return outcome[regex_index]
@@ -37,10 +34,6 @@ def regex_finder(sentence):
         for reg in fact[regex_index]:
             if re.search(reg, sentence):
                 regex_match_list.append(fact[regex_name_index])
-    for demand in RegexLib.regex_demands:
-        for reg in demand[regex_index]:
-            if re.search(reg, sentence):
-                regex_match_list.append(demand[regex_name_index])
     for outcome in RegexLib.regex_outcomes:
         for reg in outcome[regex_index]:
             if re.search(reg, sentence):

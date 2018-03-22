@@ -13,220 +13,6 @@ class RegexLib:
         return r"([a-zA-ZÀ-ÿ0-9]+(\s|'|,\s)){" + str(min) + "," + str(max) + "}"
 
     # #############################################################
-    # DEMANDS
-    # #############################################################
-
-    regex_demands = [
-        ("demand_lease_modification",
-         [
-             re.compile(
-                 r".+produit une demande en modifications du bail",
-                 re.IGNORECASE
-             )
-         ], "BOOLEAN"),
-        ("demand_resiliation", [
-            re.compile(
-                r".+" + DEMAND_REGEX + r" la résiliation du bail",
-                re.IGNORECASE
-            ),
-            re.compile(
-                r".+une demande en résiliation de bail",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
-        ("landlord_claim_interest_damage", [
-            re.compile(
-                r".+" + LANDLORD_REGEX +
-                r".*" + MONEY_REGEX + r".*dommages-intérêts",
-                re.IGNORECASE
-            )
-        ], "MONEY_REGEX"),
-        ("landlord_demand_access_rental", [
-            re.compile(
-                r".+accès au logement",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
-        ("landlord_demand_bank_fee", [
-            re.compile(
-                r".+recouvrement.*\K" + MONEY_REGEX + r"\spour\s(les\s|des\s)?frais\sbancaire(s)?",
-                re.IGNORECASE
-            ),
-            re.compile(
-                r".+recouvrement.*\K" + MONEY_REGEX + r"\s\(frais\sbancaire(s)?\)",
-                re.IGNORECASE
-            ),
-            re.compile(
-                r".+recouvrement.*\Kfrais\sbancaire(s)?\s(de\s)?" +
-                r"(\()?" + MONEY_REGEX + r"(\))?",
-                re.IGNORECASE
-            ),
-        ], "MONEY_REGEX"),
-        ("landlord_demand_damage", [
-            re.compile(
-                r".+" + LANDLORD_REGEX +
-                r".+" + DEMAND_REGEX + r".+dommage(s)?",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
-        ("landlord_demand_legal_fees", [
-            re.compile(
-                r".+" + DEMAND_REGEX +
-                r"+.*remboursement.+(frais)?judiciaires",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
-        ("landlord_demand_retake_apartment", [
-            re.compile(
-                r".+" + LANDLORD_REGEX + r".*" +
-                DEMAND_REGEX + r".+(autoris(er|ation)).+reprendre.+logement",
-                re.IGNORECASE
-            ),
-            re.compile(
-                r".+autorisation de reprendre le logement occupé par (le|la|les) " +
-                TENANT_REGEX + r"",
-                re.IGNORECASE
-            ),
-            re.compile(
-                r".+autorisation de reprendre le logement (du |de la |des )?(" +
-                TENANT_REGEX + r" )?pour (s'|)y loger",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
-        ("landlord_demand_utility_fee", [
-            re.compile(
-                r".*\K" + MONEY_REGEX + r"\s(((pour|représentant)\s(les\s|des\s)?)|en\s)?\(?frais\s(d'énergie|d'électricité|hydroélectricité)\)?",
-                re.IGNORECASE
-            ),
-            re.compile(
-                r".*\Kfrais\s(d'énergie|d'électricité|hydroélectricité)\s((au montant\s)?de\s)?" +
-                r"\(?" + MONEY_REGEX + r"\)?",
-                re.IGNORECASE
-            )
-        ], "MONEY_REGEX"),
-        ("landlord_fix_rent", [
-            re.compile(
-                r".+" + LANDLORD_REGEX +
-                r".+" + DEMAND_REGEX + r".+(fix(er|ation)).+loyer",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
-        ("landlord_lease_termination", [
-            re.compile(
-                r".+" + LANDLORD_REGEX + r".*.+résiliation.+bail",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
-        ("landlord_money_cover_rent", [
-            re.compile(
-                r".+recouvrement (de loyer|du loyer|d'une somme|montant).+" + __multiple_words(0, 3) + r"\s" + MONEY_REGEX,
-                re.IGNORECASE
-            ),
-            re.compile(
-                r".+" + DEMAND_REGEX + r" " + MONEY_REGEX + r"de loyer",
-                re.IGNORECASE
-            ),
-            re.compile(
-                r".+" + DEMAND_REGEX +
-                r" du loyer impayé" + __multiple_words(0, 3) +
-                r"\s" + r"\(" + MONEY_REGEX + r"\)",
-                re.IGNORECASE
-            )
-        ], "MONEY_REGEX"),
-        ("paid_judicial_fees", [
-            re.compile(
-                r".+" + LANDLORD_REGEX +
-                r"\s" + DEMAND_REGEX + r"+.+(frais\sjudiciaires)",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
-        ("tenant_claims_harassment", [
-            re.compile(
-                r".+" + TENANT_REGEX +
-                r".+(" + DEMAND_REGEX + r").+dommages.+harcèlement",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
-        ("tenant_cover_rent", [
-            re.compile(
-                r".+(" + DEMAND_REGEX + r"+.+)?" + LANDLORD_REGEX +
-                r"(s)?(.+" + DEMAND_REGEX + r"+)?.+recouvrement\s(du|de)\sloyer",
-                re.IGNORECASE
-            )
-        ], 'BOOLEAN'),
-        ("tenant_demands_decision_retraction", [
-            re.compile(
-                r".+" + TENANT_REGEX + r".+" +
-                DEMAND_REGEX + r".+rétractation.+décision",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
-        ("tenant_demand_indemnity_Code_Civil", [
-            re.compile(
-                r".+" + TENANT_REGEX +
-                r".*demande.*(Code\scivil\sdu\sQuébec)",
-                re.IGNORECASE
-            )
-        ], 'BOOLEAN'),
-        ("tenant_demand_indemnity_damage", [
-            re.compile(
-                r".+" + TENANT_REGEX +
-                r".*(l'indemnité\sadditionnelle)",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
-        ("tenant_demand_indemnity_judicial_fee", [
-            re.compile(
-                r".+" + TENANT_REGEX +
-                r".+(recouvrement\sdes\sfrais\sjudiciaires)",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
-        ("tenant_demand_interest_damage", [
-            re.compile(
-                r".+(" + TENANT_REGEX + r").*" +
-                DEMAND_REGEX + r"+.*(dommages-intérêts)",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
-        ("tenant_demands_money", [
-            re.compile(
-                r".+" + TENANT_REGEX +
-                r".+(" + DEMAND_REGEX + r").+" + MONEY_REGEX,
-                re.IGNORECASE
-            )
-        ], "MONEY_REGEX"),
-        ("tenant_demand_rent_decrease", [
-            re.compile(
-                r".+(" + TENANT_REGEX + r").*" +
-                DEMAND_REGEX + r".*diminution.*loyer",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
-        ("tenant_respect_of_contract", [
-            re.compile(
-                r".+" + TENANT_REGEX +
-                r".*(exécution\sen\snature\sd'une\sobligation)",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
-        ("case_fee_reimbursement", [
-            re.compile(
-                r".+remboursement.+frais\sjudiciaires.+" +
-                MONEY_REGEX,
-                re.IGNORECASE
-            )
-        ], "MONEY_REGEX"),
-        ("tenant_eviction", [
-            re.compile(
-                r".+" + LANDLORD_REGEX +
-                r".*(expulsion|éviction).*" + TENANT_REGEX + r"",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN")
-    ]
-
-    # #############################################################
     # FACTS
     # #############################################################
 
@@ -238,8 +24,7 @@ class RegexLib:
             ),
             re.compile(
                 r".+menace " +
-                __multiple_words(
-                    0, 6) + r"(sécurité des occupants|l'intégrité du logement)",
+                __multiple_words(0, 6) + r"(sécurité des occupants|l'intégrité du logement)",
                 re.IGNORECASE
             ),
             re.compile(
@@ -664,12 +449,6 @@ class RegexLib:
                 r"ere|em|eme|ème)? " + DATE_REGEX + " \d{0,4} sur (la somme|le montant) de " + MONEY_REGEX,
                 re.IGNORECASE
             )
-        ], "MONEY_REGEX"),
-        ("declares_housing_inhabitable", [
-            re.compile(
-                r"DÉCLARE le logement impropre à l'habitation",
-                re.IGNORECASE
-            )
         ], "BOOLEAN"),
         ("declares_resiliation_is_correct", [
             re.compile(
@@ -797,12 +576,6 @@ class RegexLib:
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
-        ("orders_landlord_notify_tenant_when_habitable", [
-            re.compile(
-                r"ORDONNE au " + LANDLORD_REGEX + ".+d'aviser la locataire dès que le logement sera redevenu propre à l'habitation",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
         ("authorize_landlord_retake_apartment", [
             re.compile(
                 "AUTORISE (le|la|les) " + LANDLORD_REGEX + " à reprendre le logement ",
@@ -821,7 +594,6 @@ class RegexLib:
     ]
 
     model = {
-        'regex_demands': regex_demands,
         'regex_facts': regex_facts,
         'regex_outcomes': regex_outcomes,
         'MONEY_REGEX': MONEY_REGEX,
