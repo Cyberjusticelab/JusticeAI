@@ -33,6 +33,17 @@ describe('Sidebar.vue', () => {
         Vue.localStorage.remove('progress')
     })
 
+    it('should successfully listen to event', () => {
+        const spy = sinon.spy(Sidebar.methods, 'view')
+        const vm = new Vue(Sidebar).$mount()
+        Vue.localStorage.set('progress', 100)
+        EventBus.$emit('updateSidebar')
+        expect(vm.progress).to.equal(100)
+        expect(spy.called).to.be.true
+        Vue.localStorage.remove('progress')
+        Sidebar.methods.view.restore()
+    })
+
     it('should successfully get report', () => {
         Vue.localStorage.set('zeusId', 1)
         const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
@@ -76,6 +87,8 @@ describe('Sidebar.vue', () => {
         Vue.localStorage.remove('zeusId')
         Vue.http.get.restore()
     })
+
+
 
     it('should successfully get report', () => {
         Vue.localStorage.set('zeusId', 1)
