@@ -50,15 +50,20 @@
                             <h2>Here is our prediction after analyzing <span>{{ report.data_set }}</span> Régie du logement"s precedents:</h2>
                         </div>
                     </el-col>
-                    <el-col :sm="{span: 5, offset: 2}">
+                    <el-col :sm="{span: 5, offset: 1}">
                         <div id="sidebar-dashboard-accuracy">
                             <el-progress type="circle" :percentage="report.accuracy" :stroke-width="30" :width="250"></el-progress>
-                            <h3>Prediction Accuracy</h3>
+                            <h3>Prediction Possibility</h3>
                         </div>
                     </el-col>
                     <el-col :sm="{span: 8, offset: 2}">
                         <div id="sidebar-dashboard-curve">
-                            <el-carousel indicator-position="outside">
+                            <el-alert v-if="!report.curves"
+                                title="No Regressor Available"
+                                type="info"
+                                :closable="false">
+                            </el-alert>
+                            <el-carousel indicator-position="outside" v-if="report.curves">
                                 <div v-for="value,key in report.curves">
                                   <el-carousel-item :key="key" :name="key">
                                       <div class="bellcurve" ref="bellcurve"></div>
@@ -67,7 +72,7 @@
                             </el-carousel>
                         </div>
                     </el-col>
-                    <el-col :sm="{span: 4, offset: 2}">
+                    <el-col :sm="{span: 5, offset: 2}">
                         <div id="sidebar-dashboard-outcome">
                             <h2>Case Verdict</h2>
                             <div v-for="value,key in report.outcomes" class="sidebar-dashboard-outcome-item">
@@ -166,9 +171,11 @@ export default {
                     this.$localStorage.set('isPredicted', true)
                     // D3 chart required manual DOM manipulation
                     // SetTimeout to wait until Vue renders it
-                    setTimeout(() => {
-                        this.createBellCurves()
-                    }, 50);
+                    if (this.report.curves) {
+                        setTimeout(() => {
+                            this.createBellCurves()
+                        }, 50);
+                    }
                 },
                 response => {
                     console.log('Connection Fail: get report')
