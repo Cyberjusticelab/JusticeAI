@@ -27,10 +27,10 @@ describe('Sidebar.vue', () => {
 
     it('should successfully listen to event', () => {
         const vm = new Vue(Sidebar).$mount()
-        EventBus.$emit('hideSidebar', {
-            progress: 50
-        })
-        expect(vm.progress).to.equal(50)
+        Vue.localStorage.set('progress', 66)
+        EventBus.$emit('updateSidebar')
+        expect(vm.progress).to.equal(66)
+        Vue.localStorage.remove('progress')
     })
 
     it('should successfully get report', () => {
