@@ -22,9 +22,9 @@ Vue.use(VueRouter)
 test
 */
 
-xdescribe('Chat.vue', () => {
+describe('Chat.vue', () => {
 
-    xit('should resume chat session if conversation id exists', () => {
+    it('should resume chat session if conversation id exists', () => {
     	Vue.localStorage.set('zeusId', 1)
         const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
         promiseCall.resolves({
@@ -69,7 +69,6 @@ xdescribe('Chat.vue', () => {
     	const vm = new Vue(Chat).$mount()
     	expect(Vue.localStorage.get('zeusId')).to.be.equal('1')
         expect(spy.called).to.be.true
-        expect(vm.uploadUrl).to.be.equal(vm.api_url + 'conversation/1/files')
         Chat.methods.sendUserMessage.restore()
         Vue.http.post.restore()
         Vue.localStorage.remove('zeusId')
@@ -118,7 +117,6 @@ xdescribe('Chat.vue', () => {
     	promiseCall.resolves({
     		body: {
     			message: 'mock',
-    			file_request: ['yes'],
     			enforce_possible_answer: true
     		}
     	})
@@ -140,7 +138,6 @@ xdescribe('Chat.vue', () => {
         promiseCall.resolves({
             body: {
                 message: 'mock|split',
-                file_request: ['yes'],
                 enforce_possible_answer: true,
                 possible_answers: '["yes"]'
             }
@@ -163,7 +160,6 @@ xdescribe('Chat.vue', () => {
         promiseCall.resolves({
             body: {
                 message: 'mock|split',
-                file_request: ['yes'],
                 enforce_possible_answer: true,
                 possible_answers: 'null'
             }
