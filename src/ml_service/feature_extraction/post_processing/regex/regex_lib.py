@@ -450,12 +450,6 @@ class RegexLib:
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
-        ("declares_housing_inhabitable", [
-            re.compile(
-                r"DÉCLARE le logement impropre à l'habitation",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
         ("declares_resiliation_is_correct", [
             re.compile(
                 r"CONSTATE la résiliation du bail",
@@ -579,12 +573,6 @@ class RegexLib:
         ("landlord_retakes_apartment_indemnity", [
             re.compile(
                 r".+compenser.+frais.+déménagement",
-                re.IGNORECASE
-            )
-        ], "BOOLEAN"),
-        ("orders_landlord_notify_tenant_when_habitable", [
-            re.compile(
-                r"ORDONNE au " + LANDLORD_REGEX + ".+d'aviser la locataire dès que le logement sera redevenu propre à l'habitation",
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
