@@ -88,7 +88,43 @@ describe('Sidebar.vue', () => {
         Vue.http.get.restore()
     })
 
+    it('should successfully get report without regressor', () => {
+        Vue.localStorage.set('zeusId', 1)
+        const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
+        promiseCall.resolves({
+            body: {
+                report: {
+                    accuracy: '0',
+                    similar_case: '5',
+                    similar_precedents: [
+                        {
+                            precedent: 'AZ-1',
+                            outcomes: {
+                                o1: true
+                            },
+                            facts: {
+                                f1: true
+                            }
+                        }
+                    ],
+                    curves: {},
+                    data_set: '1000',
+                    outcomes: {
+                        o1: true
+                    }
 
+                }
+            }
+        })
+        const spy = sinon.spy(Sidebar.methods, 'createBellCurves')
+        const vm = new Vue(Sidebar).$mount()
+        vm.view()
+        expect(spy.called).to.be.false
+        expect(vm.hasGraph).to.be.false
+        Sidebar.methods.createBellCurves.restore()
+        Vue.localStorage.remove('zeusId')
+        Vue.http.get.restore()
+    })
 
     it('should successfully get report', () => {
         Vue.localStorage.set('zeusId', 1)
