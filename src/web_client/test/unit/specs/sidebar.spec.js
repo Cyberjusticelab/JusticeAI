@@ -27,10 +27,21 @@ describe('Sidebar.vue', () => {
 
     it('should successfully listen to event', () => {
         const vm = new Vue(Sidebar).$mount()
-        EventBus.$emit('hideSidebar', {
-            progress: 50
-        })
-        expect(vm.progress).to.equal(50)
+        Vue.localStorage.set('progress', 66)
+        EventBus.$emit('updateSidebar')
+        expect(vm.progress).to.equal(66)
+        Vue.localStorage.remove('progress')
+    })
+
+    it('should successfully listen to event', () => {
+        const spy = sinon.spy(Sidebar.methods, 'view')
+        const vm = new Vue(Sidebar).$mount()
+        Vue.localStorage.set('progress', 100)
+        EventBus.$emit('updateSidebar')
+        expect(vm.progress).to.equal(100)
+        expect(spy.called).to.be.true
+        Vue.localStorage.remove('progress')
+        Sidebar.methods.view.restore()
     })
 
     it('should successfully get report', () => {
@@ -77,6 +88,44 @@ describe('Sidebar.vue', () => {
         Vue.http.get.restore()
     })
 
+    it('should successfully get report without regressor', () => {
+        Vue.localStorage.set('zeusId', 1)
+        const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
+        promiseCall.resolves({
+            body: {
+                report: {
+                    accuracy: '0',
+                    similar_case: '5',
+                    similar_precedents: [
+                        {
+                            precedent: 'AZ-1',
+                            outcomes: {
+                                o1: true
+                            },
+                            facts: {
+                                f1: true
+                            }
+                        }
+                    ],
+                    curves: {},
+                    data_set: '1000',
+                    outcomes: {
+                        o1: true
+                    }
+
+                }
+            }
+        })
+        const spy = sinon.spy(Sidebar.methods, 'createBellCurves')
+        const vm = new Vue(Sidebar).$mount()
+        vm.view()
+        expect(spy.called).to.be.false
+        expect(vm.hasGraph).to.be.false
+        Sidebar.methods.createBellCurves.restore()
+        Vue.localStorage.remove('zeusId')
+        Vue.http.get.restore()
+    })
+
     it('should successfully get report', () => {
         Vue.localStorage.set('zeusId', 1)
         const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
@@ -116,6 +165,66 @@ describe('Sidebar.vue', () => {
         vm.view()
         expect(spy.called).to.be.true
         Sidebar.methods.createPrecedentTable.restore()
+        Vue.localStorage.remove('zeusId')
+        Vue.http.get.restore()
+    })
+
+    it('should successfully create precedent table', () => {
+        Vue.localStorage.set('zeusId', 1)
+        const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
+        promiseCall.resolves({
+            body: {
+                report: {
+                    accuracy: '0',
+                    similar_case: '5',
+                    similar_precedents: [
+                        {
+                            precedent: 'AZ-1',
+                            outcomes: {
+                                o1: true
+                            },
+                            facts: {
+                                f1: true
+                            }
+                        }
+                    ],
+                    curves: {
+                        additional_indemnity_money: {
+                            mean: 1477.7728467101024,
+                            outcome_value: 600,
+                            std: 1927.8147997893939,
+                            variance: 3716469.9022870203
+                        }
+                    },
+                    data_set: '1000',
+                    outcomes: {
+                        o1: true
+                    }
+                },
+                fact_entities: [
+                    {
+                        fact: {
+                            name: 'f1'
+                        },
+                        value: true
+                    }
+                ]
+            }
+        })
+        const vm = new Vue(Sidebar).$mount()
+        vm.createPrecedentTable()
+        expect(vm.connectionError).to.be.false
+        Vue.localStorage.remove('zeusId')
+        Vue.http.get.restore()
+    })
+
+    it('should fail to create precedent table', () => {
+        Vue.localStorage.set('zeusId', 1)
+        const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
+        promiseCall.rejects()
+        const vm = new Vue(Sidebar).$mount()
+        vm.createPrecedentTable()
+        expect(vm.connectionError).to.be.true
         Vue.localStorage.remove('zeusId')
         Vue.http.get.restore()
     })

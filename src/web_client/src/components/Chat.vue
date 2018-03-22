@@ -3,7 +3,7 @@
 </style>
 
 <template>
-  <div id="chat-component" v-on:click="updateSidebarEvent()">
+  <div id="chat-component">
     <!-- Resolved Fact Overlay -->
     <transition name="fade">
       <div id="chat-resolved-fact" v-if="user.openChatHistory">
@@ -41,7 +41,7 @@
       <div id="chat-history-container">
         <div v-for="(history, index1) in chatHistory.history" :key="index1">
           <el-row v-for="(sentence, index2) in history.text" :key="index2" v-if="!(index1 == chatHistory.history.length-1 && index2 == history.text.length-1)">
-            <el-col :sm="{span: 14, offset: 1}">
+            <el-col :sm="{span: 14, offset: 2}">
               <div class="chat-history-zeus" v-if="history.sender_type == 'BOT'">
                 <p v-html="sentence"></p>
               </div>
@@ -56,7 +56,7 @@
       </div>
       <div id="chat-current-container">
         <el-row>
-          <el-col :sm="{span: 3, offset: 1}">
+          <el-col :sm="{span: 3, offset: 2}">
             <div id="chat-zeus-avatar" v-on:click="user.openChatHistory = !user.openChatHistory; getFact()"></div>
           </el-col>
           <el-col :sm="{span: 12, offset: 0}">
@@ -65,30 +65,6 @@
               <transition name="fade">
                 <p class="zeus-chat-text" v-if="!zeus.isThinking" v-html="zeus.input"></p>
               </transition>
-              <transition name="fade">
-                <file-upload
-                  ref="upload"
-                  v-model="zeus.file"
-                  :drop="true"
-                  :post-action="uploadUrl"
-                  v-if="zeus.filePrompt && !zeus.isSpeaking && !zeus.isThinking"
-                  extensions="jpg,jpeg,pdf,docx,webp,png"
-                >
-                  <p v-if="zeus.file.length == 0" id="drag-and-drop">drag and drop or click to select file</p>
-                  <p v-if="zeus.file" id="file-name" v-for="file in zeus.file">{{ file.name }}</p>
-                </file-upload>
-              </transition>
-              <div id="file-upload-button-group" v-if="zeus.filePrompt && !zeus.isSpeaking && !zeus.isThinking">
-                <el-button v-show="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true" type="warning" :disabled="zeus.file.length == 0">
-                  Upload
-                </el-button>
-                <el-button v-show="$refs.upload && $refs.upload.active" @click.prevent="$refs.upload.active = false" type="warning">
-                  Stop
-                </el-button>
-                <p v-if="zeus.file[0] && zeus.file[0].success && $refs.upload.uploaded">
-                  Successfully uploaded <span>{{ zeus.file[0].name }}</span>
-                </p>
-              </div>
               <div id="pre-selected-answer-group" v-if="zeus.suggestion && !zeus.isSpeaking && !zeus.isThinking">
                 <el-button v-for="answer in zeus.suggestion" :key="answer.id" type="warning" v-on:click="user.input = answer; sendUserMessage()">
                   {{ answer }}
@@ -104,7 +80,7 @@
               </div>
               <div id="bubble-input-group" v-if="zeus.input">
                 <form v-on:submit.prevent="sendUserMessage()" v-if="zeus.suggestion.length == 0 && !zeus.isSpeaking && !zeus.isThinking">
-                  <el-input autosize v-model="user.input" placeholder="Enter your message" autoComplete="off" :disabled="user.disableInput"></el-input>
+                  <el-input autosize v-model="user.input" placeholder="Enter your message" autoComplete="off" :disabled="user.disableInput" autofocus></el-input>
                   <el-button type="warning" :disabled="!user.input" native-type="submit">SEND</el-button>
                 </form>
               </div>
@@ -115,14 +91,6 @@
       <!-- End of Zeus Chat -->
     </div>
     <!-- End of Chat Window -->
-    <!-- Input Window - Mobile -->
-    <div id="chat-input">
-      <form v-on:submit.prevent="sendUserMessage()" v-if="!zeus.isSpeaking">
-        <el-input id="chat-input-text" autosize v-model="user.input" placeholder="Enter your message" autoComplete="off" :disabled="user.disableInput"></el-input>
-        <el-button id="chat-input-submit" type="warning" :disabled="!user.input" native-type="submit">SEND</el-button>
-      </form>
-    </div>
-    <!-- End of Input Window - Mobile -->
   </div>
 </template>
 
@@ -134,7 +102,6 @@ export default {
   data () {
     return {
       api_url: process.env.API_URL,
-      uploadUrl: new String,
       connectionError: false,
       numMessageSinceChatHistory: 0,
       promptFeedback: false,
@@ -146,7 +113,6 @@ export default {
       zeus: {
         input: null,
         file: new Array,
-        filePrompt: false,
         suggestion: new Array,
         isThinking: false,
         isSpeaking: false,
@@ -166,7 +132,6 @@ export default {
     1. resume conversation if user exists
     */
     if (zeusId) {
-      this.uploadUrl = this.api_url + 'conversation/' + zeusId + '/files'
       this.$http.get(this.api_url + 'conversation/' + zeusId).then(
         response => {
           // 1.1 save chat history in local and parse the sentences
@@ -206,8 +171,6 @@ export default {
           // 2.2 init new conversation session by sending empty string
           this.user.input = ''
           this.sendUserMessage()
-          // 2.3 config url and remove loading
-          this.uploadUrl = this.api_url + 'conversation/' + response.body.conversation_id + '/files'
           EventBus.$emit('initLoading', false)
         },
         response => {
@@ -223,7 +186,7 @@ export default {
         .split(' ')
         .map((word) => {
           if (Constants.difficult_word_definitions[word.toLowerCase()] !== undefined){
-            return '<span class="hoverable" title="' + Constants.difficult_word_definitions[word.toLowerCase()] +'" style="background-color: #f5af5380;border-radius: 3px;padding: 2px;">' + word + '</span>'
+            return '<span class="hoverable" title="' + Constants.difficult_word_definitions[word.toLowerCase()] +'" style="background-color: #f5af5380;border-radius: 3px;padding: 2px; cursor:pointer;">' + word + '</span>'
           }
           return word
         })
@@ -283,23 +246,19 @@ export default {
           }, 2500*i)
         }
       }
-      // 3. set if file prompt
-      this.zeus.filePrompt = (conversation.file_request !== undefined) && (conversation.file_request !== null)
-      // 4. set if pre-selected answer buttons
+      // 3. set if pre-selected answer buttons
       if (conversation.possible_answers == undefined) {
         this.zeus.suggestion = []
       } else {
         this.zeus.suggestion = JSON.parse(conversation.possible_answers) || []
       }
-      // 5. set progress
+      // 4. set progress
       this.zeus.progress = conversation.progress || 0
-      this.updateSidebarEvent({
-        progress: this.zeus.progress
-      })
-      // 6. set feedback prompt
+      this.updateSidebarEvent(this.zeus.progress)
+      // 5. set feedback prompt
       this.numMessageSinceChatHistory += 1
       this.promptFeedback = this.numMessageSinceChatHistory > 4
-      // 7. reset user input to empty
+      // 6. reset user input to empty
       this.user.input = null
       this.user.disableInput = conversation.enforce_possible_answer
       tippy('.hoverable')
@@ -326,7 +285,7 @@ export default {
         },
         response => {
           this.connectionError = true
-          console.log("Connection Fail: remove resolved fact")
+          console.log("Connection Fail: get resolved fact")
         }
       )
     },
@@ -342,9 +301,11 @@ export default {
         }
       )
     },
-    updateSidebarEvent (status) {
-      let currentStatus = status || {progress: this.zeus.progress}
-      EventBus.$emit('hideSidebar', currentStatus)
+    updateSidebarEvent (progress) {
+      if (progress && progress > 0) {
+        this.$localStorage.set('progress', progress)
+        EventBus.$emit('updateSidebar')
+      }
     }
   }
 }

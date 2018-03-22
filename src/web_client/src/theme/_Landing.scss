@@ -58,11 +58,14 @@
         }
     }
     .el-dialog{
-        height: 200px !important;
-        width: 400px !important;
-        h2 {
+        font-family: $zeus-font;
+        form {
             text-align: center;
+            margin-top: -45px;
         }
+    }
+    .el-input {
+        width: 50%;
     }
     .el-button {
         margin: auto;
@@ -72,6 +75,7 @@
         background-color: $main-gold-2;
         color: $main-grey-2;
         font-weight: bolder;
+        font-family: $zeus-font;
         &:hover:enabled {
           background-color: $main-gold-2;
           color: $main-white-1;

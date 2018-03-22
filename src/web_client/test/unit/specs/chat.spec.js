@@ -7,7 +7,6 @@ import Chat from '@/components/Chat'
 import ElementUI from 'element-ui'
 import VueResource from 'vue-resource'
 import VueLocalStorage from 'vue-localstorage'
-import VueUpload from 'vue-upload-component'
 import VueRouter from 'vue-router'
 
 /*
@@ -18,7 +17,6 @@ Vue.use(ElementUI)
 Vue.use(VueLocalStorage)
 Vue.use(VueResource)
 Vue.use(VueRouter)
-Vue.component('file-upload', VueUpload)
 
 /*
 test
@@ -71,7 +69,6 @@ describe('Chat.vue', () => {
     	const vm = new Vue(Chat).$mount()
     	expect(Vue.localStorage.get('zeusId')).to.be.equal('1')
         expect(spy.called).to.be.true
-        expect(vm.uploadUrl).to.be.equal(vm.api_url + 'conversation/1/files')
         Chat.methods.sendUserMessage.restore()
         Vue.http.post.restore()
         Vue.localStorage.remove('zeusId')
@@ -120,7 +117,6 @@ describe('Chat.vue', () => {
     	promiseCall.resolves({
     		body: {
     			message: 'mock',
-    			file_request: ['yes'],
     			enforce_possible_answer: true
     		}
     	})
@@ -137,12 +133,11 @@ describe('Chat.vue', () => {
     	clock.restore()
     })
 
-    xit('should successfully send message and config chat', () => {
+    it('should successfully send message and config chat', () => {
         const promiseCall = sinon.stub(Vue.http, 'post').returnsPromise()
         promiseCall.resolves({
             body: {
                 message: 'mock|split',
-                file_request: ['yes'],
                 enforce_possible_answer: true,
                 possible_answers: '["yes"]'
             }
@@ -160,12 +155,11 @@ describe('Chat.vue', () => {
         clock.restore()
     })
 
-    xit('should successfully send message and config chat', () => {
+    it('should successfully send message and config chat', () => {
         const promiseCall = sinon.stub(Vue.http, 'post').returnsPromise()
         promiseCall.resolves({
             body: {
                 message: 'mock|split',
-                file_request: ['yes'],
                 enforce_possible_answer: true,
                 possible_answers: 'null'
             }
@@ -230,6 +224,13 @@ describe('Chat.vue', () => {
         Vue.http.delete.restore()
         Vue.http.get.restore()
         Vue.localStorage.remove('zeusId')
+    })
+
+    it('should successfully update sidebar', () => {
+        const vm = new Vue(Chat).$mount()
+        vm.updateSidebarEvent(100)
+        expect(Vue.localStorage.get('progress')).to.equal('100') //localstorage convert everything to string
+        Vue.localStorage.remove('progress')
     })
 
 })

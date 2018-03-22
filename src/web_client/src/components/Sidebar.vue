@@ -3,15 +3,10 @@
 </style>
 
 <template>
-    <div id="sidebar-component" v-bind:class="{ 'burger-menu': !openSidebar }">
-        <!-- 1. Menu Close -->
-        <div v-if="!openSidebar && !openDashboard" v-on:click="view()" id="sidebar-min">
-            <img alt="" src="../assets/sidebar-toggle.png">
-        </div>
-        <!-- 1. End of Menu Close -->
-        <!-- 2.1 Menu Open -->
+    <div id="sidebar-component">
+        <!-- 1. Default Sidebar -->
         <transition name="translate">
-            <div v-if="openSidebar && !openDashboard" id="sidebar-full">
+            <div v-if="!openDashboard" id="sidebar-full">
                 <!-- LOGO -->
                 <div id="sidebar-logo">
                     <img alt="" src="../assets/logo.png">
@@ -37,8 +32,8 @@
                 <!-- End of Reset -->
             </div>
         </transition>
-        <!-- 2.1 End of Menu Open -->
-        <!-- 2.2 Stat Dashboard -->
+        <!-- 1. End of Default Sidebar -->
+        <!-- 2. Stat Dashboard -->
         <transition name="el-zoom-in-center">
             <div v-show="openDashboard" id="sidebar-dashboard">
                 <el-row>
@@ -55,10 +50,10 @@
                             <h2>Here is our prediction after analyzing <span>{{ report.data_set }}</span> Régie du logement"s precedents:</h2>
                         </div>
                     </el-col>
-                    <el-col :sm="{span: 5, offset: 2}">
+                    <el-col :sm="{span: 5, offset: 1}">
                         <div id="sidebar-dashboard-accuracy">
                             <el-progress type="circle" :percentage="report.accuracy" :stroke-width="30" :width="250"></el-progress>
-                            <h3>Prediction Accuracy</h3>
+                            <h3>Prediction Probability</h3>
                         </div>
                     </el-col>
                     <el-col :sm="{span: 8, offset: 2}">
@@ -69,10 +64,11 @@
                                       <div class="bellcurve" ref="bellcurve"></div>
                                   </el-carousel-item>
                                 </div>
+                                <h1 v-show="!hasGraph">No Regressor Available</h1>
                             </el-carousel>
                         </div>
                     </el-col>
-                    <el-col :sm="{span: 4, offset: 2}">
+                    <el-col :sm="{span: 5, offset: 2}">
                         <div id="sidebar-dashboard-outcome">
                             <h2>Case Verdict</h2>
                             <div v-for="value,key in report.outcomes" class="sidebar-dashboard-outcome-item">
@@ -88,15 +84,12 @@
                     <el-col :sm="{span: 22, offset: 1}">
                         <div id="sidebar-dashboard-similarity">
                                 <h3>Here are <span>{{ report.similar_case }}</span> most similar precendents to your case</h3>
-                                <el-table :data="report.similar_precedents_table" stripe>
+                                <el-table :data="report.precedent_table" stripe>
                                     <div>
-                                        <el-table-column prop="name" label="Case Number" align="center" fixed="left"></el-table-column>
+                                        <el-table-column prop="name" align="center" fixed="left"></el-table-column>
                                     </div>
-                                    <div v-for="fact in report.similar_precedents_fact_index">
-                                        <el-table-column :prop="fact" :label="fact" align="center"></el-table-column>
-                                    </div>
-                                    <div v-for="outcome in report.similar_precedents_outcome_index">
-                                        <el-table-column :prop="outcome" :label="outcome" align="center"></el-table-column>
+                                    <div v-for="header in report.precedent_table_header">
+                                        <el-table-column :prop="header" :label="header" align="center"></el-table-column>
                                     </div>
                                 </el-table>
                         </div>
@@ -117,7 +110,7 @@
                 </el-row>
             </div>
         </transition>
-        <!-- 2.2 End of Stat Dashboard -->
+        <!-- 2. End of Stat Dashboard -->
         <!-- el-dialog for feedback -->
         <el-dialog title="Feedback" :visible.sync="openFeedbackModal">
             <textarea id="feedback-input" v-model="feedback">
@@ -138,11 +131,9 @@ export default {
     data () {
         return {
             openFeedbackModal: false,
-            openSidebar: false,
             openDashboard: false,
             isPredicted: false,
-            username: this.$localStorage.get('username'),
-            usertype: this.$localStorage.get('usertype'),
+            hasGraph: false,
             feedback: '',
             progress: 0,
             report: new Object,
@@ -151,14 +142,22 @@ export default {
         }
     },
     created () {
-        EventBus.$on('hideSidebar', (status) => {
-            this.openSidebar = false
-            this.progress = status.progress
+        // resume progress bar
+        this.progress = parseInt(this.$localStorage.get('progress')) | 0
+        // resume dashboard
+        if (this.$localStorage.get('isPredicted')) {
+            this.view()
+        }
+        // capture event to set progress bar and update dashboard
+        EventBus.$on('updateSidebar', () => {
+            this.progress = parseInt(this.$localStorage.get('progress'))
+            if (this.progress == 100) {
+                this.view()
+            }
         })
     },
     methods: {
         view () {
-            this.openSidebar = true
             let zeusId = this.$localStorage.get('zeusId')
             this.$http.get(this.api_url + 'conversation/' + zeusId + '/report').then(
                 response => {
@@ -166,18 +165,19 @@ export default {
                     this.report.accuracy = parseFloat((this.report.accuracy * 100).toFixed(2))
                     this.createPrecedentTable()
                     this.isPredicted = true
-
+                    this.$localStorage.set('isPredicted', true)
                     // D3 chart required manual DOM manipulation
                     // SetTimeout to wait until Vue renders it
-                    setTimeout(() => {
-                        this.createBellCurves()
-                    }, 50);
-
+                    if (Object.keys(this.report.curves).length > 0) {
+                        setTimeout(() => {
+                            this.hasGraph = true
+                            this.createBellCurves()
+                        }, 50);
+                    }
                 },
                 response => {
                     console.log('Connection Fail: get report')
                     this.connectionError = true
-                    this.isPredicted = false
                 }
             )
         },
@@ -202,10 +202,69 @@ export default {
                 alert('No feedback entered');
             }
         },
+        createPrecedentTable () {
+            // create user case data vector
+            let zeusId = this.$localStorage.get('zeusId')
+            this.$http.get(this.api_url + 'conversation/' + zeusId + '/resolved').then(
+                response => {
+                    // prep the precedent table
+                    let precedent_table = []
+                    // append user case outcomes
+                    let user_data = this.report.outcomes
+                    // append user case facts
+                    for (let i = 0; i < response.body.fact_entities.length; i++) {
+                        user_data[response.body.fact_entities[i].fact.name] = response.body.fact_entities[i].value
+                    }
+                    // extract data from similar precedent as fact vector
+                    for (let key in this.report.similar_precedents[0].facts) {
+                        let fact_vector = {}
+                        fact_vector.name = key
+                        for (let i = 0; i < this.report.similar_precedents.length; i++) {
+                            fact_vector[this.report.similar_precedents[i].precedent] = this.report.similar_precedents[i].facts[key]
+                        }
+                        precedent_table.push(fact_vector)
+                    }
+                    // extract data from similar precedent as fact vector
+                    for (let key in this.report.similar_precedents[0].outcomes) {
+                        let outcome_vector = {}
+                        outcome_vector.name = key
+                        for (let i = 0; i < this.report.similar_precedents.length; i++) {
+                            outcome_vector[this.report.similar_precedents[i].precedent] = this.report.similar_precedents[i].outcomes[key]
+                        }
+                        precedent_table.push(outcome_vector)
+                    }
+                    // add all user data to the table and format the table
+                    for (let i = 0; i < precedent_table.length; i++) {
+                        precedent_table[i]['Your Case'] = user_data[precedent_table[i].name]
+                        for (let key in precedent_table[i]) {
+                            if (typeof precedent_table[i][key] !== 'string') {
+                                precedent_table[i][key] = precedent_table[i][key].toString()
+                            }
+                        }
+                    }
+                    // create header list
+                    let header_list = ['Your Case']
+                    for (let key in precedent_table[0]) {
+                        if (key !== 'name' && key !== 'Your Case') {
+                            header_list.push(key)
+                        }
+                    }
+                    // settle the table data
+                    this.report.precedent_table_header = header_list
+                    this.report.precedent_table = precedent_table
+                },
+                response => {
+                    this.connectionError = true
+                    console.log("Connection Fail: get user resolved fact")
+                }
+            )
+        },
         resetChat () {
             this.$localStorage.remove('zeusId')
             this.$localStorage.remove('username')
             this.$localStorage.remove('usertype')
+            this.$localStorage.remove('progress')
+            this.$localStorage.remove('isPredicted')
             this.$router.push('/')
         },
         createBellCurves() {
@@ -334,28 +393,6 @@ export default {
             let gaussianConstant = 1 / Math.sqrt(2 * Math.PI);
             x = (x - mean) / sigma;
             return gaussianConstant * Math.exp(-.5 * x * x) / sigma;
-        },
-        createPrecedentTable () {
-            this.report.similar_precedents_fact_index = []
-            for (let key in this.report.similar_precedents[0].facts) {
-                this.report.similar_precedents_fact_index.push(key)
-            }
-            this.report.similar_precedents_outcome_index = []
-            for (let key in this.report.similar_precedents[0].outcomes) {
-                this.report.similar_precedents_outcome_index.push(key)
-            }
-            this.report.similar_precedents_table = []
-            for (let i = 0; i < this.report.similar_precedents.length; i++) {
-                let row = {}
-                row.name = this.report.similar_precedents[i].precedent
-                for (let key in this.report.similar_precedents[i].facts) {
-                    row[key] = this.report.similar_precedents[i].facts[key].toString()
-                }
-                for (let key in this.report.similar_precedents[i].outcomes) {
-                    row[key] = this.report.similar_precedents[i].outcomes[key].toString()
-                }
-                this.report.similar_precedents_table.push(row)
-            }
         }
     }
 }
