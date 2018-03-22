@@ -58,12 +58,8 @@
                     </el-col>
                     <el-col :sm="{span: 8, offset: 2}">
                         <div id="sidebar-dashboard-curve">
-                            <el-alert v-if="!report.curves"
-                                title="No Regressor Available"
-                                type="info"
-                                :closable="false">
-                            </el-alert>
-                            <el-carousel indicator-position="outside" v-if="report.curves">
+                            <h1 v-if="Object.keys(report.curves).length == 0">No Regressor Available</h1>
+                            <el-carousel indicator-position="outside" v-if="Object.keys(report.curves).length > 0">
                                 <div v-for="value,key in report.curves">
                                   <el-carousel-item :key="key" :name="key">
                                       <div class="bellcurve" ref="bellcurve"></div>
