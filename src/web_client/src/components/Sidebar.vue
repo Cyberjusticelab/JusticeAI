@@ -53,7 +53,7 @@
                     <el-col :sm="{span: 5, offset: 1}">
                         <div id="sidebar-dashboard-accuracy">
                             <el-progress type="circle" :percentage="report.accuracy" :stroke-width="30" :width="250"></el-progress>
-                            <h3>Prediction Possibility</h3>
+                            <h3>Prediction Probability</h3>
                         </div>
                     </el-col>
                     <el-col :sm="{span: 8, offset: 2}">
