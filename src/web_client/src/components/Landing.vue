@@ -30,13 +30,11 @@
             </div>
             <!-- el-dialog for username -->
             <el-dialog :visible.sync="promptUsername" center>
-                <h2>PLEASE ENTER YOUR NAME</h2>
-                <el-input v-model="username" placeholder="ENTER YOUR NAME"></el-input>
-                <span slot="footer" class="dialog-footer">
-                    <el-button type="primary" v-on:click="login()" v-if="username">Next</el-button>
-                    <el-button type="primary" v-on:click="login()" v-if="!username">Skip</el-button>
-                    <el-button v-on:click="promptUsername = false">Cancel</el-button>
-                </span>
+                <form v-on:submit.prevent="login()">
+                    <el-input v-model="username" autofocus placeholder="Please Enter Your Name" ref="enteringUsername"></el-input>
+                    <el-button native-type="submit" type="primary" v-if="username">Next</el-button>
+                    <el-button native-type="submit" type="primary" v-if="!username">Skip</el-button>
+                </form>
             </el-dialog>
             <!-- End of el-dialog for username -->
         </div>
