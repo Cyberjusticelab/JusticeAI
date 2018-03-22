@@ -133,7 +133,7 @@ describe('Chat.vue', () => {
     	clock.restore()
     })
 
-    xit('should successfully send message and config chat', () => {
+    it('should successfully send message and config chat', () => {
         const promiseCall = sinon.stub(Vue.http, 'post').returnsPromise()
         promiseCall.resolves({
             body: {
@@ -155,7 +155,7 @@ describe('Chat.vue', () => {
         clock.restore()
     })
 
-    xit('should successfully send message and config chat', () => {
+    it('should successfully send message and config chat', () => {
         const promiseCall = sinon.stub(Vue.http, 'post').returnsPromise()
         promiseCall.resolves({
             body: {
