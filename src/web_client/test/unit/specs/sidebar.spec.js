@@ -169,6 +169,55 @@ describe('Sidebar.vue', () => {
         Vue.http.get.restore()
     })
 
+    it('should successfully create precedent table', () => {
+        Vue.localStorage.set('zeusId', 1)
+        const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
+        promiseCall.resolves({
+            body: {
+                report: {
+                    accuracy: '0',
+                    similar_case: '5',
+                    similar_precedents: [
+                        {
+                            precedent: 'AZ-1',
+                            outcomes: {
+                                o1: true
+                            },
+                            facts: {
+                                f1: true
+                            }
+                        }
+                    ],
+                    curves: {
+                        additional_indemnity_money: {
+                            mean: 1477.7728467101024,
+                            outcome_value: 600,
+                            std: 1927.8147997893939,
+                            variance: 3716469.9022870203
+                        }
+                    },
+                    data_set: '1000',
+                    outcomes: {
+                        o1: true
+                    }
+                },
+                fact_entities: [
+                    {
+                        fact: {
+                            name: 'f1'
+                        },
+                        value: true
+                    }
+                ]
+            }
+        })
+        const vm = new Vue(Sidebar).$mount()
+        vm.createPrecedentTable()
+        expect(vm.connectionError).to.be.false
+        Vue.localStorage.remove('zeusId')
+        Vue.http.get.restore()
+    })
+
     it('should fail to create precedent table', () => {
         Vue.localStorage.set('zeusId', 1)
         const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
