@@ -199,7 +199,7 @@ export default {
         .split(' ')
         .map((word) => {
           if (Constants.difficult_word_definitions[word.toLowerCase()] !== undefined){
-            return '<span class="hoverable" title="' + Constants.difficult_word_definitions[word.toLowerCase()] +'" style="background-color: #f5af5380;border-radius: 3px;padding: 2px;">' + word + '</span>'
+            return '<span class="hoverable" title="' + Constants.difficult_word_definitions[word.toLowerCase()] +'" style="background-color: #f5af5380;border-radius: 3px;padding: 2px; cursor:pointer;">' + word + '</span>'
           }
           return word
         })
