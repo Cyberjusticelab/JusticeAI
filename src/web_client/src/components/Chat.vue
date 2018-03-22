@@ -65,30 +65,6 @@
               <transition name="fade">
                 <p class="zeus-chat-text" v-if="!zeus.isThinking" v-html="zeus.input"></p>
               </transition>
-              <transition name="fade">
-                <file-upload
-                  ref="upload"
-                  v-model="zeus.file"
-                  :drop="true"
-                  :post-action="uploadUrl"
-                  v-if="zeus.filePrompt && !zeus.isSpeaking && !zeus.isThinking"
-                  extensions="jpg,jpeg,pdf,docx,webp,png"
-                >
-                  <p v-if="zeus.file.length == 0" id="drag-and-drop">drag and drop or click to select file</p>
-                  <p v-if="zeus.file" id="file-name" v-for="file in zeus.file">{{ file.name }}</p>
-                </file-upload>
-              </transition>
-              <div id="file-upload-button-group" v-if="zeus.filePrompt && !zeus.isSpeaking && !zeus.isThinking">
-                <el-button v-show="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true" type="warning" :disabled="zeus.file.length == 0">
-                  Upload
-                </el-button>
-                <el-button v-show="$refs.upload && $refs.upload.active" @click.prevent="$refs.upload.active = false" type="warning">
-                  Stop
-                </el-button>
-                <p v-if="zeus.file[0] && zeus.file[0].success && $refs.upload.uploaded">
-                  Successfully uploaded <span>{{ zeus.file[0].name }}</span>
-                </p>
-              </div>
               <div id="pre-selected-answer-group" v-if="zeus.suggestion && !zeus.isSpeaking && !zeus.isThinking">
                 <el-button v-for="answer in zeus.suggestion" :key="answer.id" type="warning" v-on:click="user.input = answer; sendUserMessage()">
                   {{ answer }}
