@@ -80,7 +80,7 @@
               </div>
               <div id="bubble-input-group" v-if="zeus.input">
                 <form v-on:submit.prevent="sendUserMessage()" v-if="zeus.suggestion.length == 0 && !zeus.isSpeaking && !zeus.isThinking">
-                  <el-input autosize v-model="user.input" placeholder="Enter your message" autoComplete="off" :disabled="user.disableInput"></el-input>
+                  <el-input autosize v-model="user.input" placeholder="Enter your message" autoComplete="off" :disabled="user.disableInput" autofocus></el-input>
                   <el-button type="warning" :disabled="!user.input" native-type="submit">SEND</el-button>
                 </form>
               </div>
@@ -91,14 +91,6 @@
       <!-- End of Zeus Chat -->
     </div>
     <!-- End of Chat Window -->
-    <!-- Input Window - Mobile -->
-    <div id="chat-input">
-      <form v-on:submit.prevent="sendUserMessage()" v-if="!zeus.isSpeaking">
-        <el-input id="chat-input-text" autosize v-model="user.input" placeholder="Enter your message" autoComplete="off" :disabled="user.disableInput"></el-input>
-        <el-button id="chat-input-submit" type="warning" :disabled="!user.input" native-type="submit">SEND</el-button>
-      </form>
-    </div>
-    <!-- End of Input Window - Mobile -->
   </div>
 </template>
 
@@ -121,7 +113,6 @@ export default {
       zeus: {
         input: null,
         file: new Array,
-        filePrompt: false,
         suggestion: new Array,
         isThinking: false,
         isSpeaking: false,
@@ -255,21 +246,19 @@ export default {
           }, 2500*i)
         }
       }
-      // 3. set if file prompt
-      this.zeus.filePrompt = (conversation.file_request !== undefined) && (conversation.file_request !== null)
-      // 4. set if pre-selected answer buttons
+      // 3. set if pre-selected answer buttons
       if (conversation.possible_answers == undefined) {
         this.zeus.suggestion = []
       } else {
         this.zeus.suggestion = JSON.parse(conversation.possible_answers) || []
       }
-      // 5. set progress
+      // 4. set progress
       this.zeus.progress = conversation.progress || 0
       this.updateSidebarEvent(this.zeus.progress)
-      // 6. set feedback prompt
+      // 5. set feedback prompt
       this.numMessageSinceChatHistory += 1
       this.promptFeedback = this.numMessageSinceChatHistory > 4
-      // 7. reset user input to empty
+      // 6. reset user input to empty
       this.user.input = null
       this.user.disableInput = conversation.enforce_possible_answer
       tippy('.hoverable')
