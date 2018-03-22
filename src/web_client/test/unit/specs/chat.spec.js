@@ -226,4 +226,11 @@ describe('Chat.vue', () => {
         Vue.localStorage.remove('zeusId')
     })
 
+    it('should successfully update sidebar', () => {
+        const vm = new Vue(Chat).$mount()
+        vm.updateSidebarEvent(100)
+        expect(Vue.localStorage.get('progress')).to.equal('100') //localstorage convert everything to string
+        Vue.localStorage.remove('progress')
+    })
+
 })
