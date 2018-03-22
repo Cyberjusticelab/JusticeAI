@@ -10,7 +10,6 @@ class RegexTaggerTest(unittest.TestCase):
     def setUp(self):
         self.precedent_tagger = TagPrecedents()
         self.precedent_tagger.regexes = {"regex_facts": [("some_fact", [re.compile("fermentum", re.IGNORECASE)], 'BOOLEAN')],
-                                         "regex_demands": [("some_demand", [re.compile("réclame", re.IGNORECASE)], 'BOOLEAN')],
                                          "regex_outcomes": [("some_outcome", [re.compile("REJETTE")], 'BOOLEAN')]
                                          }
 
@@ -34,7 +33,6 @@ class RegexTaggerTest(unittest.TestCase):
         facts_found = self.precedent_tagger.tag_precedents(2)
 
         self.assertEqual(facts_found["1.txt"]["facts_vector"], [1])
-        self.assertEqual(facts_found["2.txt"]["demands_vector"], [0])
 
         binary_model_path = Path.binary_directory + r'precedent_vectors.bin'
         os.remove(binary_model_path)
@@ -46,6 +44,5 @@ class RegexTaggerTest(unittest.TestCase):
 
         regex_list = self.precedent_tagger.get_intent_index()
         self.assertEqual(regex_list["facts_vector"][0], (0, "some_fact", 'bool'))
-        self.assertEqual(regex_list["demands_vector"][0], (0, "some_demand", 'bool'))
 
         Path.binary_directory = binary_directory

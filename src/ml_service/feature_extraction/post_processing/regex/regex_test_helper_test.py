@@ -10,4 +10,4 @@ class RegexLibHelperTest(unittest.TestCase):
         self.assertTrue('tenant_continuous_late_payment' in regex_test_helper.regex_finder(sentence))
 
     def test_get_regexes(self):
-        self.assertIsNotNone(regex_test_helper.get_regexes('demand_lease_modification'))
+        self.assertIsNone(regex_test_helper.get_regexes('demand_lease_modification'))
