@@ -169,6 +169,17 @@ describe('Sidebar.vue', () => {
         Vue.http.get.restore()
     })
 
+    it('should fail to create precedent table', () => {
+        Vue.localStorage.set('zeusId', 1)
+        const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
+        promiseCall.rejects()
+        const vm = new Vue(Sidebar).$mount()
+        vm.createPrecedentTable()
+        expect(vm.connectionError).to.be.true
+        Vue.localStorage.remove('zeusId')
+        Vue.http.get.restore()
+    })
+
     it('should fail to get report', () => {
         Vue.localStorage.set('zeusId', 1)
         const promiseCall = sinon.stub(Vue.http, 'get').returnsPromise()
