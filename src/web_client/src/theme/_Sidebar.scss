@@ -97,6 +97,10 @@
         }
         #sidebar-dashboard-curve {
             @extend .sidebar-dashboard-item;
+            h1 {
+                padding-top: 135px;
+                color: $main-grey-4;
+            }
             img {
                 height: 100%;
                 width: 100%;

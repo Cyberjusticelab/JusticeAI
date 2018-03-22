@@ -58,13 +58,13 @@
                     </el-col>
                     <el-col :sm="{span: 8, offset: 2}">
                         <div id="sidebar-dashboard-curve">
-                            <h1 v-if="Object.keys(report.curves).length == 0">No Regressor Available</h1>
-                            <el-carousel indicator-position="outside" v-if="Object.keys(report.curves).length > 0">
+                            <el-carousel indicator-position="outside">
                                 <div v-for="value,key in report.curves">
                                   <el-carousel-item :key="key" :name="key">
                                       <div class="bellcurve" ref="bellcurve"></div>
                                   </el-carousel-item>
                                 </div>
+                                <h1 v-show="!hasGraph">No Regressor Available</h1>
                             </el-carousel>
                         </div>
                     </el-col>
@@ -133,6 +133,7 @@ export default {
             openFeedbackModal: false,
             openDashboard: false,
             isPredicted: false,
+            hasGraph: false,
             feedback: '',
             progress: 0,
             report: new Object,
@@ -167,8 +168,9 @@ export default {
                     this.$localStorage.set('isPredicted', true)
                     // D3 chart required manual DOM manipulation
                     // SetTimeout to wait until Vue renders it
-                    if (this.report.curves) {
+                    if (Object.keys(this.report.curves).length > 0) {
                         setTimeout(() => {
+                            this.hasGraph = true
                             this.createBellCurves()
                         }, 50);
                     }
