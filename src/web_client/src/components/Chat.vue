@@ -110,7 +110,6 @@ export default {
   data () {
     return {
       api_url: process.env.API_URL,
-      uploadUrl: new String,
       connectionError: false,
       numMessageSinceChatHistory: 0,
       promptFeedback: false,
@@ -142,7 +141,6 @@ export default {
     1. resume conversation if user exists
     */
     if (zeusId) {
-      this.uploadUrl = this.api_url + 'conversation/' + zeusId + '/files'
       this.$http.get(this.api_url + 'conversation/' + zeusId).then(
         response => {
           // 1.1 save chat history in local and parse the sentences
@@ -182,8 +180,6 @@ export default {
           // 2.2 init new conversation session by sending empty string
           this.user.input = ''
           this.sendUserMessage()
-          // 2.3 config url and remove loading
-          this.uploadUrl = this.api_url + 'conversation/' + response.body.conversation_id + '/files'
           EventBus.$emit('initLoading', false)
         },
         response => {
