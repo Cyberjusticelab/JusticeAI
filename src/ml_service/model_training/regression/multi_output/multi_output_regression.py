@@ -1,10 +1,13 @@
 from model_training.classifier.multi_output.multi_class_svm import MultiClassSVM
 from model_training.regression.single_output_regression.tenant_pays_landlord \
     import TenantPaysLandlord
+from model_training.regression.single_output_regression.additional_indemnity import AdditionalIndemnity
+from feature_extraction.post_processing.regex.regex_tagger import TagPrecedents
 
 
 class MultiOutputRegression:
     classifier_labels = MultiClassSVM.load_classifier_labels()
+    index = TagPrecedents().get_intent_index()
 
     def __init__(self, dataset=None):
         """
@@ -20,6 +23,13 @@ class MultiOutputRegression:
         }]
         """
         self.dataset = dataset
+        self.monthly_payment_index = -1
+        self.months_unpaid_index = -1
+        for tuple in MultiOutputRegression.index['facts_vector']:
+            if tuple[1] == 'tenant_not_paid_lease_timespan':
+                self.months_unpaid_index = tuple[0]
+            elif tuple[1] == 'tenant_monthly_payment':
+                self.monthly_payment_index = tuple[0]
 
     def train(self):
         """
@@ -74,10 +84,12 @@ class MultiOutputRegression:
             if outcomes[i] == 1:
                 column_name = MultiOutputRegression.classifier_labels[i][0]
                 if column_name == 'additional_indemnity_money':
-                    outcomes[i] = 1 # placeholder
+                    monthly_payment = facts[self.monthly_payment_index]
+                    months = facts[self.months_unpaid_index]
+                    outcomes[i] = AdditionalIndemnity().predict(monthly_payment, months)
                 elif column_name == 'tenant_ordered_to_pay_landlord':
                     outcomes[i] = TenantPaysLandlord().predict(facts)[0][0]
                 elif column_name == 'tenant_ordered_to_pay_landlord_legal_fees':
-                    outcomes[i] = 80  # for now
+                    outcomes[i] = 80
 
         return outcomes

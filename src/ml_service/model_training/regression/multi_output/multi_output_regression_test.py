@@ -27,6 +27,8 @@ class TestMultiOutputRegression(unittest.TestCase):
 
     def test_predict(self):
         regression_model = MultiOutputRegression()
+        regression_model.months_unpaid_index = 1
+        regression_model.monthly_payment_index = 1
         outcomes = regression_model.predict(self.mock_facts, self.mock_outcomes)
         for i in range(len(outcomes)):
             self.assertEqual(self.mock_outcomes[i], outcomes[i])
