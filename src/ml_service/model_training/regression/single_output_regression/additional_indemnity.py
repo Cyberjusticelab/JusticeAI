@@ -25,7 +25,7 @@ class AdditionalIndemnity:
         :param months:
         :return:
         """
-        n = int(months / 3)
+        n = int(months / 3) + 1
         t = months / 12.0
         nt = n * t
         PMT = monthly_rent * 4

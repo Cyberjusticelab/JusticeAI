@@ -7,5 +7,5 @@ class TestAdditionalIndemnity(unittest.TestCase):
         monthly_rent = 300
         months = 5
         result = int(AdditionalIndemnity().predict(monthly_rent, months))
-        expected_result = 85
+        expected_result = 89
         self.assertTrue(result == expected_result)
