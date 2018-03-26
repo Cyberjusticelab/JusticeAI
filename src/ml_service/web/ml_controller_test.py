@@ -180,7 +180,9 @@ class TestMlController(unittest.TestCase):
                     'bothers_others'
                 ],
                 'important_facts': [
-                    'asker_is_landlord'
+                    'asker_is_landlord',
+                    'tenant_monthly_payment',
+                    'tenant_not_paid_lease_timespan'
                 ]
             }
         }
