@@ -16,7 +16,7 @@ from keras.layers import Dense
 class TenantPaysLandlord(AbstractRegressor):
 
     def __init__(self, dataset=None, outcome_index=0):
-        AbstractRegressor.__init__(self, 'tenant_pays_landlord', dataset, outcome_index)
+        AbstractRegressor.__init__(self, 'tenant_ordered_to_pay_landlord', dataset, outcome_index)
 
     def train(self):
         """
