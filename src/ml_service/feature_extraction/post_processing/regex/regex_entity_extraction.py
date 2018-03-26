@@ -11,17 +11,17 @@ class EntityExtraction:
     one_day = 86400  # unix time for 1 day
     month_dict = {
         'janvier': 1,
-        'février': 2,
+        'fevrier': 2,
         'mars': 3,
         'avril': 4,
         'mai': 5,
         'juin': 6,
         'juillet': 7,
-        'août': 8,
+        'aout': 8,
         'septembre': 9,
         "octobre": 10,
         'novembre': 11,
-        'décembre': 12
+        'decembre': 12
     }
 
     def __init__(self):
@@ -74,7 +74,7 @@ class EntityExtraction:
             return EntityExtraction.__regex_money(regex_type, sentence)
 
         elif regex_type == 'DATE_REGEX':
-            return EntityExtraction.__regex_date(regex_type, sentence)
+            return EntityExtraction.__regex_date('DURATION_REGEX', sentence)
         return False, 0
 
     @staticmethod
@@ -98,21 +98,46 @@ class EntityExtraction:
         :param sentence: sentence to extract entities
         :return: boolean, integer
         """
-        generic_regex = re.compile(EntityExtraction.regex_bin[regex_type])
-        entities = generic_regex.findall(sentence)
-        entities = [x.replace("d'", '') for x in entities]
-        try:
-            months_to_num = sorted([EntityExtraction.month_dict[x] for x in entities])
-            start = EntityExtraction.month_dict[entities[0]]
-            end = EntityExtraction.month_dict[entities[len(entities) - 1]]
-            start_unix = EntityExtraction.__date_to_unix(['1', str(start), '1970'])
-            end_unix = EntityExtraction.__date_to_unix(['28', str(end), '1970'])
+
+        start_end_date_regex = re.compile(r"(?i)(\d{1,2})?(?:er|èr|ere|em|eme|ème)?\s?(\w{3,9}) (\d{4}) (?:a|à|au|et|et se terminant le) (\d{1,2})?(?:er|èr|ere|em|eme|ème)?\s?(\w{3,9}) (\d{4})",re.IGNORECASE)
+        entities = re.findall(start_end_date_regex, sentence)
+
+        if entities.__len__() > 0:
+            start_day = '1'
+            try:
+                start_day = int(entities[0][0])
+            except:
+                start_day = '1'
+
+            start_month = ''
+            try:
+                start_month = str(EntityExtraction.month_dict[entities[0][1]])
+                start_year = entities[0][2]
+            except KeyError:
+                Log.write("spelling error: " + str(entities))
+                return False, 0
+            except IndexError:
+                return False, 0
+            start_year = entities[0][2]
+
+            end_day = '28'
+            try:
+                end_day = int(entities[0][0])
+            except:
+                end_day = '28'
+            end_month = ''
+            try:
+                end_month = str(EntityExtraction.month_dict[entities[0][4]])
+            except KeyError:
+                Log.write("spelling error: " + str(entities))
+                return False, 0
+            except IndexError:
+                return False, 0
+            end_year = entities[0][5]
+            start_unix = EntityExtraction.__date_to_unix([start_day, start_month, start_year])
+            end_unix = EntityExtraction.__date_to_unix([end_day, end_month, end_year])
             return True, EntityExtraction.__get_time_interval_in_days(start_unix, end_unix)
-        except KeyError:
-            Log.write("spelling error: " + str(entities))
-        except IndexError:
-            pass
-        return False, 0
+
 
     @staticmethod
     def __regex_money(regex_type, sentence):
