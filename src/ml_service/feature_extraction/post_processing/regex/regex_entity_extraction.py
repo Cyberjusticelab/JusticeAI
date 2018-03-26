@@ -138,6 +138,16 @@ class EntityExtraction:
             end_unix = EntityExtraction.__date_to_unix([end_day, end_month, end_year])
             return True, EntityExtraction.__get_time_interval_in_days(start_unix, end_unix)
 
+        months_enumaration_regex = re.compile(
+            r"(janvier|février|mars|avril|d'avril|mai|juin|juillet|d'août|août|aout|septembre|d'octobre|octobre|novembre|décembre|decembre)",
+            re.IGNORECASE)
+        entities = re.findall(months_enumaration_regex, sentence)
+        if entities.__len__() > 0:
+            total_months = entities.__len__()
+            start_unix = EntityExtraction.__date_to_unix(['1', '1', '1970'])
+            end_unix = EntityExtraction.__date_to_unix(['28', str(total_months), '1970'])
+            return True, EntityExtraction.__get_time_interval_in_days(start_unix, end_unix)
+
 
     @staticmethod
     def __regex_money(regex_type, sentence):
