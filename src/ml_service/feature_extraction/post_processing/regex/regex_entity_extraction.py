@@ -74,7 +74,7 @@ class EntityExtraction:
             return EntityExtraction.__regex_money(regex_type, sentence)
 
         elif regex_type == 'DATE_REGEX':
-            return EntityExtraction.__regex_date('DURATION_REGEX', sentence)
+            return EntityExtraction.__regex_date(sentence)
         return False, 0
 
     @staticmethod
@@ -93,9 +93,7 @@ class EntityExtraction:
         :return: boolean (date found), integer (days between dates)
         """
 
-        start_end_date_regex = re.compile(r"(?i)(\d{1,2})?(?:er|èr|ere|em|eme|ème)?\s?(\w{3,9}) (\d{4}) (?:a|à|au|et|"
-                                          r"et se terminant le) (\d{1,2})?(?:er|èr|ere|em|eme|ème)?\s?(\w{3,9}) (\d{4})"
-                                          , re.IGNORECASE)
+        start_end_date_regex = re.compile(RegexLib.DATE_RANGE_REGEX, re.IGNORECASE)
         entities = re.findall(start_end_date_regex, sentence)
 
         if entities.__len__() > 0:
@@ -135,9 +133,7 @@ class EntityExtraction:
 
             return True, EntityExtraction.__get_time_interval_in_days(start_unix, end_unix)
 
-        months_regex = re.compile(
-            r"(janvier|fevrier|mars|d'avril|avril|mai|juin|juillet|d'aout|aout|septembre|d'octobre|octobre|novembre|decembre)",
-            re.IGNORECASE)
+        months_regex = re.compile(RegexLib.DATE_REGEX, re.IGNORECASE)
 
         entities = re.findall(months_regex, sentence)
         if entities.__len__() > 1:
