@@ -78,7 +78,7 @@ class EntityExtraction:
         return False, 0
 
     @staticmethod
-    def __regex_date(regex_type, sentence):
+    def __regex_date(sentence):
         """
         Tries to find date range within a sentence by trying to match against to regexes.
         First regex looks for the following format: 1er decembre 20** [a|au|et ...] 30 mai 20**
@@ -89,7 +89,6 @@ class EntityExtraction:
                  every month have at least 28 days
         The information captured be the regexes above allows us to get the time difference in days
 
-        :param regex_type: str(DATE_REGEX)
         :param sentence: sentence to extract entities
         :return: boolean (date found), integer (days between dates)
         """
