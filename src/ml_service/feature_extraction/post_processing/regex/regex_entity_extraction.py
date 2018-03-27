@@ -129,7 +129,7 @@ class EntityExtraction:
             try:
                 end_month = str(EntityExtraction.month_dict[entities[4]])
             except IndexError as error:
-                Log.write(str(error) + ":" + str(start_month) + " is not a month or has spelling mistake")
+                Log.write(str(error) + ":" + str(end_month) + " is not a month or has spelling mistake")
                 return False, 0
 
             end_year = entities[5]
