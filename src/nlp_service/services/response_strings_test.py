@@ -42,6 +42,10 @@ class TestResponse(unittest.TestCase):
         question_empty_predictions = Responses.prediction_statement({}, [])
         self.assertTrue(question_empty_predictions in self.responseInstance.prediction["cant_predict"])
 
+    def test_responses_prediction_predicate_empty(self):
+        question_empty_prediction_predicate = Responses.prediction_statement({"orders_immediate_execution": 0}, [])
+        self.assertFalse(bool(question_empty_prediction_predicate)) #Check that the string is empty
+
     def test_responses_prediction_precedent(self):
         question = Responses.prediction_statement({"orders_resiliation": 1}, [
             {

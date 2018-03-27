@@ -77,8 +77,7 @@ class Responses:
         },
         "landlord_serious_prejudice": {
             True: ["The facts indicate that the landlord may have suffered a serious prejudice from this dispute."],
-            False: [
-                "I can’t find anything suggesting the landlord has experienced serious prejudice from this dispute."]
+            False: ["I can’t find anything suggesting the landlord has experienced serious prejudice from this dispute."]
         },
         "orders_expulsion": {
             True: ["Immediate expulsion of the tenant from the premises is justified."],
@@ -86,7 +85,7 @@ class Responses:
         },
         "orders_immediate_execution": {
             True: ["The final judgement will be enforceable without any delays."],
-            False: []
+            False: ["The enforceability of the final judgement will not be immediate. There may be some delays."]
         },
         "orders_landlord_notify_tenant_when_habitable": {
             True: ["The landlord will have to notify the tenant when the dwelling is deemed as habitable."],
