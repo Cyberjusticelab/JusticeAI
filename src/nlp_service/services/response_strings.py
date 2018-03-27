@@ -56,8 +56,8 @@ class Responses:
             False: ["I have determined that it is unlikely that the landlord will be able to retake the rental."]
         },
         "declares_housing_inhabitable": {
-            True: ["The dwelling may be considered inhabitable during the judgement."],
-            False: ["There isn’t enough evidence to declare the dwelling as inhabitable."]
+            True: ["The dwelling may be considered uninhabitable during the judgement."],
+            False: ["There isn’t enough evidence to declare the dwelling as uninhabitable."]
         },
         "declares_resiliation_is_correct": {
             True: ["It is likely that the demand for the lease termination will be approved."],
@@ -135,7 +135,7 @@ class Responses:
             ],
         "landlord_relocation_indemnity_fees":
             [
-                "Have moving expenses been compensated in the event that the apartment was deemed inhabitable?"
+                "Have moving expenses been compensated in the event that the apartment was deemed uninhabitable?"
             ],
         "landlord_rent_change":
             [
