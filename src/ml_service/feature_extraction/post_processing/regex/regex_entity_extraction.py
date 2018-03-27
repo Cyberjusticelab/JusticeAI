@@ -74,15 +74,15 @@ class EntityExtraction:
             return EntityExtraction.__regex_money(regex_type, sentence)
 
         elif regex_type == 'DATE_REGEX':
-            return EntityExtraction.__regex_date(sentence)
+            return EntityExtraction.get_fact_duration(sentence)
         return False, 0
 
     @staticmethod
-    def __regex_date(sentence):
+    def get_fact_duration(sentence):
         """
-        Tries to find date range within a sentence by trying to match against to regexes.
-        First regex looks for the following format: 1er decembre 20** [a|au|et ...] 30 mai 20**
-        Second regex looks for 2 or more months being stated
+        Tries to find date range within a sentence by trying to match it against regexes.
+        First regex looks for the following format: 1er decembre 20** [a|au ...] 30 mai 20**
+        Second regex looks for 1 or more months being stated
         convert to unix. ** We don't care about the year
             1) unless specified, start date is assumes to be the first day of the month
             2) unless specified, end date is assume to be the last day of the month. 28 is chosen because
@@ -93,6 +93,7 @@ class EntityExtraction:
         :return: boolean (date found), integer (days between dates)
         """
 
+        # first regex
         start_end_date_regex = re.compile(RegexLib.DATE_RANGE_REGEX, re.IGNORECASE)
         entities = re.findall(start_end_date_regex, sentence)
 
@@ -112,7 +113,11 @@ class EntityExtraction:
                 Log.write(str(error) + ":" + str(start_month) + " is not a month or has spelling mistake")
                 return False, 0
 
-            start_year = entities[2]
+            try:
+                start_year = int(entities[2])
+            except ValueError as error:
+                Log.write(str(error) + ": could not find start year")
+                start_year = entities[5]  # set end year value
 
             try:
                 end_day = int(entities[3])
@@ -127,20 +132,16 @@ class EntityExtraction:
                 return False, 0
 
             end_year = entities[5]
-
-            start_unix = EntityExtraction.__date_to_unix([start_day, start_month, start_year])
-            end_unix = EntityExtraction.__date_to_unix([end_day, end_month, end_year])
-
+            start_unix = EntityExtraction.__date_to_unix([str(start_day), str(start_month), str(start_year)])
+            end_unix = EntityExtraction.__date_to_unix([str(end_day), str(end_month), str(end_year)])
+            print(sentence + ": " + str(EntityExtraction.__get_time_interval_in_months(start_unix, end_unix)))
             return True, EntityExtraction.__get_time_interval_in_months(start_unix, end_unix)
 
+        # second regex
         months_regex = re.compile(RegexLib.DATE_REGEX, re.IGNORECASE)
-
         entities = re.findall(months_regex, sentence)
-        if entities.__len__() > 1:
-            total_months = entities.__len__()
-            start_unix = EntityExtraction.__date_to_unix(['1', '1', '1970'])
-            end_unix = EntityExtraction.__date_to_unix(['28', str(total_months), '1970'])
-            return True, EntityExtraction.__get_time_interval_in_months(start_unix, end_unix)
+        if entities.__len__() > 0:
+            return True, entities.__len__()  # total months found
 
         return False, 0
 
