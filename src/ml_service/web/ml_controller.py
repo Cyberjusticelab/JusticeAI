@@ -105,7 +105,7 @@ class MlController:
 
         for precedent_array in similarity_list:
             precedent = {
-                "precedent": precedent_array[0].split(".")[0],
+                "precedent": MlController.precedent_vectors[precedent_array[0]]['file_number'],
                 "distance": precedent_array[1],
                 "facts": MlController.fact_vector_to_dict(
                     MlController.precedent_vectors[precedent_array[0]]['facts_vector']
