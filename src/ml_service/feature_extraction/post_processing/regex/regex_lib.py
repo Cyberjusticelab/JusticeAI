@@ -7,7 +7,7 @@ class RegexLib:
     TENANT_REGEX = r"locataire(s)?"
     LANDLORD_REGEX = r"locat(eur|rice)(s)?"
     DEMAND_REGEX = r"(demand|réclam)(ait|e|ent|aient)"
-    MONTH_REGEX = r"(janvier|février|fevrier|mars|avril|d'avril|mai|juin|juillet|d'août|août|aout|septembre|d'octobre" \
+    DATE_REGEX = r"(janvier|février|fevrier|mars|avril|d'avril|mai|juin|juillet|d'août|août|aout|septembre|d'octobre" \
                  r"|octobre|novembre|décembre|decembre)"
 
     def __multiple_words(min, max):
@@ -414,27 +414,27 @@ class RegexLib:
         ], "BOOLEAN"),
         ("tenant_not_paid_lease_timespan", [
             re.compile(
-                MONTH_REGEX + r".+n'est pas payé",
+                DATE_REGEX + r".+n'est pas payé",
                 re.IGNORECASE
             ),
             re.compile(
-                TENANT_REGEX + r" pas payé.+" + MONTH_REGEX + r".+et" + MONTH_REGEX,
+                TENANT_REGEX + r" pas payé.+" + DATE_REGEX + r".+et" + DATE_REGEX,
                 re.IGNORECASE
             ),
             re.compile(
-                TENANT_REGEX + r" n'a pas payé le loyer " + MONTH_REGEX,
+                TENANT_REGEX + r" n'a pas payé le loyer " + DATE_REGEX,
                 re.IGNORECASE
             ),
             re.compile(
-                "le loyer de " + MONTH_REGEX + " \d{0,4} n'est toujours pas payé",
+                "le loyer de " + DATE_REGEX + " \d{0,4} n'est toujours pas payé",
                 re.IGNORECASE
             ),
             re.compile(
-                "pas payé le(s|) loyer(s|) du(s|) pour le(s|) mois (de |)" + MONTH_REGEX,
+                "pas payé le(s|) loyer(s|) du(s|) pour le(s|) mois (de |)" + DATE_REGEX,
                 re.IGNORECASE
             ),
             re.compile(
-                r"pas payé(s|) au(x|) " + LANDLORD_REGEX + r" le(s|) loyer(s|) (du|des) mois (de|)" + MONTH_REGEX
+                r"pas payé(s|) au(x|) " + LANDLORD_REGEX + r" le(s|) loyer(s|) (du|des) mois (de|)" + DATE_REGEX
             )
         ], 'DATE_REGEX')
     ]
@@ -447,7 +447,7 @@ class RegexLib:
         ("additional_indemnity_money", [
             re.compile(
                 r"(l'|)indemnité additionnelle prévue à l'article 1619 C\.c\.Q\., à compter du \d{0,2}(er|èr|" +
-                r"ere|em|eme|ème)? " + MONTH_REGEX + " \d{0,4} sur (la somme|le montant) de " + MONEY_REGEX,
+                r"ere|em|eme|ème)? " + DATE_REGEX + " \d{0,4} sur (la somme|le montant) de " + MONEY_REGEX,
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
@@ -598,5 +598,5 @@ class RegexLib:
         'regex_facts': regex_facts,
         'regex_outcomes': regex_outcomes,
         'MONEY_REGEX': MONEY_REGEX,
-        'DATE_REGEX': MONTH_REGEX
+        'DATE_REGEX': DATE_REGEX
     }
