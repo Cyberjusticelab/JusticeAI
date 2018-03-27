@@ -80,26 +80,23 @@ class EntityExtraction:
     @staticmethod
     def __regex_date(regex_type, sentence):
         """
-
-        1) create the date regex --> re.compile(regex string)
-        2) find all date entities in the sentence --> returns a list
-        3) get all the integer values associated to dates
-        4) sort the dates in ascending order
-        5) start date is the first element of the list
-        6) end date is the last element
-        7) convert to unix. ** We don't care about the year
-            7.1) start date we assume is the first day of a month
-            7.2) end date we assume the last day of the month. 28 is chosen because
+        Tries to find date range within a sentence by trying to match against to regexes.
+        First regex looks for the following format: 1er decembre 20** [a|au|et ...] 30 mai 20**
+        Second regex looks for 2 or more months being stated
+        convert to unix. ** We don't care about the year
+            1) unless specified, start date is assumes to be the first day of the month
+            2) unless specified, end date is assume to be the last day of the month. 28 is chosen because
                  every month have at least 28 days
-            7.3) some dates have a "d'" such as d'octobre... so we replace d' with ''
-        8)get the time difference from unix to days
+        The information captured be the regexes above allows us to get the time difference in days
 
         :param regex_type: str(DATE_REGEX)
         :param sentence: sentence to extract entities
-        :return: boolean, integer
+        :return: boolean (date found), integer (days between dates)
         """
 
-        start_end_date_regex = re.compile(r"(?i)(\d{1,2})?(?:er|èr|ere|em|eme|ème)?\s?(\w{3,9}) (\d{4}) (?:a|à|au|et|et se terminant le) (\d{1,2})?(?:er|èr|ere|em|eme|ème)?\s?(\w{3,9}) (\d{4})",re.IGNORECASE)
+        start_end_date_regex = re.compile(r"(?i)(\d{1,2})?(?:er|èr|ere|em|eme|ème)?\s?(\w{3,9}) (\d{4}) (?:a|à|au|et|"
+                                          r"et se terminant le) (\d{1,2})?(?:er|èr|ere|em|eme|ème)?\s?(\w{3,9}) (\d{4})"
+                                          , re.IGNORECASE)
         entities = re.findall(start_end_date_regex, sentence)
 
         if entities.__len__() > 0:
@@ -139,11 +136,11 @@ class EntityExtraction:
 
             return True, EntityExtraction.__get_time_interval_in_days(start_unix, end_unix)
 
-        months_enumaration_regex = re.compile(
-            r"(janvier|février|mars|avril|d'avril|mai|juin|juillet|d'août|août|aout|septembre|d'octobre|octobre|novembre|décembre|decembre)",
+        months_regex = re.compile(
+            r"(janvier|fevrier|mars|d'avril|avril|mai|juin|juillet|d'aout|aout|septembre|d'octobre|octobre|novembre|decembre)",
             re.IGNORECASE)
 
-        entities = re.findall(months_enumaration_regex, sentence)
+        entities = re.findall(months_regex, sentence)
         if entities.__len__() > 1:
             total_months = entities.__len__()
             start_unix = EntityExtraction.__date_to_unix(['1', '1', '1970'])
