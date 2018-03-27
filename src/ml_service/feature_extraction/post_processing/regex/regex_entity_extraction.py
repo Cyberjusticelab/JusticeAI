@@ -6,6 +6,7 @@ import unicodedata
 from util.log import Log
 import math
 
+
 class EntityExtraction:
     regex_bin = None
     one_month = 86400 * 30  # unix time for 1 month
