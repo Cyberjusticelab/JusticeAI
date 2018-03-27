@@ -56,40 +56,44 @@ class Responses:
             False: ["I have determined that it is unlikely that the landlord will be able to retake the rental."]
         },
         "declares_housing_inhabitable": {
-            True: ["declares_housing_inhabitable - True"],
-            False: ["declares_housing_inhabitable - False"]
+            True: ["The dwelling may be considered inhabitable during the judgement."],
+            False: ["There isn’t enough evidence to declare the dwelling as inhabitable."]
         },
         "declares_resiliation_is_correct": {
-            True: ["declares_resiliation_is_correct - True"],
-            False: ["declares_resiliation_is_correct - False"]
+            True: ["It is likely that the demand for the lease termination will be approved."],
+            False: ["It is unlikely that the demand for the lease termination will be approved."]
         },
         "landlord_prejudice_justified": {
-            True: ["landlord_prejudice_justified - True"],
-            False: ["landlord_prejudice_justified - False"]
+            True: ["The facts seem to suggest that the landlord has been a victim of prejudice."],
+            False: ["The facts seem to suggest that the landlord has not been a victim of prejudice."]
         },
         "landlord_retakes_apartment_indemnity": {
-            True: ["landlord_retakes_apartment_indemnity - True"],
-            False: ["landlord_retakes_apartment_indemnity - False"]
+            True:
+                [
+                    "I have concluded that there is a strong possibility of the tenant obtaining relocation fees.",
+                    "There is a strong possibility that the landlord will be obliged to pay the tenant relocation fees."
+                ],
+            False: ["It appears as though the tenant will not be entitled to any relocation fees."]
         },
         "landlord_serious_prejudice": {
-            True: ["landlord_serious_prejudice - True"],
-            False: ["landlord_serious_prejudice - False"]
+            True: ["The facts indicate that the landlord may have suffered a serious prejudice from this dispute."],
+            False: ["I can’t find anything suggesting the landlord has experienced serious prejudice from this dispute."]
         },
         "orders_expulsion": {
-            True: ["orders_expulsion - True"],
-            False: ["orders_expulsion - False"]
+            True: ["Immediate expulsion of the tenant from the premises is justified."],
+            False: ["Immediate expulsion of the tenant from the premises is unjustified."]
         },
         "orders_immediate_execution": {
-            True: ["orders_immediate_execution - True"],
-            False: ["orders_immediate_execution - False"]
+            True: ["The final judgement will be enforceable without any delays."],
+            False: ["The enforceability of the final judgement will not be immediate. There may be some delays."]
         },
         "orders_landlord_notify_tenant_when_habitable": {
-            True: ["orders_landlord_notify_tenant_when_habitable - True"],
-            False: ["orders_landlord_notify_tenant_when_habitable - False"]
+            True: ["The landlord will have to notify the tenant when the dwelling is deemed as habitable."],
+            False: ["The landlord will have not have to notify the tenant when the dwelling is deemed as habitable."]
         },
         "orders_tenant_pay_first_of_month": {
-            True: ["orders_tenant_pay_first_of_month - True"],
-            False: ["orders_tenant_pay_first_of_month - False"]
+            True: ["The tenant will likely be ordered to pay outstanding rent payments on the first of the month."],
+            False: ["The tenant will be not be ordered to pay outstanding rent payments on the first of the month."]
         },
         "cant_predict": ["Sorry, I wasn't able to come up with any predictions."]
     }
@@ -104,20 +108,22 @@ class Responses:
     fact_questions = {
         "apartment_dirty":
             [
-                "Would you deem the apartment unfit for habitation?"
+                "Would you deem the dwelling unfit for habitation?",
+                "Would you consider the dwelling unsanitary or unsafe?"
             ],
         "bothers_others":
             [
                 "Have you received any complaints of the tenant acting in a disruptive manner?",
-                "Has the tenant's behaviour been disruptive?"
+                "Has the tenant's behaviour been disruptive to you or someone else?"
             ],
         "disrespect_previous_judgement":
             [
-                "Has the tenant failed to abide by a previous Regie judgement?"
+                "Has the tenant failed to abide to a previous judgement given by the Régie du logement?"
             ],
         "landlord_inspector_fees":
             [
-                "Have you at any point hired an inspector to track down the fleeing tenant?"
+                "Have you at any point hired an inspector to track down the fleeing tenant?",
+                "Have you had to hire at any point an inspector to track down a fleeing tenant?"
             ],
         "landlord_notifies_tenant_retake_apartment":
             [
@@ -125,19 +131,19 @@ class Responses:
             ],
         "landlord_pays_indemnity":
             [
-                "Has the landlord paid any indemnity?"
+                "Has the landlord paid any compensation for your loss or financial burden (i.e. indemnity payments)?"
             ],
         "landlord_relocation_indemnity_fees":
             [
-                "Have moving expenses been compensated when the apartment was deemed inhabitable?"
+                "Have moving expenses been compensated in the event that the apartment was deemed inhabitable?"
             ],
         "landlord_rent_change":
             [
-                "Has there been an attempt to change the rent during the term of the lease?"
+                "Has there been an attempt by the landlord to increase the rent payments during the term of the lease?"
             ],
         "landlord_rent_change_doc_renseignements":
             [
-                "Are there any supporting documents justifying an increase in rent?"
+                "Are there any documents such as bills or receipts justifying an increase in the monthly rent?"
             ],
         "landlord_retakes_apartment":
             [
@@ -145,19 +151,19 @@ class Responses:
             ],
         "landlord_sends_demand_regie_logement":
             [
-                "Has an inquiry been made with the Regie du logement?"
+                "Has a demand been made with the Regie du logement regarding the issue at hand?"
             ],
         "tenant_sends_demand_regie_logement":
             [
-                "Has an inquiry been made with the Regie du logement?"
+                "Has an demand been made with the Regie du logement regarding the issue at hand?"
             ],
         "signed_proof_of_rent_debt":
             [
-                "Has a debt acknowledgment been signed by the tenant?"
+                "Has the tenant signed a document acknowledging they owe late rental payments?"
             ],
         "rent_increased":
             [
-                "Has the rent been increased during the term of the lease?"
+                "Has the rental cost been increased during the term of the lease?"
             ],
         "tenant_continuous_late_payment":
             [
@@ -169,7 +175,7 @@ class Responses:
             ],
         "tenant_dead":
             [
-                "Is the tenant dead?"
+                "Does this issue involve a deceased tenant?"
             ],
         "tenant_financial_problem":
             [
@@ -181,33 +187,32 @@ class Responses:
             ],
         "tenant_is_bothered":
             [
-                "As a tenant do you feel bothered?"
+                "Has this dispute caused you to feel less at home in your dwelling?"
             ],
         "tenant_lease_fixed":
             [
-                "Is there a specified end date to the lease?"
+                "Does the lease specify an end date?"
             ],
         "tenant_left_without_paying":
             [
-                "Has the tenant left the apartment?",
-                "Has the tenant abandoned the apartment?"
+                "Was the dwelling abandoned by the tenant?",
+                "Has the dwelling been abandoned by the tenant?"
             ],
         "tenant_monthly_payment":
             [
-                "Is there a monthly rent payment?"
+                "Is rent owed on a monthly basis for the term of the lease?"
             ],
         "tenant_owes_rent":
             [
-                "Does the tenant currently owe any rent?|If so, how much do they owe?"
+                "Are there any outstanding rent payments currently owed?|And if so, what is the total amount of late rent owed?"
             ],
         "tenant_refuses_retake_apartment":
             [
-                "Has the tenant refused the takeover of the apartment?"
+                "Has the tenant refused the retaking of the rental if and when attempted by the landlord?"
             ],
         "tenant_rent_not_paid_more_3_weeks":
             [
-                "Has the tenant not paid rent for over 3 weeks?",
-                "Has rent not been paid by the tenant for over 3 weeks?"
+                "Has rent not been paid for over 3 weeks past the previous rent payment due date?",
             ],
         "tenant_withold_rent_without_permission":
             [
@@ -518,10 +523,10 @@ class Responses:
         for prediction in prediction_dict:
             prediction_value = prediction_dict[prediction]
             prediction_predicate = int(prediction_value) > 0
-            prediction_text = Responses.chooseFrom(
-                Responses.prediction[prediction][prediction_predicate]
-            ).format(prediction_value)
-            all_responses.append(prediction_text)
+            if len(Responses.prediction[prediction][prediction_predicate]) > 0:
+                prediction_text = Responses.chooseFrom(Responses.prediction[prediction][prediction_predicate]) \
+                    .format(prediction_value)
+                all_responses.append(prediction_text)
 
         # Generate similar outcome text
         if len(similar_precedent_list) > 0:

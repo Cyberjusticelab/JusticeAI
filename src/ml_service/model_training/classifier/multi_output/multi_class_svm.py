@@ -82,6 +82,7 @@ class MultiClassSVM:
            7.1) any number with greater or equal power of magnitude is important
            7.2) other numbers make a fact unimportant
 
+        ** Custom list for additional_indemnity_money
         :return: {
                     'additional_indemnity_money': {
                         'important_facts': [
@@ -117,6 +118,13 @@ class MultiClassSVM:
                 mean_power = math.log10(np.mean(np.array(weights)))
                 important_facts = [x[0] for x in outcome_list if math.log10(abs(x[1])) >= mean_power]
                 additional_facts = [x[0] for x in outcome_list if math.log10(abs(x[1])) < mean_power]
+                if self.classifier_labels[i][0] == 'additional_indemnity_money':
+                    important_facts.append('tenant_monthly_payment')
+                    important_facts.append('tenant_not_paid_lease_timespan')
+                    if 'tenant_not_paid_lease_timespan' in additional_facts:
+                        additional_facts.remove('tenant_not_paid_lease_timespan')
+                    if 'tenant_monthly_payment' in additional_facts:
+                        additional_facts.remove('tenant_monthly_payment')
                 weight_dict[self.classifier_labels[i][0]] = {}
                 weight_dict[self.classifier_labels[i][0]]['important_facts'] = important_facts
                 weight_dict[self.classifier_labels[i][0]]['additional_facts'] = additional_facts

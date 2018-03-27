@@ -4,11 +4,11 @@ import datetime
 import time
 import unicodedata
 from util.log import Log
-
+import math
 
 class EntityExtraction:
     regex_bin = None
-    one_day = 86400  # unix time for 1 day
+    one_month = 86400 * 30  # unix time for 1 month
     month_dict = {
         'janvier': 1,
         'fevrier': 2,
@@ -131,7 +131,7 @@ class EntityExtraction:
             start_unix = EntityExtraction.__date_to_unix([start_day, start_month, start_year])
             end_unix = EntityExtraction.__date_to_unix([end_day, end_month, end_year])
 
-            return True, EntityExtraction.__get_time_interval_in_days(start_unix, end_unix)
+            return True, EntityExtraction.__get_time_interval_in_months(start_unix, end_unix)
 
         months_regex = re.compile(RegexLib.DATE_REGEX, re.IGNORECASE)
 
@@ -140,7 +140,7 @@ class EntityExtraction:
             total_months = entities.__len__()
             start_unix = EntityExtraction.__date_to_unix(['1', '1', '1970'])
             end_unix = EntityExtraction.__date_to_unix(['28', str(total_months), '1970'])
-            return True, EntityExtraction.__get_time_interval_in_days(start_unix, end_unix)
+            return True, EntityExtraction.__get_time_interval_in_months(start_unix, end_unix)
 
         return False, 0
 
@@ -185,11 +185,11 @@ class EntityExtraction:
         return unix_time
 
     @staticmethod
-    def __get_time_interval_in_days(first_date, second_date):
+    def __get_time_interval_in_months(first_date, second_date):
         """
         Calculates the time difference between 2 dates
         :param first_date: date in unix time
         :param second_date: date in unix time
         :return: time difference between 2 dates
         """
-        return int(abs(first_date - second_date) / EntityExtraction.one_day)
+        return math.ceil(abs(first_date - second_date) / EntityExtraction.one_month)
