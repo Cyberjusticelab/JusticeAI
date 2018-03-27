@@ -103,51 +103,54 @@ class EntityExtraction:
         entities = re.findall(start_end_date_regex, sentence)
 
         if entities.__len__() > 0:
-            start_day = '1'
+            entities = re.findall(start_end_date_regex, sentence).pop(0)
+
             try:
-                start_day = int(entities[0][0])
-            except:
+                start_day = int(entities[0])
+            except ValueError as error:
+                Log.write(str(error) + ": could not convert " + entities[0] + " to an int")
                 start_day = '1'
 
             start_month = ''
             try:
-                start_month = str(EntityExtraction.month_dict[entities[0][1]])
-                start_year = entities[0][2]
-            except KeyError:
-                Log.write("spelling error: " + str(entities))
+                start_month = str(EntityExtraction.month_dict[entities[1]])
+            except IndexError as error:
+                Log.write(str(error) + ":" + str(start_month) + " is not a month or has spelling mistake")
                 return False, 0
-            except IndexError:
-                return False, 0
-            start_year = entities[0][2]
 
-            end_day = '28'
+            start_year = entities[2]
+
             try:
-                end_day = int(entities[0][0])
-            except:
+                end_day = int(entities[3])
+            except ValueError as error:
+                Log.write(str(error) + ": could not convert " + entities[3] + " to an int")
                 end_day = '28'
-            end_month = ''
+
             try:
-                end_month = str(EntityExtraction.month_dict[entities[0][4]])
-            except KeyError:
-                Log.write("spelling error: " + str(entities))
+                end_month = str(EntityExtraction.month_dict[entities[4]])
+            except IndexError as error:
+                Log.write(str(error) + ":" + str(start_month) + " is not a month or has spelling mistake")
                 return False, 0
-            except IndexError:
-                return False, 0
-            end_year = entities[0][5]
+
+            end_year = entities[5]
+
             start_unix = EntityExtraction.__date_to_unix([start_day, start_month, start_year])
             end_unix = EntityExtraction.__date_to_unix([end_day, end_month, end_year])
+
             return True, EntityExtraction.__get_time_interval_in_days(start_unix, end_unix)
 
         months_enumaration_regex = re.compile(
             r"(janvier|février|mars|avril|d'avril|mai|juin|juillet|d'août|août|aout|septembre|d'octobre|octobre|novembre|décembre|decembre)",
             re.IGNORECASE)
+
         entities = re.findall(months_enumaration_regex, sentence)
-        if entities.__len__() > 0:
+        if entities.__len__() > 1:
             total_months = entities.__len__()
             start_unix = EntityExtraction.__date_to_unix(['1', '1', '1970'])
             end_unix = EntityExtraction.__date_to_unix(['28', str(total_months), '1970'])
             return True, EntityExtraction.__get_time_interval_in_days(start_unix, end_unix)
 
+        return False, 0
 
     @staticmethod
     def __regex_money(regex_type, sentence):
