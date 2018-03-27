@@ -78,3 +78,18 @@ class RegexPostLogicTest(unittest.TestCase):
         result = EntityExtraction.match_any_regex(text, regex_array, regex_type)
         self.assertTrue(result[0])
         self.assertEqual(result[1], 1)
+
+    def test_get_fact_duration(self):
+        self.assertEqual(EntityExtraction.get_fact_duration(" juin, juillet, aout et septembre 2014 ")[1], 4)
+        self.assertEqual(EntityExtraction.get_fact_duration(" novembre 2010 et avril 2011 ")[1], 2)
+        self.assertEqual(EntityExtraction.get_fact_duration(" d'avril et mai 2012 ")[1], 2)
+        self.assertEqual(EntityExtraction.get_fact_duration(" janvier (solde) et fevrier 2011 ")[1], 2)
+        self.assertEqual(EntityExtraction.get_fact_duration(" d'octobre 2014 au mois de mars 2015 ")[1], 6)
+        self.assertEqual(EntityExtraction.get_fact_duration(" d'octobre et novembre 2012 (325 $), fevrier (375 $), "
+                                                     "mars et avril 2013 ")[1], 5)
+        self.assertEqual(EntityExtraction.get_fact_duration(" mai 2014 a la suite de la resiliation conventionnelle du bail "
+                                                     "et que le loyer des mois d'avril et mai 2014 ")[1], 3)
+        self.assertEqual(EntityExtraction.get_fact_duration(" decembre 2013 (350 $), janvier, fevrier et mars 2014 ")[1], 4)
+        self.assertEqual(EntityExtraction.get_fact_duration(
+            "fevrier a mai 2017 pour lequel elle a ete condamnee dans la decision contestee ")[1], 4)
+        self.assertEqual(EntityExtraction.get_fact_duration(" juin 2013 n'est pas paye ")[1], 1)
