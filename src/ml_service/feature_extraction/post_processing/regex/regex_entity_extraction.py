@@ -84,17 +84,17 @@ class EntityExtraction:
         Tries to find date range within a sentence by trying to match it against regexes.
         First regex looks for the following format: 1er decembre 20** [a|au ...] 30 mai 20**
         Second regex looks for 1 or more months being stated
-        convert to unix. ** We don't care about the year
+        convert to unix.
             1) unless specified, start date is assumes to be the first day of the month
             2) unless specified, end date is assume to be the last day of the month. 28 is chosen because
                  every month have at least 28 days
         The information captured be the regexes above allows us to get the time difference in days
 
         :param sentence: sentence to extract entities
-        :return: boolean (date found), integer (days between dates)
+        :return: boolean (date found), integer (months between dates)
         """
 
-        # first regex
+        # First regex
         start_end_date_regex = re.compile(RegexLib.DATE_RANGE_REGEX, re.IGNORECASE)
         entities = re.findall(start_end_date_regex, sentence)
 
@@ -126,6 +126,7 @@ class EntityExtraction:
                 Log.write(str(error) + ": could not convert " + entities[3] + " to an int")
                 end_day = '28'
 
+            end_month = ''
             try:
                 end_month = str(EntityExtraction.month_dict[entities[4]])
             except IndexError as error:
@@ -133,14 +134,14 @@ class EntityExtraction:
                 return False, 0
 
             end_year = entities[5]
+
             start_unix = EntityExtraction.__date_to_unix([str(start_day), str(start_month), str(start_year)])
             end_unix = EntityExtraction.__date_to_unix([str(end_day), str(end_month), str(end_year)])
-            print(sentence + ": " + str(EntityExtraction.__get_time_interval_in_months(start_unix, end_unix)))
             return True, EntityExtraction.__get_time_interval_in_months(start_unix, end_unix)
 
-        # second regex
-        months_regex = re.compile(RegexLib.DATE_REGEX, re.IGNORECASE)
-        entities = re.findall(months_regex, sentence)
+        # Second regex
+        month_regex = re.compile(RegexLib.DATE_REGEX, re.IGNORECASE)
+        entities = re.findall(month_regex, sentence)
         if entities.__len__() > 0:
             return True, entities.__len__()  # total months found
 
