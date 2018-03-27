@@ -56,40 +56,44 @@ class Responses:
             False: ["I have determined that it is unlikely that the landlord will be able to retake the rental."]
         },
         "declares_housing_inhabitable": {
-            True: ["declares_housing_inhabitable - True"],
-            False: ["declares_housing_inhabitable - False"]
+            True: ["The dwelling may be considered inhabitable during the judgement."],
+            False: ["There isn’t enough evidence to declare the dwelling as inhabitable."]
         },
         "declares_resiliation_is_correct": {
-            True: ["declares_resiliation_is_correct - True"],
-            False: ["declares_resiliation_is_correct - False"]
+            True: ["It is likely that the demand for the lease termination will be approved."],
+            False: ["It is unlikely that the demand for the lease termination will be approved."]
         },
         "landlord_prejudice_justified": {
-            True: ["landlord_prejudice_justified - True"],
-            False: ["landlord_prejudice_justified - False"]
+            True: ["The facts seem to suggest that the landlord has been a victim of prejudice."],
+            False: ["The facts seem to suggest that the landlord has not been a victim of prejudice."]
         },
         "landlord_retakes_apartment_indemnity": {
-            True: ["landlord_retakes_apartment_indemnity - True"],
-            False: ["landlord_retakes_apartment_indemnity - False"]
+            True:
+                [
+                    "I have concluded that there is a strong possibility of the tenant obtaining relocation fees.",
+                    "There is a strong possibility that the landlord will be obliged to pay the tenant relocation fees."
+                ],
+            False: ["It appears as though the tenant will not be entitled to any relocation fees."]
         },
         "landlord_serious_prejudice": {
-            True: ["landlord_serious_prejudice - True"],
-            False: ["landlord_serious_prejudice - False"]
+            True: ["The facts indicate that the landlord may have suffered a serious prejudice from this dispute."],
+            False: ["I can’t find anything suggesting the landlord has experienced serious prejudice from this dispute."]
         },
         "orders_expulsion": {
-            True: ["orders_expulsion - True"],
-            False: ["orders_expulsion - False"]
+            True: ["Immediate expulsion of the tenant from the premises is justified."],
+            False: ["Immediate expulsion of the tenant from the premises is unjustified."]
         },
         "orders_immediate_execution": {
-            True: ["orders_immediate_execution - True"],
-            False: ["orders_immediate_execution - False"]
+            True: ["The final judgement will be enforceable without any delays."],
+            False: []
         },
         "orders_landlord_notify_tenant_when_habitable": {
-            True: ["orders_landlord_notify_tenant_when_habitable - True"],
-            False: ["orders_landlord_notify_tenant_when_habitable - False"]
+            True: ["The landlord will have to notify the tenant when the dwelling is deemed as habitable."],
+            False: ["The landlord will have not have to notify the tenant when the dwelling is deemed as habitable."]
         },
         "orders_tenant_pay_first_of_month": {
-            True: ["orders_tenant_pay_first_of_month - True"],
-            False: ["orders_tenant_pay_first_of_month - False"]
+            True: ["The tenant will likely be ordered to pay outstanding rent payments on the first of the month."],
+            False: ["The tenant will be not be ordered to pay outstanding rent payments on the first of the month."]
         },
         "cant_predict": ["Sorry, I wasn't able to come up with any predictions."]
     }
