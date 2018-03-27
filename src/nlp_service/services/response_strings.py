@@ -77,7 +77,8 @@ class Responses:
         },
         "landlord_serious_prejudice": {
             True: ["The facts indicate that the landlord may have suffered a serious prejudice from this dispute."],
-            False: ["I can’t find anything suggesting the landlord has experienced serious prejudice from this dispute."]
+            False: [
+                "I can’t find anything suggesting the landlord has experienced serious prejudice from this dispute."]
         },
         "orders_expulsion": {
             True: ["Immediate expulsion of the tenant from the premises is justified."],
@@ -523,10 +524,10 @@ class Responses:
         for prediction in prediction_dict:
             prediction_value = prediction_dict[prediction]
             prediction_predicate = int(prediction_value) > 0
-            prediction_text = Responses.chooseFrom(
-                Responses.prediction[prediction][prediction_predicate]
-            ).format(prediction_value)
-            all_responses.append(prediction_text)
+            if len(Responses.prediction[prediction][prediction_predicate]) > 0:
+                prediction_text = Responses.chooseFrom(Responses.prediction[prediction][prediction_predicate]) \
+                    .format(prediction_value)
+                all_responses.append(prediction_text)
 
         # Generate similar outcome text
         if len(similar_precedent_list) > 0:
