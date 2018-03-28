@@ -1,0 +1,79 @@
+[meta]
+() = date, ner_duckling
+
+[regex_features]
+gender: (him|he|her|she|they)((')?s)?
+
+[entity_synonyms]
+
+[common_examples: true]
+i haven't been paid for (two months)
+the last rent payment was (3 months ago)
+it's been at least (two and a half months)
+(three months ago)
+the rent has been late by over (6 weeks)
+i think it's been around (84 days)
+i haven't paid rent for (2 months)
+it has been (6 weeks) since i paid rent
+i last paid rent (sixty days) ago
+the payments have been very late, i'm missing (2 months) of rent
+i got behind on my payments, i couldn't pay rent for (a whole month)
+(three months) late
+about (eight weeks) late
+(one and a half months) by my count
+it's been at least (one month and a half)
+it's late by over (four weeks)
+payment has been delayed by over (3 months)
+i think it has been around (30 days)
+i only missed paying rent by (50 days)
+(twenty five) days by my estimates
+i have been waiting for over (two and a half months) for that payment
+my payment habits have been poor, i missed the deadline by (a week)
+that deadbeat hasn't paid me for over (a month)
+i have been counting, it has been (55 days) exactly
+at least (two fortnights)
+at least (one month) and that's far too long
+it just keeps getting delayed, so far it's been (4 weeks)
+i'd say at least (15 days)
+i think around (half a month)
+(two long months) of my life
+
+[common_examples: false]
+negative
+that is incorrect
+false
+absolutely not
+nope
+no way
+no
+no that's out of the question
+uh-uh
+niet
+nay
+nah
+no absolutely not
+no way jose
+out of the question
+no siree
+no sir
+not on your life
+under no circumstances
+not likely
+fat chance
+no chance in hell
+the rent has been paid
+there aren't any late payments
+he paid me on time
+their payment habits are good
+he always pays on time
+it is rare that he pays late
+they usually pay within the grace period
+the payment has never exceeded 3 weeks
+the tenant is punctual
+their payment habits are unmatched
+their payments habits are unparalleled.
+their payments habits are unrivaled.
+the tenant is the usain bolt of timely payments.
+the tenant always pays in a timely manner
+all rent was paid on time
+rent was paid on time
