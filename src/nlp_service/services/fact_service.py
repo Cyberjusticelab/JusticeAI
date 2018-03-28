@@ -1,6 +1,8 @@
 from collections import OrderedDict
 from datetime import timedelta
 
+import math
+
 from nlp_service.services import ml_service
 from nlp_service.services.response_strings import Responses
 from postgresql_db.models import FactEntity, Fact, FactType
@@ -294,4 +296,4 @@ def extract_month_from_duration(extracted_entity):
         "second": timedelta(seconds=time_value),
     }[time_unit]
 
-    return int(round(time_delta.days / 30))
+    return int(math.ceil(time_delta.days / 30))
