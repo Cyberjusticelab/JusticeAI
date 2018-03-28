@@ -1,4 +1,7 @@
 from collections import OrderedDict
+from datetime import timedelta
+
+import math
 
 from nlp_service.services import ml_service
 from nlp_service.services.response_strings import Responses
@@ -237,3 +240,60 @@ def extract_fact_by_type(fact_type, intent, entities):
                     return entity['value']
         elif intent_name == 'false':
             return 0
+    elif fact_type == FactType.DURATION_MONTHS:
+        if intent_name == 'true':
+            for entity in entities:
+                if entity['entity'] == 'duration':
+                    return extract_month_from_duration(entity)
+            return 0  # Default
+        elif intent_name == 'false':
+            return 0
+
+
+def extract_month_from_duration(extracted_entity):
+    """
+    Takes a ner_duckling entity duration classification and converts it to a timespan representing months.
+    The month is always rounded up, thus 1.2 months == 2 months.
+
+    :param extracted_entity:
+        A ner_duckling duration entity of this form. Will automatically coerce durations not classified
+        as months, for example 'week' or 'day'.
+
+        {
+            'start': 0,
+            'end': 8,
+            'text': '15 weeks',
+            'value': 15.0,
+            'additional_info': {
+                'value': 15.0,
+                'unit': 'week',
+                'year': None,
+                'month': None,
+                'day': None,
+                'hour': None,
+                'minute': None,
+                'second': None,
+                },
+            'entity': 'duration',
+            'extractor': 'ner_duckling',
+        }
+
+    :return: Integer representing number of months
+    """
+
+    if extracted_entity['additional_info']['month']:
+        return int(math.ceil(extracted_entity['additional_info']['month']))
+
+    time_value = extracted_entity['additional_info']['value']
+    time_unit = extracted_entity['additional_info']['unit']
+
+    time_delta = {
+        "year": timedelta(weeks=time_value * 52),
+        "week": timedelta(weeks=time_value),
+        "day": timedelta(days=time_value),
+        "hour": timedelta(hours=time_value),
+        "minute": timedelta(minutes=time_value),
+        "second": timedelta(seconds=time_value),
+    }[time_unit]
+
+    return int(math.ceil(time_delta.days / 30))

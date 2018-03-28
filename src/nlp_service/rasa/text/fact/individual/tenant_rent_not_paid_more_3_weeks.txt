@@ -73,3 +73,6 @@ they paid me this week
 the tenant has recently paid me
 they paid me this week
 they only paid me a few days late
+no the rent has not been overdue for more than three weeks
+it has only been two weeks
+only overdue for half a month now
