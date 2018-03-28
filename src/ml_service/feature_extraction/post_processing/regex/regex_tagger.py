@@ -13,6 +13,7 @@ from feature_extraction.post_processing.regex.regex_lib import RegexLib
 class TagPrecedents:
     empty_line_length = 6
     fact_match = re.compile('\[\d{0,3}\]')
+    file_number_regex = re.compile(r'Nos? dossiers?\s?:(.*\n)*((\d|-)+) \d+ \d+ [A-Z]')
 
     def __init__(self):
         self.precedent_vector = {}
@@ -166,8 +167,14 @@ class TagPrecedents:
         if text_tagged:
             self.text_tagged += 1
 
+        file_number_match = TagPrecedents.file_number_regex.search(file_contents)
+        if file_number_match is None:
+            file_number = ''
+        else:
+            file_number = file_number_match.group(2)
         return {
             'name': filename,
+            'file_number': file_number,
             'facts_vector': facts_vector,
             'outcomes_vector': outcomes_vector
         }
