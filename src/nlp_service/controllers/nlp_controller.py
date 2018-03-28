@@ -405,6 +405,10 @@ def __extract_entity(current_fact_name, current_fact_type, message):
 
     # Return the fact value, or None if the answer was insufficient in determining one
     if intentThreshold.is_sufficient(classify_dict):
-        return fact_service.extract_fact_by_type(current_fact_type, classify_dict['intent'], classify_dict['entities'])
+        extracted_data = fact_service.extract_fact_by_type(current_fact_type, classify_dict['intent'],
+                                                           classify_dict['entities'])
+        log.debug("\nEntity Extraction\n\tFact Type: {}\n\tExtraction Result: {}".format(current_fact_type.value,
+                                                                                           extracted_data))
+        return extracted_data
 
     return None
