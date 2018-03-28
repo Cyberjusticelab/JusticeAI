@@ -249,6 +249,36 @@ def extract_fact_by_type(fact_type, intent, entities):
 
 
 def extract_month_from_duration(extracted_entity):
+    """
+    Takes a ner_duckling entity duration classification and converts it to a timespan representing months.
+    Note that since an integer is returned, it will be rounded. Thus, expect behavior such as 6 weeks = 1 month.
+
+    :param extracted_entity:
+        A ner_duckling duration entity of this form. Will automatically coerce durations not classified
+        as months, for example 'week' or 'day'.
+
+        {
+            'start': 0,
+            'end': 8,
+            'text': '15 weeks',
+            'value': 15.0,
+            'additional_info': {
+                'value': 15.0,
+                'unit': 'week',
+                'year': None,
+                'month': None,
+                'day': None,
+                'hour': None,
+                'minute': None,
+                'second': None,
+                },
+            'entity': 'duration',
+            'extractor': 'ner_duckling',
+        }
+
+    :return: Integer representing number of months
+    """
+
     if extracted_entity['additional_info']['month']:
         return extracted_entity['additional_info']['month']
 
