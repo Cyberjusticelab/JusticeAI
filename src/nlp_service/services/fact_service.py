@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from datetime import timedelta
 
 from nlp_service.services import ml_service
 from nlp_service.services.response_strings import Responses
@@ -237,3 +238,30 @@ def extract_fact_by_type(fact_type, intent, entities):
                     return entity['value']
         elif intent_name == 'false':
             return 0
+    elif fact_type == FactType.DURATION_MONTHS:
+        if intent_name == 'true':
+            for entity in entities:
+                if entity['entity'] == 'duration':
+                    return extract_month_from_duration(entity)
+            return 0  # Default
+        elif intent_name == 'false':
+            return 0
+
+
+def extract_month_from_duration(extracted_entity):
+    if extracted_entity['additional_info']['month']:
+        return extracted_entity['additional_info']['month']
+
+    time_value = extracted_entity['additional_info']['value']
+    time_unit = extracted_entity['additional_info']['unit']
+
+    time_delta = {
+        "year": timedelta(weeks=time_value * 52),
+        "week": timedelta(weeks=time_value),
+        "day": timedelta(days=time_value),
+        "hour": timedelta(hours=time_value),
+        "minute": timedelta(minutes=time_value),
+        "second": timedelta(seconds=time_value),
+    }[time_unit]
+
+    return int(round(time_delta.days / 30))

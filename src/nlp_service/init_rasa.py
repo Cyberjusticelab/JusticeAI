@@ -34,7 +34,6 @@ fact_names = [
     "tenant_lease_fixed",
     "tenant_monthly_payment",
     "tenant_refuses_retake_apartment",
-    "tenant_not_paid_lease_timespan",
     "violent",
 ]
 jsonCreator.identical_fact_list("/rasa/text/fact/base/yes_no.txt", fact_names, "/rasa/data/fact/")
