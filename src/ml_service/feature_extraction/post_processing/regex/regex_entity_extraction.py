@@ -6,22 +6,23 @@ import unicodedata
 from util.log import Log
 import math
 
+
 class EntityExtraction:
     regex_bin = None
     one_month = 86400 * 30  # unix time for 1 month
     month_dict = {
         'janvier': 1,
-        'février': 2,
+        'fevrier': 2,
         'mars': 3,
         'avril': 4,
         'mai': 5,
         'juin': 6,
         'juillet': 7,
-        'août': 8,
+        'aout': 8,
         'septembre': 9,
         "octobre": 10,
         'novembre': 11,
-        'décembre': 12
+        'decembre': 12
     }
 
     def __init__(self):
@@ -74,44 +75,81 @@ class EntityExtraction:
             return EntityExtraction.__regex_money(regex_type, sentence)
 
         elif regex_type == 'DATE_REGEX':
-            return EntityExtraction.__regex_date(regex_type, sentence)
+            return EntityExtraction.get_fact_duration(sentence)
         return False, 0
 
     @staticmethod
-    def __regex_date(regex_type, sentence):
+    def get_fact_duration(sentence):
         """
-
-        1) create the date regex --> re.compile(regex string)
-        2) find all date entities in the sentence --> returns a list
-        3) get all the integer values associated to dates
-        4) sort the dates in ascending order
-        5) start date is the first element of the list
-        6) end date is the last element
-        7) convert to unix. ** We don't care about the year
-            7.1) start date we assume is the first day of a month
-            7.2) end date we assume the last day of the month. 28 is chosen because
+        Tries to find date range within a sentence by trying to match it against regexes.
+        First regex looks for the following format: 1er decembre 20** [a|au ...] 30 mai 20**
+        Second regex looks for 1 or more months being stated
+        convert to unix.
+            1) unless specified, start date is assumes to be the first day of the month
+            2) unless specified, end date is assume to be the last day of the month. 28 is chosen because
                  every month have at least 28 days
-            7.3) some dates have a "d'" such as d'octobre... so we replace d' with ''
-        8)get the time difference from unix to days
+        The information captured be the regexes above allows us to get the time difference in days
 
-        :param regex_type: str(DATE_REGEX)
         :param sentence: sentence to extract entities
-        :return: boolean, integer
+        :return: boolean (date found), integer (months between dates)
         """
-        generic_regex = re.compile(EntityExtraction.regex_bin[regex_type])
-        entities = generic_regex.findall(sentence)
-        entities = [x.replace("d'", '') for x in entities]
-        try:
-            months_to_num = sorted([EntityExtraction.month_dict[x] for x in entities])
-            start = EntityExtraction.month_dict[entities[0]]
-            end = EntityExtraction.month_dict[entities[len(entities) - 1]]
-            start_unix = EntityExtraction.__date_to_unix(['1', str(start), '1970'])
-            end_unix = EntityExtraction.__date_to_unix(['28', str(end), '1970'])
+
+        # Verify if the sentence is about non-payment
+        non_payment_regex = re.compile("pas paye", re.IGNORECASE)
+        if re.findall(non_payment_regex, sentence).__len__() == 0:
+            return False, 0
+
+        # First regex
+        start_end_date_regex = re.compile(RegexLib.DATE_RANGE_REGEX, re.IGNORECASE)
+        entities = re.findall(start_end_date_regex, sentence)
+
+        if entities.__len__() > 0:
+            entities = re.findall(start_end_date_regex, sentence).pop(0)
+
+            try:
+                start_day = int(entities[0])
+            except ValueError as error:
+                Log.write(str(error) + ": could not convert " + entities[0] + " to an int")
+                start_day = '1'
+
+            start_month = ''
+            try:
+                start_month = str(EntityExtraction.month_dict[entities[1]])
+            except IndexError as error:
+                Log.write(str(error) + ":" + str(start_month) + " is not a month or has spelling mistake")
+                return False, 0
+
+            try:
+                start_year = int(entities[2])
+            except ValueError as error:
+                Log.write(str(error) + ": could not find start year")
+                start_year = entities[5]  # set end year value
+
+            try:
+                end_day = int(entities[3])
+            except ValueError as error:
+                Log.write(str(error) + ": could not convert " + entities[3] + " to an int")
+                end_day = '28'
+
+            end_month = ''
+            try:
+                end_month = str(EntityExtraction.month_dict[entities[4]])
+            except IndexError as error:
+                Log.write(str(error) + ":" + str(end_month) + " is not a month or has spelling mistake")
+                return False, 0
+
+            end_year = entities[5]
+
+            start_unix = EntityExtraction.__date_to_unix([str(start_day), str(start_month), str(start_year)])
+            end_unix = EntityExtraction.__date_to_unix([str(end_day), str(end_month), str(end_year)])
             return True, EntityExtraction.__get_time_interval_in_months(start_unix, end_unix)
-        except KeyError:
-            Log.write("spelling error: " + str(entities))
-        except IndexError:
-            pass
+
+        # Second regex
+        month_regex = re.compile(RegexLib.DATE_REGEX, re.IGNORECASE)
+        entities = re.findall(month_regex, sentence)
+        if entities.__len__() > 0:
+            return True, entities.__len__()  # total months found
+
         return False, 0
 
     @staticmethod

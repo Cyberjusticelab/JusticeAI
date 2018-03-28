@@ -7,7 +7,10 @@ class RegexLib:
     TENANT_REGEX = r"locataire(s)?"
     LANDLORD_REGEX = r"locat(eur|rice)(s)?"
     DEMAND_REGEX = r"(demand|réclam)(ait|e|ent|aient)"
-    DATE_REGEX = r"(janvier|février|mars|avril|d'avril|mai|juin|juillet|d'août|août|septembre|d'octobre|octobre|novembre|décembre)"
+    DATE_REGEX = r"(janvier|février|fevrier|mars|avril|d'avril|mai|juin|juillet|d'août|août|aout|septembre|d'octobre" \
+                 r"|octobre|novembre|décembre|decembre)"
+    DATE_RANGE_REGEX = r"(?i)(\d{1,2})?(?:er|èr|ere|em|eme|ème)?\s?(\w{3,9}) (\d{4})?\s?" \
+                       r"(?:a|à|au|et se terminant le|au mois de) (\d{1,2})?(?:er|èr|ere|em|eme|ème)?\s?(\w{3,9}) (\d{4})"
 
     def __multiple_words(min, max):
         return r"([a-zA-ZÀ-ÿ0-9]+(\s|'|,\s)){" + str(min) + "," + str(max) + "}"
