@@ -212,7 +212,7 @@ class Responses:
             ],
         "tenant_rent_not_paid_more_3_weeks":
             [
-                "Has rent not been paid for over 3 weeks past the previous rent payment due date?",
+                "Has the rent been overdue for more than 3 weeks?",
             ],
         "tenant_withold_rent_without_permission":
             [
