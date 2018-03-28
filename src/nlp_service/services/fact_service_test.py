@@ -224,19 +224,11 @@ class FactServiceTest(unittest.TestCase):
         intent = {'name': 'true', 'confidence': 0.90}
         entities = [
             {
-                'start': 0,
-                'end': 8,
-                'text': '2 months',
                 'value': 2.0,
                 'additional_info': {
                     'value': 2.0,
                     'unit': 'month',
-                    'year': None,
                     'month': 2.0,
-                    'day': None,
-                    'hour': None,
-                    'minute': None,
-                    'second': None,
                 },
                 'entity': 'duration',
                 'extractor': 'ner_duckling',
@@ -260,4 +252,47 @@ class FactServiceTest(unittest.TestCase):
         fact_value = fact_service.extract_fact_by_type(FactType.DURATION_MONTHS, intent, entities)
         self.assertTrue(fact_value == 0)
 
-    
+    def extract_month_from_duration(self):
+        extracted_entity = {
+            'value': 1.0,
+            'additional_info': {
+                'value': 1.0,
+                'unit': 'month',
+                'month': 1.0,
+            },
+            'entity': 'duration',
+            'extractor': 'ner_duckling',
+        }
+
+        # Test Months (1 month)
+        self.assertTrue(fact_service.extract_month_from_duration(extracted_entity) == 1)
+
+        # Test Seconds (2 months)
+        extracted_entity['value'] = 5184000
+        extracted_entity['unit'] = 'second'
+        self.assertTrue(fact_service.extract_month_from_duration(extracted_entity) == 2)
+
+        # Test Minutes (3 months)
+        extracted_entity['value'] = 129600
+        extracted_entity['unit'] = 'minute'
+        self.assertTrue(fact_service.extract_month_from_duration(extracted_entity) == 3)
+
+        # Test Hours (4 months)
+        extracted_entity['value'] = 2880
+        extracted_entity['unit'] = 'hour'
+        self.assertTrue(fact_service.extract_month_from_duration(extracted_entity) == 4)
+
+        # Test Days (5 months)
+        extracted_entity['value'] = 150
+        extracted_entity['unit'] = 'day'
+        self.assertTrue(fact_service.extract_month_from_duration(extracted_entity) == 5)
+
+        # Test Weeks (6 months)
+        extracted_entity['value'] = 26
+        extracted_entity['unit'] = 'week'
+        self.assertTrue(fact_service.extract_month_from_duration(extracted_entity) == 6)
+
+        # Test Years
+        extracted_entity['value'] = 1
+        extracted_entity['unit'] = 'year'
+        self.assertTrue(fact_service.extract_month_from_duration(extracted_entity) == 12)
