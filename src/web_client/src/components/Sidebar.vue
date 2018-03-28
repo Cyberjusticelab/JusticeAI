@@ -406,7 +406,6 @@ export default {
 }
 </script>
 
-
 <style type="text/css">
 .precedent-table-header {
     font-weight: bold;
@@ -418,3 +417,4 @@ export default {
     cursor: pointer;
 }
 </style>
+
