@@ -84,12 +84,12 @@
                     <el-col :sm="{span: 22, offset: 1}">
                         <div id="sidebar-dashboard-similarity">
                                 <h3>Here are <span>{{ report.similar_case }}</span> most similar precendents to your case</h3>
-                                <el-table :data="report.precedent_table" @header-click="triggered" stripe>
+                                <el-table :data="report.precedent_table" @header-click="openSimilarPrecedent" stripe>
                                     <div>
                                         <el-table-column prop="name" align="center" fixed="left"></el-table-column>
                                     </div>
                                     <div v-for="header in report.precedent_table_header">
-                                        <el-table-column :prop="header" :label="header" class-name="header-clickable" align="center"></el-table-column>
+                                        <el-table-column :prop="header" :label="header" label-class-name="precedent-table-header" align="center"></el-table-column>
                                     </div>
                                 </el-table>
                         </div>
@@ -157,11 +157,6 @@ export default {
         })
     },
     methods: {
-        triggered (column,event) {
-            if (column.label !== 'Your Case'){
-                window.location.href = "https://www.rdl2.gouv.qc.ca/internet/asp/consultation-dossier/DossierDetail.asp?dossier=" + column.label
-            }
-        },
         view () {
             let zeusId = this.$localStorage.get('zeusId')
             this.$http.get(this.api_url + 'conversation/' + zeusId + '/report').then(
@@ -266,6 +261,11 @@ export default {
                     console.log("Connection Fail: get user resolved fact")
                 }
             )
+        },
+        openSimilarPrecedent (column,event) {
+            if (column.label !== 'Your Case'){
+                window.open("https://www.rdl2.gouv.qc.ca/internet/asp/consultation-dossier/DossierDetail.asp?dossier=" + column.label, '_blank')
+            }
         },
         resetChat () {
             this.$localStorage.remove('zeusId')
@@ -405,8 +405,16 @@ export default {
     }
 }
 </script>
+
+
 <style type="text/css">
-.header-clickable {
-  cursor: pointer;
+.precedent-table-header {
+    font-weight: bold;
+    font-size: 18px;
+    color: #5D5E5E;
+}
+.precedent-table-header:hover {
+    color: #E9A742;
+    cursor: pointer;
 }
 </style>
