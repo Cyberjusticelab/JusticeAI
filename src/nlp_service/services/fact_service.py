@@ -282,7 +282,7 @@ def extract_month_from_duration(extracted_entity):
     """
 
     if extracted_entity['additional_info']['month']:
-        return extracted_entity['additional_info']['month']
+        return int(math.ceil(extracted_entity['additional_info']['month']))
 
     time_value = extracted_entity['additional_info']['value']
     time_unit = extracted_entity['additional_info']['unit']

@@ -292,6 +292,11 @@ class FactServiceTest(unittest.TestCase):
         extracted_entity['unit'] = 'week'
         self.assertTrue(fact_service.extract_month_from_duration(extracted_entity) == 6)
 
+        # Test Rounding (1.2 months -> 2 months)
+        extracted_entity['value'] = 6
+        extracted_entity['unit'] = 'week'
+        self.assertTrue(fact_service.extract_month_from_duration(extracted_entity) == 2)
+
         # Test Years
         extracted_entity['value'] = 1
         extracted_entity['unit'] = 'year'
