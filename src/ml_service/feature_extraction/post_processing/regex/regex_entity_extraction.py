@@ -94,6 +94,11 @@ class EntityExtraction:
         :return: boolean (date found), integer (months between dates)
         """
 
+        # Verify if the sentence is about non-payment
+        non_payment_regex = re.compile("pas paye", re.IGNORECASE)
+        if re.findall(non_payment_regex, sentence).__len__() == 0:
+            return False, 0
+
         # First regex
         start_end_date_regex = re.compile(RegexLib.DATE_RANGE_REGEX, re.IGNORECASE)
         entities = re.findall(start_end_date_regex, sentence)
