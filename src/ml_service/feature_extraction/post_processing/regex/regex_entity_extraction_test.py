@@ -76,8 +76,8 @@ class RegexPostLogicTest(unittest.TestCase):
         ]
         regex_type = 'DATE_REGEX'
         result = EntityExtraction.match_any_regex(text, regex_array, regex_type)
-        self.assertTrue(result[0])
-        self.assertEqual(result[1], 1)
+        self.assertFalse(result[0])
+        self.assertEqual(result[1], 0)
 
     def test_get_fact_duration(self):
         self.assertEqual(EntityExtraction.get_fact_duration(" pas paye juin, juillet, aout et septembre 2014 ")[1], 4)
