@@ -219,3 +219,45 @@ class FactServiceTest(unittest.TestCase):
 
         fact_value = fact_service.extract_fact_by_type(FactType.MONEY, intent, entities)
         self.assertTrue(fact_value == 0)
+
+    def test_extract_fact_duration_months_true(self):
+        intent = {'name': 'true', 'confidence': 0.90}
+        entities = [
+            {
+                'start': 0,
+                'end': 8,
+                'text': '2 months',
+                'value': 2.0,
+                'additional_info': {
+                    'value': 2.0,
+                    'unit': 'month',
+                    'year': None,
+                    'month': 2.0,
+                    'day': None,
+                    'hour': None,
+                    'minute': None,
+                    'second': None,
+                },
+                'entity': 'duration',
+                'extractor': 'ner_duckling',
+            }
+        ]
+
+        fact_value = fact_service.extract_fact_by_type(FactType.DURATION_MONTHS, intent, entities)
+        self.assertTrue(fact_value == 2)
+
+    def test_extract_fact_duration_months_default(self):
+        intent = {'name': 'true', 'confidence': 0.90}
+        entities = []
+
+        fact_value = fact_service.extract_fact_by_type(FactType.DURATION_MONTHS, intent, entities)
+        self.assertTrue(fact_value == 0)
+
+    def test_extract_fact_duration_months_false(self):
+        intent = {'name': 'false', 'confidence': 0.90}
+        entities = []
+
+        fact_value = fact_service.extract_fact_by_type(FactType.DURATION_MONTHS, intent, entities)
+        self.assertTrue(fact_value == 0)
+
+    
