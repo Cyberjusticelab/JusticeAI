@@ -212,7 +212,7 @@ class Responses:
             ],
         "tenant_rent_not_paid_more_3_weeks":
             [
-                "Has the rent been overdue for more than 3 weeks?",
+                "Has the rent payment been overdue for more than 3 weeks?",
             ],
         "tenant_withold_rent_without_permission":
             [
@@ -220,7 +220,7 @@ class Responses:
             ],
         "tenant_not_paid_lease_timespan":
             [
-                "If any rent is owed by the tenant|How many months is the rent payment overdue?"
+                "If any rent is owed by the tenant|How many months has the rent payment been overdue?"
             ],
         "violent":
             [
