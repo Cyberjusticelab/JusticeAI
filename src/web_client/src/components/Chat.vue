@@ -193,6 +193,7 @@ export default {
         .join(' ')
     },
     sendUserMessage () {
+      this.user.disableInput = true
       this.$http.post(this.api_url + 'conversation', {
         conversation_id: this.$localStorage.get('zeusId'),
         message: this.user.input
@@ -201,6 +202,7 @@ export default {
           this.configChat(response.body)
         },
         response => {
+          this.user.disableInput = false
           this.connectionError = true
           console.log("Connection Fail: send message")
         }

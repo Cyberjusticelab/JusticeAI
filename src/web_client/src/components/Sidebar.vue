@@ -210,7 +210,10 @@ export default {
                     // prep the precedent table
                     let precedent_table = []
                     // append user case outcomes
-                    let user_data = this.report.outcomes
+                    let user_data = {}
+                    for (let key in this.report.outcomes) {
+                        user_data[key] = this.report.outcomes[key]
+                    }
                     // append user case facts
                     for (let i = 0; i < response.body.fact_entities.length; i++) {
                         user_data[response.body.fact_entities[i].fact.name] = response.body.fact_entities[i].value
