@@ -46,8 +46,9 @@ class ClaimCategory(Enum):
 class FactType(Enum):
     TEXT = "TEXT"
     BOOLEAN = "BOOLEAN"
-    DATE = "DATE"
     MONEY = "MONEY"
+    DATE = "DATE"
+    DURATION_MONTHS = "DURATION_MONTHS"
 
 
 class DocumentType(Enum):
@@ -230,8 +231,8 @@ defined_facts = [
     {'name': 'tenant_rent_not_paid_more_3_weeks', 'summary': 'Rent not paid over 3 weeks', 'type': FactType.BOOLEAN},
     {'name': 'tenant_withold_rent_without_permission', 'summary': 'Rent withheld rent without RLQ permission',
      'type': FactType.BOOLEAN},
-    {'name': 'tenant_not_paid_lease_timespan', 'summary': '',
-     'type': FactType.BOOLEAN},
+    {'name': 'tenant_not_paid_lease_timespan', 'summary': 'Months since last rent payment',
+     'type': FactType.DURATION_MONTHS},
     {'name': 'violent', 'summary': '', 'type': FactType.BOOLEAN}
 ]
 for fact_dict in defined_facts:
