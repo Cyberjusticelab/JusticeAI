@@ -220,7 +220,7 @@ class Responses:
             ],
         "tenant_not_paid_lease_timespan":
             [
-                "If rent is owed by the tenant|How many months is the rent payment overdue?"
+                "If any rent is owed by the tenant|How many months is the rent payment overdue?"
             ],
         "violent":
             [

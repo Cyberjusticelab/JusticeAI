@@ -21,8 +21,8 @@ binary_urls = [
     'https://capstone.cyberjustice.ca/data/bin/multi_class_svm_model.bin',
     'https://capstone.cyberjustice.ca/data/bin/model_metrics.bin',
     'https://capstone.cyberjustice.ca/data/bin/precedent_vectors.bin',
-    'https://capstone.cyberjustice.ca/data/bin/tenant_pays_landlord_regressor.bin',
-    'https://capstone.cyberjustice.ca/data/bin/tenant_pays_landlord_scaler.bin',
+    'https://capstone.cyberjustice.ca/data/bin/tenant_ordered_to_pay_landlord_regressor.bin',
+    'https://capstone.cyberjustice.ca/data/bin/tenant_ordered_to_pay_landlord_scaler.bin',
     'https://capstone.cyberjustice.ca/data/bin/similarity_case_numbers.bin',
     'https://capstone.cyberjustice.ca/data/bin/similarity_model.bin',
     'https://capstone.cyberjustice.ca/data/bin/similarity_scaler.bin'
