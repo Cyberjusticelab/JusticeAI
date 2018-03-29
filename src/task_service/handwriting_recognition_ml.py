@@ -14,10 +14,11 @@ from keras.layers.advanced_activations import LeakyReLU
 import pickle
 from collections import defaultdict
 
-import resource, sys
+import resource
+import sys
 
 # we would reach recursion limit when saving training history otherwise
-resource.setrlimit(resource.RLIMIT_STACK, (2**29,-1))
+resource.setrlimit(resource.RLIMIT_STACK, (2**29, -1))
 sys.setrecursionlimit(2**29 - 1)
 from scipy import io as spio
 
@@ -54,24 +55,24 @@ mean_px = x_train.mean().astype(np.float32)
 std_px = x_train.std().astype(np.float32)
 
 
-def norm_input(x): return (x-mean_px)/std_px
+def norm_input(x): return (x - mean_px) / std_px
 
 
 # Batchnorm + dropout + data augmentation
 def create_model():
     model = Sequential([
-        Lambda(norm_input, input_shape=(1,28,28), output_shape=(1,28,28)),
-        Conv2D(32, (3,3), data_format='channels_first'),
+        Lambda(norm_input, input_shape=(1, 28, 28), output_shape=(1, 28, 28)),
+        Conv2D(32, (3, 3), data_format='channels_first'),
         LeakyReLU(),
         BatchNormalization(axis=1),
-        Conv2D(32, (3,3), data_format='channels_first'),
+        Conv2D(32, (3, 3), data_format='channels_first'),
         LeakyReLU(),
         MaxPooling2D(),
         BatchNormalization(axis=1),
-        Conv2D(64, (3,3), data_format='channels_first'),
+        Conv2D(64, (3, 3), data_format='channels_first'),
         LeakyReLU(),
         BatchNormalization(axis=1),
-        Conv2D(64, (3,3), data_format='channels_first'),
+        Conv2D(64, (3, 3), data_format='channels_first'),
         LeakyReLU(),
         MaxPooling2D(),
         Flatten(),
@@ -85,14 +86,15 @@ def create_model():
     model.compile(Adam(), loss='categorical_crossentropy', metrics=['accuracy'])
     return model
 
+
 batch_size = 512
 from keras.preprocessing.image import ImageDataGenerator
 gen = ImageDataGenerator(rotation_range=12, width_shift_range=0.1, shear_range=0.3,
-                        height_shift_range=0.1, zoom_range=0.1, data_format='channels_first')
+                         height_shift_range=0.1, zoom_range=0.1, data_format='channels_first')
 batches = gen.flow(x_train, y_train, batch_size=batch_size)
 test_batches = gen.flow(x_test, y_test, batch_size=batch_size)
-steps_per_epoch = int(np.ceil(batches.n/batch_size))
-validation_steps = int(np.ceil(test_batches.n/batch_size))
+steps_per_epoch = int(np.ceil(batches.n / batch_size))
+validation_steps = int(np.ceil(test_batches.n / batch_size))
 
 models = []
 models.append(create_model())
@@ -103,11 +105,11 @@ num_epochs = 1
 weights_epoch = 0
 
 for iteration in range(num_iterations):
-    cur_epoch = (iteration+1)*num_epochs + weights_epoch
-    print("iteration {}, cur_epoch {}".format(iteration+1, cur_epoch))
+    cur_epoch = (iteration + 1) * num_epochs + weights_epoch
+    print("iteration {}, cur_epoch {}".format(iteration + 1, cur_epoch))
 
     # train models for specified number of epochs
-    for i,m in enumerate(models):
+    for i, m in enumerate(models):
         m.optimizer.lr = 0.000001
         h = m.fit_generator(batches, steps_per_epoch=steps_per_epoch, epochs=num_epochs, verbose=0,
                             validation_data=test_batches, validation_steps=validation_steps)
@@ -117,7 +119,7 @@ for iteration in range(num_iterations):
 
         # save corresponding training history (broken right now)
         # TypeError: can't pickle _thread.lock objects
-        #with open("dropout_0.2/history/{:03d}epochs_history_model_{}.pkl".format(cur_epoch, i),"wb") as f:
+        # with open("dropout_0.2/history/{:03d}epochs_history_model_{}.pkl".format(cur_epoch, i),"wb") as f:
         #    pickle.dump(h, f)
 
     # evaluate test error rate for ensemble

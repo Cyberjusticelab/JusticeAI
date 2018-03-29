@@ -308,4 +308,4 @@ class ConversationSchema(ma.ModelSchema):
 
     class Meta:
         fields = (
-        'id', 'name', 'person_type', 'claim_category', 'bot_state', 'current_fact', 'messages', 'fact_entities')
+            'id', 'name', 'person_type', 'claim_category', 'bot_state', 'current_fact', 'messages', 'fact_entities')

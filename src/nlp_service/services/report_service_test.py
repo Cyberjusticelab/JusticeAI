@@ -94,7 +94,7 @@ class ReportServiceTest(unittest.TestCase):
         self.assertTrue("orders_immediate_execution" in report['outcomes'])
         self.assertTrue("additional_indemnity_money" in report['outcomes'])
         self.assertTrue("orders_expulsion" not in report['outcomes'])
-        self.assertTrue(report['outcomes']['orders_resiliation'] == True)
+        self.assertTrue(report['outcomes']['orders_resiliation'])
         self.assertTrue(report['outcomes']['additional_indemnity_money'] == 500)
         self.assertTrue(report['similar_case'] == 2)
 
