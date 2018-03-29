@@ -1,0 +1,343 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Natural Language Processing (NLP) Service - ProceZeus Documentation</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <base href="../">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <noscript>
+            <style type="text/css">
+                .javascript-only {
+                    display: none;
+                }
+            </style>
+        </noscript>
+
+    </head>
+    <body class="light">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme;
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="README.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><a href="ARCHITECTURE.html"><strong aria-hidden="true">2.</strong> Application Archictecture</a></li><li><a href="web_client/README.html"><strong aria-hidden="true">3.</strong> Web Client</a></li><li><a href="backend_service/README.html"><strong aria-hidden="true">4.</strong> Backend Service</a></li><li><a href="nlp_service/README.html" class="active"><strong aria-hidden="true">5.</strong> Natural Language Processing (NLP) Service</a></li><li><a href="ml_service/README.html"><strong aria-hidden="true">6.</strong> Machine Learning (ML) Service</a></li><li><a href="postgresql_db/README.html"><strong aria-hidden="true">7.</strong> PostgreSQL Database</a></li><li><a href="task_service/README.html"><strong aria-hidden="true">8.</strong> Task Service</a></li><li><a href="beta_client/README.html"><strong aria-hidden="true">9.</strong> Beta Client</a></li><li><a href="beta_server/README.html"><strong aria-hidden="true">10.</strong> Beta Server</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons javascript-only">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">ProceZeus Documentation</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="searchbar-outer" class="searchbar-outer">
+                    <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                </div>
+                <div id="searchresults-outer" class="searchresults-outer">
+                    <div class="searchresults-header" id="searchresults-header"></div>
+                    <ul id="searchresults">
+                    </ul>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="nlp_service/README.html#natural-language-processing-service" id="natural-language-processing-service"><h1>Natural Language Processing Service</h1></a>
+<a class="header" href="nlp_service/README.html#run-tests-and-lints" id="run-tests-and-lints"><h2>Run Tests and Lints</h2></a>
+<pre><code>export COMPOSE_FILE=ci
+./cjl up -d &amp;&amp; ./cjl run nlp_service
+</code></pre>
+<hr />
+<a class="header" href="nlp_service/README.html#nlp-api" id="nlp-api"><h1>NLP API</h1></a>
+<a class="header" href="nlp_service/README.html#classify-claim-category" id="classify-claim-category"><h2>Classify claim category</h2></a>
+<p>Extract a claim category from a user's message. Returns a question based on the claim category found, or a clarification question.</p>
+<p><strong>URL</strong> : <code>/claim_category</code></p>
+<p><strong>Method</strong> : <code>POST</code></p>
+<p><strong>Data constraints</strong></p>
+<p>Provide the conversation id and the message.</p>
+<pre><code class="language-json">{
+    &quot;conversation_id&quot;: 1,
+    &quot;message&quot;: &quot;I am being evicted&quot;
+}
+</code></pre>
+<a class="header" href="nlp_service/README.html#success-response" id="success-response"><h4>Success Response</h4></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">{
+    &quot;message&quot;: &quot;I see you're having problems with lease termination. Have you kept up with your rent payments?&quot;,
+    &quot;progress&quot;: 0
+}
+</code></pre>
+<a class="header" href="nlp_service/README.html#error-response" id="error-response"><h4>Error Response</h4></a>
+<p><strong>Code</strong> : <code>400 Bad Request</code> - <em>Inputs not provided</em></p>
+<p><strong>Code</strong> : <code>404 Not Found</code> - <em>Conversation doesn't exist</em></p>
+<hr />
+<a class="header" href="nlp_service/README.html#submit-message" id="submit-message"><h2>Submit message</h2></a>
+<p>Submits a user input to the NLP service. Returns the next question to ask, or a clarification question.</p>
+<p><strong>URL</strong> : <code>/submit_message</code></p>
+<p><strong>Method</strong> : <code>POST</code></p>
+<p><strong>Data constraints</strong></p>
+<p>Provide the conversation id and the message.</p>
+<pre><code class="language-json">{
+    &quot;conversation_id&quot;: 1,
+    &quot;message&quot;: &quot;My rent is $900 per month.&quot;
+}
+</code></pre>
+<a class="header" href="nlp_service/README.html#success-response-1" id="success-response-1"><h4>Success Response</h4></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">{
+    &quot;message&quot;: &quot;Have you kept up with your rent payments?&quot;,
+    &quot;progress&quot;: 10
+}
+</code></pre>
+<a class="header" href="nlp_service/README.html#error-response-1" id="error-response-1"><h4>Error Response</h4></a>
+<p><strong>Code</strong> : <code>400 Bad Request</code> - <em>Inputs not provided</em></p>
+<p><strong>Code</strong> : <code>404 Not Found</code> - <em>Conversation doesn't exist</em></p>
+<hr />
+<a class="header" href="nlp_service/README.html#rasa-json-tool" id="rasa-json-tool"><h1>RASA JSON Tool</h1></a>
+<p>The <strong>util.parse_dataset.py</strong> module and the associated <strong>CreateJson</strong> class can be used to create json training data for RASA NLU.</p>
+<a class="header" href="nlp_service/README.html#format" id="format"><h4>Format</h4></a>
+<pre><code>[meta]
+() = entity_name1, entity_extractor(optional)
+{} = entity_name2, entity_extractor(optional)
+
+[regex_features]
+name:regex
+
+[entity_synonyms]
+entity:synonym1, synonym2
+
+[common_examples: intent_name1]
+sentence1
+sentence2
+
+[common_examples: intent_name2]
+sentence1
+sentence2
+
+</code></pre>
+<ul>
+<li><strong>[]</strong> are reserved characters used to identify sections</li>
+<li><strong>meta</strong> section allows for the definition of meta-characters that define entities</li>
+<li><strong>regex_features</strong> are simply regex features</li>
+<li><strong>entity_synonyms</strong> are simply entity synonyms</li>
+<li><strong>common_examples:intent_name</strong> are common examples for a particular intent</li>
+</ul>
+<a class="header" href="nlp_service/README.html#example" id="example"><h4>Example</h4></a>
+<pre><code>[meta]
+() = money, ner_duckling
+
+[regex_features]
+money:$\d(.)?+|\d(.)?+$
+
+[common_examples: true]
+my landlord increased my rent by ($500)
+i owe my landlord (40 dollars)
+
+[common_examples: false]
+i don't owe my landlord any money
+i dont have any debts
+no
+
+</code></pre>
+<a class="header" href="nlp_service/README.html#command-line-use" id="command-line-use"><h3>Command Line Use</h3></a>
+<p>python3 -m util.parse_dataset &lt;read_dir&gt; &lt;write_dir&gt;</p>
+<a class="header" href="nlp_service/README.html#example-1" id="example-1"><h4>Example</h4></a>
+<p>python3 -m util.parse_dataset ~/Documents/ ~/Documents/Json/</p>
+<p><strong>DO NOT FORGET THE '/' AT THE END OF YOUR DIRECTORY</strong></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="backend_service/README.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ml_service/README.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="backend_service/README.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="ml_service/README.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if (getComputedStyle(document.querySelector(".fa")).fontFamily !== "FontAwesome") {
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = '_FontAwesome/css/font-awesome.css';
+                document.head.insertBefore(link, document.head.firstChild)
+            }
+        </script>
+
+        
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3001");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload(true); // force reload from server (not from cache)
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+        
+
+        
+
+        
+
+        
+        <script src="searchindex.js" type="text/javascript" charset="utf-8"></script>
+        
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </body>
+</html>

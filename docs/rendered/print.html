@@ -1,0 +1,1697 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>ProceZeus Documentation</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <noscript>
+            <style type="text/css">
+                .javascript-only {
+                    display: none;
+                }
+            </style>
+        </noscript>
+
+    </head>
+    <body class="light">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme;
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="README.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><a href="ARCHITECTURE.html"><strong aria-hidden="true">2.</strong> Application Archictecture</a></li><li><a href="web_client/README.html"><strong aria-hidden="true">3.</strong> Web Client</a></li><li><a href="backend_service/README.html"><strong aria-hidden="true">4.</strong> Backend Service</a></li><li><a href="nlp_service/README.html"><strong aria-hidden="true">5.</strong> Natural Language Processing (NLP) Service</a></li><li><a href="ml_service/README.html"><strong aria-hidden="true">6.</strong> Machine Learning (ML) Service</a></li><li><a href="postgresql_db/README.html"><strong aria-hidden="true">7.</strong> PostgreSQL Database</a></li><li><a href="task_service/README.html"><strong aria-hidden="true">8.</strong> Task Service</a></li><li><a href="beta_client/README.html"><strong aria-hidden="true">9.</strong> Beta Client</a></li><li><a href="beta_server/README.html"><strong aria-hidden="true">10.</strong> Beta Server</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons javascript-only">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">ProceZeus Documentation</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="searchbar-outer" class="searchbar-outer">
+                    <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                </div>
+                <div id="searchresults-outer" class="searchresults-outer">
+                    <div class="searchresults-header" id="searchresults-header"></div>
+                    <ul id="searchresults">
+                    </ul>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="print.html#procezeus" id="procezeus"><h1>ProceZeus</h1></a>
+<p><a href="https://travis-ci.org/Cyberjusticelab/JusticeAI/"><img src="https://img.shields.io/travis/Cyberjusticelab/JusticeAI.svg" alt="Travis" /></a> <a href="https://codecov.io/gh/Cyberjusticelab/JusticeAI"><img src="https://img.shields.io/codecov/c/github/codecov/example-python.svg" alt="Codecov" /></a></p>
+<a class="header" href="print.html#getting-started" id="getting-started"><h2>Getting Started</h2></a>
+<a class="header" href="print.html#prerequisites" id="prerequisites"><h3>Prerequisites</h3></a>
+<p>All of the project's services are split into separate Docker images. All application dependencies are contained within the Docker images. The dependencies required to run this project locally are:</p>
+<ul>
+<li><code>docker</code></li>
+<li><code>docker-compose</code></li>
+</ul>
+<a class="header" href="print.html#installing" id="installing"><h3>Installing</h3></a>
+<p>To install Docker and Docker Compose, you can follow the instructions <a href="https://docs.docker.com/">here</a>.</p>
+<a class="header" href="print.html#running-the-entire-application-stack" id="running-the-entire-application-stack"><h2>Running the Entire Application Stack</h2></a>
+<p>We've developed a script to help with running the entire application with all its components. All you need is:</p>
+<pre><code class="language-bash">./cjl up
+</code></pre>
+<p>If you want to suppress output push the job to the background:</p>
+<pre><code class="language-bash">./cjl up -d
+</code></pre>
+<p>Docker isn't always the best at determining diffs between images. You can manually rebuild all images with:</p>
+<pre><code class="language-bash">./cjl build
+</code></pre>
+<p>If that doesn't work, try destroying all Docker containers/images on your machine:</p>
+<pre><code class="language-bash">./cjl clean
+</code></pre>
+<p>To run all tests and lints for all services:</p>
+<pre><code class="language-bash">./cjl test
+</code></pre>
+<p>To try to fix all linting errors for all services:</p>
+<pre><code class="language-bash">./cjl lint-fix
+</code></pre>
+<p>In order to shut down all containers:</p>
+<pre><code class="language-bash">./cjl down
+</code></pre>
+<p>The <code>cjl</code> script also takes any other command that <code>docker-compose</code> can take.</p>
+<a class="header" href="print.html#running-or-testing-specific-services" id="running-or-testing-specific-services"><h2>Running or Testing Specific Services</h2></a>
+<p>The following services can run individually or tested against:</p>
+<ul>
+<li><a href="src/web_client/README.md">Web Client</a></li>
+<li><a href="src/backend_service/README.md">Backend Service</a></li>
+<li><a href="src/ml_service/README.md">Machine Learning Service</a></li>
+<li><a href="src/nlp_service/README.md">Natural Language Processing Service</a></li>
+<li><a href="src/postgresql_db/README.md">PostgreSQL Database</a></li>
+</ul>
+<a class="header" href="print.html#deployment" id="deployment"><h2>Deployment</h2></a>
+<p>Deployment is done via Travis CI and Ansible. The most current version of the master branch is reflected on the <a href="https://capstone.cyberjustice.ca">Demo Page</a></p>
+<a class="header" href="print.html#architecture" id="architecture"><h2>Architecture</h2></a>
+<p>The following architecture diagram represents the various services and the relationships they have with one another.</p>
+<p><img src="/images/high-level-architecture.png" alt="High Level Architecture" /></p>
+<a class="header" href="print.html#contributing" id="contributing"><h2>Contributing</h2></a>
+<p>See <a href="CONTRIBUTING.md">CONTRIBUTING.md</a> for details.</p>
+<a class="header" href="print.html#versioning" id="versioning"><h2>Versioning</h2></a>
+<p>See the <a href="https://github.com/Cyberjusticelab/JusticeAI/releases">releases tab</a></p>
+<a class="header" href="print.html#authors" id="authors"><h2>Authors</h2></a>
+<p>The following is a list of team members that are contributing to the project:</p>
+<ul>
+<li><a href="https://github.com/Samuel-Campbell">Samuel-Campbell</a></li>
+<li><a href="https://github.com/TaimoorRana">TaimoorRana</a></li>
+<li><a href="https://github.com/Vynny">Vynny</a></li>
+<li><a href="https://github.com/lancelafontaine">lancelafontaine</a></li>
+<li><a href="https://github.com/choitwao">choitwao</a></li>
+<li><a href="https://github.com/arekmano">arekmano</a></li>
+<li><a href="https://github.com/mihaiqc">mihaiqc</a></li>
+</ul>
+<a class="header" href="print.html#license" id="license"><h2>License</h2></a>
+<p>This project is licensed under the MIT License - see the <a href="LICENSE">LICENSE</a> file for details</p>
+<a class="header" href="print.html#acknowledgments" id="acknowledgments"><h2>Acknowledgments</h2></a>
+<p>TBD</p>
+<a class="header" href="print.html#source" id="source"><h1>Source</h1></a>
+<p>The project is split into several modules; one per micro-service. The description of each microservice is shown below:</p>
+<a class="header" href="print.html#backend-service" id="backend-service"><h2>Backend Service</h2></a>
+<p>This module is responsible for responding to the web client's API queries. It is also the primary point of contact for the other micro-services</p>
+<a class="header" href="print.html#ml-service" id="ml-service"><h2>ML Service</h2></a>
+<p>This module is responsible for all things related to predicting outcomes and classifying based on precedent data</p>
+<a class="header" href="print.html#web-client" id="web-client"><h2>Web Client</h2></a>
+<p>This module contains the Web UI that users will interact with</p>
+<a class="header" href="print.html#postgresql" id="postgresql"><h2>Postgresql</h2></a>
+<p>This module contains the data persistence layer of our system</p>
+<a class="header" href="print.html#nlp-service" id="nlp-service"><h2>NLP Service</h2></a>
+<p>This module is responsible for all things related to natural language processing, which the user interacts with</p>
+<a class="header" href="print.html#web-client-service" id="web-client-service"><h1>Web Client Service</h1></a>
+<a class="header" href="print.html#run-tests-and-lints" id="run-tests-and-lints"><h2>Run Tests and Lints</h2></a>
+<pre><code>export COMPOSE_FILE=ci
+./cjl up -d &amp;&amp; ./cjl run web_client
+</code></pre>
+<a class="header" href="print.html#technologies" id="technologies"><h2>Technologies</h2></a>
+<p>The following technologies are in use in this service:</p>
+<a class="header" href="print.html#bootstrap" id="bootstrap"><h3>Bootstrap</h3></a>
+<p><a href="https://getbootstrap.com">Bootstrap</a> is an open source front end framework developed by Twitter. It contains styling for various common web components, such as forms and inputs, as well as providing a convenient grid system that greatly facilitates web page styling and layout.</p>
+<ul>
+<li>Alternatives: Foundation Framework, pure.css, skeleton</li>
+<li>Reason Chosen:
+<ul>
+<li>Team member’s past experiences</li>
+<li>Industry standard</li>
+</ul>
+</li>
+</ul>
+<a class="header" href="print.html#vuejs" id="vuejs"><h3>Vue.js</h3></a>
+<p>(Vue.js)[https://vuejs.org/] is an open source front end framework for building single page applications. It leverages component based architecture that allows for the creation of an interactive website. Its primary purpose will be to power the visible portion of the chatbot, displaying messages, sending messages to the server, and prompting the user for various interactions such as answering questions or providing files to use as evidence.</p>
+<ul>
+<li>Alternatives: AngularJS, Angular 4, ReactJs</li>
+<li>Reason Chosen:
+<ul>
+<li>Low learning curve</li>
+<li>High performance</li>
+<li>Small footprint and minimal API</li>
+</ul>
+</li>
+</ul>
+<a class="header" href="print.html#backend-service-1" id="backend-service-1"><h1>Backend Service</h1></a>
+<a class="header" href="print.html#run-tests-and-lints-1" id="run-tests-and-lints-1"><h2>Run Tests and Lints</h2></a>
+<pre><code>export COMPOSE_FILE=ci
+./cjl up -d &amp;&amp; ./cjl run backend_service
+</code></pre>
+<hr />
+<a class="header" href="print.html#backend-api" id="backend-api"><h1>Backend API</h1></a>
+<a class="header" href="print.html#initialize-a-new-conversation" id="initialize-a-new-conversation"><h1>Initialize a new conversation</h1></a>
+<p>Initializes a new conversation</p>
+<p><strong>URL</strong> : <code>/new</code></p>
+<p><strong>Method</strong> : <code>POST</code></p>
+<p><strong>Data constraints</strong></p>
+<p>Provide the user's name and person type.</p>
+<pre><code class="language-json">{
+    &quot;name&quot;: &quot;[unicode 40 chars max]&quot;,
+    &quot;person_type&quot;: &quot;(TENANT|LANDLORD)&quot;
+}
+</code></pre>
+<a class="header" href="print.html#success-response" id="success-response"><h2>Success Response</h2></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">{
+    &quot;conversation_id&quot;: 1
+}
+</code></pre>
+<a class="header" href="print.html#error-response" id="error-response"><h2>Error Response</h2></a>
+<p><strong>Code</strong> : <code>400 Bad Request</code> - <em>Invalid person_type provided</em></p>
+<hr />
+<a class="header" href="print.html#store-user-confirmation" id="store-user-confirmation"><h1>Store User Confirmation</h1></a>
+<p>Stores the user confirmation or text supplied in order to confirm whether an NLP prediction was accurate.</p>
+<p><strong>URL</strong> : <code>/store-user-confirmation</code></p>
+<p><strong>Method</strong> : <code>POST</code></p>
+<p><strong>Data constraints</strong></p>
+<p>Provide the conversation id and confirmation text of the user.</p>
+<pre><code class="language-json">{
+    &quot;conversation_id&quot;: 1,
+    &quot;confirmation&quot;: true | false | &quot;$5000&quot;
+}
+</code></pre>
+<a class="header" href="print.html#success-response-1" id="success-response-1"><h2>Success Response</h2></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">{
+    &quot;message&quot;: &quot;User confirmation stored successfully&quot;
+}
+</code></pre>
+<a class="header" href="print.html#error-response-1" id="error-response-1"><h2>Error Response</h2></a>
+<p><strong>Code</strong> : <code>400 Bad Request</code></p>
+<p><strong>Code</strong> : <code>404 Not Found</code></p>
+<hr />
+<a class="header" href="print.html#send-a-message" id="send-a-message"><h1>Send a message</h1></a>
+<p>Sends a message to the bot.</p>
+<p><strong>URL</strong> : <code>/conversation</code></p>
+<p><strong>Method</strong> : <code>POST</code></p>
+<p><strong>Data constraints</strong></p>
+<p>Provide the conversation_id and a message. Message should be empty string for first call.</p>
+<pre><code class="language-json">{
+    &quot;conversation_id&quot;: &quot;[integer]&quot;,
+    &quot;message&quot;: &quot;[unicode]&quot;
+}
+</code></pre>
+<a class="header" href="print.html#success-response-2" id="success-response-2"><h2>Success Response</h2></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<p>Simple response containing a message and conversation progress. Messages may contain pipe characters (|) which indicate that a sentence should be split into separate conversation windows. Note that the first message will not contain a pipe character. Each subsequent sentence will begin with a pipe character if it is meant to be split.</p>
+<p>Converation progress will be null at the beginning of the conversation, and if the user ends up asking a FAQ question (which have no progress). However, if the user asks a question that requires the bot to resolve facts, progress will indicate a percentage of how far along the conversation is to getting a prediction.</p>
+<a class="header" href="print.html#example-1" id="example-1"><h3>Example 1:</h3></a>
+<pre><code class="language-json">{
+    &quot;conversation_id&quot;: 1,
+    &quot;message&quot;: &quot;Hello Tim Timmens!|What kind of problem are you having?&quot;,
+    &quot;progress&quot;: null
+}
+</code></pre>
+<p>This can be formatted as:</p>
+<p>Message 1: Hello Tim Timmens!</p>
+<p>Message 2: What kind of problem are you having?</p>
+<a class="header" href="print.html#example-2" id="example-2"><h3>Example 2:</h3></a>
+<pre><code class="language-json">{
+    &quot;conversation_id&quot;: 5,
+    &quot;message&quot;: &quot;Oh I see you're having problems with lease termination!|I have a few questions for you.|Do you have a lease?&quot;,
+    &quot;progress&quot;: 0
+}
+</code></pre>
+<p>This can be formatted as:</p>
+<p>Message 1: Oh I see you're having problems with lease termination!</p>
+<p>Message 2: I have a few questions for you.</p>
+<p>Message 3: Do you have a lease</p>
+<a class="header" href="print.html#response-containing-a-request-for-a-file" id="response-containing-a-request-for-a-file"><h3>Response containing a request for a file.</h3></a>
+<pre><code class="language-json">{
+    &quot;conversation_id&quot;: 1,
+    &quot;file_request&quot;: {
+        &quot;document_type&quot;: &quot;LEASE&quot;
+    },
+    &quot;message&quot;: &quot;Could you please upload your lease if you have it, Tim Timmens?&quot;
+}
+</code></pre>
+<a class="header" href="print.html#document-types" id="document-types"><h3>Document Types</h3></a>
+<p><em>LEASE</em>: A lease for a dwelling</p>
+<a class="header" href="print.html#error-response-2" id="error-response-2"><h2>Error Response</h2></a>
+<p><strong>Code</strong> : <code>404 Not Found</code></p>
+<hr />
+<a class="header" href="print.html#get-a-conversation-history" id="get-a-conversation-history"><h1>Get a conversation history</h1></a>
+<p>Gets the message history for a conversation</p>
+<p><strong>URL</strong> : <code>/conversation/:conversation_id</code></p>
+<p><strong>Method</strong> : <code>GET</code></p>
+<a class="header" href="print.html#success-response-3" id="success-response-3"><h2>Success Response</h2></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">{
+    &quot;claim_category&quot;: &quot;NONPAYMENT&quot;,
+    &quot;bot_state&quot;: &quot;RESOLVING_FACTS&quot;,
+    &quot;current_fact&quot;: {
+        &quot;name&quot;: &quot;landlord_retakes_apartment&quot;,
+        &quot;summary&quot;: &quot;Landlord intends to retake dwelling&quot;,
+        &quot;type&quot;: &quot;BOOLEAN&quot;
+    },
+    &quot;fact_entities&quot;: [
+        {
+            &quot;fact&quot;: {
+                &quot;name&quot;: &quot;apartment_impropre&quot;,
+                &quot;summary&quot;: &quot;Dwelling unfit for habitation&quot;,
+                &quot;type&quot;: &quot;BOOLEAN&quot;
+            },
+            &quot;id&quot;: 1,
+            &quot;value&quot;: &quot;false&quot;
+        },
+        {
+            &quot;fact&quot;: {
+                &quot;name&quot;: &quot;landlord_relocation_indemnity_fees&quot;,
+                &quot;summary&quot;: &quot;Relocation reimbursed following inhabitability&quot;,
+                &quot;type&quot;: &quot;BOOLEAN&quot;
+            },
+            &quot;id&quot;: 2,
+            &quot;value&quot;: &quot;true&quot;
+        }
+    ],
+    &quot;files&quot;: [],
+    &quot;id&quot;: 1,
+    &quot;messages&quot;: [
+        {
+            &quot;enforce_possible_answer&quot;: true,
+            &quot;file_request&quot;: null,
+            &quot;id&quot;: 1,
+            &quot;possible_answers&quot;: &quot;[\&quot;Yes\&quot;]&quot;,
+                &quot;relevant_fact&quot;: null,
+                &quot;sender_type&quot;: &quot;BOT&quot;,
+                &quot;text&quot;: &quot;Hello Bobby! Before we start, I want to make it clear that I am not a replacement for a lawyer and any information I provide you with is not meant to be construed as legal advice. Always check in with your legal professional. You can read more about our terms of use &lt;a href='/legal' target='_blank'&gt;here&lt;/a&gt;. Do you accept these conditions?&quot;,
+                &quot;timestamp&quot;: &quot;2017-12-20T01:27:35.993932+00:00&quot;
+            },
+            {
+                &quot;enforce_possible_answer&quot;: null,
+                &quot;file_request&quot;: null,
+                &quot;id&quot;: 2,
+                &quot;possible_answers&quot;: null,
+                &quot;relevant_fact&quot;: null,
+                &quot;sender_type&quot;: &quot;USER&quot;,
+                &quot;text&quot;: &quot;Yes&quot;,
+                &quot;timestamp&quot;: &quot;2017-12-20T01:27:39.023317+00:00&quot;
+            },
+            {
+                &quot;enforce_possible_answer&quot;: false,
+                &quot;file_request&quot;: {
+                    &quot;document_type&quot;: &quot;LEASE&quot;
+                },
+                &quot;id&quot;: 3,
+                &quot;possible_answers&quot;: null,
+                &quot;relevant_fact&quot;: null,
+                &quot;sender_type&quot;: &quot;BOT&quot;,
+                &quot;text&quot;: &quot;I see you're a tenant, Bobby. If you have it on hand, it would be very helpful if you could upload your lease. What issue can I help you with today?&quot;,
+                &quot;timestamp&quot;: &quot;2017-12-20T01:27:39.040375+00:00&quot;
+            },
+            {
+                &quot;enforce_possible_answer&quot;: null,
+                &quot;file_request&quot;: null,
+                &quot;id&quot;: 4,
+                &quot;possible_answers&quot;: null,
+                &quot;relevant_fact&quot;: null,
+                &quot;sender_type&quot;: &quot;USER&quot;,
+                &quot;text&quot;: &quot;I am being kicked out&quot;,
+                &quot;timestamp&quot;: &quot;2017-12-20T01:27:40.694884+00:00&quot;
+            },
+            {
+                &quot;enforce_possible_answer&quot;: false,
+                &quot;file_request&quot;: null,
+                &quot;id&quot;: 5,
+                &quot;possible_answers&quot;: null,
+                &quot;relevant_fact&quot;: {
+                    &quot;name&quot;: &quot;apartment_impropre&quot;,
+                    &quot;summary&quot;: &quot;Dwelling unfit for habitation&quot;,
+                    &quot;type&quot;: &quot;BOOLEAN&quot;
+                },
+                &quot;sender_type&quot;: &quot;BOT&quot;,
+                &quot;text&quot;: &quot;Oh yes, I know all about problems with nonpayment. Would you deem the apartment unfit for habitation?&quot;,
+                &quot;timestamp&quot;: &quot;2017-12-20T01:27:40.794129+00:00&quot;
+            },
+            {
+                &quot;enforce_possible_answer&quot;: null,
+                &quot;file_request&quot;: null,
+                &quot;id&quot;: 6,
+                &quot;possible_answers&quot;: null,
+                &quot;relevant_fact&quot;: {
+                    &quot;name&quot;: &quot;apartment_impropre&quot;,
+                    &quot;summary&quot;: &quot;Dwelling unfit for habitation&quot;,
+                    &quot;type&quot;: &quot;BOOLEAN&quot;
+                },
+                &quot;sender_type&quot;: &quot;USER&quot;,
+                &quot;text&quot;: &quot;No&quot;,
+                &quot;timestamp&quot;: &quot;2017-12-20T01:28:46.591573+00:00&quot;
+            },
+            {
+                &quot;enforce_possible_answer&quot;: false,
+                &quot;file_request&quot;: null,
+                &quot;id&quot;: 7,
+                &quot;possible_answers&quot;: null,
+                &quot;relevant_fact&quot;: {
+                    &quot;name&quot;: &quot;landlord_relocation_indemnity_fees&quot;,
+                    &quot;summary&quot;: &quot;Relocation reimbursed following inhabitability&quot;,
+                    &quot;type&quot;: &quot;BOOLEAN&quot;
+                },
+                &quot;sender_type&quot;: &quot;BOT&quot;,
+                &quot;text&quot;: &quot;Have moving expenses been compensated when the apartment was deemed inhabitable?&quot;,
+                &quot;timestamp&quot;: &quot;2017-12-20T01:28:46.652110+00:00&quot;
+            },
+            {
+                &quot;enforce_possible_answer&quot;: null,
+                &quot;file_request&quot;: null,
+                &quot;id&quot;: 8,
+                &quot;possible_answers&quot;: null,
+                &quot;relevant_fact&quot;: {
+                    &quot;name&quot;: &quot;landlord_relocation_indemnity_fees&quot;,
+                    &quot;summary&quot;: &quot;Relocation reimbursed following inhabitability&quot;,
+                    &quot;type&quot;: &quot;BOOLEAN&quot;
+                },
+                &quot;sender_type&quot;: &quot;USER&quot;,
+                &quot;text&quot;: &quot;Yes&quot;,
+                &quot;timestamp&quot;: &quot;2017-12-20T01:28:51.529825+00:00&quot;
+            }
+        ],
+    &quot;name&quot;: &quot;Bobby&quot;,
+    &quot;person_type&quot;: &quot;TENANT&quot;
+}
+</code></pre>
+<a class="header" href="print.html#error-response-3" id="error-response-3"><h2>Error Response</h2></a>
+<p><strong>Code</strong> : <code>400 Bad Request</code></p>
+<p><strong>Code</strong> : <code>404 Not Found</code></p>
+<hr />
+<a class="header" href="print.html#get-a-report-for-a-conversation" id="get-a-report-for-a-conversation"><h1>Get a report for a conversation</h1></a>
+<p>Retrieves a report for a conversation once at least one prediction has been returned. Will return 404 if a report has not been generated yet.</p>
+<p><strong>URL</strong> : <code>/conversation/:conversation_id/report</code></p>
+<p><strong>Method</strong> : <code>GET</code></p>
+<a class="header" href="print.html#success-response-4" id="success-response-4"><h2>Success Response</h2></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">{
+    &quot;report&quot;: {
+        &quot;accuracy&quot;: 0.8114285714285714,
+        &quot;curves&quot;: {
+            &quot;additional_indemnity_money&quot;: {
+                &quot;mean&quot;: 1477.7728467101024,
+                &quot;outcome_value&quot;: 6038,
+                &quot;std&quot;: 1927.8147997893939,
+                &quot;variance&quot;: 3716469.9022870203
+            }
+        },
+        &quot;data_set&quot;: 8,
+        &quot;outcomes&quot;: {
+            &quot;additional_indemnity_money&quot;: 6038,
+            &quot;landlord_prejudice_justified&quot;: true,
+            &quot;orders_expulsion&quot;: true,
+            &quot;orders_immediate_execution&quot;: true,
+            &quot;orders_resiliation&quot;: true,
+            &quot;tenant_ordered_to_pay_landlord&quot;: 3092,
+            &quot;tenant_ordered_to_pay_landlord_legal_fees&quot;: 80
+        },
+        &quot;similar_case&quot;: 5,
+        &quot;similar_precedents&quot;: [
+            {
+                &quot;distance&quot;: 2.6080129205467784,
+                &quot;facts&quot;: {
+                    &quot;landlord_relocation_indemnity_fees&quot;: 0,
+                    &quot;tenant_dead&quot;: false,
+                    &quot;tenant_is_bothered&quot;: false,
+                    &quot;tenant_left_without_paying&quot;: false,
+                    &quot;tenant_owes_rent&quot;: 0,
+                    &quot;tenant_rent_not_paid_more_3_weeks&quot;: true
+                },
+                &quot;outcomes&quot;: {
+                    &quot;additional_indemnity_money&quot;: 5850,
+                    &quot;landlord_prejudice_justified&quot;: true,
+                    &quot;orders_expulsion&quot;: true,
+                    &quot;orders_immediate_execution&quot;: true,
+                    &quot;orders_resiliation&quot;: true,
+                    &quot;tenant_ordered_to_pay_landlord&quot;: 7150,
+                    &quot;tenant_ordered_to_pay_landlord_legal_fees&quot;: 74
+                },
+                &quot;precedent&quot;: &quot;AZ-51412066&quot;
+            },
+            {
+                &quot;distance&quot;: 2.6543730465072035,
+                &quot;facts&quot;: {
+                    &quot;landlord_relocation_indemnity_fees&quot;: 0,
+                    &quot;tenant_dead&quot;: false,
+                    &quot;tenant_is_bothered&quot;: false,
+                    &quot;tenant_left_without_paying&quot;: false,
+                    &quot;tenant_owes_rent&quot;: 2460,
+                    &quot;tenant_rent_not_paid_more_3_weeks&quot;: true
+                },
+                &quot;outcomes&quot;: {
+                    &quot;additional_indemnity_money&quot;: 3620,
+                    &quot;landlord_prejudice_justified&quot;: true,
+                    &quot;orders_expulsion&quot;: true,
+                    &quot;orders_immediate_execution&quot;: true,
+                    &quot;orders_resiliation&quot;: true,
+                    &quot;tenant_ordered_to_pay_landlord&quot;: 2460,
+                    &quot;tenant_ordered_to_pay_landlord_legal_fees&quot;: 81
+                },
+                &quot;precedent&quot;: &quot;AZ-51163532&quot;
+            },
+            {
+                &quot;distance&quot;: 2.6969256661279988,
+                &quot;facts&quot;: {
+                    &quot;landlord_relocation_indemnity_fees&quot;: 0,
+                    &quot;tenant_dead&quot;: false,
+                    &quot;tenant_is_bothered&quot;: false,
+                    &quot;tenant_left_without_paying&quot;: false,
+                    &quot;tenant_owes_rent&quot;: 0,
+                    &quot;tenant_rent_not_paid_more_3_weeks&quot;: true
+                },
+                &quot;outcomes&quot;: {
+                    &quot;additional_indemnity_money&quot;: 2463,
+                    &quot;landlord_prejudice_justified&quot;: true,
+                    &quot;orders_expulsion&quot;: true,
+                    &quot;orders_immediate_execution&quot;: true,
+                    &quot;orders_resiliation&quot;: true,
+                    &quot;tenant_ordered_to_pay_landlord&quot;: 2886,
+                    &quot;tenant_ordered_to_pay_landlord_legal_fees&quot;: 83
+                },
+                &quot;precedent&quot;: &quot;AZ-51395624&quot;
+            },
+            {
+                &quot;distance&quot;: 2.719885995641093,
+                &quot;facts&quot;: {
+                    &quot;landlord_relocation_indemnity_fees&quot;: 0,
+                    &quot;tenant_dead&quot;: false,
+                    &quot;tenant_is_bothered&quot;: false,
+                    &quot;tenant_left_without_paying&quot;: false,
+                    &quot;tenant_owes_rent&quot;: 0,
+                    &quot;tenant_rent_not_paid_more_3_weeks&quot;: true
+                },
+                &quot;outcomes&quot;: {
+                    &quot;additional_indemnity_money&quot;: 3180,
+                    &quot;landlord_prejudice_justified&quot;: true,
+                    &quot;orders_expulsion&quot;: true,
+                    &quot;orders_immediate_execution&quot;: true,
+                    &quot;orders_resiliation&quot;: true,
+                    &quot;tenant_ordered_to_pay_landlord&quot;: 3830,
+                    &quot;tenant_ordered_to_pay_landlord_legal_fees&quot;: 74
+                },
+                &quot;precedent&quot;: &quot;AZ-51395655&quot;
+            },
+            {
+                &quot;distance&quot;: 2.7806288394504484,
+                &quot;facts&quot;: {
+                    &quot;landlord_relocation_indemnity_fees&quot;: 0,
+                    &quot;tenant_dead&quot;: false,
+                    &quot;tenant_is_bothered&quot;: false,
+                    &quot;tenant_left_without_paying&quot;: false,
+                    &quot;tenant_owes_rent&quot;: 3600,
+                    &quot;tenant_rent_not_paid_more_3_weeks&quot;: true
+                },
+                &quot;outcomes&quot;: {
+                    &quot;additional_indemnity_money&quot;: 3750,
+                    &quot;landlord_prejudice_justified&quot;: true,
+                    &quot;orders_expulsion&quot;: true,
+                    &quot;orders_immediate_execution&quot;: true,
+                    &quot;orders_resiliation&quot;: true,
+                    &quot;tenant_ordered_to_pay_landlord&quot;: 3600,
+                    &quot;tenant_ordered_to_pay_landlord_legal_fees&quot;: 78
+                },
+                &quot;precedent&quot;: &quot;AZ-51187376&quot;
+            }
+        ]
+    }
+}
+</code></pre>
+<a class="header" href="print.html#error-response-4" id="error-response-4"><h2>Error Response</h2></a>
+<p><strong>Code</strong> : <code>400 Bad Request</code></p>
+<a class="header" href="print.html#code--404-not-found" id="code--404-not-found"><h2><strong>Code</strong> : <code>404 Not Found</code></h2></a>
+<a class="header" href="print.html#get-facts-resolved-during-conversation" id="get-facts-resolved-during-conversation"><h1>Get facts resolved during conversation</h1></a>
+<p>Gets only the list of resolved facts for the conversation</p>
+<p><strong>URL</strong> : <code>/conversation/:conversation_id/resolved</code></p>
+<p><strong>Method</strong> : <code>GET</code></p>
+<a class="header" href="print.html#success-response-5" id="success-response-5"><h2>Success Response</h2></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">{
+    &quot;fact_entities&quot;: [
+        {
+            &quot;fact&quot;: {
+                &quot;name&quot;: &quot;apartment_impropre&quot;,
+                &quot;summary&quot;: &quot;Dwelling unfit for habitation&quot;,
+                &quot;type&quot;: &quot;BOOLEAN&quot;
+            },
+            &quot;id&quot;: 1,
+            &quot;value&quot;: &quot;false&quot;
+        },
+        {
+            &quot;fact&quot;: {
+                &quot;name&quot;: &quot;landlord_relocation_indemnity_fees&quot;,
+                &quot;summary&quot;: &quot;Relocation reimbursed following inhabitability&quot;,
+                &quot;type&quot;: &quot;BOOLEAN&quot;
+            },
+            &quot;id&quot;: 2,
+            &quot;value&quot;: &quot;true&quot;
+        }
+    ]
+}
+</code></pre>
+<a class="header" href="print.html#error-response-5" id="error-response-5"><h2>Error Response</h2></a>
+<p><strong>Code</strong> : <code>400 Bad Request</code></p>
+<p><strong>Code</strong> : <code>404 Not Found</code></p>
+<hr />
+<a class="header" href="print.html#remove-a-resolved-fact" id="remove-a-resolved-fact"><h1>Remove a resolved fact</h1></a>
+<p>Removes a resolved fact from the conversation</p>
+<p><strong>URL</strong> : <code>/conversation/:conversation_id/resolved/:fact_id</code></p>
+<p><strong>Method</strong> : <code>DELETE</code></p>
+<a class="header" href="print.html#success-response-6" id="success-response-6"><h2>Success Response</h2></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">{
+    &quot;success&quot;: true
+}
+</code></pre>
+<a class="header" href="print.html#error-response-6" id="error-response-6"><h2>Error Response</h2></a>
+<p><strong>Code</strong> : <code>400 Bad Request</code></p>
+<p><strong>Code</strong> : <code>404 Not Found</code></p>
+<hr />
+<a class="header" href="print.html#upload-a-file" id="upload-a-file"><h1>Upload a file</h1></a>
+<p>Upload a file that serves as evidence for a particular conversation.</p>
+<p><strong>URL</strong> : <code>/conversation/:conversation_id/files</code></p>
+<p><strong>Method</strong> : <code>POST</code></p>
+<p><strong>Headers</strong></p>
+<p>Content-Type: <code>multipart/form-data</code></p>
+<p><strong>Data constraints</strong></p>
+<p>Provide 'file' form key with file data.</p>
+<a class="header" href="print.html#success-response-7" id="success-response-7"><h2>Success Response</h2></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">{
+    &quot;name&quot;: &quot;leaky_pipes.png&quot;,
+    &quot;type&quot;: &quot;image/png&quot;,
+    &quot;timestamp&quot;: &quot;2017-10-24T00:01:27.806730+00:00&quot;
+}
+</code></pre>
+<a class="header" href="print.html#error-response-7" id="error-response-7"><h2>Error Response</h2></a>
+<p><strong>Code</strong> : <code>400 Bad Request</code></p>
+<p><strong>Code</strong> : <code>404 Not Found</code></p>
+<hr />
+<a class="header" href="print.html#get-conversation-file-metadata" id="get-conversation-file-metadata"><h1>Get conversation file metadata</h1></a>
+<p>Gets a list of file metadata for a conversation</p>
+<p><strong>URL</strong> : <code>/conversation/:conversation_id/files</code></p>
+<p><strong>Method</strong> : <code>GET</code></p>
+<a class="header" href="print.html#success-response-8" id="success-response-8"><h2>Success Response</h2></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">{
+    &quot;files&quot;: [
+        {
+            &quot;name&quot;: &quot;leaky_pipes.png&quot;,
+            &quot;type&quot;: &quot;image/png&quot;,
+            &quot;timestamp&quot;: &quot;2017-10-24T00:01:27.000000+00:00&quot;
+        },
+        {
+            &quot;name&quot;: &quot;my_least.pdf&quot;,
+            &quot;type&quot;: &quot;application/pdf&quot;,
+            &quot;timestamp&quot;: &quot;2017-10-24T00:01:30.000000+00:00&quot;
+        }
+    ]
+}
+</code></pre>
+<a class="header" href="print.html#error-response-8" id="error-response-8"><h2>Error Response</h2></a>
+<p><strong>Code</strong> : <code>400 Bad Request</code></p>
+<p><strong>Code</strong> : <code>404 Not Found</code></p>
+<hr />
+<a class="header" href="print.html#get-latest-legal-documents" id="get-latest-legal-documents"><h1>Get Latest Legal Documents</h1></a>
+<p>Obtains information and contents of the latest legal documents</p>
+<p><strong>URL</strong> : <code>/legal</code></p>
+<p><strong>Method</strong> : <code>GET</code></p>
+<a class="header" href="print.html#success-response-9" id="success-response-9"><h2>Success Response</h2></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">[
+    {
+        &quot;abbreviation&quot;: &quot;EULA&quot;,
+        &quot;html&quot;: {
+            &quot;content&quot;: [
+                {
+                    &quot;subtitle&quot;: &quot;TL;DR&quot;,
+                    &quot;summary&quot;: &quot;no purse as fully me or point. Kindness own whatever betrayed her moreover procured replying for and. Proposal indulged no do do sociable he throwing settling. Covered ten nor comfort offices carried. Age she way earnestly the fulfilled extremely.&quot;,
+                    &quot;text&quot;: &quot;Prevailed sincerity behaviour to so do principle mr. As departure at no propriety zealously my. On dear rent if girl view. First on smart there he sense. Earnestly enjoyment her you resources. Brother chamber ten old against. Mr be cottage so related minuter is. Delicate say and blessing ladyship exertion few margaret. Delight herself welcome against smiling its for. Suspected discovery by he affection household of principle perfectly he.&quot;,
+                    &quot;title&quot;: &quot;DESCRIPTION OF SERVICE&quot;
+                },
+                {
+                    &quot;subtitle&quot;: &quot;TL;DR&quot;,
+                    &quot;summary&quot;: &quot;Scarcely on striking packages by so property in delicate. Up or well must less rent read walk so be. Easy sold at do hour sing spot. Any meant has cease too the decay. Since party burst am it match. By or blushes between besides offices noisier as.&quot;,
+                    &quot;text&quot;: &quot;It prepare is ye nothing blushes up brought. Or as gravity pasture limited evening on. Wicket around beauty say she. Frankness resembled say not new smallness you discovery. Noisier ferrars yet shyness weather ten colonel. Too him himself engaged husband pursuit musical. Man age but him determine consisted therefore. Dinner to beyond regret wished an branch he. Remain bed but expect suffer little repair.&quot;,
+                    &quot;title&quot;: &quot;ACCEPTANCE OF TERMS&quot;
+                },
+                {
+                    &quot;subtitle&quot;: &quot;TL;DR&quot;,
+                    &quot;summary&quot;: &quot;Luckily friends do ashamed to do suppose. Tried meant mr smile so. Exquisite behaviour as to middleton perfectly.&quot;,
+                    &quot;text&quot;: &quot;He my polite be object oh change. Consider no mr am overcame yourself throwing sociable children. Hastily her totally conduct may. My solid by stuff first smile fanny. Humoured how advanced mrs elegance sir who. Home sons when them dine do want to. Estimating themselves unsatiable imprudence an he at an. Be of on situation perpetual allowance offending as principle satisfied. Improved carriage securing are desirous too.&quot;,
+                    &quot;title&quot;: &quot;MODIFICATION OF TERMS&quot;
+                },
+                {
+                    &quot;subtitle&quot;: &quot;TL;DR&quot;,
+                    &quot;summary&quot;: &quot;Improved own provided blessing may peculiar domestic. Sight house has sex never. No visited raising gravity outward subject my cottage mr be. Hold do at tore in park feet near my case.&quot;,
+                    &quot;text&quot;: &quot;Extremely we promotion remainder eagerness enjoyment an. Ham her demands removal brought minuter raising invited gay. Contented consisted continual curiosity contained get sex. Forth child dried in in aware do. You had met they song how feel lain evil near. Small she avoid six yet table china. And bed make say been then dine mrs. To household rapturous fulfilled attempted on so. &quot;,
+                    &quot;title&quot;: &quot;REGISTRATION&quot;
+                }
+            ],
+            &quot;header&quot;: &quot;End User License Agreement&quot;,
+            &quot;subheader&quot;: &quot;Savings her pleased are several started females met. Short her not among being any. Thing of judge fruit charm views do. Miles mr an forty along as he. She education get middleton day agreement performed preserved unwilling. Do however as pleased offence outward beloved by present. By outward neither he so covered amiable greater. Juvenile proposal betrayed he an informed weddings followed. Precaution day see imprudence sympathize principles. At full leaf give quit to in they up.&quot;
+        },
+        &quot;time_created&quot;: &quot;2017-10-26T20:52:41-04:00&quot;,
+        &quot;type&quot;: &quot;End User License Agreement&quot;,
+        &quot;version&quot;: 1
+    }
+]
+</code></pre>
+<a class="header" href="print.html#natural-language-processing-service" id="natural-language-processing-service"><h1>Natural Language Processing Service</h1></a>
+<a class="header" href="print.html#run-tests-and-lints-2" id="run-tests-and-lints-2"><h2>Run Tests and Lints</h2></a>
+<pre><code>export COMPOSE_FILE=ci
+./cjl up -d &amp;&amp; ./cjl run nlp_service
+</code></pre>
+<hr />
+<a class="header" href="print.html#nlp-api" id="nlp-api"><h1>NLP API</h1></a>
+<a class="header" href="print.html#classify-claim-category" id="classify-claim-category"><h2>Classify claim category</h2></a>
+<p>Extract a claim category from a user's message. Returns a question based on the claim category found, or a clarification question.</p>
+<p><strong>URL</strong> : <code>/claim_category</code></p>
+<p><strong>Method</strong> : <code>POST</code></p>
+<p><strong>Data constraints</strong></p>
+<p>Provide the conversation id and the message.</p>
+<pre><code class="language-json">{
+    &quot;conversation_id&quot;: 1,
+    &quot;message&quot;: &quot;I am being evicted&quot;
+}
+</code></pre>
+<a class="header" href="print.html#success-response-10" id="success-response-10"><h4>Success Response</h4></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">{
+    &quot;message&quot;: &quot;I see you're having problems with lease termination. Have you kept up with your rent payments?&quot;,
+    &quot;progress&quot;: 0
+}
+</code></pre>
+<a class="header" href="print.html#error-response-9" id="error-response-9"><h4>Error Response</h4></a>
+<p><strong>Code</strong> : <code>400 Bad Request</code> - <em>Inputs not provided</em></p>
+<p><strong>Code</strong> : <code>404 Not Found</code> - <em>Conversation doesn't exist</em></p>
+<hr />
+<a class="header" href="print.html#submit-message" id="submit-message"><h2>Submit message</h2></a>
+<p>Submits a user input to the NLP service. Returns the next question to ask, or a clarification question.</p>
+<p><strong>URL</strong> : <code>/submit_message</code></p>
+<p><strong>Method</strong> : <code>POST</code></p>
+<p><strong>Data constraints</strong></p>
+<p>Provide the conversation id and the message.</p>
+<pre><code class="language-json">{
+    &quot;conversation_id&quot;: 1,
+    &quot;message&quot;: &quot;My rent is $900 per month.&quot;
+}
+</code></pre>
+<a class="header" href="print.html#success-response-11" id="success-response-11"><h4>Success Response</h4></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">{
+    &quot;message&quot;: &quot;Have you kept up with your rent payments?&quot;,
+    &quot;progress&quot;: 10
+}
+</code></pre>
+<a class="header" href="print.html#error-response-10" id="error-response-10"><h4>Error Response</h4></a>
+<p><strong>Code</strong> : <code>400 Bad Request</code> - <em>Inputs not provided</em></p>
+<p><strong>Code</strong> : <code>404 Not Found</code> - <em>Conversation doesn't exist</em></p>
+<hr />
+<a class="header" href="print.html#rasa-json-tool" id="rasa-json-tool"><h1>RASA JSON Tool</h1></a>
+<p>The <strong>util.parse_dataset.py</strong> module and the associated <strong>CreateJson</strong> class can be used to create json training data for RASA NLU.</p>
+<a class="header" href="print.html#format" id="format"><h4>Format</h4></a>
+<pre><code>[meta]
+() = entity_name1, entity_extractor(optional)
+{} = entity_name2, entity_extractor(optional)
+
+[regex_features]
+name:regex
+
+[entity_synonyms]
+entity:synonym1, synonym2
+
+[common_examples: intent_name1]
+sentence1
+sentence2
+
+[common_examples: intent_name2]
+sentence1
+sentence2
+
+</code></pre>
+<ul>
+<li><strong>[]</strong> are reserved characters used to identify sections</li>
+<li><strong>meta</strong> section allows for the definition of meta-characters that define entities</li>
+<li><strong>regex_features</strong> are simply regex features</li>
+<li><strong>entity_synonyms</strong> are simply entity synonyms</li>
+<li><strong>common_examples:intent_name</strong> are common examples for a particular intent</li>
+</ul>
+<a class="header" href="print.html#example" id="example"><h4>Example</h4></a>
+<pre><code>[meta]
+() = money, ner_duckling
+
+[regex_features]
+money:$\d(.)?+|\d(.)?+$
+
+[common_examples: true]
+my landlord increased my rent by ($500)
+i owe my landlord (40 dollars)
+
+[common_examples: false]
+i don't owe my landlord any money
+i dont have any debts
+no
+
+</code></pre>
+<a class="header" href="print.html#command-line-use" id="command-line-use"><h3>Command Line Use</h3></a>
+<p>python3 -m util.parse_dataset &lt;read_dir&gt; &lt;write_dir&gt;</p>
+<a class="header" href="print.html#example-1" id="example-1"><h4>Example</h4></a>
+<p>python3 -m util.parse_dataset ~/Documents/ ~/Documents/Json/</p>
+<p><strong>DO NOT FORGET THE '/' AT THE END OF YOUR DIRECTORY</strong></p>
+<a class="header" href="print.html#machine-learning-service" id="machine-learning-service"><h1>Machine Learning Service</h1></a>
+<a class="header" href="print.html#installation-instructions" id="installation-instructions"><h2>Installation Instructions</h2></a>
+<ol>
+<li>Add Cyberjustice Lab username as environment variables: <code>export CJL_USER={USERNAME}</code> either to your .bashrc or run it as a command</li>
+<li>Add Cyberjustice Lab password as environment variables: <code>export CJL_PASS={PASSWORD}</code> either to your .bashrc or run it as a command</li>
+<li>Run <code>pip install -r requirements.txt</code></li>
+<li>Run <code>pip install -r requirements_test.txt</code></li>
+</ol>
+<a class="header" href="print.html#file-structure" id="file-structure"><h3>File Structure:</h3></a>
+<pre><code>
+----| data &lt;all data input and output&gt;
+--------| raw &lt;extract the raw data here&gt;
+--------| binary &lt;all saved binarized model/data&gt;
+--------| cache &lt;temp files&gt;
+--------| cluster
+------------| fact
+------------| decision
+
+----| feature_extraction &lt;all data manipulation before supervised training&gt;
+--------| clustering
+------------| dbscan
+------------| hdbscan
+------------| k_means
+------------| optimization
+------------| clustering.py &lt;driver for clustering&gt;
+--------| pre_processing
+------------| precedent_model
+------------| regex_parse
+------------| word_vector
+------------| pre_processing.py &lt;driver for pre_processing&gt;
+------------| pre_processor.py
+--------| post_processing
+------------| precedent_vector
+------------| post_processing.py &lt;driver for post_processing&gt;
+--------| feature_extraction.py &lt;driver for feature extraction (using 3 drivers above)&gt;
+
+----| model_learning &lt;supervised training&gt;
+------------| neural_net
+------------| model_training.py &lt;driver for supervised training&gt;
+
+----| util &lt;common tool&gt;
+------------| log.py &lt;logging tool&gt;
+------------| file.py &lt;file save and load&gt;
+------------| constant.py &lt;global variables&gt;
+
+init.py
+main.py &lt;driver for the pipeline (feature extraction + model training&gt;
+
+</code></pre>
+<a class="header" href="print.html#extracting-data" id="extracting-data"><h2>Extracting Data</h2></a>
+<ul>
+<li>For binarized data and model, place under <code>data/binary</code></li>
+<li>For precedent raw data (*.txt), place under <code>data/raw</code></li>
+<li>Run <code>python init</code> to download French word vector</li>
+</ul>
+<a class="header" href="print.html#ml-api" id="ml-api"><h2>ML API</h2></a>
+<a class="header" href="print.html#predict-outcome" id="predict-outcome"><h3>Predict Outcome</h3></a>
+<p>Predict the outcome based on given facts and demands. Returns an array of predicted outcomes as well as similar precedents. The precedents have distances assigned to them. The lower the distance, the more similar it is.</p>
+<p><strong>URL</strong> : <code>/predict</code></p>
+<p><strong>Method</strong> : <code>POST</code></p>
+<p><strong>Data constraints</strong></p>
+<p>Provide facts_vector and demands_vector, with key values for each fact/demand.</p>
+<pre><code class="language-json">{
+  &quot;facts&quot; : {
+    &quot;absent&quot; : 1,
+    &quot;apartment_impropre&quot; : 0,
+    &quot;apartment_infestation&quot; : 1,
+    &quot;asker_is_landlord&quot; : 1,
+    &quot;asker_is_tenant&quot; : 1,
+    &quot;bothers_others&quot; : 1,
+    &quot;disrespect_previous_judgement&quot; : 1,
+    &quot;incorrect_facts&quot; : 1,
+    &quot;landlord_inspector_fees&quot; : 1,
+    &quot;landlord_notifies_tenant_retake_apartment&quot; : 1,
+    &quot;landlord_pays_indemnity&quot; : 1,
+    &quot;landlord_prejudice_justified&quot; : 1,
+    &quot;landlord_relocation_indemnity_fees&quot; : 1,
+    &quot;landlord_rent_change&quot; : 1,
+    &quot;landlord_rent_change_doc_renseignements&quot; : 1,
+    &quot;landlord_rent_change_piece_justification&quot; : 1,
+    &quot;landlord_rent_change_receipts&quot; : 0,
+    &quot;landlord_retakes_apartment&quot; : 1,
+    &quot;landlord_retakes_apartment_indemnity&quot; : 1,
+    &quot;landlord_sends_demand_regie_logement&quot; : 0,
+    &quot;landlord_serious_prejudice&quot; : 1,
+    &quot;lease&quot; : 1,
+    &quot;proof_of_late&quot; : 1,
+    &quot;proof_of_revenu&quot; : 0,
+    &quot;rent_increased&quot; : 1,
+    &quot;tenant_bad_payment_habits&quot; : 1,
+    &quot;tenant_continuous_late_payment&quot; : 1,
+    &quot;tenant_damaged_rental&quot; : 1,
+    &quot;tenant_dead&quot; : 1,
+    &quot;tenant_declare_insalubre&quot; : 1,
+    &quot;tenant_financial_problem&quot; : 0,
+    &quot;tenant_group_responsability&quot; : 1,
+    &quot;tenant_individual_responsability&quot; : 1,
+    &quot;tenant_is_bothered&quot; : 1,
+    &quot;lack_of_proof&quot; : 1,
+    &quot;tenant_landlord_agreement&quot; : 0,
+    &quot;tenant_lease_fixed&quot; : 1,
+    &quot;tenant_lease_indeterminate&quot; : 1,
+    &quot;tenant_left_without_paying&quot; : 0,
+    &quot;tenant_monthly_payment&quot; : 1,
+    &quot;tenant_negligence&quot; : 1,
+    &quot;tenant_not_request_cancel_lease&quot; : 1,
+    &quot;tenant_owes_rent&quot; : 1,
+    &quot;tenant_refuses_retake_apartment&quot; : 1,
+    &quot;tenant_rent_not_paid_less_3_weeks&quot; : 1,
+    &quot;tenant_rent_not_paid_more_3_weeks&quot; : 0,
+    &quot;tenant_rent_paid_before_hearing&quot; : 1,
+    &quot;tenant_violence&quot; : 1,
+    &quot;tenant_withold_rent_without_permission&quot; : 1,
+    &quot;violent&quot; : 1
+  }
+}
+</code></pre>
+<a class="header" href="print.html#success-response-12" id="success-response-12"><h4>Success Response</h4></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">{
+  &quot;outcomes_vector&quot;: {
+    &quot;additional_indemnity_money&quot;: &quot;221&quot;,
+    &quot;authorize_landlord_retake_apartment&quot;: &quot;0&quot;,
+    &quot;declares_housing_inhabitable&quot;: &quot;0&quot;,
+    &quot;declares_resiliation_is_correct&quot;: &quot;0&quot;,
+    &quot;landlord_prejudice_justified&quot;: &quot;1&quot;,
+    &quot;landlord_retakes_apartment_indemnity&quot;: &quot;0&quot;,
+    &quot;landlord_serious_prejudice&quot;: &quot;0&quot;,
+    &quot;orders_expulsion&quot;: &quot;1&quot;,
+    &quot;orders_immediate_execution&quot;: &quot;1&quot;,
+    &quot;orders_landlord_notify_tenant_when_habitable&quot;: &quot;0&quot;,
+    &quot;orders_resiliation&quot;: &quot;1&quot;,
+    &quot;orders_tenant_pay_first_of_month&quot;: &quot;0&quot;,
+    &quot;tenant_ordered_to_pay_landlord&quot;: &quot;643&quot;,
+    &quot;tenant_ordered_to_pay_landlord_legal_fees&quot;: &quot;80&quot;
+  },
+  &quot;probabilities_vector&quot;: {
+    &quot;additional_indemnity_money&quot;: &quot;0.93&quot;,
+    &quot;authorize_landlord_retake_apartment&quot;: &quot;1.0&quot;,
+    &quot;declares_housing_inhabitable&quot;: &quot;1.0&quot;,
+    &quot;declares_resiliation_is_correct&quot;: &quot;0.94&quot;,
+    &quot;landlord_prejudice_justified&quot;: &quot;0.74&quot;,
+    &quot;landlord_retakes_apartment_indemnity&quot;: &quot;1.0&quot;,
+    &quot;landlord_serious_prejudice&quot;: &quot;1.0&quot;,
+    &quot;orders_expulsion&quot;: &quot;0.88&quot;,
+    &quot;orders_immediate_execution&quot;: &quot;0.72&quot;,
+    &quot;orders_landlord_notify_tenant_when_habitable&quot;: &quot;1.0&quot;,
+    &quot;orders_resiliation&quot;: &quot;0.91&quot;,
+    &quot;orders_tenant_pay_first_of_month&quot;: &quot;0.99&quot;,
+    &quot;tenant_ordered_to_pay_landlord&quot;: &quot;0.99&quot;,
+    &quot;tenant_ordered_to_pay_landlord_legal_fees&quot;: &quot;0.91&quot;
+  },
+  &quot;similar_precedents&quot;: [
+    {
+      &quot;distance&quot;: 0.3423500835013649,
+      &quot;facts&quot;: {
+        &quot;apartment_dirty&quot;: false,
+        &quot;asker_is_landlord&quot;: true,
+        &quot;asker_is_tenant&quot;: false,
+        &quot;bothers_others&quot;: false,
+        &quot;disrespect_previous_judgement&quot;: false,
+        &quot;landlord_inspector_fees&quot;: &quot;0.0&quot;,
+        &quot;landlord_notifies_tenant_retake_apartment&quot;: false,
+        &quot;landlord_pays_indemnity&quot;: false,
+        &quot;landlord_relocation_indemnity_fees&quot;: &quot;0.0&quot;,
+        &quot;landlord_rent_change&quot;: false,
+        &quot;landlord_rent_change_doc_renseignements&quot;: false,
+        &quot;landlord_retakes_apartment&quot;: false,
+        &quot;landlord_sends_demand_regie_logement&quot;: false,
+        &quot;rent_increased&quot;: false,
+        &quot;signed_proof_of_rent_debt&quot;: false,
+        &quot;tenant_continuous_late_payment&quot;: false,
+        &quot;tenant_damaged_rental&quot;: false,
+        &quot;tenant_dead&quot;: false,
+        &quot;tenant_financial_problem&quot;: false,
+        &quot;tenant_group_responsability&quot;: false,
+        &quot;tenant_individual_responsability&quot;: true,
+        &quot;tenant_is_bothered&quot;: false,
+        &quot;tenant_lease_indeterminate&quot;: false,
+        &quot;tenant_left_without_paying&quot;: false,
+        &quot;tenant_monthly_payment&quot;: &quot;900.0&quot;,
+        &quot;tenant_not_paid_lease_timespan&quot;: &quot;0.0&quot;,
+        &quot;tenant_owes_rent&quot;: &quot;970.0&quot;,
+        &quot;tenant_refuses_retake_apartment&quot;: false,
+        &quot;tenant_rent_not_paid_more_3_weeks&quot;: true,
+        &quot;tenant_sends_demand_regie_logement&quot;: false,
+        &quot;tenant_withold_rent_without_permission&quot;: false,
+        &quot;violent&quot;: false
+      },
+      &quot;outcomes&quot;: {
+        &quot;additional_indemnity_money&quot;: &quot;70.0&quot;,
+        &quot;authorize_landlord_retake_apartment&quot;: false,
+        &quot;declares_housing_inhabitable&quot;: false,
+        &quot;declares_resiliation_is_correct&quot;: false,
+        &quot;landlord_prejudice_justified&quot;: true,
+        &quot;landlord_retakes_apartment_indemnity&quot;: false,
+        &quot;landlord_serious_prejudice&quot;: false,
+        &quot;orders_expulsion&quot;: true,
+        &quot;orders_immediate_execution&quot;: true,
+        &quot;orders_landlord_notify_tenant_when_habitable&quot;: false,
+        &quot;orders_resiliation&quot;: true,
+        &quot;orders_tenant_pay_first_of_month&quot;: false,
+        &quot;tenant_ordered_to_pay_landlord&quot;: &quot;970.0&quot;,
+        &quot;tenant_ordered_to_pay_landlord_legal_fees&quot;: &quot;88.0&quot;
+      },
+      &quot;precedent&quot;: &quot;AZ-51211608&quot;
+    },
+    {
+      &quot;distance&quot;: 0.3429019324281239,
+      &quot;facts&quot;: {
+        &quot;apartment_dirty&quot;: false,
+        &quot;asker_is_landlord&quot;: true,
+        &quot;asker_is_tenant&quot;: false,
+        &quot;bothers_others&quot;: false,
+        &quot;disrespect_previous_judgement&quot;: false,
+        &quot;landlord_inspector_fees&quot;: &quot;0.0&quot;,
+        &quot;landlord_notifies_tenant_retake_apartment&quot;: false,
+        &quot;landlord_pays_indemnity&quot;: false,
+        &quot;landlord_relocation_indemnity_fees&quot;: &quot;0.0&quot;,
+        &quot;landlord_rent_change&quot;: false,
+        &quot;landlord_rent_change_doc_renseignements&quot;: false,
+        &quot;landlord_retakes_apartment&quot;: false,
+        &quot;landlord_sends_demand_regie_logement&quot;: false,
+        &quot;rent_increased&quot;: false,
+        &quot;signed_proof_of_rent_debt&quot;: false,
+        &quot;tenant_continuous_late_payment&quot;: false,
+        &quot;tenant_damaged_rental&quot;: false,
+        &quot;tenant_dead&quot;: false,
+        &quot;tenant_financial_problem&quot;: false,
+        &quot;tenant_group_responsability&quot;: false,
+        &quot;tenant_individual_responsability&quot;: true,
+        &quot;tenant_is_bothered&quot;: false,
+        &quot;tenant_lease_indeterminate&quot;: false,
+        &quot;tenant_left_without_paying&quot;: false,
+        &quot;tenant_monthly_payment&quot;: &quot;735.0&quot;,
+        &quot;tenant_not_paid_lease_timespan&quot;: &quot;0.0&quot;,
+        &quot;tenant_owes_rent&quot;: &quot;873.0&quot;,
+        &quot;tenant_refuses_retake_apartment&quot;: false,
+        &quot;tenant_rent_not_paid_more_3_weeks&quot;: true,
+        &quot;tenant_sends_demand_regie_logement&quot;: false,
+        &quot;tenant_withold_rent_without_permission&quot;: false,
+        &quot;violent&quot;: false
+      },
+      &quot;outcomes&quot;: {
+        &quot;additional_indemnity_money&quot;: &quot;0.0&quot;,
+        &quot;authorize_landlord_retake_apartment&quot;: false,
+        &quot;declares_housing_inhabitable&quot;: false,
+        &quot;declares_resiliation_is_correct&quot;: false,
+        &quot;landlord_prejudice_justified&quot;: true,
+        &quot;landlord_retakes_apartment_indemnity&quot;: false,
+        &quot;landlord_serious_prejudice&quot;: false,
+        &quot;orders_expulsion&quot;: true,
+        &quot;orders_immediate_execution&quot;: true,
+        &quot;orders_landlord_notify_tenant_when_habitable&quot;: false,
+        &quot;orders_resiliation&quot;: true,
+        &quot;orders_tenant_pay_first_of_month&quot;: false,
+        &quot;tenant_ordered_to_pay_landlord&quot;: &quot;873.0&quot;,
+        &quot;tenant_ordered_to_pay_landlord_legal_fees&quot;: &quot;80.0&quot;
+      },
+      &quot;precedent&quot;: &quot;AZ-51176404&quot;
+    },
+    {
+      &quot;distance&quot;: 0.49114649102172725,
+      &quot;facts&quot;: {
+        &quot;apartment_dirty&quot;: false,
+        &quot;asker_is_landlord&quot;: true,
+        &quot;asker_is_tenant&quot;: false,
+        &quot;bothers_others&quot;: false,
+        &quot;disrespect_previous_judgement&quot;: false,
+        &quot;landlord_inspector_fees&quot;: &quot;0.0&quot;,
+        &quot;landlord_notifies_tenant_retake_apartment&quot;: false,
+        &quot;landlord_pays_indemnity&quot;: false,
+        &quot;landlord_relocation_indemnity_fees&quot;: &quot;0.0&quot;,
+        &quot;landlord_rent_change&quot;: false,
+        &quot;landlord_rent_change_doc_renseignements&quot;: false,
+        &quot;landlord_retakes_apartment&quot;: false,
+        &quot;landlord_sends_demand_regie_logement&quot;: false,
+        &quot;rent_increased&quot;: false,
+        &quot;signed_proof_of_rent_debt&quot;: false,
+        &quot;tenant_continuous_late_payment&quot;: false,
+        &quot;tenant_damaged_rental&quot;: false,
+        &quot;tenant_dead&quot;: false,
+        &quot;tenant_financial_problem&quot;: false,
+        &quot;tenant_group_responsability&quot;: false,
+        &quot;tenant_individual_responsability&quot;: true,
+        &quot;tenant_is_bothered&quot;: false,
+        &quot;tenant_lease_indeterminate&quot;: false,
+        &quot;tenant_left_without_paying&quot;: false,
+        &quot;tenant_monthly_payment&quot;: &quot;770.0&quot;,
+        &quot;tenant_not_paid_lease_timespan&quot;: &quot;0.0&quot;,
+        &quot;tenant_owes_rent&quot;: &quot;1360.0&quot;,
+        &quot;tenant_refuses_retake_apartment&quot;: false,
+        &quot;tenant_rent_not_paid_more_3_weeks&quot;: true,
+        &quot;tenant_sends_demand_regie_logement&quot;: false,
+        &quot;tenant_withold_rent_without_permission&quot;: false,
+        &quot;violent&quot;: false
+      },
+      &quot;outcomes&quot;: {
+        &quot;additional_indemnity_money&quot;: &quot;590.0&quot;,
+        &quot;authorize_landlord_retake_apartment&quot;: false,
+        &quot;declares_housing_inhabitable&quot;: false,
+        &quot;declares_resiliation_is_correct&quot;: false,
+        &quot;landlord_prejudice_justified&quot;: true,
+        &quot;landlord_retakes_apartment_indemnity&quot;: false,
+        &quot;landlord_serious_prejudice&quot;: false,
+        &quot;orders_expulsion&quot;: true,
+        &quot;orders_immediate_execution&quot;: true,
+        &quot;orders_landlord_notify_tenant_when_habitable&quot;: false,
+        &quot;orders_resiliation&quot;: true,
+        &quot;orders_tenant_pay_first_of_month&quot;: false,
+        &quot;tenant_ordered_to_pay_landlord&quot;: &quot;1360.0&quot;,
+        &quot;tenant_ordered_to_pay_landlord_legal_fees&quot;: &quot;81.0&quot;
+      },
+      &quot;precedent&quot;: &quot;AZ-51212451&quot;
+    },
+    {
+      &quot;distance&quot;: 0.49200755901067444,
+      &quot;facts&quot;: {
+        &quot;apartment_dirty&quot;: false,
+        &quot;asker_is_landlord&quot;: true,
+        &quot;asker_is_tenant&quot;: false,
+        &quot;bothers_others&quot;: false,
+        &quot;disrespect_previous_judgement&quot;: false,
+        &quot;landlord_inspector_fees&quot;: &quot;0.0&quot;,
+        &quot;landlord_notifies_tenant_retake_apartment&quot;: false,
+        &quot;landlord_pays_indemnity&quot;: false,
+        &quot;landlord_relocation_indemnity_fees&quot;: &quot;0.0&quot;,
+        &quot;landlord_rent_change&quot;: false,
+        &quot;landlord_rent_change_doc_renseignements&quot;: false,
+        &quot;landlord_retakes_apartment&quot;: false,
+        &quot;landlord_sends_demand_regie_logement&quot;: false,
+        &quot;rent_increased&quot;: false,
+        &quot;signed_proof_of_rent_debt&quot;: false,
+        &quot;tenant_continuous_late_payment&quot;: false,
+        &quot;tenant_damaged_rental&quot;: false,
+        &quot;tenant_dead&quot;: false,
+        &quot;tenant_financial_problem&quot;: false,
+        &quot;tenant_group_responsability&quot;: false,
+        &quot;tenant_individual_responsability&quot;: true,
+        &quot;tenant_is_bothered&quot;: false,
+        &quot;tenant_lease_indeterminate&quot;: false,
+        &quot;tenant_left_without_paying&quot;: false,
+        &quot;tenant_monthly_payment&quot;: &quot;945.0&quot;,
+        &quot;tenant_not_paid_lease_timespan&quot;: &quot;0.0&quot;,
+        &quot;tenant_owes_rent&quot;: &quot;1290.0&quot;,
+        &quot;tenant_refuses_retake_apartment&quot;: false,
+        &quot;tenant_rent_not_paid_more_3_weeks&quot;: true,
+        &quot;tenant_sends_demand_regie_logement&quot;: false,
+        &quot;tenant_withold_rent_without_permission&quot;: false,
+        &quot;violent&quot;: false
+      },
+      &quot;outcomes&quot;: {
+        &quot;additional_indemnity_money&quot;: &quot;345.0&quot;,
+        &quot;authorize_landlord_retake_apartment&quot;: false,
+        &quot;declares_housing_inhabitable&quot;: false,
+        &quot;declares_resiliation_is_correct&quot;: false,
+        &quot;landlord_prejudice_justified&quot;: true,
+        &quot;landlord_retakes_apartment_indemnity&quot;: false,
+        &quot;landlord_serious_prejudice&quot;: false,
+        &quot;orders_expulsion&quot;: true,
+        &quot;orders_immediate_execution&quot;: true,
+        &quot;orders_landlord_notify_tenant_when_habitable&quot;: false,
+        &quot;orders_resiliation&quot;: true,
+        &quot;orders_tenant_pay_first_of_month&quot;: false,
+        &quot;tenant_ordered_to_pay_landlord&quot;: &quot;1290.0&quot;,
+        &quot;tenant_ordered_to_pay_landlord_legal_fees&quot;: &quot;72.0&quot;
+      },
+      &quot;precedent&quot;: &quot;AZ-51201834&quot;
+    },
+    {
+      &quot;distance&quot;: 0.4933548500076463,
+      &quot;facts&quot;: {
+        &quot;apartment_dirty&quot;: false,
+        &quot;asker_is_landlord&quot;: true,
+        &quot;asker_is_tenant&quot;: false,
+        &quot;bothers_others&quot;: false,
+        &quot;disrespect_previous_judgement&quot;: false,
+        &quot;landlord_inspector_fees&quot;: &quot;0.0&quot;,
+        &quot;landlord_notifies_tenant_retake_apartment&quot;: false,
+        &quot;landlord_pays_indemnity&quot;: false,
+        &quot;landlord_relocation_indemnity_fees&quot;: &quot;0.0&quot;,
+        &quot;landlord_rent_change&quot;: false,
+        &quot;landlord_rent_change_doc_renseignements&quot;: false,
+        &quot;landlord_retakes_apartment&quot;: false,
+        &quot;landlord_sends_demand_regie_logement&quot;: false,
+        &quot;rent_increased&quot;: false,
+        &quot;signed_proof_of_rent_debt&quot;: false,
+        &quot;tenant_continuous_late_payment&quot;: false,
+        &quot;tenant_damaged_rental&quot;: false,
+        &quot;tenant_dead&quot;: false,
+        &quot;tenant_financial_problem&quot;: false,
+        &quot;tenant_group_responsability&quot;: false,
+        &quot;tenant_individual_responsability&quot;: true,
+        &quot;tenant_is_bothered&quot;: false,
+        &quot;tenant_lease_indeterminate&quot;: false,
+        &quot;tenant_left_without_paying&quot;: false,
+        &quot;tenant_monthly_payment&quot;: &quot;800.0&quot;,
+        &quot;tenant_not_paid_lease_timespan&quot;: &quot;0.0&quot;,
+        &quot;tenant_owes_rent&quot;: &quot;1400.0&quot;,
+        &quot;tenant_refuses_retake_apartment&quot;: false,
+        &quot;tenant_rent_not_paid_more_3_weeks&quot;: true,
+        &quot;tenant_sends_demand_regie_logement&quot;: false,
+        &quot;tenant_withold_rent_without_permission&quot;: false,
+        &quot;violent&quot;: false
+      },
+      &quot;outcomes&quot;: {
+        &quot;additional_indemnity_money&quot;: &quot;0.0&quot;,
+        &quot;authorize_landlord_retake_apartment&quot;: false,
+        &quot;declares_housing_inhabitable&quot;: false,
+        &quot;declares_resiliation_is_correct&quot;: false,
+        &quot;landlord_prejudice_justified&quot;: true,
+        &quot;landlord_retakes_apartment_indemnity&quot;: false,
+        &quot;landlord_serious_prejudice&quot;: false,
+        &quot;orders_expulsion&quot;: true,
+        &quot;orders_immediate_execution&quot;: true,
+        &quot;orders_landlord_notify_tenant_when_habitable&quot;: false,
+        &quot;orders_resiliation&quot;: true,
+        &quot;orders_tenant_pay_first_of_month&quot;: false,
+        &quot;tenant_ordered_to_pay_landlord&quot;: &quot;0.0&quot;,
+        &quot;tenant_ordered_to_pay_landlord_legal_fees&quot;: &quot;92.0&quot;
+      },
+      &quot;precedent&quot;: &quot;AZ-51391660&quot;
+    }
+  ]
+}
+</code></pre>
+<a class="header" href="print.html#error-response-11" id="error-response-11"><h4>Error Response</h4></a>
+<p><strong>Code</strong> : <code>400 Bad Request</code> - <em>Inputs not provided</em></p>
+<p><strong>Code</strong> : <code>404 Not Found</code> - <em>Conversation doesn&quot;t exist</em></p>
+<a class="header" href="print.html#get-fact-weights" id="get-fact-weights"><h3>Get Fact Weights</h3></a>
+<p>Get the weights of every outcome sorted by descending order of importance</p>
+<p><strong>URL</strong>: <code>/weights</code></p>
+<p><strong>Method</strong>: <code>GET</code></p>
+<p><strong>Data constraints</strong></p>
+<p>None</p>
+<a class="header" href="print.html#success-response-13" id="success-response-13"><h4>Success Response</h4></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">{
+    &quot;additional_indemnity_money&quot;: {
+        &quot;important_facts&quot;: [
+            &quot;asker_is_landlord&quot;,
+            &quot;tenant_withold_rent_without_permission&quot;,
+            &quot;tenant_refuses_retake_apartment&quot;,
+            &quot;tenant_monthly_payment&quot;,
+            &quot;tenant_not_paid_lease_timespan&quot;
+        ],
+        &quot;additional_facts&quot;: [
+            &quot;tenant_financial_problem&quot;,
+            &quot;tenant_owes_rent&quot;,
+            &quot;asker_is_tenant&quot;,
+            &quot;tenant_damaged_rental&quot;,
+            &quot;tenant_individual_responsability&quot;,
+            &quot;signed_proof_of_rent_debt&quot;,
+            &quot;tenant_lease_indeterminate&quot;,
+            &quot;tenant_dead&quot;,
+            &quot;tenant_is_bothered&quot;,
+            &quot;bothers_others&quot;
+        ]
+    }
+}
+</code></pre>
+<a class="header" href="print.html#get-anti-facts" id="get-anti-facts"><h3>Get Anti Facts</h3></a>
+<p>Get the anti facts</p>
+<p>Left hand side always initialized to 1 and right hand side to 0</p>
+<p><strong>URL</strong>: <code>/antifacts</code></p>
+<p><strong>Method</strong>: <code>GET</code></p>
+<p><strong>Data constraints</strong></p>
+<p>None</p>
+<a class="header" href="print.html#success-response-14" id="success-response-14"><h4>Success Response</h4></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">{
+    &quot;tenant_rent_not_paid_less_3_weeks&quot;: &quot;tenant_rent_not_paid_more_3_weeks&quot;,
+    &quot;tenant_lease_fixed&quot;: &quot;tenant_lease_indeterminate&quot;,
+    &quot;not_violent&quot;: &quot;violent&quot;,
+    &quot;tenant_individual_responsability&quot;: &quot;tenant_group_responsability&quot;
+}
+</code></pre>
+<a class="header" href="print.html#get-machine-learning-statistics" id="get-machine-learning-statistics"><h3>Get Machine Learning Statistics</h3></a>
+<p>Get the ml stats</p>
+<p>Used to obtain:</p>
+<ol>
+<li>Size of data set</li>
+<li>Variance of regression outcomes</li>
+<li>Standard deviation of regression outcomes</li>
+<li>Mean of regression outcomes</li>
+<li>Prediction accuracy of each classifier</li>
+</ol>
+<p><strong>URL</strong>: <code>/statistics</code></p>
+<p><strong>Method</strong>: <code>GET</code></p>
+<p><strong>Data constraints</strong></p>
+<p>None</p>
+<a class="header" href="print.html#success-response-15" id="success-response-15"><h4>Success Response</h4></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">{
+    &quot;classifier&quot;: {
+        &quot;additional_indemnity_money&quot;: {
+            &quot;prediction_accuracy&quot;: 79.8400199975003
+        },
+        &quot;authorize_landlord_retake_apartment&quot;: {
+            &quot;prediction_accuracy&quot;: 99.48756405449319
+        },
+        &quot;declares_housing_inhabitable&quot;: {
+            &quot;prediction_accuracy&quot;: 99.95000624921884
+        },
+        &quot;declares_resiliation_is_correct&quot;: {
+            &quot;prediction_accuracy&quot;: 91.83852018497687
+        },
+        &quot;landlord_prejudice_justified&quot;: {
+            &quot;prediction_accuracy&quot;: 81.07736532933383
+        },
+        &quot;landlord_retakes_apartment_indemnity&quot;: {
+            &quot;prediction_accuracy&quot;: 99.72503437070367
+        },
+        &quot;landlord_serious_prejudice&quot;: {
+            &quot;prediction_accuracy&quot;: 96.35045619297588
+        },
+        &quot;orders_expulsion&quot;: {
+            &quot;prediction_accuracy&quot;: 91.55105611798525
+        },
+        &quot;orders_immediate_execution&quot;: {
+            &quot;prediction_accuracy&quot;: 84.32695913010873
+        },
+        &quot;orders_landlord_notify_tenant_when_habitable&quot;: {
+            &quot;prediction_accuracy&quot;: 100
+        },
+        &quot;orders_resiliation&quot;: {
+            &quot;prediction_accuracy&quot;: 93.48831396075491
+        },
+        &quot;orders_tenant_pay_first_of_month&quot;: {
+            &quot;prediction_accuracy&quot;: 98.05024371953506
+        },
+        &quot;tenant_ordered_to_pay_landlord&quot;: {
+            &quot;prediction_accuracy&quot;: 83.82702162229721
+        },
+        &quot;tenant_ordered_to_pay_landlord_legal_fees&quot;: {
+            &quot;prediction_accuracy&quot;: 90.32620922384702
+        }
+    },
+    &quot;data_set&quot;: {
+        &quot;size&quot;: 40003
+    },
+    &quot;regressor&quot;: {
+        &quot;additional_indemnity_money&quot;: {
+            &quot;mean&quot;: 1477.7728467101024,
+            &quot;std&quot;: 1927.8147997893939,
+            &quot;variance&quot;: 3716469.9022870203
+        },
+        &quot;tenant_pays_landlord&quot;: {
+            &quot;mean&quot;: 2148.867088064977,
+            &quot;std&quot;: 2129.510243010276,
+            &quot;variance&quot;: 4534813.8750856845
+        }
+    }
+}
+</code></pre>
+<hr />
+<a class="header" href="print.html#run-tests-and-lints-3" id="run-tests-and-lints-3"><h2>Run Tests and Lints</h2></a>
+<pre><code>export COMPOSE_FILE=ci
+./cjl up -d &amp;&amp; ./cjl run ml_service
+</code></pre>
+<a class="header" href="print.html#using-the-command-line" id="using-the-command-line"><h2>Using the Command Line</h2></a>
+<ul>
+<li>denotes optional arguments</li>
+</ul>
+<p>1-  Commands</p>
+<pre><code>python main.py -train [data size | empty for all] --svm* --sf* --weights* --evaluate*
+python main.py -pre [number of files | empty for all]
+python main.py -post [number of files | empty for all]
+</code></pre>
+<p>2- all binary files saved to data/binary</p>
+<p>3- all text files to data/cluster</p>
+<p>4- all raw_data to data/raw</p>
+<a class="header" href="print.html#postgresql-database" id="postgresql-database"><h1>PostgreSQL Database</h1></a>
+<a class="header" href="print.html#connect-via-command-line" id="connect-via-command-line"><h2>Connect via command line</h2></a>
+<p>Bring up all services:</p>
+<pre><code>./cjl up -d
+</code></pre>
+<p>Connect via <code>psql</code>:</p>
+<pre><code>./cjl run --rm postgresql_db &quot;psql -h postgresql_db -U postgres&quot;
+</code></pre>
+<p>The above command will prompt you to enter the database password.</p>
+<p>SQL script backup via <code>pg_dump</code>:</p>
+<pre><code>export PGPASSWORD=$(printf '%s' &quot;$POSTGRES_PASSWORD&quot;)
+./cjl run --rm -e PGPASSWORD='$PGPASSWORD' postgresql_db &quot;pg_dump -h postgresql_db -U postgres -p 5432&quot;
+</code></pre>
+<a class="header" href="print.html#optical-character-recognition-service" id="optical-character-recognition-service"><h1>Optical Character Recognition Service</h1></a>
+<a class="header" href="print.html#run-tests-and-lints-4" id="run-tests-and-lints-4"><h2>Run Tests and Lints</h2></a>
+<pre><code>export COMPOSE_FILE=ci
+./cjl up -d &amp;&amp; ./cjl run ocr_service
+</code></pre>
+<hr />
+<a class="header" href="print.html#ocr-api" id="ocr-api"><h1>OCR API</h1></a>
+<a class="header" href="print.html#extract-text" id="extract-text"><h2>Extract Text</h2></a>
+<p>From provided image data, returns the text extracted from this data as a string.</p>
+<p><strong>URL</strong> : <code>/ocr/extract_text</code></p>
+<p><strong>Method</strong> : <code>POST</code></p>
+<p><strong>Headers</strong> : <code>multipart/form-data</code></p>
+<p><strong>Data constraints</strong></p>
+<p>Provide the 'file' key with image data data as the value.</p>
+<a class="header" href="print.html#success-response-16" id="success-response-16"><h4>Success Response</h4></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<a class="header" href="print.html#error-response-12" id="error-response-12"><h4>Error Response</h4></a>
+<p><strong>Code</strong> : <code>400 Bad Request</code> - <em>No file key or no image data provided</em></p>
+<a class="header" href="print.html#web-client-service-1" id="web-client-service-1"><h1>Web Client Service</h1></a>
+<a class="header" href="print.html#run-tests-and-lints-5" id="run-tests-and-lints-5"><h2>Run Tests and Lints</h2></a>
+<pre><code>export COMPOSE_FILE=ci
+./cjl up -d &amp;&amp; ./cjl run web_client
+</code></pre>
+<a class="header" href="print.html#technologies-1" id="technologies-1"><h2>Technologies</h2></a>
+<p>The following technologies are in use in this service:</p>
+<a class="header" href="print.html#bootstrap-1" id="bootstrap-1"><h3>Bootstrap</h3></a>
+<p><a href="https://getbootstrap.com">Bootstrap</a> is an open source front end framework developed by Twitter. It contains styling for various common web components, such as forms and inputs, as well as providing a convenient grid system that greatly facilitates web page styling and layout.</p>
+<ul>
+<li>Alternatives: Foundation Framework, pure.css, skeleton</li>
+<li>Reason Chosen:
+<ul>
+<li>Team member’s past experiences</li>
+<li>Industry standard</li>
+</ul>
+</li>
+</ul>
+<a class="header" href="print.html#vuejs-1" id="vuejs-1"><h3>Vue.js</h3></a>
+<p>(Vue.js)[https://vuejs.org/] is an open source front end framework for building single page applications. It leverages component based architecture that allows for the creation of an interactive website. Its primary purpose will be to power the visible portion of the chatbot, displaying messages, sending messages to the server, and prompting the user for various interactions such as answering questions or providing files to use as evidence.</p>
+<ul>
+<li>Alternatives: AngularJS, Angular 4, ReactJs</li>
+<li>Reason Chosen:
+<ul>
+<li>Low learning curve</li>
+<li>High performance</li>
+<li>Small footprint and minimal API</li>
+</ul>
+</li>
+</ul>
+<a class="header" href="print.html#beta-server" id="beta-server"><h1>Beta Server</h1></a>
+<p>Requires the following installed on the host system:</p>
+<ul>
+<li>SQLite</li>
+<li>Python3</li>
+</ul>
+<a class="header" href="print.html#setup" id="setup"><h2>SETUP</h2></a>
+<p><code>pip install -r requirements.txt</code>
+<code>FLASK_APP=app.py flask run</code></p>
+<a class="header" href="print.html#rest-api-documentattion" id="rest-api-documentattion"><h2>REST API DOCUMENTATTION</h2></a>
+<a class="header" href="print.html#post-question" id="post-question"><h3><code>POST /question</code></h3></a>
+<p>Inserts a new user-generated question. Returns that user's ID.</p>
+<a class="header" href="print.html#example-request-payload" id="example-request-payload"><h4>Example request payload</h4></a>
+<pre><code class="language-json">{
+    &quot;question&quot;: &quot;Is it okay for a landlord to ask for a security deposit?&quot;
+}
+</code></pre>
+<a class="header" href="print.html#success-response-payload" id="success-response-payload"><h4>Success response payload</h4></a>
+<pre><code class="language-json">{
+    &quot;id&quot;: &quot;5cd8a900-8a18-41b3-abb8-bf0307918afc&quot;
+}
+</code></pre>
+<a class="header" href="print.html#error-response-status-codes" id="error-response-status-codes"><h4>Error response status codes</h4></a>
+<ul>
+<li><code>415</code> if request does not contain valid JSON</li>
+<li><code>422</code> if the <code>question</code> key is not present</li>
+<li><code>422</code> if the <code>question</code> value is too long</li>
+</ul>
+<a class="header" href="print.html#put-email" id="put-email"><h3><code>PUT /email</code></h3></a>
+<p>Updates a user's email address based on their ID.</p>
+<p>If an ID is provided, that ID's record is updated. If no ID is provided, a new record is created.</p>
+<a class="header" href="print.html#example-request-payload-1" id="example-request-payload-1"><h4>Example request payload</h4></a>
+<pre><code class="language-json">{
+    &quot;id&quot;: &quot;5c17bfd0-87d0-4493-a312-f3f32323fff2&quot;,
+    &quot;email&quot;: &quot;test@test.com&quot;
+}
+</code></pre>
+<a class="header" href="print.html#success-response-payload-1" id="success-response-payload-1"><h4>Success response payload</h4></a>
+<pre><code class="language-json">{
+    &quot;id&quot;: &quot;5c17bfd0-87d0-4493-a312-f3f32323fff2&quot;
+}
+</code></pre>
+<a class="header" href="print.html#error-response-status-codes-1" id="error-response-status-codes-1"><h4>Error response status codes</h4></a>
+<ul>
+<li><code>415</code> if request does not contain valid JSON</li>
+<li><code>422</code> if the <code>email</code> key is not present</li>
+<li><code>422</code> if the <code>email</code> value is too long</li>
+</ul>
+<a class="header" href="print.html#put-subscription" id="put-subscription"><h3><code>PUT /subscription</code></h3></a>
+<p>Updates a user's subscription status based on their ID. <code>1</code> is subscribed, <code>0</code> is not subscribed.</p>
+<p>If an ID is provided, that ID's record is updated. If no ID is provided, a new record is created.</p>
+<a class="header" href="print.html#example-request-payload-2" id="example-request-payload-2"><h4>Example request payload</h4></a>
+<pre><code class="language-json">{
+    &quot;id&quot;: &quot;5c17bfd0-87d0-4493-a312-f3f32323fff2&quot;,
+    &quot;is_subscribed&quot;: 1
+}
+</code></pre>
+<a class="header" href="print.html#success-response-payload-2" id="success-response-payload-2"><h4>Success response payload</h4></a>
+<pre><code class="language-json">{
+    &quot;id&quot;: &quot;5c17bfd0-87d0-4493-a312-f3f32323fff2&quot;
+}
+</code></pre>
+<a class="header" href="print.html#error-response-status-codes-2" id="error-response-status-codes-2"><h4>Error response status codes</h4></a>
+<ul>
+<li><code>415</code> if request does not contain valid JSON</li>
+<li><code>422</code> if the <code>is_subscribed</code> key is not present</li>
+<li><code>422</code> if the <code>is_subscribed</code> key is not an integer</li>
+</ul>
+<a class="header" href="print.html#put-legal" id="put-legal"><h3><code>PUT /legal</code></h3></a>
+<p>Updates a user's status on whether they are a legal professional based on their ID. <code>1</code> is a legal professional, <code>0</code> is not.</p>
+<p>If an ID is provided, that ID's record is updated. If no ID is provided, a new record is created.</p>
+<a class="header" href="print.html#example-request-payload-3" id="example-request-payload-3"><h4>Example request payload</h4></a>
+<pre><code class="language-json">{
+    &quot;id&quot;: &quot;5c17bfd0-87d0-4493-a312-f3f32323fff2&quot;,
+    &quot;is_legal_professional&quot;: 1
+}
+</code></pre>
+<a class="header" href="print.html#success-response-payload-3" id="success-response-payload-3"><h4>Success response payload</h4></a>
+<pre><code class="language-json">{
+    &quot;id&quot;: &quot;5c17bfd0-87d0-4493-a312-f3f32323fff2&quot;
+}
+</code></pre>
+<a class="header" href="print.html#error-response-status-codes-3" id="error-response-status-codes-3"><h4>Error response status codes</h4></a>
+<ul>
+<li><code>415</code> if request does not contain valid JSON</li>
+<li><code>422</code> if the <code>is_subscribed</code> key is not present</li>
+<li><code>422</code> if the <code>is_subscribed</code> key is not an integer</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+            </nav>
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if (getComputedStyle(document.querySelector(".fa")).fontFamily !== "FontAwesome") {
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = '_FontAwesome/css/font-awesome.css';
+                document.head.insertBefore(link, document.head.firstChild)
+            }
+        </script>
+
+        
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3001");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload(true); // force reload from server (not from cache)
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+        
+
+        
+
+        
+
+        
+        <script src="searchindex.js" type="text/javascript" charset="utf-8"></script>
+        
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                window.print();
+            })
+        </script>
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </body>
+</html>

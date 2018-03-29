@@ -1,0 +1,769 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Backend Service - ProceZeus Documentation</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <base href="../">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <noscript>
+            <style type="text/css">
+                .javascript-only {
+                    display: none;
+                }
+            </style>
+        </noscript>
+
+    </head>
+    <body class="light">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme;
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="README.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><a href="ARCHITECTURE.html"><strong aria-hidden="true">2.</strong> Application Archictecture</a></li><li><a href="web_client/README.html"><strong aria-hidden="true">3.</strong> Web Client</a></li><li><a href="backend_service/README.html" class="active"><strong aria-hidden="true">4.</strong> Backend Service</a></li><li><a href="nlp_service/README.html"><strong aria-hidden="true">5.</strong> Natural Language Processing (NLP) Service</a></li><li><a href="ml_service/README.html"><strong aria-hidden="true">6.</strong> Machine Learning (ML) Service</a></li><li><a href="postgresql_db/README.html"><strong aria-hidden="true">7.</strong> PostgreSQL Database</a></li><li><a href="task_service/README.html"><strong aria-hidden="true">8.</strong> Task Service</a></li><li><a href="beta_client/README.html"><strong aria-hidden="true">9.</strong> Beta Client</a></li><li><a href="beta_server/README.html"><strong aria-hidden="true">10.</strong> Beta Server</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons javascript-only">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">ProceZeus Documentation</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="searchbar-outer" class="searchbar-outer">
+                    <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                </div>
+                <div id="searchresults-outer" class="searchresults-outer">
+                    <div class="searchresults-header" id="searchresults-header"></div>
+                    <ul id="searchresults">
+                    </ul>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="backend_service/README.html#backend-service" id="backend-service"><h1>Backend Service</h1></a>
+<a class="header" href="backend_service/README.html#run-tests-and-lints" id="run-tests-and-lints"><h2>Run Tests and Lints</h2></a>
+<pre><code>export COMPOSE_FILE=ci
+./cjl up -d &amp;&amp; ./cjl run backend_service
+</code></pre>
+<hr />
+<a class="header" href="backend_service/README.html#backend-api" id="backend-api"><h1>Backend API</h1></a>
+<a class="header" href="backend_service/README.html#initialize-a-new-conversation" id="initialize-a-new-conversation"><h1>Initialize a new conversation</h1></a>
+<p>Initializes a new conversation</p>
+<p><strong>URL</strong> : <code>/new</code></p>
+<p><strong>Method</strong> : <code>POST</code></p>
+<p><strong>Data constraints</strong></p>
+<p>Provide the user's name and person type.</p>
+<pre><code class="language-json">{
+    &quot;name&quot;: &quot;[unicode 40 chars max]&quot;,
+    &quot;person_type&quot;: &quot;(TENANT|LANDLORD)&quot;
+}
+</code></pre>
+<a class="header" href="backend_service/README.html#success-response" id="success-response"><h2>Success Response</h2></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">{
+    &quot;conversation_id&quot;: 1
+}
+</code></pre>
+<a class="header" href="backend_service/README.html#error-response" id="error-response"><h2>Error Response</h2></a>
+<p><strong>Code</strong> : <code>400 Bad Request</code> - <em>Invalid person_type provided</em></p>
+<hr />
+<a class="header" href="backend_service/README.html#store-user-confirmation" id="store-user-confirmation"><h1>Store User Confirmation</h1></a>
+<p>Stores the user confirmation or text supplied in order to confirm whether an NLP prediction was accurate.</p>
+<p><strong>URL</strong> : <code>/store-user-confirmation</code></p>
+<p><strong>Method</strong> : <code>POST</code></p>
+<p><strong>Data constraints</strong></p>
+<p>Provide the conversation id and confirmation text of the user.</p>
+<pre><code class="language-json">{
+    &quot;conversation_id&quot;: 1,
+    &quot;confirmation&quot;: true | false | &quot;$5000&quot;
+}
+</code></pre>
+<a class="header" href="backend_service/README.html#success-response-1" id="success-response-1"><h2>Success Response</h2></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">{
+    &quot;message&quot;: &quot;User confirmation stored successfully&quot;
+}
+</code></pre>
+<a class="header" href="backend_service/README.html#error-response-1" id="error-response-1"><h2>Error Response</h2></a>
+<p><strong>Code</strong> : <code>400 Bad Request</code></p>
+<p><strong>Code</strong> : <code>404 Not Found</code></p>
+<hr />
+<a class="header" href="backend_service/README.html#send-a-message" id="send-a-message"><h1>Send a message</h1></a>
+<p>Sends a message to the bot.</p>
+<p><strong>URL</strong> : <code>/conversation</code></p>
+<p><strong>Method</strong> : <code>POST</code></p>
+<p><strong>Data constraints</strong></p>
+<p>Provide the conversation_id and a message. Message should be empty string for first call.</p>
+<pre><code class="language-json">{
+    &quot;conversation_id&quot;: &quot;[integer]&quot;,
+    &quot;message&quot;: &quot;[unicode]&quot;
+}
+</code></pre>
+<a class="header" href="backend_service/README.html#success-response-2" id="success-response-2"><h2>Success Response</h2></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<p>Simple response containing a message and conversation progress. Messages may contain pipe characters (|) which indicate that a sentence should be split into separate conversation windows. Note that the first message will not contain a pipe character. Each subsequent sentence will begin with a pipe character if it is meant to be split.</p>
+<p>Converation progress will be null at the beginning of the conversation, and if the user ends up asking a FAQ question (which have no progress). However, if the user asks a question that requires the bot to resolve facts, progress will indicate a percentage of how far along the conversation is to getting a prediction.</p>
+<a class="header" href="backend_service/README.html#example-1" id="example-1"><h3>Example 1:</h3></a>
+<pre><code class="language-json">{
+    &quot;conversation_id&quot;: 1,
+    &quot;message&quot;: &quot;Hello Tim Timmens!|What kind of problem are you having?&quot;,
+    &quot;progress&quot;: null
+}
+</code></pre>
+<p>This can be formatted as:</p>
+<p>Message 1: Hello Tim Timmens!</p>
+<p>Message 2: What kind of problem are you having?</p>
+<a class="header" href="backend_service/README.html#example-2" id="example-2"><h3>Example 2:</h3></a>
+<pre><code class="language-json">{
+    &quot;conversation_id&quot;: 5,
+    &quot;message&quot;: &quot;Oh I see you're having problems with lease termination!|I have a few questions for you.|Do you have a lease?&quot;,
+    &quot;progress&quot;: 0
+}
+</code></pre>
+<p>This can be formatted as:</p>
+<p>Message 1: Oh I see you're having problems with lease termination!</p>
+<p>Message 2: I have a few questions for you.</p>
+<p>Message 3: Do you have a lease</p>
+<a class="header" href="backend_service/README.html#response-containing-a-request-for-a-file" id="response-containing-a-request-for-a-file"><h3>Response containing a request for a file.</h3></a>
+<pre><code class="language-json">{
+    &quot;conversation_id&quot;: 1,
+    &quot;file_request&quot;: {
+        &quot;document_type&quot;: &quot;LEASE&quot;
+    },
+    &quot;message&quot;: &quot;Could you please upload your lease if you have it, Tim Timmens?&quot;
+}
+</code></pre>
+<a class="header" href="backend_service/README.html#document-types" id="document-types"><h3>Document Types</h3></a>
+<p><em>LEASE</em>: A lease for a dwelling</p>
+<a class="header" href="backend_service/README.html#error-response-2" id="error-response-2"><h2>Error Response</h2></a>
+<p><strong>Code</strong> : <code>404 Not Found</code></p>
+<hr />
+<a class="header" href="backend_service/README.html#get-a-conversation-history" id="get-a-conversation-history"><h1>Get a conversation history</h1></a>
+<p>Gets the message history for a conversation</p>
+<p><strong>URL</strong> : <code>/conversation/:conversation_id</code></p>
+<p><strong>Method</strong> : <code>GET</code></p>
+<a class="header" href="backend_service/README.html#success-response-3" id="success-response-3"><h2>Success Response</h2></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">{
+    &quot;claim_category&quot;: &quot;NONPAYMENT&quot;,
+    &quot;bot_state&quot;: &quot;RESOLVING_FACTS&quot;,
+    &quot;current_fact&quot;: {
+        &quot;name&quot;: &quot;landlord_retakes_apartment&quot;,
+        &quot;summary&quot;: &quot;Landlord intends to retake dwelling&quot;,
+        &quot;type&quot;: &quot;BOOLEAN&quot;
+    },
+    &quot;fact_entities&quot;: [
+        {
+            &quot;fact&quot;: {
+                &quot;name&quot;: &quot;apartment_impropre&quot;,
+                &quot;summary&quot;: &quot;Dwelling unfit for habitation&quot;,
+                &quot;type&quot;: &quot;BOOLEAN&quot;
+            },
+            &quot;id&quot;: 1,
+            &quot;value&quot;: &quot;false&quot;
+        },
+        {
+            &quot;fact&quot;: {
+                &quot;name&quot;: &quot;landlord_relocation_indemnity_fees&quot;,
+                &quot;summary&quot;: &quot;Relocation reimbursed following inhabitability&quot;,
+                &quot;type&quot;: &quot;BOOLEAN&quot;
+            },
+            &quot;id&quot;: 2,
+            &quot;value&quot;: &quot;true&quot;
+        }
+    ],
+    &quot;files&quot;: [],
+    &quot;id&quot;: 1,
+    &quot;messages&quot;: [
+        {
+            &quot;enforce_possible_answer&quot;: true,
+            &quot;file_request&quot;: null,
+            &quot;id&quot;: 1,
+            &quot;possible_answers&quot;: &quot;[\&quot;Yes\&quot;]&quot;,
+                &quot;relevant_fact&quot;: null,
+                &quot;sender_type&quot;: &quot;BOT&quot;,
+                &quot;text&quot;: &quot;Hello Bobby! Before we start, I want to make it clear that I am not a replacement for a lawyer and any information I provide you with is not meant to be construed as legal advice. Always check in with your legal professional. You can read more about our terms of use &lt;a href='/legal' target='_blank'&gt;here&lt;/a&gt;. Do you accept these conditions?&quot;,
+                &quot;timestamp&quot;: &quot;2017-12-20T01:27:35.993932+00:00&quot;
+            },
+            {
+                &quot;enforce_possible_answer&quot;: null,
+                &quot;file_request&quot;: null,
+                &quot;id&quot;: 2,
+                &quot;possible_answers&quot;: null,
+                &quot;relevant_fact&quot;: null,
+                &quot;sender_type&quot;: &quot;USER&quot;,
+                &quot;text&quot;: &quot;Yes&quot;,
+                &quot;timestamp&quot;: &quot;2017-12-20T01:27:39.023317+00:00&quot;
+            },
+            {
+                &quot;enforce_possible_answer&quot;: false,
+                &quot;file_request&quot;: {
+                    &quot;document_type&quot;: &quot;LEASE&quot;
+                },
+                &quot;id&quot;: 3,
+                &quot;possible_answers&quot;: null,
+                &quot;relevant_fact&quot;: null,
+                &quot;sender_type&quot;: &quot;BOT&quot;,
+                &quot;text&quot;: &quot;I see you're a tenant, Bobby. If you have it on hand, it would be very helpful if you could upload your lease. What issue can I help you with today?&quot;,
+                &quot;timestamp&quot;: &quot;2017-12-20T01:27:39.040375+00:00&quot;
+            },
+            {
+                &quot;enforce_possible_answer&quot;: null,
+                &quot;file_request&quot;: null,
+                &quot;id&quot;: 4,
+                &quot;possible_answers&quot;: null,
+                &quot;relevant_fact&quot;: null,
+                &quot;sender_type&quot;: &quot;USER&quot;,
+                &quot;text&quot;: &quot;I am being kicked out&quot;,
+                &quot;timestamp&quot;: &quot;2017-12-20T01:27:40.694884+00:00&quot;
+            },
+            {
+                &quot;enforce_possible_answer&quot;: false,
+                &quot;file_request&quot;: null,
+                &quot;id&quot;: 5,
+                &quot;possible_answers&quot;: null,
+                &quot;relevant_fact&quot;: {
+                    &quot;name&quot;: &quot;apartment_impropre&quot;,
+                    &quot;summary&quot;: &quot;Dwelling unfit for habitation&quot;,
+                    &quot;type&quot;: &quot;BOOLEAN&quot;
+                },
+                &quot;sender_type&quot;: &quot;BOT&quot;,
+                &quot;text&quot;: &quot;Oh yes, I know all about problems with nonpayment. Would you deem the apartment unfit for habitation?&quot;,
+                &quot;timestamp&quot;: &quot;2017-12-20T01:27:40.794129+00:00&quot;
+            },
+            {
+                &quot;enforce_possible_answer&quot;: null,
+                &quot;file_request&quot;: null,
+                &quot;id&quot;: 6,
+                &quot;possible_answers&quot;: null,
+                &quot;relevant_fact&quot;: {
+                    &quot;name&quot;: &quot;apartment_impropre&quot;,
+                    &quot;summary&quot;: &quot;Dwelling unfit for habitation&quot;,
+                    &quot;type&quot;: &quot;BOOLEAN&quot;
+                },
+                &quot;sender_type&quot;: &quot;USER&quot;,
+                &quot;text&quot;: &quot;No&quot;,
+                &quot;timestamp&quot;: &quot;2017-12-20T01:28:46.591573+00:00&quot;
+            },
+            {
+                &quot;enforce_possible_answer&quot;: false,
+                &quot;file_request&quot;: null,
+                &quot;id&quot;: 7,
+                &quot;possible_answers&quot;: null,
+                &quot;relevant_fact&quot;: {
+                    &quot;name&quot;: &quot;landlord_relocation_indemnity_fees&quot;,
+                    &quot;summary&quot;: &quot;Relocation reimbursed following inhabitability&quot;,
+                    &quot;type&quot;: &quot;BOOLEAN&quot;
+                },
+                &quot;sender_type&quot;: &quot;BOT&quot;,
+                &quot;text&quot;: &quot;Have moving expenses been compensated when the apartment was deemed inhabitable?&quot;,
+                &quot;timestamp&quot;: &quot;2017-12-20T01:28:46.652110+00:00&quot;
+            },
+            {
+                &quot;enforce_possible_answer&quot;: null,
+                &quot;file_request&quot;: null,
+                &quot;id&quot;: 8,
+                &quot;possible_answers&quot;: null,
+                &quot;relevant_fact&quot;: {
+                    &quot;name&quot;: &quot;landlord_relocation_indemnity_fees&quot;,
+                    &quot;summary&quot;: &quot;Relocation reimbursed following inhabitability&quot;,
+                    &quot;type&quot;: &quot;BOOLEAN&quot;
+                },
+                &quot;sender_type&quot;: &quot;USER&quot;,
+                &quot;text&quot;: &quot;Yes&quot;,
+                &quot;timestamp&quot;: &quot;2017-12-20T01:28:51.529825+00:00&quot;
+            }
+        ],
+    &quot;name&quot;: &quot;Bobby&quot;,
+    &quot;person_type&quot;: &quot;TENANT&quot;
+}
+</code></pre>
+<a class="header" href="backend_service/README.html#error-response-3" id="error-response-3"><h2>Error Response</h2></a>
+<p><strong>Code</strong> : <code>400 Bad Request</code></p>
+<p><strong>Code</strong> : <code>404 Not Found</code></p>
+<hr />
+<a class="header" href="backend_service/README.html#get-a-report-for-a-conversation" id="get-a-report-for-a-conversation"><h1>Get a report for a conversation</h1></a>
+<p>Retrieves a report for a conversation once at least one prediction has been returned. Will return 404 if a report has not been generated yet.</p>
+<p><strong>URL</strong> : <code>/conversation/:conversation_id/report</code></p>
+<p><strong>Method</strong> : <code>GET</code></p>
+<a class="header" href="backend_service/README.html#success-response-4" id="success-response-4"><h2>Success Response</h2></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">{
+    &quot;report&quot;: {
+        &quot;accuracy&quot;: 0.8114285714285714,
+        &quot;curves&quot;: {
+            &quot;additional_indemnity_money&quot;: {
+                &quot;mean&quot;: 1477.7728467101024,
+                &quot;outcome_value&quot;: 6038,
+                &quot;std&quot;: 1927.8147997893939,
+                &quot;variance&quot;: 3716469.9022870203
+            }
+        },
+        &quot;data_set&quot;: 8,
+        &quot;outcomes&quot;: {
+            &quot;additional_indemnity_money&quot;: 6038,
+            &quot;landlord_prejudice_justified&quot;: true,
+            &quot;orders_expulsion&quot;: true,
+            &quot;orders_immediate_execution&quot;: true,
+            &quot;orders_resiliation&quot;: true,
+            &quot;tenant_ordered_to_pay_landlord&quot;: 3092,
+            &quot;tenant_ordered_to_pay_landlord_legal_fees&quot;: 80
+        },
+        &quot;similar_case&quot;: 5,
+        &quot;similar_precedents&quot;: [
+            {
+                &quot;distance&quot;: 2.6080129205467784,
+                &quot;facts&quot;: {
+                    &quot;landlord_relocation_indemnity_fees&quot;: 0,
+                    &quot;tenant_dead&quot;: false,
+                    &quot;tenant_is_bothered&quot;: false,
+                    &quot;tenant_left_without_paying&quot;: false,
+                    &quot;tenant_owes_rent&quot;: 0,
+                    &quot;tenant_rent_not_paid_more_3_weeks&quot;: true
+                },
+                &quot;outcomes&quot;: {
+                    &quot;additional_indemnity_money&quot;: 5850,
+                    &quot;landlord_prejudice_justified&quot;: true,
+                    &quot;orders_expulsion&quot;: true,
+                    &quot;orders_immediate_execution&quot;: true,
+                    &quot;orders_resiliation&quot;: true,
+                    &quot;tenant_ordered_to_pay_landlord&quot;: 7150,
+                    &quot;tenant_ordered_to_pay_landlord_legal_fees&quot;: 74
+                },
+                &quot;precedent&quot;: &quot;AZ-51412066&quot;
+            },
+            {
+                &quot;distance&quot;: 2.6543730465072035,
+                &quot;facts&quot;: {
+                    &quot;landlord_relocation_indemnity_fees&quot;: 0,
+                    &quot;tenant_dead&quot;: false,
+                    &quot;tenant_is_bothered&quot;: false,
+                    &quot;tenant_left_without_paying&quot;: false,
+                    &quot;tenant_owes_rent&quot;: 2460,
+                    &quot;tenant_rent_not_paid_more_3_weeks&quot;: true
+                },
+                &quot;outcomes&quot;: {
+                    &quot;additional_indemnity_money&quot;: 3620,
+                    &quot;landlord_prejudice_justified&quot;: true,
+                    &quot;orders_expulsion&quot;: true,
+                    &quot;orders_immediate_execution&quot;: true,
+                    &quot;orders_resiliation&quot;: true,
+                    &quot;tenant_ordered_to_pay_landlord&quot;: 2460,
+                    &quot;tenant_ordered_to_pay_landlord_legal_fees&quot;: 81
+                },
+                &quot;precedent&quot;: &quot;AZ-51163532&quot;
+            },
+            {
+                &quot;distance&quot;: 2.6969256661279988,
+                &quot;facts&quot;: {
+                    &quot;landlord_relocation_indemnity_fees&quot;: 0,
+                    &quot;tenant_dead&quot;: false,
+                    &quot;tenant_is_bothered&quot;: false,
+                    &quot;tenant_left_without_paying&quot;: false,
+                    &quot;tenant_owes_rent&quot;: 0,
+                    &quot;tenant_rent_not_paid_more_3_weeks&quot;: true
+                },
+                &quot;outcomes&quot;: {
+                    &quot;additional_indemnity_money&quot;: 2463,
+                    &quot;landlord_prejudice_justified&quot;: true,
+                    &quot;orders_expulsion&quot;: true,
+                    &quot;orders_immediate_execution&quot;: true,
+                    &quot;orders_resiliation&quot;: true,
+                    &quot;tenant_ordered_to_pay_landlord&quot;: 2886,
+                    &quot;tenant_ordered_to_pay_landlord_legal_fees&quot;: 83
+                },
+                &quot;precedent&quot;: &quot;AZ-51395624&quot;
+            },
+            {
+                &quot;distance&quot;: 2.719885995641093,
+                &quot;facts&quot;: {
+                    &quot;landlord_relocation_indemnity_fees&quot;: 0,
+                    &quot;tenant_dead&quot;: false,
+                    &quot;tenant_is_bothered&quot;: false,
+                    &quot;tenant_left_without_paying&quot;: false,
+                    &quot;tenant_owes_rent&quot;: 0,
+                    &quot;tenant_rent_not_paid_more_3_weeks&quot;: true
+                },
+                &quot;outcomes&quot;: {
+                    &quot;additional_indemnity_money&quot;: 3180,
+                    &quot;landlord_prejudice_justified&quot;: true,
+                    &quot;orders_expulsion&quot;: true,
+                    &quot;orders_immediate_execution&quot;: true,
+                    &quot;orders_resiliation&quot;: true,
+                    &quot;tenant_ordered_to_pay_landlord&quot;: 3830,
+                    &quot;tenant_ordered_to_pay_landlord_legal_fees&quot;: 74
+                },
+                &quot;precedent&quot;: &quot;AZ-51395655&quot;
+            },
+            {
+                &quot;distance&quot;: 2.7806288394504484,
+                &quot;facts&quot;: {
+                    &quot;landlord_relocation_indemnity_fees&quot;: 0,
+                    &quot;tenant_dead&quot;: false,
+                    &quot;tenant_is_bothered&quot;: false,
+                    &quot;tenant_left_without_paying&quot;: false,
+                    &quot;tenant_owes_rent&quot;: 3600,
+                    &quot;tenant_rent_not_paid_more_3_weeks&quot;: true
+                },
+                &quot;outcomes&quot;: {
+                    &quot;additional_indemnity_money&quot;: 3750,
+                    &quot;landlord_prejudice_justified&quot;: true,
+                    &quot;orders_expulsion&quot;: true,
+                    &quot;orders_immediate_execution&quot;: true,
+                    &quot;orders_resiliation&quot;: true,
+                    &quot;tenant_ordered_to_pay_landlord&quot;: 3600,
+                    &quot;tenant_ordered_to_pay_landlord_legal_fees&quot;: 78
+                },
+                &quot;precedent&quot;: &quot;AZ-51187376&quot;
+            }
+        ]
+    }
+}
+</code></pre>
+<a class="header" href="backend_service/README.html#error-response-4" id="error-response-4"><h2>Error Response</h2></a>
+<p><strong>Code</strong> : <code>400 Bad Request</code></p>
+<a class="header" href="backend_service/README.html#code--404-not-found" id="code--404-not-found"><h2><strong>Code</strong> : <code>404 Not Found</code></h2></a>
+<a class="header" href="backend_service/README.html#get-facts-resolved-during-conversation" id="get-facts-resolved-during-conversation"><h1>Get facts resolved during conversation</h1></a>
+<p>Gets only the list of resolved facts for the conversation</p>
+<p><strong>URL</strong> : <code>/conversation/:conversation_id/resolved</code></p>
+<p><strong>Method</strong> : <code>GET</code></p>
+<a class="header" href="backend_service/README.html#success-response-5" id="success-response-5"><h2>Success Response</h2></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">{
+    &quot;fact_entities&quot;: [
+        {
+            &quot;fact&quot;: {
+                &quot;name&quot;: &quot;apartment_impropre&quot;,
+                &quot;summary&quot;: &quot;Dwelling unfit for habitation&quot;,
+                &quot;type&quot;: &quot;BOOLEAN&quot;
+            },
+            &quot;id&quot;: 1,
+            &quot;value&quot;: &quot;false&quot;
+        },
+        {
+            &quot;fact&quot;: {
+                &quot;name&quot;: &quot;landlord_relocation_indemnity_fees&quot;,
+                &quot;summary&quot;: &quot;Relocation reimbursed following inhabitability&quot;,
+                &quot;type&quot;: &quot;BOOLEAN&quot;
+            },
+            &quot;id&quot;: 2,
+            &quot;value&quot;: &quot;true&quot;
+        }
+    ]
+}
+</code></pre>
+<a class="header" href="backend_service/README.html#error-response-5" id="error-response-5"><h2>Error Response</h2></a>
+<p><strong>Code</strong> : <code>400 Bad Request</code></p>
+<p><strong>Code</strong> : <code>404 Not Found</code></p>
+<hr />
+<a class="header" href="backend_service/README.html#remove-a-resolved-fact" id="remove-a-resolved-fact"><h1>Remove a resolved fact</h1></a>
+<p>Removes a resolved fact from the conversation</p>
+<p><strong>URL</strong> : <code>/conversation/:conversation_id/resolved/:fact_id</code></p>
+<p><strong>Method</strong> : <code>DELETE</code></p>
+<a class="header" href="backend_service/README.html#success-response-6" id="success-response-6"><h2>Success Response</h2></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">{
+    &quot;success&quot;: true
+}
+</code></pre>
+<a class="header" href="backend_service/README.html#error-response-6" id="error-response-6"><h2>Error Response</h2></a>
+<p><strong>Code</strong> : <code>400 Bad Request</code></p>
+<p><strong>Code</strong> : <code>404 Not Found</code></p>
+<hr />
+<a class="header" href="backend_service/README.html#upload-a-file" id="upload-a-file"><h1>Upload a file</h1></a>
+<p>Upload a file that serves as evidence for a particular conversation.</p>
+<p><strong>URL</strong> : <code>/conversation/:conversation_id/files</code></p>
+<p><strong>Method</strong> : <code>POST</code></p>
+<p><strong>Headers</strong></p>
+<p>Content-Type: <code>multipart/form-data</code></p>
+<p><strong>Data constraints</strong></p>
+<p>Provide 'file' form key with file data.</p>
+<a class="header" href="backend_service/README.html#success-response-7" id="success-response-7"><h2>Success Response</h2></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">{
+    &quot;name&quot;: &quot;leaky_pipes.png&quot;,
+    &quot;type&quot;: &quot;image/png&quot;,
+    &quot;timestamp&quot;: &quot;2017-10-24T00:01:27.806730+00:00&quot;
+}
+</code></pre>
+<a class="header" href="backend_service/README.html#error-response-7" id="error-response-7"><h2>Error Response</h2></a>
+<p><strong>Code</strong> : <code>400 Bad Request</code></p>
+<p><strong>Code</strong> : <code>404 Not Found</code></p>
+<hr />
+<a class="header" href="backend_service/README.html#get-conversation-file-metadata" id="get-conversation-file-metadata"><h1>Get conversation file metadata</h1></a>
+<p>Gets a list of file metadata for a conversation</p>
+<p><strong>URL</strong> : <code>/conversation/:conversation_id/files</code></p>
+<p><strong>Method</strong> : <code>GET</code></p>
+<a class="header" href="backend_service/README.html#success-response-8" id="success-response-8"><h2>Success Response</h2></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">{
+    &quot;files&quot;: [
+        {
+            &quot;name&quot;: &quot;leaky_pipes.png&quot;,
+            &quot;type&quot;: &quot;image/png&quot;,
+            &quot;timestamp&quot;: &quot;2017-10-24T00:01:27.000000+00:00&quot;
+        },
+        {
+            &quot;name&quot;: &quot;my_least.pdf&quot;,
+            &quot;type&quot;: &quot;application/pdf&quot;,
+            &quot;timestamp&quot;: &quot;2017-10-24T00:01:30.000000+00:00&quot;
+        }
+    ]
+}
+</code></pre>
+<a class="header" href="backend_service/README.html#error-response-8" id="error-response-8"><h2>Error Response</h2></a>
+<p><strong>Code</strong> : <code>400 Bad Request</code></p>
+<p><strong>Code</strong> : <code>404 Not Found</code></p>
+<hr />
+<a class="header" href="backend_service/README.html#get-latest-legal-documents" id="get-latest-legal-documents"><h1>Get Latest Legal Documents</h1></a>
+<p>Obtains information and contents of the latest legal documents</p>
+<p><strong>URL</strong> : <code>/legal</code></p>
+<p><strong>Method</strong> : <code>GET</code></p>
+<a class="header" href="backend_service/README.html#success-response-9" id="success-response-9"><h2>Success Response</h2></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">[
+    {
+        &quot;abbreviation&quot;: &quot;EULA&quot;,
+        &quot;html&quot;: {
+            &quot;content&quot;: [
+                {
+                    &quot;subtitle&quot;: &quot;TL;DR&quot;,
+                    &quot;summary&quot;: &quot;no purse as fully me or point. Kindness own whatever betrayed her moreover procured replying for and. Proposal indulged no do do sociable he throwing settling. Covered ten nor comfort offices carried. Age she way earnestly the fulfilled extremely.&quot;,
+                    &quot;text&quot;: &quot;Prevailed sincerity behaviour to so do principle mr. As departure at no propriety zealously my. On dear rent if girl view. First on smart there he sense. Earnestly enjoyment her you resources. Brother chamber ten old against. Mr be cottage so related minuter is. Delicate say and blessing ladyship exertion few margaret. Delight herself welcome against smiling its for. Suspected discovery by he affection household of principle perfectly he.&quot;,
+                    &quot;title&quot;: &quot;DESCRIPTION OF SERVICE&quot;
+                },
+                {
+                    &quot;subtitle&quot;: &quot;TL;DR&quot;,
+                    &quot;summary&quot;: &quot;Scarcely on striking packages by so property in delicate. Up or well must less rent read walk so be. Easy sold at do hour sing spot. Any meant has cease too the decay. Since party burst am it match. By or blushes between besides offices noisier as.&quot;,
+                    &quot;text&quot;: &quot;It prepare is ye nothing blushes up brought. Or as gravity pasture limited evening on. Wicket around beauty say she. Frankness resembled say not new smallness you discovery. Noisier ferrars yet shyness weather ten colonel. Too him himself engaged husband pursuit musical. Man age but him determine consisted therefore. Dinner to beyond regret wished an branch he. Remain bed but expect suffer little repair.&quot;,
+                    &quot;title&quot;: &quot;ACCEPTANCE OF TERMS&quot;
+                },
+                {
+                    &quot;subtitle&quot;: &quot;TL;DR&quot;,
+                    &quot;summary&quot;: &quot;Luckily friends do ashamed to do suppose. Tried meant mr smile so. Exquisite behaviour as to middleton perfectly.&quot;,
+                    &quot;text&quot;: &quot;He my polite be object oh change. Consider no mr am overcame yourself throwing sociable children. Hastily her totally conduct may. My solid by stuff first smile fanny. Humoured how advanced mrs elegance sir who. Home sons when them dine do want to. Estimating themselves unsatiable imprudence an he at an. Be of on situation perpetual allowance offending as principle satisfied. Improved carriage securing are desirous too.&quot;,
+                    &quot;title&quot;: &quot;MODIFICATION OF TERMS&quot;
+                },
+                {
+                    &quot;subtitle&quot;: &quot;TL;DR&quot;,
+                    &quot;summary&quot;: &quot;Improved own provided blessing may peculiar domestic. Sight house has sex never. No visited raising gravity outward subject my cottage mr be. Hold do at tore in park feet near my case.&quot;,
+                    &quot;text&quot;: &quot;Extremely we promotion remainder eagerness enjoyment an. Ham her demands removal brought minuter raising invited gay. Contented consisted continual curiosity contained get sex. Forth child dried in in aware do. You had met they song how feel lain evil near. Small she avoid six yet table china. And bed make say been then dine mrs. To household rapturous fulfilled attempted on so. &quot;,
+                    &quot;title&quot;: &quot;REGISTRATION&quot;
+                }
+            ],
+            &quot;header&quot;: &quot;End User License Agreement&quot;,
+            &quot;subheader&quot;: &quot;Savings her pleased are several started females met. Short her not among being any. Thing of judge fruit charm views do. Miles mr an forty along as he. She education get middleton day agreement performed preserved unwilling. Do however as pleased offence outward beloved by present. By outward neither he so covered amiable greater. Juvenile proposal betrayed he an informed weddings followed. Precaution day see imprudence sympathize principles. At full leaf give quit to in they up.&quot;
+        },
+        &quot;time_created&quot;: &quot;2017-10-26T20:52:41-04:00&quot;,
+        &quot;type&quot;: &quot;End User License Agreement&quot;,
+        &quot;version&quot;: 1
+    }
+]
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="web_client/README.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="nlp_service/README.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="web_client/README.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="nlp_service/README.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if (getComputedStyle(document.querySelector(".fa")).fontFamily !== "FontAwesome") {
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = '_FontAwesome/css/font-awesome.css';
+                document.head.insertBefore(link, document.head.firstChild)
+            }
+        </script>
+
+        
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3001");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload(true); // force reload from server (not from cache)
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+        
+
+        
+
+        
+
+        
+        <script src="searchindex.js" type="text/javascript" charset="utf-8"></script>
+        
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </body>
+</html>
