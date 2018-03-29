@@ -1,0 +1,8 @@
+[book]
+title = "ProceZeus Documentation"
+src = "docs/src"
+
+[build]
+build-dir = "docs/rendered"
+create-missing = false
+
