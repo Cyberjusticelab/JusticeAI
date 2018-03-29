@@ -66,7 +66,7 @@ def generate_report(conversation, ml_prediction, similar_precedents, probabiliti
 
 def __dict_values_to_int(dict):
     for key in dict:
-        if type(dict[key]) is str:
+        if isinstance(dict[key], str):
             try:
                 dict[key] = int(float(dict[key]))
             except ValueError:

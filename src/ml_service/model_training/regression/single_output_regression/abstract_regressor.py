@@ -156,7 +156,7 @@ class AbstractRegressor:
         if model_metrics is None:
             model_metrics = {
                 'regressor': {
-                    self.regressor_name:{
+                    self.regressor_name: {
 
                     }
                 }
