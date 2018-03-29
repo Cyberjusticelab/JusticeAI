@@ -7,7 +7,7 @@ class TestRegressionDriver(unittest.TestCase):
     def test_failure(self):
         mock_data = [
             {
-                'facts_vector':[1, 2, 3, 4, 5],
+                'facts_vector': [1, 2, 3, 4, 5],
                 'outcomes_vector':[5, 6]
             },
             {
@@ -36,7 +36,7 @@ class TestRegressionDriver(unittest.TestCase):
                         45.66666667,
                         9,
                         17
-                        ]
+                    ]
                     )
                 }
             }
