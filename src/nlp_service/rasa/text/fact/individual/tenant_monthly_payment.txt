@@ -8,30 +8,27 @@ i am: im|i'm|i am
 [entity_synonyms]
 
 [common_examples: true]
-($15)
-(15$)
-(100 dollars)
-(one hundred dollars)
+($1500)
+(1500$)
+(650 dollars)
+(eight hundred dollars)
 (three hundred)
-my tenant owes me ($20)
-he owes me (4232.42$)
-he owes me (20 dollars)
-i’m owed (40 dollars) by my tenant
-i’m owed (20 dollars)
-he hasn’t paid me in 3 months and owes me (1853.32$) for rent
-this guy needs to give me back my (5000$)
-he owes me (five hundred dollars)
-(four thousand dollars) are owed to me
-the tenant owes me (four bills)
-he owes me (10 grand)
-he needs to pay me back my (4g)
-the tenant still has to pay me (fifty cents)
-he needs to give me (a hundred dollar bill)
-he is in debt of (two hundred dollar bills)
-the tenant owes me cash money with the sum of (500$)
-damn straight he owes me (100$)
-i’m waiting for him to give me my (twenty dollar bill)
-yeah i’m still waiting for my (8523.24$)
+the monthly rent is ($600)
+i owe (900 dollars) for rent
+the rent is (20 dollars)
+i would say it's about (1853.32$) for rent
+my rent is (5000$)
+it is (five hundred dollars)
+(four thousand dollars) is how much i pay in rent
+only around (six hundred dollars)
+the rental payment is ($900 bucks)
+i pay ($850) per month to live here
+the rent for the tenant is (500$) on a monthly basis
+the rental fee is (1000$) monthly
+to keep this dwelling the monthly payment is ($950) dollars
+rent is ($800) dollars
+we agreed on (five hundred dollars) per month
+rent is easily a cool ($1500) monthly
 
 [common_examples: false]
 negative
@@ -57,14 +54,8 @@ not likely
 fat chance
 no chance in hell
 no he always pays on time
-they pay on time
-i’m not owed any rent
-i’m not owed any money
-he paid everything
-he’s good
-no not yet
-for now he’s still in the clear
-he owes me $0
-he owes me nothing
-he has no debt
-he owes me a grand total of zero dollars
+i don't pay rent monthly
+there is no monthly rent payment
+no payment monthly
+there is none
+i am not sure what the rent payment is
