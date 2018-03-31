@@ -200,7 +200,7 @@ class Responses:
             ],
         "tenant_monthly_payment":
             [
-                "Is rent owed on a monthly basis for the term of the lease?"
+                "How much is the monthly rent payment?"
             ],
         "tenant_owes_rent":
             [

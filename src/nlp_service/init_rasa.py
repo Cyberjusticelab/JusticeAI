@@ -32,7 +32,6 @@ fact_names = [
     "tenant_individual_responsability",
     "tenant_is_bothered",
     "tenant_lease_fixed",
-    "tenant_monthly_payment",
     "tenant_refuses_retake_apartment",
     "violent",
 ]

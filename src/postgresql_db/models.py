@@ -225,7 +225,7 @@ defined_facts = [
     {'name': 'tenant_is_bothered', 'summary': 'Perte de jouissance', 'type': FactType.BOOLEAN},
     {'name': 'tenant_lease_fixed', 'summary': 'Lease end date stated explicitly', 'type': FactType.BOOLEAN},
     {'name': 'tenant_left_without_paying', 'summary': 'Tenant left without paying', 'type': FactType.BOOLEAN},
-    {'name': 'tenant_monthly_payment', 'summary': 'Requisite monthly rent payment', 'type': FactType.BOOLEAN},
+    {'name': 'tenant_monthly_payment', 'summary': 'Monthly rent payment', 'type': FactType.MONEY},
     {'name': 'tenant_owes_rent', 'summary': 'Tenant owes overdue rent', 'type': FactType.MONEY},
     {'name': 'tenant_refuses_retake_apartment', 'summary': 'Tenant refuses dwelling retake', 'type': FactType.BOOLEAN},
     {'name': 'tenant_rent_not_paid_more_3_weeks', 'summary': 'Rent overdue over 3 weeks', 'type': FactType.BOOLEAN},

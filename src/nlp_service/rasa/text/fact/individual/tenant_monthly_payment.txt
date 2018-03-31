@@ -1,0 +1,61 @@
+[meta]
+() = money, ner_duckling
+
+[regex_features]
+gender: (him|he|her|she|they)((')?s)?
+i am: im|i'm|i am
+
+[entity_synonyms]
+
+[common_examples: true]
+($1500)
+(1500$)
+(650 dollars)
+(eight hundred dollars)
+(three hundred)
+the monthly rent is ($600)
+i owe (900 dollars) for rent
+the rent is (20 dollars)
+i would say it's about (1853.32$) for rent
+my rent is (5000$)
+it is (five hundred dollars)
+(four thousand dollars) is how much i pay in rent
+only around (six hundred dollars)
+the rental payment is ($900 bucks)
+i pay ($850) per month to live here
+the rent for the tenant is (500$) on a monthly basis
+the rental fee is (1000$) monthly
+to keep this dwelling the monthly payment is ($950) dollars
+rent is ($800) dollars
+we agreed on (five hundred dollars) per month
+rent is easily a cool ($1500) monthly
+
+[common_examples: false]
+negative
+that is incorrect
+false
+absolutely not
+nope
+no way
+no
+no that's out of the question
+uh-uh
+niet
+nay
+nah
+no absolutely not
+no way jose
+out of the question
+no siree
+no sir
+not on your life
+under no circumstances
+not likely
+fat chance
+no chance in hell
+no he always pays on time
+i don't pay rent monthly
+there is no monthly rent payment
+no payment monthly
+there is none
+i am not sure what the rent payment is
