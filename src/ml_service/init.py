@@ -35,11 +35,7 @@ if (not os.environ['CJL_USER']) or (not os.environ['CJL_PASS']):
 for binary_url in binary_urls:
     binary_name = binary_url.split('/')[-1]
     abs_file_path = os.path.join(Path.binary_directory, binary_name)
-
-    if os.path.exists(abs_file_path):
-        Log.write("{} binary file requirement already satisfied.".format(binary_name))
-        continue
-
+    
     Log.write(binary_name)
     status = subprocess.call("wget --quiet --recursive --force-directories --show-progress --progress=bar:force --no-cache --user={} --password={} --output-document={} {}".format(
         os.environ['CJL_USER'], os.environ['CJL_PASS'], abs_file_path, binary_url
