@@ -173,7 +173,7 @@ class MlController:
             }
         }
         """
-        stat_dict =  Load.load_binary('model_metrics.bin')
+        stat_dict = Load.load_binary('model_metrics.bin')
         for regressor_type in stat_dict['regressor']:
             stat_dict['regressor'][regressor_type].pop('mean_facts_vector', None)
         return stat_dict

@@ -30,7 +30,7 @@ class AdditionalIndemnity:
         nt = n * t
         PMT = monthly_rent * 4
         try:
-            amount = PMT * ((1 + (self.ANNUAL_INTEREST_RATE / n))** nt)
+            amount = PMT * ((1 + (self.ANNUAL_INTEREST_RATE / n)) ** nt)
         except ZeroDivisionError:
             return 0
         return amount - PMT
