@@ -51,13 +51,13 @@ class RegexLib:
         ], "BOOLEAN"),
         ("asker_is_landlord", [
             re.compile(
-                r".+ " + __multiple_words(1,2) + LANDLORD_REGEX + r" " + DEMAND_REGEX + r"",
+                r".+ " + __multiple_words(1, 2) + LANDLORD_REGEX + r" " + DEMAND_REGEX + r"",
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
         ("asker_is_tenant", [
             re.compile(
-                r".+ " + __multiple_words(1,2) + TENANT_REGEX + r" " + DEMAND_REGEX + r"",
+                r".+ " + __multiple_words(1, 2) + TENANT_REGEX + r" " + DEMAND_REGEX + r"",
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
@@ -127,8 +127,8 @@ class RegexLib:
         ], "BOOLEAN"),
         ("landlord_relocation_indemnity_fees", [
             re.compile(
-                r".+(" + LANDLORD_REGEX + r")?.+réclame.+indemnité de relocation\s" + __multiple_words(0, 5) + MONEY_REGEX,
-                re.IGNORECASE
+                r".+(" + LANDLORD_REGEX + r")?.+réclame.+indemnité de relocation\s" + __multiple_words(0, 5)
+                + MONEY_REGEX, re.IGNORECASE
             )
         ], "MONEY_REGEX"),
         ("landlord_rent_change", [
@@ -416,19 +416,19 @@ class RegexLib:
         ], "BOOLEAN"),
         ("tenant_not_paid_lease_timespan", [
             re.compile(
-                DATE_REGEX + r" .+n'(ont|est|a) pas payé",
+                DATE_REGEX + r" .+n'(est|été|ete|était|etait) pas payé",
                 re.IGNORECASE
             ),
             re.compile(
-                TENANT_REGEX + r" n'(ont|est|a) pas payé.+" + DATE_REGEX + r".+et" + DATE_REGEX,
+                TENANT_REGEX + r" n'(ont|a|avait) pas payé.+" + DATE_REGEX + r".+et" + DATE_REGEX,
                 re.IGNORECASE
             ),
             re.compile(
-                TENANT_REGEX + r" n'(ont|est|a) pas payé le loyer " + DATE_REGEX,
+                TENANT_REGEX + r" n'(ont|a|avait) pas payé le loyer " + DATE_REGEX,
                 re.IGNORECASE
             ),
             re.compile(
-                "le loyer " + DATE_REGEX + " \d{0,4} n'(ont|est|a) toujours pas payé",
+                "le loyer " + DATE_REGEX + " \d{0,4} n'(est|été|ete|était|etait) toujours pas payé",
                 re.IGNORECASE
             ),
             re.compile(
@@ -436,7 +436,8 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
-                r"pas payé(s|) " + __multiple_words(1,2) + LANDLORD_REGEX + r" le(s|) loyer(s|) (du|des) mois " + DATE_REGEX
+                r"pas payé(s|) " + __multiple_words(1,2) + LANDLORD_REGEX + r" le(s|) loyer(s|) (du|des) mois "
+                + DATE_REGEX, re.IGNORECASE
             )
         ], 'DATE_REGEX')
     ]
@@ -498,8 +499,8 @@ class RegexLib:
                 r"ORDONNE l'expulsion"
             ),
             re.compile(
-                r"ORDONNE " + __multiple_words(1, 2) + TENANT_REGEX + " et à tous les occupants du logement de quitter les lieux",
-                re.IGNORECASE
+                r"ORDONNE " + __multiple_words(1, 2) + TENANT_REGEX + " et à tous les occupants du "
+                                                                      "logement de quitter les lieux", re.IGNORECASE
             )
         ], "BOOLEAN"),
         ("orders_immediate_execution", [
@@ -519,8 +520,8 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
-                r"ORDONNE " + __multiple_words(1, 2) + TENANT_REGEX + " de payer ses loyers à échoir le premier jour de chaque mois",
-                re.IGNORECASE
+                r"ORDONNE " + __multiple_words(1, 2) + TENANT_REGEX + " de payer ses loyers à échoir "
+                                                                      "le premier jour de chaque mois", re.IGNORECASE
             ),
             re.compile(
                 r"ORDONNE " + __multiple_words(1, 2) + TENANT_REGEX + " de payer son loyer le 1er de chaque mois",
