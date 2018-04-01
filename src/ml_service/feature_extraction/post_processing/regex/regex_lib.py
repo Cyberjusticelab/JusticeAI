@@ -581,7 +581,7 @@ class RegexLib:
         ], "BOOLEAN"),
         ("authorize_landlord_retake_apartment", [
             re.compile(
-                r"AUTORISE " +__multiple_words(1,2) + LANDLORD_REGEX + r" à reprendre (possession )?(du|le|des|de leur|de son)" +
+                r"AUTORISE " +__multiple_words(1,2) + LANDLORD_REGEX + r" à reprendre (possession )?(du|le|des|de leur|de son) " +
                 "(logement|lieux)",
                 re.IGNORECASE
             )
