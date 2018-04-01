@@ -436,7 +436,7 @@ class RegexLib:
                 re.IGNORECASE
             ),
             re.compile(
-                r"pas payé(s|) " + __multiple_words(1,2) + LANDLORD_REGEX + r" le(s|) loyer(s|) (du|des) mois "
+                r"pas payé(s|) " + __multiple_words(1, 2) + LANDLORD_REGEX + r" le(s|) loyer(s|) (du|des) mois "
                 + DATE_REGEX, re.IGNORECASE
             )
         ], 'DATE_REGEX')
