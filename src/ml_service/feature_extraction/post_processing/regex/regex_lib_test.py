@@ -33,6 +33,7 @@ class RegexLibTest(unittest.TestCase):
                 if result:
                     money_regex = re.compile(RegexLib.MONEY_REGEX, re.IGNORECASE)
                     money_matched.append(money_regex.search(result.group(0)).group(0))
+                    break
         return money_matched == expected_match
 
     def test_regexes(self):
@@ -101,7 +102,6 @@ class RegexLibTest(unittest.TestCase):
         expected_months = [
             ['juin', 'juillet', 'août', 'septembre'],
             ['novembre', "octobre", 'novembre'],
-            ['novembre', 'octobre', 'novembre'],
             ['décembre', 'janvier'],
             ['janvier'],
             ["octobre"],
@@ -119,7 +119,7 @@ class RegexLibTest(unittest.TestCase):
                 tenant_not_paid_lease_timespan = regex[1]
 
         # perform test
-        expected_matches = 10
+        expected_matches = 9
         match_count = 0
         month_matched = []
         for line in sentences:
@@ -128,5 +128,6 @@ class RegexLibTest(unittest.TestCase):
                     match_count += 1
                     date_regex = re.compile(RegexLib.DATE_REGEX, re.IGNORECASE)
                     month_matched.append(date_regex.findall(line))
+                    break
         self.assertEqual(match_count, expected_matches)
         self.assertEqual(month_matched, expected_months)
