@@ -3,9 +3,6 @@ import regex as re
 
 
 class RegexLib:
-    def __multiple_words(min, max):
-        return r"([a-zA-ZÀ-ÿ0-9]+(\s|'|,\s)){" + str(min) + "," + str(max) + "}"
-
     MONEY_REGEX = r"(\d+(\s|,)){1,4}(\s\$|\$)"
     TENANT_REGEX = r"locataire(s)?"
     LANDLORD_REGEX = r"locat(eur|rice)(s)?"
@@ -15,7 +12,8 @@ class RegexLib:
     DATE_RANGE_REGEX = r"(?i)(\d{1,2})?(?:er|èr|ere|em|eme|ème)?\s?(\w{3,9}) (\d{4})?\s?" \
                        r"(?:a|à|au|et se terminant le|au mois de) (\d{1,2})?(?:er|èr|ere|em|eme|ème)?\s?(\w{3,9}) (\d{4})"
 
-
+    def __multiple_words(min, max):
+        return r"([a-zA-ZÀ-ÿ0-9]+(\s|'|,\s)){" + str(min) + "," + str(max) + "}"
 
     # #############################################################
     # FACTS
@@ -582,14 +580,6 @@ class RegexLib:
             )
         ], "BOOLEAN"),
         ("authorize_landlord_retake_apartment", [
-            re.compile(
-                r"AUTORISE " +__multiple_words(1,2) + LANDLORD_REGEX + r" à reprendre le logement ",
-                re.IGNORECASE
-            ),
-            re.compile(
-                r"AUTORISE " +__multiple_words(1,2) + LANDLORD_REGEX + r" à reprendre possession du logement",
-                re.IGNORECASE
-            ),
             re.compile(
                 r"AUTORISE " +__multiple_words(1,2) + LANDLORD_REGEX + r" à reprendre (possession )?(du|le|des|de leur|de son)" +
                 "(logement|lieux)",
