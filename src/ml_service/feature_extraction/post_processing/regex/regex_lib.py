@@ -53,19 +53,19 @@ class RegexLib:
         ], "BOOLEAN"),
         ("asker_is_landlord", [
             re.compile(
-                r".+ " + LANDLORD_REGEX + r" " + DEMAND_REGEX + r"",
+                r".+ " +__multiple_words(1,2) + LANDLORD_REGEX + r" " + DEMAND_REGEX + r"",
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
         ("asker_is_tenant", [
             re.compile(
-                r".+ " + TENANT_REGEX + r" " + DEMAND_REGEX + r"",
+                r".+ " +__multiple_words(1,2) + TENANT_REGEX + r" " + DEMAND_REGEX + r"",
                 re.IGNORECASE
             )
         ], "BOOLEAN"),
         ("bothers_others", [
             re.compile(
-                r".+ " + TENANT_REGEX +
+                r".+" + TENANT_REGEX +
                 r" trouble(nt|) la jouissance normale des lieux loués",
                 re.IGNORECASE
             ),
@@ -129,7 +129,7 @@ class RegexLib:
         ], "BOOLEAN"),
         ("landlord_relocation_indemnity_fees", [
             re.compile(
-                r".+(" + LANDLORD_REGEX + r").+réclame.+indemnité de relocation\s" + __multiple_words(0, 5) + MONEY_REGEX,
+                r".+(" + LANDLORD_REGEX + r")?.+réclame.+indemnité de relocation\s" + __multiple_words(0, 5) + MONEY_REGEX,
                 re.IGNORECASE
             )
         ], "MONEY_REGEX"),
