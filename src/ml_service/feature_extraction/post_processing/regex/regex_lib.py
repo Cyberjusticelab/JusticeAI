@@ -10,8 +10,8 @@ class RegexLib:
     TENANT_REGEX = r"locataire(s)?"
     LANDLORD_REGEX = r"locat(eur|rice)(s)?"
     DEMAND_REGEX = r"(demand|réclam)(ait|e|ent|aient)"
-    DATE_REGEX = r"(en\s|de\s|d')?(janvier|f(é|e)vrier|mars|avril|mai|juin|juillet|ao(û|u)t|septembre|" \
-                 r"octobre|novembre|d(é|e)cembre)"
+    DATE_REGEX = r"(?:en\s|de\s|d')?(janvier|février|fevrier|mars|avril|mai|juin|juillet|août|aout|septembre|octobre" \
+                 r"|octobre|novembre|décembre|decembre)"
     DATE_RANGE_REGEX = r"(?i)(\d{1,2})?(?:er|èr|ere|em|eme|ème)?\s?(\w{3,9}) (\d{4})?\s?" \
                        r"(?:a|à|au|et se terminant le|au mois de) (\d{1,2})?(?:er|èr|ere|em|eme|ème)?\s?(\w{3,9}) (\d{4})"
 
@@ -418,7 +418,7 @@ class RegexLib:
         ], "BOOLEAN"),
         ("tenant_not_paid_lease_timespan", [
             re.compile(
-                DATE_REGEX + r".+n'(ont|est|a) pas payé",
+                DATE_REGEX + r" .+n'(ont|est|a) pas payé",
                 re.IGNORECASE
             ),
             re.compile(

@@ -100,13 +100,14 @@ class RegexLibTest(unittest.TestCase):
 
         expected_months = [
             ['juin', 'juillet', 'août', 'septembre'],
-            ['novembre', "d'octobre", 'novembre'],
+            ['novembre', "octobre", 'novembre'],
+            ['novembre', 'octobre', 'novembre'],
             ['décembre', 'janvier'],
             ['janvier'],
-            ["d'octobre"],
+            ["octobre"],
             ['décembre', 'janvier', 'janvier'],
             ['mai'],
-            ['mai', "d'avril", 'mai'],
+            ['mai', "avril", 'mai'],
             ['septembre', 'octobre']
         ]
 
@@ -118,7 +119,7 @@ class RegexLibTest(unittest.TestCase):
                 tenant_not_paid_lease_timespan = regex[1]
 
         # perform test
-        expected_matches = 9
+        expected_matches = 10
         match_count = 0
         month_matched = []
         for line in sentences:
