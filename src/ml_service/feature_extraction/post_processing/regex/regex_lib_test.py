@@ -39,7 +39,6 @@ class RegexLibTest(unittest.TestCase):
     def test_regexes(self):
         for file_name in os.listdir(Path.test_regex_directory):
             regex_name = file_name.replace('.txt', '')
-
             file = open(Path.test_regex_directory + file_name, "r", encoding="utf-8")
 
             sentences = []
@@ -106,6 +105,7 @@ class RegexLibTest(unittest.TestCase):
             ['janvier'],
             ["octobre"],
             ['décembre', 'janvier', 'janvier'],
+            ['juillet', 'août'],
             ['mai'],
             ['mai', "avril", 'mai'],
             ['septembre', 'octobre']
@@ -119,7 +119,7 @@ class RegexLibTest(unittest.TestCase):
                 tenant_not_paid_lease_timespan = regex[1]
 
         # perform test
-        expected_matches = 9
+        expected_matches = 10
         match_count = 0
         month_matched = []
         for line in sentences:
