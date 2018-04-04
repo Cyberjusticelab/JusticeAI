@@ -1,10 +1,11 @@
 import unittest
+from unittest import mock
 from model_training.regression.single_output_regression.abstract_regressor import AbstractRegressor
 import numpy
 
 
 class TestRegressionDriver(unittest.TestCase):
-    def test_failure(self):
+    def test_data_metrics(self):
         mock_data = [
             {
                 'facts_vector': [1, 2, 3, 4, 5],
@@ -21,7 +22,6 @@ class TestRegressionDriver(unittest.TestCase):
         ]
         mock_regressor_name = "example"
         mock_outcome_index = 0
-
         abstract_regressor = AbstractRegressor(mock_regressor_name, mock_data, mock_outcome_index)
         result = abstract_regressor.data_metrics()
         expected_result = {
