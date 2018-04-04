@@ -6,6 +6,8 @@ from sklearn.pipeline import Pipeline
 import os
 import numpy as np
 from util.log import Log
+from model_training.classifier.multi_output.multi_class_svm import MultiClassSVM
+from feature_extraction.post_processing.regex.regex_tagger import TagPrecedents
 
 
 class AbstractRegressor:
@@ -27,10 +29,14 @@ class AbstractRegressor:
         self.input_dimensions = None
         self.model = None
         self.mean_facts_vector = None
+        self.outcome_index = None
+        self.dataset = None
+        facts = MultiClassSVM().get_ordered_weights()[regressor_name]['important_facts']
+        facts += MultiClassSVM().get_ordered_weights()[regressor_name]['additional_facts']
+        facts_index = TagPrecedents().get_intent_index()['facts_vector']
+        self.important_facts_index = [x[0] for x in facts_index if x[1] in facts]
         if dataset is not None:
-            self.dataset = [precedent for precedent in dataset if precedent[
-                'outcomes_vector'][outcome_index] > 1]
-            self.outcome_index = outcome_index
+            self.__filter_dataset(dataset, outcome_index)
         else:
             self.load()
 
@@ -49,7 +55,9 @@ class AbstractRegressor:
         :param precedent_vector: numpy.array([1, 2, 5, 0, 223, 0, 0...])
         :return: [[int]]
         """
+        precedent_vector = precedent_vector[self.important_facts_index]
         data = self.mean_facts_vector.copy()
+        data = data[self.important_facts_index]
         for i in range(len(precedent_vector)):
             if precedent_vector[i] > 0:
                 data[i] = precedent_vector[i]
@@ -103,7 +111,7 @@ class AbstractRegressor:
 
         :return: None
         """
-        X = np.array([precedent['facts_vector'] for precedent in self.dataset])
+        X = np.array([precedent['facts_vector'][self.important_facts_index] for precedent in self.dataset])
         y_pred = self.model.predict(X)
         y_true = np.array([precedent['outcomes_vector'][self.outcome_index]
                            for precedent in self.dataset])
@@ -173,3 +181,37 @@ class AbstractRegressor:
         }
 
         return model_metrics
+
+    def __filter_dataset(self, dataset, outcome_index):
+        """
+        The dataset is filtered to train the regressor:
+            1- Based on facts which were determined to have considerable
+               weight by the classifier.
+            2- If the outcome is present in a decision (biased)
+            3- If the outcome isn't an outlier
+
+        Outlier detection:
+            1- Find standard deviation of outcomes
+            2- Find mean of outcomes
+            3- if (abs(outcome - mean) < (2 * std)) then it is NOT an outlier
+
+        :param dataset: [{
+            name: 'AZ-XXXXXXX.txt',
+            demands_vector: [...],
+            facts_vector: [...],
+            outcomes_vector: [...]
+        },
+        {
+            ...
+        }]
+        :param outcome_index: integer
+        :return: None
+        """
+        outcomes = [x['outcomes_vector'][outcome_index] for x in dataset if x[
+            'outcomes_vector'][outcome_index] > 1]
+        std = np.std(outcomes)
+        mean = np.mean(outcomes)
+        self.dataset = [precedent for precedent in dataset if (precedent[
+            'outcomes_vector'][outcome_index] > 1) and
+            (abs(precedent['outcomes_vector'][outcome_index] - mean) < (2 * std))]
+        self.outcome_index = outcome_index
