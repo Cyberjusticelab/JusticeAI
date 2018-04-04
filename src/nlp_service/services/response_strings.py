@@ -30,7 +30,7 @@ class Responses:
     # Flow finished, reset to claim category
     prompt_continue = [
         "Maybe there's another {} issue I can help you with?",
-        "I can help you with a lot of other {} problems! Are you having any other problems?"
+        "I can help you with a lot of other {} problems, ask away!"
     ]
 
     # Giving a prediction
