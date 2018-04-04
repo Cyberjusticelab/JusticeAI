@@ -30,16 +30,24 @@ yes sir
 alright
 yeah alright
 undoubtedly
-mhmm
 yeah sure
 alright i'll answer more
+yes i would like to answer more
+alright that would be good
+yes i would like more help
+please help me some more
+your help is invaluable
 yeah ok
 i'd love to
 i would love to
 no problem
 ok if it helps
+okay that would be good
+okay
 sure
 sure thing
+that would surely be amazing
+
 
 
 [common_examples: false]
