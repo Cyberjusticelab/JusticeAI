@@ -77,7 +77,8 @@ class Responses:
         },
         "landlord_serious_prejudice": {
             True: ["The facts indicate that the landlord may have suffered a serious prejudice from this dispute."],
-            False: ["I can’t find anything suggesting the landlord has experienced serious prejudice from this dispute."]
+            False: [
+                "I can’t find anything suggesting the landlord has experienced serious prejudice from this dispute."]
         },
         "orders_expulsion": {
             True: ["Immediate expulsion of the tenant from the premises is justified."],
@@ -501,9 +502,11 @@ class Responses:
         """
 
         if person_type not in Responses.static_claim_responses[claim_category_value]:
-            return Responses.chooseFrom(Responses.static_claim_responses["missing_response"])
+            faq_response = Responses.chooseFrom(Responses.static_claim_responses["missing_response"])
+        else:
+            faq_response = Responses.chooseFrom(Responses.static_claim_responses[claim_category_value][person_type])
 
-        return Responses.chooseFrom(Responses.static_claim_responses[claim_category_value][person_type])
+        return faq_response + Responses.prompt_reset_flow(person_type, separate_message=True)
 
     @staticmethod
     def prediction_statement(prediction_dict, similar_precedent_list):
