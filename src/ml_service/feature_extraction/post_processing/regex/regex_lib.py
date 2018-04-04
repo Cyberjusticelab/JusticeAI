@@ -4,8 +4,8 @@ import regex as re
 
 class RegexLib:
     MONEY_REGEX = r"(\d+(\s|,)){1,4}(\s\$|\$)"
-    TENANT_REGEX = r"locataire(s)?"
-    LANDLORD_REGEX = r"locat(eur|rice)(s)?"
+    TENANT_REGEX = r"(partie-)?locataire(s)?"
+    LANDLORD_REGEX = r"(partie-)?locat(eur|rice)(s)?"
     DEMAND_REGEX = r"(demand|réclam)(ait|e|ent|aient)"
     DATE_REGEX = r"(?:en\s|de\s|d')?(janvier|février|fevrier|mars|avril|mai|juin|juillet|août|aout|septembre|octobre" \
                  r"|novembre|décembre|decembre)"
