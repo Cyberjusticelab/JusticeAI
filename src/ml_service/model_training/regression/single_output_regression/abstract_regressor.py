@@ -31,10 +31,13 @@ class AbstractRegressor:
         self.mean_facts_vector = None
         self.outcome_index = None
         self.dataset = None
-        facts = MultiClassSVM().get_ordered_weights()[regressor_name]['important_facts']
-        facts += MultiClassSVM().get_ordered_weights()[regressor_name]['additional_facts']
-        facts_index = TagPrecedents().get_intent_index()['facts_vector']
-        self.important_facts_index = [x[0] for x in facts_index if x[1] in facts]
+        try:
+            facts = MultiClassSVM().get_ordered_weights()[regressor_name]['important_facts']
+            facts += MultiClassSVM().get_ordered_weights()[regressor_name]['additional_facts']
+            facts_index = TagPrecedents().get_intent_index()['facts_vector']
+            self.important_facts_index = [x[0] for x in facts_index if x[1] in facts]
+        except:
+            pass
         if dataset is not None:
             self.__filter_dataset(dataset, outcome_index)
         else:
