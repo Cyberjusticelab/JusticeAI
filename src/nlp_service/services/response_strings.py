@@ -30,7 +30,7 @@ class Responses:
     # Flow finished, reset to claim category
     prompt_continue = [
         "Maybe there's another {} issue I can help you with?",
-        "I can help you with a lot of other {} problems! Are you having any other problems?"
+        "I can help you with a lot of other {} problems, ask away!"
     ]
 
     # Giving a prediction
@@ -77,7 +77,8 @@ class Responses:
         },
         "landlord_serious_prejudice": {
             True: ["The facts indicate that the landlord may have suffered a serious prejudice from this dispute."],
-            False: ["I can’t find anything suggesting the landlord has experienced serious prejudice from this dispute."]
+            False: [
+                "I can’t find anything suggesting the landlord has experienced serious prejudice from this dispute."]
         },
         "orders_expulsion": {
             True: ["Immediate expulsion of the tenant from the premises is justified."],

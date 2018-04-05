@@ -30,17 +30,29 @@ yes sir
 alright
 yeah alright
 undoubtedly
-mhmm
 yeah sure
 alright i'll answer more
+yes i would like to answer more
+alright that would be good
+yes i would like more help
+please help me some more
+your help is invaluable
 yeah ok
 i'd love to
 i would love to
 no problem
 ok if it helps
+okay that would be good
+okay
 sure
 sure thing
-
+yeah sure that would be good
+sure thing i would love to answer more
+i could sure use the better prediction
+i sure do have the time so why not
+that would surely be amazing
+i mean if it helps improve the prediction then sure
+sure i would like to answer more questions
 
 [common_examples: false]
 negative
