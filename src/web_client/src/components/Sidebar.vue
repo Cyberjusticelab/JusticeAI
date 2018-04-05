@@ -47,7 +47,7 @@
                     </el-col>
                     <el-col :sm="{span: 24, offset: 0}">
                         <div id="sidebar-dashboard-header">
-                            <h2>Here is our prediction after analyzing <span>{{ report.data_set }}</span> Régie du logement"s precedents:</h2>
+                            <h2>Here is our prediction after analyzing <span>{{ report.data_set }}</span> Régie du logement's precedents:</h2>
                         </div>
                     </el-col>
                     <el-col :sm="{span: 5, offset: 1}">
