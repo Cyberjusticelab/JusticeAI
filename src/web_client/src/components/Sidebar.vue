@@ -76,7 +76,9 @@
                                     <h3>{{ key }}</h3>
                                 </el-col>
                                 <el-col :sm="{span: 2, offset: 2}">
-                                    <icon name="check-square" class="outcome-check"></icon>
+                                    <icon name="check-square" class="outcome-check" v-if="value == true"></icon>
+                                    <icon name="window-close" class="outcome-check" v-if="value == false"></icon>
+                                    <h3 v-if="value !== true && value !== false">{{ value}}</h3>
                                 </el-col>
                             </div>
                         </div>
@@ -96,7 +98,7 @@
                     </el-col>
                     <el-col :sm="{span: 22, offset: 1}">
                         <div id="sidebar-dashboard-contact">
-                            <h3>Need professional legal support? Contact us at 514-123-4567</h3>
+                            <h3>Need professional legal support? Contact us at 555-555-5555</h3>
                             <div v-on:click="openFeedbackModal = true" class="sidebar-dashboard-footer">
                                 <p>FEEDBACK</p>
                             </div>
@@ -151,6 +153,9 @@ export default {
         // capture event to set progress bar and update dashboard
         EventBus.$on('updateSidebar', () => {
             this.progress = parseInt(this.$localStorage.get('progress'))
+            if (this.progress > 100) {
+                this.progress = 100
+            }
             if (this.progress == 100) {
                 this.view()
             }
