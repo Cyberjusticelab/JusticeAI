@@ -146,6 +146,9 @@ export default {
     created () {
         // resume progress bar
         this.progress = parseInt(this.$localStorage.get('progress')) | 0
+        if (this.progress > 100) {
+            this.progress = 100
+        }
         // resume dashboard
         if (this.$localStorage.get('isPredicted')) {
             this.view()
