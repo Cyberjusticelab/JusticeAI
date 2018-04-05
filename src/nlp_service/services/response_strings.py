@@ -502,11 +502,9 @@ class Responses:
         """
 
         if person_type not in Responses.static_claim_responses[claim_category_value]:
-            faq_response = Responses.chooseFrom(Responses.static_claim_responses["missing_response"])
-        else:
-            faq_response = Responses.chooseFrom(Responses.static_claim_responses[claim_category_value][person_type])
+            return Responses.chooseFrom(Responses.static_claim_responses["missing_response"])
 
-        return faq_response + Responses.prompt_reset_flow(person_type, separate_message=True)
+        return Responses.chooseFrom(Responses.static_claim_responses[claim_category_value][person_type])
 
     @staticmethod
     def prediction_statement(prediction_dict, similar_precedent_list):
