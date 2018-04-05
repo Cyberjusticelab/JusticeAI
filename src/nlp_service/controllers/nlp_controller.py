@@ -58,7 +58,8 @@ def classify_claim_category(conversation_id, message):
 
     conversation_progress = None
     if claim_category in Responses.static_claim_responses.keys():
-        response = Responses.faq_statement(claim_category, conversation.person_type.value)
+        response = Responses.faq_statement(claim_category, conversation.person_type.value) \
+                   + Responses.prompt_reset_flow(conversation.person_type.value, separate_message=True)
     elif claim_category:
         # Set conversation's claim category
         conversation.claim_category = {
