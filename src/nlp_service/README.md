@@ -6,6 +6,11 @@
 ./cjl test nlp_service
 ```
 
+Warning: Have at the very least 8GB of RAM available to run nlp_service tests.
+We recommend an i5 Broadwell CPU and above if you so wish to run tests locally.
+The team used atomic commits and pushes while working on Natural Language Processing to run the tests on its continuous integration tool (Travis in this case).
+
+
 ---
 # NLP API
 
