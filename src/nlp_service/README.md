@@ -12,6 +12,11 @@ We recommend an i5 Broadwell CPU and above if you so wish to run tests locally.
 
 The team used atomic commits and pushes while working on Natural Language Processing to run the tests on its continuous integration tool (Travis in this case).
 
+## Installing requirements
+
+```
+pip3 install -r requirements_test.txt
+```
 
 ---
 # NLP API
@@ -152,6 +157,22 @@ python3 -m util.parse_dataset ~/Documents/ ~/Documents/Json/
 
 **DO NOT FORGET THE '/' AT THE END OF YOUR DIRECTORY**
 
+## Outlier detection
+
+*As of April 10th 2018 the outlier detection is not being used by the NLP service*
+
+This is due to a lack of data of what is considered an "outlier answer".
+
+## Adding a new claim category to the product
+
+**Two kinds of claim categories:**
+* Developed claim categories:
+  * Series of questions that the user answers to resolve facts
+  * Multiple outcomes dynamically calculated by the ml_service
+  * a conclusive view with a dashboard containing resolved facts and most similar legal cases to theirs
+* Static response claim categories have:
+  * one long and developed answer resumed from websites such as [Regie du logement](rdl.gouv.qc.ca), [Educaloi](https://www.educaloi.qc.ca/categories/habitation) or [LikeHome](http://likehome.info/).
+
 # Working with RASA
 
 The team a core part of its Natural Language Processing component [RASA NLU](https://github.com/RasaHQ/rasa_nlu).
@@ -177,6 +198,8 @@ Our config file can be found ~/nlp_service/rasa/config/rasa_config.json
 We do not recommend "ner_spacy" as a replacement to "ner_crf" due to its absence of confidence scores for the entity extraction.
 We also **strongly** advise against using more than 1 thread or more than 1 process as stability is strongly affected by it during training despite it being supported by some components of the pipeline.
 
+### Achieving results:
+
 Things to know that are not mentioned in RASA documentation:
 * Proper usage of the intent_entity_featurizer_regex will often drastically improve intent confidence percentage (up to 40%)
   * Regex on sections of common examples that are unique to a specific intent
@@ -188,7 +211,8 @@ Things to know that are not mentioned in RASA documentation:
   * Avoid fluff (stop words) in the common examples for a proper word vector to be calculated.
   (e.g. deleting "can you help me with this?" at the end of the common examples for this will alter the vector calculated for the intent's common example.)
   * We encourage future devs to keep the number of intents per model 15 or lower.
-
+  * Different people with different vocabulary or English levels are strongly suggested to contribute to the common_examples data set to ensure a proper intent classification when users interact with the system
 * Working with entities
     * We strongly suggest to use entity_synonyms not only for different variations of the entity you are attempting to extract but also for common spelling mistakes of the entities
     * ner_spacy does not give back confidence percentage but it was a feature that was supposed to be on their road map.
+
