@@ -3,8 +3,7 @@
 ## Run Tests and Lints
 
 ```
-export COMPOSE_FILE=ci
-./cjl up -d && ./cjl run nlp_service
+./cjl test nlp_service
 ```
 
 ---
