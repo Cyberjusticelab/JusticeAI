@@ -64,7 +64,7 @@
                                       <div class="bellcurve" ref="bellcurve"></div>
                                   </el-carousel-item>
                                 </div>
-                                <h1 v-show="!hasGraph">No Regressor Available</h1>
+                                <h1 v-show="!hasGraph">This functionality is not available for this prediction</h1>
                             </el-carousel>
                         </div>
                     </el-col>
