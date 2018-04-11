@@ -173,6 +173,23 @@ This is due to a lack of data of what is considered an "outlier answer".
 * Static response claim categories have:
   * one long and developed answer resumed from websites such as [Regie du logement](rdl.gouv.qc.ca), [Educaloi](https://www.educaloi.qc.ca/categories/habitation) or [LikeHome](http://likehome.info/).
 
+1. Add the claim category to nlp_service/controllers/nlp_controller.py in "conversation.claim_category" inside of the "classify_claim_category" function
+2. Define the new claim category inside of the class "ClaimCategory" in postgresql_db/models.py
+3. Define the new category inside of the the .txt file (depending whether or not it is a category belonging to a tenant or a landlord please see "Working with RASA" for pointers towards how to proceed)
+     *We recommend keeping track of FAQ vs developed categories by writing "faq_AbrievationOfSource_factname"*
+4. Write in nlp_service/services/response_strings.py your response if the claim you wrote is a "Static response claim category"
+5. At this stage you should either have a complete Static response claim category *or* an empty developed claim category, which you'll have to add facts to! (following section)
+
+## Adding a new fact (includes adding new questions)
+
+1.
+
+
+## Adding a new outcome
+
+1.
+
+
 # Working with RASA
 
 The team a core part of its Natural Language Processing component [RASA NLU](https://github.com/RasaHQ/rasa_nlu).
