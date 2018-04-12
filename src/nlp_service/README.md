@@ -195,6 +195,11 @@ The mapping between facts and claim categories is done by the machine learning c
 1. Add the outcome(s) you want to be checked by the ml_service to the desired developed claim categories in nlp_service/services/fact_service.py in "outcome_mapping"
 2. Tell the system what to say if the ml_service returns the outcome as "True" (it will happen) or "False" (it won't happen) in nlp_service/services/response_strings.py in "prediction"
 
+## Retrain models
+
+**The models are retrained every time the project is (re)built.**
+
+TBD: This measure was implemented due to the rapid constant development of the natural language component of the system combined with the future intention of persisting user's input streams into the data sets of nlp_service/rasa/text during beta testing.
 
 # Working with RASA
 
