@@ -182,12 +182,18 @@ This is due to a lack of data of what is considered an "outlier answer".
 
 ## Adding a new fact (includes adding new questions)
 
-1.
+1. Add new fact to postgresql_db/models.py as well as the type of answer you are expecting from it and the summary (displayed definition on the front-end)
+2. Add your new fact to nlp_service/services/response_strings.py in "fact_questions" by adding the question trying to answer the fact
+3. If not answerable by a generic "yes or no" add the fact as a .txt file in nlp_service/rasa/text/fact/individual (and apply duckling if required as specified in the instructions above)
+4. If answerable by a generic "yes or no", add the fact name to nlp_service/init_rasa.py in "fact_names"
+
+The mapping between facts and claim categories is done by the machine learning component (ml_service).
 
 
-## Adding a new outcome
+## Adding a new outcome or a response (this section is only useful for developed claim categories)
 
-1.
+1. Add the outcome(s) you want to be checked by the ml_service to the desired developed claim categories in nlp_service/services/fact_service.py in "outcome_mapping"
+2. Tell the system what to say if the ml_service returns the outcome as "True" (it will happen) or "False" (it won't happen) in nlp_service/services/response_strings.py in "prediction"
 
 
 # Working with RASA
