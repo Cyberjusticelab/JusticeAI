@@ -235,8 +235,6 @@ Things to know that are not mentioned in RASA documentation:
   * Capitals matter. Lower casing our data sets while continuously lower casing the user's input for NLP improved the confidence percentage drastically
   * Avoid fluff (stop words) in the common examples for a proper word vector to be calculated.
   (e.g. deleting "can you help me with this?" at the end of the common examples for this will alter the vector calculated for the intent's common example.)
-  * We encourage future devs to keep the number of intents per model 15 or lower.
-  * Different people with different vocabulary or English levels are strongly suggested to contribute to the common_examples data set to ensure a proper intent classification when users interact with the system
 * Working with entities
     * We strongly suggest using entity_synonyms not only for different variations of the entity you are attempting to extract but also for common spelling mistakes of the entities
 
