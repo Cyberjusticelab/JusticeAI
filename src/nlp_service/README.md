@@ -170,24 +170,22 @@ This is due to a lack of data of what is considered an "outlier answer".
   * Series of questions that the user answers to resolve facts
   * Multiple outcomes dynamically calculated by the ml_service
   * a conclusive view with a dashboard containing resolved facts and most similar legal cases to theirs
-* Static response claim categories have:
+* FAQs have:
   * one long and developed answer resumed from websites such as [Regie du logement](rdl.gouv.qc.ca), [Educaloi](https://www.educaloi.qc.ca/categories/habitation) or [LikeHome](http://likehome.info/).
 
 1. Add the claim category to nlp_service/controllers/nlp_controller.py in "conversation.claim_category" inside of the "classify_claim_category" function
 2. Define the new claim category inside of the class "ClaimCategory" in postgresql_db/models.py
-3. Define the new category inside of the the .txt file (depending whether or not it is a category belonging to a tenant or a landlord please see "Working with RASA" for pointers towards how to proceed)
+3. Define the new category inside of the the *.txt file in nlp_service/rasa/text/category (depending whether or not it is a category belonging to a tenant (category_tenant.txt) or a landlord (category_landlord.txt))
      *We recommend keeping track of FAQ vs developed categories by writing "faq_AbrievationOfSource_factname"*
-4. Write in nlp_service/services/response_strings.py your response if the claim you wrote is a "Static response claim category"
-5. At this stage you should either have a complete Static response claim category *or* an empty developed claim category, which you'll have to add facts to! (following section)
+4. Write in nlp_service/services/response_strings.py your response if the claim you wrote is an "FAQ"
+5. At this stage you should either have a complete FAQ *or* an empty developed claim category, which you'll have to add facts to! (following section)
 
 ## Adding a new fact (includes adding new questions)
 
 1. Add new fact to postgresql_db/models.py as well as the type of answer you are expecting from it and the summary (displayed definition on the front-end)
 2. Add your new fact to nlp_service/services/response_strings.py in "fact_questions" by adding the question trying to answer the fact
-3. If not answerable by a generic "yes or no" add the fact as a .txt file in nlp_service/rasa/text/fact/individual (and apply duckling if required as specified in the instructions above)
+3. If not answerable by a generic "yes or no" add the fact as a {name_of_fact}.txt file in nlp_service/rasa/text/fact/individual
 4. If answerable by a generic "yes or no", add the fact name to nlp_service/init_rasa.py in "fact_names"
-
-The mapping between facts and claim categories is done by the machine learning component (ml_service).
 
 
 ## Adding a new outcome or a response (this section is only useful for developed claim categories)
@@ -199,15 +197,14 @@ The mapping between facts and claim categories is done by the machine learning c
 
 **The models are retrained every time the project is (re)built.**
 
-TBD: This measure was implemented due to the rapid constant development of the natural language component of the system combined with the future intention of persisting user's input streams into the data sets of nlp_service/rasa/text during beta testing.
+The training is initialized init.py whenever the train function's force_train parameter inside of nlp_service/rasa/rasa_classifier.py is set to true.
+The models are loaded in nlp_service/controllers/nlp_controller.py where force_train is initialized as false and initialize_interpreter is initialized as true.
 
 # Working with RASA
 
 The team a core part of its Natural Language Processing component [RASA NLU](https://github.com/RasaHQ/rasa_nlu).
 Documentation available [here](https://rasa-nlu.readthedocs.io/en/latest/).
 Active Gitter channel available [here](https://gitter.im/RasaHQ/rasa_nlu).
-
-We strongly advise against using third party APIs for natural language processing due to the possible sensitive nature of the users' inputs.
 
 ### Configuration:
 
@@ -221,10 +218,10 @@ Our config file can be found ~/nlp_service/rasa/config/rasa_config.json
 - ner_crf: entity extractor using conditional random fields
 - ner_synonyms: maps two or more entities to be extracted to have the same value
 - intent_classifier_sklearn: classifies intents of the text being parsed
-- duckling: helps appends, parse and extract number (money) and time entities.
+- duckling: extraction of pre-trained entities such as money, time, dates, etc.
 
 We do not recommend "ner_spacy" as a replacement to "ner_crf" due to its absence of confidence scores for the entity extraction.
-We also **strongly** advise against using more than 1 thread or more than 1 process as stability is strongly affected by it during training despite it being supported by some components of the pipeline.
+We also **strongly** advise against using more than 1 thread or more than 1 process due to stability issues with duckling.
 
 ### Achieving results:
 
@@ -241,6 +238,5 @@ Things to know that are not mentioned in RASA documentation:
   * We encourage future devs to keep the number of intents per model 15 or lower.
   * Different people with different vocabulary or English levels are strongly suggested to contribute to the common_examples data set to ensure a proper intent classification when users interact with the system
 * Working with entities
-    * We strongly suggest to use entity_synonyms not only for different variations of the entity you are attempting to extract but also for common spelling mistakes of the entities
-    * ner_spacy does not give back confidence percentage but it was a feature that was supposed to be on their road map.
+    * We strongly suggest using entity_synonyms not only for different variations of the entity you are attempting to extract but also for common spelling mistakes of the entities
 
