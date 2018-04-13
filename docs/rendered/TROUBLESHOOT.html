@@ -3,13 +3,13 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Web Client - ProceZeus Documentation</title>
+        <title>Troubleshooting - ProceZeus Documentation</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
-        <base href="../">
+        <base href="">
 
         <link rel="stylesheet" href="book.css">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
@@ -85,7 +85,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="README.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><a href="ARCHITECTURE.html"><strong aria-hidden="true">2.</strong> Archictecture &amp; Infrastructure</a></li><li><a href="web_client/README.html" class="active"><strong aria-hidden="true">3.</strong> Web Client</a></li><li><a href="backend_service/README.html"><strong aria-hidden="true">4.</strong> Backend Service</a></li><li><a href="nlp_service/README.html"><strong aria-hidden="true">5.</strong> Natural Language Processing (NLP) Service</a></li><li><a href="ml_service/README.html"><strong aria-hidden="true">6.</strong> Machine Learning (ML) Service</a></li><li><a href="postgresql_db/README.html"><strong aria-hidden="true">7.</strong> PostgreSQL Database</a></li><li><a href="task_service/README.html"><strong aria-hidden="true">8.</strong> Task Service</a></li><li><a href="beta_client/README.html"><strong aria-hidden="true">9.</strong> Beta Client</a></li><li><a href="beta_server/README.html"><strong aria-hidden="true">10.</strong> Beta Server</a></li><li><a href="TROUBLESHOOT.html"><strong aria-hidden="true">11.</strong> Troubleshooting</a></li></ol>
+            <ol class="chapter"><li><a href="README.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><a href="ARCHITECTURE.html"><strong aria-hidden="true">2.</strong> Archictecture &amp; Infrastructure</a></li><li><a href="web_client/README.html"><strong aria-hidden="true">3.</strong> Web Client</a></li><li><a href="backend_service/README.html"><strong aria-hidden="true">4.</strong> Backend Service</a></li><li><a href="nlp_service/README.html"><strong aria-hidden="true">5.</strong> Natural Language Processing (NLP) Service</a></li><li><a href="ml_service/README.html"><strong aria-hidden="true">6.</strong> Machine Learning (ML) Service</a></li><li><a href="postgresql_db/README.html"><strong aria-hidden="true">7.</strong> PostgreSQL Database</a></li><li><a href="task_service/README.html"><strong aria-hidden="true">8.</strong> Task Service</a></li><li><a href="beta_client/README.html"><strong aria-hidden="true">9.</strong> Beta Client</a></li><li><a href="beta_server/README.html"><strong aria-hidden="true">10.</strong> Beta Server</a></li><li><a href="TROUBLESHOOT.html" class="active"><strong aria-hidden="true">11.</strong> Troubleshooting</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -147,85 +147,82 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="web_client/README.html#web-client" id="web-client"><h1>Web Client</h1></a>
+                        <a class="header" href="TROUBLESHOOT.html#troubleshoot" id="troubleshoot"><h1>Troubleshoot</h1></a>
+<p>This page presents users and devs alike with an amalgam of quick fixes for the various issues we ran into.</p>
+<a class="header" href="TROUBLESHOOT.html#docker" id="docker"><h2>Docker</h2></a>
+<a class="header" href="TROUBLESHOOT.html#reset" id="reset"><h3>Reset</h3></a>
+<p><strong>Docker remove all images:</strong>
+<code>docker rmi $(docker images -a -q)</code>
+<strong>Docker remove all Containers:</strong>
+<code>docker stop $(docker ps -a -q)</code>
+<code>docker rm $(docker ps -a -q)</code>
+<strong>Docker remove all volumes:</strong>
+<code>docker volume rm $(docker volume ls -f)</code></p>
+<a class="header" href="TROUBLESHOOT.html#reset-2" id="reset-2"><h3>Reset #2</h3></a>
+<p><strong>Docker remove all except volumes:</strong>
+<code>sudo docker system prune</code>
+<strong>Docker remove all volumes:</strong>
+<code>sudo docker volume prune</code></p>
+<a class="header" href="TROUBLESHOOT.html#docker-wont-build-without-super-user-permissions" id="docker-wont-build-without-super-user-permissions"><h3>Docker won't build without super user permissions</h3></a>
 <ol>
-<li><a href="web_client/README.html#overview">Overview</a></li>
-<li><a href="web_client/README.html#file-structure">File Structure</a></li>
-<li><a href="web_client/README.html#installation">Installation Instruction</a></li>
-<li><a href="web_client/README.html#component">Develop on Components</a></li>
-<li><a href="web_client/README.html#testing">Testing</a></li>
-<li><a href="web_client/README.html#reference">Reference</a></li>
+<li>Add the docker group if it doesn't already exist:</li>
 </ol>
-<a class="header" href="web_client/README.html#overview-a-nameoverviewa" id="overview-a-nameoverviewa"><h2>Overview <a name="overview"></a></h2></a>
-<p>The web client is a Vue.js application that integrates all micro-services and provides a user interface to end users. The main focus of the web client is to 1) provides on-screen chatbot experience to the users and 2) delivery the system features as a whole.</p>
-<p>The major technologies we use in web client are:</p>
-<ul>
-<li>Build Tool: <a href="https://webpack.js.org/">Webpack</a></li>
-<li>Framework: <a href="https://vuejs.org/">Vue.js</a></li>
-<li>UI Library: <a href="http://element.eleme.io/#/en-US">ElementUI</a></li>
-</ul>
-<a class="header" href="web_client/README.html#file-structurea-namefile-structurea" id="file-structurea-namefile-structurea"><h2>File Structure<a name="file-structure"></a></h2></a>
-<p>Below is a list of the most important files and directories</p>
-<pre><code>-/build                             // includes all webpack build configuration
--/config                            // includes all webpack environment configuration
--/src                               // source code of the vue.js application
--/test                              // unit test
-index.html                          // main index file
-Dockerfile                          // docker configuration
-package.json                        // application dependencies
+<pre><code>sudo groupadd docker
 </code></pre>
-<p>When developing on UI and features, you should mostly work on <code>src</code> folder without touching the other directories and files.</p>
-<a class="header" href="web_client/README.html#installation-instructiona-nameinstallationa" id="installation-instructiona-nameinstallationa"><h2>Installation Instruction<a name="installation"></a></h2></a>
-<p>The web client does not work if other micro-services are not running concurrently. In production and continuous integration, all services including web client are built in docker; however, when developing in local, the docker does not build web client. The reason is docker doesn't rebuild itself when web client is updated, therefore not very efficient to work in docker environment.</p>
-<p>To start work on the web client, please make sure you have installed <a href="https://nodejs.org/en/">Node.js</a> 8 (Do not install v9.0+), and follow the following steps:</p>
+<ol start="2">
+<li>Add the $USER you'd like to use to the docker group</li>
+</ol>
+<pre><code>sudo gpasswd -a $USER docker
+</code></pre>
+<ol start="3">
+<li>a. Log yourself into the new docker group:</li>
+</ol>
+<pre><code>newgrp docker
+</code></pre>
+<ol start="3">
+<li>b. Log out and log in to the user you just added to the docker group.</li>
+<li>Test if you can run docker without su privileges by typing:</li>
+</ol>
+<pre><code>docker run hello-world
+</code></pre>
+<hr />
+<a class="header" href="TROUBLESHOOT.html#postgresql" id="postgresql"><h2>PostgreSQL</h2></a>
+<a class="header" href="TROUBLESHOOT.html#db-reset" id="db-reset"><h3>DB reset</h3></a>
+<p>In root directory
+<code>./cjlean db-reset</code></p>
+<a class="header" href="TROUBLESHOOT.html#db-reset-alternative" id="db-reset-alternative"><h3>DB reset alternative</h3></a>
 <ol>
-<li>If you have not built the docker images for other micro-services yet, run <code>./cjl up</code> in the root directory of the repository. For more information, check the main README.</li>
-<li>Once the micro-services are up, run <code>npm install</code> in web client directory.</li>
-<li>When the installation is finished, run <code>npm run start</code> to start the application</li>
-<li>When the application is running, you can edit the source code. The latest changes will be shown in the browser.</li>
+<li>Get into postgres container:
+<code>docker exec -it &lt;CONTAINER_ID&gt; bash</code></li>
+<li>Enter postgres command line:
+<code>psql postgres postgres</code> (if asked for password enter DEV_PASS_NOT_SECRET)</li>
+<li>Type in order:
+<code>DROP SCHEMA public CASCADE;</code>
+<code>CREATE SCHEMA public;</code>
+<code>GRANT ALL ON SCHEMA public TO postgres;</code>
+<code>GRANT ALL ON SCHEMA public TO public;</code></li>
+<li>Type:
+<code>\q</code> to exit psql</li>
 </ol>
-<a class="header" href="web_client/README.html#develop-on-componentsa-namecomponenta" id="develop-on-componentsa-namecomponenta"><h2>Develop on Components<a name="component"></a></h2></a>
-<p>Under <code>src</code> directory, you should see the application source code with the following folders:</p>
-<pre><code>-/assets                            // static assets such as images
--/components                        // reusable components
--/router                            // url router
--/theme                             // styling
-</code></pre>
-<p>Vue.js is component based Javascript framework, therefore each <code>.vue</code> file creates a reusable component.  Each component is able to be run independently.</p>
-<p>So far in our application, we have:</p>
-<ul>
-<li><code>Landing.vue</code>: the landing page component is used to handle first-time users</li>
-<li><code>Dashboard.vue</code>: the main component that contains <code>Sidebar.vue</code> component and <code>Chat.vue</code> component. When <code>Sidebar.vue</code> component handles the data display on the UI, the <code>Chat.vue</code> component handles all the logic related to the chatbot.</li>
-<li><code>Legal.vue</code>: the legal page component is used to fetch and show the latest Privacy Policy and End User License Agreement.</li>
-<li><code>Eventbus.js</code>: a bus for component communications.</li>
-</ul>
-<p><code>.vue</code> file usually contains all necessary codes for a component (Javascript, HTML, and CSS). To make our lives easier, all styling is configurated and written in SASS format and stored in the <code>theme</code> folder. To change the styling of the UI, you only need to edit the corresponding <code>.scss</code> file without touching the functional codes.</p>
-<p>Due to the simplicity of the nature of the application, we did not implement state management architecture. As mentioned above, we use <code>Eventbus.js</code> to handle component communication. If you want to have major refactoring in the future, you can check out <a href="https://vuex.vuejs.org/en/">Vuex</a>.</p>
-<p>We use ElementUI as the UI library. It is the best library available for Vue.js. For the best practice and code consistency, you should always check if the feature can be implemented using Element component.</p>
-<a class="header" href="web_client/README.html#testinga-nametestinga" id="testinga-nametestinga"><h2>Testing<a name="testing"></a></h2></a>
-<p>The unit test of the web client is using the default <a href="https://vuejs.org/v2/guide/unit-testing.html">Vue.js unit test library</a>, which is built with Mocha. To test the application locally, run <code>npm run test</code>.</p>
-<p>All unit test files are stored in <code>test/unit</code> directory. Each <code>.spec.js</code> file contains the unit tests for the corresponding component. You should always make sure your new changes are well tested. Once you run the test, the test report will be generated in <code>test/unit/converage</code>. You can open <code>test/unit/converage/icov-report/index.html</code> to see the visual report.</p>
-<p>Due to the scope of the project, we did not implement E2E automation test. To do so, please check <a href="http://nightwatchjs.org/">Nightwatch.js</a>.</p>
-<a class="header" href="web_client/README.html#referencea-namereferencea" id="referencea-namereferencea"><h2>Reference<a name="reference"></a></h2></a>
-<ul>
-<li><a href="https://vuejs.org/">Vue.js 2.x Documentation</a></li>
-<li><a href="http://element.eleme.io/#/en-US">ElementUI Documentation</a></li>
-</ul>
+<a class="header" href="TROUBLESHOOT.html#environment-variable-errors" id="environment-variable-errors"><h2>Environment variable errors</h2></a>
+<ol>
+<li>Ensure when building that you did not build with root</li>
+<li>Ensure the environment variables are set up in ~/.bashrc</li>
+<li>If you built with root, <code>./cjl clean</code> with root and <code>./cjl build --no-cache</code> out of root</li>
+</ol>
+<hr />
+<p>We've noticed that sometimes the database takes ~30 sec to create the models at runtime and be ready to accept connections, but the application services have thrown an error due to the requirement of creating a database connection. If you simply <code>./cjl down &amp;&amp; ./cjl up</code>, this problem goes away, but it may be worth having the application servers stall and wait as they perform a health check on the database before attempting to create a database connections.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="ARCHITECTURE.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="beta_server/README.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
-                        
-                            <a rel="next" href="backend_service/README.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
                         
 
                         <div style="clear: both"></div>
@@ -235,15 +232,11 @@ package.json                        // application dependencies
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="ARCHITECTURE.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a href="beta_server/README.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
-                
-                    <a href="backend_service/README.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
                 
             </nav>
 

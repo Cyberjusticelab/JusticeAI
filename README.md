@@ -2,6 +2,10 @@
 
 [![Travis](https://img.shields.io/travis/Cyberjusticelab/JusticeAI.svg)](https://travis-ci.org/Cyberjusticelab/JusticeAI/) [![Codecov](https://img.shields.io/codecov/c/github/codecov/example-python.svg)](https://codecov.io/gh/Cyberjusticelab/JusticeAI)
 
+## Documentation
+
+You can learn more about ProceZeus by [visiting the official documentation page](https://cyberjusticelab.github.io/JusticeAI/docs/rendered/). These docs were generated with [mdBook](https://github.com/rust-lang-nursery/mdBook).
+
 ## Getting Started
 
 ### Prerequisites
@@ -17,10 +21,10 @@ To install Docker and Docker Compose, you can follow the instructions [here](htt
 
 ## Running the Entire Application Stack
 
-We've developed a script to help with running the entire application with all its components. All you need is:
+We've developed a script to help with running the entire application with all its components. It's a thin wrapper around `docker-compose`, so all `docker-compose` will work for it. All you need is:
 
 ```bash
-./cjl up
+./cjl build && ./cjl up
 ```
 
 If you want to suppress output push the job to the background:
@@ -29,16 +33,9 @@ If you want to suppress output push the job to the background:
 ./cjl up -d
 ```
 
-Docker isn't always the best at determining diffs between images. You can manually rebuild all images with:
-
+Docker isn't always the best at determining diffs between images. If that happens, you can destroy ___all___ Docker images on your host with:
 ```bash
-./cjl build
-```
-
-If that doesn't work, try destroying all Docker containers/images on your machine:
-
-```bash
-./cjl clean
+./cjl clean [-y]
 ```
 
 To run all tests and lints for all services:

@@ -1,259 +1,214 @@
 <!DOCTYPE HTML>
 <html lang="en" class="sidebar-visible">
-<head>
-    <!-- Book generated using mdBook -->
-    <meta charset="UTF-8">
-    <title>Natural Language Processing (NLP) Service - ProceZeus Documentation</title>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#ffffff"/>
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Natural Language Processing (NLP) Service - ProceZeus Documentation</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
 
-    <base href="../">
+        <base href="../">
 
-    <link rel="stylesheet" href="book.css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
-          rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
 
-    <link rel="shortcut icon" href="favicon.png">
+        <link rel="shortcut icon" href="favicon.png">
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="highlight.css">
-    <link rel="stylesheet" href="tomorrow-night.css">
-    <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
 
-    <!-- Custom theme -->
+        <!-- Custom theme -->
+        
 
+        
 
-    <!-- Fetch Clipboard.js from CDN but have a local fallback -->
-    <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
-    <script>
-        if (typeof Clipboard == 'undefined') {
-            document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
-        }
-    </script>
-
-    <noscript>
-        <style type="text/css">
-            .javascript-only {
-                display: none;
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
             }
-        </style>
-    </noscript>
-
-</head>
-<body class="light">
-<!-- Work around some values being stored in localStorage wrapped in quotes -->
-<script type="text/javascript">
-    try {
-        var theme = localStorage.getItem('mdbook-theme');
-        var sidebar = localStorage.getItem('mdbook-sidebar');
-
-        if (theme.startsWith('"') && theme.endsWith('"')) {
-            localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
-        }
-
-        if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
-            localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
-        }
-    } catch (e) {
-    }
-</script>
-
-<!-- Set the theme before any content is loaded, prevents flash -->
-<script type="text/javascript">
-    var theme;
-    try {
-        theme = localStorage.getItem('mdbook-theme');
-    } catch (e) {
-    }
-    if (theme === null || theme === undefined) {
-        theme = 'light';
-    }
-    document.body.className = theme;
-    document.querySelector('html').className = theme;
-</script>
-
-<!-- Hide / unhide sidebar before it is displayed -->
-<script type="text/javascript">
-    var html = document.querySelector('html');
-    var sidebar = 'hidden';
-    if (document.body.clientWidth >= 1080) {
-        try {
-            sidebar = localStorage.getItem('mdbook-sidebar');
-        } catch (e) {
-        }
-        sidebar = sidebar || 'visible';
-    }
-    html.classList.remove('sidebar-visible');
-    html.classList.add("sidebar-" + sidebar);
-</script>
-
-<nav id="sidebar" class="sidebar" aria-label="Table of contents">
-    <ol class="chapter">
-        <li><a href="README.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li>
-        <li><a href="ARCHITECTURE.html"><strong aria-hidden="true">2.</strong> Application Archictecture</a></li>
-        <li><a href="web_client/README.html"><strong aria-hidden="true">3.</strong> Web Client</a></li>
-        <li><a href="backend_service/README.html"><strong aria-hidden="true">4.</strong> Backend Service</a></li>
-        <li><a href="nlp_service/README.html" class="active"><strong aria-hidden="true">5.</strong> Natural Language
-            Processing (NLP) Service</a></li>
-        <li><a href="ml_service/README.html"><strong aria-hidden="true">6.</strong> Machine Learning (ML) Service</a>
-        </li>
-        <li><a href="postgresql_db/README.html"><strong aria-hidden="true">7.</strong> PostgreSQL Database</a></li>
-        <li><a href="task_service/README.html"><strong aria-hidden="true">8.</strong> Task Service</a></li>
-        <li><a href="beta_client/README.html"><strong aria-hidden="true">9.</strong> Beta Client</a></li>
-        <li><a href="beta_server/README.html"><strong aria-hidden="true">10.</strong> Beta Server</a></li>
-    </ol>
-</nav>
-
-<div id="page-wrapper" class="page-wrapper">
-
-    <div class="page">
-
-        <div id="menu-bar" class="menu-bar">
-            <div id="menu-bar-sticky-container">
-                <div class="left-buttons javascript-only">
-                    <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents"
-                            aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <button id="theme-toggle" class="icon-button" type="button" title="Change theme"
-                            aria-label="Change theme" aria-haspopup="true" aria-expanded="false"
-                            aria-controls="theme-list">
-                        <i class="fa fa-paint-brush"></i>
-                    </button>
-                    <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                        <li role="none">
-                            <button role="menuitem" class="theme" id="light">Light <span
-                                    class="default">(default)</span></button>
-                        </li>
-                        <li role="none">
-                            <button role="menuitem" class="theme" id="rust">Rust</button>
-                        </li>
-                        <li role="none">
-                            <button role="menuitem" class="theme" id="coal">Coal</button>
-                        </li>
-                        <li role="none">
-                            <button role="menuitem" class="theme" id="navy">Navy</button>
-                        </li>
-                        <li role="none">
-                            <button role="menuitem" class="theme" id="ayu">Ayu</button>
-                        </li>
-                    </ul>
-
-                    <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)"
-                            aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S"
-                            aria-controls="searchbar">
-                        <i class="fa fa-search"></i>
-                    </button>
-
-                </div>
-
-                <h1 class="menu-title">ProceZeus Documentation</h1>
-
-                <div class="right-buttons">
-                    <a href="print.html" title="Print this book" aria-label="Print this book">
-                        <i id="print-button" class="fa fa-print"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-
-        <div id="searchbar-outer" class="searchbar-outer">
-            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..."
-                   aria-controls="searchresults-outer" aria-describedby="searchresults-header">
-        </div>
-        <div id="searchresults-outer" class="searchresults-outer">
-            <div class="searchresults-header" id="searchresults-header"></div>
-            <ul id="searchresults">
-            </ul>
-        </div>
-
-
-        <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-        <script type="text/javascript">
-            document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
-            document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
-            Array.from(document.querySelectorAll('#sidebar a')).forEach(function (link) {
-                link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
-            });
         </script>
 
-        <div id="content" class="content">
-            <main>
-                <a class="header" href="nlp_service/README.html#natural-language-processing-service"
-                   id="natural-language-processing-service"><h1>Natural Language Processing Service</h1></a>
-                <a class="header" href="nlp_service/README.html#run-tests-and-lints" id="run-tests-and-lints"><h2>Run
-                    Tests and Lints</h2></a>
-                <pre><code>export COMPOSE_FILE=ci
-./cjl up -d &amp;&amp; ./cjl run nlp_service
+        <noscript>
+            <style type="text/css">
+                .javascript-only {
+                    display: none;
+                }
+            </style>
+        </noscript>
+
+    </head>
+    <body class="light">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme;
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="README.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><a href="ARCHITECTURE.html"><strong aria-hidden="true">2.</strong> Archictecture &amp; Infrastructure</a></li><li><a href="web_client/README.html"><strong aria-hidden="true">3.</strong> Web Client</a></li><li><a href="backend_service/README.html"><strong aria-hidden="true">4.</strong> Backend Service</a></li><li><a href="nlp_service/README.html" class="active"><strong aria-hidden="true">5.</strong> Natural Language Processing (NLP) Service</a></li><li><a href="ml_service/README.html"><strong aria-hidden="true">6.</strong> Machine Learning (ML) Service</a></li><li><a href="postgresql_db/README.html"><strong aria-hidden="true">7.</strong> PostgreSQL Database</a></li><li><a href="task_service/README.html"><strong aria-hidden="true">8.</strong> Task Service</a></li><li><a href="beta_client/README.html"><strong aria-hidden="true">9.</strong> Beta Client</a></li><li><a href="beta_server/README.html"><strong aria-hidden="true">10.</strong> Beta Server</a></li><li><a href="TROUBLESHOOT.html"><strong aria-hidden="true">11.</strong> Troubleshooting</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons javascript-only">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">ProceZeus Documentation</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="searchbar-outer" class="searchbar-outer">
+                    <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                </div>
+                <div id="searchresults-outer" class="searchresults-outer">
+                    <div class="searchresults-header" id="searchresults-header"></div>
+                    <ul id="searchresults">
+                    </ul>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="nlp_service/README.html#natural-language-processing-service" id="natural-language-processing-service"><h1>Natural Language Processing Service</h1></a>
+<a class="header" href="nlp_service/README.html#run-tests-and-lints" id="run-tests-and-lints"><h2>Run Tests and Lints</h2></a>
+<pre><code>./cjl test nlp_service
 </code></pre>
-                <hr/>
-                <a class="header" href="nlp_service/README.html#nlp-api" id="nlp-api"><h1>NLP API</h1></a>
-                <a class="header" href="nlp_service/README.html#classify-claim-category" id="classify-claim-category">
-                    <h2>Classify claim category</h2></a>
-                <p>Extract a claim category from a user's message. Returns a question based on the claim category found,
-                    or a clarification question.</p>
-                <p><strong>URL</strong> : <code>/claim_category</code></p>
-                <p><strong>Method</strong> : <code>POST</code></p>
-                <p><strong>Data constraints</strong></p>
-                <p>Provide the conversation id and the message.</p>
-                <pre><code class="language-json">{
+<p><em>Warning</em>: Have at the very least 8GB of RAM available to run nlp_service tests.</p>
+<p>We recommend an i5 Broadwell CPU and above if you so wish to run tests locally.</p>
+<p>The team used atomic commits and pushes while working on Natural Language Processing to run the tests on its continuous integration tool (Travis in this case).</p>
+<a class="header" href="nlp_service/README.html#installing-requirements" id="installing-requirements"><h2>Installing requirements</h2></a>
+<pre><code>pip3 install -r requirements_test.txt
+</code></pre>
+<hr />
+<a class="header" href="nlp_service/README.html#nlp-api" id="nlp-api"><h1>NLP API</h1></a>
+<a class="header" href="nlp_service/README.html#classify-claim-category" id="classify-claim-category"><h2>Classify claim category</h2></a>
+<p>Extract a claim category from a user's message. Returns a question based on the claim category found, or a clarification question.</p>
+<p><strong>URL</strong> : <code>/claim_category</code></p>
+<p><strong>Method</strong> : <code>POST</code></p>
+<p><strong>Data constraints</strong></p>
+<p>Provide the conversation id and the message.</p>
+<pre><code class="language-json">{
     &quot;conversation_id&quot;: 1,
     &quot;message&quot;: &quot;I am being evicted&quot;
 }
 </code></pre>
-                <a class="header" href="nlp_service/README.html#success-response" id="success-response"><h4>Success
-                    Response</h4></a>
-                <p><strong>Code</strong> : <code>200 OK</code></p>
-                <p><strong>Content examples</strong></p>
-                <pre><code class="language-json">{
+<a class="header" href="nlp_service/README.html#success-response" id="success-response"><h4>Success Response</h4></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">{
     &quot;message&quot;: &quot;I see you're having problems with lease termination. Have you kept up with your rent payments?&quot;,
     &quot;progress&quot;: 0
 }
 </code></pre>
-                <a class="header" href="nlp_service/README.html#error-response" id="error-response"><h4>Error
-                    Response</h4></a>
-                <p><strong>Code</strong> : <code>400 Bad Request</code> - <em>Inputs not provided</em></p>
-                <p><strong>Code</strong> : <code>404 Not Found</code> - <em>Conversation doesn't exist</em></p>
-                <hr/>
-                <a class="header" href="nlp_service/README.html#submit-message" id="submit-message"><h2>Submit
-                    message</h2></a>
-                <p>Submits a user input to the NLP service. Returns the next question to ask, or a clarification
-                    question.</p>
-                <p><strong>URL</strong> : <code>/submit_message</code></p>
-                <p><strong>Method</strong> : <code>POST</code></p>
-                <p><strong>Data constraints</strong></p>
-                <p>Provide the conversation id and the message.</p>
-                <pre><code class="language-json">{
+<a class="header" href="nlp_service/README.html#error-response" id="error-response"><h4>Error Response</h4></a>
+<p><strong>Code</strong> : <code>400 Bad Request</code> - <em>Inputs not provided</em></p>
+<p><strong>Code</strong> : <code>404 Not Found</code> - <em>Conversation doesn't exist</em></p>
+<hr />
+<a class="header" href="nlp_service/README.html#submit-message" id="submit-message"><h2>Submit message</h2></a>
+<p>Submits a user input to the NLP service. Returns the next question to ask, or a clarification question.</p>
+<p><strong>URL</strong> : <code>/submit_message</code></p>
+<p><strong>Method</strong> : <code>POST</code></p>
+<p><strong>Data constraints</strong></p>
+<p>Provide the conversation id and the message.</p>
+<pre><code class="language-json">{
     &quot;conversation_id&quot;: 1,
     &quot;message&quot;: &quot;My rent is $900 per month.&quot;
 }
 </code></pre>
-                <a class="header" href="nlp_service/README.html#success-response-1" id="success-response-1"><h4>Success
-                    Response</h4></a>
-                <p><strong>Code</strong> : <code>200 OK</code></p>
-                <p><strong>Content examples</strong></p>
-                <pre><code class="language-json">{
+<a class="header" href="nlp_service/README.html#success-response-1" id="success-response-1"><h4>Success Response</h4></a>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content examples</strong></p>
+<pre><code class="language-json">{
     &quot;message&quot;: &quot;Have you kept up with your rent payments?&quot;,
     &quot;progress&quot;: 10
 }
 </code></pre>
-                <a class="header" href="nlp_service/README.html#error-response-1" id="error-response-1"><h4>Error
-                    Response</h4></a>
-                <p><strong>Code</strong> : <code>400 Bad Request</code> - <em>Inputs not provided</em></p>
-                <p><strong>Code</strong> : <code>404 Not Found</code> - <em>Conversation doesn't exist</em></p>
-                <hr/>
-                <a class="header" href="nlp_service/README.html#rasa-json-tool" id="rasa-json-tool"><h1>RASA JSON
-                    Tool</h1></a>
-                <p>The <strong>util.parse_dataset.py</strong> module and the associated <strong>CreateJson</strong>
-                    class can be used to create json training data for RASA NLU.</p>
-                <a class="header" href="nlp_service/README.html#format" id="format"><h4>Format</h4></a>
-                <pre><code>[meta]
+<a class="header" href="nlp_service/README.html#error-response-1" id="error-response-1"><h4>Error Response</h4></a>
+<p><strong>Code</strong> : <code>400 Bad Request</code> - <em>Inputs not provided</em></p>
+<p><strong>Code</strong> : <code>404 Not Found</code> - <em>Conversation doesn't exist</em></p>
+<hr />
+<a class="header" href="nlp_service/README.html#rasa-json-tool" id="rasa-json-tool"><h1>RASA JSON Tool</h1></a>
+<p>The <strong>util.parse_dataset.py</strong> module and the associated <strong>CreateJson</strong> class can be used to create json training data for RASA NLU.</p>
+<a class="header" href="nlp_service/README.html#format" id="format"><h4>Format</h4></a>
+<pre><code>[meta]
 () = entity_name1, entity_extractor(optional)
 {} = entity_name2, entity_extractor(optional)
 
@@ -272,16 +227,15 @@ sentence1
 sentence2
 
 </code></pre>
-                <ul>
-                    <li><strong>[]</strong> are reserved characters used to identify sections</li>
-                    <li><strong>meta</strong> section allows for the definition of meta-characters that define entities
-                    </li>
-                    <li><strong>regex_features</strong> are simply regex features</li>
-                    <li><strong>entity_synonyms</strong> are simply entity synonyms</li>
-                    <li><strong>common_examples:intent_name</strong> are common examples for a particular intent</li>
-                </ul>
-                <a class="header" href="nlp_service/README.html#example" id="example"><h4>Example</h4></a>
-                <pre><code>[meta]
+<ul>
+<li><strong>[]</strong> are reserved characters used to identify sections</li>
+<li><strong>meta</strong> section allows for the definition of meta-characters that define entities</li>
+<li><strong>regex_features</strong> are simply regex features</li>
+<li><strong>entity_synonyms</strong> are simply entity synonyms</li>
+<li><strong>common_examples:intent_name</strong> are common examples for a particular intent</li>
+</ul>
+<a class="header" href="nlp_service/README.html#example" id="example"><h4>Example</h4></a>
+<pre><code>[meta]
 () = money, ner_duckling
 
 [regex_features]
@@ -297,94 +251,186 @@ i dont have any debts
 no
 
 </code></pre>
-                <a class="header" href="nlp_service/README.html#command-line-use" id="command-line-use"><h3>Command Line
-                    Use</h3></a>
-                <p>python3 -m util.parse_dataset &lt;read_dir&gt; &lt;write_dir&gt;</p>
-                <a class="header" href="nlp_service/README.html#example-1" id="example-1"><h4>Example</h4></a>
-                <p>python3 -m util.parse_dataset ~/Documents/ ~/Documents/Json/</p>
-                <p><strong>DO NOT FORGET THE '/' AT THE END OF YOUR DIRECTORY</strong></p>
+<a class="header" href="nlp_service/README.html#command-line-use" id="command-line-use"><h3>Command Line Use</h3></a>
+<p>python3 -m util.parse_dataset &lt;read_dir&gt; &lt;write_dir&gt;</p>
+<a class="header" href="nlp_service/README.html#example-1" id="example-1"><h4>Example</h4></a>
+<p>python3 -m util.parse_dataset ~/Documents/ ~/Documents/Json/</p>
+<p><strong>DO NOT FORGET THE '/' AT THE END OF YOUR DIRECTORY</strong></p>
+<a class="header" href="nlp_service/README.html#outlier-detection" id="outlier-detection"><h2>Outlier detection</h2></a>
+<p><em>As of April 10th 2018 the outlier detection is not being used by the NLP service</em></p>
+<p>This is due to a lack of data of what is considered an &quot;outlier answer&quot;.</p>
+<a class="header" href="nlp_service/README.html#adding-a-new-claim-category-to-the-product" id="adding-a-new-claim-category-to-the-product"><h2>Adding a new claim category to the product</h2></a>
+<p><strong>Two kinds of claim categories:</strong></p>
+<ul>
+<li>
+<p>Developed claim categories:</p>
+<ul>
+<li>Series of questions that the user answers to resolve facts</li>
+<li>Multiple outcomes dynamically calculated by the ml_service</li>
+<li>a conclusive view with a dashboard containing resolved facts and most similar legal cases to theirs</li>
+</ul>
+</li>
+<li>
+<p>FAQs have:</p>
+<ul>
+<li>one long and developed answer resumed from websites such as <a href="rdl.gouv.qc.ca">Regie du logement</a>, <a href="https://www.educaloi.qc.ca/categories/habitation">Educaloi</a> or <a href="http://likehome.info/">LikeHome</a>.</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>Add the claim category to nlp_service/controllers/nlp_controller.py in &quot;conversation.claim_category&quot; inside of the &quot;classify_claim_category&quot; function</li>
+<li>Define the new claim category inside of the class &quot;ClaimCategory&quot; in postgresql_db/models.py</li>
+<li>Define the new category inside of the the *.txt file in nlp_service/rasa/text/category (depending whether or not it is a category belonging to a tenant (category_tenant.txt) or a landlord (category_landlord.txt))
+<em>We recommend keeping track of FAQ vs developed categories by writing &quot;faq_AbrievationOfSource_factname&quot;</em></li>
+<li>Write in nlp_service/services/response_strings.py your response if the claim you wrote is an &quot;FAQ&quot;</li>
+<li>At this stage you should either have a complete FAQ <em>or</em> an empty developed claim category, which you'll have to add facts to! (following section)</li>
+</ol>
+<a class="header" href="nlp_service/README.html#adding-a-new-fact-includes-adding-new-questions" id="adding-a-new-fact-includes-adding-new-questions"><h2>Adding a new fact (includes adding new questions)</h2></a>
+<ol>
+<li>Add new fact to postgresql_db/models.py as well as the type of answer you are expecting from it and the summary (displayed definition on the front-end)</li>
+<li>Add your new fact to nlp_service/services/response_strings.py in &quot;fact_questions&quot; by adding the question trying to answer the fact</li>
+<li>If not answerable by a generic &quot;yes or no&quot; add the fact as a {name_of_fact}.txt file in nlp_service/rasa/text/fact/individual</li>
+<li>If answerable by a generic &quot;yes or no&quot;, add the fact name to nlp_service/init_rasa.py in &quot;fact_names&quot;</li>
+</ol>
+<a class="header" href="nlp_service/README.html#adding-a-new-outcome-or-a-response-this-section-is-only-useful-for-developed-claim-categories" id="adding-a-new-outcome-or-a-response-this-section-is-only-useful-for-developed-claim-categories"><h2>Adding a new outcome or a response (this section is only useful for developed claim categories)</h2></a>
+<ol>
+<li>Add the outcome(s) you want to be checked by the ml_service to the desired developed claim categories in nlp_service/services/fact_service.py in &quot;outcome_mapping&quot;</li>
+<li>Tell the system what to say if the ml_service returns the outcome as &quot;True&quot; (it will happen) or &quot;False&quot; (it won't happen) in nlp_service/services/response_strings.py in &quot;prediction&quot;</li>
+</ol>
+<a class="header" href="nlp_service/README.html#retrain-models" id="retrain-models"><h2>Retrain models</h2></a>
+<p><strong>The models are retrained every time the project is (re)built.</strong></p>
+<p>The training is initialized init.py whenever the train function's force_train parameter inside of nlp_service/rasa/rasa_classifier.py is set to true.
+The models are loaded in nlp_service/controllers/nlp_controller.py where force_train is initialized as false and initialize_interpreter is initialized as true.</p>
+<a class="header" href="nlp_service/README.html#working-with-rasa" id="working-with-rasa"><h1>Working with RASA</h1></a>
+<p>The team a core part of its Natural Language Processing component <a href="https://github.com/RasaHQ/rasa_nlu">RASA NLU</a>.
+Documentation available <a href="https://rasa-nlu.readthedocs.io/en/latest/">here</a>.
+Active Gitter channel available <a href="https://gitter.im/RasaHQ/rasa_nlu">here</a>.</p>
+<a class="header" href="nlp_service/README.html#configuration" id="configuration"><h3>Configuration:</h3></a>
+<p>The team experimented with multiple pipelines and considered Spacy 2.0 by far superior to MITIE.
+Our config file can be found ~/nlp_service/rasa/config/rasa_config.json</p>
+<p><strong>Components:</strong></p>
+<ul>
+<li>nlp_spacy: initializes spacy structures</li>
+<li>tokenizer_spacy: creation of tokens using Spacy</li>
+<li>intent_entity_featurizer_regex: uses regular expressions to aid in intent and entity classification (ONLY SUPPORTED BY NER_CRF)</li>
+<li>ner_crf: entity extractor using conditional random fields</li>
+<li>ner_synonyms: maps two or more entities to be extracted to have the same value</li>
+<li>intent_classifier_sklearn: classifies intents of the text being parsed</li>
+<li>duckling: extraction of pre-trained entities such as money, time, dates, etc.</li>
+</ul>
+<p>We do not recommend &quot;ner_spacy&quot; as a replacement to &quot;ner_crf&quot; due to its absence of confidence scores for the entity extraction.
+We also <strong>strongly</strong> advise against using more than 1 thread or more than 1 process due to stability issues with duckling.</p>
+<a class="header" href="nlp_service/README.html#achieving-results" id="achieving-results"><h3>Achieving results:</h3></a>
+<p>Things to know that are not mentioned in RASA documentation:</p>
+<ul>
+<li>Proper usage of the intent_entity_featurizer_regex will often drastically improve intent confidence percentage (up to 40%)
+<ul>
+<li>Regex on sections of common examples that are unique to a specific intent
+(e.g.Regex on the word &quot;tax&quot; that has an extremely large chance of only appearing when the user wants information concerning his RL-31 slip)</li>
+<li>Regex only actually helps with intent confidence ratio, not entity confidence.  (This bit of information was obtained after a conversation with RASA contributors on gitter)</li>
+</ul>
+</li>
+<li>Working with common examples
+<ul>
+<li>I'm and Im and I am count as different words with Spacy. Avoid using those words in common examples.</li>
+<li>Capitals matter. Lower casing our data sets while continuously lower casing the user's input for NLP improved the confidence percentage drastically</li>
+<li>Avoid fluff (stop words) in the common examples for a proper word vector to be calculated.
+(e.g. deleting &quot;can you help me with this?&quot; at the end of the common examples for this will alter the vector calculated for the intent's common example.)</li>
+</ul>
+</li>
+<li>Working with entities
+<ul>
+<li>We strongly suggest using entity_synonyms not only for different variations of the entity you are attempting to extract but also for common spelling mistakes of the entities</li>
+</ul>
+</li>
+</ul>
 
-            </main>
+                    </main>
 
-            <nav class="nav-wrapper" aria-label="Page navigation">
-                <!-- Mobile navigation buttons -->
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="backend_service/README.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
 
-                <a rel="prev" href="backend_service/README.html" class="mobile-nav-chapters previous"
-                   title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                    <i class="fa fa-angle-left"></i>
-                </a>
+                        
+                            <a rel="next" href="ml_service/README.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
 
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
 
-                <a rel="next" href="ml_service/README.html" class="mobile-nav-chapters next" title="Next chapter"
-                   aria-label="Next chapter" aria-keyshortcuts="Right">
-                    <i class="fa fa-angle-right"></i>
-                </a>
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="backend_service/README.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
 
-
-                <div style="clear: both"></div>
+                
+                    <a href="ml_service/README.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
             </nav>
+
         </div>
-    </div>
-
-    <nav class="nav-wide-wrapper" aria-label="Page navigation">
-
-        <a href="backend_service/README.html" class="nav-chapters previous" title="Previous chapter"
-           aria-label="Previous chapter" aria-keyshortcuts="Left">
-            <i class="fa fa-angle-left"></i>
-        </a>
 
 
-        <a href="ml_service/README.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter"
-           aria-keyshortcuts="Right">
-            <i class="fa fa-angle-right"></i>
-        </a>
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if (getComputedStyle(document.querySelector(".fa")).fontFamily !== "FontAwesome") {
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = '_FontAwesome/css/font-awesome.css';
+                document.head.insertBefore(link, document.head.firstChild)
+            }
+        </script>
 
-    </nav>
+        
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3001");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload(true); // force reload from server (not from cache)
+                }
+            };
 
-</div>
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+        
 
+        
 
-<!-- Local fallback for Font Awesome -->
-<script>
-    if (getComputedStyle(document.querySelector(".fa")).fontFamily !== "FontAwesome") {
-        var link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = '_FontAwesome/css/font-awesome.css';
-        document.head.insertBefore(link, document.head.firstChild)
-    }
-</script>
+        
 
+        
+        <script src="searchindex.js" type="text/javascript" charset="utf-8"></script>
+        
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
 
-<!-- Livereload script (if served using the cli tool) -->
-<script type="text/javascript">
-    var socket = new WebSocket("ws://localhost:3001");
-    socket.onmessage = function (event) {
-        if (event.data === "reload") {
-            socket.close();
-            location.reload(true); // force reload from server (not from cache)
-        }
-    };
+        
 
-    window.onbeforeunload = function () {
-        socket.close();
-    }
-</script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
+        <!-- Custom JS script -->
+        
 
-<script src="searchindex.js" type="text/javascript" charset="utf-8"></script>
-
-
-<script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-
-
-<script src="highlight.js"></script>
-<script src="book.js"></script>
-
-<!-- Custom JS script -->
-
-
-</body>
+    </body>
 </html>
