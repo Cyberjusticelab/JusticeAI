@@ -17,10 +17,6 @@ services:
     command: python -m flask run --host 0.0.0.0 -p 3003
     environment:
       POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
-  web_client:
-    command: npm start
-    ports:
-      - 3039:3039
   postgresql_db:
     environment:
       POSTGRES_PASSWORD: DEV_PASS_NOT_SECRET
