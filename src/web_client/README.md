@@ -4,9 +4,8 @@
 1. [Overview](#overview)
 2. [File Structure](#file-structure)
 3. [Installation Instruction](#installation)
-4. [File Structure](#file-structure)
-5. [ML API](#api)
-6. [Command Line](#command-line)
+4. [Develop on Components](#component)
+5. [Testing](#testing)
 
 ## Overview <a name="overview"></a>
 The web client is a Vue.js application that integrates all micro-services and provides user interface to end users. The main focus of the web client is to 1) provides on-screen chatbot experience to the users and 2) delivery the system features as a whole.
@@ -37,4 +36,34 @@ The web client does not work if other micro-services are not running concurrentl
 To start work on web client, please makre sure you have installed [Node.js](https://nodejs.org/en/) 8 (Do not install v9.0+), and follow the following steps:
 1. If you have not built the docker images for other micro-services yet, run `./cjl up` in the root directory of the repository. For more information, check the main README.
 2. Once the micro-services are up, run `npm install` in web client directory.
-3.
+3. When installation is finished, run `npm run start` to start the application
+4. When the application is running, you can edit the source code. The latest changes will be shown in the browser.
+
+## Develop on Components<a name="component"></a>
+
+Under `src` directory, you should see the application source code with the following folders:
+```
+-/assets                            // static assets such as images
+-/components                        // reusable components
+-/router                            // url router
+-/theme                             // styling
+```
+
+Vue.js is component based Javascript framework, therefore each `.vue` file creates an reusable component.  Each component is able to be ran independently.
+
+So far in our application, we have:
+- `Landing.vue`: the landing page component is used to handle first time users
+- `Dashboard.vue`: the main component that contains `Sidebar.vue` component and `Chat.vue` component. When `Sidebar.vue` component handles the data display on the UI, the `Chat.vue`component handles all the logic related to the chatbot.
+- `Legal.vue`: the legal page component is used to fetch and show the latest Privacy Policy and End User License Agreement.
+- `Eventbus.js`: a bus for component communications.
+
+`.vue` file usually contains all necessary codes for a component (Javascript, HTML, and CSS). To make our lives easier, all styling are configurated and written in SASS format and stored in `theme` folder. To change the styling of the UI, you only need to edit the corresponding `.scss` file without touching the functional codes.
+
+ Due to the simplicity of the nature of the application, we did not implemenet state management architecture. As mentioned above, we use `Eventbus.js` to handle component communication. If you want to have major refactoring in the future, you can check out [Vuex](https://vuex.vuejs.org/en/).
+
+## Installation Instruction<a name="installation"></a>
+
+
+
+
+
