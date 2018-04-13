@@ -1,134 +1,135 @@
 @import "./Utils";
 
 #beta-component {
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+  overflow: hidden;
+  #beta-page {
+    position: absolute;
+    user-select: none;
     width: 100%;
     height: 100%;
-    padding: 0px;
-    overflow: hidden;
-    #beta-page {
-        position: absolute;
-        user-select: none;
-        width: 100%;
-        height: 100%;
-        background: url("../assets/beta_page_background.png") no-repeat center center fixed;
-        background-size: cover;
+    background: url("../assets/beta_page_background.png") no-repeat center center fixed;
+    background-size: cover;
 
-        #beta-page-top {
-            height: 12%;
-            #title-image {
-                margin-top: 15px;
-                text-align: left;
-                height: 100%;
-                img {
-                    display: inline;
-                    margin: 0px;
-                }
-                #beta-page-zeus {
-                    width: 75px;
-                }
-                @media screen and (max-width: $break-width-tablet) {
-                    text-align: center;
-                    #beta-page-logo {
-                        width: 230px;
-                        padding-bottom: 10px;
-                    }
-                    #beta-page-zeus {
-                        width: 60px;
-                    }
-                }
-                @media screen and (max-width: $break-width-legacy) {
-                    #beta-page-logo {
-                        width: 180px;
-                        padding-bottom: 9px;
-                    }
-                    #beta-page-zeus {
-                        width: 45px;
-                    }
-                }
-            }
-            #beta-page-nav {
-                font-family: $zeus-font;
-                color: $main-grey-4;
-                font-size: 12px;
-                p {
-                    cursor: pointer;
-                    display: inline-block;
-                    margin-left: 10px;
-                    &:hover, &:active {
-                        color: $main-gold-2;
-                    }
-                }
-            }
-        }
-        #beta-page-sign-up {
-            height: 88%;
-            background-color: rgba(74, 74, 74, 0.8);
-        }
-    }
-    #beta-page-about-us {
-        border-left: 1px solid $main-grey-2;
-        position: fixed;
+    #beta-page-top {
+      height: 12%;
+      #title-image {
+        margin-top: 15px;
+        text-align: left;
         height: 100%;
-        width: 40%;
-        z-index: 999;
-        right: 0px;
-        background-color: #DCDCDC;
-        font-family: $zeus-font;
-        text-align: center;
-        #beta-page-about-us-nav {
-            width: 80px;
-            p {
-                text-align: left;
-                margin-left: 20px;
-                color: $main-grey-2;
-                font-size: 14px;
-                cursor: pointer;
-                font-weight: bold;
-                &:hover, &:active {
-                    color: $main-gold-2;
-                }
-            }
-        }
         img {
           display: inline;
-          margin: 0 auto;
-          width: 90%;
-          max-width: 200px;
+          margin: 0px;
         }
-        h2 {
-            color: $main-gold-2;
-        }
-        .about-us-text {
-            font-size: 13px;
-            padding: 10px;
-            padding-left: 40px;
-            padding-right: 40px;
-            text-align: left;
+        #beta-page-zeus {
+          width: 75px;
         }
         @media screen and (max-width: $break-width-tablet) {
-            width: 60%;
-            .about-us-text {
-                font-size: 12px;
-                padding: 5px;
-                padding-left: 25px;
-                padding-right: 25px;
-            }
+          text-align: center;
+          #beta-page-logo {
+            width: 230px;
+            padding-bottom: 10px;
+          }
+          #beta-page-zeus {
+            width: 60px;
+          }
         }
-        @media screen and (max-width: $break-width-phone) {
-            width: 100%;
-            .about-us-text {
-                font-size: 12px;
-                padding: 10px;
-                padding-left: 45px;
-                padding-right: 45px;
-            }
+        @media screen and (max-width: $break-width-legacy) {
+          #beta-page-logo {
+            width: 180px;
+            padding-bottom: 9px;
+          }
+          #beta-page-zeus {
+            width: 45px;
+          }
         }
+      }
+      #beta-page-nav {
+        font-family: $zeus-font;
+        color: $main-grey-4;
+        font-size: 12px;
+        p {
+          cursor: pointer;
+          display: inline-block;
+          margin-left: 10px;
+          &:hover, &:active {
+            color: $main-gold-2;
+          }
+        }
+      }
     }
+    #beta-page-sign-up {
+      height: 88%;
+      background-color: rgba(74, 74, 74, 0.8);
+    }
+  }
+  #beta-page-about-us {
+    border-left: 1px solid $main-grey-2;
+    position: fixed;
+    height: 100%;
+    width: 40%;
+    z-index: 999;
+    right: 0px;
+    background-color: #DCDCDC;
+    font-family: $zeus-font;
+    text-align: center;
+    #beta-page-about-us-nav {
+      width: 80px;
+      p {
+        text-align: left;
+        margin-left: 20px;
+        color: $main-grey-2;
+        font-size: 14px;
+        cursor: pointer;
+        font-weight: bold;
+        &:hover, &:active {
+          color: $main-gold-2;
+        }
+      }
+    }
+    img {
+      display: inline;
+      margin: 0 auto;
+      width: 90%;
+      max-width: 200px;
+    }
+    h2 {
+      color: $main-gold-2;
+    }
+    .about-us-text {
+      font-size: 13px;
+      padding: 10px;
+      padding-left: 40px;
+      padding-right: 40px;
+      text-align: left;
+    }
+    @media screen and (max-width: $break-width-tablet) {
+      width: 60%;
+      .about-us-text {
+        font-size: 12px;
+        padding: 5px;
+        padding-left: 25px;
+        padding-right: 25px;
+      }
+    }
+    @media screen and (max-width: $break-width-phone) {
+      width: 100%;
+      .about-us-text {
+        font-size: 12px;
+        padding: 10px;
+        padding-left: 45px;
+        padding-right: 45px;
+      }
+    }
+  }
 }
 
 .translate-enter-active, .translate-leave-active {
   transition: all 0.7s ease;
 }
+
 .translate-enter, .translate-leave-to {
   transform: translateX(100%);
 }

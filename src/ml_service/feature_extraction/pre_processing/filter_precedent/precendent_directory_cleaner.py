@@ -5,7 +5,6 @@ from util.constant import Path
 from sys import stdout
 from util.log import Log
 
-
 FACT_DIGIT_REGEX = r"\[\d+\]"
 TENANT_REGEX = r"locataire(s)?"
 LANDLORD_REGEX = r"locat(eur|rice)(s)?"

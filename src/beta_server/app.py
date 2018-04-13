@@ -3,7 +3,6 @@ from flask_cors import CORS, cross_origin
 from db import DbGateway
 from decorators import ensure_json, ensure_key, handle_options_method
 
-
 app = Flask(__name__)
 CORS(app, origins=['http://localhost:3040', 'https://procezeus.ca'])
 

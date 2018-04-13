@@ -23,6 +23,7 @@ def test_get_most_similar():
 
         def transform(self, any):
             return any
+
     similar.model = MockModel()
     similar.scaler = MockScaler()
 

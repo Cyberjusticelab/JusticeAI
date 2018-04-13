@@ -25,15 +25,15 @@ class CreateJson:
     COMMENTED_LINE = re.compile('^#')
 
     nlu_dict = {"rasa_nlu_data":
-                {
-                    "regex_features": [
+        {
+            "regex_features": [
 
-                    ],
-                    "common_examples": [
+            ],
+            "common_examples": [
 
-                    ]
-                }
-                }
+            ]
+        }
+    }
 
     def __init__(self):
         self.current_intent = ""
@@ -94,7 +94,7 @@ class CreateJson:
 
         print(
             "RASA Json Creator - Identical Fact List\n\t-Input File: {}\n\t-Output File Names: {}\n\t-Save Directory: {}"
-            .format(input_file, output_file_names, save_dir))
+                .format(input_file, output_file_names, save_dir))
 
         if not os.path.exists(os.path.dirname(save_dir)):
             print("\t!Directory {} does not exist, creating it".format(save_dir))

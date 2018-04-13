@@ -9,9 +9,10 @@ from feature_extraction.post_processing.regex.regex_tagger import TagPrecedents
 class RegexTaggerTest(unittest.TestCase):
     def setUp(self):
         self.precedent_tagger = TagPrecedents()
-        self.precedent_tagger.regexes = {"regex_facts": [("some_fact", [re.compile("fermentum", re.IGNORECASE)], 'BOOLEAN')],
-                                         "regex_outcomes": [("some_outcome", [re.compile("REJETTE")], 'BOOLEAN')]
-                                         }
+        self.precedent_tagger.regexes = {
+            "regex_facts": [("some_fact", [re.compile("fermentum", re.IGNORECASE)], 'BOOLEAN')],
+            "regex_outcomes": [("some_outcome", [re.compile("REJETTE")], 'BOOLEAN')]
+            }
 
     def test_regex_model(self):
         binary_directory = Path.binary_directory

@@ -25,7 +25,8 @@ def extract_text(file_storage):
         return jsonify({
             'image_text': text
         })
-    return abort(make_response(jsonify(message='Image data must be in a supported format: {}'.format(SUPPORTED_IMAGE_DATA_FORMATS)), 422))
+    return abort(make_response(
+        jsonify(message='Image data must be in a supported format: {}'.format(SUPPORTED_IMAGE_DATA_FORMATS)), 422))
 
 
 def _get_image_from_file(file_path):
@@ -121,7 +122,6 @@ def _find_document_corners(resized_img):
         if (len(approximate_polygonal_contour) == 4 and
                 cv2.isContourConvex(approximate_polygonal_contour) and
                 cv2.contourArea(approximate_polygonal_contour) > largest_document_area):
-
             largest_document_area = cv2.contourArea(approximate_polygonal_contour)
             largest_document_corners = approximate_polygonal_contour
 
@@ -161,6 +161,7 @@ def _align_document_from_img(img):
 
 
 if __name__ == '__main__':
-    original_img = _get_image_from_file('/home/lancelafontaine/repos/JusticeAI/src/task_service/test/ocr/images/lease_tilted.jpg')
+    original_img = _get_image_from_file(
+        '/home/lancelafontaine/repos/JusticeAI/src/task_service/test/ocr/images/lease_tilted.jpg')
     new_image = _align_document_from_img(original_img)
     cv2.imwrite("output.png", new_image)

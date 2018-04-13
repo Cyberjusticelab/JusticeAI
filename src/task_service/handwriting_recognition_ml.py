@@ -1,4 +1,5 @@
 import tensorflow as tf
+
 sess = tf.InteractiveSession()
 
 import keras
@@ -18,8 +19,8 @@ import resource
 import sys
 
 # we would reach recursion limit when saving training history otherwise
-resource.setrlimit(resource.RLIMIT_STACK, (2**29, -1))
-sys.setrecursionlimit(2**29 - 1)
+resource.setrlimit(resource.RLIMIT_STACK, (2 ** 29, -1))
+sys.setrecursionlimit(2 ** 29 - 1)
 from scipy import io as spio
 
 emnist = spio.loadmat("datasets/matlab/emnist-digits.mat")
@@ -89,6 +90,7 @@ def create_model():
 
 batch_size = 512
 from keras.preprocessing.image import ImageDataGenerator
+
 gen = ImageDataGenerator(rotation_range=12, width_shift_range=0.1, shear_range=0.3,
                          height_shift_range=0.1, zoom_range=0.1, data_format='channels_first')
 batches = gen.flow(x_train, y_train, batch_size=batch_size)

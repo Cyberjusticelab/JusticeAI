@@ -1,162 +1,207 @@
 <!DOCTYPE HTML>
 <html lang="en" class="sidebar-visible">
-    <head>
-        <!-- Book generated using mdBook -->
-        <meta charset="UTF-8">
-        <title>Machine Learning (ML) Service - ProceZeus Documentation</title>
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+<head>
+    <!-- Book generated using mdBook -->
+    <meta charset="UTF-8">
+    <title>Machine Learning (ML) Service - ProceZeus Documentation</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff"/>
 
-        <base href="../">
+    <base href="../">
 
-        <link rel="stylesheet" href="book.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="book.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+          rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
 
-        <link rel="shortcut icon" href="favicon.png">
+    <link rel="shortcut icon" href="favicon.png">
 
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+    <link rel="stylesheet" href="highlight.css">
+    <link rel="stylesheet" href="tomorrow-night.css">
+    <link rel="stylesheet" href="ayu-highlight.css">
 
-        <!-- Custom theme -->
-        
+    <!-- Custom theme -->
 
-        
 
-        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
-        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
-        <script>
-            if (typeof Clipboard == 'undefined') {
-                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+    <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+    <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+    <script>
+        if (typeof Clipboard == 'undefined') {
+            document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+        }
+    </script>
+
+    <noscript>
+        <style type="text/css">
+            .javascript-only {
+                display: none;
             }
-        </script>
+        </style>
+    </noscript>
 
-        <noscript>
-            <style type="text/css">
-                .javascript-only {
-                    display: none;
-                }
-            </style>
-        </noscript>
+</head>
+<body class="light">
+<!-- Work around some values being stored in localStorage wrapped in quotes -->
+<script type="text/javascript">
+    try {
+        var theme = localStorage.getItem('mdbook-theme');
+        var sidebar = localStorage.getItem('mdbook-sidebar');
 
-    </head>
-    <body class="light">
-        <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
-            try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+        if (theme.startsWith('"') && theme.endsWith('"')) {
+            localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+        }
 
-                if (theme.startsWith('"') && theme.endsWith('"')) {
-                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
-                }
+        if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+            localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+        }
+    } catch (e) {
+    }
+</script>
 
-                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
-                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
-                }
-            } catch (e) { }
-        </script>
+<!-- Set the theme before any content is loaded, prevents flash -->
+<script type="text/javascript">
+    var theme;
+    try {
+        theme = localStorage.getItem('mdbook-theme');
+    } catch (e) {
+    }
+    if (theme === null || theme === undefined) {
+        theme = 'light';
+    }
+    document.body.className = theme;
+    document.querySelector('html').className = theme;
+</script>
 
-        <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
-            var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
-            document.body.className = theme;
-            document.querySelector('html').className = theme;
-        </script>
+<!-- Hide / unhide sidebar before it is displayed -->
+<script type="text/javascript">
+    var html = document.querySelector('html');
+    var sidebar = 'hidden';
+    if (document.body.clientWidth >= 1080) {
+        try {
+            sidebar = localStorage.getItem('mdbook-sidebar');
+        } catch (e) {
+        }
+        sidebar = sidebar || 'visible';
+    }
+    html.classList.remove('sidebar-visible');
+    html.classList.add("sidebar-" + sidebar);
+</script>
 
-        <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
-            var html = document.querySelector('html');
-            var sidebar = 'hidden';
-            if (document.body.clientWidth >= 1080) {
-                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
-                sidebar = sidebar || 'visible';
-            }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
-        </script>
+<nav id="sidebar" class="sidebar" aria-label="Table of contents">
+    <ol class="chapter">
+        <li><a href="README.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li>
+        <li><a href="ARCHITECTURE.html"><strong aria-hidden="true">2.</strong> Application Archictecture</a></li>
+        <li><a href="web_client/README.html"><strong aria-hidden="true">3.</strong> Web Client</a></li>
+        <li><a href="backend_service/README.html"><strong aria-hidden="true">4.</strong> Backend Service</a></li>
+        <li><a href="nlp_service/README.html"><strong aria-hidden="true">5.</strong> Natural Language Processing (NLP)
+            Service</a></li>
+        <li><a href="ml_service/README.html" class="active"><strong aria-hidden="true">6.</strong> Machine Learning (ML)
+            Service</a></li>
+        <li><a href="postgresql_db/README.html"><strong aria-hidden="true">7.</strong> PostgreSQL Database</a></li>
+        <li><a href="task_service/README.html"><strong aria-hidden="true">8.</strong> Task Service</a></li>
+        <li><a href="beta_client/README.html"><strong aria-hidden="true">9.</strong> Beta Client</a></li>
+        <li><a href="beta_server/README.html"><strong aria-hidden="true">10.</strong> Beta Server</a></li>
+    </ol>
+</nav>
 
-        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="README.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><a href="ARCHITECTURE.html"><strong aria-hidden="true">2.</strong> Application Archictecture</a></li><li><a href="web_client/README.html"><strong aria-hidden="true">3.</strong> Web Client</a></li><li><a href="backend_service/README.html"><strong aria-hidden="true">4.</strong> Backend Service</a></li><li><a href="nlp_service/README.html"><strong aria-hidden="true">5.</strong> Natural Language Processing (NLP) Service</a></li><li><a href="ml_service/README.html" class="active"><strong aria-hidden="true">6.</strong> Machine Learning (ML) Service</a></li><li><a href="postgresql_db/README.html"><strong aria-hidden="true">7.</strong> PostgreSQL Database</a></li><li><a href="task_service/README.html"><strong aria-hidden="true">8.</strong> Task Service</a></li><li><a href="beta_client/README.html"><strong aria-hidden="true">9.</strong> Beta Client</a></li><li><a href="beta_server/README.html"><strong aria-hidden="true">10.</strong> Beta Server</a></li></ol>
-        </nav>
+<div id="page-wrapper" class="page-wrapper">
 
-        <div id="page-wrapper" class="page-wrapper">
+    <div class="page">
 
-            <div class="page">
-                
-                <div id="menu-bar" class="menu-bar">
-                    <div id="menu-bar-sticky-container">
-                        <div class="left-buttons javascript-only">
-                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                                <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            </ul>
-                            
-                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            
-                        </div>
-
-                        <h1 class="menu-title">ProceZeus Documentation</h1> 
-
-                        <div class="right-buttons">
-                            <a href="print.html" title="Print this book" aria-label="Print this book">
-                                <i id="print-button" class="fa fa-print"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                
-                <div id="searchbar-outer" class="searchbar-outer">
-                    <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
-                </div>
-                <div id="searchresults-outer" class="searchresults-outer">
-                    <div class="searchresults-header" id="searchresults-header"></div>
-                    <ul id="searchresults">
+        <div id="menu-bar" class="menu-bar">
+            <div id="menu-bar-sticky-container">
+                <div class="left-buttons javascript-only">
+                    <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents"
+                            aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <button id="theme-toggle" class="icon-button" type="button" title="Change theme"
+                            aria-label="Change theme" aria-haspopup="true" aria-expanded="false"
+                            aria-controls="theme-list">
+                        <i class="fa fa-paint-brush"></i>
+                    </button>
+                    <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                        <li role="none">
+                            <button role="menuitem" class="theme" id="light">Light <span
+                                    class="default">(default)</span></button>
+                        </li>
+                        <li role="none">
+                            <button role="menuitem" class="theme" id="rust">Rust</button>
+                        </li>
+                        <li role="none">
+                            <button role="menuitem" class="theme" id="coal">Coal</button>
+                        </li>
+                        <li role="none">
+                            <button role="menuitem" class="theme" id="navy">Navy</button>
+                        </li>
+                        <li role="none">
+                            <button role="menuitem" class="theme" id="ayu">Ayu</button>
+                        </li>
                     </ul>
+
+                    <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)"
+                            aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S"
+                            aria-controls="searchbar">
+                        <i class="fa fa-search"></i>
+                    </button>
+
                 </div>
-                
 
-                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
-                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
-                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
-                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
-                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
-                    });
-                </script>
+                <h1 class="menu-title">ProceZeus Documentation</h1>
 
-                <div id="content" class="content">
-                    <main>
-                        <a class="header" href="ml_service/README.html#machine-learning-service" id="machine-learning-service"><h1>Machine Learning Service</h1></a>
-<a class="header" href="ml_service/README.html#installation-instructions" id="installation-instructions"><h2>Installation Instructions</h2></a>
-<ol>
-<li>Add Cyberjustice Lab username as environment variables: <code>export CJL_USER={USERNAME}</code> either to your .bashrc or run it as a command</li>
-<li>Add Cyberjustice Lab password as environment variables: <code>export CJL_PASS={PASSWORD}</code> either to your .bashrc or run it as a command</li>
-<li>Run <code>pip install -r requirements.txt</code></li>
-<li>Run <code>pip install -r requirements_test.txt</code></li>
-</ol>
-<a class="header" href="ml_service/README.html#file-structure" id="file-structure"><h3>File Structure:</h3></a>
-<pre><code>
+                <div class="right-buttons">
+                    <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <i id="print-button" class="fa fa-print"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="searchbar-outer" class="searchbar-outer">
+            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..."
+                   aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+        </div>
+        <div id="searchresults-outer" class="searchresults-outer">
+            <div class="searchresults-header" id="searchresults-header"></div>
+            <ul id="searchresults">
+            </ul>
+        </div>
+
+
+        <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+        <script type="text/javascript">
+            document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+            document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+            Array.from(document.querySelectorAll('#sidebar a')).forEach(function (link) {
+                link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+            });
+        </script>
+
+        <div id="content" class="content">
+            <main>
+                <a class="header" href="ml_service/README.html#machine-learning-service" id="machine-learning-service">
+                    <h1>Machine Learning Service</h1></a>
+                <a class="header" href="ml_service/README.html#installation-instructions"
+                   id="installation-instructions"><h2>Installation Instructions</h2></a>
+                <ol>
+                    <li>Add Cyberjustice Lab username as environment variables: <code>export CJL_USER={USERNAME}</code>
+                        either to your .bashrc or run it as a command
+                    </li>
+                    <li>Add Cyberjustice Lab password as environment variables: <code>export CJL_PASS={PASSWORD}</code>
+                        either to your .bashrc or run it as a command
+                    </li>
+                    <li>Run <code>pip install -r requirements.txt</code></li>
+                    <li>Run <code>pip install -r requirements_test.txt</code></li>
+                </ol>
+                <a class="header" href="ml_service/README.html#file-structure" id="file-structure"><h3>File
+                    Structure:</h3></a>
+                <pre><code>
 ----| data &lt;all data input and output&gt;
 --------| raw &lt;extract the raw data here&gt;
 --------| binary &lt;all saved binarized model/data&gt;
@@ -196,20 +241,24 @@ init.py
 main.py &lt;driver for the pipeline (feature extraction + model training&gt;
 
 </code></pre>
-<a class="header" href="ml_service/README.html#extracting-data" id="extracting-data"><h2>Extracting Data</h2></a>
-<ul>
-<li>For binarized data and model, place under <code>data/binary</code></li>
-<li>For precedent raw data (*.txt), place under <code>data/raw</code></li>
-<li>Run <code>python init</code> to download French word vector</li>
-</ul>
-<a class="header" href="ml_service/README.html#ml-api" id="ml-api"><h2>ML API</h2></a>
-<a class="header" href="ml_service/README.html#predict-outcome" id="predict-outcome"><h3>Predict Outcome</h3></a>
-<p>Predict the outcome based on given facts and demands. Returns an array of predicted outcomes as well as similar precedents. The precedents have distances assigned to them. The lower the distance, the more similar it is.</p>
-<p><strong>URL</strong> : <code>/predict</code></p>
-<p><strong>Method</strong> : <code>POST</code></p>
-<p><strong>Data constraints</strong></p>
-<p>Provide facts_vector and demands_vector, with key values for each fact/demand.</p>
-<pre><code class="language-json">{
+                <a class="header" href="ml_service/README.html#extracting-data" id="extracting-data"><h2>Extracting
+                    Data</h2></a>
+                <ul>
+                    <li>For binarized data and model, place under <code>data/binary</code></li>
+                    <li>For precedent raw data (*.txt), place under <code>data/raw</code></li>
+                    <li>Run <code>python init</code> to download French word vector</li>
+                </ul>
+                <a class="header" href="ml_service/README.html#ml-api" id="ml-api"><h2>ML API</h2></a>
+                <a class="header" href="ml_service/README.html#predict-outcome" id="predict-outcome"><h3>Predict
+                    Outcome</h3></a>
+                <p>Predict the outcome based on given facts and demands. Returns an array of predicted outcomes as well
+                    as similar precedents. The precedents have distances assigned to them. The lower the distance, the
+                    more similar it is.</p>
+                <p><strong>URL</strong> : <code>/predict</code></p>
+                <p><strong>Method</strong> : <code>POST</code></p>
+                <p><strong>Data constraints</strong></p>
+                <p>Provide facts_vector and demands_vector, with key values for each fact/demand.</p>
+                <pre><code class="language-json">{
   &quot;facts&quot; : {
     &quot;absent&quot; : 1,
     &quot;apartment_impropre&quot; : 0,
@@ -264,10 +313,11 @@ main.py &lt;driver for the pipeline (feature extraction + model training&gt;
   }
 }
 </code></pre>
-<a class="header" href="ml_service/README.html#success-response" id="success-response"><h4>Success Response</h4></a>
-<p><strong>Code</strong> : <code>200 OK</code></p>
-<p><strong>Content examples</strong></p>
-<pre><code class="language-json">{
+                <a class="header" href="ml_service/README.html#success-response" id="success-response"><h4>Success
+                    Response</h4></a>
+                <p><strong>Code</strong> : <code>200 OK</code></p>
+                <p><strong>Content examples</strong></p>
+                <pre><code class="language-json">{
   &quot;outcomes_vector&quot;: {
     &quot;additional_indemnity_money&quot;: &quot;221&quot;,
     &quot;authorize_landlord_retake_apartment&quot;: &quot;0&quot;,
@@ -574,19 +624,22 @@ main.py &lt;driver for the pipeline (feature extraction + model training&gt;
   ]
 }
 </code></pre>
-<a class="header" href="ml_service/README.html#error-response" id="error-response"><h4>Error Response</h4></a>
-<p><strong>Code</strong> : <code>400 Bad Request</code> - <em>Inputs not provided</em></p>
-<p><strong>Code</strong> : <code>404 Not Found</code> - <em>Conversation doesn&quot;t exist</em></p>
-<a class="header" href="ml_service/README.html#get-fact-weights" id="get-fact-weights"><h3>Get Fact Weights</h3></a>
-<p>Get the weights of every outcome sorted by descending order of importance</p>
-<p><strong>URL</strong>: <code>/weights</code></p>
-<p><strong>Method</strong>: <code>GET</code></p>
-<p><strong>Data constraints</strong></p>
-<p>None</p>
-<a class="header" href="ml_service/README.html#success-response-1" id="success-response-1"><h4>Success Response</h4></a>
-<p><strong>Code</strong> : <code>200 OK</code></p>
-<p><strong>Content examples</strong></p>
-<pre><code class="language-json">{
+                <a class="header" href="ml_service/README.html#error-response" id="error-response"><h4>Error
+                    Response</h4></a>
+                <p><strong>Code</strong> : <code>400 Bad Request</code> - <em>Inputs not provided</em></p>
+                <p><strong>Code</strong> : <code>404 Not Found</code> - <em>Conversation doesn&quot;t exist</em></p>
+                <a class="header" href="ml_service/README.html#get-fact-weights" id="get-fact-weights"><h3>Get Fact
+                    Weights</h3></a>
+                <p>Get the weights of every outcome sorted by descending order of importance</p>
+                <p><strong>URL</strong>: <code>/weights</code></p>
+                <p><strong>Method</strong>: <code>GET</code></p>
+                <p><strong>Data constraints</strong></p>
+                <p>None</p>
+                <a class="header" href="ml_service/README.html#success-response-1" id="success-response-1"><h4>Success
+                    Response</h4></a>
+                <p><strong>Code</strong> : <code>200 OK</code></p>
+                <p><strong>Content examples</strong></p>
+                <pre><code class="language-json">{
     &quot;additional_indemnity_money&quot;: {
         &quot;important_facts&quot;: [
             &quot;asker_is_landlord&quot;,
@@ -610,41 +663,45 @@ main.py &lt;driver for the pipeline (feature extraction + model training&gt;
     }
 }
 </code></pre>
-<a class="header" href="ml_service/README.html#get-anti-facts" id="get-anti-facts"><h3>Get Anti Facts</h3></a>
-<p>Get the anti facts</p>
-<p>Left hand side always initialized to 1 and right hand side to 0</p>
-<p><strong>URL</strong>: <code>/antifacts</code></p>
-<p><strong>Method</strong>: <code>GET</code></p>
-<p><strong>Data constraints</strong></p>
-<p>None</p>
-<a class="header" href="ml_service/README.html#success-response-2" id="success-response-2"><h4>Success Response</h4></a>
-<p><strong>Code</strong> : <code>200 OK</code></p>
-<p><strong>Content examples</strong></p>
-<pre><code class="language-json">{
+                <a class="header" href="ml_service/README.html#get-anti-facts" id="get-anti-facts"><h3>Get Anti
+                    Facts</h3></a>
+                <p>Get the anti facts</p>
+                <p>Left hand side always initialized to 1 and right hand side to 0</p>
+                <p><strong>URL</strong>: <code>/antifacts</code></p>
+                <p><strong>Method</strong>: <code>GET</code></p>
+                <p><strong>Data constraints</strong></p>
+                <p>None</p>
+                <a class="header" href="ml_service/README.html#success-response-2" id="success-response-2"><h4>Success
+                    Response</h4></a>
+                <p><strong>Code</strong> : <code>200 OK</code></p>
+                <p><strong>Content examples</strong></p>
+                <pre><code class="language-json">{
     &quot;tenant_rent_not_paid_less_3_weeks&quot;: &quot;tenant_rent_not_paid_more_3_weeks&quot;,
     &quot;tenant_lease_fixed&quot;: &quot;tenant_lease_indeterminate&quot;,
     &quot;not_violent&quot;: &quot;violent&quot;,
     &quot;tenant_individual_responsability&quot;: &quot;tenant_group_responsability&quot;
 }
 </code></pre>
-<a class="header" href="ml_service/README.html#get-machine-learning-statistics" id="get-machine-learning-statistics"><h3>Get Machine Learning Statistics</h3></a>
-<p>Get the ml stats</p>
-<p>Used to obtain:</p>
-<ol>
-<li>Size of data set</li>
-<li>Variance of regression outcomes</li>
-<li>Standard deviation of regression outcomes</li>
-<li>Mean of regression outcomes</li>
-<li>Prediction accuracy of each classifier</li>
-</ol>
-<p><strong>URL</strong>: <code>/statistics</code></p>
-<p><strong>Method</strong>: <code>GET</code></p>
-<p><strong>Data constraints</strong></p>
-<p>None</p>
-<a class="header" href="ml_service/README.html#success-response-3" id="success-response-3"><h4>Success Response</h4></a>
-<p><strong>Code</strong> : <code>200 OK</code></p>
-<p><strong>Content examples</strong></p>
-<pre><code class="language-json">{
+                <a class="header" href="ml_service/README.html#get-machine-learning-statistics"
+                   id="get-machine-learning-statistics"><h3>Get Machine Learning Statistics</h3></a>
+                <p>Get the ml stats</p>
+                <p>Used to obtain:</p>
+                <ol>
+                    <li>Size of data set</li>
+                    <li>Variance of regression outcomes</li>
+                    <li>Standard deviation of regression outcomes</li>
+                    <li>Mean of regression outcomes</li>
+                    <li>Prediction accuracy of each classifier</li>
+                </ol>
+                <p><strong>URL</strong>: <code>/statistics</code></p>
+                <p><strong>Method</strong>: <code>GET</code></p>
+                <p><strong>Data constraints</strong></p>
+                <p>None</p>
+                <a class="header" href="ml_service/README.html#success-response-3" id="success-response-3"><h4>Success
+                    Response</h4></a>
+                <p><strong>Code</strong> : <code>200 OK</code></p>
+                <p><strong>Content examples</strong></p>
+                <pre><code class="language-json">{
     &quot;classifier&quot;: {
         &quot;additional_indemnity_money&quot;: {
             &quot;prediction_accuracy&quot;: 79.8400199975003
@@ -706,110 +763,107 @@ main.py &lt;driver for the pipeline (feature extraction + model training&gt;
     }
 }
 </code></pre>
-<hr />
-<a class="header" href="ml_service/README.html#run-tests-and-lints" id="run-tests-and-lints"><h2>Run Tests and Lints</h2></a>
-<pre><code>export COMPOSE_FILE=ci
+                <hr/>
+                <a class="header" href="ml_service/README.html#run-tests-and-lints" id="run-tests-and-lints"><h2>Run
+                    Tests and Lints</h2></a>
+                <pre><code>export COMPOSE_FILE=ci
 ./cjl up -d &amp;&amp; ./cjl run ml_service
 </code></pre>
-<a class="header" href="ml_service/README.html#using-the-command-line" id="using-the-command-line"><h2>Using the Command Line</h2></a>
-<ul>
-<li>denotes optional arguments</li>
-</ul>
-<p>1-  Commands</p>
-<pre><code>python main.py -train [data size | empty for all] --svm* --sf* --weights* --evaluate*
+                <a class="header" href="ml_service/README.html#using-the-command-line" id="using-the-command-line"><h2>
+                    Using the Command Line</h2></a>
+                <ul>
+                    <li>denotes optional arguments</li>
+                </ul>
+                <p>1- Commands</p>
+                <pre><code>python main.py -train [data size | empty for all] --svm* --sf* --weights* --evaluate*
 python main.py -pre [number of files | empty for all]
 python main.py -post [number of files | empty for all]
 </code></pre>
-<p>2- all binary files saved to data/binary</p>
-<p>3- all text files to data/cluster</p>
-<p>4- all raw_data to data/raw</p>
+                <p>2- all binary files saved to data/binary</p>
+                <p>3- all text files to data/cluster</p>
+                <p>4- all raw_data to data/raw</p>
 
-                    </main>
+            </main>
 
-                    <nav class="nav-wrapper" aria-label="Page navigation">
-                        <!-- Mobile navigation buttons -->
-                        
-                            <a rel="prev" href="nlp_service/README.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
-                        
+            <nav class="nav-wrapper" aria-label="Page navigation">
+                <!-- Mobile navigation buttons -->
 
-                        
-                            <a rel="next" href="postgresql_db/README.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        
+                <a rel="prev" href="nlp_service/README.html" class="mobile-nav-chapters previous"
+                   title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <i class="fa fa-angle-left"></i>
+                </a>
 
-                        <div style="clear: both"></div>
-                    </nav>
-                </div>
-            </div>
 
-            <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
-                    <a href="nlp_service/README.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
-                
+                <a rel="next" href="postgresql_db/README.html" class="mobile-nav-chapters next" title="Next chapter"
+                   aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <i class="fa fa-angle-right"></i>
+                </a>
 
-                
-                    <a href="postgresql_db/README.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                
+
+                <div style="clear: both"></div>
             </nav>
-
         </div>
+    </div>
+
+    <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+        <a href="nlp_service/README.html" class="nav-chapters previous" title="Previous chapter"
+           aria-label="Previous chapter" aria-keyshortcuts="Left">
+            <i class="fa fa-angle-left"></i>
+        </a>
 
 
-        <!-- Local fallback for Font Awesome -->
-        <script>
-            if (getComputedStyle(document.querySelector(".fa")).fontFamily !== "FontAwesome") {
-                var link = document.createElement('link');
-                link.rel = 'stylesheet';
-                link.type = 'text/css';
-                link.href = '_FontAwesome/css/font-awesome.css';
-                document.head.insertBefore(link, document.head.firstChild)
-            }
-        </script>
+        <a href="postgresql_db/README.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter"
+           aria-keyshortcuts="Right">
+            <i class="fa fa-angle-right"></i>
+        </a>
 
-        
-        <!-- Livereload script (if served using the cli tool) -->
-        <script type="text/javascript">
-            var socket = new WebSocket("ws://localhost:3001");
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload(true); // force reload from server (not from cache)
-                }
-            };
+    </nav>
 
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
-        
+</div>
 
-        
 
-        
+<!-- Local fallback for Font Awesome -->
+<script>
+    if (getComputedStyle(document.querySelector(".fa")).fontFamily !== "FontAwesome") {
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '_FontAwesome/css/font-awesome.css';
+        document.head.insertBefore(link, document.head.firstChild)
+    }
+</script>
 
-        
-        <script src="searchindex.js" type="text/javascript" charset="utf-8"></script>
-        
-        
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        
 
-        
+<!-- Livereload script (if served using the cli tool) -->
+<script type="text/javascript">
+    var socket = new WebSocket("ws://localhost:3001");
+    socket.onmessage = function (event) {
+        if (event.data === "reload") {
+            socket.close();
+            location.reload(true); // force reload from server (not from cache)
+        }
+    };
 
-        <script src="highlight.js"></script>
-        <script src="book.js"></script>
+    window.onbeforeunload = function () {
+        socket.close();
+    }
+</script>
 
-        <!-- Custom JS script -->
-        
 
-    </body>
+<script src="searchindex.js" type="text/javascript" charset="utf-8"></script>
+
+
+<script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+
+<script src="highlight.js"></script>
+<script src="book.js"></script>
+
+<!-- Custom JS script -->
+
+
+</body>
 </html>

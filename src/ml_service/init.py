@@ -13,7 +13,6 @@ nltk.download('perluniprops')
 ADDRESS_INDEX = 0
 FILE_SIZE_INDEX = 1
 
-
 binary_urls = [
     'https://capstone.cyberjustice.ca/data/bin/classifier_labels.bin',
     'https://capstone.cyberjustice.ca/data/bin/multi_class_svm_model.bin',
@@ -27,17 +26,19 @@ binary_urls = [
 ]
 
 if (not os.environ['CJL_USER']) or (not os.environ['CJL_PASS']):
-    Log.write("You must supply the CJL_USER and CJL_PASS environment variables to download binaries from capstone.cyberjustice.ca")
+    Log.write(
+        "You must supply the CJL_USER and CJL_PASS environment variables to download binaries from capstone.cyberjustice.ca")
     exit(1)
 
 for binary_url in binary_urls:
     binary_name = binary_url.split('/')[-1]
     abs_file_path = os.path.join(Path.binary_directory, binary_name)
-    
+
     Log.write(binary_name)
-    status = subprocess.call("wget --quiet --recursive --force-directories --show-progress --progress=bar:force --no-cache --user={} --password={} --output-document={} {}".format(
-        os.environ['CJL_USER'], os.environ['CJL_PASS'], abs_file_path, binary_url
-    ).split(" "))
+    status = subprocess.call(
+        "wget --quiet --recursive --force-directories --show-progress --progress=bar:force --no-cache --user={} --password={} --output-document={} {}".format(
+            os.environ['CJL_USER'], os.environ['CJL_PASS'], abs_file_path, binary_url
+        ).split(" "))
 
     if status != 0:
         Log.write("Non-zero status! {}".format(status))

@@ -1,350 +1,427 @@
 <!DOCTYPE HTML>
 <html lang="en" class="sidebar-visible">
-    <head>
-        <!-- Book generated using mdBook -->
-        <meta charset="UTF-8">
-        <title>ProceZeus Documentation</title>
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+<head>
+    <!-- Book generated using mdBook -->
+    <meta charset="UTF-8">
+    <title>ProceZeus Documentation</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff"/>
 
-        <base href="">
+    <base href="">
 
-        <link rel="stylesheet" href="book.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="book.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+          rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
 
-        <link rel="shortcut icon" href="favicon.png">
+    <link rel="shortcut icon" href="favicon.png">
 
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+    <link rel="stylesheet" href="highlight.css">
+    <link rel="stylesheet" href="tomorrow-night.css">
+    <link rel="stylesheet" href="ayu-highlight.css">
 
-        <!-- Custom theme -->
-        
+    <!-- Custom theme -->
 
-        
 
-        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
-        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
-        <script>
-            if (typeof Clipboard == 'undefined') {
-                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+    <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+    <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+    <script>
+        if (typeof Clipboard == 'undefined') {
+            document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+        }
+    </script>
+
+    <noscript>
+        <style type="text/css">
+            .javascript-only {
+                display: none;
             }
-        </script>
+        </style>
+    </noscript>
 
-        <noscript>
-            <style type="text/css">
-                .javascript-only {
-                    display: none;
-                }
-            </style>
-        </noscript>
+</head>
+<body class="light">
+<!-- Work around some values being stored in localStorage wrapped in quotes -->
+<script type="text/javascript">
+    try {
+        var theme = localStorage.getItem('mdbook-theme');
+        var sidebar = localStorage.getItem('mdbook-sidebar');
 
-    </head>
-    <body class="light">
-        <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
-            try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+        if (theme.startsWith('"') && theme.endsWith('"')) {
+            localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+        }
 
-                if (theme.startsWith('"') && theme.endsWith('"')) {
-                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
-                }
+        if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+            localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+        }
+    } catch (e) {
+    }
+</script>
 
-                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
-                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
-                }
-            } catch (e) { }
-        </script>
+<!-- Set the theme before any content is loaded, prevents flash -->
+<script type="text/javascript">
+    var theme;
+    try {
+        theme = localStorage.getItem('mdbook-theme');
+    } catch (e) {
+    }
+    if (theme === null || theme === undefined) {
+        theme = 'light';
+    }
+    document.body.className = theme;
+    document.querySelector('html').className = theme;
+</script>
 
-        <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
-            var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
-            document.body.className = theme;
-            document.querySelector('html').className = theme;
-        </script>
+<!-- Hide / unhide sidebar before it is displayed -->
+<script type="text/javascript">
+    var html = document.querySelector('html');
+    var sidebar = 'hidden';
+    if (document.body.clientWidth >= 1080) {
+        try {
+            sidebar = localStorage.getItem('mdbook-sidebar');
+        } catch (e) {
+        }
+        sidebar = sidebar || 'visible';
+    }
+    html.classList.remove('sidebar-visible');
+    html.classList.add("sidebar-" + sidebar);
+</script>
 
-        <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
-            var html = document.querySelector('html');
-            var sidebar = 'hidden';
-            if (document.body.clientWidth >= 1080) {
-                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
-                sidebar = sidebar || 'visible';
-            }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
-        </script>
+<nav id="sidebar" class="sidebar" aria-label="Table of contents">
+    <ol class="chapter">
+        <li><a href="README.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li>
+        <li><a href="ARCHITECTURE.html"><strong aria-hidden="true">2.</strong> Application Archictecture</a></li>
+        <li><a href="web_client/README.html"><strong aria-hidden="true">3.</strong> Web Client</a></li>
+        <li><a href="backend_service/README.html"><strong aria-hidden="true">4.</strong> Backend Service</a></li>
+        <li><a href="nlp_service/README.html"><strong aria-hidden="true">5.</strong> Natural Language Processing (NLP)
+            Service</a></li>
+        <li><a href="ml_service/README.html"><strong aria-hidden="true">6.</strong> Machine Learning (ML) Service</a>
+        </li>
+        <li><a href="postgresql_db/README.html"><strong aria-hidden="true">7.</strong> PostgreSQL Database</a></li>
+        <li><a href="task_service/README.html"><strong aria-hidden="true">8.</strong> Task Service</a></li>
+        <li><a href="beta_client/README.html"><strong aria-hidden="true">9.</strong> Beta Client</a></li>
+        <li><a href="beta_server/README.html"><strong aria-hidden="true">10.</strong> Beta Server</a></li>
+    </ol>
+</nav>
 
-        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="README.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><a href="ARCHITECTURE.html"><strong aria-hidden="true">2.</strong> Application Archictecture</a></li><li><a href="web_client/README.html"><strong aria-hidden="true">3.</strong> Web Client</a></li><li><a href="backend_service/README.html"><strong aria-hidden="true">4.</strong> Backend Service</a></li><li><a href="nlp_service/README.html"><strong aria-hidden="true">5.</strong> Natural Language Processing (NLP) Service</a></li><li><a href="ml_service/README.html"><strong aria-hidden="true">6.</strong> Machine Learning (ML) Service</a></li><li><a href="postgresql_db/README.html"><strong aria-hidden="true">7.</strong> PostgreSQL Database</a></li><li><a href="task_service/README.html"><strong aria-hidden="true">8.</strong> Task Service</a></li><li><a href="beta_client/README.html"><strong aria-hidden="true">9.</strong> Beta Client</a></li><li><a href="beta_server/README.html"><strong aria-hidden="true">10.</strong> Beta Server</a></li></ol>
-        </nav>
+<div id="page-wrapper" class="page-wrapper">
 
-        <div id="page-wrapper" class="page-wrapper">
+    <div class="page">
 
-            <div class="page">
-                
-                <div id="menu-bar" class="menu-bar">
-                    <div id="menu-bar-sticky-container">
-                        <div class="left-buttons javascript-only">
-                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                                <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            </ul>
-                            
-                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            
-                        </div>
-
-                        <h1 class="menu-title">ProceZeus Documentation</h1> 
-
-                        <div class="right-buttons">
-                            <a href="print.html" title="Print this book" aria-label="Print this book">
-                                <i id="print-button" class="fa fa-print"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                
-                <div id="searchbar-outer" class="searchbar-outer">
-                    <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
-                </div>
-                <div id="searchresults-outer" class="searchresults-outer">
-                    <div class="searchresults-header" id="searchresults-header"></div>
-                    <ul id="searchresults">
+        <div id="menu-bar" class="menu-bar">
+            <div id="menu-bar-sticky-container">
+                <div class="left-buttons javascript-only">
+                    <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents"
+                            aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <button id="theme-toggle" class="icon-button" type="button" title="Change theme"
+                            aria-label="Change theme" aria-haspopup="true" aria-expanded="false"
+                            aria-controls="theme-list">
+                        <i class="fa fa-paint-brush"></i>
+                    </button>
+                    <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                        <li role="none">
+                            <button role="menuitem" class="theme" id="light">Light <span
+                                    class="default">(default)</span></button>
+                        </li>
+                        <li role="none">
+                            <button role="menuitem" class="theme" id="rust">Rust</button>
+                        </li>
+                        <li role="none">
+                            <button role="menuitem" class="theme" id="coal">Coal</button>
+                        </li>
+                        <li role="none">
+                            <button role="menuitem" class="theme" id="navy">Navy</button>
+                        </li>
+                        <li role="none">
+                            <button role="menuitem" class="theme" id="ayu">Ayu</button>
+                        </li>
                     </ul>
+
+                    <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)"
+                            aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S"
+                            aria-controls="searchbar">
+                        <i class="fa fa-search"></i>
+                    </button>
+
                 </div>
-                
 
-                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
-                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
-                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
-                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
-                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
-                    });
-                </script>
+                <h1 class="menu-title">ProceZeus Documentation</h1>
 
-                <div id="content" class="content">
-                    <main>
-                        <a class="header" href="print.html#procezeus" id="procezeus"><h1>ProceZeus</h1></a>
-<p><a href="https://travis-ci.org/Cyberjusticelab/JusticeAI/"><img src="https://img.shields.io/travis/Cyberjusticelab/JusticeAI.svg" alt="Travis" /></a> <a href="https://codecov.io/gh/Cyberjusticelab/JusticeAI"><img src="https://img.shields.io/codecov/c/github/codecov/example-python.svg" alt="Codecov" /></a></p>
-<a class="header" href="print.html#getting-started" id="getting-started"><h2>Getting Started</h2></a>
-<a class="header" href="print.html#prerequisites" id="prerequisites"><h3>Prerequisites</h3></a>
-<p>All of the project's services are split into separate Docker images. All application dependencies are contained within the Docker images. The dependencies required to run this project locally are:</p>
-<ul>
-<li><code>docker</code></li>
-<li><code>docker-compose</code></li>
-</ul>
-<a class="header" href="print.html#installing" id="installing"><h3>Installing</h3></a>
-<p>To install Docker and Docker Compose, you can follow the instructions <a href="https://docs.docker.com/">here</a>.</p>
-<a class="header" href="print.html#running-the-entire-application-stack" id="running-the-entire-application-stack"><h2>Running the Entire Application Stack</h2></a>
-<p>We've developed a script to help with running the entire application with all its components. All you need is:</p>
-<pre><code class="language-bash">./cjl up
+                <div class="right-buttons">
+                    <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <i id="print-button" class="fa fa-print"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="searchbar-outer" class="searchbar-outer">
+            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..."
+                   aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+        </div>
+        <div id="searchresults-outer" class="searchresults-outer">
+            <div class="searchresults-header" id="searchresults-header"></div>
+            <ul id="searchresults">
+            </ul>
+        </div>
+
+
+        <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+        <script type="text/javascript">
+            document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+            document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+            Array.from(document.querySelectorAll('#sidebar a')).forEach(function (link) {
+                link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+            });
+        </script>
+
+        <div id="content" class="content">
+            <main>
+                <a class="header" href="print.html#procezeus" id="procezeus"><h1>ProceZeus</h1></a>
+                <p><a href="https://travis-ci.org/Cyberjusticelab/JusticeAI/"><img
+                        src="https://img.shields.io/travis/Cyberjusticelab/JusticeAI.svg" alt="Travis"/></a> <a
+                        href="https://codecov.io/gh/Cyberjusticelab/JusticeAI"><img
+                        src="https://img.shields.io/codecov/c/github/codecov/example-python.svg" alt="Codecov"/></a></p>
+                <a class="header" href="print.html#getting-started" id="getting-started"><h2>Getting Started</h2></a>
+                <a class="header" href="print.html#prerequisites" id="prerequisites"><h3>Prerequisites</h3></a>
+                <p>All of the project's services are split into separate Docker images. All application dependencies are
+                    contained within the Docker images. The dependencies required to run this project locally are:</p>
+                <ul>
+                    <li><code>docker</code></li>
+                    <li><code>docker-compose</code></li>
+                </ul>
+                <a class="header" href="print.html#installing" id="installing"><h3>Installing</h3></a>
+                <p>To install Docker and Docker Compose, you can follow the instructions <a
+                        href="https://docs.docker.com/">here</a>.</p>
+                <a class="header" href="print.html#running-the-entire-application-stack"
+                   id="running-the-entire-application-stack"><h2>Running the Entire Application Stack</h2></a>
+                <p>We've developed a script to help with running the entire application with all its components. All you
+                    need is:</p>
+                <pre><code class="language-bash">./cjl up
 </code></pre>
-<p>If you want to suppress output push the job to the background:</p>
-<pre><code class="language-bash">./cjl up -d
+                <p>If you want to suppress output push the job to the background:</p>
+                <pre><code class="language-bash">./cjl up -d
 </code></pre>
-<p>Docker isn't always the best at determining diffs between images. You can manually rebuild all images with:</p>
-<pre><code class="language-bash">./cjl build
+                <p>Docker isn't always the best at determining diffs between images. You can manually rebuild all images
+                    with:</p>
+                <pre><code class="language-bash">./cjl build
 </code></pre>
-<p>If that doesn't work, try destroying all Docker containers/images on your machine:</p>
-<pre><code class="language-bash">./cjl clean
+                <p>If that doesn't work, try destroying all Docker containers/images on your machine:</p>
+                <pre><code class="language-bash">./cjl clean
 </code></pre>
-<p>To run all tests and lints for all services:</p>
-<pre><code class="language-bash">./cjl test
+                <p>To run all tests and lints for all services:</p>
+                <pre><code class="language-bash">./cjl test
 </code></pre>
-<p>To try to fix all linting errors for all services:</p>
-<pre><code class="language-bash">./cjl lint-fix
+                <p>To try to fix all linting errors for all services:</p>
+                <pre><code class="language-bash">./cjl lint-fix
 </code></pre>
-<p>In order to shut down all containers:</p>
-<pre><code class="language-bash">./cjl down
+                <p>In order to shut down all containers:</p>
+                <pre><code class="language-bash">./cjl down
 </code></pre>
-<p>The <code>cjl</code> script also takes any other command that <code>docker-compose</code> can take.</p>
-<a class="header" href="print.html#running-or-testing-specific-services" id="running-or-testing-specific-services"><h2>Running or Testing Specific Services</h2></a>
-<p>The following services can run individually or tested against:</p>
-<ul>
-<li><a href="src/web_client/README.md">Web Client</a></li>
-<li><a href="src/backend_service/README.md">Backend Service</a></li>
-<li><a href="src/ml_service/README.md">Machine Learning Service</a></li>
-<li><a href="src/nlp_service/README.md">Natural Language Processing Service</a></li>
-<li><a href="src/postgresql_db/README.md">PostgreSQL Database</a></li>
-</ul>
-<a class="header" href="print.html#deployment" id="deployment"><h2>Deployment</h2></a>
-<p>Deployment is done via Travis CI and Ansible. The most current version of the master branch is reflected on the <a href="https://capstone.cyberjustice.ca">Demo Page</a></p>
-<a class="header" href="print.html#architecture" id="architecture"><h2>Architecture</h2></a>
-<p>The following architecture diagram represents the various services and the relationships they have with one another.</p>
-<p><img src="/images/high-level-architecture.png" alt="High Level Architecture" /></p>
-<a class="header" href="print.html#contributing" id="contributing"><h2>Contributing</h2></a>
-<p>See <a href="CONTRIBUTING.md">CONTRIBUTING.md</a> for details.</p>
-<a class="header" href="print.html#versioning" id="versioning"><h2>Versioning</h2></a>
-<p>See the <a href="https://github.com/Cyberjusticelab/JusticeAI/releases">releases tab</a></p>
-<a class="header" href="print.html#authors" id="authors"><h2>Authors</h2></a>
-<p>The following is a list of team members that are contributing to the project:</p>
-<ul>
-<li><a href="https://github.com/Samuel-Campbell">Samuel-Campbell</a></li>
-<li><a href="https://github.com/TaimoorRana">TaimoorRana</a></li>
-<li><a href="https://github.com/Vynny">Vynny</a></li>
-<li><a href="https://github.com/lancelafontaine">lancelafontaine</a></li>
-<li><a href="https://github.com/choitwao">choitwao</a></li>
-<li><a href="https://github.com/arekmano">arekmano</a></li>
-<li><a href="https://github.com/mihaiqc">mihaiqc</a></li>
-</ul>
-<a class="header" href="print.html#license" id="license"><h2>License</h2></a>
-<p>This project is licensed under the MIT License - see the <a href="LICENSE">LICENSE</a> file for details</p>
-<a class="header" href="print.html#acknowledgments" id="acknowledgments"><h2>Acknowledgments</h2></a>
-<p>TBD</p>
-<a class="header" href="print.html#source" id="source"><h1>Source</h1></a>
-<p>The project is split into several modules; one per micro-service. The description of each microservice is shown below:</p>
-<a class="header" href="print.html#backend-service" id="backend-service"><h2>Backend Service</h2></a>
-<p>This module is responsible for responding to the web client's API queries. It is also the primary point of contact for the other micro-services</p>
-<a class="header" href="print.html#ml-service" id="ml-service"><h2>ML Service</h2></a>
-<p>This module is responsible for all things related to predicting outcomes and classifying based on precedent data</p>
-<a class="header" href="print.html#web-client" id="web-client"><h2>Web Client</h2></a>
-<p>This module contains the Web UI that users will interact with</p>
-<a class="header" href="print.html#postgresql" id="postgresql"><h2>Postgresql</h2></a>
-<p>This module contains the data persistence layer of our system</p>
-<a class="header" href="print.html#nlp-service" id="nlp-service"><h2>NLP Service</h2></a>
-<p>This module is responsible for all things related to natural language processing, which the user interacts with</p>
-<a class="header" href="print.html#web-client-service" id="web-client-service"><h1>Web Client Service</h1></a>
-<a class="header" href="print.html#run-tests-and-lints" id="run-tests-and-lints"><h2>Run Tests and Lints</h2></a>
-<pre><code>export COMPOSE_FILE=ci
+                <p>The <code>cjl</code> script also takes any other command that <code>docker-compose</code> can take.
+                </p>
+                <a class="header" href="print.html#running-or-testing-specific-services"
+                   id="running-or-testing-specific-services"><h2>Running or Testing Specific Services</h2></a>
+                <p>The following services can run individually or tested against:</p>
+                <ul>
+                    <li><a href="src/web_client/README.md">Web Client</a></li>
+                    <li><a href="src/backend_service/README.md">Backend Service</a></li>
+                    <li><a href="src/ml_service/README.md">Machine Learning Service</a></li>
+                    <li><a href="src/nlp_service/README.md">Natural Language Processing Service</a></li>
+                    <li><a href="src/postgresql_db/README.md">PostgreSQL Database</a></li>
+                </ul>
+                <a class="header" href="print.html#deployment" id="deployment"><h2>Deployment</h2></a>
+                <p>Deployment is done via Travis CI and Ansible. The most current version of the master branch is
+                    reflected on the <a href="https://capstone.cyberjustice.ca">Demo Page</a></p>
+                <a class="header" href="print.html#architecture" id="architecture"><h2>Architecture</h2></a>
+                <p>The following architecture diagram represents the various services and the relationships they have
+                    with one another.</p>
+                <p><img src="/images/high-level-architecture.png" alt="High Level Architecture"/></p>
+                <a class="header" href="print.html#contributing" id="contributing"><h2>Contributing</h2></a>
+                <p>See <a href="CONTRIBUTING.md">CONTRIBUTING.md</a> for details.</p>
+                <a class="header" href="print.html#versioning" id="versioning"><h2>Versioning</h2></a>
+                <p>See the <a href="https://github.com/Cyberjusticelab/JusticeAI/releases">releases tab</a></p>
+                <a class="header" href="print.html#authors" id="authors"><h2>Authors</h2></a>
+                <p>The following is a list of team members that are contributing to the project:</p>
+                <ul>
+                    <li><a href="https://github.com/Samuel-Campbell">Samuel-Campbell</a></li>
+                    <li><a href="https://github.com/TaimoorRana">TaimoorRana</a></li>
+                    <li><a href="https://github.com/Vynny">Vynny</a></li>
+                    <li><a href="https://github.com/lancelafontaine">lancelafontaine</a></li>
+                    <li><a href="https://github.com/choitwao">choitwao</a></li>
+                    <li><a href="https://github.com/arekmano">arekmano</a></li>
+                    <li><a href="https://github.com/mihaiqc">mihaiqc</a></li>
+                </ul>
+                <a class="header" href="print.html#license" id="license"><h2>License</h2></a>
+                <p>This project is licensed under the MIT License - see the <a href="LICENSE">LICENSE</a> file for
+                    details</p>
+                <a class="header" href="print.html#acknowledgments" id="acknowledgments"><h2>Acknowledgments</h2></a>
+                <p>TBD</p>
+                <a class="header" href="print.html#source" id="source"><h1>Source</h1></a>
+                <p>The project is split into several modules; one per micro-service. The description of each
+                    microservice is shown below:</p>
+                <a class="header" href="print.html#backend-service" id="backend-service"><h2>Backend Service</h2></a>
+                <p>This module is responsible for responding to the web client's API queries. It is also the primary
+                    point of contact for the other micro-services</p>
+                <a class="header" href="print.html#ml-service" id="ml-service"><h2>ML Service</h2></a>
+                <p>This module is responsible for all things related to predicting outcomes and classifying based on
+                    precedent data</p>
+                <a class="header" href="print.html#web-client" id="web-client"><h2>Web Client</h2></a>
+                <p>This module contains the Web UI that users will interact with</p>
+                <a class="header" href="print.html#postgresql" id="postgresql"><h2>Postgresql</h2></a>
+                <p>This module contains the data persistence layer of our system</p>
+                <a class="header" href="print.html#nlp-service" id="nlp-service"><h2>NLP Service</h2></a>
+                <p>This module is responsible for all things related to natural language processing, which the user
+                    interacts with</p>
+                <a class="header" href="print.html#web-client-service" id="web-client-service"><h1>Web Client
+                    Service</h1></a>
+                <a class="header" href="print.html#run-tests-and-lints" id="run-tests-and-lints"><h2>Run Tests and
+                    Lints</h2></a>
+                <pre><code>export COMPOSE_FILE=ci
 ./cjl up -d &amp;&amp; ./cjl run web_client
 </code></pre>
-<a class="header" href="print.html#technologies" id="technologies"><h2>Technologies</h2></a>
-<p>The following technologies are in use in this service:</p>
-<a class="header" href="print.html#bootstrap" id="bootstrap"><h3>Bootstrap</h3></a>
-<p><a href="https://getbootstrap.com">Bootstrap</a> is an open source front end framework developed by Twitter. It contains styling for various common web components, such as forms and inputs, as well as providing a convenient grid system that greatly facilitates web page styling and layout.</p>
-<ul>
-<li>Alternatives: Foundation Framework, pure.css, skeleton</li>
-<li>Reason Chosen:
-<ul>
-<li>Team member’s past experiences</li>
-<li>Industry standard</li>
-</ul>
-</li>
-</ul>
-<a class="header" href="print.html#vuejs" id="vuejs"><h3>Vue.js</h3></a>
-<p>(Vue.js)[https://vuejs.org/] is an open source front end framework for building single page applications. It leverages component based architecture that allows for the creation of an interactive website. Its primary purpose will be to power the visible portion of the chatbot, displaying messages, sending messages to the server, and prompting the user for various interactions such as answering questions or providing files to use as evidence.</p>
-<ul>
-<li>Alternatives: AngularJS, Angular 4, ReactJs</li>
-<li>Reason Chosen:
-<ul>
-<li>Low learning curve</li>
-<li>High performance</li>
-<li>Small footprint and minimal API</li>
-</ul>
-</li>
-</ul>
-<a class="header" href="print.html#backend-service-1" id="backend-service-1"><h1>Backend Service</h1></a>
-<a class="header" href="print.html#run-tests-and-lints-1" id="run-tests-and-lints-1"><h2>Run Tests and Lints</h2></a>
-<pre><code>export COMPOSE_FILE=ci
+                <a class="header" href="print.html#technologies" id="technologies"><h2>Technologies</h2></a>
+                <p>The following technologies are in use in this service:</p>
+                <a class="header" href="print.html#bootstrap" id="bootstrap"><h3>Bootstrap</h3></a>
+                <p><a href="https://getbootstrap.com">Bootstrap</a> is an open source front end framework developed by
+                    Twitter. It contains styling for various common web components, such as forms and inputs, as well as
+                    providing a convenient grid system that greatly facilitates web page styling and layout.</p>
+                <ul>
+                    <li>Alternatives: Foundation Framework, pure.css, skeleton</li>
+                    <li>Reason Chosen:
+                        <ul>
+                            <li>Team member’s past experiences</li>
+                            <li>Industry standard</li>
+                        </ul>
+                    </li>
+                </ul>
+                <a class="header" href="print.html#vuejs" id="vuejs"><h3>Vue.js</h3></a>
+                <p>(Vue.js)[https://vuejs.org/] is an open source front end framework for building single page
+                    applications. It leverages component based architecture that allows for the creation of an
+                    interactive website. Its primary purpose will be to power the visible portion of the chatbot,
+                    displaying messages, sending messages to the server, and prompting the user for various interactions
+                    such as answering questions or providing files to use as evidence.</p>
+                <ul>
+                    <li>Alternatives: AngularJS, Angular 4, ReactJs</li>
+                    <li>Reason Chosen:
+                        <ul>
+                            <li>Low learning curve</li>
+                            <li>High performance</li>
+                            <li>Small footprint and minimal API</li>
+                        </ul>
+                    </li>
+                </ul>
+                <a class="header" href="print.html#backend-service-1" id="backend-service-1"><h1>Backend Service</h1>
+                </a>
+                <a class="header" href="print.html#run-tests-and-lints-1" id="run-tests-and-lints-1"><h2>Run Tests and
+                    Lints</h2></a>
+                <pre><code>export COMPOSE_FILE=ci
 ./cjl up -d &amp;&amp; ./cjl run backend_service
 </code></pre>
-<hr />
-<a class="header" href="print.html#backend-api" id="backend-api"><h1>Backend API</h1></a>
-<a class="header" href="print.html#initialize-a-new-conversation" id="initialize-a-new-conversation"><h1>Initialize a new conversation</h1></a>
-<p>Initializes a new conversation</p>
-<p><strong>URL</strong> : <code>/new</code></p>
-<p><strong>Method</strong> : <code>POST</code></p>
-<p><strong>Data constraints</strong></p>
-<p>Provide the user's name and person type.</p>
-<pre><code class="language-json">{
+                <hr/>
+                <a class="header" href="print.html#backend-api" id="backend-api"><h1>Backend API</h1></a>
+                <a class="header" href="print.html#initialize-a-new-conversation" id="initialize-a-new-conversation">
+                    <h1>Initialize a new conversation</h1></a>
+                <p>Initializes a new conversation</p>
+                <p><strong>URL</strong> : <code>/new</code></p>
+                <p><strong>Method</strong> : <code>POST</code></p>
+                <p><strong>Data constraints</strong></p>
+                <p>Provide the user's name and person type.</p>
+                <pre><code class="language-json">{
     &quot;name&quot;: &quot;[unicode 40 chars max]&quot;,
     &quot;person_type&quot;: &quot;(TENANT|LANDLORD)&quot;
 }
 </code></pre>
-<a class="header" href="print.html#success-response" id="success-response"><h2>Success Response</h2></a>
-<p><strong>Code</strong> : <code>200 OK</code></p>
-<p><strong>Content examples</strong></p>
-<pre><code class="language-json">{
+                <a class="header" href="print.html#success-response" id="success-response"><h2>Success Response</h2></a>
+                <p><strong>Code</strong> : <code>200 OK</code></p>
+                <p><strong>Content examples</strong></p>
+                <pre><code class="language-json">{
     &quot;conversation_id&quot;: 1
 }
 </code></pre>
-<a class="header" href="print.html#error-response" id="error-response"><h2>Error Response</h2></a>
-<p><strong>Code</strong> : <code>400 Bad Request</code> - <em>Invalid person_type provided</em></p>
-<hr />
-<a class="header" href="print.html#store-user-confirmation" id="store-user-confirmation"><h1>Store User Confirmation</h1></a>
-<p>Stores the user confirmation or text supplied in order to confirm whether an NLP prediction was accurate.</p>
-<p><strong>URL</strong> : <code>/store-user-confirmation</code></p>
-<p><strong>Method</strong> : <code>POST</code></p>
-<p><strong>Data constraints</strong></p>
-<p>Provide the conversation id and confirmation text of the user.</p>
-<pre><code class="language-json">{
+                <a class="header" href="print.html#error-response" id="error-response"><h2>Error Response</h2></a>
+                <p><strong>Code</strong> : <code>400 Bad Request</code> - <em>Invalid person_type provided</em></p>
+                <hr/>
+                <a class="header" href="print.html#store-user-confirmation" id="store-user-confirmation"><h1>Store User
+                    Confirmation</h1></a>
+                <p>Stores the user confirmation or text supplied in order to confirm whether an NLP prediction was
+                    accurate.</p>
+                <p><strong>URL</strong> : <code>/store-user-confirmation</code></p>
+                <p><strong>Method</strong> : <code>POST</code></p>
+                <p><strong>Data constraints</strong></p>
+                <p>Provide the conversation id and confirmation text of the user.</p>
+                <pre><code class="language-json">{
     &quot;conversation_id&quot;: 1,
     &quot;confirmation&quot;: true | false | &quot;$5000&quot;
 }
 </code></pre>
-<a class="header" href="print.html#success-response-1" id="success-response-1"><h2>Success Response</h2></a>
-<p><strong>Code</strong> : <code>200 OK</code></p>
-<p><strong>Content examples</strong></p>
-<pre><code class="language-json">{
+                <a class="header" href="print.html#success-response-1" id="success-response-1"><h2>Success Response</h2>
+                </a>
+                <p><strong>Code</strong> : <code>200 OK</code></p>
+                <p><strong>Content examples</strong></p>
+                <pre><code class="language-json">{
     &quot;message&quot;: &quot;User confirmation stored successfully&quot;
 }
 </code></pre>
-<a class="header" href="print.html#error-response-1" id="error-response-1"><h2>Error Response</h2></a>
-<p><strong>Code</strong> : <code>400 Bad Request</code></p>
-<p><strong>Code</strong> : <code>404 Not Found</code></p>
-<hr />
-<a class="header" href="print.html#send-a-message" id="send-a-message"><h1>Send a message</h1></a>
-<p>Sends a message to the bot.</p>
-<p><strong>URL</strong> : <code>/conversation</code></p>
-<p><strong>Method</strong> : <code>POST</code></p>
-<p><strong>Data constraints</strong></p>
-<p>Provide the conversation_id and a message. Message should be empty string for first call.</p>
-<pre><code class="language-json">{
+                <a class="header" href="print.html#error-response-1" id="error-response-1"><h2>Error Response</h2></a>
+                <p><strong>Code</strong> : <code>400 Bad Request</code></p>
+                <p><strong>Code</strong> : <code>404 Not Found</code></p>
+                <hr/>
+                <a class="header" href="print.html#send-a-message" id="send-a-message"><h1>Send a message</h1></a>
+                <p>Sends a message to the bot.</p>
+                <p><strong>URL</strong> : <code>/conversation</code></p>
+                <p><strong>Method</strong> : <code>POST</code></p>
+                <p><strong>Data constraints</strong></p>
+                <p>Provide the conversation_id and a message. Message should be empty string for first call.</p>
+                <pre><code class="language-json">{
     &quot;conversation_id&quot;: &quot;[integer]&quot;,
     &quot;message&quot;: &quot;[unicode]&quot;
 }
 </code></pre>
-<a class="header" href="print.html#success-response-2" id="success-response-2"><h2>Success Response</h2></a>
-<p><strong>Code</strong> : <code>200 OK</code></p>
-<p><strong>Content examples</strong></p>
-<p>Simple response containing a message and conversation progress. Messages may contain pipe characters (|) which indicate that a sentence should be split into separate conversation windows. Note that the first message will not contain a pipe character. Each subsequent sentence will begin with a pipe character if it is meant to be split.</p>
-<p>Converation progress will be null at the beginning of the conversation, and if the user ends up asking a FAQ question (which have no progress). However, if the user asks a question that requires the bot to resolve facts, progress will indicate a percentage of how far along the conversation is to getting a prediction.</p>
-<a class="header" href="print.html#example-1" id="example-1"><h3>Example 1:</h3></a>
-<pre><code class="language-json">{
+                <a class="header" href="print.html#success-response-2" id="success-response-2"><h2>Success Response</h2>
+                </a>
+                <p><strong>Code</strong> : <code>200 OK</code></p>
+                <p><strong>Content examples</strong></p>
+                <p>Simple response containing a message and conversation progress. Messages may contain pipe characters
+                    (|) which indicate that a sentence should be split into separate conversation windows. Note that the
+                    first message will not contain a pipe character. Each subsequent sentence will begin with a pipe
+                    character if it is meant to be split.</p>
+                <p>Converation progress will be null at the beginning of the conversation, and if the user ends up
+                    asking a FAQ question (which have no progress). However, if the user asks a question that requires
+                    the bot to resolve facts, progress will indicate a percentage of how far along the conversation is
+                    to getting a prediction.</p>
+                <a class="header" href="print.html#example-1" id="example-1"><h3>Example 1:</h3></a>
+                <pre><code class="language-json">{
     &quot;conversation_id&quot;: 1,
     &quot;message&quot;: &quot;Hello Tim Timmens!|What kind of problem are you having?&quot;,
     &quot;progress&quot;: null
 }
 </code></pre>
-<p>This can be formatted as:</p>
-<p>Message 1: Hello Tim Timmens!</p>
-<p>Message 2: What kind of problem are you having?</p>
-<a class="header" href="print.html#example-2" id="example-2"><h3>Example 2:</h3></a>
-<pre><code class="language-json">{
+                <p>This can be formatted as:</p>
+                <p>Message 1: Hello Tim Timmens!</p>
+                <p>Message 2: What kind of problem are you having?</p>
+                <a class="header" href="print.html#example-2" id="example-2"><h3>Example 2:</h3></a>
+                <pre><code class="language-json">{
     &quot;conversation_id&quot;: 5,
     &quot;message&quot;: &quot;Oh I see you're having problems with lease termination!|I have a few questions for you.|Do you have a lease?&quot;,
     &quot;progress&quot;: 0
 }
 </code></pre>
-<p>This can be formatted as:</p>
-<p>Message 1: Oh I see you're having problems with lease termination!</p>
-<p>Message 2: I have a few questions for you.</p>
-<p>Message 3: Do you have a lease</p>
-<a class="header" href="print.html#response-containing-a-request-for-a-file" id="response-containing-a-request-for-a-file"><h3>Response containing a request for a file.</h3></a>
-<pre><code class="language-json">{
+                <p>This can be formatted as:</p>
+                <p>Message 1: Oh I see you're having problems with lease termination!</p>
+                <p>Message 2: I have a few questions for you.</p>
+                <p>Message 3: Do you have a lease</p>
+                <a class="header" href="print.html#response-containing-a-request-for-a-file"
+                   id="response-containing-a-request-for-a-file"><h3>Response containing a request for a file.</h3></a>
+                <pre><code class="language-json">{
     &quot;conversation_id&quot;: 1,
     &quot;file_request&quot;: {
         &quot;document_type&quot;: &quot;LEASE&quot;
@@ -352,19 +429,21 @@
     &quot;message&quot;: &quot;Could you please upload your lease if you have it, Tim Timmens?&quot;
 }
 </code></pre>
-<a class="header" href="print.html#document-types" id="document-types"><h3>Document Types</h3></a>
-<p><em>LEASE</em>: A lease for a dwelling</p>
-<a class="header" href="print.html#error-response-2" id="error-response-2"><h2>Error Response</h2></a>
-<p><strong>Code</strong> : <code>404 Not Found</code></p>
-<hr />
-<a class="header" href="print.html#get-a-conversation-history" id="get-a-conversation-history"><h1>Get a conversation history</h1></a>
-<p>Gets the message history for a conversation</p>
-<p><strong>URL</strong> : <code>/conversation/:conversation_id</code></p>
-<p><strong>Method</strong> : <code>GET</code></p>
-<a class="header" href="print.html#success-response-3" id="success-response-3"><h2>Success Response</h2></a>
-<p><strong>Code</strong> : <code>200 OK</code></p>
-<p><strong>Content examples</strong></p>
-<pre><code class="language-json">{
+                <a class="header" href="print.html#document-types" id="document-types"><h3>Document Types</h3></a>
+                <p><em>LEASE</em>: A lease for a dwelling</p>
+                <a class="header" href="print.html#error-response-2" id="error-response-2"><h2>Error Response</h2></a>
+                <p><strong>Code</strong> : <code>404 Not Found</code></p>
+                <hr/>
+                <a class="header" href="print.html#get-a-conversation-history" id="get-a-conversation-history"><h1>Get a
+                    conversation history</h1></a>
+                <p>Gets the message history for a conversation</p>
+                <p><strong>URL</strong> : <code>/conversation/:conversation_id</code></p>
+                <p><strong>Method</strong> : <code>GET</code></p>
+                <a class="header" href="print.html#success-response-3" id="success-response-3"><h2>Success Response</h2>
+                </a>
+                <p><strong>Code</strong> : <code>200 OK</code></p>
+                <p><strong>Content examples</strong></p>
+                <pre><code class="language-json">{
     &quot;claim_category&quot;: &quot;NONPAYMENT&quot;,
     &quot;bot_state&quot;: &quot;RESOLVING_FACTS&quot;,
     &quot;current_fact&quot;: {
@@ -498,18 +577,21 @@
     &quot;person_type&quot;: &quot;TENANT&quot;
 }
 </code></pre>
-<a class="header" href="print.html#error-response-3" id="error-response-3"><h2>Error Response</h2></a>
-<p><strong>Code</strong> : <code>400 Bad Request</code></p>
-<p><strong>Code</strong> : <code>404 Not Found</code></p>
-<hr />
-<a class="header" href="print.html#get-a-report-for-a-conversation" id="get-a-report-for-a-conversation"><h1>Get a report for a conversation</h1></a>
-<p>Retrieves a report for a conversation once at least one prediction has been returned. Will return 404 if a report has not been generated yet.</p>
-<p><strong>URL</strong> : <code>/conversation/:conversation_id/report</code></p>
-<p><strong>Method</strong> : <code>GET</code></p>
-<a class="header" href="print.html#success-response-4" id="success-response-4"><h2>Success Response</h2></a>
-<p><strong>Code</strong> : <code>200 OK</code></p>
-<p><strong>Content examples</strong></p>
-<pre><code class="language-json">{
+                <a class="header" href="print.html#error-response-3" id="error-response-3"><h2>Error Response</h2></a>
+                <p><strong>Code</strong> : <code>400 Bad Request</code></p>
+                <p><strong>Code</strong> : <code>404 Not Found</code></p>
+                <hr/>
+                <a class="header" href="print.html#get-a-report-for-a-conversation"
+                   id="get-a-report-for-a-conversation"><h1>Get a report for a conversation</h1></a>
+                <p>Retrieves a report for a conversation once at least one prediction has been returned. Will return 404
+                    if a report has not been generated yet.</p>
+                <p><strong>URL</strong> : <code>/conversation/:conversation_id/report</code></p>
+                <p><strong>Method</strong> : <code>GET</code></p>
+                <a class="header" href="print.html#success-response-4" id="success-response-4"><h2>Success Response</h2>
+                </a>
+                <p><strong>Code</strong> : <code>200 OK</code></p>
+                <p><strong>Content examples</strong></p>
+                <pre><code class="language-json">{
     &quot;report&quot;: {
         &quot;accuracy&quot;: 0.8114285714285714,
         &quot;curves&quot;: {
@@ -641,17 +723,20 @@
     }
 }
 </code></pre>
-<a class="header" href="print.html#error-response-4" id="error-response-4"><h2>Error Response</h2></a>
-<p><strong>Code</strong> : <code>400 Bad Request</code></p>
-<a class="header" href="print.html#code--404-not-found" id="code--404-not-found"><h2><strong>Code</strong> : <code>404 Not Found</code></h2></a>
-<a class="header" href="print.html#get-facts-resolved-during-conversation" id="get-facts-resolved-during-conversation"><h1>Get facts resolved during conversation</h1></a>
-<p>Gets only the list of resolved facts for the conversation</p>
-<p><strong>URL</strong> : <code>/conversation/:conversation_id/resolved</code></p>
-<p><strong>Method</strong> : <code>GET</code></p>
-<a class="header" href="print.html#success-response-5" id="success-response-5"><h2>Success Response</h2></a>
-<p><strong>Code</strong> : <code>200 OK</code></p>
-<p><strong>Content examples</strong></p>
-<pre><code class="language-json">{
+                <a class="header" href="print.html#error-response-4" id="error-response-4"><h2>Error Response</h2></a>
+                <p><strong>Code</strong> : <code>400 Bad Request</code></p>
+                <a class="header" href="print.html#code--404-not-found" id="code--404-not-found"><h2>
+                    <strong>Code</strong> : <code>404 Not Found</code></h2></a>
+                <a class="header" href="print.html#get-facts-resolved-during-conversation"
+                   id="get-facts-resolved-during-conversation"><h1>Get facts resolved during conversation</h1></a>
+                <p>Gets only the list of resolved facts for the conversation</p>
+                <p><strong>URL</strong> : <code>/conversation/:conversation_id/resolved</code></p>
+                <p><strong>Method</strong> : <code>GET</code></p>
+                <a class="header" href="print.html#success-response-5" id="success-response-5"><h2>Success Response</h2>
+                </a>
+                <p><strong>Code</strong> : <code>200 OK</code></p>
+                <p><strong>Content examples</strong></p>
+                <pre><code class="language-json">{
     &quot;fact_entities&quot;: [
         {
             &quot;fact&quot;: {
@@ -674,54 +759,59 @@
     ]
 }
 </code></pre>
-<a class="header" href="print.html#error-response-5" id="error-response-5"><h2>Error Response</h2></a>
-<p><strong>Code</strong> : <code>400 Bad Request</code></p>
-<p><strong>Code</strong> : <code>404 Not Found</code></p>
-<hr />
-<a class="header" href="print.html#remove-a-resolved-fact" id="remove-a-resolved-fact"><h1>Remove a resolved fact</h1></a>
-<p>Removes a resolved fact from the conversation</p>
-<p><strong>URL</strong> : <code>/conversation/:conversation_id/resolved/:fact_id</code></p>
-<p><strong>Method</strong> : <code>DELETE</code></p>
-<a class="header" href="print.html#success-response-6" id="success-response-6"><h2>Success Response</h2></a>
-<p><strong>Code</strong> : <code>200 OK</code></p>
-<p><strong>Content examples</strong></p>
-<pre><code class="language-json">{
+                <a class="header" href="print.html#error-response-5" id="error-response-5"><h2>Error Response</h2></a>
+                <p><strong>Code</strong> : <code>400 Bad Request</code></p>
+                <p><strong>Code</strong> : <code>404 Not Found</code></p>
+                <hr/>
+                <a class="header" href="print.html#remove-a-resolved-fact" id="remove-a-resolved-fact"><h1>Remove a
+                    resolved fact</h1></a>
+                <p>Removes a resolved fact from the conversation</p>
+                <p><strong>URL</strong> : <code>/conversation/:conversation_id/resolved/:fact_id</code></p>
+                <p><strong>Method</strong> : <code>DELETE</code></p>
+                <a class="header" href="print.html#success-response-6" id="success-response-6"><h2>Success Response</h2>
+                </a>
+                <p><strong>Code</strong> : <code>200 OK</code></p>
+                <p><strong>Content examples</strong></p>
+                <pre><code class="language-json">{
     &quot;success&quot;: true
 }
 </code></pre>
-<a class="header" href="print.html#error-response-6" id="error-response-6"><h2>Error Response</h2></a>
-<p><strong>Code</strong> : <code>400 Bad Request</code></p>
-<p><strong>Code</strong> : <code>404 Not Found</code></p>
-<hr />
-<a class="header" href="print.html#upload-a-file" id="upload-a-file"><h1>Upload a file</h1></a>
-<p>Upload a file that serves as evidence for a particular conversation.</p>
-<p><strong>URL</strong> : <code>/conversation/:conversation_id/files</code></p>
-<p><strong>Method</strong> : <code>POST</code></p>
-<p><strong>Headers</strong></p>
-<p>Content-Type: <code>multipart/form-data</code></p>
-<p><strong>Data constraints</strong></p>
-<p>Provide 'file' form key with file data.</p>
-<a class="header" href="print.html#success-response-7" id="success-response-7"><h2>Success Response</h2></a>
-<p><strong>Code</strong> : <code>200 OK</code></p>
-<p><strong>Content examples</strong></p>
-<pre><code class="language-json">{
+                <a class="header" href="print.html#error-response-6" id="error-response-6"><h2>Error Response</h2></a>
+                <p><strong>Code</strong> : <code>400 Bad Request</code></p>
+                <p><strong>Code</strong> : <code>404 Not Found</code></p>
+                <hr/>
+                <a class="header" href="print.html#upload-a-file" id="upload-a-file"><h1>Upload a file</h1></a>
+                <p>Upload a file that serves as evidence for a particular conversation.</p>
+                <p><strong>URL</strong> : <code>/conversation/:conversation_id/files</code></p>
+                <p><strong>Method</strong> : <code>POST</code></p>
+                <p><strong>Headers</strong></p>
+                <p>Content-Type: <code>multipart/form-data</code></p>
+                <p><strong>Data constraints</strong></p>
+                <p>Provide 'file' form key with file data.</p>
+                <a class="header" href="print.html#success-response-7" id="success-response-7"><h2>Success Response</h2>
+                </a>
+                <p><strong>Code</strong> : <code>200 OK</code></p>
+                <p><strong>Content examples</strong></p>
+                <pre><code class="language-json">{
     &quot;name&quot;: &quot;leaky_pipes.png&quot;,
     &quot;type&quot;: &quot;image/png&quot;,
     &quot;timestamp&quot;: &quot;2017-10-24T00:01:27.806730+00:00&quot;
 }
 </code></pre>
-<a class="header" href="print.html#error-response-7" id="error-response-7"><h2>Error Response</h2></a>
-<p><strong>Code</strong> : <code>400 Bad Request</code></p>
-<p><strong>Code</strong> : <code>404 Not Found</code></p>
-<hr />
-<a class="header" href="print.html#get-conversation-file-metadata" id="get-conversation-file-metadata"><h1>Get conversation file metadata</h1></a>
-<p>Gets a list of file metadata for a conversation</p>
-<p><strong>URL</strong> : <code>/conversation/:conversation_id/files</code></p>
-<p><strong>Method</strong> : <code>GET</code></p>
-<a class="header" href="print.html#success-response-8" id="success-response-8"><h2>Success Response</h2></a>
-<p><strong>Code</strong> : <code>200 OK</code></p>
-<p><strong>Content examples</strong></p>
-<pre><code class="language-json">{
+                <a class="header" href="print.html#error-response-7" id="error-response-7"><h2>Error Response</h2></a>
+                <p><strong>Code</strong> : <code>400 Bad Request</code></p>
+                <p><strong>Code</strong> : <code>404 Not Found</code></p>
+                <hr/>
+                <a class="header" href="print.html#get-conversation-file-metadata" id="get-conversation-file-metadata">
+                    <h1>Get conversation file metadata</h1></a>
+                <p>Gets a list of file metadata for a conversation</p>
+                <p><strong>URL</strong> : <code>/conversation/:conversation_id/files</code></p>
+                <p><strong>Method</strong> : <code>GET</code></p>
+                <a class="header" href="print.html#success-response-8" id="success-response-8"><h2>Success Response</h2>
+                </a>
+                <p><strong>Code</strong> : <code>200 OK</code></p>
+                <p><strong>Content examples</strong></p>
+                <pre><code class="language-json">{
     &quot;files&quot;: [
         {
             &quot;name&quot;: &quot;leaky_pipes.png&quot;,
@@ -736,18 +826,20 @@
     ]
 }
 </code></pre>
-<a class="header" href="print.html#error-response-8" id="error-response-8"><h2>Error Response</h2></a>
-<p><strong>Code</strong> : <code>400 Bad Request</code></p>
-<p><strong>Code</strong> : <code>404 Not Found</code></p>
-<hr />
-<a class="header" href="print.html#get-latest-legal-documents" id="get-latest-legal-documents"><h1>Get Latest Legal Documents</h1></a>
-<p>Obtains information and contents of the latest legal documents</p>
-<p><strong>URL</strong> : <code>/legal</code></p>
-<p><strong>Method</strong> : <code>GET</code></p>
-<a class="header" href="print.html#success-response-9" id="success-response-9"><h2>Success Response</h2></a>
-<p><strong>Code</strong> : <code>200 OK</code></p>
-<p><strong>Content examples</strong></p>
-<pre><code class="language-json">[
+                <a class="header" href="print.html#error-response-8" id="error-response-8"><h2>Error Response</h2></a>
+                <p><strong>Code</strong> : <code>400 Bad Request</code></p>
+                <p><strong>Code</strong> : <code>404 Not Found</code></p>
+                <hr/>
+                <a class="header" href="print.html#get-latest-legal-documents" id="get-latest-legal-documents"><h1>Get
+                    Latest Legal Documents</h1></a>
+                <p>Obtains information and contents of the latest legal documents</p>
+                <p><strong>URL</strong> : <code>/legal</code></p>
+                <p><strong>Method</strong> : <code>GET</code></p>
+                <a class="header" href="print.html#success-response-9" id="success-response-9"><h2>Success Response</h2>
+                </a>
+                <p><strong>Code</strong> : <code>200 OK</code></p>
+                <p><strong>Content examples</strong></p>
+                <pre><code class="language-json">[
     {
         &quot;abbreviation&quot;: &quot;EULA&quot;,
         &quot;html&quot;: {
@@ -786,63 +878,71 @@
     }
 ]
 </code></pre>
-<a class="header" href="print.html#natural-language-processing-service" id="natural-language-processing-service"><h1>Natural Language Processing Service</h1></a>
-<a class="header" href="print.html#run-tests-and-lints-2" id="run-tests-and-lints-2"><h2>Run Tests and Lints</h2></a>
-<pre><code>export COMPOSE_FILE=ci
+                <a class="header" href="print.html#natural-language-processing-service"
+                   id="natural-language-processing-service"><h1>Natural Language Processing Service</h1></a>
+                <a class="header" href="print.html#run-tests-and-lints-2" id="run-tests-and-lints-2"><h2>Run Tests and
+                    Lints</h2></a>
+                <pre><code>export COMPOSE_FILE=ci
 ./cjl up -d &amp;&amp; ./cjl run nlp_service
 </code></pre>
-<hr />
-<a class="header" href="print.html#nlp-api" id="nlp-api"><h1>NLP API</h1></a>
-<a class="header" href="print.html#classify-claim-category" id="classify-claim-category"><h2>Classify claim category</h2></a>
-<p>Extract a claim category from a user's message. Returns a question based on the claim category found, or a clarification question.</p>
-<p><strong>URL</strong> : <code>/claim_category</code></p>
-<p><strong>Method</strong> : <code>POST</code></p>
-<p><strong>Data constraints</strong></p>
-<p>Provide the conversation id and the message.</p>
-<pre><code class="language-json">{
+                <hr/>
+                <a class="header" href="print.html#nlp-api" id="nlp-api"><h1>NLP API</h1></a>
+                <a class="header" href="print.html#classify-claim-category" id="classify-claim-category"><h2>Classify
+                    claim category</h2></a>
+                <p>Extract a claim category from a user's message. Returns a question based on the claim category found,
+                    or a clarification question.</p>
+                <p><strong>URL</strong> : <code>/claim_category</code></p>
+                <p><strong>Method</strong> : <code>POST</code></p>
+                <p><strong>Data constraints</strong></p>
+                <p>Provide the conversation id and the message.</p>
+                <pre><code class="language-json">{
     &quot;conversation_id&quot;: 1,
     &quot;message&quot;: &quot;I am being evicted&quot;
 }
 </code></pre>
-<a class="header" href="print.html#success-response-10" id="success-response-10"><h4>Success Response</h4></a>
-<p><strong>Code</strong> : <code>200 OK</code></p>
-<p><strong>Content examples</strong></p>
-<pre><code class="language-json">{
+                <a class="header" href="print.html#success-response-10" id="success-response-10"><h4>Success
+                    Response</h4></a>
+                <p><strong>Code</strong> : <code>200 OK</code></p>
+                <p><strong>Content examples</strong></p>
+                <pre><code class="language-json">{
     &quot;message&quot;: &quot;I see you're having problems with lease termination. Have you kept up with your rent payments?&quot;,
     &quot;progress&quot;: 0
 }
 </code></pre>
-<a class="header" href="print.html#error-response-9" id="error-response-9"><h4>Error Response</h4></a>
-<p><strong>Code</strong> : <code>400 Bad Request</code> - <em>Inputs not provided</em></p>
-<p><strong>Code</strong> : <code>404 Not Found</code> - <em>Conversation doesn't exist</em></p>
-<hr />
-<a class="header" href="print.html#submit-message" id="submit-message"><h2>Submit message</h2></a>
-<p>Submits a user input to the NLP service. Returns the next question to ask, or a clarification question.</p>
-<p><strong>URL</strong> : <code>/submit_message</code></p>
-<p><strong>Method</strong> : <code>POST</code></p>
-<p><strong>Data constraints</strong></p>
-<p>Provide the conversation id and the message.</p>
-<pre><code class="language-json">{
+                <a class="header" href="print.html#error-response-9" id="error-response-9"><h4>Error Response</h4></a>
+                <p><strong>Code</strong> : <code>400 Bad Request</code> - <em>Inputs not provided</em></p>
+                <p><strong>Code</strong> : <code>404 Not Found</code> - <em>Conversation doesn't exist</em></p>
+                <hr/>
+                <a class="header" href="print.html#submit-message" id="submit-message"><h2>Submit message</h2></a>
+                <p>Submits a user input to the NLP service. Returns the next question to ask, or a clarification
+                    question.</p>
+                <p><strong>URL</strong> : <code>/submit_message</code></p>
+                <p><strong>Method</strong> : <code>POST</code></p>
+                <p><strong>Data constraints</strong></p>
+                <p>Provide the conversation id and the message.</p>
+                <pre><code class="language-json">{
     &quot;conversation_id&quot;: 1,
     &quot;message&quot;: &quot;My rent is $900 per month.&quot;
 }
 </code></pre>
-<a class="header" href="print.html#success-response-11" id="success-response-11"><h4>Success Response</h4></a>
-<p><strong>Code</strong> : <code>200 OK</code></p>
-<p><strong>Content examples</strong></p>
-<pre><code class="language-json">{
+                <a class="header" href="print.html#success-response-11" id="success-response-11"><h4>Success
+                    Response</h4></a>
+                <p><strong>Code</strong> : <code>200 OK</code></p>
+                <p><strong>Content examples</strong></p>
+                <pre><code class="language-json">{
     &quot;message&quot;: &quot;Have you kept up with your rent payments?&quot;,
     &quot;progress&quot;: 10
 }
 </code></pre>
-<a class="header" href="print.html#error-response-10" id="error-response-10"><h4>Error Response</h4></a>
-<p><strong>Code</strong> : <code>400 Bad Request</code> - <em>Inputs not provided</em></p>
-<p><strong>Code</strong> : <code>404 Not Found</code> - <em>Conversation doesn't exist</em></p>
-<hr />
-<a class="header" href="print.html#rasa-json-tool" id="rasa-json-tool"><h1>RASA JSON Tool</h1></a>
-<p>The <strong>util.parse_dataset.py</strong> module and the associated <strong>CreateJson</strong> class can be used to create json training data for RASA NLU.</p>
-<a class="header" href="print.html#format" id="format"><h4>Format</h4></a>
-<pre><code>[meta]
+                <a class="header" href="print.html#error-response-10" id="error-response-10"><h4>Error Response</h4></a>
+                <p><strong>Code</strong> : <code>400 Bad Request</code> - <em>Inputs not provided</em></p>
+                <p><strong>Code</strong> : <code>404 Not Found</code> - <em>Conversation doesn't exist</em></p>
+                <hr/>
+                <a class="header" href="print.html#rasa-json-tool" id="rasa-json-tool"><h1>RASA JSON Tool</h1></a>
+                <p>The <strong>util.parse_dataset.py</strong> module and the associated <strong>CreateJson</strong>
+                    class can be used to create json training data for RASA NLU.</p>
+                <a class="header" href="print.html#format" id="format"><h4>Format</h4></a>
+                <pre><code>[meta]
 () = entity_name1, entity_extractor(optional)
 {} = entity_name2, entity_extractor(optional)
 
@@ -861,15 +961,16 @@ sentence1
 sentence2
 
 </code></pre>
-<ul>
-<li><strong>[]</strong> are reserved characters used to identify sections</li>
-<li><strong>meta</strong> section allows for the definition of meta-characters that define entities</li>
-<li><strong>regex_features</strong> are simply regex features</li>
-<li><strong>entity_synonyms</strong> are simply entity synonyms</li>
-<li><strong>common_examples:intent_name</strong> are common examples for a particular intent</li>
-</ul>
-<a class="header" href="print.html#example" id="example"><h4>Example</h4></a>
-<pre><code>[meta]
+                <ul>
+                    <li><strong>[]</strong> are reserved characters used to identify sections</li>
+                    <li><strong>meta</strong> section allows for the definition of meta-characters that define entities
+                    </li>
+                    <li><strong>regex_features</strong> are simply regex features</li>
+                    <li><strong>entity_synonyms</strong> are simply entity synonyms</li>
+                    <li><strong>common_examples:intent_name</strong> are common examples for a particular intent</li>
+                </ul>
+                <a class="header" href="print.html#example" id="example"><h4>Example</h4></a>
+                <pre><code>[meta]
 () = money, ner_duckling
 
 [regex_features]
@@ -885,21 +986,27 @@ i dont have any debts
 no
 
 </code></pre>
-<a class="header" href="print.html#command-line-use" id="command-line-use"><h3>Command Line Use</h3></a>
-<p>python3 -m util.parse_dataset &lt;read_dir&gt; &lt;write_dir&gt;</p>
-<a class="header" href="print.html#example-1" id="example-1"><h4>Example</h4></a>
-<p>python3 -m util.parse_dataset ~/Documents/ ~/Documents/Json/</p>
-<p><strong>DO NOT FORGET THE '/' AT THE END OF YOUR DIRECTORY</strong></p>
-<a class="header" href="print.html#machine-learning-service" id="machine-learning-service"><h1>Machine Learning Service</h1></a>
-<a class="header" href="print.html#installation-instructions" id="installation-instructions"><h2>Installation Instructions</h2></a>
-<ol>
-<li>Add Cyberjustice Lab username as environment variables: <code>export CJL_USER={USERNAME}</code> either to your .bashrc or run it as a command</li>
-<li>Add Cyberjustice Lab password as environment variables: <code>export CJL_PASS={PASSWORD}</code> either to your .bashrc or run it as a command</li>
-<li>Run <code>pip install -r requirements.txt</code></li>
-<li>Run <code>pip install -r requirements_test.txt</code></li>
-</ol>
-<a class="header" href="print.html#file-structure" id="file-structure"><h3>File Structure:</h3></a>
-<pre><code>
+                <a class="header" href="print.html#command-line-use" id="command-line-use"><h3>Command Line Use</h3></a>
+                <p>python3 -m util.parse_dataset &lt;read_dir&gt; &lt;write_dir&gt;</p>
+                <a class="header" href="print.html#example-1" id="example-1"><h4>Example</h4></a>
+                <p>python3 -m util.parse_dataset ~/Documents/ ~/Documents/Json/</p>
+                <p><strong>DO NOT FORGET THE '/' AT THE END OF YOUR DIRECTORY</strong></p>
+                <a class="header" href="print.html#machine-learning-service" id="machine-learning-service"><h1>Machine
+                    Learning Service</h1></a>
+                <a class="header" href="print.html#installation-instructions" id="installation-instructions"><h2>
+                    Installation Instructions</h2></a>
+                <ol>
+                    <li>Add Cyberjustice Lab username as environment variables: <code>export CJL_USER={USERNAME}</code>
+                        either to your .bashrc or run it as a command
+                    </li>
+                    <li>Add Cyberjustice Lab password as environment variables: <code>export CJL_PASS={PASSWORD}</code>
+                        either to your .bashrc or run it as a command
+                    </li>
+                    <li>Run <code>pip install -r requirements.txt</code></li>
+                    <li>Run <code>pip install -r requirements_test.txt</code></li>
+                </ol>
+                <a class="header" href="print.html#file-structure" id="file-structure"><h3>File Structure:</h3></a>
+                <pre><code>
 ----| data &lt;all data input and output&gt;
 --------| raw &lt;extract the raw data here&gt;
 --------| binary &lt;all saved binarized model/data&gt;
@@ -939,20 +1046,22 @@ init.py
 main.py &lt;driver for the pipeline (feature extraction + model training&gt;
 
 </code></pre>
-<a class="header" href="print.html#extracting-data" id="extracting-data"><h2>Extracting Data</h2></a>
-<ul>
-<li>For binarized data and model, place under <code>data/binary</code></li>
-<li>For precedent raw data (*.txt), place under <code>data/raw</code></li>
-<li>Run <code>python init</code> to download French word vector</li>
-</ul>
-<a class="header" href="print.html#ml-api" id="ml-api"><h2>ML API</h2></a>
-<a class="header" href="print.html#predict-outcome" id="predict-outcome"><h3>Predict Outcome</h3></a>
-<p>Predict the outcome based on given facts and demands. Returns an array of predicted outcomes as well as similar precedents. The precedents have distances assigned to them. The lower the distance, the more similar it is.</p>
-<p><strong>URL</strong> : <code>/predict</code></p>
-<p><strong>Method</strong> : <code>POST</code></p>
-<p><strong>Data constraints</strong></p>
-<p>Provide facts_vector and demands_vector, with key values for each fact/demand.</p>
-<pre><code class="language-json">{
+                <a class="header" href="print.html#extracting-data" id="extracting-data"><h2>Extracting Data</h2></a>
+                <ul>
+                    <li>For binarized data and model, place under <code>data/binary</code></li>
+                    <li>For precedent raw data (*.txt), place under <code>data/raw</code></li>
+                    <li>Run <code>python init</code> to download French word vector</li>
+                </ul>
+                <a class="header" href="print.html#ml-api" id="ml-api"><h2>ML API</h2></a>
+                <a class="header" href="print.html#predict-outcome" id="predict-outcome"><h3>Predict Outcome</h3></a>
+                <p>Predict the outcome based on given facts and demands. Returns an array of predicted outcomes as well
+                    as similar precedents. The precedents have distances assigned to them. The lower the distance, the
+                    more similar it is.</p>
+                <p><strong>URL</strong> : <code>/predict</code></p>
+                <p><strong>Method</strong> : <code>POST</code></p>
+                <p><strong>Data constraints</strong></p>
+                <p>Provide facts_vector and demands_vector, with key values for each fact/demand.</p>
+                <pre><code class="language-json">{
   &quot;facts&quot; : {
     &quot;absent&quot; : 1,
     &quot;apartment_impropre&quot; : 0,
@@ -1007,10 +1116,11 @@ main.py &lt;driver for the pipeline (feature extraction + model training&gt;
   }
 }
 </code></pre>
-<a class="header" href="print.html#success-response-12" id="success-response-12"><h4>Success Response</h4></a>
-<p><strong>Code</strong> : <code>200 OK</code></p>
-<p><strong>Content examples</strong></p>
-<pre><code class="language-json">{
+                <a class="header" href="print.html#success-response-12" id="success-response-12"><h4>Success
+                    Response</h4></a>
+                <p><strong>Code</strong> : <code>200 OK</code></p>
+                <p><strong>Content examples</strong></p>
+                <pre><code class="language-json">{
   &quot;outcomes_vector&quot;: {
     &quot;additional_indemnity_money&quot;: &quot;221&quot;,
     &quot;authorize_landlord_retake_apartment&quot;: &quot;0&quot;,
@@ -1317,19 +1427,20 @@ main.py &lt;driver for the pipeline (feature extraction + model training&gt;
   ]
 }
 </code></pre>
-<a class="header" href="print.html#error-response-11" id="error-response-11"><h4>Error Response</h4></a>
-<p><strong>Code</strong> : <code>400 Bad Request</code> - <em>Inputs not provided</em></p>
-<p><strong>Code</strong> : <code>404 Not Found</code> - <em>Conversation doesn&quot;t exist</em></p>
-<a class="header" href="print.html#get-fact-weights" id="get-fact-weights"><h3>Get Fact Weights</h3></a>
-<p>Get the weights of every outcome sorted by descending order of importance</p>
-<p><strong>URL</strong>: <code>/weights</code></p>
-<p><strong>Method</strong>: <code>GET</code></p>
-<p><strong>Data constraints</strong></p>
-<p>None</p>
-<a class="header" href="print.html#success-response-13" id="success-response-13"><h4>Success Response</h4></a>
-<p><strong>Code</strong> : <code>200 OK</code></p>
-<p><strong>Content examples</strong></p>
-<pre><code class="language-json">{
+                <a class="header" href="print.html#error-response-11" id="error-response-11"><h4>Error Response</h4></a>
+                <p><strong>Code</strong> : <code>400 Bad Request</code> - <em>Inputs not provided</em></p>
+                <p><strong>Code</strong> : <code>404 Not Found</code> - <em>Conversation doesn&quot;t exist</em></p>
+                <a class="header" href="print.html#get-fact-weights" id="get-fact-weights"><h3>Get Fact Weights</h3></a>
+                <p>Get the weights of every outcome sorted by descending order of importance</p>
+                <p><strong>URL</strong>: <code>/weights</code></p>
+                <p><strong>Method</strong>: <code>GET</code></p>
+                <p><strong>Data constraints</strong></p>
+                <p>None</p>
+                <a class="header" href="print.html#success-response-13" id="success-response-13"><h4>Success
+                    Response</h4></a>
+                <p><strong>Code</strong> : <code>200 OK</code></p>
+                <p><strong>Content examples</strong></p>
+                <pre><code class="language-json">{
     &quot;additional_indemnity_money&quot;: {
         &quot;important_facts&quot;: [
             &quot;asker_is_landlord&quot;,
@@ -1353,41 +1464,44 @@ main.py &lt;driver for the pipeline (feature extraction + model training&gt;
     }
 }
 </code></pre>
-<a class="header" href="print.html#get-anti-facts" id="get-anti-facts"><h3>Get Anti Facts</h3></a>
-<p>Get the anti facts</p>
-<p>Left hand side always initialized to 1 and right hand side to 0</p>
-<p><strong>URL</strong>: <code>/antifacts</code></p>
-<p><strong>Method</strong>: <code>GET</code></p>
-<p><strong>Data constraints</strong></p>
-<p>None</p>
-<a class="header" href="print.html#success-response-14" id="success-response-14"><h4>Success Response</h4></a>
-<p><strong>Code</strong> : <code>200 OK</code></p>
-<p><strong>Content examples</strong></p>
-<pre><code class="language-json">{
+                <a class="header" href="print.html#get-anti-facts" id="get-anti-facts"><h3>Get Anti Facts</h3></a>
+                <p>Get the anti facts</p>
+                <p>Left hand side always initialized to 1 and right hand side to 0</p>
+                <p><strong>URL</strong>: <code>/antifacts</code></p>
+                <p><strong>Method</strong>: <code>GET</code></p>
+                <p><strong>Data constraints</strong></p>
+                <p>None</p>
+                <a class="header" href="print.html#success-response-14" id="success-response-14"><h4>Success
+                    Response</h4></a>
+                <p><strong>Code</strong> : <code>200 OK</code></p>
+                <p><strong>Content examples</strong></p>
+                <pre><code class="language-json">{
     &quot;tenant_rent_not_paid_less_3_weeks&quot;: &quot;tenant_rent_not_paid_more_3_weeks&quot;,
     &quot;tenant_lease_fixed&quot;: &quot;tenant_lease_indeterminate&quot;,
     &quot;not_violent&quot;: &quot;violent&quot;,
     &quot;tenant_individual_responsability&quot;: &quot;tenant_group_responsability&quot;
 }
 </code></pre>
-<a class="header" href="print.html#get-machine-learning-statistics" id="get-machine-learning-statistics"><h3>Get Machine Learning Statistics</h3></a>
-<p>Get the ml stats</p>
-<p>Used to obtain:</p>
-<ol>
-<li>Size of data set</li>
-<li>Variance of regression outcomes</li>
-<li>Standard deviation of regression outcomes</li>
-<li>Mean of regression outcomes</li>
-<li>Prediction accuracy of each classifier</li>
-</ol>
-<p><strong>URL</strong>: <code>/statistics</code></p>
-<p><strong>Method</strong>: <code>GET</code></p>
-<p><strong>Data constraints</strong></p>
-<p>None</p>
-<a class="header" href="print.html#success-response-15" id="success-response-15"><h4>Success Response</h4></a>
-<p><strong>Code</strong> : <code>200 OK</code></p>
-<p><strong>Content examples</strong></p>
-<pre><code class="language-json">{
+                <a class="header" href="print.html#get-machine-learning-statistics"
+                   id="get-machine-learning-statistics"><h3>Get Machine Learning Statistics</h3></a>
+                <p>Get the ml stats</p>
+                <p>Used to obtain:</p>
+                <ol>
+                    <li>Size of data set</li>
+                    <li>Variance of regression outcomes</li>
+                    <li>Standard deviation of regression outcomes</li>
+                    <li>Mean of regression outcomes</li>
+                    <li>Prediction accuracy of each classifier</li>
+                </ol>
+                <p><strong>URL</strong>: <code>/statistics</code></p>
+                <p><strong>Method</strong>: <code>GET</code></p>
+                <p><strong>Data constraints</strong></p>
+                <p>None</p>
+                <a class="header" href="print.html#success-response-15" id="success-response-15"><h4>Success
+                    Response</h4></a>
+                <p><strong>Code</strong> : <code>200 OK</code></p>
+                <p><strong>Content examples</strong></p>
+                <pre><code class="language-json">{
     &quot;classifier&quot;: {
         &quot;additional_indemnity_money&quot;: {
             &quot;prediction_accuracy&quot;: 79.8400199975003
@@ -1449,249 +1563,273 @@ main.py &lt;driver for the pipeline (feature extraction + model training&gt;
     }
 }
 </code></pre>
-<hr />
-<a class="header" href="print.html#run-tests-and-lints-3" id="run-tests-and-lints-3"><h2>Run Tests and Lints</h2></a>
-<pre><code>export COMPOSE_FILE=ci
+                <hr/>
+                <a class="header" href="print.html#run-tests-and-lints-3" id="run-tests-and-lints-3"><h2>Run Tests and
+                    Lints</h2></a>
+                <pre><code>export COMPOSE_FILE=ci
 ./cjl up -d &amp;&amp; ./cjl run ml_service
 </code></pre>
-<a class="header" href="print.html#using-the-command-line" id="using-the-command-line"><h2>Using the Command Line</h2></a>
-<ul>
-<li>denotes optional arguments</li>
-</ul>
-<p>1-  Commands</p>
-<pre><code>python main.py -train [data size | empty for all] --svm* --sf* --weights* --evaluate*
+                <a class="header" href="print.html#using-the-command-line" id="using-the-command-line"><h2>Using the
+                    Command Line</h2></a>
+                <ul>
+                    <li>denotes optional arguments</li>
+                </ul>
+                <p>1- Commands</p>
+                <pre><code>python main.py -train [data size | empty for all] --svm* --sf* --weights* --evaluate*
 python main.py -pre [number of files | empty for all]
 python main.py -post [number of files | empty for all]
 </code></pre>
-<p>2- all binary files saved to data/binary</p>
-<p>3- all text files to data/cluster</p>
-<p>4- all raw_data to data/raw</p>
-<a class="header" href="print.html#postgresql-database" id="postgresql-database"><h1>PostgreSQL Database</h1></a>
-<a class="header" href="print.html#connect-via-command-line" id="connect-via-command-line"><h2>Connect via command line</h2></a>
-<p>Bring up all services:</p>
-<pre><code>./cjl up -d
+                <p>2- all binary files saved to data/binary</p>
+                <p>3- all text files to data/cluster</p>
+                <p>4- all raw_data to data/raw</p>
+                <a class="header" href="print.html#postgresql-database" id="postgresql-database"><h1>PostgreSQL
+                    Database</h1></a>
+                <a class="header" href="print.html#connect-via-command-line" id="connect-via-command-line"><h2>Connect
+                    via command line</h2></a>
+                <p>Bring up all services:</p>
+                <pre><code>./cjl up -d
 </code></pre>
-<p>Connect via <code>psql</code>:</p>
-<pre><code>./cjl run --rm postgresql_db &quot;psql -h postgresql_db -U postgres&quot;
+                <p>Connect via <code>psql</code>:</p>
+                <pre><code>./cjl run --rm postgresql_db &quot;psql -h postgresql_db -U postgres&quot;
 </code></pre>
-<p>The above command will prompt you to enter the database password.</p>
-<p>SQL script backup via <code>pg_dump</code>:</p>
-<pre><code>export PGPASSWORD=$(printf '%s' &quot;$POSTGRES_PASSWORD&quot;)
+                <p>The above command will prompt you to enter the database password.</p>
+                <p>SQL script backup via <code>pg_dump</code>:</p>
+                <pre><code>export PGPASSWORD=$(printf '%s' &quot;$POSTGRES_PASSWORD&quot;)
 ./cjl run --rm -e PGPASSWORD='$PGPASSWORD' postgresql_db &quot;pg_dump -h postgresql_db -U postgres -p 5432&quot;
 </code></pre>
-<a class="header" href="print.html#optical-character-recognition-service" id="optical-character-recognition-service"><h1>Optical Character Recognition Service</h1></a>
-<a class="header" href="print.html#run-tests-and-lints-4" id="run-tests-and-lints-4"><h2>Run Tests and Lints</h2></a>
-<pre><code>export COMPOSE_FILE=ci
+                <a class="header" href="print.html#optical-character-recognition-service"
+                   id="optical-character-recognition-service"><h1>Optical Character Recognition Service</h1></a>
+                <a class="header" href="print.html#run-tests-and-lints-4" id="run-tests-and-lints-4"><h2>Run Tests and
+                    Lints</h2></a>
+                <pre><code>export COMPOSE_FILE=ci
 ./cjl up -d &amp;&amp; ./cjl run ocr_service
 </code></pre>
-<hr />
-<a class="header" href="print.html#ocr-api" id="ocr-api"><h1>OCR API</h1></a>
-<a class="header" href="print.html#extract-text" id="extract-text"><h2>Extract Text</h2></a>
-<p>From provided image data, returns the text extracted from this data as a string.</p>
-<p><strong>URL</strong> : <code>/ocr/extract_text</code></p>
-<p><strong>Method</strong> : <code>POST</code></p>
-<p><strong>Headers</strong> : <code>multipart/form-data</code></p>
-<p><strong>Data constraints</strong></p>
-<p>Provide the 'file' key with image data data as the value.</p>
-<a class="header" href="print.html#success-response-16" id="success-response-16"><h4>Success Response</h4></a>
-<p><strong>Code</strong> : <code>200 OK</code></p>
-<a class="header" href="print.html#error-response-12" id="error-response-12"><h4>Error Response</h4></a>
-<p><strong>Code</strong> : <code>400 Bad Request</code> - <em>No file key or no image data provided</em></p>
-<a class="header" href="print.html#web-client-service-1" id="web-client-service-1"><h1>Web Client Service</h1></a>
-<a class="header" href="print.html#run-tests-and-lints-5" id="run-tests-and-lints-5"><h2>Run Tests and Lints</h2></a>
-<pre><code>export COMPOSE_FILE=ci
+                <hr/>
+                <a class="header" href="print.html#ocr-api" id="ocr-api"><h1>OCR API</h1></a>
+                <a class="header" href="print.html#extract-text" id="extract-text"><h2>Extract Text</h2></a>
+                <p>From provided image data, returns the text extracted from this data as a string.</p>
+                <p><strong>URL</strong> : <code>/ocr/extract_text</code></p>
+                <p><strong>Method</strong> : <code>POST</code></p>
+                <p><strong>Headers</strong> : <code>multipart/form-data</code></p>
+                <p><strong>Data constraints</strong></p>
+                <p>Provide the 'file' key with image data data as the value.</p>
+                <a class="header" href="print.html#success-response-16" id="success-response-16"><h4>Success
+                    Response</h4></a>
+                <p><strong>Code</strong> : <code>200 OK</code></p>
+                <a class="header" href="print.html#error-response-12" id="error-response-12"><h4>Error Response</h4></a>
+                <p><strong>Code</strong> : <code>400 Bad Request</code> - <em>No file key or no image data provided</em>
+                </p>
+                <a class="header" href="print.html#web-client-service-1" id="web-client-service-1"><h1>Web Client
+                    Service</h1></a>
+                <a class="header" href="print.html#run-tests-and-lints-5" id="run-tests-and-lints-5"><h2>Run Tests and
+                    Lints</h2></a>
+                <pre><code>export COMPOSE_FILE=ci
 ./cjl up -d &amp;&amp; ./cjl run web_client
 </code></pre>
-<a class="header" href="print.html#technologies-1" id="technologies-1"><h2>Technologies</h2></a>
-<p>The following technologies are in use in this service:</p>
-<a class="header" href="print.html#bootstrap-1" id="bootstrap-1"><h3>Bootstrap</h3></a>
-<p><a href="https://getbootstrap.com">Bootstrap</a> is an open source front end framework developed by Twitter. It contains styling for various common web components, such as forms and inputs, as well as providing a convenient grid system that greatly facilitates web page styling and layout.</p>
-<ul>
-<li>Alternatives: Foundation Framework, pure.css, skeleton</li>
-<li>Reason Chosen:
-<ul>
-<li>Team member’s past experiences</li>
-<li>Industry standard</li>
-</ul>
-</li>
-</ul>
-<a class="header" href="print.html#vuejs-1" id="vuejs-1"><h3>Vue.js</h3></a>
-<p>(Vue.js)[https://vuejs.org/] is an open source front end framework for building single page applications. It leverages component based architecture that allows for the creation of an interactive website. Its primary purpose will be to power the visible portion of the chatbot, displaying messages, sending messages to the server, and prompting the user for various interactions such as answering questions or providing files to use as evidence.</p>
-<ul>
-<li>Alternatives: AngularJS, Angular 4, ReactJs</li>
-<li>Reason Chosen:
-<ul>
-<li>Low learning curve</li>
-<li>High performance</li>
-<li>Small footprint and minimal API</li>
-</ul>
-</li>
-</ul>
-<a class="header" href="print.html#beta-server" id="beta-server"><h1>Beta Server</h1></a>
-<p>Requires the following installed on the host system:</p>
-<ul>
-<li>SQLite</li>
-<li>Python3</li>
-</ul>
-<a class="header" href="print.html#setup" id="setup"><h2>SETUP</h2></a>
-<p><code>pip install -r requirements.txt</code>
-<code>FLASK_APP=app.py flask run</code></p>
-<a class="header" href="print.html#rest-api-documentattion" id="rest-api-documentattion"><h2>REST API DOCUMENTATTION</h2></a>
-<a class="header" href="print.html#post-question" id="post-question"><h3><code>POST /question</code></h3></a>
-<p>Inserts a new user-generated question. Returns that user's ID.</p>
-<a class="header" href="print.html#example-request-payload" id="example-request-payload"><h4>Example request payload</h4></a>
-<pre><code class="language-json">{
+                <a class="header" href="print.html#technologies-1" id="technologies-1"><h2>Technologies</h2></a>
+                <p>The following technologies are in use in this service:</p>
+                <a class="header" href="print.html#bootstrap-1" id="bootstrap-1"><h3>Bootstrap</h3></a>
+                <p><a href="https://getbootstrap.com">Bootstrap</a> is an open source front end framework developed by
+                    Twitter. It contains styling for various common web components, such as forms and inputs, as well as
+                    providing a convenient grid system that greatly facilitates web page styling and layout.</p>
+                <ul>
+                    <li>Alternatives: Foundation Framework, pure.css, skeleton</li>
+                    <li>Reason Chosen:
+                        <ul>
+                            <li>Team member’s past experiences</li>
+                            <li>Industry standard</li>
+                        </ul>
+                    </li>
+                </ul>
+                <a class="header" href="print.html#vuejs-1" id="vuejs-1"><h3>Vue.js</h3></a>
+                <p>(Vue.js)[https://vuejs.org/] is an open source front end framework for building single page
+                    applications. It leverages component based architecture that allows for the creation of an
+                    interactive website. Its primary purpose will be to power the visible portion of the chatbot,
+                    displaying messages, sending messages to the server, and prompting the user for various interactions
+                    such as answering questions or providing files to use as evidence.</p>
+                <ul>
+                    <li>Alternatives: AngularJS, Angular 4, ReactJs</li>
+                    <li>Reason Chosen:
+                        <ul>
+                            <li>Low learning curve</li>
+                            <li>High performance</li>
+                            <li>Small footprint and minimal API</li>
+                        </ul>
+                    </li>
+                </ul>
+                <a class="header" href="print.html#beta-server" id="beta-server"><h1>Beta Server</h1></a>
+                <p>Requires the following installed on the host system:</p>
+                <ul>
+                    <li>SQLite</li>
+                    <li>Python3</li>
+                </ul>
+                <a class="header" href="print.html#setup" id="setup"><h2>SETUP</h2></a>
+                <p><code>pip install -r requirements.txt</code>
+                    <code>FLASK_APP=app.py flask run</code></p>
+                <a class="header" href="print.html#rest-api-documentattion" id="rest-api-documentattion"><h2>REST API
+                    DOCUMENTATTION</h2></a>
+                <a class="header" href="print.html#post-question" id="post-question"><h3><code>POST /question</code>
+                </h3></a>
+                <p>Inserts a new user-generated question. Returns that user's ID.</p>
+                <a class="header" href="print.html#example-request-payload" id="example-request-payload"><h4>Example
+                    request payload</h4></a>
+                <pre><code class="language-json">{
     &quot;question&quot;: &quot;Is it okay for a landlord to ask for a security deposit?&quot;
 }
 </code></pre>
-<a class="header" href="print.html#success-response-payload" id="success-response-payload"><h4>Success response payload</h4></a>
-<pre><code class="language-json">{
+                <a class="header" href="print.html#success-response-payload" id="success-response-payload"><h4>Success
+                    response payload</h4></a>
+                <pre><code class="language-json">{
     &quot;id&quot;: &quot;5cd8a900-8a18-41b3-abb8-bf0307918afc&quot;
 }
 </code></pre>
-<a class="header" href="print.html#error-response-status-codes" id="error-response-status-codes"><h4>Error response status codes</h4></a>
-<ul>
-<li><code>415</code> if request does not contain valid JSON</li>
-<li><code>422</code> if the <code>question</code> key is not present</li>
-<li><code>422</code> if the <code>question</code> value is too long</li>
-</ul>
-<a class="header" href="print.html#put-email" id="put-email"><h3><code>PUT /email</code></h3></a>
-<p>Updates a user's email address based on their ID.</p>
-<p>If an ID is provided, that ID's record is updated. If no ID is provided, a new record is created.</p>
-<a class="header" href="print.html#example-request-payload-1" id="example-request-payload-1"><h4>Example request payload</h4></a>
-<pre><code class="language-json">{
+                <a class="header" href="print.html#error-response-status-codes" id="error-response-status-codes"><h4>
+                    Error response status codes</h4></a>
+                <ul>
+                    <li><code>415</code> if request does not contain valid JSON</li>
+                    <li><code>422</code> if the <code>question</code> key is not present</li>
+                    <li><code>422</code> if the <code>question</code> value is too long</li>
+                </ul>
+                <a class="header" href="print.html#put-email" id="put-email"><h3><code>PUT /email</code></h3></a>
+                <p>Updates a user's email address based on their ID.</p>
+                <p>If an ID is provided, that ID's record is updated. If no ID is provided, a new record is created.</p>
+                <a class="header" href="print.html#example-request-payload-1" id="example-request-payload-1"><h4>Example
+                    request payload</h4></a>
+                <pre><code class="language-json">{
     &quot;id&quot;: &quot;5c17bfd0-87d0-4493-a312-f3f32323fff2&quot;,
     &quot;email&quot;: &quot;test@test.com&quot;
 }
 </code></pre>
-<a class="header" href="print.html#success-response-payload-1" id="success-response-payload-1"><h4>Success response payload</h4></a>
-<pre><code class="language-json">{
+                <a class="header" href="print.html#success-response-payload-1" id="success-response-payload-1"><h4>
+                    Success response payload</h4></a>
+                <pre><code class="language-json">{
     &quot;id&quot;: &quot;5c17bfd0-87d0-4493-a312-f3f32323fff2&quot;
 }
 </code></pre>
-<a class="header" href="print.html#error-response-status-codes-1" id="error-response-status-codes-1"><h4>Error response status codes</h4></a>
-<ul>
-<li><code>415</code> if request does not contain valid JSON</li>
-<li><code>422</code> if the <code>email</code> key is not present</li>
-<li><code>422</code> if the <code>email</code> value is too long</li>
-</ul>
-<a class="header" href="print.html#put-subscription" id="put-subscription"><h3><code>PUT /subscription</code></h3></a>
-<p>Updates a user's subscription status based on their ID. <code>1</code> is subscribed, <code>0</code> is not subscribed.</p>
-<p>If an ID is provided, that ID's record is updated. If no ID is provided, a new record is created.</p>
-<a class="header" href="print.html#example-request-payload-2" id="example-request-payload-2"><h4>Example request payload</h4></a>
-<pre><code class="language-json">{
+                <a class="header" href="print.html#error-response-status-codes-1" id="error-response-status-codes-1">
+                    <h4>Error response status codes</h4></a>
+                <ul>
+                    <li><code>415</code> if request does not contain valid JSON</li>
+                    <li><code>422</code> if the <code>email</code> key is not present</li>
+                    <li><code>422</code> if the <code>email</code> value is too long</li>
+                </ul>
+                <a class="header" href="print.html#put-subscription" id="put-subscription"><h3><code>PUT
+                    /subscription</code></h3></a>
+                <p>Updates a user's subscription status based on their ID. <code>1</code> is subscribed, <code>0</code>
+                    is not subscribed.</p>
+                <p>If an ID is provided, that ID's record is updated. If no ID is provided, a new record is created.</p>
+                <a class="header" href="print.html#example-request-payload-2" id="example-request-payload-2"><h4>Example
+                    request payload</h4></a>
+                <pre><code class="language-json">{
     &quot;id&quot;: &quot;5c17bfd0-87d0-4493-a312-f3f32323fff2&quot;,
     &quot;is_subscribed&quot;: 1
 }
 </code></pre>
-<a class="header" href="print.html#success-response-payload-2" id="success-response-payload-2"><h4>Success response payload</h4></a>
-<pre><code class="language-json">{
+                <a class="header" href="print.html#success-response-payload-2" id="success-response-payload-2"><h4>
+                    Success response payload</h4></a>
+                <pre><code class="language-json">{
     &quot;id&quot;: &quot;5c17bfd0-87d0-4493-a312-f3f32323fff2&quot;
 }
 </code></pre>
-<a class="header" href="print.html#error-response-status-codes-2" id="error-response-status-codes-2"><h4>Error response status codes</h4></a>
-<ul>
-<li><code>415</code> if request does not contain valid JSON</li>
-<li><code>422</code> if the <code>is_subscribed</code> key is not present</li>
-<li><code>422</code> if the <code>is_subscribed</code> key is not an integer</li>
-</ul>
-<a class="header" href="print.html#put-legal" id="put-legal"><h3><code>PUT /legal</code></h3></a>
-<p>Updates a user's status on whether they are a legal professional based on their ID. <code>1</code> is a legal professional, <code>0</code> is not.</p>
-<p>If an ID is provided, that ID's record is updated. If no ID is provided, a new record is created.</p>
-<a class="header" href="print.html#example-request-payload-3" id="example-request-payload-3"><h4>Example request payload</h4></a>
-<pre><code class="language-json">{
+                <a class="header" href="print.html#error-response-status-codes-2" id="error-response-status-codes-2">
+                    <h4>Error response status codes</h4></a>
+                <ul>
+                    <li><code>415</code> if request does not contain valid JSON</li>
+                    <li><code>422</code> if the <code>is_subscribed</code> key is not present</li>
+                    <li><code>422</code> if the <code>is_subscribed</code> key is not an integer</li>
+                </ul>
+                <a class="header" href="print.html#put-legal" id="put-legal"><h3><code>PUT /legal</code></h3></a>
+                <p>Updates a user's status on whether they are a legal professional based on their ID. <code>1</code> is
+                    a legal professional, <code>0</code> is not.</p>
+                <p>If an ID is provided, that ID's record is updated. If no ID is provided, a new record is created.</p>
+                <a class="header" href="print.html#example-request-payload-3" id="example-request-payload-3"><h4>Example
+                    request payload</h4></a>
+                <pre><code class="language-json">{
     &quot;id&quot;: &quot;5c17bfd0-87d0-4493-a312-f3f32323fff2&quot;,
     &quot;is_legal_professional&quot;: 1
 }
 </code></pre>
-<a class="header" href="print.html#success-response-payload-3" id="success-response-payload-3"><h4>Success response payload</h4></a>
-<pre><code class="language-json">{
+                <a class="header" href="print.html#success-response-payload-3" id="success-response-payload-3"><h4>
+                    Success response payload</h4></a>
+                <pre><code class="language-json">{
     &quot;id&quot;: &quot;5c17bfd0-87d0-4493-a312-f3f32323fff2&quot;
 }
 </code></pre>
-<a class="header" href="print.html#error-response-status-codes-3" id="error-response-status-codes-3"><h4>Error response status codes</h4></a>
-<ul>
-<li><code>415</code> if request does not contain valid JSON</li>
-<li><code>422</code> if the <code>is_subscribed</code> key is not present</li>
-<li><code>422</code> if the <code>is_subscribed</code> key is not an integer</li>
-</ul>
+                <a class="header" href="print.html#error-response-status-codes-3" id="error-response-status-codes-3">
+                    <h4>Error response status codes</h4></a>
+                <ul>
+                    <li><code>415</code> if request does not contain valid JSON</li>
+                    <li><code>422</code> if the <code>is_subscribed</code> key is not present</li>
+                    <li><code>422</code> if the <code>is_subscribed</code> key is not an integer</li>
+                </ul>
 
-                    </main>
+            </main>
 
-                    <nav class="nav-wrapper" aria-label="Page navigation">
-                        <!-- Mobile navigation buttons -->
-                        
+            <nav class="nav-wrapper" aria-label="Page navigation">
+                <!-- Mobile navigation buttons -->
 
-                        
 
-                        <div style="clear: both"></div>
-                    </nav>
-                </div>
-            </div>
-
-            <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
-
-                
+                <div style="clear: both"></div>
             </nav>
-
         </div>
+    </div>
+
+    <nav class="nav-wide-wrapper" aria-label="Page navigation">
 
 
-        <!-- Local fallback for Font Awesome -->
-        <script>
-            if (getComputedStyle(document.querySelector(".fa")).fontFamily !== "FontAwesome") {
-                var link = document.createElement('link');
-                link.rel = 'stylesheet';
-                link.type = 'text/css';
-                link.href = '_FontAwesome/css/font-awesome.css';
-                document.head.insertBefore(link, document.head.firstChild)
-            }
-        </script>
+    </nav>
 
-        
-        <!-- Livereload script (if served using the cli tool) -->
-        <script type="text/javascript">
-            var socket = new WebSocket("ws://localhost:3001");
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload(true); // force reload from server (not from cache)
-                }
-            };
+</div>
 
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
-        
 
-        
+<!-- Local fallback for Font Awesome -->
+<script>
+    if (getComputedStyle(document.querySelector(".fa")).fontFamily !== "FontAwesome") {
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '_FontAwesome/css/font-awesome.css';
+        document.head.insertBefore(link, document.head.firstChild)
+    }
+</script>
 
-        
 
-        
-        <script src="searchindex.js" type="text/javascript" charset="utf-8"></script>
-        
-        
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        
+<!-- Livereload script (if served using the cli tool) -->
+<script type="text/javascript">
+    var socket = new WebSocket("ws://localhost:3001");
+    socket.onmessage = function (event) {
+        if (event.data === "reload") {
+            socket.close();
+            location.reload(true); // force reload from server (not from cache)
+        }
+    };
 
-        
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                window.print();
-            })
-        </script>
-        
+    window.onbeforeunload = function () {
+        socket.close();
+    }
+</script>
 
-        <script src="highlight.js"></script>
-        <script src="book.js"></script>
 
-        <!-- Custom JS script -->
-        
+<script src="searchindex.js" type="text/javascript" charset="utf-8"></script>
 
-    </body>
+
+<script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        window.print();
+    })
+</script>
+
+
+<script src="highlight.js"></script>
+<script src="book.js"></script>
+
+<!-- Custom JS script -->
+
+
+</body>
 </html>
