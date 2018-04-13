@@ -36,7 +36,7 @@ The web client does not work if other micro-services are not running concurrentl
 To start work on the web client, please make sure you have installed [Node.js](https://nodejs.org/en/) 8 (Do not install v9.0+), and follow the following steps:
 1. If you have not built the docker images for other micro-services yet, run `./cjl up` in the root directory of the repository. For more information, check the main README.
 2. Once the micro-services are up, run `npm install` in web client directory.
-3. When installation is finished, run `npm run start` to start the application
+3. When the installation is finished, run `npm run start` to start the application
 4. When the application is running, you can edit the source code. The latest changes will be shown in the browser.
 
 ## Develop on Components<a name="component"></a>
@@ -49,7 +49,7 @@ Under `src` directory, you should see the application source code with the follo
 -/theme                             // styling
 ```
 
-Vue.js is component based Javascript framework, therefore each `.vue` file creates an reusable component.  Each component is able to be ran independently.
+Vue.js is component based Javascript framework, therefore each `.vue` file creates a reusable component.  Each component is able to be ran independently.
 
 So far in our application, we have:
 - `Landing.vue`: the landing page component is used to handle first time users
