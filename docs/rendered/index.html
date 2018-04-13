@@ -84,7 +84,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="README.html" class="active"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><a href="ARCHITECTURE.html"><strong aria-hidden="true">2.</strong> Application Archictecture</a></li><li><a href="web_client/README.html"><strong aria-hidden="true">3.</strong> Web Client</a></li><li><a href="backend_service/README.html"><strong aria-hidden="true">4.</strong> Backend Service</a></li><li><a href="nlp_service/README.html"><strong aria-hidden="true">5.</strong> Natural Language Processing (NLP) Service</a></li><li><a href="ml_service/README.html"><strong aria-hidden="true">6.</strong> Machine Learning (ML) Service</a></li><li><a href="postgresql_db/README.html"><strong aria-hidden="true">7.</strong> PostgreSQL Database</a></li><li><a href="task_service/README.html"><strong aria-hidden="true">8.</strong> Task Service</a></li><li><a href="beta_client/README.html"><strong aria-hidden="true">9.</strong> Beta Client</a></li><li><a href="beta_server/README.html"><strong aria-hidden="true">10.</strong> Beta Server</a></li></ol>
+            <ol class="chapter"><li><a href="README.html" class="active"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><a href="ARCHITECTURE.html"><strong aria-hidden="true">2.</strong> Archictecture &amp; Infrastructure</a></li><li><a href="web_client/README.html"><strong aria-hidden="true">3.</strong> Web Client</a></li><li><a href="backend_service/README.html"><strong aria-hidden="true">4.</strong> Backend Service</a></li><li><a href="nlp_service/README.html"><strong aria-hidden="true">5.</strong> Natural Language Processing (NLP) Service</a></li><li><a href="ml_service/README.html"><strong aria-hidden="true">6.</strong> Machine Learning (ML) Service</a></li><li><a href="postgresql_db/README.html"><strong aria-hidden="true">7.</strong> PostgreSQL Database</a></li><li><a href="task_service/README.html"><strong aria-hidden="true">8.</strong> Task Service</a></li><li><a href="beta_client/README.html"><strong aria-hidden="true">9.</strong> Beta Client</a></li><li><a href="beta_server/README.html"><strong aria-hidden="true">10.</strong> Beta Server</a></li><li><a href="TROUBLESHOOT.html"><strong aria-hidden="true">11.</strong> Troubleshooting</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -148,6 +148,8 @@
                     <main>
                         <a class="header" href="README.html#procezeus" id="procezeus"><h1>ProceZeus</h1></a>
 <p><a href="https://travis-ci.org/Cyberjusticelab/JusticeAI/"><img src="https://img.shields.io/travis/Cyberjusticelab/JusticeAI.svg" alt="Travis" /></a> <a href="https://codecov.io/gh/Cyberjusticelab/JusticeAI"><img src="https://img.shields.io/codecov/c/github/codecov/example-python.svg" alt="Codecov" /></a></p>
+<a class="header" href="README.html#documentation" id="documentation"><h2>Documentation</h2></a>
+<p>You can learn more about ProceZeus by <a href="https://cyberjusticelab.github.io/JusticeAI/docs/rendered/">visiting the official documentation page</a>. These docs were generated with <a href="https://github.com/rust-lang-nursery/mdBook">mdBook</a>.</p>
 <a class="header" href="README.html#getting-started" id="getting-started"><h2>Getting Started</h2></a>
 <a class="header" href="README.html#prerequisites" id="prerequisites"><h3>Prerequisites</h3></a>
 <p>All of the project's services are split into separate Docker images. All application dependencies are contained within the Docker images. The dependencies required to run this project locally are:</p>
@@ -158,17 +160,14 @@
 <a class="header" href="README.html#installing" id="installing"><h3>Installing</h3></a>
 <p>To install Docker and Docker Compose, you can follow the instructions <a href="https://docs.docker.com/">here</a>.</p>
 <a class="header" href="README.html#running-the-entire-application-stack" id="running-the-entire-application-stack"><h2>Running the Entire Application Stack</h2></a>
-<p>We've developed a script to help with running the entire application with all its components. All you need is:</p>
-<pre><code class="language-bash">./cjl up
+<p>We've developed a script to help with running the entire application with all its components. It's a thin wrapper around <code>docker-compose</code>, so all <code>docker-compose</code> will work for it. All you need is:</p>
+<pre><code class="language-bash">./cjl build &amp;&amp; ./cjl up
 </code></pre>
 <p>If you want to suppress output push the job to the background:</p>
 <pre><code class="language-bash">./cjl up -d
 </code></pre>
-<p>Docker isn't always the best at determining diffs between images. You can manually rebuild all images with:</p>
-<pre><code class="language-bash">./cjl build
-</code></pre>
-<p>If that doesn't work, try destroying all Docker containers/images on your machine:</p>
-<pre><code class="language-bash">./cjl clean
+<p>Docker isn't always the best at determining diffs between images. If that happens, you can destroy <strong><em>all</em></strong> Docker images on your host with:</p>
+<pre><code class="language-bash">./cjl clean [-y]
 </code></pre>
 <p>To run all tests and lints for all services:</p>
 <pre><code class="language-bash">./cjl test
@@ -178,6 +177,9 @@
 </code></pre>
 <p>In order to shut down all containers:</p>
 <pre><code class="language-bash">./cjl down
+</code></pre>
+<p>Finally, if you want to reset the database (Helps with inconsistent database states), you can run:</p>
+<pre><code class="language-bash">./cjl reset-db
 </code></pre>
 <p>The <code>cjl</code> script also takes any other command that <code>docker-compose</code> can take.</p>
 <a class="header" href="README.html#running-or-testing-specific-services" id="running-or-testing-specific-services"><h2>Running or Testing Specific Services</h2></a>
@@ -211,8 +213,6 @@
 </ul>
 <a class="header" href="README.html#license" id="license"><h2>License</h2></a>
 <p>This project is licensed under the MIT License - see the <a href="LICENSE">LICENSE</a> file for details</p>
-<a class="header" href="README.html#acknowledgments" id="acknowledgments"><h2>Acknowledgments</h2></a>
-<p>TBD</p>
 
                     </main>
 

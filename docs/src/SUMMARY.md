@@ -1,7 +1,7 @@
 # ProceZeus Documentation
 
 - [Getting Started](README.md)
-- [Application Archictecture](ARCHITECTURE.md)
+- [Archictecture & Infrastructure](ARCHITECTURE.md)
 - [Web Client](web_client/README.md)
 - [Backend Service](backend_service/README.md)
 - [Natural Language Processing (NLP) Service](nlp_service/README.md)
@@ -10,4 +10,5 @@
 - [Task Service](task_service/README.md)
 - [Beta Client](beta_client/README.md)
 - [Beta Server](beta_server/README.md)
+- [Troubleshooting](TROUBLESHOOT.md)
 

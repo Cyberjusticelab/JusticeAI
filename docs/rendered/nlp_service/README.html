@@ -85,7 +85,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="README.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><a href="ARCHITECTURE.html"><strong aria-hidden="true">2.</strong> Application Archictecture</a></li><li><a href="web_client/README.html"><strong aria-hidden="true">3.</strong> Web Client</a></li><li><a href="backend_service/README.html"><strong aria-hidden="true">4.</strong> Backend Service</a></li><li><a href="nlp_service/README.html" class="active"><strong aria-hidden="true">5.</strong> Natural Language Processing (NLP) Service</a></li><li><a href="ml_service/README.html"><strong aria-hidden="true">6.</strong> Machine Learning (ML) Service</a></li><li><a href="postgresql_db/README.html"><strong aria-hidden="true">7.</strong> PostgreSQL Database</a></li><li><a href="task_service/README.html"><strong aria-hidden="true">8.</strong> Task Service</a></li><li><a href="beta_client/README.html"><strong aria-hidden="true">9.</strong> Beta Client</a></li><li><a href="beta_server/README.html"><strong aria-hidden="true">10.</strong> Beta Server</a></li></ol>
+            <ol class="chapter"><li><a href="README.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><a href="ARCHITECTURE.html"><strong aria-hidden="true">2.</strong> Archictecture &amp; Infrastructure</a></li><li><a href="web_client/README.html"><strong aria-hidden="true">3.</strong> Web Client</a></li><li><a href="backend_service/README.html"><strong aria-hidden="true">4.</strong> Backend Service</a></li><li><a href="nlp_service/README.html" class="active"><strong aria-hidden="true">5.</strong> Natural Language Processing (NLP) Service</a></li><li><a href="ml_service/README.html"><strong aria-hidden="true">6.</strong> Machine Learning (ML) Service</a></li><li><a href="postgresql_db/README.html"><strong aria-hidden="true">7.</strong> PostgreSQL Database</a></li><li><a href="task_service/README.html"><strong aria-hidden="true">8.</strong> Task Service</a></li><li><a href="beta_client/README.html"><strong aria-hidden="true">9.</strong> Beta Client</a></li><li><a href="beta_server/README.html"><strong aria-hidden="true">10.</strong> Beta Server</a></li><li><a href="TROUBLESHOOT.html"><strong aria-hidden="true">11.</strong> Troubleshooting</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -149,8 +149,13 @@
                     <main>
                         <a class="header" href="nlp_service/README.html#natural-language-processing-service" id="natural-language-processing-service"><h1>Natural Language Processing Service</h1></a>
 <a class="header" href="nlp_service/README.html#run-tests-and-lints" id="run-tests-and-lints"><h2>Run Tests and Lints</h2></a>
-<pre><code>export COMPOSE_FILE=ci
-./cjl up -d &amp;&amp; ./cjl run nlp_service
+<pre><code>./cjl test nlp_service
+</code></pre>
+<p><em>Warning</em>: Have at the very least 8GB of RAM available to run nlp_service tests.</p>
+<p>We recommend an i5 Broadwell CPU and above if you so wish to run tests locally.</p>
+<p>The team used atomic commits and pushes while working on Natural Language Processing to run the tests on its continuous integration tool (Travis in this case).</p>
+<a class="header" href="nlp_service/README.html#installing-requirements" id="installing-requirements"><h2>Installing requirements</h2></a>
+<pre><code>pip3 install -r requirements_test.txt
 </code></pre>
 <hr />
 <a class="header" href="nlp_service/README.html#nlp-api" id="nlp-api"><h1>NLP API</h1></a>
@@ -251,6 +256,94 @@ no
 <a class="header" href="nlp_service/README.html#example-1" id="example-1"><h4>Example</h4></a>
 <p>python3 -m util.parse_dataset ~/Documents/ ~/Documents/Json/</p>
 <p><strong>DO NOT FORGET THE '/' AT THE END OF YOUR DIRECTORY</strong></p>
+<a class="header" href="nlp_service/README.html#outlier-detection" id="outlier-detection"><h2>Outlier detection</h2></a>
+<p><em>As of April 10th 2018 the outlier detection is not being used by the NLP service</em></p>
+<p>This is due to a lack of data of what is considered an &quot;outlier answer&quot;.</p>
+<a class="header" href="nlp_service/README.html#adding-a-new-claim-category-to-the-product" id="adding-a-new-claim-category-to-the-product"><h2>Adding a new claim category to the product</h2></a>
+<p><strong>Two kinds of claim categories:</strong></p>
+<ul>
+<li>
+<p>Developed claim categories:</p>
+<ul>
+<li>Series of questions that the user answers to resolve facts</li>
+<li>Multiple outcomes dynamically calculated by the ml_service</li>
+<li>a conclusive view with a dashboard containing resolved facts and most similar legal cases to theirs</li>
+</ul>
+</li>
+<li>
+<p>FAQs have:</p>
+<ul>
+<li>one long and developed answer resumed from websites such as <a href="rdl.gouv.qc.ca">Regie du logement</a>, <a href="https://www.educaloi.qc.ca/categories/habitation">Educaloi</a> or <a href="http://likehome.info/">LikeHome</a>.</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>Add the claim category to nlp_service/controllers/nlp_controller.py in &quot;conversation.claim_category&quot; inside of the &quot;classify_claim_category&quot; function</li>
+<li>Define the new claim category inside of the class &quot;ClaimCategory&quot; in postgresql_db/models.py</li>
+<li>Define the new category inside of the the *.txt file in nlp_service/rasa/text/category (depending whether or not it is a category belonging to a tenant (category_tenant.txt) or a landlord (category_landlord.txt))
+<em>We recommend keeping track of FAQ vs developed categories by writing &quot;faq_AbrievationOfSource_factname&quot;</em></li>
+<li>Write in nlp_service/services/response_strings.py your response if the claim you wrote is an &quot;FAQ&quot;</li>
+<li>At this stage you should either have a complete FAQ <em>or</em> an empty developed claim category, which you'll have to add facts to! (following section)</li>
+</ol>
+<a class="header" href="nlp_service/README.html#adding-a-new-fact-includes-adding-new-questions" id="adding-a-new-fact-includes-adding-new-questions"><h2>Adding a new fact (includes adding new questions)</h2></a>
+<ol>
+<li>Add new fact to postgresql_db/models.py as well as the type of answer you are expecting from it and the summary (displayed definition on the front-end)</li>
+<li>Add your new fact to nlp_service/services/response_strings.py in &quot;fact_questions&quot; by adding the question trying to answer the fact</li>
+<li>If not answerable by a generic &quot;yes or no&quot; add the fact as a {name_of_fact}.txt file in nlp_service/rasa/text/fact/individual</li>
+<li>If answerable by a generic &quot;yes or no&quot;, add the fact name to nlp_service/init_rasa.py in &quot;fact_names&quot;</li>
+</ol>
+<a class="header" href="nlp_service/README.html#adding-a-new-outcome-or-a-response-this-section-is-only-useful-for-developed-claim-categories" id="adding-a-new-outcome-or-a-response-this-section-is-only-useful-for-developed-claim-categories"><h2>Adding a new outcome or a response (this section is only useful for developed claim categories)</h2></a>
+<ol>
+<li>Add the outcome(s) you want to be checked by the ml_service to the desired developed claim categories in nlp_service/services/fact_service.py in &quot;outcome_mapping&quot;</li>
+<li>Tell the system what to say if the ml_service returns the outcome as &quot;True&quot; (it will happen) or &quot;False&quot; (it won't happen) in nlp_service/services/response_strings.py in &quot;prediction&quot;</li>
+</ol>
+<a class="header" href="nlp_service/README.html#retrain-models" id="retrain-models"><h2>Retrain models</h2></a>
+<p><strong>The models are retrained every time the project is (re)built.</strong></p>
+<p>The training is initialized init.py whenever the train function's force_train parameter inside of nlp_service/rasa/rasa_classifier.py is set to true.
+The models are loaded in nlp_service/controllers/nlp_controller.py where force_train is initialized as false and initialize_interpreter is initialized as true.</p>
+<a class="header" href="nlp_service/README.html#working-with-rasa" id="working-with-rasa"><h1>Working with RASA</h1></a>
+<p>The team a core part of its Natural Language Processing component <a href="https://github.com/RasaHQ/rasa_nlu">RASA NLU</a>.
+Documentation available <a href="https://rasa-nlu.readthedocs.io/en/latest/">here</a>.
+Active Gitter channel available <a href="https://gitter.im/RasaHQ/rasa_nlu">here</a>.</p>
+<a class="header" href="nlp_service/README.html#configuration" id="configuration"><h3>Configuration:</h3></a>
+<p>The team experimented with multiple pipelines and considered Spacy 2.0 by far superior to MITIE.
+Our config file can be found ~/nlp_service/rasa/config/rasa_config.json</p>
+<p><strong>Components:</strong></p>
+<ul>
+<li>nlp_spacy: initializes spacy structures</li>
+<li>tokenizer_spacy: creation of tokens using Spacy</li>
+<li>intent_entity_featurizer_regex: uses regular expressions to aid in intent and entity classification (ONLY SUPPORTED BY NER_CRF)</li>
+<li>ner_crf: entity extractor using conditional random fields</li>
+<li>ner_synonyms: maps two or more entities to be extracted to have the same value</li>
+<li>intent_classifier_sklearn: classifies intents of the text being parsed</li>
+<li>duckling: extraction of pre-trained entities such as money, time, dates, etc.</li>
+</ul>
+<p>We do not recommend &quot;ner_spacy&quot; as a replacement to &quot;ner_crf&quot; due to its absence of confidence scores for the entity extraction.
+We also <strong>strongly</strong> advise against using more than 1 thread or more than 1 process due to stability issues with duckling.</p>
+<a class="header" href="nlp_service/README.html#achieving-results" id="achieving-results"><h3>Achieving results:</h3></a>
+<p>Things to know that are not mentioned in RASA documentation:</p>
+<ul>
+<li>Proper usage of the intent_entity_featurizer_regex will often drastically improve intent confidence percentage (up to 40%)
+<ul>
+<li>Regex on sections of common examples that are unique to a specific intent
+(e.g.Regex on the word &quot;tax&quot; that has an extremely large chance of only appearing when the user wants information concerning his RL-31 slip)</li>
+<li>Regex only actually helps with intent confidence ratio, not entity confidence.  (This bit of information was obtained after a conversation with RASA contributors on gitter)</li>
+</ul>
+</li>
+<li>Working with common examples
+<ul>
+<li>I'm and Im and I am count as different words with Spacy. Avoid using those words in common examples.</li>
+<li>Capitals matter. Lower casing our data sets while continuously lower casing the user's input for NLP improved the confidence percentage drastically</li>
+<li>Avoid fluff (stop words) in the common examples for a proper word vector to be calculated.
+(e.g. deleting &quot;can you help me with this?&quot; at the end of the common examples for this will alter the vector calculated for the intent's common example.)</li>
+</ul>
+</li>
+<li>Working with entities
+<ul>
+<li>We strongly suggest using entity_synonyms not only for different variations of the entity you are attempting to extract but also for common spelling mistakes of the entities</li>
+</ul>
+</li>
+</ul>
 
                     </main>
 

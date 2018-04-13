@@ -46,8 +46,8 @@ Due to this, we've noticed that sometimes the database takes ~30 sec to create t
 
 ## Future Improvements
 
-- [ ] Investigate a more robust solution to continous deployment
-- [ ] Implement database migrations through [Flask-Migrate](https://flask-migrate.readthedocs.io/en/latest/) or a similar tool
-- [ ] Have applications wait for database availability before attempting to create connections
-- [ ] The `web_client` service is configured to run as a webpack dev server in Docker. For production use, we should build the static files and serve those. This can be done with `NODE_ENV=prod npm run build` and serving this files with an production HTTP server or placing them on a CDN
+- Investigate a more robust solution to continous deployment
+- Implement database migrations through [Flask-Migrate](https://flask-migrate.readthedocs.io/en/latest/) or a similar tool
+- Have applications wait for database availability before attempting to create connections
+- The `web_client` service is configured to run as a webpack dev server in Docker. For production use, we should build the static files and serve those. This can be done with `NODE_ENV=prod npm run build` and serving this files with an production HTTP server or placing them on a CDN
 
