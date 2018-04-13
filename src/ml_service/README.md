@@ -1,19 +1,13 @@
 # Machine Learning Service
 
 ## 1. Overview 
-The machine learning service is responsible for predicting the outcomes
-of a user's case. 
+The machine learning service is responsible for predicting the outcomes of a user's case. 
 
-Outcomes can either be categorized as either being True/False or by a numerical value. 
-Whether a given outcome is boolean or integer is evaluated by a human and then given to the
-system beforehand (See section 1.6). Therefore, this sub-system makes use of both classifiers and regressors 
-to make predictions. The inputs for both the classifier the and regressor are the facts obtained
-by the user's inputs. An array of outcomes is then returned. 
+Outcomes can either be categorized as either being True/False or by a numerical value. Whether a given outcome is boolean or integer is evaluated by a human and then given to the system beforehand (See section 1.6). Therefore, this sub-system makes use of both classifiers and regressors to make predictions. The inputs for both the classifier the and regressor are the facts obtained by the user's inputs. An array of outcomes is then returned. 
 
 
 ### 1.1 Data Representation
-The input and output data are all represented numerically despite having the
-potential to be boolean values. Below illustrates how values are treated:
+The input and output data are all represented numerically despite having the potential to be boolean values. Below illustrates how values are treated:
 
 0 --> False / Null  
 1 --> True    
@@ -26,12 +20,7 @@ Numerical Values consist of:
 
 
 ### 1.2 Facts / Input  
-The inputs are stored in a numpy array consisting of only integers with the 
-possible values listed in section 1.1. Every index of the array represents 
-a different fact/input data point which will be used by the machine learning. 
-The indexes of the facts are determined once the precedents are
-tagged (they are subject to change orders upon re-tagging the data). An input
-array will look as such:  
+The inputs are stored in a numpy array consisting of only integers with the possible values listed in section 1.1. Every index of the array represents a different fact/input data point which will be used by the machine learning. The indexes of the facts are determined once the precedents are tagged (they are subject to change orders upon re-tagging the data). An input array will look as such:  
 
 [fact_1, fact_2, ..., fact_n] 
 
@@ -70,36 +59,21 @@ for i in index['outcomes_vector'][:3]:
 
 
 ### 1.3 outcomes / output
-Similarly to section 1.2, the output will be an array of integers of the size
-of all the number of outcomes supported by the system. Please refer to section
-1.1 for other inquiries.
+Similarly to section 1.2, the output will be an array of integers of the size of all the number of outcomes supported by the system. Please refer to section 1.1 for other inquiries.
 
 
 ### 1.4 Classification
-A multiclassifier is used to predict all outcomes. In the background, SkLearn
-uses a different estimator per outcome in order to perform this task.  
-When obtaining a prediction, **ALL** outcomes are either classified as 
-True or False. Even the numerical outcomes are classified as such. If an
-outcome is expected to be a numerical value **AND** that outcome is True then
-the input is passed to the appropriate regressor in order to predict the 
-outcome's integer value. If the previous condition isn't met then no further
-data manipulation is necessary for a given outcome and the classifier's
-prediction is simply returned for this column.
+A multiclassifier is used to predict all outcomes. In the background, SkLearn uses a different estimator per outcome in order to perform this task. When obtaining a prediction, **ALL** outcomes are either classified as True or False. Even the numerical outcomes are classified as such. If an outcome is expected to be a numerical value **AND** that outcome is True then the input is passed to the appropriate regressor in order to predict the outcome's integer value. If the previous condition isn't met then no further data manipulation is necessary for a given outcome and the classifier's prediction is simply returned for this column.
 
 **Adding a new classifier**  
-New classifiers will be automatically trained upon adding regexes. See
-section 1.6.
+New classifiers will be automatically trained upon adding regexes. See section 1.6.
 
 
 ### 1.5 Regression
-The regressors are **only** used if the classifier predicted an outcome as
-True. The reason for this implementation is because the regressors are trained
-on bias data where we know the outcome was True. Therefore the input data
-must also be biased towards the same end goal.  
+The regressors are **only** used if the classifier predicted an outcome as True. The reason for this implementation is because the regressors are trained on bias data where we know the outcome was True. Therefore the input data must also be biased towards the same end goal.  
 
 
-During training, **only for regression**, the average values of every fact of the data set is obtained. The vector will 
-look as such:  
+During training, **only for regression**, the average values of every fact of the data set is obtained. The vector will look as such:  
 
 [average_column_1, average_column_2, ..., average_column_n]
 
@@ -111,38 +85,25 @@ mean_facts_vector = Load.load_binary('model_metrics.bin')['regressor'][<name of 
 ```
     
 **Regression fine tuning**  
-When making a regressive prediction, the user's input is entered as an 
-array of numerical values as in section 1.2.
+When making a regressive prediction, the user's input is entered as an array of numerical values as in section 1.2.
   
-1. Wherever a 0 is encountered in the user's input, we replace it with 
-the average value of it's column.The purpose of this strategy is to 
-predict more accurate results when the regressor is used. When a prediction 
-is performed with missing input we then replace that missing input with 
-it's average value to get a better fit on the curve.
+1. Wherever a 0 is encountered in the user's input, we replace it with the average value of it's column.The purpose of this strategy is to predict more accurate results when the regressor is used. When a prediction is performed with missing input we then replace that missing input with it's average value to get a better fit on the curve.
 
-2. During training, outliers in the dataset are removed. Outliers are
-determined by:
+2. During training, outliers in the dataset are removed. Outliers are determined by:
 ```
 abs(outcome - average_of_outcomes) > (2 * std_of_outcomes)
 ```
 
 
 **Adding a new regressor**  
-The regressor's estimators are crafted manually as opposed to using the 
-SkLearn's wrapper as in section 1.4. Because the regressors require much
-more discreet attention, this approach was necessary. A custom wrapper is
-instead written, and every new regressor can inherit the AbstractRegressor 
-Class. 
+The regressor's estimators are crafted manually as opposed to using the SkLearn's wrapper as in section 1.4. Because the regressors require much more discreet attention, this approach was necessary. A custom wrapper is instead written, and every new regressor can inherit the AbstractRegressor Class. 
 
 1. Code new regressor (inherit abstract_regressor.py) 
 2. Update multi_output_regression.py to accomodate new class
 
 
 ### 1.6 Adding new columns (input/output)
-Adding new columns is fairly simply. In the 
-_feature_extraction/post_processing/regex/regex_lib.py_ file simply append
-your regex to the _regex_facts_ or _regex_outcomes_ list. The syntax is the
-following:
+Adding new columns is fairly simply. In the _feature_extraction/post_processing/regex/regex_lib.py_ file simply append your regex to the _regex_facts_ or _regex_outcomes_ list. The syntax is the following:
 
 ```
 regex_facts = [
@@ -165,8 +126,7 @@ regex_facts = [
 ]
 ```
 
-Type as many regular expressions as needed to cover all the dataset. Upon
-tagging the data a percentage of lines tagged will be displayed.
+Type as many regular expressions as needed to cover all the dataset. Upon tagging the data a percentage of lines tagged will be displayed.
 
 _Note: <data_type> are the following strings:_
 1. "BOOLEAN"
@@ -174,23 +134,14 @@ _Note: <data_type> are the following strings:_
 3. "DATE"
 
 
-The newly added columns in the _regex_lib.py_ file will then automatically be
-used the next time the machine learning performs its training **on the
-condition that the data has be re-post-processed**. Be sure to
-create a regressor if you want to predict "DATE" or "MONEY" though (See section 1.5).
+The newly added columns in the _regex_lib.py_ file will then automatically be used the next time the machine learning performs its training **on the condition that the data has be re-post-processed**. Be sure to create a regressor if you want to predict "DATE" or "MONEY" though (See section 1.5).
 
 
 ## 2. DATA
-All persistent machine learning data are stored as binaries. In order to
-centralize this information it is advised to upload the models on a server.
-These models may then be fetched in the _init.py_ script in the source directory
-(do not confuse with _\_\_init\_\_.py_ script). Simply append your download link
-to the __binary_urls__ list found in this file.
+All persistent machine learning data are stored as binaries. In order to centralize this information it is advised to upload the models on a server. These models may then be fetched in the _init.py_ script in the source directory (do not confuse with _\_\_init\_\_.py_ script). Simply append your download link to the __binary_urls__ list found in this file.
 
 ### 2.1 Accessing binary data
-To load any binary files, first make sure it is stored in the _binary/data/_
-folder. This should be performed automatically by the _init.py_. Then simply
-use the following:
+To load any binary files, first make sure it is stored in the _binary/data/_ folder. This should be performed automatically by the _init.py_. Then simply use the following:
 ```
 from util.file import Load
  
@@ -289,8 +240,7 @@ Case similarities dictionary --> returns 5 most similar cases
 
   
 **\*_scaler.bin**    
-Every machine learning model requires a scaler to transform the data into
-values which will exponentially increase training time.  
+Every machine learning model requires a scaler to transform the data into values which will exponentially increase training time.  
 
 
 **\*_regressor.bin**    
