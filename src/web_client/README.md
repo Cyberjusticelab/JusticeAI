@@ -8,7 +8,7 @@
 6. [Reference](#reference)
 
 ## Overview <a name="overview"></a>
-The web client is a Vue.js application that integrates all micro-services and provides user interface to end users. The main focus of the web client is to 1) provides on-screen chatbot experience to the users and 2) delivery the system features as a whole.
+The web client is a Vue.js application that integrates all micro-services and provides user interface to end users. The main focus of the web client is to 1) provides on-screen chatbot experience to the users and 2) delivery the system features as a whole
 
 The major technologies we use in web client are:
 - Build Tool: [Webpack](https://webpack.js.org/)
