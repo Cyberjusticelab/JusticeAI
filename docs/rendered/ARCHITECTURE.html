@@ -1,290 +1,269 @@
 <!DOCTYPE HTML>
 <html lang="en" class="sidebar-visible">
-<head>
-    <!-- Book generated using mdBook -->
-    <meta charset="UTF-8">
-    <title>Application Archictecture - ProceZeus Documentation</title>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#ffffff"/>
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Archictecture &amp; Infrastructure - ProceZeus Documentation</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
 
-    <base href="">
+        <base href="">
 
-    <link rel="stylesheet" href="book.css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
-          rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
 
-    <link rel="shortcut icon" href="favicon.png">
+        <link rel="shortcut icon" href="favicon.png">
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="highlight.css">
-    <link rel="stylesheet" href="tomorrow-night.css">
-    <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
 
-    <!-- Custom theme -->
+        <!-- Custom theme -->
+        
 
+        
 
-    <!-- Fetch Clipboard.js from CDN but have a local fallback -->
-    <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
-    <script>
-        if (typeof Clipboard == 'undefined') {
-            document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
-        }
-    </script>
-
-    <noscript>
-        <style type="text/css">
-            .javascript-only {
-                display: none;
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
             }
-        </style>
-    </noscript>
-
-</head>
-<body class="light">
-<!-- Work around some values being stored in localStorage wrapped in quotes -->
-<script type="text/javascript">
-    try {
-        var theme = localStorage.getItem('mdbook-theme');
-        var sidebar = localStorage.getItem('mdbook-sidebar');
-
-        if (theme.startsWith('"') && theme.endsWith('"')) {
-            localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
-        }
-
-        if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
-            localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
-        }
-    } catch (e) {
-    }
-</script>
-
-<!-- Set the theme before any content is loaded, prevents flash -->
-<script type="text/javascript">
-    var theme;
-    try {
-        theme = localStorage.getItem('mdbook-theme');
-    } catch (e) {
-    }
-    if (theme === null || theme === undefined) {
-        theme = 'light';
-    }
-    document.body.className = theme;
-    document.querySelector('html').className = theme;
-</script>
-
-<!-- Hide / unhide sidebar before it is displayed -->
-<script type="text/javascript">
-    var html = document.querySelector('html');
-    var sidebar = 'hidden';
-    if (document.body.clientWidth >= 1080) {
-        try {
-            sidebar = localStorage.getItem('mdbook-sidebar');
-        } catch (e) {
-        }
-        sidebar = sidebar || 'visible';
-    }
-    html.classList.remove('sidebar-visible');
-    html.classList.add("sidebar-" + sidebar);
-</script>
-
-<nav id="sidebar" class="sidebar" aria-label="Table of contents">
-    <ol class="chapter">
-        <li><a href="README.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li>
-        <li><a href="ARCHITECTURE.html" class="active"><strong aria-hidden="true">2.</strong> Application Archictecture</a>
-        </li>
-        <li><a href="web_client/README.html"><strong aria-hidden="true">3.</strong> Web Client</a></li>
-        <li><a href="backend_service/README.html"><strong aria-hidden="true">4.</strong> Backend Service</a></li>
-        <li><a href="nlp_service/README.html"><strong aria-hidden="true">5.</strong> Natural Language Processing (NLP)
-            Service</a></li>
-        <li><a href="ml_service/README.html"><strong aria-hidden="true">6.</strong> Machine Learning (ML) Service</a>
-        </li>
-        <li><a href="postgresql_db/README.html"><strong aria-hidden="true">7.</strong> PostgreSQL Database</a></li>
-        <li><a href="task_service/README.html"><strong aria-hidden="true">8.</strong> Task Service</a></li>
-        <li><a href="beta_client/README.html"><strong aria-hidden="true">9.</strong> Beta Client</a></li>
-        <li><a href="beta_server/README.html"><strong aria-hidden="true">10.</strong> Beta Server</a></li>
-    </ol>
-</nav>
-
-<div id="page-wrapper" class="page-wrapper">
-
-    <div class="page">
-
-        <div id="menu-bar" class="menu-bar">
-            <div id="menu-bar-sticky-container">
-                <div class="left-buttons javascript-only">
-                    <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents"
-                            aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <button id="theme-toggle" class="icon-button" type="button" title="Change theme"
-                            aria-label="Change theme" aria-haspopup="true" aria-expanded="false"
-                            aria-controls="theme-list">
-                        <i class="fa fa-paint-brush"></i>
-                    </button>
-                    <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                        <li role="none">
-                            <button role="menuitem" class="theme" id="light">Light <span
-                                    class="default">(default)</span></button>
-                        </li>
-                        <li role="none">
-                            <button role="menuitem" class="theme" id="rust">Rust</button>
-                        </li>
-                        <li role="none">
-                            <button role="menuitem" class="theme" id="coal">Coal</button>
-                        </li>
-                        <li role="none">
-                            <button role="menuitem" class="theme" id="navy">Navy</button>
-                        </li>
-                        <li role="none">
-                            <button role="menuitem" class="theme" id="ayu">Ayu</button>
-                        </li>
-                    </ul>
-
-                    <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)"
-                            aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S"
-                            aria-controls="searchbar">
-                        <i class="fa fa-search"></i>
-                    </button>
-
-                </div>
-
-                <h1 class="menu-title">ProceZeus Documentation</h1>
-
-                <div class="right-buttons">
-                    <a href="print.html" title="Print this book" aria-label="Print this book">
-                        <i id="print-button" class="fa fa-print"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-
-        <div id="searchbar-outer" class="searchbar-outer">
-            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..."
-                   aria-controls="searchresults-outer" aria-describedby="searchresults-header">
-        </div>
-        <div id="searchresults-outer" class="searchresults-outer">
-            <div class="searchresults-header" id="searchresults-header"></div>
-            <ul id="searchresults">
-            </ul>
-        </div>
-
-
-        <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-        <script type="text/javascript">
-            document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
-            document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
-            Array.from(document.querySelectorAll('#sidebar a')).forEach(function (link) {
-                link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
-            });
         </script>
 
-        <div id="content" class="content">
-            <main>
-                <a class="header" href="ARCHITECTURE.html#source" id="source"><h1>Source</h1></a>
-                <p>The project is split into several modules; one per micro-service. The description of each
-                    microservice is shown below:</p>
-                <a class="header" href="ARCHITECTURE.html#backend-service" id="backend-service"><h2>Backend Service</h2>
-                </a>
-                <p>This module is responsible for responding to the web client's API queries. It is also the primary
-                    point of contact for the other micro-services</p>
-                <a class="header" href="ARCHITECTURE.html#ml-service" id="ml-service"><h2>ML Service</h2></a>
-                <p>This module is responsible for all things related to predicting outcomes and classifying based on
-                    precedent data</p>
-                <a class="header" href="ARCHITECTURE.html#web-client" id="web-client"><h2>Web Client</h2></a>
-                <p>This module contains the Web UI that users will interact with</p>
-                <a class="header" href="ARCHITECTURE.html#postgresql" id="postgresql"><h2>Postgresql</h2></a>
-                <p>This module contains the data persistence layer of our system</p>
-                <a class="header" href="ARCHITECTURE.html#nlp-service" id="nlp-service"><h2>NLP Service</h2></a>
-                <p>This module is responsible for all things related to natural language processing, which the user
-                    interacts with</p>
+        <noscript>
+            <style type="text/css">
+                .javascript-only {
+                    display: none;
+                }
+            </style>
+        </noscript>
 
-            </main>
+    </head>
+    <body class="light">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
 
-            <nav class="nav-wrapper" aria-label="Page navigation">
-                <!-- Mobile navigation buttons -->
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
 
-                <a rel="prev" href="README.html" class="mobile-nav-chapters previous" title="Previous chapter"
-                   aria-label="Previous chapter" aria-keyshortcuts="Left">
-                    <i class="fa fa-angle-left"></i>
-                </a>
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
 
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme;
+        </script>
 
-                <a rel="next" href="web_client/README.html" class="mobile-nav-chapters next" title="Next chapter"
-                   aria-label="Next chapter" aria-keyshortcuts="Right">
-                    <i class="fa fa-angle-right"></i>
-                </a>
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
 
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="README.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><a href="ARCHITECTURE.html" class="active"><strong aria-hidden="true">2.</strong> Archictecture &amp; Infrastructure</a></li><li><a href="web_client/README.html"><strong aria-hidden="true">3.</strong> Web Client</a></li><li><a href="backend_service/README.html"><strong aria-hidden="true">4.</strong> Backend Service</a></li><li><a href="nlp_service/README.html"><strong aria-hidden="true">5.</strong> Natural Language Processing (NLP) Service</a></li><li><a href="ml_service/README.html"><strong aria-hidden="true">6.</strong> Machine Learning (ML) Service</a></li><li><a href="postgresql_db/README.html"><strong aria-hidden="true">7.</strong> PostgreSQL Database</a></li><li><a href="task_service/README.html"><strong aria-hidden="true">8.</strong> Task Service</a></li><li><a href="beta_client/README.html"><strong aria-hidden="true">9.</strong> Beta Client</a></li><li><a href="beta_server/README.html"><strong aria-hidden="true">10.</strong> Beta Server</a></li><li><a href="TROUBLESHOOT.html"><strong aria-hidden="true">11.</strong> Troubleshooting</a></li></ol>
+        </nav>
 
-                <div style="clear: both"></div>
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons javascript-only">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">ProceZeus Documentation</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="searchbar-outer" class="searchbar-outer">
+                    <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                </div>
+                <div id="searchresults-outer" class="searchresults-outer">
+                    <div class="searchresults-header" id="searchresults-header"></div>
+                    <ul id="searchresults">
+                    </ul>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="ARCHITECTURE.html#archicture-and-infrastructure" id="archicture-and-infrastructure"><h1>Archicture and Infrastructure</h1></a>
+<a class="header" href="ARCHITECTURE.html#services" id="services"><h2>Services</h2></a>
+<p>The project is split into several modules; one per micro-service. The description of each microservice is shown below:</p>
+<a class="header" href="ARCHITECTURE.html#backend-service" id="backend-service"><h3>Backend Service</h3></a>
+<p>This module is responsible for responding to the web client's API queries. It is also the primary point of contact for the other micro-services</p>
+<a class="header" href="ARCHITECTURE.html#ml-service" id="ml-service"><h3>ML Service</h3></a>
+<p>This module is responsible for all things related to predicting outcomes and classifying based on precedent data</p>
+<a class="header" href="ARCHITECTURE.html#web-client" id="web-client"><h3>Web Client</h3></a>
+<p>This module contains the Web UI that users will interact with</p>
+<a class="header" href="ARCHITECTURE.html#postgresql" id="postgresql"><h3>Postgresql</h3></a>
+<p>This module contains the data persistence layer of our system</p>
+<a class="header" href="ARCHITECTURE.html#nlp-service" id="nlp-service"><h3>NLP Service</h3></a>
+<p>This module is responsible for all things related to natural language processing, which the user interacts with</p>
+<a class="header" href="ARCHITECTURE.html#infrastructure-and-continuous-integrationdeployment" id="infrastructure-and-continuous-integrationdeployment"><h2>Infrastructure and Continuous Integration/Deployment</h2></a>
+<p>The ProceZeus application has many components with a and requires lots of binaries for the various machine learning models. We use <code>docker</code> and <code>docker-compose</code> to manage all of that complexity. Although you'll need to have these tools installed to build ProceZeus, we've hidden the gory details from you by providing a handy <code>cjl</code> script.</p>
+<p><code>cjl</code> is a thin wrapper around the <code>docker-compose</code> command, so any command that would work for <code>docker-compose</code> should also work for <code>cjl</code>. However, <code>cjl</code> contains utility functions to automatically lint your code, run tests, reset the database, remove all Docker images, and more! You can read more about the functions available in <code>cjl</code> in the &quot;Getting Started&quot; section.</p>
+<p><code>docker-compose</code> configuration files are currently split based on the environment. Running <code>./cjl build &amp;&amp; ./cjl up</code> will default to a dev environment, which uses the <code>docker-compose.dev.yml</code> configuration. This can be changed by specifying the environment you like with the <code>COMPOSE_FILE</code> environment variable. For example, this technique is used in the CI environment to run tests and upload the code coverage reports instead of running the application.</p>
+<p>We're using <a href="https://travis-ci.org/Cyberjusticelab/JusticeAI/branches">Travis CI</a> for as a continuous integration service to run our tests on our latest changes pushed to Git. The details are in <code>.travis.yml</code>, but Travis uses a build matrix in order to test each service in a separate process. We've also added an additional constraint where every commit message must begin with a reference to an issue (eg. <code>[#123]</code>) in order to improve the trackability of our work. If a build fails, GitHub will not let you merge in your changes.</p>
+<p>Once a service's tests have completed running, the test line code covereage is uploaded to <a href="https://codecov.io/gh/Cyberjusticelab/JusticeAI">CodeCov.io</a>. This service ensures that we're always maintaining a reasonable number of tests for our application over time. This check is more informational, and is not required to pass for a build to be merged.</p>
+<p>We do currently have some sort of continuous deployment onto a VPS provided to us by UdeM at <code>capstone.cyberjustice.ca</code>. It's currently configured to deploy after the end of a successful Travis build, but with the parallelization, it often fails and is extremely error prone. We've begun investigating standing up a webhook notification server on <code>capstone.cyberjustice.ca</code> that GitHub can push a notification to once a PR is merged, but it has not been flawless either.</p>
+<p>The server at <code>capstone.cyberjustice.ca</code> us fronted by <a href="https://www.nginx.com/">nginx</a>. It is being used to serve static files and machine learning model binaries required at build time at <code>https://capstone.cyberjustice.ca/data</code>. The client is currently running at <code>https://capstone.cyberjustice.ca</code> by proxying the user's request to the server running in the Docker <code>web_client</code> service. All requests to <code>https://capstone.cyberjustice.ca/api</code> are also proxied and passed through to the <code>backend_service</code> for the client's REST API.</p>
+<p>We are using the default PostgreSQL docker image as a persistent data store. At the moment, we do not keep track of database migrations, and the database is wiped and rebuilt on every deployment. This can also be done manually on your local machine with <code>./cjl reset-db</code>. The services that require DB access run an <code>init.py</code> script during build time that constructs the database models.</p>
+<p>Due to this, we've noticed that sometimes the database takes ~30 sec to create the models at runtime and be ready to accept connections, but the application services have thrown an error due to the requirement of creating a database connection. If you simply <code>./cjl down &amp;&amp; ./cjl up</code>, this problem goes away, but it may be worth having the application servers stall and wait as they perform a health check on the database before attempting to create a database connections.</p>
+<a class="header" href="ARCHITECTURE.html#future-improvements" id="future-improvements"><h2>Future Improvements</h2></a>
+<ul>
+<li>Investigate a more robust solution to continous deployment</li>
+<li>Implement database migrations through <a href="https://flask-migrate.readthedocs.io/en/latest/">Flask-Migrate</a> or a similar tool</li>
+<li>Have applications wait for database availability before attempting to create connections</li>
+<li>The <code>web_client</code> service is configured to run as a webpack dev server in Docker. For production use, we should build the static files and serve those. This can be done with <code>NODE_ENV=prod npm run build</code> and serving this files with an production HTTP server or placing them on a CDN</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="README.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="web_client/README.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="README.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="web_client/README.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
             </nav>
+
         </div>
-    </div>
-
-    <nav class="nav-wide-wrapper" aria-label="Page navigation">
-
-        <a href="README.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter"
-           aria-keyshortcuts="Left">
-            <i class="fa fa-angle-left"></i>
-        </a>
 
 
-        <a href="web_client/README.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter"
-           aria-keyshortcuts="Right">
-            <i class="fa fa-angle-right"></i>
-        </a>
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if (getComputedStyle(document.querySelector(".fa")).fontFamily !== "FontAwesome") {
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = '_FontAwesome/css/font-awesome.css';
+                document.head.insertBefore(link, document.head.firstChild)
+            }
+        </script>
 
-    </nav>
+        
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3001");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload(true); // force reload from server (not from cache)
+                }
+            };
 
-</div>
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+        
 
+        
 
-<!-- Local fallback for Font Awesome -->
-<script>
-    if (getComputedStyle(document.querySelector(".fa")).fontFamily !== "FontAwesome") {
-        var link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = '_FontAwesome/css/font-awesome.css';
-        document.head.insertBefore(link, document.head.firstChild)
-    }
-</script>
+        
 
+        
+        <script src="searchindex.js" type="text/javascript" charset="utf-8"></script>
+        
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
 
-<!-- Livereload script (if served using the cli tool) -->
-<script type="text/javascript">
-    var socket = new WebSocket("ws://localhost:3001");
-    socket.onmessage = function (event) {
-        if (event.data === "reload") {
-            socket.close();
-            location.reload(true); // force reload from server (not from cache)
-        }
-    };
+        
 
-    window.onbeforeunload = function () {
-        socket.close();
-    }
-</script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
+        <!-- Custom JS script -->
+        
 
-<script src="searchindex.js" type="text/javascript" charset="utf-8"></script>
-
-
-<script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-
-
-<script src="highlight.js"></script>
-<script src="book.js"></script>
-
-<!-- Custom JS script -->
-
-
-</body>
+    </body>
 </html>
