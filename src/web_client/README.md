@@ -1,6 +1,5 @@
 # Web Client
 
-## 0. Table of Contents
 1. [Overview](#overview)
 2. [File Structure](#file-structure)
 3. [Installation Instruction](#installation)
