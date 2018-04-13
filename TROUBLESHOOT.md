@@ -67,3 +67,9 @@ In root directory
 2. Ensure the environment variables are set up in ~/.bashrc
 3. If you built with root, ```./cjl clean``` with root and ```./cjl build --no-cache``` out of root
 
+
+---
+
+We've noticed that sometimes the database takes ~30 sec to create the models at runtime and be ready to accept connections, but the application services have thrown an error due to the requirement of creating a database connection. If you simply `./cjl down && ./cjl up`, this problem goes away, but it may be worth having the application servers stall and wait as they perform a health check on the database before attempting to create a database connections.
+
+
