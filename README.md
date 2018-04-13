@@ -2,6 +2,11 @@
 
 [![Travis](https://img.shields.io/travis/Cyberjusticelab/JusticeAI.svg)](https://travis-ci.org/Cyberjusticelab/JusticeAI/) [![Codecov](https://img.shields.io/codecov/c/github/codecov/example-python.svg)](https://codecov.io/gh/Cyberjusticelab/JusticeAI)
 
+## Documentation
+
+You can learn more about ProceZeus by [visiting the official documentation page](https://cyberjusticelab.github.io/JusticeAI/docs/rendered/).
+
+
 ## Getting Started
 
 ### Prerequisites
