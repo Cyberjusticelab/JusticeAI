@@ -6,79 +6,79 @@
 }
 
 #landing-component {
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+  overflow: hidden;
+  #landing-page {
+    user-select: none;
     width: 100%;
     height: 100%;
-    padding: 0px;
-    overflow: hidden;
-    #landing-page {
-        user-select: none;
-        width: 100%;
+    background: url("../assets/landing_page_background.png") no-repeat center center fixed;
+    background-size: cover;
+    #landing-page-title {
+      text-align: center;
+      padding-top: 200px;
+      padding-bottom: 35px;
+      #title-image {
         height: 100%;
-        background: url("../assets/landing_page_background.png") no-repeat center center fixed;
-        background-size: cover;
-        #landing-page-title {
-            text-align: center;
-            padding-top: 200px;
-            padding-bottom: 35px;
-            #title-image {
-                height: 100%;
-                img {
-                    display: block;
-                    margin: auto;
-                }
-            }
+        img {
+          display: block;
+          margin: auto;
         }
-        #landing-page-button-group {
-            #button-group {
-                button {
-                    border-color: $main-gold-1;
-                    color: $main-gold-1;
-                    margin-left: 10px;
-                    margin-right: 10px;
-                    cursor: pointer;
-                    width: 200px;
-                    background-color: transparent;
-                    font-family: $zeus-font;
-                    font-size: 20px;
-                    &:hover, &:active {
-                        background-color: $main-gold-1;
-                        color: $main-grey-5;
-                        border-color: $main-gold-1;
-                    }
-                }
-            }
+      }
+    }
+    #landing-page-button-group {
+      #button-group {
+        button {
+          border-color: $main-gold-1;
+          color: $main-gold-1;
+          margin-left: 10px;
+          margin-right: 10px;
+          cursor: pointer;
+          width: 200px;
+          background-color: transparent;
+          font-family: $zeus-font;
+          font-size: 20px;
+          &:hover, &:active {
+            background-color: $main-gold-1;
+            color: $main-grey-5;
+            border-color: $main-gold-1;
+          }
         }
+      }
     }
-    #landing-page-git-master-sha {
-        span {
-            color: $main-white-1;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-        }
+  }
+  #landing-page-git-master-sha {
+    span {
+      color: $main-white-1;
+      position: absolute;
+      bottom: 0;
+      left: 0;
     }
-    .el-dialog{
-        font-family: $zeus-font;
-        form {
-            text-align: center;
-            margin-top: -45px;
-        }
+  }
+  .el-dialog {
+    font-family: $zeus-font;
+    form {
+      text-align: center;
+      margin-top: -45px;
     }
-    .el-input {
-        width: 50%;
+  }
+  .el-input {
+    width: 50%;
+  }
+  .el-button {
+    margin: auto;
+    margin-top: 15px;
+    width: 150px;
+    border-color: $main-gold-2;
+    background-color: $main-gold-2;
+    color: $main-grey-2;
+    font-weight: bolder;
+    font-family: $zeus-font;
+    &:hover:enabled {
+      background-color: $main-gold-2;
+      color: $main-white-1;
     }
-    .el-button {
-        margin: auto;
-        margin-top: 15px;
-        width: 150px;
-        border-color: $main-gold-2;
-        background-color: $main-gold-2;
-        color: $main-grey-2;
-        font-weight: bolder;
-        font-family: $zeus-font;
-        &:hover:enabled {
-          background-color: $main-gold-2;
-          color: $main-white-1;
-        }
-    }
+  }
 }

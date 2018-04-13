@@ -1,12 +1,12 @@
 @import "./Utils";
 
 #dashboard-component {
+  height: 100%;
+  overflow-x: hidden;
+  .el-container {
+    width: 100%;
     height: 100%;
-    overflow-x: hidden;
-    .el-container {
-        width: 100%;
-        height: 100%;
-        background: url("../assets/landing_page_background.png") no-repeat center center fixed;
-        background-size: cover;
-    }
+    background: url("../assets/landing_page_background.png") no-repeat center center fixed;
+    background-size: cover;
+  }
 }

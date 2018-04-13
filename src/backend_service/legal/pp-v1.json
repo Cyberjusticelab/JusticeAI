@@ -7,31 +7,31 @@
     "header": "Privacy Policy",
     "subheader": "Before Procezeus becomes the alpha and the omega, it will spend quite some time in beta. Please understand that all its features may not be available, and that some features may not function as intended. Furthermore, this policy may be updated regularly – or never. Thank you for your interest, patience, and cooperation mortal.",
     "content": [
-        {
-            "title": "The policy",
-            "text1": "When you use Procezeus, you trust us with your information. We rather you didn't, but here we are. If you're reading this, you're likely lost (in which case, click here to go back from whence you came), or you're genuinely curious about how Procezeus will collect and manage your data.<br/>Our Privacy Policy strives to be as simple as possible. Nothing says simple like four sections:",
-            "text2": "1.  What information we collect<br>2.  Why we collect information<br>3.  How we use information<br>4.  How you control your information"
-        },
-        {
-            "title": "1. What information we collect",
-            "text1": "When you interact with the Procezeus, you may share certain information that is then processed by our team of hamsters on wheels, unicorns, minotaurs, and satyrs.",
-            "text2": "<h4>Information you share with us</h4><br/>- Text responses to prompts in natural language.<br/>- Uploaded documents, such as a lease.<br/>- Email address used to create an account.<br/><br/><h4>Information generated from responses</h4><br/>- Values generated from text responses.<br/>- Information extracted from uploaded documents."
-        },
-        {
-            "title": "2. Why we collect information",
-            "text1": "We only collect information we need, namely for four purposes:",
-            "text2": "- Answer a question you asked Procezeus.<br/>- Allow Procezeus to evaluate a dispute you described.<br/>- Allow you to save and recover your progress with Procezeus.<br/>- Improve the accuracy of Procezeus' natural language processing, machine learning, deep learning, and other divine functions."
-        },
-        {
-            "title": "3. How we will use information",
-            "text1": "Procezeus will not use your information outside of these circumstances. <br/>Procezeus's mathematical genius (read: encryption) prevents other mortals from accessing your information. ",
-            "text2": "<h4>Information you shared with us</h4><br/>- Text responses are processed and subsequently removed from our servers. They allow Procezeus to answer you back and learn languages besides Ancient Greek.<br/>- Uploaded documents are parsed and immediately removed from our servers. Procezeus does not play hot potato with your lease.<br/>- Your email address is only used to create an account. You only need an account if you want Procezeus to remember you on your next visit. <br/><br/><h4>Information we generated</h4><br/>- The information we generate from processing text responses or parsing uploads is anonymized. <br/>- Procezeus' minions process the text and remove any identifying elements, ex. name, addresses, etc. from the data before storing them as values in the database under a user ID.<br/>- These values may be further processed by Procezeus' divine computation systems.<br/>- These values may, from time to time, be complied and shared for the purposes of research. <br/>- Procezeus will never sell your personal information (seriously, it's not like we need the money )."
-        },
-        {
-            "title": "4. How you control your information",
-            "text1": "The only personal information Procezeus keeps on its servers is your email address. You can dissociate your email from any stored values by clicking the button on your dashboard. ",
-            "text2": "If you really like emails, you can send us an email about your email to our email at <a href=\"mailto:email@procezeus.ca\">email@procezeus.ca</a>.<br/><br/>Any other information that was stored is archived on offline storage after a month. <br/><br/>This is more than enough time for Procezeus to gain insights about the law, learn a few new words in English, and perform its oracular duties."
-        }
+      {
+        "title": "The policy",
+        "text1": "When you use Procezeus, you trust us with your information. We rather you didn't, but here we are. If you're reading this, you're likely lost (in which case, click here to go back from whence you came), or you're genuinely curious about how Procezeus will collect and manage your data.<br/>Our Privacy Policy strives to be as simple as possible. Nothing says simple like four sections:",
+        "text2": "1.  What information we collect<br>2.  Why we collect information<br>3.  How we use information<br>4.  How you control your information"
+      },
+      {
+        "title": "1. What information we collect",
+        "text1": "When you interact with the Procezeus, you may share certain information that is then processed by our team of hamsters on wheels, unicorns, minotaurs, and satyrs.",
+        "text2": "<h4>Information you share with us</h4><br/>- Text responses to prompts in natural language.<br/>- Uploaded documents, such as a lease.<br/>- Email address used to create an account.<br/><br/><h4>Information generated from responses</h4><br/>- Values generated from text responses.<br/>- Information extracted from uploaded documents."
+      },
+      {
+        "title": "2. Why we collect information",
+        "text1": "We only collect information we need, namely for four purposes:",
+        "text2": "- Answer a question you asked Procezeus.<br/>- Allow Procezeus to evaluate a dispute you described.<br/>- Allow you to save and recover your progress with Procezeus.<br/>- Improve the accuracy of Procezeus' natural language processing, machine learning, deep learning, and other divine functions."
+      },
+      {
+        "title": "3. How we will use information",
+        "text1": "Procezeus will not use your information outside of these circumstances. <br/>Procezeus's mathematical genius (read: encryption) prevents other mortals from accessing your information. ",
+        "text2": "<h4>Information you shared with us</h4><br/>- Text responses are processed and subsequently removed from our servers. They allow Procezeus to answer you back and learn languages besides Ancient Greek.<br/>- Uploaded documents are parsed and immediately removed from our servers. Procezeus does not play hot potato with your lease.<br/>- Your email address is only used to create an account. You only need an account if you want Procezeus to remember you on your next visit. <br/><br/><h4>Information we generated</h4><br/>- The information we generate from processing text responses or parsing uploads is anonymized. <br/>- Procezeus' minions process the text and remove any identifying elements, ex. name, addresses, etc. from the data before storing them as values in the database under a user ID.<br/>- These values may be further processed by Procezeus' divine computation systems.<br/>- These values may, from time to time, be complied and shared for the purposes of research. <br/>- Procezeus will never sell your personal information (seriously, it's not like we need the money )."
+      },
+      {
+        "title": "4. How you control your information",
+        "text1": "The only personal information Procezeus keeps on its servers is your email address. You can dissociate your email from any stored values by clicking the button on your dashboard. ",
+        "text2": "If you really like emails, you can send us an email about your email to our email at <a href=\"mailto:email@procezeus.ca\">email@procezeus.ca</a>.<br/><br/>Any other information that was stored is archived on offline storage after a month. <br/><br/>This is more than enough time for Procezeus to gain insights about the law, learn a few new words in English, and perform its oracular duties."
+      }
     ]
   }
 }

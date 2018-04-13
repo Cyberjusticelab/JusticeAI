@@ -29,6 +29,6 @@ class IntentThreshold:
         confidence_top = intent_ranking[0]['confidence']
         confidence_contender = intent_ranking[1]['confidence']
         percent_difference = abs(confidence_contender - confidence_top) / (
-            0.5 * (confidence_contender + confidence_top))
+                0.5 * (confidence_contender + confidence_top))
 
         return percent_difference

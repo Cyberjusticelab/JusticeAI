@@ -168,12 +168,12 @@ class RegexLib:
         ], "BOOLEAN"),
         ("tenant_sends_demand_regie_logement", [
             re.compile(
-                TENANT_REGEX + r".+ " +__multiple_words(0,2) + LANDLORD_REGEX +
+                TENANT_REGEX + r".+ " + __multiple_words(0, 2) + LANDLORD_REGEX +
                 r" une mise en demeure.+(demanderait|demande).+Régie du logement",
                 re.IGNORECASE
             ),
             re.compile(
-                TENANT_REGEX + r" envoie une mise en demeure " +__multiple_words(0,2) + LANDLORD_REGEX +
+                TENANT_REGEX + r" envoie une mise en demeure " + __multiple_words(0, 2) + LANDLORD_REGEX +
                 r".+ (demanderait|demande) .+ Régie du logement",
                 re.IGNORECASE
             ),
@@ -277,8 +277,8 @@ class RegexLib:
             )
         ], "BOOLEAN"),
         ("tenant_is_bothered", [
-            re.compile(
-                \
+            re.compile( \
+ \
                 r".+ " + __multiple_words(0, 2) + TENANT_REGEX +
                 r" (a|ont) subi(ent|) une perte de jouissance",
                 re.IGNORECASE
@@ -465,11 +465,11 @@ class RegexLib:
         ], "BOOLEAN"),
         ("landlord_serious_prejudice", [
             re.compile(
-                r"préjudice sérieux " +__multiple_words(0, 2) + LANDLORD_REGEX + r"",
+                r"préjudice sérieux " + __multiple_words(0, 2) + LANDLORD_REGEX + r"",
                 re.IGNORECASE
             ),
             re.compile(
-                r"préjudice sérieux " +__multiple_words(0, 2) + LANDLORD_REGEX + r"",
+                r"préjudice sérieux " + __multiple_words(0, 2) + LANDLORD_REGEX + r"",
                 re.IGNORECASE
             ),
             re.compile(
@@ -543,7 +543,7 @@ class RegexLib:
             ),
             re.compile(
                 r"CONDAMNE " + __multiple_words(0, 2) + TENANT_REGEX + " à payer aux locateurs \Kles frais "
-                                                                      "judiciaires de " + MONEY_REGEX, re.IGNORECASE
+                                                                       "judiciaires de " + MONEY_REGEX, re.IGNORECASE
             ),
             re.compile(
                 r"frais judiciaires et de signification de " + MONEY_REGEX,
@@ -582,7 +582,8 @@ class RegexLib:
         ], "BOOLEAN"),
         ("authorize_landlord_retake_apartment", [
             re.compile(
-                r"AUTORISE " + __multiple_words(0, 2) + LANDLORD_REGEX + r" à reprendre (possession )?(du|le|des|de leur|de son) " +
+                r"AUTORISE " + __multiple_words(0,
+                                                2) + LANDLORD_REGEX + r" à reprendre (possession )?(du|le|des|de leur|de son) " +
                 "(logement|lieu|lieux)",
                 re.IGNORECASE
             )

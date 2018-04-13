@@ -1,206 +1,208 @@
 @import "./Utils";
 
 #sidebar-component {
-    width: 12%;
-    background-color: rgba(74,74,74,.8);
-    #sidebar-full {
-        height: 100%;
-        background-color: $main-grey-1;
-        font-family: $zeus-font;
-        border-right: 5px solid $main-gold-2;
-        #sidebar-logo {
-            height: 35%;
-            img {
-                margin-top: 40px;
-                width: 90%;
-            }
-            p {
-                margin-top: 8px;
-                font-size: 10px;
-                color: $main-grey-5;
-                font-style: italic;
-            }
-        }
-        #sidebar-info {
-            height: 50%;
-            p {
-                padding: 2px;
-                color: $main-grey-6;
-                font-size: 12px;
-            }
-            h2 {
-                font-size: 23px;
-                color: $main-gold-2;
-                font-weight: 600;
-                &:hover {
-                    cursor: pointer;
-                    color: $main-white-1;
-                }
-            }
-        }
-        .sidebar-option {
-            font-size: 8px;
-            color: $main-grey-5;
-            font-style: italic;
-            padding-top: 3px;
-            &:hover {
-                color: $main-gold-2;
-                cursor: pointer;
-            }
-        }
+  width: 12%;
+  background-color: rgba(74, 74, 74, .8);
+  #sidebar-full {
+    height: 100%;
+    background-color: $main-grey-1;
+    font-family: $zeus-font;
+    border-right: 5px solid $main-gold-2;
+    #sidebar-logo {
+      height: 35%;
+      img {
+        margin-top: 40px;
+        width: 90%;
+      }
+      p {
+        margin-top: 8px;
+        font-size: 10px;
+        color: $main-grey-5;
+        font-style: italic;
+      }
     }
-    #sidebar-dashboard {
-        overflow-y: scroll;
-        z-index: 2000;
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        background-color: $main-grey-6;
-        font-family: $zeus-font;
-        #sidebar-dashboard-close {
-            padding-top: 5px;
-            margin: 0px;
-            padding-bottom: 0px;
-            width: 45px;
-            &:hover {
-                cursor: pointer;
-            }
-        }
-        #sidebar-dashboard-logo {
-            background-color: $main-grey-1;
-            img {
-                height: 75px;
-            }
-        }
-        #sidebar-dashboard-header {
-            padding-top: 5px;
-            h2 {
-                font-weight: 500;
-                font-size: 30px;
-                color: main-grey-1;
-                span {
-                    color: $main-gold-2;
-                }
-            }
-        }
-        .sidebar-dashboard-item {
-            padding-top: 25px;
-            padding-bottom: 20px;
-            h3 {
-                font-size: 30px;
-                font-weight: 300;
-            }
-        }
-        #sidebar-dashboard-accuracy {
-            @extend .sidebar-dashboard-item;
-            color: green;
-        }
-        #sidebar-dashboard-curve {
-            @extend .sidebar-dashboard-item;
-            h1 {
-                padding-top: 135px;
-                color: $main-grey-4;
-            }
-            img {
-                height: 100%;
-                width: 100%;
-            }
-            h3 {
-                margin-top: 2px;
-                color: firebrick;
-                padding-top: 6px;
-            }
-            .bellcurve {
-                width: 100%;
-                height: 100%;
-                display: inline-block;
-            }
-        }
-        #sidebar-dashboard-outcome {
-            @extend .sidebar-dashboard-item;
-            text-align: left;
-            h2 {
-                margin-bottom: 5px;
-                border-bottom: 2px solid $main-grey-1;
-            }
-            .sidebar-dashboard-outcome-item {
-                h2 {
-                    text-align: center;
-                    font-size: 30px;
-                    font-weight: 300;
-                    color: cadetblue;
-                }
-                h3 {
-                    display: inline-block;
-                    font-weight: 100;
-                    font-size: 18px;
-                    margin: 10px;
-                    max-width: 100%;
-                    word-wrap: break-word;
-                }
-                .outcome-check {
-                    height: 1em;
-                    width: 1em;
-                    color: $main-gold-2;
-                    margin-top: 12px;
-                    margin-left: 10px
-                }
-            }
-        }
-        #sidebar-dashboard-similarity {
-            @extend .sidebar-dashboard-item;
-            h3 {
-                font-size: 22px;
-                color: $main-gold-2;
-            }
-            .verdict-table {
-                background: bisque;
-            }
-        }
-        #sidebar-dashboard-contact {
-            @extend .sidebar-dashboard-item;
-            h3 {
-                margin-bottom: 5px;
-            }
-            .sidebar-dashboard-footer {
-                display: inline-block;
-                margin-left: 10px;
-                margin-right: 10px;
-                p {
-                    font-size: 12px;
-                }
-                &:hover {
-                    cursor: pointer;
-                    color: $main-gold-1;
-                }
-            }
-        }
-    }
-    #feedback-input {
-        width: 100%;
-        height: 150px;
-        resize: none;
-    }
-    .el-dialog{
-        width: 100%;
-    }
-    .el-button {
-        margin: auto;
-        margin-top: 15px;
-        width: 150px;
-        border-color: $main-gold-2;
-        background-color: $main-gold-2;
-        color: $main-grey-2;
-        font-weight: bolder;
-        &:hover:enabled {
-          background-color: $main-gold-2;
+    #sidebar-info {
+      height: 50%;
+      p {
+        padding: 2px;
+        color: $main-grey-6;
+        font-size: 12px;
+      }
+      h2 {
+        font-size: 23px;
+        color: $main-gold-2;
+        font-weight: 600;
+        &:hover {
+          cursor: pointer;
           color: $main-white-1;
         }
+      }
     }
+    .sidebar-option {
+      font-size: 8px;
+      color: $main-grey-5;
+      font-style: italic;
+      padding-top: 3px;
+      &:hover {
+        color: $main-gold-2;
+        cursor: pointer;
+      }
+    }
+  }
+  #sidebar-dashboard {
+    overflow-y: scroll;
+    z-index: 2000;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: $main-grey-6;
+    font-family: $zeus-font;
+    #sidebar-dashboard-close {
+      padding-top: 5px;
+      margin: 0px;
+      padding-bottom: 0px;
+      width: 45px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    #sidebar-dashboard-logo {
+      background-color: $main-grey-1;
+      img {
+        height: 75px;
+      }
+    }
+    #sidebar-dashboard-header {
+      padding-top: 5px;
+      h2 {
+        font-weight: 500;
+        font-size: 30px;
+        color: main-grey-1;
+        span {
+          color: $main-gold-2;
+        }
+      }
+    }
+    .sidebar-dashboard-item {
+      padding-top: 25px;
+      padding-bottom: 20px;
+      h3 {
+        font-size: 30px;
+        font-weight: 300;
+      }
+    }
+    #sidebar-dashboard-accuracy {
+      @extend .sidebar-dashboard-item;
+      color: green;
+    }
+    #sidebar-dashboard-curve {
+      @extend .sidebar-dashboard-item;
+      h1 {
+        padding-top: 135px;
+        color: $main-grey-4;
+      }
+      img {
+        height: 100%;
+        width: 100%;
+      }
+      h3 {
+        margin-top: 2px;
+        color: firebrick;
+        padding-top: 6px;
+      }
+      .bellcurve {
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+      }
+    }
+    #sidebar-dashboard-outcome {
+      @extend .sidebar-dashboard-item;
+      text-align: left;
+      h2 {
+        margin-bottom: 5px;
+        border-bottom: 2px solid $main-grey-1;
+      }
+      .sidebar-dashboard-outcome-item {
+        h2 {
+          text-align: center;
+          font-size: 30px;
+          font-weight: 300;
+          color: cadetblue;
+        }
+        h3 {
+          display: inline-block;
+          font-weight: 100;
+          font-size: 18px;
+          margin: 10px;
+          max-width: 100%;
+          word-wrap: break-word;
+        }
+        .outcome-check {
+          height: 1em;
+          width: 1em;
+          color: $main-gold-2;
+          margin-top: 12px;
+          margin-left: 10px
+        }
+      }
+    }
+    #sidebar-dashboard-similarity {
+      @extend .sidebar-dashboard-item;
+      h3 {
+        font-size: 22px;
+        color: $main-gold-2;
+      }
+      .verdict-table {
+        background: bisque;
+      }
+    }
+    #sidebar-dashboard-contact {
+      @extend .sidebar-dashboard-item;
+      h3 {
+        margin-bottom: 5px;
+      }
+      .sidebar-dashboard-footer {
+        display: inline-block;
+        margin-left: 10px;
+        margin-right: 10px;
+        p {
+          font-size: 12px;
+        }
+        &:hover {
+          cursor: pointer;
+          color: $main-gold-1;
+        }
+      }
+    }
+  }
+  #feedback-input {
+    width: 100%;
+    height: 150px;
+    resize: none;
+  }
+  .el-dialog {
+    width: 100%;
+  }
+  .el-button {
+    margin: auto;
+    margin-top: 15px;
+    width: 150px;
+    border-color: $main-gold-2;
+    background-color: $main-gold-2;
+    color: $main-grey-2;
+    font-weight: bolder;
+    &:hover:enabled {
+      background-color: $main-gold-2;
+      color: $main-white-1;
+    }
+  }
 }
+
 .translate-enter-active {
-    transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
+
 .translate-enter {
-    transform: translateX(-125%);
+  transform: translateX(-125%);
 }

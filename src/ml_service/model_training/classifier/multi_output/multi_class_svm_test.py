@@ -90,6 +90,7 @@ class TestLinearSvc(unittest.TestCase):
                     -1.52808095e-05, 1.99961642e+00, 1.85962826e-04, 3.77475828e-15,
                     -3.83904518e-05, -4.15205874e-04
                 ]])
+
         mock_classifier_labels = {
             0: ('additional_indemnity_money', 'int'),
         }

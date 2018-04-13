@@ -6,7 +6,7 @@ import Vue from 'vue'
 import Dashboard from '@/components/Dashboard'
 import ElementUI from 'element-ui'
 import VueLocalStorage from 'vue-localstorage'
-import { EventBus } from '@/components/EventBus.js'
+import {EventBus} from '@/components/EventBus.js'
 
 /*
 inject dependencies
@@ -21,10 +21,10 @@ test
 
 describe('Dashboard.vue', () => {
 
-    it('should successfully listen to event', () => {
-        const vm = new Vue(Dashboard).$mount()
-        EventBus.$emit('initLoading', true)
-        expect(vm.initLoading).to.equal(true)
-    })
+  it('should successfully listen to event', () => {
+    const vm = new Vue(Dashboard).$mount()
+    EventBus.$emit('initLoading', true)
+    expect(vm.initLoading).to.equal(true)
+  })
 
 })

@@ -1,98 +1,120 @@
 {
-    "en": [
-        {
-            "question": [
-                "Greetings friend!",
-                "I’m Procezeus, an artificially intelligent purveyor of divine justice.",
-                "I was created to assist landlords and tenants with a variety of issues they face.",
-                "Help me help you: you can ask me a question about housing law or describe a situation that you would require assistance with."
-            ],
-            "answer": ["Understood!"],
-            "val": 1
-        },
-        {
-            "question": ["What is your question?"],
-            "answer": ["Confirm"],
-            "type": "question",
-            "placeholder": "ENTER YOUR QUESTION",
-            "error": "Please make sure your input is valid and not empty, thank you!",
-            "val": 2
-        },
-        {
-            "question": [
-                "I noted that, thanks!",
-                "Each question you ask gets me one step closer to launching in Beta.",
-                "Curious to hear about it when that happens? Share your email and Hermes will be in touch.",
-                "Don’t worry, it is against my credo to share information received in confidence."
-            ],
-            "answer": ["Confirm"],
-            "type": "email",
-            "placeholder": "ENTER YOUR EMAIL",
-            "error": "Please make sure your input is valid and not empty, thank you!",
-            "val": 3
-        },
-        {
-            "question": [
-                "Are you a legal professional?"
-            ],
-            "type": "isPro",
-            "answer": ["Yes", "No"],
-            "val": 4
-        },
-        {
-            "question": [
-                "Well heard!",
-                "And you will hear from me shortly."
-            ],
-            "val": 5
-        }
-    ],
-    "fr": [
-        {
-            "question":[
-                "Bonjour cher étranger!",
-                "Mon nom est Zeus et je suis ici pour assister les propriétaires et les locataires au Québec.",
-                "Je commencerai ma phase bêta bientôt et j'ai besoin d'en connaître un peu plus à l'égard des problèmes communs auxquels vous pourriez faire face.",
-                "Parlez-moi de vos problèmes avec vos locataires ou votre propriétaire."
-            ],
-            "answer": ["D'accord!"],
-            "val": 1
-        },
-        {
-            "question": ["Quelle est votre question?"],
-            "answer": ["Confirmer"],
-            "type": "question",
-            "placeholder": "ENTREZ VOTRE QUESTION",
-            "error": "SVP assurez-vous que votre entrée soit valide et présente. Merci!",
-            "val": 2
-        },
-        {
-            "question": [
-                "J'ai noté cela, merci!",
-                "Chaque question que vous posez me rapproche un peu plus du lancement en version bêta.",
-                "Curieux d'entendre à ce sujet quand cela arrive? Partagez votre email et Hermes sera en contact.",
-                "Ne vous inquiétez pas, il est contre mon credo de partager des informations reçues en confidance."
-            ],
-            "answer": ["Confirmer"],
-            "type": "email",
-            "placeholder": "ENTREZ VOTRE COURRIEL",
-            "error": "SVP assurez-vous que votre entrée soit valide et présente. Merci!",
-            "val": 3
-        },
-        {
-            "question": [
-                "Êtes-vous un professionnel du droit?"
-            ],
-            "type": "isPro",
-            "answer": ["Yes", "No"],
-            "val": 4
-        },
-        {
-            "question": [
-                "Merci beaucoup!",
-                "Je resterai en contact avec vous. Bonne journée!"
-            ],
-            "val": 5
-        }
-    ]
+  "en": [
+    {
+      "question": [
+        "Greetings friend!",
+        "I’m Procezeus, an artificially intelligent purveyor of divine justice.",
+        "I was created to assist landlords and tenants with a variety of issues they face.",
+        "Help me help you: you can ask me a question about housing law or describe a situation that you would require assistance with."
+      ],
+      "answer": [
+        "Understood!"
+      ],
+      "val": 1
+    },
+    {
+      "question": [
+        "What is your question?"
+      ],
+      "answer": [
+        "Confirm"
+      ],
+      "type": "question",
+      "placeholder": "ENTER YOUR QUESTION",
+      "error": "Please make sure your input is valid and not empty, thank you!",
+      "val": 2
+    },
+    {
+      "question": [
+        "I noted that, thanks!",
+        "Each question you ask gets me one step closer to launching in Beta.",
+        "Curious to hear about it when that happens? Share your email and Hermes will be in touch.",
+        "Don’t worry, it is against my credo to share information received in confidence."
+      ],
+      "answer": [
+        "Confirm"
+      ],
+      "type": "email",
+      "placeholder": "ENTER YOUR EMAIL",
+      "error": "Please make sure your input is valid and not empty, thank you!",
+      "val": 3
+    },
+    {
+      "question": [
+        "Are you a legal professional?"
+      ],
+      "type": "isPro",
+      "answer": [
+        "Yes",
+        "No"
+      ],
+      "val": 4
+    },
+    {
+      "question": [
+        "Well heard!",
+        "And you will hear from me shortly."
+      ],
+      "val": 5
+    }
+  ],
+  "fr": [
+    {
+      "question": [
+        "Bonjour cher étranger!",
+        "Mon nom est Zeus et je suis ici pour assister les propriétaires et les locataires au Québec.",
+        "Je commencerai ma phase bêta bientôt et j'ai besoin d'en connaître un peu plus à l'égard des problèmes communs auxquels vous pourriez faire face.",
+        "Parlez-moi de vos problèmes avec vos locataires ou votre propriétaire."
+      ],
+      "answer": [
+        "D'accord!"
+      ],
+      "val": 1
+    },
+    {
+      "question": [
+        "Quelle est votre question?"
+      ],
+      "answer": [
+        "Confirmer"
+      ],
+      "type": "question",
+      "placeholder": "ENTREZ VOTRE QUESTION",
+      "error": "SVP assurez-vous que votre entrée soit valide et présente. Merci!",
+      "val": 2
+    },
+    {
+      "question": [
+        "J'ai noté cela, merci!",
+        "Chaque question que vous posez me rapproche un peu plus du lancement en version bêta.",
+        "Curieux d'entendre à ce sujet quand cela arrive? Partagez votre email et Hermes sera en contact.",
+        "Ne vous inquiétez pas, il est contre mon credo de partager des informations reçues en confidance."
+      ],
+      "answer": [
+        "Confirmer"
+      ],
+      "type": "email",
+      "placeholder": "ENTREZ VOTRE COURRIEL",
+      "error": "SVP assurez-vous que votre entrée soit valide et présente. Merci!",
+      "val": 3
+    },
+    {
+      "question": [
+        "Êtes-vous un professionnel du droit?"
+      ],
+      "type": "isPro",
+      "answer": [
+        "Yes",
+        "No"
+      ],
+      "val": 4
+    },
+    {
+      "question": [
+        "Merci beaucoup!",
+        "Je resterai en contact avec vous. Bonne journée!"
+      ],
+      "val": 5
+    }
+  ]
 }
