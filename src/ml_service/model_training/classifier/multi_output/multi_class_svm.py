@@ -298,7 +298,7 @@ class MultiClassSVM:
 
         # 1
         x_total = np.array(
-            [np.reshape(precedent['facts_vector'], (len(precedent['facts_vector'],))) for precedent in self.data_set])
+            [np.reshape(precedent['facts_vector'], (len(precedent['facts_vector'], ))) for precedent in self.data_set])
         x_total = binarize(x_total, threshold=0)
 
         # 2

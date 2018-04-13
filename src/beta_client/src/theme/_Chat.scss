@@ -4,10 +4,13 @@
 .fade-enter-active {
   transition: opacity 1.2s;
 }
+
 .fade-leave-active {
   transition: opacity 0s
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+{
   opacity: 0;
 }
 
@@ -76,10 +79,10 @@
           font-size: 16px;
         }
         @media screen and (max-width: $break-width-phone) {
-            font-size: 18px;
-            #invalid-answer {
-              font-size: 14px;
-            }
+          font-size: 18px;
+          #invalid-answer {
+            font-size: 14px;
+          }
         }
       }
     }
@@ -121,6 +124,7 @@
     }
   }
 }
+
 .answer-button {
   margin-top: 10px;
 }

@@ -6,7 +6,6 @@ from model_training.regression.multi_output.multi_output_regression import Multi
 
 
 class TestMultiOutputRegression(unittest.TestCase):
-
     mock_classifier_index = {
         0: ('additional_indemnity_money', 'int'),
         1: ('declares_housing_inhabitable', 'bool'),

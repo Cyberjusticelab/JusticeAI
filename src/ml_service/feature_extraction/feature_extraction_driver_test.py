@@ -5,7 +5,6 @@ from util.constant import Path
 
 class TestFeatureExtraction(unittest.TestCase):
     def test_feature_extraction(self):
-
         raw_data_directory = Path.raw_data_directory
         Path.raw_data_directory = Path.test_mock_precedent_directory
 

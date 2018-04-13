@@ -1,79 +1,79 @@
 @import "./Utils";
 
 #legal-component {
+  width: 100%;
+  padding: 0px;
+  overflow-x: hidden;
+  font-family: $zeus-font;
+  .el-container {
     width: 100%;
-    padding: 0px;
-    overflow-x: hidden;
-    font-family: $zeus-font;
-    .el-container {
-        width: 100%;
+  }
+  #legal-nav {
+    width: 100%;
+    background-color: $main-grey-2;
+    height: 60px;
+    position: fixed;
+    z-index: 1;
+    .el-col {
+      height: 100%;
+      #legal-nav-logo {
+        height: 70%;
+        padding-top: 7px;
+        img {
+          height: 90%;
+        }
+      }
+      #legal-nav-item {
+        padding-top: 6px;
+        a, p {
+          margin-left: 8px;
+          margin-right: 8px;
+          display: inline-block;
+          text-decoration: none;
+          color: $main-grey-5;
+          cursor: pointer;
+          &:hover, &:active {
+            color: $main-gold-2;
+          }
+        }
+        .active-view {
+          color: $main-gold-2;
+        }
+        .hidden-view {
+          color: $main-grey-5;
+        }
+      }
     }
-    #legal-nav {
-        width: 100%;
-        background-color: $main-grey-2;
-        height: 60px;
-        position: fixed;
-        z-index: 1;
-        .el-col {
-            height: 100%;
-            #legal-nav-logo {
-                height: 70%;
-                padding-top: 7px;
-                img {
-                    height: 90%;
-                }
-            }
-            #legal-nav-item {
-                padding-top: 6px;
-                a, p {
-                    margin-left: 8px;
-                    margin-right: 8px;
-                    display: inline-block;
-                    text-decoration: none;
-                    color: $main-grey-5;
-                    cursor: pointer;
-                    &:hover, &:active {
-                        color: $main-gold-2;
-                    }
-                }
-                .active-view {
-                    color: $main-gold-2;
-                }
-                .hidden-view {
-                    color: $main-grey-5;
-                }
-            }
-        }
+  }
+  #legal-content {
+    min-width: 100%;
+    margin-bottom: 80px;
+    .legal-content-main-header {
+      margin-top: 140px;
+      margin-bottom: 50px;
     }
-    #legal-content {
-        min-width: 100%;
-        margin-bottom: 80px;
-        .legal-content-main-header {
-            margin-top: 140px;
-            margin-bottom: 50px;
-        }
-        .legal-content-body-1 {
-            background-color: $main-grey-6;
-            text-align: left;
-            .legal-content-text {
-                padding: 18px;
-            }
-        }
-        .legal-content-body-2 {
-            @extend .legal-content-body-1;
-            background-color: $main-grey-5;
-        }
+    .legal-content-body-1 {
+      background-color: $main-grey-6;
+      text-align: left;
+      .legal-content-text {
+        padding: 18px;
+      }
     }
-    #legal-footer {
-        position: fixed;
-        bottom: 0px;
-        width: 100%;
-        height: 40px;
-        background-color: $main-grey-1;
-        p {
-            text-align: center;
-            color: $main-grey-4;
-            margin-bottom: 10px;
-        }
+    .legal-content-body-2 {
+      @extend .legal-content-body-1;
+      background-color: $main-grey-5;
     }
+  }
+  #legal-footer {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    height: 40px;
+    background-color: $main-grey-1;
+    p {
+      text-align: center;
+      color: $main-grey-4;
+      margin-bottom: 10px;
+    }
+  }
 }

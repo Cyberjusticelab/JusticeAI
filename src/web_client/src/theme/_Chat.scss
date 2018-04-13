@@ -5,7 +5,7 @@
   height: 100%;
   width: 110%;
   font-family: $zeus-font;
-  background-color: rgba(74,74,74,0.8);
+  background-color: rgba(74, 74, 74, 0.8);
   .generic-input {
     .el-input {
       width: 80%;
@@ -35,7 +35,7 @@
     width: 30%;
     height: 100%;
     right: 0px;
-    background-color: rgba(41,41,41,0.8);
+    background-color: rgba(41, 41, 41, 0.8);
     position: fixed;
     z-index: 999;
     #chat-resolved-fact-button {
@@ -61,7 +61,7 @@
       }
       .dark-hover {
         &:hover {
-          background-color: rgba(0,0,0,0.4);
+          background-color: rgba(0, 0, 0, 0.4);
         }
       }
       #fact-remove {
@@ -109,7 +109,7 @@
       }
       .chat-history-user {
         @extend .chat-history-item;
-        float:right;
+        float: right;
         background-color: $main-gold-2;
         border-color: $main-gold-2;
         color: $main-grey-3;

@@ -215,6 +215,6 @@ class AbstractRegressor:
         std = np.std(outcomes)
         mean = np.mean(outcomes)
         self.dataset = [precedent for precedent in dataset if (precedent[
-            'outcomes_vector'][outcome_index] > 1) and
-            (abs(precedent['outcomes_vector'][outcome_index] - mean) < (2 * std))]
+                                                                   'outcomes_vector'][outcome_index] > 1) and
+                        (abs(precedent['outcomes_vector'][outcome_index] - mean) < (2 * std))]
         self.outcome_index = outcome_index
