@@ -6,6 +6,7 @@
 3. [Installation Instruction](#installation)
 4. [Develop on Components](#component)
 5. [Testing](#testing)
+6. [Reference](#reference)
 
 ## Overview <a name="overview"></a>
 The web client is a Vue.js application that integrates all micro-services and provides user interface to end users. The main focus of the web client is to 1) provides on-screen chatbot experience to the users and 2) delivery the system features as a whole.
@@ -61,8 +62,13 @@ So far in our application, we have:
 
  Due to the simplicity of the nature of the application, we did not implemenet state management architecture. As mentioned above, we use `Eventbus.js` to handle component communication. If you want to have major refactoring in the future, you can check out [Vuex](https://vuex.vuejs.org/en/).
 
-## Installation Instruction<a name="installation"></a>
+## Testing<a name="testing"></a>
 
+The unit test of the web client is using the default [Vue.js unit test library](https://vuejs.org/v2/guide/unit-testing.html), which is built with Mocha. To test the application locally, run `npm run test`.
+
+All unit test files are stored in `test/unit` directory. Each `.spec.js` file contains the unit tests for the corresponding component. You should always make sure your new changes are well tested. Once you run the test, the test report will be generated in `test/unit/converage`. You can open `test/unit/converage/icov-report/index.html` to see the visual report.
+
+Due to the scope of the project, we did not implement E2E automation test. To do so, please check [Nightwatch.js](http://nightwatchjs.org/).
 
 
 
