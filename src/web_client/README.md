@@ -59,7 +59,7 @@ So far in our application, we have:
 
 `.vue` file usually contains all necessary codes for a component (Javascript, HTML, and CSS). To make our lives easier, all styling is configurated and written in SASS format and stored in the `theme` folder. To change the styling of the UI, you only need to edit the corresponding `.scss` file without touching the functional codes.
 
- Due to the simplicity of the nature of the application, we did not implemenet state management architecture. As mentioned above, we use `Eventbus.js` to handle component communication. If you want to have major refactoring in the future, you can check out [Vuex](https://vuex.vuejs.org/en/).
+ Due to the simplicity of the nature of the application, we did not implement state management architecture. As mentioned above, we use `Eventbus.js` to handle component communication. If you want to have major refactoring in the future, you can check out [Vuex](https://vuex.vuejs.org/en/).
 
 We use ElementUI as the UI library. It is the best library available for Vue.js. For the best practice and code consistency, you should always check if the feature can be implemented using Element component.
 
