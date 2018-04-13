@@ -6,8 +6,7 @@
 3. [Installation Instruction](#installation)
 4. [File Structure](#file-structure)
 5. [ML API](#api)
-6. [Test & Lint](#lint)
-7. [Command Line](#command-line)
+6. [Command Line](#command-line)
 
 ## 1. Overview <a name="overview"></a>
 The machine learning service is responsible for predicting the outcomes of a user's case. 
@@ -271,8 +270,8 @@ prediction = model.predict([input_data])
 
 1. Add Cyberjustice Lab username as environment variables: <code>export CJL_USER={USERNAME}</code> either to your .bashrc or run it as a command
 2. Add Cyberjustice Lab password as environment variables: <code>export CJL_PASS={PASSWORD}</code> either to your .bashrc or run it as a command
-3. Run <code>pip install -r requirements.txt</code>
-4. Run <code>pip install -r requirements_test.txt</code>
+3. Run <code>pip3 install -r requirements.txt</code>
+4. Run <code>pip3 install -r requirements_test.txt</code>
 
 ### 4. File Structure <a name="file-structure"></a>
 
@@ -881,15 +880,7 @@ None
 }
 ```
 
-
-## 6. Run Tests and Lints <a name="lint"></a>
-
-```
-export COMPOSE_FILE=ci
-./cjl up -d && ./cjl run ml_service
-```
-
-## 7. Using the Command Line <a name="command-line"></a>
+## 6. Using the Command Line <a name="command-line"></a>
 _\* denotes optional arguments_
 
 
@@ -901,7 +892,7 @@ python main.py -pre [number of files | empty for all]
 2. Post Processing  
 i. Each fact and outcome is listed with their number of occurences  
 ii. % of tagged lines is displayed  
-iii. python main.py -post [number of files | empty for all]
+iii. python3 main.py -post [number of files | empty for all]
 3. Training  
 \*\*_Note: Always train **svm** before the **sf** and the **svr**_  
 Testing results are displayed:  
@@ -912,4 +903,4 @@ ii. regression: absolute error, r2
     ii. --svr: regressor  
     iii. --sf: similarity finder    
     iv. --all: classifier, regressor, similarity finder   
-python main.py -train [data size | empty for all] --svm* --sf* --svr* --all*        
+python3 main.py -train [data size | empty for all] --svm* --sf* --svr* --all*        
