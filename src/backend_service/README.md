@@ -48,7 +48,7 @@ Provide the user's name and person type.
 
 # Store User Confirmation
 
-Stores the user confirmation or text supplied in order to confirm whether an NLP prediction was accurate.
+Stores the user confirmation or text supplied in order to confirm whether an NLP prediction was accurate. This is request is sent when the user either accepts or rejects an intent classification via interface buttons.
 
 **URL** : `/store-user-confirmation`
 
@@ -87,7 +87,7 @@ Provide the conversation id and confirmation text of the user.
 
 # Send a message
 
-Sends a message to the bot.
+Sends a message to the bot. This will be the message that the bot displays to the user
 
 **URL** : `/conversation`
 
@@ -123,7 +123,7 @@ Converation progress will be null at the beginning of the conversation, and if t
 }
 ```
 
-This can be formatted as:
+This is formatted in the web interface as:
 
 Message 1: Hello Tim Timmens!
 
@@ -139,7 +139,7 @@ Message 2: What kind of problem are you having?
 }
 ```
 
-This can be formatted as:
+This is formatted in the web interface as:
 
 Message 1: Oh I see you're having problems with lease termination!
 
