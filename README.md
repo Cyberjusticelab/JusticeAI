@@ -59,6 +59,12 @@ In order to shut down all containers:
 ./cjl down
 ```
 
+Finally, if you want to reset the database (Helps with inconsistent database states), you can run:
+
+```bash
+./cjl reset-db
+```
+
 The `cjl` script also takes any other command that `docker-compose` can take.
 
 ## Running or Testing Specific Services
@@ -102,7 +108,3 @@ The following is a list of team members that are contributing to the project:
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
-
-## Acknowledgments
-
-TBD
