@@ -6,7 +6,7 @@ of a user's case.
 
 Outcomes can either be categorized as either being True/False or by a numerical value. 
 Whether a given outcome is boolean or integer is evaluated by a human and then given to the
-system beforehand. Therefore, this sub-system makes use of both classifiers and regressors 
+system beforehand (See section 1.6). Therefore, this sub-system makes use of both classifiers and regressors 
 to make predictions. The inputs for both the classifier the and regressor are the facts obtained
 by the user's inputs. An array of outcomes is then returned. 
 
