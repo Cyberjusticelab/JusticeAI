@@ -9,36 +9,36 @@
 6. [Command Line](#command-line)
 
 ## 1. Overview <a name="overview"></a>
-The machine learning service is responsible for predicting the outcomes of a user's case. 
+The machine learning service is responsible for predicting the outcomes of a user's case.
 
-Outcomes can either be categorized as either being True/False or by a numerical value. Whether a given outcome is boolean or integer is evaluated by a human and then given to the system beforehand (See section 1.6). Therefore, this sub-system makes use of both classifiers and regressors to make predictions. The inputs for both the classifier the and regressor are the facts obtained by the user's inputs. An array of outcomes is then returned. 
+Outcomes can either be categorized as either being True/False or by a numerical value. Whether a given outcome is boolean or integer is evaluated by a human and then given to the system beforehand (See section 1.6). Therefore, this sub-system makes use of both classifiers and regressors to make predictions. The inputs for both the classifier the and regressor are the facts obtained by the user's inputs. An array of outcomes is then returned.
 
 
-### 1.1 Data Representation 
+### 1.1 Data Representation
 The input and output data are all represented numerically despite having the potential to be boolean values. Below illustrates how values are treated:
 
-0 --> False / Null  
-1 --> True    
+0 --> False / Null
+1 --> True
 (n > 1) --> True AND Numerical
 
 
-Numerical Values consist of:  
+Numerical Values consist of:
 - Dates / Time (in months)
-- Money (in $)  
+- Money (in $)
 
 
-### 1.2 Facts / Input  
-The inputs are stored in a numpy array consisting of only integers with the possible values listed in section 1.1. Every index of the array represents a different fact/input data point which will be used by the machine learning. The indexes of the facts are determined once the precedents are tagged (they are subject to change orders upon re-tagging the data). An input array will look as such:  
+### 1.2 Facts / Input
+The inputs are stored in a numpy array consisting of only integers with the possible values listed in section 1.1. Every index of the array represents a different fact/input data point which will be used by the machine learning. The indexes of the facts are determined once the precedents are tagged (they are subject to change orders upon re-tagging the data). An input array will look as such:
 
-[fact_1, fact_2, ..., fact_n] 
+[fact_1, fact_2, ..., fact_n]
 
 
 Here is an example to retrieve the labels for each column:
 ```
 from feature_extraction.post_processing.regex.regex_tagger import TagPrecedents
- 
+
 indexes = TagPrecedents().get_intent_index()
- 
+
 # print sample of the content
 for i in index['outcomes_vector'][:3]:
     print(i)
@@ -73,28 +73,28 @@ Similarly to section 1.2, the output will be an array of integers of the size of
 ### 1.4 Classification
 A multiclassifier is used to predict all outcomes. In the background, SkLearn uses a different estimator per outcome in order to perform this task. When obtaining a prediction, **ALL** outcomes are either classified as True or False. Even the numerical outcomes are classified as such. If an outcome is expected to be a numerical value **AND** that outcome is True then the input is passed to the appropriate regressor in order to predict the outcome's integer value. If the previous condition isn't met then no further data manipulation is necessary for a given outcome and the classifier's prediction is simply returned for this column.
 
-**Adding a new classifier**  
+**Adding a new classifier**
 New classifiers will be automatically trained upon adding regexes. See section 1.6.
 
 
 ### 1.5 Regression
-The regressors are **only** used if the classifier predicted an outcome as True. The reason for this implementation is because the regressors are trained on bias data where we know the outcome was True. Therefore the input data must also be biased towards the same end goal.  
+The regressors are **only** used if the classifier predicted an outcome as True. The reason for this implementation is because the regressors are trained on bias data where we know the outcome was True. Therefore the input data must also be biased towards the same end goal.
 
 
-During training, **only for regression**, the average values of every fact of the data set is obtained. The vector will look as such:  
+During training, **only for regression**, the average values of every fact of the data set is obtained. The vector will look as such:
 
 [average_column_1, average_column_2, ..., average_column_n]
 
 
-This vector is kept in binary format and can be retrieved this way:  
+This vector is kept in binary format and can be retrieved this way:
 ```
 from util.file import Load
 mean_facts_vector = Load.load_binary('model_metrics.bin')['regressor'][<name of the regressor>]['mean_facts_vector']
 ```
-    
-**Regression fine tuning**  
+
+**Regression fine tuning**
 When making a regressive prediction, the user's input is entered as an array of numerical values as in section 1.2.
-  
+
 1. Wherever a 0 is encountered in the user's input, we replace it with the average value of it's column.The purpose of this strategy is to predict more accurate results when the regressor is used. When a prediction is performed with missing input we then replace that missing input with it's average value to get a better fit on the curve.
 
 2. During training, outliers in the dataset are removed. Outliers are determined by:
@@ -103,10 +103,10 @@ abs(outcome - average_of_outcomes) > (2 * std_of_outcomes)
 ```
 
 
-**Adding a new regressor**  
-The regressor's estimators are crafted manually as opposed to using the SkLearn's wrapper as in section 1.4. Because the regressors require much more discreet attention, this approach was necessary. A custom wrapper is instead written, and every new regressor can inherit the AbstractRegressor Class. 
+**Adding a new regressor**
+The regressor's estimators are crafted manually as opposed to using the SkLearn's wrapper as in section 1.4. Because the regressors require much more discreet attention, this approach was necessary. A custom wrapper is instead written, and every new regressor can inherit the AbstractRegressor Class.
 
-1. Code new regressor (inherit abstract_regressor.py) 
+1. Code new regressor (inherit abstract_regressor.py)
 2. Update multi_output_regression.py to accomodate new class
 
 
@@ -120,7 +120,7 @@ regex_facts = [
             re.compile(<regex_1>, re.IGNORECASE),
             re.compile(<regex_2>, re.IGNORECASE),
             re.compile(<regex_n>, re.IGNORECASE)
-        ], 
+        ],
         <data_type>),
     ),
     (
@@ -128,9 +128,9 @@ regex_facts = [
             re.compile(<regex_1>, re.IGNORECASE),
             re.compile(<regex_2>, re.IGNORECASE),
             re.compile(<regex_n>, re.IGNORECASE)
-        ], 
+        ],
         <data_type>),
-    ),    
+    ),
 ]
 ```
 
@@ -152,7 +152,7 @@ All persistent machine learning data are stored as binaries. In order to central
 To load any binary files, first make sure it is stored in the _binary/data/_ folder. This should be performed automatically by the _init.py_. Then simply use the following:
 ```
 from util.file import Load
- 
+
 Load.load_binary(<binary_file_name>)
 
 ```
@@ -161,7 +161,7 @@ Load.load_binary(<binary_file_name>)
 To save a binary file use the following:
 ```
 from util.file import Save
- 
+
 Save().save_binary(<desired_binary_file_name>, model)
 ```
 
@@ -173,7 +173,7 @@ Some global variables are listed in _util/constant.py_
 
 
 ### 2.4 Binary file content
-**classifier_labels.bin**  
+**classifier_labels.bin**
 ```
 {
    outcome_index_0 <int>: (
@@ -186,7 +186,7 @@ Some global variables are listed in _util/constant.py_
    ),
 }
 ```
-**model_metrics.bin**  
+**model_metrics.bin**
 ```
 {
     'data_set':{
@@ -213,12 +213,12 @@ Some global variables are listed in _util/constant.py_
         }
     }
 ```
-**multi_class_svm_model.bin**   
-Used to predict classifier results  
+**multi_class_svm_model.bin**
+Used to predict classifier results
 ```
 from util.file import Load
 from sklearn.preprocessing import binarize
-  
+
 model = Load.load_binary("multi_class_svm_model.bin")
 classifier_labels = Load.load_binary('classifier_labels.bin')
 input_vector = [fact_1, fact_2, fact_n, ...]
@@ -236,28 +236,52 @@ prediction = model.predict(data)
         'name': AZ-********.txt <str>
     }
 }
-```  
+```
 **similarity_case_numbers.bin**
+An array of all case numbers. This is used to map the indices (returned by the similarity model) to case numbers
+
 ```
-I don't know Arek PL0x
+[
+    'AZ-XXXXXX',
+    'AZ-XXXXXX',
+    'AZ-XXXXXX',
+    'AZ-XXXXXX'
+    ...
+]
+
 ```
 
-  
-**similarity_model.bin**  
-Case similarities dictionary --> returns 5 most similar cases
 
-  
-**\*_scaler.bin**    
-Every machine learning model requires a scaler to transform the data into values which will exponentially increase training time.  
+**similarity_model.bin**
+
+Case similarity comparator. Uses NearestNeighbour algorithm. Set to return the 5 nearest neighbours.
+
+Input: A vector, which is the concatenation of the vector containing facts and the vector containing outcomes
+Output: The indices (which have a direct mapping to case numbers using similarity_case_numbers [see above]) of the 5 most similar cases
+
+```
+from util.file import Load
+
+model = Load.load_binary("similarity_model.bin")
+
+facts_vector = [fact_1, fact_2, fact_n, ...]
+outcomes_vector = [outcome_1, outcome_2, outcome_n, ...]
+input_vector = facts_vector + outcomes_vector
+
+model.kneighbors(input_vector)
+```
+
+**\*_scaler.bin**
+Every machine learning model requires a scaler to transform the data into values which will exponentially increase training time.
 
 
-**\*_regressor.bin**    
+**\*_regressor.bin**
 Models used to predict regressive results
 ```
 from util.file import Load
 from keras.models import load_model
 import os
- 
+
 file_path = os.path.join(Path.binary_directory, '<regressor_name>')
 regressor = load_model(file_path)
 scaler = Load.load_binary('<your_scaler>')
@@ -278,13 +302,13 @@ prediction = model.predict([input_data])
 ```
 
 ----| data <all data input and output>
---------| raw 
+--------| raw
 ------------| text_bk <extract precedents here>
 
 --------| binary <all saved binarized model/data>
 --------| cache <temp files>
 --------| test <used for unit testing>
- 
+
 ----| feature_extraction <all data manipulation before supervised training>
 --------| feature_extraction.py <driver for feature extraction (using 3 drivers above)>
 --------| pre_processing
@@ -296,8 +320,8 @@ prediction = model.predict([input_data])
 ----------------| regex
 --------------------| regex_entity_extraction.py
 --------------------| regex_lib.py
---------------------| regex_tagger.py 
- 
+--------------------| regex_tagger.py
+
 ----| model_learning <supervised training>
 ------------| classifier
 ----------------| classifier_dirver.py
@@ -318,10 +342,10 @@ prediction = model.predict([input_data])
 ------------| log.py <logging tool>
 ------------| file.py <file save and load>
 ------------| constant.py <global variables>
- 
+
 ----| web
 --------| ml_controller.py
- 
+
 init.py
 main.py <driver for the pipeline (feature extraction + model training>
 
@@ -887,20 +911,20 @@ _\* denotes optional arguments_
 From the source directory _JusticeAi/src/ml_service/_ you may run:
 
 
-1. Pre Processing  
+1. Pre Processing
 python main.py -pre [number of files | empty for all]
-2. Post Processing  
-i. Each fact and outcome is listed with their number of occurences  
-ii. % of tagged lines is displayed  
+2. Post Processing
+i. Each fact and outcome is listed with their number of occurences
+ii. % of tagged lines is displayed
 iii. python3 main.py -post [number of files | empty for all]
-3. Training  
-\*\*_Note: Always train **svm** before the **sf** and the **svr**_  
-Testing results are displayed:  
-i. classifier: accuracy, F1, precision, recall  
-ii. regression: absolute error, r2    
-**arguments**:  
-    i. --svm: classifier  
-    ii. --svr: regressor  
-    iii. --sf: similarity finder    
-    iv. --all: classifier, regressor, similarity finder   
-python3 main.py -train [data size | empty for all] --svm* --sf* --svr* --all*        
+3. Training
+\*\*_Note: Always train **svm** before the **sf** and the **svr**_
+Testing results are displayed:
+i. classifier: accuracy, F1, precision, recall
+ii. regression: absolute error, r2
+**arguments**:
+    i. --svm: classifier
+    ii. --svr: regressor
+    iii. --sf: similarity finder
+    iv. --all: classifier, regressor, similarity finder
+python3 main.py -train [data size | empty for all] --svm* --sf* --svr* --all*
