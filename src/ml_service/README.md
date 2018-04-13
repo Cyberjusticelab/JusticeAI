@@ -1,12 +1,21 @@
 # Machine Learning Service
 
-## 1. Overview 
+## 0. Table of Contents
+1. [Overview](#overview)
+2. [Data](#data)
+3. [Installation Instruction](#installation)
+4. [File Structure](#file-structure)
+5. [ML API](#api)
+6. [Test & Lint](#lint)
+7. [Command Line](#command-line)
+
+## 1. Overview <a name="overview"></a>
 The machine learning service is responsible for predicting the outcomes of a user's case. 
 
 Outcomes can either be categorized as either being True/False or by a numerical value. Whether a given outcome is boolean or integer is evaluated by a human and then given to the system beforehand (See section 1.6). Therefore, this sub-system makes use of both classifiers and regressors to make predictions. The inputs for both the classifier the and regressor are the facts obtained by the user's inputs. An array of outcomes is then returned. 
 
 
-### 1.1 Data Representation
+### 1.1 Data Representation 
 The input and output data are all represented numerically despite having the potential to be boolean values. Below illustrates how values are treated:
 
 0 --> False / Null  
@@ -137,7 +146,7 @@ _Note: <data_type> are the following strings:_
 The newly added columns in the _regex_lib.py_ file will then automatically be used the next time the machine learning performs its training **on the condition that the data has be re-post-processed**. Be sure to create a regressor if you want to predict "DATE" or "MONEY" though (See section 1.5).
 
 
-## 2. DATA
+## 2. DATA <a name="data"></a>
 All persistent machine learning data are stored as binaries. In order to centralize this information it is advised to upload the models on a server. These models may then be fetched in the _init.py_ script in the source directory (do not confuse with _\_\_init\_\_.py_ script). Simply append your download link to the __binary_urls__ list found in this file.
 
 ### 2.1 Accessing binary data
@@ -258,14 +267,14 @@ input_data = [fact_1, fact_2, ..., fact_n]
 prediction = model.predict([input_data])
 ```
 
-## 3. Installation Instructions
+## 3. Installation Instructions <a name="installation"></a>
 
 1. Add Cyberjustice Lab username as environment variables: <code>export CJL_USER={USERNAME}</code> either to your .bashrc or run it as a command
 2. Add Cyberjustice Lab password as environment variables: <code>export CJL_PASS={PASSWORD}</code> either to your .bashrc or run it as a command
 3. Run <code>pip install -r requirements.txt</code>
 4. Run <code>pip install -r requirements_test.txt</code>
 
-### 4. File Structure:
+### 4. File Structure <a name="file-structure"></a>
 
 ```
 
@@ -319,7 +328,7 @@ main.py <driver for the pipeline (feature extraction + model training>
 
 ```
 
-## 5. ML API
+## 5. ML API <a name="api"></a>
 
 ### 5.1 Predict Outcome
 
@@ -873,14 +882,14 @@ None
 ```
 
 
-## 6. Run Tests and Lints
+## 6. Run Tests and Lints <a name="lint"></a>
 
 ```
 export COMPOSE_FILE=ci
-./cjl down && ./cjl up -d && ./cjl run ml_service
+./cjl up -d && ./cjl run ml_service
 ```
 
-## 7. Using the Command Line
+## 7. Using the Command Line <a name="command-line"></a>
 _\* denotes optional arguments_
 
 
