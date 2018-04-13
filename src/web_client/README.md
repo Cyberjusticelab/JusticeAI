@@ -62,6 +62,8 @@ So far in our application, we have:
 
  Due to the simplicity of the nature of the application, we did not implemenet state management architecture. As mentioned above, we use `Eventbus.js` to handle component communication. If you want to have major refactoring in the future, you can check out [Vuex](https://vuex.vuejs.org/en/).
 
+We use ElementUI as the UI library. It is the best library available for Vue.js. For the best practice and code consistency, you should always check if the feature can be implemented using Element component.
+
 ## Testing<a name="testing"></a>
 
 The unit test of the web client is using the default [Vue.js unit test library](https://vuejs.org/v2/guide/unit-testing.html), which is built with Mocha. To test the application locally, run `npm run test`.
