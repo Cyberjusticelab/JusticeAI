@@ -58,19 +58,19 @@ for i in index['outcomes_vector'][:3]:
 ```
 {
     'outcomes_vector': [
-        (array_inbdex, column_label, type),
-        (array_inbdex, column_label, type)
+        (array_index, column_label, column_type),
+        (array_index, column_label, column_type)
     ],
     'facts_vector': [
-        (array_index, column_label, type),
-        (array_index, column_label, type)
+        (array_index, column_label, column_type),
+        (array_index, column_label, column_type)
     ]
 }
 ```
 
 
 ### 1.3 outcomes / output
-Similarly to section 1.1, the output will be an array of integers of the size
+Similarly to section 1.2, the output will be an array of integers of the size
 of all the number of outcomes supported by the system. Please refer to section
 1.1 for other inquiries.
 
@@ -80,7 +80,7 @@ A multiclassifier is used to predict all outcomes. In the background, SkLearn
 uses a different estimator per outcome in order to perform this task.  
 When obtaining a prediction, **ALL** outcomes are either classified as 
 True or False. Even the numerical outcomes are classified as such. If an
-outcome is expected to be a numerical value **AND* that outcome is True then
+outcome is expected to be a numerical value **AND** that outcome is True then
 the input is passed to the appropriate regressor in order to predict the 
 outcome's integer value. If the previous condition isn't met then no further
 data manipulation is necessary for a given outcome and the classifier's
@@ -112,7 +112,7 @@ mean_facts_vector = Load.load_binary('model_metrics.bin')['regressor'][<name of 
     
 **Regression fine tuning**  
 When making a regressive prediction, the user's input is entered as an 
-array of numerical values as in section 1.1.
+array of numerical values as in section 1.2.
   
 1. Wherever a 0 is encountered in the user's input, we replace it with 
 the average value of it's column.The purpose of this strategy is to 
@@ -140,18 +140,29 @@ Class.
 
 ### 1.6 Adding new columns (input/output)
 Adding new columns is fairly simply. In the 
-feature_extraction/post_processing/regex/regex_lib.py file simply append
-your regex to the regex_facts or regex_outcomes list. The syntax is the
+_feature_extraction/post_processing/regex/regex_lib.py_ file simply append
+your regex to the _regex_facts_ or _regex_outcomes_ list. The syntax is the
 following:
 
 ```
-(
-    <column_label>, [
-        re.compile(<regex_1>, re.IGNORECASE),
-        re.compile(<regex_2>, re.IGNORECASE),
-        re.compile(<regex_n>, re.IGNORECASE)
-    ], 
-    <data_type>),
+regex_facts = [
+    (
+        <column_label>, [
+            re.compile(<regex_1>, re.IGNORECASE),
+            re.compile(<regex_2>, re.IGNORECASE),
+            re.compile(<regex_n>, re.IGNORECASE)
+        ], 
+        <data_type>),
+    ),
+    (
+        <column_label>, [
+            re.compile(<regex_1>, re.IGNORECASE),
+            re.compile(<regex_2>, re.IGNORECASE),
+            re.compile(<regex_n>, re.IGNORECASE)
+        ], 
+        <data_type>),
+    ),    
+]
 ```
 
 Type as many regular expressions as needed to cover all the dataset. Upon
@@ -163,16 +174,17 @@ _Note: <data_type> are the following strings:_
 3. "DATE"
 
 
-The newly added columns in te regex_lib.py file will then automatically be
-used the next time the machine learning performs its training. Be sure to
+The newly added columns in the _regex_lib.py_ file will then automatically be
+used the next time the machine learning performs its training **on the
+condition that the data has be re-post-processes**. Be sure to
 create a regressor if you want to predict "DATE" or "MONEY" though (See section 1.5).
 
 
 ## 2. DATA
 All persistent machine learning data are stored as binaries. In order to
 centralize this information it is advised to upload the models on a server.
-These models may then be fetched in the init.py script in the source directory
-(do not confuse with \__init\__.py script). Simply append your download link
+These models may then be fetched in the _init.py_ script in the source directory
+(do not confuse with _\_\_init\_\_.py_ script). Simply append your download link
 to the __binary_urls__ list found in this file.
 
 ### 2.1 Accessing binary data
