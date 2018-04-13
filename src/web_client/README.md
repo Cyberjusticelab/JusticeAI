@@ -70,6 +70,10 @@ All unit test files are stored in `test/unit` directory. Each `.spec.js` file co
 
 Due to the scope of the project, we did not implement E2E automation test. To do so, please check [Nightwatch.js](http://nightwatchjs.org/).
 
+## Reference<a name="reference"></a>
+
+- [Vue.js 2.x Documentation](https://vuejs.org/)
+- [ElementUI Documentation](http://element.eleme.io/#/en-US)
 
 
 
