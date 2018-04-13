@@ -176,7 +176,7 @@ _Note: <data_type> are the following strings:_
 
 The newly added columns in the _regex_lib.py_ file will then automatically be
 used the next time the machine learning performs its training **on the
-condition that the data has be re-post-processes**. Be sure to
+condition that the data has be re-post-processed**. Be sure to
 create a regressor if you want to predict "DATE" or "MONEY" though (See section 1.5).
 
 
@@ -256,7 +256,16 @@ Some global variables are listed in _util/constant.py_
 ```
 **multi_class_svm_model.bin**   
 Used to predict classifier results  
-
+```
+from util.file import Load
+from sklearn.preprocessing import binarize
+  
+model = Load.load_binary("multi_class_svm_model.bin")
+classifier_labels = Load.load_binary('classifier_labels.bin')
+input_vector = [fact_1, fact_2, fact_n, ...]
+data = binarize([input_vector], threshold=0)
+prediction = model.predict(data)
+```
 
 **precedent_vectors.bin**
 ```
@@ -271,7 +280,7 @@ Used to predict classifier results
 ```  
 **similarity_case_numbers.bin**
 ```
-I don't know
+I don't know Arek PL0x
 ```
 
   
@@ -286,6 +295,18 @@ values which will exponentially increase training time.
 
 **\*_regressor.bin**    
 Models used to predict regressive results
+```
+from util.file import Load
+from keras.models import load_model
+import os
+ 
+file_path = os.path.join(Path.binary_directory, '<regressor_name>')
+regressor = load_model(file_path)
+scaler = Load.load_binary('<your_scaler>')
+model = AbstractRegressor._create_pipeline(scaler, regressor)
+input_data = [fact_1, fact_2, ..., fact_n]
+prediction = model.predict([input_data])
+```
 
 ## 3. Installation Instructions
 
@@ -919,12 +940,17 @@ From the source directory _JusticeAi/src/ml_service/_ you may run:
 1. Pre Processing  
 python main.py -pre [number of files | empty for all]
 2. Post Processing  
-python main.py -post [number of files | empty for all]
+i. Each fact and outcome is listed with their number of occurences  
+ii. % of tagged lines is displayed  
+iii. python main.py -post [number of files | empty for all]
 3. Training  
 \*\*_Note: Always train **svm** before the **sf** and the **svr**_  
-arguments:  
-    i) --svm: classifier  
-    ii) --svr: regressor  
-    iii) --sf: similarity finder    
-    iv) --all: classifier, regressor, similarity finder   
-python main.py -train [data size | empty for all] --svm* --sf* --svr*        
+Testing results are displayed:  
+i. classifier: accuracy, F1, precision, recall  
+ii. regression: absolute error, r2    
+**arguments**:  
+    i. --svm: classifier  
+    ii. --svr: regressor  
+    iii. --sf: similarity finder    
+    iv. --all: classifier, regressor, similarity finder   
+python main.py -train [data size | empty for all] --svm* --sf* --svr* --all*        
