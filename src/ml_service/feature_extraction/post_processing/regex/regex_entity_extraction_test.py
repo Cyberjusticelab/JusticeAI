@@ -88,7 +88,8 @@ class RegexPostLogicTest(unittest.TestCase):
         self.assertEqual(EntityExtraction.get_fact_duration(" d'octobre et novembre 2012 (325 $), fevrier (375 $), "
                                                             "mars et avril 2013 pas paye ")[1], 5)
         self.assertEqual(EntityExtraction.get_fact_duration(" loyer des mois d'avril et mai 2014 pas paye ")[1], 2)
-        self.assertEqual(EntityExtraction.get_fact_duration(" decembre 2013 (350 $), janvier, fevrier et mars 2014 pas paye ")[1], 4)
+        self.assertEqual(
+            EntityExtraction.get_fact_duration(" decembre 2013 (350 $), janvier, fevrier et mars 2014 pas paye ")[1], 4)
         self.assertEqual(EntityExtraction.get_fact_duration(" juin 2013 n'est pas paye ")[1], 1)
 
         self.assertFalse(EntityExtraction.get_fact_duration(" juin 2013 a juin 2015 ")[0])

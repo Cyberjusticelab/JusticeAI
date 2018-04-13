@@ -20,4 +20,4 @@ This module contains the data persistence layer of our system
 
 ## NLP Service
 
-This module is responsible for all things related to natural language processing, which the user interacts with
+This module is responsible for all things related to natural language processing which the user interacts with

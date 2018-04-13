@@ -1,5 +1,6 @@
 // font
 @import url("https://fonts.googleapis.com/css?family=Montserrat");
+
 $zeus-font: 'Montserrat', sans-serif;
 
 // color scheme
@@ -17,7 +18,9 @@ $main-white-1: #FFFFFF;
 .fade-enter-active {
   transition: opacity .7s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+{
   opacity: 0;
 }
 

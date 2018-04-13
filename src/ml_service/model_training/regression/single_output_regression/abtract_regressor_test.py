@@ -9,7 +9,7 @@ class TestRegressionDriver(unittest.TestCase):
         mock_data = [
             {
                 'facts_vector': [1, 2, 3, 4, 5],
-                'outcomes_vector':[5, 6]
+                'outcomes_vector': [5, 6]
             },
             {
                 'facts_vector': [7, 7, 11, 22, 23],
@@ -42,9 +42,12 @@ class TestRegressionDriver(unittest.TestCase):
             }
         }
 
-        self.assertEqual(int(result['regressor']['example']['variance']), int(expected_result['regressor']['example']['variance']))
-        self.assertEqual(int(result['regressor']['example']['std']), int(expected_result['regressor']['example']['std']))
-        self.assertEqual(int(result['regressor']['example']['mean']), int(expected_result['regressor']['example']['mean']))
+        self.assertEqual(int(result['regressor']['example']['variance']),
+                         int(expected_result['regressor']['example']['variance']))
+        self.assertEqual(int(result['regressor']['example']['std']),
+                         int(expected_result['regressor']['example']['std']))
+        self.assertEqual(int(result['regressor']['example']['mean']),
+                         int(expected_result['regressor']['example']['mean']))
 
         result_vector = result['regressor']['example']['mean_facts_vector']
         expected_vector = expected_result['regressor']['example']['mean_facts_vector']
