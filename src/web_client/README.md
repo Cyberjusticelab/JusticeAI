@@ -33,7 +33,7 @@ When developing on UI and features, you should mostly work on `src` folder witho
 
 The web client does not work if other micro-services are not running concurrently. In production and continuous integration, all services including web client are built in docker; however, when developing in local, the docker does not build web client. The reason is docker doesn't rebuild itself when web client is updated, therefore not very efficient to work in docker environment.
 
-To start work on web client, please makre sure you have installed [Node.js](https://nodejs.org/en/) 8 (Do not install v9.0+), and follow the following steps:
+To start work on the web client, please make sure you have installed [Node.js](https://nodejs.org/en/) 8 (Do not install v9.0+), and follow the following steps:
 1. If you have not built the docker images for other micro-services yet, run `./cjl up` in the root directory of the repository. For more information, check the main README.
 2. Once the micro-services are up, run `npm install` in web client directory.
 3. When installation is finished, run `npm run start` to start the application
