@@ -2,7 +2,7 @@
 
 [![Travis](https://img.shields.io/travis/Cyberjusticelab/JusticeAI.svg)](https://travis-ci.org/Cyberjusticelab/JusticeAI/) [![Codecov](https://img.shields.io/codecov/c/github/codecov/example-python.svg)](https://codecov.io/gh/Cyberjusticelab/JusticeAI)
 
-[<img src="images/poster/png">](http://google.com.au/)
+![poster](images/poster.png)
 
 ## Documentation
 
