@@ -10,7 +10,7 @@ ENV FLASK_APP=app.py
 
 WORKDIR /usr/src/app
 
-RUN mkdir -p /usr/src/app/src/ml_service/word_vectors/
+RUN mkdir -p /usr/src/app/src/ml_service/data/binary/
 
 COPY ./src/ml_service/requirements.txt ./src/ml_service/
 COPY ./src/ml_service/requirements_test.txt ./src/ml_service/
@@ -18,7 +18,6 @@ RUN pip install -r ./src/ml_service/requirements_test.txt
 
 COPY ./src/ml_service/init.py ./src/ml_service/
 COPY ./src/ml_service/util/* ./src/ml_service/util/
-COPY ./src/ml_service/data/binary/* ./src/ml_service/data/binary/
 RUN cd src/ml_service && python init.py
 
 COPY . .
